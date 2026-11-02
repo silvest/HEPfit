@@ -620,6 +620,18 @@ public:
     virtual bool PreUpdate();
 
     /**
+     * @brief The update method for %NPSMEFTd6General.
+     * @details PostUpdate() replaces the quark masses with those derived from the
+     * mass matrices. A quark mass that is not in DPars, such as a fixed parameter in
+     * a Monte Carlo run, is therefore set again to its last input value. A lepton mass
+     * that is not in DPars is set again only if it has changed, in case the lepton
+     * masses are also replaced in the future.
+     * @param[in] DPars a map of the parameters that are being updated
+     * @return a boolean that is true if the execution is successful
+     */
+    virtual bool Update(const std::map<std::string, double>& DPars);
+
+    /**
      * @brief Generates the initial condition for the Standard Model parameters.
      * @details This method sets all the Standard Model parameters to their values
      * and RG evolves them up to the New Physics scale.
@@ -6979,9 +6991,9 @@ public:
     // Coefficients of fermionic operators in the mass basis
     
     // Coefficients are assumed to be complex, "name" is the name without R or I at the end. That is added here 
-    inline gslpp::complex getSMEFTCoeffEWMB(const std::string name, int i, int j, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj) const;
+    inline gslpp::complex getSMEFTCoeffEWMB(const std::string& name, int i, int j, const gslpp::matrix<gslpp::complex>& Vi, const gslpp::matrix<gslpp::complex>& Vj) const;
     
-    inline gslpp::complex getSMEFTCoeffEWMB(const std::string name, int i, int j, int k, int l, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj, gslpp::matrix<gslpp::complex> Vk, gslpp::matrix<gslpp::complex>  Vl) const;
+    inline gslpp::complex getSMEFTCoeffEWMB(const std::string& name, int i, int j, int k, int l, const gslpp::matrix<gslpp::complex>& Vi, const gslpp::matrix<gslpp::complex>& Vj, const gslpp::matrix<gslpp::complex>& Vk, const gslpp::matrix<gslpp::complex>& Vl) const;
         
     void printNonVanishingSMEFTCoeffEW() const;
     
@@ -6991,11 +7003,11 @@ public:
     }
     
     // Functions to select the operators at different scales
-    double getSMEFTCoeff(const std::string name, const double mu) const;
+    double getSMEFTCoeff(const std::string& name, const double mu) const;
     
-    double getSMEFTCoeff(const std::string name, int i, int j, const double mu) const;
+    double getSMEFTCoeff(const std::string& name, int i, int j, const double mu) const;
     
-    double getSMEFTCoeff(const std::string name, int i, int j, int k, int l, const double mu) const;
+    double getSMEFTCoeff(const std::string& name, int i, int j, int k, int l, const double mu) const;
         
     // Functions used by the above to compute the approximation by a polynomial up to log^5 to the RG evolution
     
@@ -8106,6 +8118,7 @@ private:
     gsl_integration_cquad_workspace * w_WW; /**< Gsl integral variable */
     double ZeroAle(double *dAle5h, double *params); //This was define as a const but we're changing the value of dAle5h so it shouldn't be a const function
     bool isSMInitialConditionComputed; ///< A boolean to know if the SM initial conditions have been evolved to the SMEFT scale.
+    std::map<std::string, double> fermionMassInputs; ///< The last input values of the quark and lepton masses, for Update() when they are not passed.
 
 };
 

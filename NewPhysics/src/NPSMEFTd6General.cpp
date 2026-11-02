@@ -3016,6 +3016,30 @@ bool NPSMEFTd6General::PreUpdate() {
     return (true);
 }
 
+bool NPSMEFTd6General::Update(const std::map<std::string, double>& DPars) {
+    // PostUpdate() replaces the quark masses with those derived from the mass matrices, so a quark
+    // mass that is not passed, as a fixed parameter in a Monte Carlo run, is set again to its last input.
+    // A lepton mass is set again only if it has changed, in case the lepton masses are also replaced in
+    // the future. DPars is copied only when a mass is added.
+    static const std::string fermionMasses[12] = {"mup", "mdown", "mcharm", "mstrange", "mtop", "mbottom",
+        "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau"};
+    std::map<std::string, double> missingMasses;
+    for (int i = 0; i < 12; i++) {
+        std::map<std::string, double>::const_iterator it = DPars.find(fermionMasses[i]);
+        std::map<std::string, double>::const_iterator in = fermionMassInputs.find(fermionMasses[i]);
+        if (it != DPars.end())
+            fermionMassInputs[fermionMasses[i]] = it->second;
+        else if (in != fermionMassInputs.end() && (i < 6 || in->second != getModelParam(fermionMasses[i])))
+            missingMasses.insert(*in);
+    }
+    if (missingMasses.empty())
+        return (NPbase::Update(DPars));
+
+    std::map<std::string, double> myDPars(DPars);
+    myDPars.insert(missingMasses.begin(), missingMasses.end());
+    return (NPbase::Update(myDPars));
+}
+
 void NPSMEFTd6General::ChangeToEvolutorsBasisPureSM() {
     //In this function we switch from the SM parameters used in the SM class to those needed for the evolutor using the SM expressions
     //(Parameters at the EW scale, which we take to be muw ~ Mz)
@@ -14192,7 +14216,7 @@ bool NPSMEFTd6General::setFlagStr(const std::string name, const std::string valu
 // Coefficients of fermionic operators in the mass basis
     
 // Coefficients are assumed to be complex, "name" is the name without R or I at the end. That is added here 
-inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string name, int i, int j, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj) const
+inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string& name, int i, int j, const gslpp::matrix<gslpp::complex>& Vi, const gslpp::matrix<gslpp::complex>& Vj) const
 {
         std::string nameR, nameI;
         gslpp::complex Cij;
@@ -14215,7 +14239,7 @@ inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string name
         return Cij;
 }
     
-inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string name, int i, int j, int k, int l, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj, gslpp::matrix<gslpp::complex> Vk, gslpp::matrix<gslpp::complex>  Vl) const
+inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string& name, int i, int j, int k, int l, const gslpp::matrix<gslpp::complex>& Vi, const gslpp::matrix<gslpp::complex>& Vj, const gslpp::matrix<gslpp::complex>& Vk, const gslpp::matrix<gslpp::complex>& Vl) const
 {
         std::string nameR, nameI;
         gslpp::complex Cijkl;
@@ -14244,7 +14268,7 @@ inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string name
 
 // Functions to select the SMEFT WC at different energy scales 
 
-double NPSMEFTd6General::getSMEFTCoeff(const std::string name, const double mu) const {
+double NPSMEFTd6General::getSMEFTCoeff(const std::string& name, const double mu) const {
     //return SMEFTEvolEW.GetCoefficient(name);
         
     if ( (!FlagmultiScaleRGE) || (mu <= 120.0) ) {
@@ -14337,7 +14361,7 @@ double NPSMEFTd6General::getSMEFTCoeff(const std::string name, const double mu) 
     //return (Cimu[0] + x1 * t1 + x2 * t2 + x3 * t3 + x4 * t4 + x5 * t5); 
 }
     
-double NPSMEFTd6General::getSMEFTCoeff(const std::string name, int i, int j, const double mu) const {
+double NPSMEFTd6General::getSMEFTCoeff(const std::string& name, int i, int j, const double mu) const {
     //return SMEFTEvolEW.GetCoefficient(name, i, j);
     
     if ( (!FlagmultiScaleRGE) || (mu <= 120.0) ) {
@@ -14430,7 +14454,7 @@ double NPSMEFTd6General::getSMEFTCoeff(const std::string name, int i, int j, con
     //return (Cimu[0] + x1 * t1 + x2 * t2 + x3 * t3 + x4 * t4 + x5 * t5);     
 }
     
-double NPSMEFTd6General::getSMEFTCoeff(const std::string name, int i, int j, int k, int l, const double mu) const {
+double NPSMEFTd6General::getSMEFTCoeff(const std::string& name, int i, int j, int k, int l, const double mu) const {
     //return SMEFTEvolEW.GetCoefficient(name, i, j, k, l);
     
     if ( (!FlagmultiScaleRGE) || (mu <= 120.0) ) {

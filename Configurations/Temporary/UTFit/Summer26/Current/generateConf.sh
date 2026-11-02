@@ -67,7 +67,7 @@ else
     done
 
     # Predictions for observables
-    allObs="Dmd Dms EpsilonK alpha SJPsiK C2beta btaunu BRbar_Bsmumu EpsilonP_O_Epsilon beta"
+    allObs="Dmd Dms EpsilonK alpha phid C2beta btaunu BRbar_Bsmumu EpsilonP_O_Epsilon beta"
     for Obs in $allObs; do
         if [ ! -d "Pred_Obs/${Obs}" ]; then
             if [ ! -d "Pred_Obs" ]; then
@@ -80,7 +80,7 @@ else
             ln -s $(pwd)/input Pred_Obs/${Obs}/input
         fi
         if [[ $Obs == "beta" ]]; then
-            sed -i 's/Observable\s\+'SJPsiK'\(.*\)MCMC\s\+\(weight\|file\)/Observable 'SKPsiK'\1noMCMC noweight/' Pred_Obs/beta/UTfit.conf
+            sed -i 's/Observable\s\+'phid'\(.*\)MCMC\s\+\(weight\|file\)/Observable 'phid'\1noMCMC noweight/' Pred_Obs/beta/UTfit.conf
             sed -i 's/Observable\s\+'C2beta'\(.*\)MCMC\s\+\(weight\|file\)/Observable 'C2beta'\1noMCMC noweight/' Pred_Obs/beta/UTfit.conf
         else
             sed -i 's/Observable\s\+'${Obs}'\(.*\)MCMC\s\+\(weight\|file\)/Observable '${Obs}'\1noMCMC noweight/' Pred_Obs/${Obs}/UTfit.conf
@@ -90,7 +90,7 @@ else
         sed -i 's/-N MPICH2_job/-N '${Model}_no${Obs}'/' Pred_Obs/${Obs}/submit_job.sh
     done
     # Predictions for CKM elements used as inputs
-    declare -A CKMInputVals=(["V_ud"]=0.97375 ["V_cb"]=0.0425 ["V_ub"]=0.0037 ["gamma"]=1.13)
+    declare -A CKMInputVals=(["V_ud"]=0.974 ["V_cb"]=0.0410 ["V_ub"]=0.0037 ["gamma"]=1.13)
     declare -A CKMInputErrs=(["V_ud"]=0.004 ["V_cb"]=0.0025 ["V_ub"]=0.0005 ["gamma"]=0.2)
     for Obs in "${!CKMInputErrs[@]}"; do
         if [ ! -d "Pred_Obs/${Obs}" ]; then
@@ -193,7 +193,7 @@ else
             sed -i 's/Observable\(.*\)MCMC\s\+weight/Observable\1noMCMC noweight/' ${Fit}/UTfit_SM.conf
             sed -i 's/Observable\(.*\)MCMC\s\+file/Observable\1noMCMC file/' ${Fit}/UTfit.conf
             sed -i 's/Observable\(.*\)MCMC\s\+file/Observable\1noMCMC file/' ${Fit}/UTfit_SM.conf
-            allobs="alpha_pipi alpha_rhopi alpha_rhorho SJPsiK C2beta Phis_JPsiPhi"
+            allobs="alpha_pipi alpha_rhopi alpha_rhorho alpha phid C2beta Phis_JPsiPhi"
             for Obs in ${allobs}; do
                 sed -i 's/Observable\s\+'${Obs}'\(.*\)noMCMC\s\+noweight/Observable '${Obs}'\1MCMC weight/' ${Fit}/UTfit.conf
                 sed -i 's/Observable\s\+'${Obs}'\(.*\)noMCMC\s\+file/Observable '${Obs}'\1MCMC file/' ${Fit}/UTfit.conf
@@ -201,7 +201,7 @@ else
         elif [[ $Fit == "noangles" ]]; then
             Obs="gamma"
             sed -i 's/ModelParameter\s\+'${Obs}'\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter '${Obs}$'\t'${CKMInputVals[$Obs]}$'\t''0. '$'\t'${CKMInputErrs[$Obs]}'/' ${Fit}/UTfit.conf
-            allobs="alpha_pipi alpha_rhopi alpha_rhorho SJPsiK C2beta Phis_JPsiPhi"
+            allobs="alpha_pipi alpha_rhopi alpha_rhorho alpha phid C2beta Phis_JPsiPhi"
             for Obs in ${allobs}; do
                 sed -i 's/Observable\s\+'${Obs}'\(.*\)MCMC\s\+weight/Observable '${Obs}'\1noMCMC noweight/' ${Fit}/UTfit.conf
                 sed -i 's/Observable\s\+'${Obs}'\(.*\)MCMC\s\+file/Observable '${Obs}'\1noMCMC noweight/' ${Fit}/UTfit.conf
@@ -211,7 +211,7 @@ else
         sed -i 's/-N MPICH2_job/-N '${Fit}'/' ${Fit}/submit_job.sh
     done
     # auxiliary fits for 2D UT plot
-    allFits="Dmd Dms EpsilonK_1 EpsilonK_2 alpha SJPsiK  lambda2 V_ub gamma"
+    allFits="Dmd Dms EpsilonK_1 EpsilonK_2 alpha phid  lambda2 V_ub gamma"
     for Fit in $allFits; do
         if [ ! -d "Aux_${Fit}" ]; then
             mkdir Aux_${Fit}
@@ -239,11 +239,11 @@ else
         elif [[ $Fit == "EpsilonK_2" ]]; then
             sed -i 's/ModelParameter\s\+rhob\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter rhob 0.4 0. 0./' Aux_${Fit}/UTfit.conf
             sed -i 's/Observable\s\+EpsilonK\(.*\)noMCMC\s\+noweight/Observable '${Fit}'\1MCMC weight/' Aux_${Fit}/UTfit.conf
-        elif [[ $Fit == "alpha" ]]; then
-            allobs="alpha_pipi alpha_rhopi alpha_rhorho"
-            for Obs_i in ${allobs}; do
-                sed -i 's/Observable\s\+'${Obs_i}'\(.*\)noMCMC\s\+file/Observable '${Obs_i}'\1MCMC file/' Aux_${Fit}/UTfit.conf
-            done
+#        elif [[ $Fit == "alpha" ]]; then
+#            allobs="alpha_pipi alpha_rhopi alpha_rhorho"
+#            for Obs_i in ${allobs}; do
+#                sed -i 's/Observable\s\+'${Obs_i}'\(.*\)noMCMC\s\+file/Observable '${Obs_i}'\1MCMC file/' Aux_${Fit}/UTfit.conf
+#            done
         elif [[ $Fit == "lambda2" ]]; then
             sed -i 's/Observable\(.*\)MCMC\s\+weight/Observable\1noMCMC noweight/' Aux_${Fit}/UTfit.conf
             sed -i 's/Observable\s\+V_ud\(.*\)noMCMC\s\+noweight/Observable V_ud\1MCMC weight/' Aux_${Fit}/UTfit.conf

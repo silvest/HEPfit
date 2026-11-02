@@ -21,6 +21,7 @@
 #include "alpha_2a.h"
 #include "gamma.h"
 #include "SJPsiK.h"
+#include "phid.h"
 #include "C2beta.h"
 #include "Phis_JPsiPhi.h"
 #include "Mll.h"
