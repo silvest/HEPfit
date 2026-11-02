@@ -17,8 +17,9 @@ The HEPfit library can be used:
 
 The Markov Chain Monte Carlo is based on the [BAT (Bayesian Analysis Toolkit) library](https://www.mppmu.mpg.de/bat/).
 
-Parallel Tempering with the upgraded `bat_MPI`, cold-chain output and offline
-convergence/transport diagnostics are described in [MonteCarlo/PT_DIAGNOSTICS.md](MonteCarlo/PT_DIAGNOSTICS.md).
+Parallel Tempering with the upgraded `bat_MPI`, optional staged warmup, smooth
+adaptation and proposal-cache reuse, cold-chain output and offline convergence/transport diagnostics
+are described in [MonteCarlo/PT_DIAGNOSTICS.md](MonteCarlo/PT_DIAGNOSTICS.md).
 A ready configuration is in [Analysis/MonteCarlo_PT.conf](Analysis/MonteCarlo_PT.conf).
 
 Installation (for developers):

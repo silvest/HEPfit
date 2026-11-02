@@ -7,6 +7,8 @@
 
 #include "MonteCarlo.h"
 #include "ParallelTemperingConfig.h"
+#include "WarmupConfig.h"
+#include "ProposalConfig.h"
 #include "ModelFactory.h"
 #include "ThObsFactory.h"
 #include <BAT/BCParameter.h>
@@ -665,9 +667,11 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
         throw std::runtime_error("\nERROR: " + MCMCConf + " does not exist. Make sure to specify a valid Monte Carlo configuration file.\n");
     std::string line;
     HEPfitPTConfig pt;
+    HEPfitWarmupConfig warmup;
+    HEPfitProposalConfig proposal;
     std::string preRunData;
     while (std::getline(ifile, line)) {
-        if (pt.ParseLine(line)) continue;
+        if (pt.ParseLine(line) || warmup.ParseLine(line) || proposal.ParseLine(line)) continue;
         if (!line.empty() && *line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
         if (line.empty() || line.at(0) == '#')
             continue;
@@ -941,6 +945,30 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
         } else
             throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + MCMCConf + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
     }
+    proposal.ValidateRun(warmup.staged, warmup.smooth, !FileIn.empty(), !preRunData.empty(),
+                         RunMinuitOnly || ComputeHessianOnly);
+#ifndef HEPFIT_BAT_HAS_PROPOSAL_CACHE
+    if (proposal.Enabled())
+        throw std::runtime_error("SaveProposal/LoadProposal require an updated bat_MPI installation; rebuild HEPfit against it with BAT_INSTALL=OFF.");
+#endif
+    warmup.ValidateRun(MCEngine.GetNIterationsPreRunMax(), MCEngine.GetNIterationsPreRunFactorized(),
+                       MCEngine.GetProposeMultivariate(), !FileIn.empty(), !preRunData.empty(),
+                       RunMinuitOnly || ComputeHessianOnly);
+#ifndef HEPFIT_BAT_HAS_STAGED_WARMUP
+    if (warmup.staged)
+        throw std::runtime_error("PreRunPolicy staged requires an updated bat_MPI installation; rebuild HEPfit against it with BAT_INSTALL=OFF.");
+#else
+    MCEngine.SetPreRunPolicy(warmup.staged ? BCEngineMCMC::kPreRunStaged : BCEngineMCMC::kPreRunLegacy,
+                             warmup.settlingSweeps);
+    if (FileIn.empty() && !RunMinuitOnly && !ComputeHessianOnly)
+        MCEngine.SetPreRunStatusOutput(OutFile.substr(0, OutFile.size() - 5) + "_warmup_status.csv");
+#endif
+#ifndef HEPFIT_BAT_HAS_SMOOTH_ADAPTATION
+    if (warmup.smooth)
+        throw std::runtime_error("SmoothAdaptation true requires an updated bat_MPI installation; rebuild HEPfit against it with BAT_INSTALL=OFF.");
+#else
+    MCEngine.SetScaleAdaptation(warmup.smooth ? BCEngineMCMC::kScaleSmooth : BCEngineMCMC::kScaleLegacy);
+#endif
     pt.Validate();
     parallelTempering = pt.enabled;
     ptDiagnostics = pt.diagnostics;
@@ -970,6 +998,12 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
                   << MCEngine.GetNChains() << " total replicas; saving cold chains.\n";
 #endif
     }
+#ifdef HEPFIT_BAT_HAS_PROPOSAL_CACHE
+    // Configure after final chain/temperature/proposal settings, before BAT initializes.
+    // BAT validates the full cache against this model and saves at the end of warmup.
+    if (!proposal.save.empty()) MCEngine.SetProposalFunctionOutput(proposal.save);
+    if (!proposal.load.empty()) MCEngine.LoadProposalFunction(proposal.load, proposal.warmup);
+#endif
     if (!preRunData.empty()) ReadPreRunData(preRunData);
     if (FindModeWithMinuit || RunMinuitOnly) 
         MCEngine.SetOptimizationMethod(BCIntegrate::kOptMinuit);

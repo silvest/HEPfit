@@ -384,10 +384,16 @@ set(CMAKE_REQUIRED_INCLUDES "${BAT_INCLUDE_PATH};${MPI_CXX_INCLUDE_DIRS}")
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 unset(HEPFIT_BAT_HAS_PT CACHE)
 unset(HEPFIT_BAT_HAS_PT_STREAMING CACHE)
+unset(HEPFIT_BAT_HAS_STAGED_WARMUP CACHE)
+unset(HEPFIT_BAT_HAS_SMOOTH_ADAPTATION CACHE)
+unset(HEPFIT_BAT_HAS_PROPOSAL_CACHE CACHE)
 if(BAT_INSTALL)
   # The bundled download is legacy BAT even if the current prefix has a PT API.
   set(HEPFIT_BAT_HAS_PT FALSE)
   set(HEPFIT_BAT_HAS_PT_STREAMING FALSE)
+  set(HEPFIT_BAT_HAS_STAGED_WARMUP FALSE)
+  set(HEPFIT_BAT_HAS_SMOOTH_ADAPTATION FALSE)
+  set(HEPFIT_BAT_HAS_PROPOSAL_CACHE FALSE)
 else()
 check_cxx_source_compiles("#include <BAT/BCEngineMCMC.h>
 int main() {
@@ -399,6 +405,28 @@ int main() {
 check_cxx_source_compiles("#include <BAT/BCEngineMCMC.h>
 int main() { auto streaming = &BCEngineMCMC::SetPTDiagnosticsOutput; (void)streaming; }
 " HEPFIT_BAT_HAS_PT_STREAMING)
+check_cxx_source_compiles("#include <BAT/BCEngineMCMC.h>
+int main() {
+    auto policy = &BCEngineMCMC::SetPreRunPolicy;
+    auto output = &BCEngineMCMC::SetPreRunStatusOutput;
+    auto status = &BCEngineMCMC::GetPreRunStatus;
+    auto staged = BCEngineMCMC::kPreRunStaged;
+    auto legacy = BCEngineMCMC::kPreRunLegacy;
+    (void) policy; (void) output; (void) status; (void) staged; (void) legacy;
+}" HEPFIT_BAT_HAS_STAGED_WARMUP)
+check_cxx_source_compiles("#include <BAT/BCEngineMCMC.h>
+int main() {
+    auto method = &BCEngineMCMC::SetScaleAdaptation;
+    auto smooth = BCEngineMCMC::kScaleSmooth;
+    auto legacy = BCEngineMCMC::kScaleLegacy;
+    (void) method; (void) smooth; (void) legacy;
+}" HEPFIT_BAT_HAS_SMOOTH_ADAPTATION)
+check_cxx_source_compiles("#include <BAT/BCEngineMCMC.h>
+int main() {
+    auto load = &BCEngineMCMC::LoadProposalFunction;
+    auto save = &BCEngineMCMC::SetProposalFunctionOutput;
+    (void) load; (void) save;
+}" HEPFIT_BAT_HAS_PROPOSAL_CACHE)
 endif()
 set(CMAKE_REQUIRED_FLAGS "${_pt_saved_flags}")
 set(CMAKE_REQUIRED_INCLUDES "${_pt_saved_includes}")
@@ -412,6 +440,8 @@ if(HEPFIT_BAT_HAS_PT)
 else()
   message(STATUS "BAT has no PT API: ordinary MCMC remains available")
 endif()
+message(STATUS "BAT staged warmup: ${HEPFIT_BAT_HAS_STAGED_WARMUP}; smooth adaptation: ${HEPFIT_BAT_HAS_SMOOTH_ADAPTATION}")
+message(STATUS "BAT proposal cache: ${HEPFIT_BAT_HAS_PROPOSAL_CACHE}")
 
 unset(IBAT CACHE)
 unset(LBAT CACHE)
@@ -768,6 +798,12 @@ if(HEPFIT_BUILD_PT_TESTS)
   add_executable(HEPfitPTConfigTest MonteCarlo/tests/pt_config_test.cpp)
   target_include_directories(HEPfitPTConfigTest PRIVATE MonteCarlo/src)
   add_test(NAME HEPfit_PT_config COMMAND HEPfitPTConfigTest)
+  add_executable(HEPfitWarmupConfigTest MonteCarlo/tests/warmup_config_test.cpp)
+  target_include_directories(HEPfitWarmupConfigTest PRIVATE MonteCarlo/src)
+  add_test(NAME HEPfit_warmup_config COMMAND HEPfitWarmupConfigTest)
+  add_executable(HEPfitProposalConfigTest MonteCarlo/tests/proposal_config_test.cpp)
+  target_include_directories(HEPfitProposalConfigTest PRIVATE MonteCarlo/src)
+  add_test(NAME HEPfit_proposal_config COMMAND HEPfitProposalConfigTest)
   if(HEPFIT_BAT_HAS_PT AND MPIBAT AND HEPFIT_DIAGNOSTICS_PYTHON AND HEPFIT_BAT_SOURCE_DIR)
     set(_pt_streaming_test_option "")
     if(HEPFIT_BAT_HAS_PT_STREAMING)
@@ -779,5 +815,21 @@ if(HEPFIT_BUILD_PT_TESTS)
       --mpiexec ${MPIEXEC_EXECUTABLE} "--mpi-flags=${MPIEXEC_PREFLAGS}" ${_pt_streaming_test_option})
     set_tests_properties(HEPfit_PT_integration PROPERTIES TIMEOUT 180 RUN_SERIAL TRUE
       ENVIRONMENT "MPLCONFIGDIR=${CMAKE_BINARY_DIR}/diagnostics-mpl;XDG_CACHE_HOME=${CMAKE_BINARY_DIR}/diagnostics-cache;PYTHONDONTWRITEBYTECODE=1")
+    if(HEPFIT_BAT_HAS_STAGED_WARMUP AND HEPFIT_BAT_HAS_SMOOTH_ADAPTATION)
+      add_test(NAME HEPfit_warmup_integration COMMAND ${HEPFIT_DIAGNOSTICS_PYTHON}
+        ${CMAKE_SOURCE_DIR}/MonteCarlo/tests/test_warmup_integration.py
+        --analysis $<TARGET_FILE:analysis> --bat-source ${HEPFIT_BAT_SOURCE_DIR}
+        --mpiexec ${MPIEXEC_EXECUTABLE} "--mpi-flags=${MPIEXEC_PREFLAGS}" ${_pt_streaming_test_option})
+      set_tests_properties(HEPfit_warmup_integration PROPERTIES TIMEOUT 240 RUN_SERIAL TRUE
+        ENVIRONMENT "MPLCONFIGDIR=${CMAKE_BINARY_DIR}/diagnostics-mpl;XDG_CACHE_HOME=${CMAKE_BINARY_DIR}/diagnostics-cache;PYTHONDONTWRITEBYTECODE=1")
+      if(HEPFIT_BAT_HAS_PROPOSAL_CACHE)
+        add_test(NAME HEPfit_proposal_integration COMMAND ${HEPFIT_DIAGNOSTICS_PYTHON}
+          ${CMAKE_SOURCE_DIR}/MonteCarlo/tests/test_proposal_integration.py
+          --analysis $<TARGET_FILE:analysis> --bat-source ${HEPFIT_BAT_SOURCE_DIR}
+          --mpiexec ${MPIEXEC_EXECUTABLE} "--mpi-flags=${MPIEXEC_PREFLAGS}" ${_pt_streaming_test_option})
+        set_tests_properties(HEPfit_proposal_integration PROPERTIES TIMEOUT 240 RUN_SERIAL TRUE
+          ENVIRONMENT "MPLCONFIGDIR=${CMAKE_BINARY_DIR}/diagnostics-mpl;XDG_CACHE_HOME=${CMAKE_BINARY_DIR}/diagnostics-cache;PYTHONDONTWRITEBYTECODE=1")
+      endif()
+    endif()
   endif()
 endif()
