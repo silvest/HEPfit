@@ -109,9 +109,9 @@ void Bdmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
                     + (*(allcoeff[NLO_QED21]))(7) * alsmu 
                     + (*(allcoeff[NLO_QED12]))(7) * alemu /alsmu+ (*(allcoeff[NLO_QED22]))(7) * alemu;
 
-            gslpp::complex NPfactor = coupling;
+            gslpp::complex NPfactor = 2. *coupling;
 
-            if(SM.getModelName().compare("NPSMEFTd6U2") == 0 || SM.getModelName().compare("NPSMEFTd6U3") == 0)
+            if( const NPSMEFTd6GeneralMatching* matching = dynamic_cast<const NPSMEFTd6GeneralMatching*>(&SM.getMatching()))
             {
                 C_10 = C_10 + (dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCdeVLR(0,2,leptonindex,leptonindex) - 
                     dynamic_cast<const NPSMEFTd6GeneralMatching&>(SM.getMatching()).getCedVLL(leptonindex,leptonindex,0,2)) / NPfactor; 
@@ -140,7 +140,7 @@ void Bdmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
 
             phiNP = 0.;
             
-            ampSq = absP * absP ;
+            ampSq = absP * absP + absS * absS;
                   
         }
         break;
