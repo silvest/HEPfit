@@ -71,14 +71,14 @@ gslpp::matrix<double> EvolDF1_diujlknu::AnomalousDimension(orders order, unsigne
     gslpp::matrix<double> ad(dim, dim, 0.);
             switch (order) {
                 case LO:
-                    ad(2, 2) = -4.;
-                    ad(3, 3) = -4.;
-                    ad(4, 4) = 4./3.;
+                    ad(2, 2) = -8.;
+                    ad(3, 3) = -8.;
+                    ad(4, 4) = 8./3.;
                     break;
                 case NLO:
-                    ad(2, 2) = 2./9.*(-303.+10.*nf);
+                    ad(2, 2) = 4./9.*(-303.+10.*nf);
                     ad(3, 3) = ad(2,2);
-                    ad(4, 4) = 2./27.*(543.-26.*nf);
+                    ad(4, 4) = 4./27.*(543.-26.*nf);
                     break;
                 default:
                     throw std::runtime_error("EvolDF1_diujlknu::AnomalousDimension(): order not implemented");
@@ -91,13 +91,13 @@ gslpp::matrix<double> EvolDF1_diujlknu::AnomalousDimension(orders_qed order_qed,
     gslpp::matrix<double> ad(dim, dim, 0.);
             switch (order_qed) {
                 case LO_QED:
-                    ad(0, 0) = -2.;
-                    ad(1, 1) = -1.;
-                    ad(2, 2) = 2./3.;
-                    ad(3, 3) = 2./3.;
-                    ad(3, 4) = 1./12.;
-                    ad(4, 3) = 4.;
-                    ad(4, 4) = -20./9.;
+                    ad(0, 0) = -4.;
+                    ad(1, 1) = -2.;
+                    ad(2, 2) = 4./3.;
+                    ad(3, 3) = 4./3.;
+                    ad(2, 4) = 2./12.;
+                    ad(4, 2) = 8.;
+                    ad(4, 4) = -40./9.;
                     break;
                 default:
                     throw std::runtime_error("EvolDF1_diujlknu::AnomalousDimension(): order_qed not implemented");
@@ -149,7 +149,7 @@ gslpp::matrix<double>& EvolDF1_diujlknu::Df1diujlknuEvol(double mu, double M, or
     }
     
     //add the leading QED log without resumming it for the moment, to be improved later
-    *elem[LO] = (*elem[LO]) + AnomalousDimension(LO_QED,3).transpose()*model.getAle()/2./M_PI*log(mu/M);
+    *elem[LO] = (*elem[LO]) + AnomalousDimension(LO_QED,3).transpose()*model.getAle()/4./M_PI*log(mu/M);
     
     return (*Evol(order));
 }

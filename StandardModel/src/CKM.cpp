@@ -7,7 +7,7 @@
 
 #include "CKM.h"
 
-CKM::CKM() : V(3, 3)
+CKM::CKM() : V(3, 3, 0.), phi1(3, 3, 0.), phi2dag(3, 3, 0.)
 {}
 
 void CKM::computeCKMwithWolfenstein(double Lambda_v, double A_v, double Rho_v, double Eta_v)
@@ -35,6 +35,58 @@ void CKM::computeCKMwithWolfenstein(double Lambda_v, double A_v, double Rho_v, d
     c23 = sqrt(1. - s23 * s23);
     
     computeCKMfromAngles();
+}
+
+void CKM::convertCKMtoStandard()
+{
+
+    gslpp::matrix<gslpp::complex> Vold = V;
+
+    computeCKM(Vold(0, 1).abs(), Vold(1, 2).abs(), Vold(0, 2).abs(),
+            (-Vold(0, 0) * Vold(0, 2).conjugate() / (Vold(1, 0) * Vold(1, 2).conjugate())).arg());
+
+    double a11 = remainder(Vold(0, 0).arg() - V(0,0).arg(), 2. * M_PI);
+    double a12 = remainder(Vold(0, 1).arg() - V(0,1).arg(), 2. * M_PI);
+    double a13 = remainder(Vold(0, 2).arg() - V(0,2).arg(), 2. * M_PI);
+
+    double a23 = remainder(Vold(1, 0).arg() - V(1,0).arg(), 2. * M_PI) - a11 + a13;
+    double a33 = remainder(Vold(2, 0).arg() - V(2,0).arg(), 2. * M_PI) - a11 + a13;
+
+    phi1.reset();
+    phi1.assign(0, 0, 1.);
+    phi1.assign(1, 1, gslpp::complex(1., a23 - a13, true));
+    phi1.assign(2, 2, gslpp::complex(1., a33 - a13, true));
+
+    phi2dag.reset();
+    phi2dag.assign(0, 0, gslpp::complex(1., -a11, true));
+    phi2dag.assign(1, 1, gslpp::complex(1., -a12, true));
+    phi2dag.assign(2, 2, gslpp::complex(1., -a13, true));
+
+}
+
+void CKM::convertCKMtoStandard(gslpp::matrix<gslpp::complex> Vold)
+{
+
+    computeCKM(Vold(0, 1).abs(), Vold(1, 2).abs(), Vold(0, 2).abs(),
+            (-Vold(0, 0) * Vold(0, 2).conjugate() / (Vold(1, 0) * Vold(1, 2).conjugate())).arg());
+
+    double a11 = remainder(Vold(0, 0).arg() - V(0,0).arg(), 2. * M_PI);
+    double a12 = remainder(Vold(0, 1).arg() - V(0,1).arg(), 2. * M_PI);
+    double a13 = remainder(Vold(0, 2).arg() - V(0,2).arg(), 2. * M_PI);
+
+    double a23 = remainder(Vold(1, 0).arg() - V(1,0).arg(), 2. * M_PI) - a11 + a13;
+    double a33 = remainder(Vold(2, 0).arg() - V(2,0).arg(), 2. * M_PI) - a11 + a13;
+
+    phi1.reset();
+    phi1.assign(0, 0, 1.);
+    phi1.assign(1, 1, gslpp::complex(1., a23 - a13, true));
+    phi1.assign(2, 2, gslpp::complex(1., a33 - a13, true));
+
+    phi2dag.reset();
+    phi2dag.assign(0, 0, gslpp::complex(1., -a11, true));
+    phi2dag.assign(1, 1, gslpp::complex(1., -a12, true));
+    phi2dag.assign(2, 2, gslpp::complex(1., -a13, true));
+
 }
 
 void CKM::computeCKMfromAngles()

@@ -62,7 +62,7 @@ double Dleptonnu::computeThValue()
     //std::cout<< "SM value for D_S = "<< 1. / (64. * M_PI) * mlepton * mlepton * pow(fact * SM.getMesons(meson).getDecayconst(), 2.) * mD * pow(1. - mlepton * mlepton / mD / mD, 2.) / SM.getMesons(meson).computeWidth() * (4.*SM.getGF() * SM.getCKM().getV_cs() / sqrt(2.)).abs2() <<std::endl;
     
     return 1. / (64. * M_PI) * mlepton * mlepton * pow(fact * SM.getMesons(meson).getDecayconst(), 2.) * mD * pow(1. - mlepton * mlepton / mD / mD, 2.) / SM.getMesons(meson).computeWidth() * ((*(allcoeff[LO]))(0) 
-            -(*(allcoeff[LO]))(1) + mD * mD / (mc+mlight) / mlepton * ((*(allcoeff[LO]))(2) - (*(allcoeff[LO]))(3))).abs2(); // PLEASE NOTE THE DECAY CONST
+            -(*(allcoeff[LO]))(1) - mD * mD / (mc+mlight) / mlepton * ((*(allcoeff[LO]))(2) - (*(allcoeff[LO]))(3))).abs2(); // PLEASE NOTE THE DECAY CONST
     
 
 }

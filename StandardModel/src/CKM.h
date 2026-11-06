@@ -32,7 +32,7 @@ public:
      * @param[in] Rho_v the Wolfenstein parameter @f$ \bar{\eta} @f$
      */
     void computeCKMwithWolfenstein(double Lambda_v, double A_v, double Rho_v, double Eta_v);
-    
+
     /**
      * @brief A set method to calculate the CKM matrix from CKM elements and @f$ \gamma @f$
      * @param[in] Vus_v the CKM element @f$ V_{us} @f$ (@f$ V_{ud} @f$ if the useVud flag is true)
@@ -42,6 +42,30 @@ public:
      * @param[in] useVud (optional; if set to true, Vus_v is interpreted as the @f$ V_{ud} @f$ input value. Default: false
      */
     void computeCKM(double Vus_v, double Vcb_v, double Vub_v, double gamma_v, bool useVud = false);
+
+    /**
+     * @brief A method to compute the rephasing matrices for the up and down quarks to convert the CKM matrix to the standard parameterization.
+     * @details The standard parameterization is defined by the conditions that the CKM matrix elements @f$ V_{ud} @f$, @f$ V_{us} @f$, @f$ V_{cb} @f$, and @f$ V_{tb} @f$ are real and positive, and the phase of @f$ V_{ub} @f$ is the CKM phase @f$ \delta @f$. The rephasing matrices are stored in the member variables phi1 and phi2dag.
+     */
+    void convertCKMtoStandard();
+
+    /**
+     * @brief A method to compute the rephasing matrices for the up and down quarks to convert the CKM matrix to the standard parameterization.
+     * @details The standard parameterization is defined by the conditions that the CKM matrix elements @f$ V_{ud} @f$, @f$ V_{us} @f$, @f$ V_{cb} @f$, and @f$ V_{tb} @f$ are real and positive, and the phase of @f$ V_{ub} @f$ is the CKM phase @f$ \delta @f$. The rephasing matrices are stored in the member variables phi1 and phi2dag.
+     * @param[in] Vold the original CKM matrix
+     */
+    void convertCKMtoStandard(gslpp::matrix<gslpp::complex> Vold);
+
+    /**
+     * @brief A method to return the rephasing matrix for the up quarks.
+     * @return the rephasing matrix for the up quarks
+     */
+    gslpp::matrix<gslpp::complex> getPhi1() const { return phi1; }
+    /**
+     * @brief A method to return the rephasing matrix for the down quarks.
+     * @return the rephasing matrix for the down quarks
+     */
+    gslpp::matrix<gslpp::complex> getPhi2dag() const { return phi2dag; }
 
     /**
      * @brief A set method to calculate the CKM matrix from the sines of the angles and @f$ \delta @f$
@@ -381,6 +405,9 @@ private:
     double delta; ///< The CP violating phase in the CKM matrix.
 
     gslpp::matrix<gslpp::complex> V; ///< The CKM matrix.
+
+    gslpp::matrix<gslpp::complex> phi1; ///< The rephasing matrix for the up quarks.
+    gslpp::matrix<gslpp::complex> phi2dag; ///< The rephasing matrix for the down quarks.
 
 };
 

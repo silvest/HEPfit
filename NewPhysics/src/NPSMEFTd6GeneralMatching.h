@@ -587,7 +587,6 @@ private:
     double LambdaNP2;
     double v2;
     double v;
-    gslpp::matrix<gslpp::complex> VuL, VuLd, VuR, VuRd, VdL, VdLd, VdR, VdRd, VeL, VeLd, VeR, VeRd, MU, MD;
     WilsonCoefficient mcd2, mcd1, mcbd, mcbs, mck2, mculeptonnu, mckpnn, mcbsg, mcprimebsg;
     //TRandom3 myrnd;
 

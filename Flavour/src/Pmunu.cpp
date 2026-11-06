@@ -38,7 +38,7 @@ double Pmunu::computeThValue()
     double fP = SM.getOptionalParameter("fK") / SM.getOptionalParameter("fKofP"); // this is the pion decay constant in the SU(2)-symmetric limit 
     double delPl2em = SM.getOptionalParameter("delPl2em"); //this is the non-perturbative EM + strong isospin violation correction to the decay rate
     
-    double amp2 = ((*(allcoeff_P_mu_nu[LO]))(0) -(*(allcoeff_P_mu_nu[LO]))(1) + mP * mP / (md+mu) / mmu * ((*(allcoeff_P_mu_nu[LO]))(2) - (*(allcoeff_P_mu_nu[LO]))(3))).abs2();
+    double amp2 = ((*(allcoeff_P_mu_nu[LO]))(0) -(*(allcoeff_P_mu_nu[LO]))(1) - mP * mP / (md+mu) / mmu * ((*(allcoeff_P_mu_nu[LO]))(2) - (*(allcoeff_P_mu_nu[LO]))(3))).abs2();
     
     //double WCnum = 1.0;
     //double WCden = 1.0;

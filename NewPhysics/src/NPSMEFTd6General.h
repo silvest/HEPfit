@@ -6973,6 +6973,362 @@ public:
         return Yu;
     }
 
+    // Read-only access to the Wilson coefficients at the EW scale.
+
+    /** @brief Return CG_EW, the coefficient at the EW scale. */
+    double getCG_EW() const
+    {
+        return CG_EW;
+    }
+
+    /** @brief Return CW_EW, the coefficient at the EW scale. */
+    double getCW_EW() const
+    {
+        return CW_EW;
+    }
+
+    /** @brief Return CHG_EW, the coefficient at the EW scale. */
+    double getCHG_EW() const
+    {
+        return CHG_EW;
+    }
+
+    /** @brief Return CHW_EW, the coefficient at the EW scale. */
+    double getCHW_EW() const
+    {
+        return CHW_EW;
+    }
+
+    /** @brief Return CHB_EW, the coefficient at the EW scale. */
+    double getCHB_EW() const
+    {
+        return CHB_EW;
+    }
+
+    /** @brief Return CHWB_EW, the coefficient at the EW scale. */
+    double getCHWB_EW() const
+    {
+        return CHWB_EW;
+    }
+
+    /** @brief Return CHD_EW, the coefficient at the EW scale. */
+    double getCHD_EW() const
+    {
+        return CHD_EW;
+    }
+
+    /** @brief Return CHbox_EW, the coefficient at the EW scale. */
+    double getCHbox_EW() const
+    {
+        return CHbox_EW;
+    }
+
+    /** @brief Return CH_EW, the coefficient at the EW scale. */
+    double getCH_EW() const
+    {
+        return CH_EW;
+    }
+
+    /** @brief Return CGtilde_EW, the coefficient at the EW scale. */
+    double getCGtilde_EW() const
+    {
+        return CGtilde_EW;
+    }
+
+    /** @brief Return CWtilde_EW, the coefficient at the EW scale. */
+    double getCWtilde_EW() const
+    {
+        return CWtilde_EW;
+    }
+
+    /** @brief Return CHGtilde_EW, the coefficient at the EW scale. */
+    double getCHGtilde_EW() const
+    {
+        return CHGtilde_EW;
+    }
+
+    /** @brief Return CHWtilde_EW, the coefficient at the EW scale. */
+    double getCHWtilde_EW() const
+    {
+        return CHWtilde_EW;
+    }
+
+    /** @brief Return CHBtilde_EW, the coefficient at the EW scale. */
+    double getCHBtilde_EW() const
+    {
+        return CHBtilde_EW;
+    }
+
+    /** @brief Return CHWtildeB_EW, the coefficient at the EW scale. */
+    double getCHWtildeB_EW() const
+    {
+        return CHWtildeB_EW;
+    }
+
+    /** @brief Return CHl1_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCHl1_EW() const)[3][3]
+    {
+        return CHl1_EW;
+    }
+
+    /** @brief Return CHl3_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCHl3_EW() const)[3][3]
+    {
+        return CHl3_EW;
+    }
+
+    /** @brief Return CHe_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCHe_EW() const)[3][3]
+    {
+        return CHe_EW;
+    }
+
+    /** @brief Return CHq1_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCHq1_EW() const)[3][3]
+    {
+        return CHq1_EW;
+    }
+
+    /** @brief Return CHq3_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCHq3_EW() const)[3][3]
+    {
+        return CHq3_EW;
+    }
+
+    /** @brief Return CHu_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCHu_EW() const)[3][3]
+    {
+        return CHu_EW;
+    }
+
+    /** @brief Return CHd_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCHd_EW() const)[3][3]
+    {
+        return CHd_EW;
+    }
+
+    /** @brief Return CHud_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCHud_EW() const)[3][3]
+    {
+        return CHud_EW;
+    }
+
+    /** @brief Return CeH_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCeH_EW() const)[3][3]
+    {
+        return CeH_EW;
+    }
+
+    /** @brief Return CuH_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCuH_EW() const)[3][3]
+    {
+        return CuH_EW;
+    }
+
+    /** @brief Return CdH_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCdH_EW() const)[3][3]
+    {
+        return CdH_EW;
+    }
+
+    /** @brief Return CuG_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCuG_EW() const)[3][3]
+    {
+        return CuG_EW;
+    }
+
+    /** @brief Return CuW_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCuW_EW() const)[3][3]
+    {
+        return CuW_EW;
+    }
+
+    /** @brief Return CuB_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCuB_EW() const)[3][3]
+    {
+        return CuB_EW;
+    }
+
+    /** @brief Return CdG_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCdG_EW() const)[3][3]
+    {
+        return CdG_EW;
+    }
+
+    /** @brief Return CdW_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCdW_EW() const)[3][3]
+    {
+        return CdW_EW;
+    }
+
+    /** @brief Return CdB_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCdB_EW() const)[3][3]
+    {
+        return CdB_EW;
+    }
+
+    /** @brief Return CeW_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCeW_EW() const)[3][3]
+    {
+        return CeW_EW;
+    }
+
+    /** @brief Return CeB_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCeB_EW() const)[3][3]
+    {
+        return CeB_EW;
+    }
+
+    /** @brief Return Cll_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCll_EW() const)[3][3][3][3]
+    {
+        return Cll_EW;
+    }
+
+    /** @brief Return Clq1_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getClq1_EW() const)[3][3][3][3]
+    {
+        return Clq1_EW;
+    }
+
+    /** @brief Return Clq3_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getClq3_EW() const)[3][3][3][3]
+    {
+        return Clq3_EW;
+    }
+
+    /** @brief Return Cee_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCee_EW() const)[3][3][3][3]
+    {
+        return Cee_EW;
+    }
+
+    /** @brief Return Ceu_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCeu_EW() const)[3][3][3][3]
+    {
+        return Ceu_EW;
+    }
+
+    /** @brief Return Ced_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCed_EW() const)[3][3][3][3]
+    {
+        return Ced_EW;
+    }
+
+    /** @brief Return Cle_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCle_EW() const)[3][3][3][3]
+    {
+        return Cle_EW;
+    }
+
+    /** @brief Return Clu_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getClu_EW() const)[3][3][3][3]
+    {
+        return Clu_EW;
+    }
+
+    /** @brief Return Cld_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCld_EW() const)[3][3][3][3]
+    {
+        return Cld_EW;
+    }
+
+    /** @brief Return Cqe_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCqe_EW() const)[3][3][3][3]
+    {
+        return Cqe_EW;
+    }
+
+    /** @brief Return Cledq_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCledq_EW() const)[3][3][3][3]
+    {
+        return Cledq_EW;
+    }
+
+    /** @brief Return Cqq1_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCqq1_EW() const)[3][3][3][3]
+    {
+        return Cqq1_EW;
+    }
+
+    /** @brief Return Cqq3_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCqq3_EW() const)[3][3][3][3]
+    {
+        return Cqq3_EW;
+    }
+
+    /** @brief Return Cuu_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCuu_EW() const)[3][3][3][3]
+    {
+        return Cuu_EW;
+    }
+
+    /** @brief Return Cdd_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCdd_EW() const)[3][3][3][3]
+    {
+        return Cdd_EW;
+    }
+
+    /** @brief Return Cud1_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCud1_EW() const)[3][3][3][3]
+    {
+        return Cud1_EW;
+    }
+
+    /** @brief Return Cud8_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCud8_EW() const)[3][3][3][3]
+    {
+        return Cud8_EW;
+    }
+
+    /** @brief Return Cqu1_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCqu1_EW() const)[3][3][3][3]
+    {
+        return Cqu1_EW;
+    }
+
+    /** @brief Return Cqu8_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCqu8_EW() const)[3][3][3][3]
+    {
+        return Cqu8_EW;
+    }
+
+    /** @brief Return Cqd1_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCqd1_EW() const)[3][3][3][3]
+    {
+        return Cqd1_EW;
+    }
+
+    /** @brief Return Cqd8_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCqd8_EW() const)[3][3][3][3]
+    {
+        return Cqd8_EW;
+    }
+
+    /** @brief Return Cquqd1_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCquqd1_EW() const)[3][3][3][3]
+    {
+        return Cquqd1_EW;
+    }
+
+    /** @brief Return Cquqd8_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getCquqd8_EW() const)[3][3][3][3]
+    {
+        return Cquqd8_EW;
+    }
+
+    /** @brief Return Clequ1_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getClequ1_EW() const)[3][3][3][3]
+    {
+        return Clequ1_EW;
+    }
+
+    /** @brief Return Clequ3_EW, the coefficient at the EW scale. */
+    const gslpp::complex (&getClequ3_EW() const)[3][3][3][3]
+    {
+        return Clequ3_EW;
+    }
+
     inline double getSMEFTCoeffEW(const std::string& name) const
     {
         return SMEFTEvolEW.GetCoefficient(name);
@@ -7250,6 +7606,8 @@ public:
     {
         return lambdaH_tree;
     }
+
+
     bool FlagNewTerms; ///< A boolean for the model flag NewTerms, to include corrections in the matching between SMEFT and LEFT.
     bool FlagMomProp; ///< A boolean for the model flag MomProp, to include corrections in the matching between SMEFT and LEFT coming from the propagator.
     bool FlagMomVert; ///< A boolean for the model flag MomVert, to include corrections in the matching between SMEFT and LEFT coming from the vertex.
@@ -7357,65 +7715,100 @@ protected:
     //double s23CKM_LNP = 0.;
     //double dCKM_LNP = 0.;
     double CG_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{G}\f$.
+    double CG_EW = 0.; ///< The dimension-6 operator coefficient \f$C_{G}\f$ at the EW scale.
     double CW_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{W}\f$.
+    double CW_EW = 0.; ///< The dimension-6 operator coefficient \f$C_{W}\f$ at the EW scale.
     double CHG_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HG}\f$.
+    double CHG_EW = 0.; ///< The dimension-6 operator coefficient \f$C_{HG}\f$ at the EW scale.
     double CHW_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HW}\f$.
+    double CHW_EW = 0.; ///< The dimension-6 operator coefficient \f$C_{HW}\f$ at the EW scale.
     double CHB_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HB}\f$.
+    double CHB_EW = 0.; ///< The dimension-6 operator coefficient \f$C_{HB}\f$ at the EW scale.
     double CDB_LNP = 0; ///< The dimension-6 operator coefficient \f$C_{DB}\f$.
     double CDW_LNP = 0; ///< The dimension-6 operator coefficient \f$C_{DW}\f$.
     double CHWB_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HWB}\f$.
+    double CHWB_EW = 0.; ///< The dimension-6 operator coefficient \f$C_{HWB}\f$ at the EW scale.
     double CHD_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{HD}\f$.
+    double CHD_EW = 0.; ///< The dimension-6 operator coefficient \f$C_{HD}\f$ at the EW scale.
     double CHbox_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{H\Box}\f$.
+    double CHbox_EW = 0.; ///< The dimension-6 operator coefficient \f$C_{H\Box}\f$ at the EW scale.
     double CH_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{H}\f$.
+    double CH_EW = 0.; ///< The dimension-6 operator coefficient \f$C_{H}\f$ at the EW scale.
     double CGtilde_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{\tilde{G}}\f$.
+    double CGtilde_EW = 0.; ///< The dimension-6 operator coefficient \f$C_{\tilde{G}}\f$ at the EW scale.
     double CWtilde_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{\tilde{W}}\f$.
+    double CWtilde_EW = 0.; ///< The dimension-6 operator coefficient \f$C_{\tilde{W}}\f$ at the EW scale.
     double CHGtilde_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{G}}\f$.
+    double CHGtilde_EW = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{G}}\f$ at the EW scale.
     double CHWtilde_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}}\f$.
+    double CHWtilde_EW = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}}\f$ at the EW scale.
     double CHBtilde_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{B}}\f$.
+    double CHBtilde_EW = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{B}}\f$ at the EW scale.
     double CHWtildeB_LNP = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}B}\f$.
+    double CHWtildeB_EW = 0.; ///< The dimension-6 operator coefficient \f$C_{H\tilde{W}B}\f$ at the EW scale.
     double CHl1_11r_LNP = 0., CHl1_12r_LNP = 0., CHl1_13r_LNP = 0., CHl1_22r_LNP = 0., CHl1_23r_LNP = 0., CHl1_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(1)})_{ij}\f$ (Real part and pure real operator).
     double CHl1_12i_LNP = 0., CHl1_13i_LNP = 0., CHl1_23i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(1)})_{ij}\f$ (Imaginary part).
+    gslpp::complex CHl1_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(1)})_{ij}\f$ at the EW scale.
     double CHl3_11r_LNP = 0., CHl3_12r_LNP = 0., CHl3_13r_LNP = 0., CHl3_22r_LNP = 0., CHl3_23r_LNP = 0., CHl3_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(3)})_{ij}\f$ (Real part and pure real operator).
     double CHl3_12i_LNP = 0., CHl3_13i_LNP = 0., CHl3_23i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(3)})_{ij}\f$ (Imaginary part).
+    gslpp::complex CHl3_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{HL}^{(3)})_{ij}\f$ at the EW scale.
     double CHe_11r_LNP = 0., CHe_12r_LNP = 0., CHe_13r_LNP = 0., CHe_22r_LNP = 0., CHe_23r_LNP = 0., CHe_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{He})_{ij}\f$ (Real part and pure real operator).
     double CHe_12i_LNP = 0., CHe_13i_LNP = 0., CHe_23i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{He})_{ij}\f$ (Imaginary part).
+    gslpp::complex CHe_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{He})_{ij}\f$ at the EW scale.
     double CHq1_11r_LNP = 0., CHq1_12r_LNP = 0., CHq1_13r_LNP = 0., CHq1_22r_LNP = 0., CHq1_23r_LNP = 0., CHq1_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HQ}^{(1)})_{ij}\f$ (Real part and pure real operator).
     double CHq1_12i_LNP = 0., CHq1_13i_LNP = 0., CHq1_23i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HQ}^{(1)})_{ij}\f$ (Imaginary part).
+    gslpp::complex CHq1_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{HQ}^{(1)})_{ij}\f$ at the EW scale.
     double CHq3_11r_LNP = 0., CHq3_12r_LNP = 0., CHq3_13r_LNP = 0., CHq3_22r_LNP = 0., CHq3_23r_LNP = 0., CHq3_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HQ}^{(3)})_{ij}\f$ (Real part and pure real operator).
     double CHq3_12i_LNP = 0., CHq3_13i_LNP = 0., CHq3_23i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{HQ}^{(3)})_{ij}\f$ (Imaginary part).
+    gslpp::complex CHq3_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{HQ}^{(3)})_{ij}\f$ at the EW scale.
     double CHu_11r_LNP = 0., CHu_12r_LNP = 0., CHu_13r_LNP = 0., CHu_22r_LNP = 0., CHu_23r_LNP = 0., CHu_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{Hu})_{ij}\f$ (Real part and pure real operator).
     double CHu_12i_LNP = 0., CHu_13i_LNP = 0., CHu_23i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{Hu})_{ij}\f$ (Imaginary part).
+    gslpp::complex CHu_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{Hu})_{ij}\f$ at the EW scale.
     double CHd_11r_LNP = 0., CHd_12r_LNP = 0., CHd_13r_LNP = 0., CHd_22r_LNP = 0., CHd_23r_LNP = 0., CHd_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{Hd})_{ij}\f$ (Real part and pure real operator).
     double CHd_12i_LNP = 0., CHd_13i_LNP = 0., CHd_23i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{Hd})_{ij}\f$ (Imaginary part).
+    gslpp::complex CHd_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{Hd})_{ij}\f$ at the EW scale.
     double CHud_11r_LNP = 0., CHud_12r_LNP = 0., CHud_13r_LNP = 0., CHud_21r_LNP = 0., CHud_22r_LNP = 0., CHud_23r_LNP = 0., CHud_31r_LNP = 0., CHud_32r_LNP = 0., CHud_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{Hud})_{ij}\f$ (Real part and pure real operator).
     double CHud_11i_LNP = 0., CHud_12i_LNP = 0., CHud_13i_LNP = 0., CHud_21i_LNP = 0., CHud_22i_LNP = 0., CHud_23i_LNP = 0., CHud_31i_LNP = 0., CHud_32i_LNP = 0., CHud_33i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{Hud})_{ij}\f$ (Imaginary part).
+    gslpp::complex CHud_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{Hud})_{ij}\f$ at the EW scale.
     double CeH_11r_LNP = 0., CeH_12r_LNP = 0., CeH_13r_LNP = 0., CeH_21r_LNP = 0., CeH_22r_LNP = 0., CeH_23r_LNP = 0., CeH_31r_LNP = 0., CeH_32r_LNP = 0., CeH_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{eH})_{ij}\f$ (Real part and pure real operator).
     double CeH_11i_LNP = 0., CeH_12i_LNP = 0., CeH_13i_LNP = 0., CeH_21i_LNP = 0., CeH_22i_LNP = 0., CeH_23i_LNP = 0., CeH_31i_LNP = 0., CeH_32i_LNP = 0., CeH_33i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{eH})_{ij}\f$ (Imaginary part).
+    gslpp::complex CeH_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{eH})_{ij}\f$ at the EW scale.
     double CuH_11r_LNP = 0., CuH_12r_LNP = 0., CuH_13r_LNP = 0., CuH_21r_LNP = 0., CuH_22r_LNP = 0., CuH_23r_LNP = 0., CuH_31r_LNP = 0., CuH_32r_LNP = 0., CuH_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uH})_{ij}\f$ (Real part and pure real operator).
     double CuH_11i_LNP = 0., CuH_12i_LNP = 0., CuH_13i_LNP = 0., CuH_21i_LNP = 0., CuH_22i_LNP = 0., CuH_23i_LNP = 0., CuH_31i_LNP = 0., CuH_32i_LNP = 0., CuH_33i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uH})_{ij}\f$ (Imaginary part).
+    gslpp::complex CuH_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{uH})_{ij}\f$ at the EW scale.
     double CdH_11r_LNP = 0., CdH_12r_LNP = 0., CdH_13r_LNP = 0., CdH_21r_LNP = 0., CdH_22r_LNP = 0., CdH_23r_LNP = 0., CdH_31r_LNP = 0., CdH_32r_LNP = 0., CdH_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{dH})_{ij}\f$ (Real part and pure real operator).
     double CdH_11i_LNP = 0., CdH_12i_LNP = 0., CdH_13i_LNP = 0., CdH_21i_LNP = 0., CdH_22i_LNP = 0., CdH_23i_LNP = 0., CdH_31i_LNP = 0., CdH_32i_LNP = 0., CdH_33i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{dH})_{ij}\f$ (Imaginary part).
+    gslpp::complex CdH_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{dH})_{ij}\f$ at the EW scale.
     double CuG_11r_LNP = 0., CuG_12r_LNP = 0., CuG_13r_LNP = 0., CuG_21r_LNP = 0., CuG_22r_LNP = 0., CuG_23r_LNP = 0., CuG_31r_LNP = 0., CuG_32r_LNP = 0., CuG_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uG})_{ij}\f$ (Real part and pure real operator).
     double CuG_11i_LNP = 0., CuG_12i_LNP = 0., CuG_13i_LNP = 0., CuG_21i_LNP = 0., CuG_22i_LNP = 0., CuG_23i_LNP = 0., CuG_31i_LNP = 0., CuG_32i_LNP = 0., CuG_33i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uG})_{ij}\f$ (Imaginary part).
+    gslpp::complex CuG_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{uG})_{ij}\f$ at the EW scale.
     double CuW_11r_LNP = 0., CuW_12r_LNP = 0., CuW_13r_LNP = 0., CuW_21r_LNP = 0., CuW_22r_LNP = 0., CuW_23r_LNP = 0., CuW_31r_LNP = 0., CuW_32r_LNP = 0., CuW_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uW})_{ij}\f$ (Real part and pure real operator).
     double CuW_11i_LNP = 0., CuW_12i_LNP = 0., CuW_13i_LNP = 0., CuW_21i_LNP = 0., CuW_22i_LNP = 0., CuW_23i_LNP = 0., CuW_31i_LNP = 0., CuW_32i_LNP = 0., CuW_33i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uW})_{ij}\f$ (Imaginary part).
+    gslpp::complex CuW_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{uW})_{ij}\f$ at the EW scale.
     double CuB_11r_LNP = 0., CuB_12r_LNP = 0., CuB_13r_LNP = 0., CuB_21r_LNP = 0., CuB_22r_LNP = 0., CuB_23r_LNP = 0., CuB_31r_LNP = 0., CuB_32r_LNP = 0., CuB_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uB})_{ij}\f$ (Real part and pure real operator).
     double CuB_11i_LNP = 0., CuB_12i_LNP = 0., CuB_13i_LNP = 0., CuB_21i_LNP = 0., CuB_22i_LNP = 0., CuB_23i_LNP = 0., CuB_31i_LNP = 0., CuB_32i_LNP = 0., CuB_33i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uB})_{ij}\f$ (Imaginary part).
+    gslpp::complex CuB_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{uB})_{ij}\f$ at the EW scale.
     double CdG_11r_LNP = 0., CdG_12r_LNP = 0., CdG_13r_LNP = 0., CdG_21r_LNP = 0., CdG_22r_LNP = 0., CdG_23r_LNP = 0., CdG_31r_LNP = 0., CdG_32r_LNP = 0., CdG_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{dG})_{ij}\f$ (Real part and pure real operator).
     double CdG_11i_LNP = 0., CdG_12i_LNP = 0., CdG_13i_LNP = 0., CdG_21i_LNP = 0., CdG_22i_LNP = 0., CdG_23i_LNP = 0., CdG_31i_LNP = 0., CdG_32i_LNP = 0., CdG_33i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{dG})_{ij}\f$ (Imaginary part).
+    gslpp::complex CdG_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{dG})_{ij}\f$ at the EW scale.
     double CdW_11r_LNP = 0., CdW_12r_LNP = 0., CdW_13r_LNP = 0., CdW_21r_LNP = 0., CdW_22r_LNP = 0., CdW_23r_LNP = 0., CdW_31r_LNP = 0., CdW_32r_LNP = 0., CdW_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{dW})_{ij}\f$ (Real part and pure real operator).
     double CdW_11i_LNP = 0., CdW_12i_LNP = 0., CdW_13i_LNP = 0., CdW_21i_LNP = 0., CdW_22i_LNP = 0., CdW_23i_LNP = 0., CdW_31i_LNP = 0., CdW_32i_LNP = 0., CdW_33i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{dW})_{ij}\f$ (Imaginary part).
+    gslpp::complex CdW_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{dW})_{ij}\f$ at the EW scale.
     double CdB_11r_LNP = 0., CdB_12r_LNP = 0., CdB_13r_LNP = 0., CdB_21r_LNP = 0., CdB_22r_LNP = 0., CdB_23r_LNP = 0., CdB_31r_LNP = 0., CdB_32r_LNP = 0., CdB_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{dB})_{ij}\f$ (Real part and pure real operator).
     double CdB_11i_LNP = 0., CdB_12i_LNP = 0., CdB_13i_LNP = 0., CdB_21i_LNP = 0., CdB_22i_LNP = 0., CdB_23i_LNP = 0., CdB_31i_LNP = 0., CdB_32i_LNP = 0., CdB_33i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{dB})_{ij}\f$ (Imaginary part).
+    gslpp::complex CdB_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{dB})_{ij}\f$ at the EW scale.
     double CeW_11r_LNP = 0., CeW_12r_LNP = 0., CeW_13r_LNP = 0., CeW_21r_LNP = 0., CeW_22r_LNP = 0., CeW_23r_LNP = 0., CeW_31r_LNP = 0., CeW_32r_LNP = 0., CeW_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{eW})_{ij}\f$ (Real part and pure real operator).
     double CeW_11i_LNP = 0., CeW_12i_LNP = 0., CeW_13i_LNP = 0., CeW_21i_LNP = 0., CeW_22i_LNP = 0., CeW_23i_LNP = 0., CeW_31i_LNP = 0., CeW_32i_LNP = 0., CeW_33i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{eW})_{ij}\f$ (Imaginary part).
+    gslpp::complex CeW_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{eW})_{ij}\f$ at the EW scale.
     double CeB_11r_LNP = 0., CeB_12r_LNP = 0., CeB_13r_LNP = 0., CeB_21r_LNP = 0., CeB_22r_LNP = 0., CeB_23r_LNP = 0., CeB_31r_LNP = 0., CeB_32r_LNP = 0., CeB_33r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{eB})_{ij}\f$ (Real part and pure real operator).
     double CeB_11i_LNP = 0., CeB_12i_LNP = 0., CeB_13i_LNP = 0., CeB_21i_LNP = 0., CeB_22i_LNP = 0., CeB_23i_LNP = 0., CeB_31i_LNP = 0., CeB_32i_LNP = 0., CeB_33i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{eB})_{ij}\f$ (Imaginary part).
+    gslpp::complex CeB_EW[3][3]; ///< The dimension-6 operator coefficient \f$(C_{eB})_{ij}\f$ at the EW scale.
     double Cll_1111r_LNP = 0., Cll_1112r_LNP = 0., Cll_1113r_LNP = 0., Cll_1122r_LNP = 0., Cll_1123r_LNP = 0., Cll_1133r_LNP = 0., Cll_1212r_LNP = 0., Cll_1213r_LNP = 0., Cll_1221r_LNP = 0.,
             Cll_1222r_LNP = 0., Cll_1223r_LNP = 0., Cll_1231r_LNP = 0., Cll_1232r_LNP = 0., Cll_1233r_LNP = 0., Cll_1313r_LNP = 0., Cll_1322r_LNP = 0., Cll_1323r_LNP = 0., Cll_1331r_LNP = 0.,
             Cll_1332r_LNP = 0., Cll_1333r_LNP = 0., Cll_2222r_LNP = 0., Cll_2223r_LNP = 0., Cll_2233r_LNP = 0., Cll_2323r_LNP = 0., Cll_2332r_LNP = 0., Cll_2333r_LNP = 0., Cll_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ll})_{ijkm}\f$ (Real part and pure real operator).
     double Cll_1112i_LNP = 0., Cll_1113i_LNP = 0., Cll_1123i_LNP = 0., Cll_1212i_LNP = 0., Cll_1213i_LNP = 0., Cll_1222i_LNP = 0., Cll_1223i_LNP = 0., Cll_1231i_LNP = 0., Cll_1232i_LNP = 0.,
             Cll_1233i_LNP = 0., Cll_1313i_LNP = 0., Cll_1322i_LNP = 0., Cll_1323i_LNP = 0., Cll_1332i_LNP = 0., Cll_1333i_LNP = 0., Cll_2223i_LNP = 0., Cll_2323i_LNP = 0., Cll_2333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ll})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cll_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{ll})_{ijkl}\f$ at the EW scale.
     double Clq1_1111r_LNP = 0., Clq1_1112r_LNP = 0., Clq1_1113r_LNP = 0., Clq1_1122r_LNP = 0., Clq1_1123r_LNP = 0., Clq1_1133r_LNP = 0., Clq1_1211r_LNP = 0., Clq1_1212r_LNP = 0., Clq1_1213r_LNP = 0.,
             Clq1_1221r_LNP = 0., Clq1_1222r_LNP = 0., Clq1_1223r_LNP = 0., Clq1_1231r_LNP = 0., Clq1_1232r_LNP = 0., Clq1_1233r_LNP = 0., Clq1_1311r_LNP = 0., Clq1_1312r_LNP = 0., Clq1_1313r_LNP = 0.,
             Clq1_1321r_LNP = 0., Clq1_1322r_LNP = 0., Clq1_1323r_LNP = 0., Clq1_1331r_LNP = 0., Clq1_1332r_LNP = 0., Clq1_1333r_LNP = 0., Clq1_2211r_LNP = 0., Clq1_2212r_LNP = 0., Clq1_2213r_LNP = 0.,
@@ -7425,6 +7818,7 @@ protected:
             Clq1_1231i_LNP = 0., Clq1_1232i_LNP = 0., Clq1_1233i_LNP = 0., Clq1_1311i_LNP = 0., Clq1_1312i_LNP = 0., Clq1_1313i_LNP = 0., Clq1_1321i_LNP = 0., Clq1_1322i_LNP = 0., Clq1_1323i_LNP = 0.,
             Clq1_1331i_LNP = 0., Clq1_1332i_LNP = 0., Clq1_1333i_LNP = 0., Clq1_2212i_LNP = 0., Clq1_2213i_LNP = 0., Clq1_2223i_LNP = 0., Clq1_2311i_LNP = 0., Clq1_2312i_LNP = 0., Clq1_2313i_LNP = 0., Clq1_2321i_LNP = 0.,
             Clq1_2322i_LNP = 0., Clq1_2323i_LNP = 0., Clq1_2331i_LNP = 0., Clq1_2332i_LNP = 0., Clq1_2333i_LNP = 0., Clq1_3312i_LNP = 0., Clq1_3313i_LNP = 0., Clq1_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lq}^{(1)})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Clq1_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{lq}^{(1)})_{ijkl}\f$ at the EW scale.
     double Clq3_1111r_LNP = 0., Clq3_1112r_LNP = 0., Clq3_1113r_LNP = 0., Clq3_1122r_LNP = 0., Clq3_1123r_LNP = 0., Clq3_1133r_LNP = 0., Clq3_1211r_LNP = 0., Clq3_1212r_LNP = 0., Clq3_1213r_LNP = 0.,
             Clq3_1221r_LNP = 0., Clq3_1222r_LNP = 0., Clq3_1223r_LNP = 0., Clq3_1231r_LNP = 0., Clq3_1232r_LNP = 0., Clq3_1233r_LNP = 0., Clq3_1311r_LNP = 0., Clq3_1312r_LNP = 0., Clq3_1313r_LNP = 0.,
             Clq3_1321r_LNP = 0., Clq3_1322r_LNP = 0., Clq3_1323r_LNP = 0., Clq3_1331r_LNP = 0., Clq3_1332r_LNP = 0., Clq3_1333r_LNP = 0., Clq3_2211r_LNP = 0., Clq3_2212r_LNP = 0., Clq3_2213r_LNP = 0.,
@@ -7434,11 +7828,13 @@ protected:
             Clq3_1231i_LNP = 0., Clq3_1232i_LNP = 0., Clq3_1233i_LNP = 0., Clq3_1311i_LNP = 0., Clq3_1312i_LNP = 0., Clq3_1313i_LNP = 0., Clq3_1321i_LNP = 0., Clq3_1322i_LNP = 0., Clq3_1323i_LNP = 0.,
             Clq3_1331i_LNP = 0., Clq3_1332i_LNP = 0., Clq3_1333i_LNP = 0., Clq3_2212i_LNP = 0., Clq3_2213i_LNP = 0., Clq3_2223i_LNP = 0., Clq3_2311i_LNP = 0., Clq3_2312i_LNP = 0., Clq3_2313i_LNP = 0., Clq3_2321i_LNP = 0.,
             Clq3_2322i_LNP = 0., Clq3_2323i_LNP = 0., Clq3_2331i_LNP = 0., Clq3_2332i_LNP = 0., Clq3_2333i_LNP = 0., Clq3_3312i_LNP = 0., Clq3_3313i_LNP = 0., Clq3_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lq}^{(3)})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Clq3_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{lq}^{(3)})_{ijkl}\f$ at the EW scale.
     double Cee_1111r_LNP = 0., Cee_1112r_LNP = 0., Cee_1113r_LNP = 0., Cee_1122r_LNP = 0., Cee_1123r_LNP = 0., Cee_1133r_LNP = 0., Cee_1212r_LNP = 0., Cee_1213r_LNP = 0., Cee_1222r_LNP = 0.,
             Cee_1223r_LNP = 0., Cee_1232r_LNP = 0., Cee_1233r_LNP = 0., Cee_1313r_LNP = 0., Cee_1323r_LNP = 0., Cee_1333r_LNP = 0., Cee_2222r_LNP = 0., Cee_2223r_LNP = 0., Cee_2233r_LNP = 0.,
             Cee_2323r_LNP = 0., Cee_2333r_LNP = 0., Cee_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ee})_{ijkm}\f$ (Real part and pure real operator).
     double Cee_1112i_LNP = 0., Cee_1113i_LNP = 0., Cee_1123i_LNP = 0., Cee_1212i_LNP = 0., Cee_1213i_LNP = 0., Cee_1222i_LNP = 0., Cee_1223i_LNP = 0., Cee_1232i_LNP = 0., Cee_1233i_LNP = 0.,
             Cee_1313i_LNP = 0., Cee_1323i_LNP = 0., Cee_1333i_LNP = 0., Cee_2223i_LNP = 0., Cee_2323i_LNP = 0., Cee_2333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ee})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cee_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{ee})_{ijkl}\f$ at the EW scale.
     double Ceu_1111r_LNP = 0., Ceu_1112r_LNP = 0., Ceu_1113r_LNP = 0., Ceu_1122r_LNP = 0., Ceu_1123r_LNP = 0., Ceu_1133r_LNP = 0., Ceu_1211r_LNP = 0., Ceu_1212r_LNP = 0., Ceu_1213r_LNP = 0.,
             Ceu_1221r_LNP = 0., Ceu_1222r_LNP = 0., Ceu_1223r_LNP = 0., Ceu_1231r_LNP = 0., Ceu_1232r_LNP = 0., Ceu_1233r_LNP = 0., Ceu_1311r_LNP = 0., Ceu_1312r_LNP = 0., Ceu_1313r_LNP = 0.,
             Ceu_1321r_LNP = 0., Ceu_1322r_LNP = 0., Ceu_1323r_LNP = 0., Ceu_1331r_LNP = 0., Ceu_1332r_LNP = 0., Ceu_1333r_LNP = 0., Ceu_2211r_LNP = 0., Ceu_2212r_LNP = 0., Ceu_2213r_LNP = 0.,
@@ -7448,6 +7844,7 @@ protected:
             Ceu_1231i_LNP = 0., Ceu_1232i_LNP = 0., Ceu_1233i_LNP = 0., Ceu_1311i_LNP = 0., Ceu_1312i_LNP = 0., Ceu_1313i_LNP = 0., Ceu_1321i_LNP = 0., Ceu_1322i_LNP = 0., Ceu_1323i_LNP = 0.,
             Ceu_1331i_LNP = 0., Ceu_1332i_LNP = 0., Ceu_1333i_LNP = 0., Ceu_2212i_LNP = 0., Ceu_2213i_LNP = 0., Ceu_2223i_LNP = 0., Ceu_2312i_LNP = 0., Ceu_2313i_LNP = 0., Ceu_2321i_LNP = 0.,
             Ceu_2322i_LNP = 0., Ceu_2323i_LNP = 0., Ceu_2331i_LNP = 0., Ceu_2332i_LNP = 0., Ceu_2333i_LNP = 0., Ceu_2311i_LNP = 0., Ceu_3312i_LNP = 0., Ceu_3313i_LNP = 0., Ceu_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{eu})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Ceu_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{eu})_{ijkl}\f$ at the EW scale.
     double Ced_1111r_LNP = 0., Ced_1112r_LNP = 0., Ced_1113r_LNP = 0., Ced_1122r_LNP = 0., Ced_1123r_LNP = 0., Ced_1133r_LNP = 0., Ced_1211r_LNP = 0., Ced_1212r_LNP = 0., Ced_1213r_LNP = 0.,
             Ced_1221r_LNP = 0., Ced_1222r_LNP = 0., Ced_1223r_LNP = 0., Ced_1231r_LNP = 0., Ced_1232r_LNP = 0., Ced_1233r_LNP = 0., Ced_1311r_LNP = 0., Ced_1312r_LNP = 0., Ced_1313r_LNP = 0.,
             Ced_1321r_LNP = 0., Ced_1322r_LNP = 0., Ced_1323r_LNP = 0., Ced_1331r_LNP = 0., Ced_1332r_LNP = 0., Ced_1333r_LNP = 0., Ced_2211r_LNP = 0., Ced_2212r_LNP = 0., Ced_2213r_LNP = 0.,
@@ -7457,6 +7854,7 @@ protected:
             Ced_1231i_LNP = 0., Ced_1232i_LNP = 0., Ced_1233i_LNP = 0., Ced_1311i_LNP = 0., Ced_1312i_LNP = 0., Ced_1313i_LNP = 0., Ced_1321i_LNP = 0., Ced_1322i_LNP = 0., Ced_1323i_LNP = 0.,
             Ced_1331i_LNP = 0., Ced_1332i_LNP = 0., Ced_1333i_LNP = 0., Ced_2212i_LNP = 0., Ced_2213i_LNP = 0., Ced_2223i_LNP = 0., Ced_2312i_LNP = 0., Ced_2313i_LNP = 0., Ced_2321i_LNP = 0.,
             Ced_2322i_LNP = 0., Ced_2323i_LNP = 0., Ced_2331i_LNP = 0., Ced_2332i_LNP = 0., Ced_2333i_LNP = 0., Ced_2311i_LNP = 0., Ced_3312i_LNP = 0., Ced_3313i_LNP = 0., Ced_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ed})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Ced_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{ed})_{ijkl}\f$ at the EW scale.
     double Cle_1111r_LNP = 0., Cle_1112r_LNP = 0., Cle_1113r_LNP = 0., Cle_1122r_LNP = 0., Cle_1123r_LNP = 0., Cle_1133r_LNP = 0., Cle_1211r_LNP = 0., Cle_1212r_LNP = 0., Cle_1213r_LNP = 0.,
             Cle_1221r_LNP = 0., Cle_1222r_LNP = 0., Cle_1223r_LNP = 0., Cle_1231r_LNP = 0., Cle_1232r_LNP = 0., Cle_1233r_LNP = 0., Cle_1311r_LNP = 0., Cle_1312r_LNP = 0., Cle_1313r_LNP = 0.,
             Cle_1321r_LNP = 0., Cle_1322r_LNP = 0., Cle_1323r_LNP = 0., Cle_1331r_LNP = 0., Cle_1332r_LNP = 0., Cle_1333r_LNP = 0., Cle_2211r_LNP = 0., Cle_2212r_LNP = 0., Cle_2213r_LNP = 0.,
@@ -7466,6 +7864,7 @@ protected:
             Cle_1231i_LNP = 0., Cle_1232i_LNP = 0., Cle_1233i_LNP = 0., Cle_1311i_LNP = 0., Cle_1312i_LNP = 0., Cle_1313i_LNP = 0., Cle_1321i_LNP = 0., Cle_1322i_LNP = 0., Cle_1323i_LNP = 0.,
             Cle_1331i_LNP = 0., Cle_1332i_LNP = 0., Cle_1333i_LNP = 0., Cle_2212i_LNP = 0., Cle_2213i_LNP = 0., Cle_2223i_LNP = 0., Cle_2312i_LNP = 0., Cle_2313i_LNP = 0., Cle_2321i_LNP = 0.,
             Cle_2322i_LNP = 0., Cle_2323i_LNP = 0., Cle_2331i_LNP = 0., Cle_2332i_LNP = 0., Cle_2333i_LNP = 0., Cle_2311i_LNP = 0., Cle_3312i_LNP = 0., Cle_3313i_LNP = 0., Cle_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{le})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cle_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{le})_{ijkl}\f$ at the EW scale.
     double Clu_1111r_LNP = 0., Clu_1112r_LNP = 0., Clu_1113r_LNP = 0., Clu_1122r_LNP = 0., Clu_1123r_LNP = 0., Clu_1133r_LNP = 0., Clu_1211r_LNP = 0., Clu_1212r_LNP = 0., Clu_1213r_LNP = 0.,
             Clu_1221r_LNP = 0., Clu_1222r_LNP = 0., Clu_1223r_LNP = 0., Clu_1231r_LNP = 0., Clu_1232r_LNP = 0., Clu_1233r_LNP = 0., Clu_1311r_LNP = 0., Clu_1312r_LNP = 0., Clu_1313r_LNP = 0.,
             Clu_1321r_LNP = 0., Clu_1322r_LNP = 0., Clu_1323r_LNP = 0., Clu_1331r_LNP = 0., Clu_1332r_LNP = 0., Clu_1333r_LNP = 0., Clu_2211r_LNP = 0., Clu_2212r_LNP = 0., Clu_2213r_LNP = 0.,
@@ -7475,6 +7874,7 @@ protected:
             Clu_1231i_LNP = 0., Clu_1232i_LNP = 0., Clu_1233i_LNP = 0., Clu_1311i_LNP = 0., Clu_1312i_LNP = 0., Clu_1313i_LNP = 0., Clu_1321i_LNP = 0., Clu_1322i_LNP = 0., Clu_1323i_LNP = 0.,
             Clu_1331i_LNP = 0., Clu_1332i_LNP = 0., Clu_1333i_LNP = 0., Clu_2212i_LNP = 0., Clu_2213i_LNP = 0., Clu_2223i_LNP = 0., Clu_2312i_LNP = 0., Clu_2313i_LNP = 0., Clu_2321i_LNP = 0.,
             Clu_2322i_LNP = 0., Clu_2323i_LNP = 0., Clu_2331i_LNP = 0., Clu_2332i_LNP = 0., Clu_2333i_LNP = 0., Clu_2311i_LNP = 0., Clu_3312i_LNP = 0., Clu_3313i_LNP = 0., Clu_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lu})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Clu_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{lu})_{ijkl}\f$ at the EW scale.
     double Cld_1111r_LNP = 0., Cld_1112r_LNP = 0., Cld_1113r_LNP = 0., Cld_1122r_LNP = 0., Cld_1123r_LNP = 0., Cld_1133r_LNP = 0., Cld_1211r_LNP = 0., Cld_1212r_LNP = 0., Cld_1213r_LNP = 0.,
             Cld_1221r_LNP = 0., Cld_1222r_LNP = 0., Cld_1223r_LNP = 0., Cld_1231r_LNP = 0., Cld_1232r_LNP = 0., Cld_1233r_LNP = 0., Cld_1311r_LNP = 0., Cld_1312r_LNP = 0., Cld_1313r_LNP = 0.,
             Cld_1321r_LNP = 0., Cld_1322r_LNP = 0., Cld_1323r_LNP = 0., Cld_1331r_LNP = 0., Cld_1332r_LNP = 0., Cld_1333r_LNP = 0., Cld_2211r_LNP = 0., Cld_2212r_LNP = 0., Cld_2213r_LNP = 0.,
@@ -7484,6 +7884,7 @@ protected:
             Cld_1231i_LNP = 0., Cld_1232i_LNP = 0., Cld_1233i_LNP = 0., Cld_1311i_LNP = 0., Cld_1312i_LNP = 0., Cld_1313i_LNP = 0., Cld_1321i_LNP = 0., Cld_1322i_LNP = 0., Cld_1323i_LNP = 0.,
             Cld_1331i_LNP = 0., Cld_1332i_LNP = 0., Cld_1333i_LNP = 0., Cld_2212i_LNP = 0., Cld_2213i_LNP = 0., Cld_2223i_LNP = 0., Cld_2312i_LNP = 0., Cld_2313i_LNP = 0., Cld_2321i_LNP = 0.,
             Cld_2322i_LNP = 0., Cld_2323i_LNP = 0., Cld_2331i_LNP = 0., Cld_2332i_LNP = 0., Cld_2333i_LNP = 0., Cld_2311i_LNP = 0., Cld_3312i_LNP = 0., Cld_3313i_LNP = 0., Cld_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ld})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cld_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{ld})_{ijkl}\f$ at the EW scale.
     double Cqe_1111r_LNP = 0., Cqe_1112r_LNP = 0., Cqe_1113r_LNP = 0., Cqe_1122r_LNP = 0., Cqe_1123r_LNP = 0., Cqe_1133r_LNP = 0., Cqe_1211r_LNP = 0., Cqe_1212r_LNP = 0., Cqe_1213r_LNP = 0.,
             Cqe_1221r_LNP = 0., Cqe_1222r_LNP = 0., Cqe_1223r_LNP = 0., Cqe_1231r_LNP = 0., Cqe_1232r_LNP = 0., Cqe_1233r_LNP = 0., Cqe_1311r_LNP = 0., Cqe_1312r_LNP = 0., Cqe_1313r_LNP = 0.,
             Cqe_1321r_LNP = 0., Cqe_1322r_LNP = 0., Cqe_1323r_LNP = 0., Cqe_1331r_LNP = 0., Cqe_1332r_LNP = 0., Cqe_1333r_LNP = 0., Cqe_2211r_LNP = 0., Cqe_2212r_LNP = 0., Cqe_2213r_LNP = 0.,
@@ -7493,6 +7894,7 @@ protected:
             Cqe_1231i_LNP = 0., Cqe_1232i_LNP = 0., Cqe_1233i_LNP = 0., Cqe_1311i_LNP = 0., Cqe_1312i_LNP = 0., Cqe_1313i_LNP = 0., Cqe_1321i_LNP = 0., Cqe_1322i_LNP = 0., Cqe_1323i_LNP = 0.,
             Cqe_1331i_LNP = 0., Cqe_1332i_LNP = 0., Cqe_1333i_LNP = 0., Cqe_2212i_LNP = 0., Cqe_2213i_LNP = 0., Cqe_2223i_LNP = 0., Cqe_2312i_LNP = 0., Cqe_2313i_LNP = 0., Cqe_2321i_LNP = 0.,
             Cqe_2322i_LNP = 0., Cqe_2323i_LNP = 0., Cqe_2331i_LNP = 0., Cqe_2332i_LNP = 0., Cqe_2333i_LNP = 0., Cqe_2311i_LNP = 0., Cqe_3312i_LNP = 0., Cqe_3313i_LNP = 0., Cqe_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qe})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cqe_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{qe})_{ijkl}\f$ at the EW scale.
     double Cledq_1111r_LNP = 0., Cledq_1112r_LNP = 0., Cledq_1113r_LNP = 0., Cledq_1121r_LNP = 0., Cledq_1122r_LNP = 0., Cledq_1123r_LNP = 0., Cledq_1131r_LNP = 0., Cledq_1132r_LNP = 0., Cledq_1133r_LNP = 0.,
             Cledq_1211r_LNP = 0., Cledq_1212r_LNP = 0., Cledq_1213r_LNP = 0., Cledq_1221r_LNP = 0., Cledq_1222r_LNP = 0., Cledq_1223r_LNP = 0., Cledq_1231r_LNP = 0., Cledq_1232r_LNP = 0., Cledq_1233r_LNP = 0.,
             Cledq_1311r_LNP = 0., Cledq_1312r_LNP = 0., Cledq_1313r_LNP = 0., Cledq_1321r_LNP = 0., Cledq_1322r_LNP = 0., Cledq_1323r_LNP = 0., Cledq_1331r_LNP = 0., Cledq_1332r_LNP = 0., Cledq_1333r_LNP = 0.,
@@ -7511,26 +7913,31 @@ protected:
             Cledq_3111i_LNP = 0., Cledq_3112i_LNP = 0., Cledq_3113i_LNP = 0., Cledq_3121i_LNP = 0., Cledq_3122i_LNP = 0., Cledq_3123i_LNP = 0., Cledq_3131i_LNP = 0., Cledq_3132i_LNP = 0., Cledq_3133i_LNP = 0.,
             Cledq_3211i_LNP = 0., Cledq_3212i_LNP = 0., Cledq_3213i_LNP = 0., Cledq_3221i_LNP = 0., Cledq_3222i_LNP = 0., Cledq_3223i_LNP = 0., Cledq_3231i_LNP = 0., Cledq_3232i_LNP = 0., Cledq_3233i_LNP = 0.,
             Cledq_3311i_LNP = 0., Cledq_3312i_LNP = 0., Cledq_3313i_LNP = 0., Cledq_3321i_LNP = 0., Cledq_3322i_LNP = 0., Cledq_3323i_LNP = 0., Cledq_3331i_LNP = 0., Cledq_3332i_LNP = 0., Cledq_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ledq})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cledq_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{ledq})_{ijkl}\f$ at the EW scale.
     double Cqq1_1111r_LNP = 0., Cqq1_1112r_LNP = 0., Cqq1_1113r_LNP = 0., Cqq1_1122r_LNP = 0., Cqq1_1123r_LNP = 0., Cqq1_1133r_LNP = 0., Cqq1_1212r_LNP = 0., Cqq1_1213r_LNP = 0., Cqq1_1221r_LNP = 0.,
             Cqq1_1222r_LNP = 0., Cqq1_1223r_LNP = 0., Cqq1_1231r_LNP = 0., Cqq1_1232r_LNP = 0., Cqq1_1233r_LNP = 0., Cqq1_1313r_LNP = 0., Cqq1_1322r_LNP = 0., Cqq1_1323r_LNP = 0., Cqq1_1331r_LNP = 0.,
             Cqq1_1332r_LNP = 0., Cqq1_1333r_LNP = 0., Cqq1_2222r_LNP = 0., Cqq1_2223r_LNP = 0., Cqq1_2233r_LNP = 0., Cqq1_2323r_LNP = 0., Cqq1_2332r_LNP = 0., Cqq1_2333r_LNP = 0., Cqq1_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(1)})_{ijkm}\f$ (Real part and pure real operator).
     double Cqq1_1112i_LNP = 0., Cqq1_1113i_LNP = 0., Cqq1_1123i_LNP = 0., Cqq1_1212i_LNP = 0., Cqq1_1213i_LNP = 0., Cqq1_1222i_LNP = 0., Cqq1_1223i_LNP = 0., Cqq1_1231i_LNP = 0., Cqq1_1232i_LNP = 0.,
             Cqq1_1233i_LNP = 0., Cqq1_1313i_LNP = 0., Cqq1_1322i_LNP = 0., Cqq1_1323i_LNP = 0., Cqq1_1332i_LNP = 0., Cqq1_1333i_LNP = 0., Cqq1_2223i_LNP = 0., Cqq1_2323i_LNP = 0., Cqq1_2333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(1)})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cqq1_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(1)})_{ijkl}\f$ at the EW scale.
     double Cqq3_1111r_LNP = 0., Cqq3_1112r_LNP = 0., Cqq3_1113r_LNP = 0., Cqq3_1122r_LNP = 0., Cqq3_1123r_LNP = 0., Cqq3_1133r_LNP = 0., Cqq3_1212r_LNP = 0., Cqq3_1213r_LNP = 0., Cqq3_1221r_LNP = 0.,
             Cqq3_1222r_LNP = 0., Cqq3_1223r_LNP = 0., Cqq3_1231r_LNP = 0., Cqq3_1232r_LNP = 0., Cqq3_1233r_LNP = 0., Cqq3_1313r_LNP = 0., Cqq3_1322r_LNP = 0., Cqq3_1323r_LNP = 0., Cqq3_1331r_LNP = 0.,
             Cqq3_1332r_LNP = 0., Cqq3_1333r_LNP = 0., Cqq3_2222r_LNP = 0., Cqq3_2223r_LNP = 0., Cqq3_2233r_LNP = 0., Cqq3_2323r_LNP = 0., Cqq3_2332r_LNP = 0., Cqq3_2333r_LNP = 0., Cqq3_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(3)})_{ijkm}\f$ (Real part and pure real operator).
     double Cqq3_1112i_LNP = 0., Cqq3_1113i_LNP = 0., Cqq3_1123i_LNP = 0., Cqq3_1212i_LNP = 0., Cqq3_1213i_LNP = 0., Cqq3_1222i_LNP = 0., Cqq3_1223i_LNP = 0., Cqq3_1231i_LNP = 0., Cqq3_1232i_LNP = 0.,
             Cqq3_1233i_LNP = 0., Cqq3_1313i_LNP = 0., Cqq3_1322i_LNP = 0., Cqq3_1323i_LNP = 0., Cqq3_1332i_LNP = 0., Cqq3_1333i_LNP = 0., Cqq3_2223i_LNP = 0., Cqq3_2323i_LNP = 0., Cqq3_2333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(3)})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cqq3_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{qq}^{(3)})_{ijkl}\f$ at the EW scale.
     double Cuu_1111r_LNP = 0., Cuu_1112r_LNP = 0., Cuu_1113r_LNP = 0., Cuu_1122r_LNP = 0., Cuu_1123r_LNP = 0., Cuu_1133r_LNP = 0., Cuu_1212r_LNP = 0., Cuu_1213r_LNP = 0., Cuu_1221r_LNP = 0.,
             Cuu_1222r_LNP = 0., Cuu_1223r_LNP = 0., Cuu_1231r_LNP = 0., Cuu_1232r_LNP = 0., Cuu_1233r_LNP = 0., Cuu_1313r_LNP = 0., Cuu_1322r_LNP = 0., Cuu_1323r_LNP = 0., Cuu_1331r_LNP = 0.,
             Cuu_1332r_LNP = 0., Cuu_1333r_LNP = 0., Cuu_2222r_LNP = 0., Cuu_2223r_LNP = 0., Cuu_2233r_LNP = 0., Cuu_2323r_LNP = 0., Cuu_2332r_LNP = 0., Cuu_2333r_LNP = 0., Cuu_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uu})_{ijkm}\f$ (Real part and pure real operator).
     double Cuu_1112i_LNP = 0., Cuu_1113i_LNP = 0., Cuu_1123i_LNP = 0., Cuu_1212i_LNP = 0., Cuu_1213i_LNP = 0., Cuu_1222i_LNP = 0., Cuu_1223i_LNP = 0., Cuu_1231i_LNP = 0., Cuu_1232i_LNP = 0.,
             Cuu_1233i_LNP = 0., Cuu_1313i_LNP = 0., Cuu_1322i_LNP = 0., Cuu_1323i_LNP = 0., Cuu_1332i_LNP = 0., Cuu_1333i_LNP = 0., Cuu_2223i_LNP = 0., Cuu_2323i_LNP = 0., Cuu_2333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{uu})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cuu_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{uu})_{ijkl}\f$ at the EW scale.
     double Cdd_1111r_LNP = 0., Cdd_1112r_LNP = 0., Cdd_1113r_LNP = 0., Cdd_1122r_LNP = 0., Cdd_1123r_LNP = 0., Cdd_1133r_LNP = 0., Cdd_1212r_LNP = 0., Cdd_1213r_LNP = 0., Cdd_1221r_LNP = 0.,
             Cdd_1222r_LNP = 0., Cdd_1223r_LNP = 0., Cdd_1231r_LNP = 0., Cdd_1232r_LNP = 0., Cdd_1233r_LNP = 0., Cdd_1313r_LNP = 0., Cdd_1322r_LNP = 0., Cdd_1323r_LNP = 0., Cdd_1331r_LNP = 0.,
             Cdd_1332r_LNP = 0., Cdd_1333r_LNP = 0., Cdd_2222r_LNP = 0., Cdd_2223r_LNP = 0., Cdd_2233r_LNP = 0., Cdd_2323r_LNP = 0., Cdd_2332r_LNP = 0., Cdd_2333r_LNP = 0., Cdd_3333r_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{dd})_{ijkm}\f$ (Real part and pure real operator).
     double Cdd_1112i_LNP = 0., Cdd_1113i_LNP = 0., Cdd_1123i_LNP = 0., Cdd_1212i_LNP = 0., Cdd_1213i_LNP = 0., Cdd_1222i_LNP = 0., Cdd_1223i_LNP = 0., Cdd_1231i_LNP = 0., Cdd_1232i_LNP = 0.,
             Cdd_1233i_LNP = 0., Cdd_1313i_LNP = 0., Cdd_1322i_LNP = 0., Cdd_1323i_LNP = 0., Cdd_1332i_LNP = 0., Cdd_1333i_LNP = 0., Cdd_2223i_LNP = 0., Cdd_2323i_LNP = 0., Cdd_2333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{dd})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cdd_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{dd})_{ijkl}\f$ at the EW scale.
     double Cud1_1111r_LNP = 0., Cud1_1112r_LNP = 0., Cud1_1113r_LNP = 0., Cud1_1122r_LNP = 0., Cud1_1123r_LNP = 0., Cud1_1133r_LNP = 0., Cud1_1211r_LNP = 0., Cud1_1212r_LNP = 0., Cud1_1213r_LNP = 0.,
             Cud1_1221r_LNP = 0., Cud1_1222r_LNP = 0., Cud1_1223r_LNP = 0., Cud1_1231r_LNP = 0., Cud1_1232r_LNP = 0., Cud1_1233r_LNP = 0., Cud1_1311r_LNP = 0., Cud1_1312r_LNP = 0., Cud1_1313r_LNP = 0.,
             Cud1_1321r_LNP = 0., Cud1_1322r_LNP = 0., Cud1_1323r_LNP = 0., Cud1_1331r_LNP = 0., Cud1_1332r_LNP = 0., Cud1_1333r_LNP = 0., Cud1_2211r_LNP = 0., Cud1_2212r_LNP = 0., Cud1_2213r_LNP = 0.,
@@ -7540,6 +7947,7 @@ protected:
             Cud1_1231i_LNP = 0., Cud1_1232i_LNP = 0., Cud1_1233i_LNP = 0., Cud1_1311i_LNP = 0., Cud1_1312i_LNP = 0., Cud1_1313i_LNP = 0., Cud1_1321i_LNP = 0., Cud1_1322i_LNP = 0., Cud1_1323i_LNP = 0.,
             Cud1_1331i_LNP = 0., Cud1_1332i_LNP = 0., Cud1_1333i_LNP = 0., Cud1_2212i_LNP = 0., Cud1_2213i_LNP = 0., Cud1_2223i_LNP = 0., Cud1_2312i_LNP = 0., Cud1_2313i_LNP = 0., Cud1_2321i_LNP = 0.,
             Cud1_2322i_LNP = 0., Cud1_2323i_LNP = 0., Cud1_2331i_LNP = 0., Cud1_2332i_LNP = 0., Cud1_2333i_LNP = 0., Cud1_2311i_LNP = 0., Cud1_3312i_LNP = 0., Cud1_3313i_LNP = 0., Cud1_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ud}^{(1)})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cud1_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{ud}^{(1)})_{ijkl}\f$ at the EW scale.
     double Cud8_1111r_LNP = 0., Cud8_1112r_LNP = 0., Cud8_1113r_LNP = 0., Cud8_1122r_LNP = 0., Cud8_1123r_LNP = 0., Cud8_1133r_LNP = 0., Cud8_1211r_LNP = 0., Cud8_1212r_LNP = 0., Cud8_1213r_LNP = 0.,
             Cud8_1221r_LNP = 0., Cud8_1222r_LNP = 0., Cud8_1223r_LNP = 0., Cud8_1231r_LNP = 0., Cud8_1232r_LNP = 0., Cud8_1233r_LNP = 0., Cud8_1311r_LNP = 0., Cud8_1312r_LNP = 0., Cud8_1313r_LNP = 0.,
             Cud8_1321r_LNP = 0., Cud8_1322r_LNP = 0., Cud8_1323r_LNP = 0., Cud8_1331r_LNP = 0., Cud8_1332r_LNP = 0., Cud8_1333r_LNP = 0., Cud8_2211r_LNP = 0., Cud8_2212r_LNP = 0., Cud8_2213r_LNP = 0.,
@@ -7549,6 +7957,7 @@ protected:
             Cud8_1231i_LNP = 0., Cud8_1232i_LNP = 0., Cud8_1233i_LNP = 0., Cud8_1311i_LNP = 0., Cud8_1312i_LNP = 0., Cud8_1313i_LNP = 0., Cud8_1321i_LNP = 0., Cud8_1322i_LNP = 0., Cud8_1323i_LNP = 0.,
             Cud8_1331i_LNP = 0., Cud8_1332i_LNP = 0., Cud8_1333i_LNP = 0., Cud8_2212i_LNP = 0., Cud8_2213i_LNP = 0., Cud8_2223i_LNP = 0., Cud8_2312i_LNP = 0., Cud8_2313i_LNP = 0., Cud8_2321i_LNP = 0.,
             Cud8_2322i_LNP = 0., Cud8_2323i_LNP = 0., Cud8_2331i_LNP = 0., Cud8_2332i_LNP = 0., Cud8_2333i_LNP = 0., Cud8_2311i_LNP = 0., Cud8_3312i_LNP = 0., Cud8_3313i_LNP = 0., Cud8_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{ud}^{(8)})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cud8_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{ud}^{(8)})_{ijkl}\f$ at the EW scale.
     double Cqu1_1111r_LNP = 0., Cqu1_1112r_LNP = 0., Cqu1_1113r_LNP = 0., Cqu1_1122r_LNP = 0., Cqu1_1123r_LNP = 0., Cqu1_1133r_LNP = 0., Cqu1_1211r_LNP = 0., Cqu1_1212r_LNP = 0., Cqu1_1213r_LNP = 0.,
             Cqu1_1221r_LNP = 0., Cqu1_1222r_LNP = 0., Cqu1_1223r_LNP = 0., Cqu1_1231r_LNP = 0., Cqu1_1232r_LNP = 0., Cqu1_1233r_LNP = 0., Cqu1_1311r_LNP = 0., Cqu1_1312r_LNP = 0., Cqu1_1313r_LNP = 0.,
             Cqu1_1321r_LNP = 0., Cqu1_1322r_LNP = 0., Cqu1_1323r_LNP = 0., Cqu1_1331r_LNP = 0., Cqu1_1332r_LNP = 0., Cqu1_1333r_LNP = 0., Cqu1_2211r_LNP = 0., Cqu1_2212r_LNP = 0., Cqu1_2213r_LNP = 0.,
@@ -7558,6 +7967,7 @@ protected:
             Cqu1_1231i_LNP = 0., Cqu1_1232i_LNP = 0., Cqu1_1233i_LNP = 0., Cqu1_1311i_LNP = 0., Cqu1_1312i_LNP = 0., Cqu1_1313i_LNP = 0., Cqu1_1321i_LNP = 0., Cqu1_1322i_LNP = 0., Cqu1_1323i_LNP = 0.,
             Cqu1_1331i_LNP = 0., Cqu1_1332i_LNP = 0., Cqu1_1333i_LNP = 0., Cqu1_2212i_LNP = 0., Cqu1_2213i_LNP = 0., Cqu1_2223i_LNP = 0., Cqu1_2312i_LNP = 0., Cqu1_2313i_LNP = 0., Cqu1_2321i_LNP = 0.,
             Cqu1_2322i_LNP = 0., Cqu1_2323i_LNP = 0., Cqu1_2331i_LNP = 0., Cqu1_2332i_LNP = 0., Cqu1_2333i_LNP = 0., Cqu1_2311i_LNP = 0., Cqu1_3312i_LNP = 0., Cqu1_3313i_LNP = 0., Cqu1_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qu}^{(1)})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cqu1_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{qu}^{(1)})_{ijkl}\f$ at the EW scale.
     double Cqu8_1111r_LNP = 0., Cqu8_1112r_LNP = 0., Cqu8_1113r_LNP = 0., Cqu8_1122r_LNP = 0., Cqu8_1123r_LNP = 0., Cqu8_1133r_LNP = 0., Cqu8_1211r_LNP = 0., Cqu8_1212r_LNP = 0., Cqu8_1213r_LNP = 0.,
             Cqu8_1221r_LNP = 0., Cqu8_1222r_LNP = 0., Cqu8_1223r_LNP = 0., Cqu8_1231r_LNP = 0., Cqu8_1232r_LNP = 0., Cqu8_1233r_LNP = 0., Cqu8_1311r_LNP = 0., Cqu8_1312r_LNP = 0., Cqu8_1313r_LNP = 0.,
             Cqu8_1321r_LNP = 0., Cqu8_1322r_LNP = 0., Cqu8_1323r_LNP = 0., Cqu8_1331r_LNP = 0., Cqu8_1332r_LNP = 0., Cqu8_1333r_LNP = 0., Cqu8_2211r_LNP = 0., Cqu8_2212r_LNP = 0., Cqu8_2213r_LNP = 0.,
@@ -7567,6 +7977,7 @@ protected:
             Cqu8_1231i_LNP = 0., Cqu8_1232i_LNP = 0., Cqu8_1233i_LNP = 0., Cqu8_1311i_LNP = 0., Cqu8_1312i_LNP = 0., Cqu8_1313i_LNP = 0., Cqu8_1321i_LNP = 0., Cqu8_1322i_LNP = 0., Cqu8_1323i_LNP = 0.,
             Cqu8_1331i_LNP = 0., Cqu8_1332i_LNP = 0., Cqu8_1333i_LNP = 0., Cqu8_2212i_LNP = 0., Cqu8_2213i_LNP = 0., Cqu8_2223i_LNP = 0., Cqu8_2312i_LNP = 0., Cqu8_2313i_LNP = 0., Cqu8_2321i_LNP = 0.,
             Cqu8_2322i_LNP = 0., Cqu8_2323i_LNP = 0., Cqu8_2331i_LNP = 0., Cqu8_2332i_LNP = 0., Cqu8_2333i_LNP = 0., Cqu8_2311i_LNP = 0., Cqu8_3312i_LNP = 0., Cqu8_3313i_LNP = 0., Cqu8_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qu}^{(8)})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cqu8_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{qu}^{(8)})_{ijkl}\f$ at the EW scale.
     double Cqd1_1111r_LNP = 0., Cqd1_1112r_LNP = 0., Cqd1_1113r_LNP = 0., Cqd1_1122r_LNP = 0., Cqd1_1123r_LNP = 0., Cqd1_1133r_LNP = 0., Cqd1_1211r_LNP = 0., Cqd1_1212r_LNP = 0., Cqd1_1213r_LNP = 0.,
             Cqd1_1221r_LNP = 0., Cqd1_1222r_LNP = 0., Cqd1_1223r_LNP = 0., Cqd1_1231r_LNP = 0., Cqd1_1232r_LNP = 0., Cqd1_1233r_LNP = 0., Cqd1_1311r_LNP = 0., Cqd1_1312r_LNP = 0., Cqd1_1313r_LNP = 0.,
             Cqd1_1321r_LNP = 0., Cqd1_1322r_LNP = 0., Cqd1_1323r_LNP = 0., Cqd1_1331r_LNP = 0., Cqd1_1332r_LNP = 0., Cqd1_1333r_LNP = 0., Cqd1_2211r_LNP = 0., Cqd1_2212r_LNP = 0., Cqd1_2213r_LNP = 0.,
@@ -7576,6 +7987,7 @@ protected:
             Cqd1_1231i_LNP = 0., Cqd1_1232i_LNP = 0., Cqd1_1233i_LNP = 0., Cqd1_1311i_LNP = 0., Cqd1_1312i_LNP = 0., Cqd1_1313i_LNP = 0., Cqd1_1321i_LNP = 0., Cqd1_1322i_LNP = 0., Cqd1_1323i_LNP = 0.,
             Cqd1_1331i_LNP = 0., Cqd1_1332i_LNP = 0., Cqd1_1333i_LNP = 0., Cqd1_2212i_LNP = 0., Cqd1_2213i_LNP = 0., Cqd1_2223i_LNP = 0., Cqd1_2312i_LNP = 0., Cqd1_2313i_LNP = 0., Cqd1_2321i_LNP = 0.,
             Cqd1_2322i_LNP = 0., Cqd1_2323i_LNP = 0., Cqd1_2331i_LNP = 0., Cqd1_2332i_LNP = 0., Cqd1_2333i_LNP = 0., Cqd1_2311i_LNP = 0., Cqd1_3312i_LNP = 0., Cqd1_3313i_LNP = 0., Cqd1_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qd}^{(1)})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cqd1_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{qd}^{(1)})_{ijkl}\f$ at the EW scale.
     double Cqd8_1111r_LNP = 0., Cqd8_1112r_LNP = 0., Cqd8_1113r_LNP = 0., Cqd8_1122r_LNP = 0., Cqd8_1123r_LNP = 0., Cqd8_1133r_LNP = 0., Cqd8_1211r_LNP = 0., Cqd8_1212r_LNP = 0., Cqd8_1213r_LNP = 0.,
             Cqd8_1221r_LNP = 0., Cqd8_1222r_LNP = 0., Cqd8_1223r_LNP = 0., Cqd8_1231r_LNP = 0., Cqd8_1232r_LNP = 0., Cqd8_1233r_LNP = 0., Cqd8_1311r_LNP = 0., Cqd8_1312r_LNP = 0., Cqd8_1313r_LNP = 0.,
             Cqd8_1321r_LNP = 0., Cqd8_1322r_LNP = 0., Cqd8_1323r_LNP = 0., Cqd8_1331r_LNP = 0., Cqd8_1332r_LNP = 0., Cqd8_1333r_LNP = 0., Cqd8_2211r_LNP = 0., Cqd8_2212r_LNP = 0., Cqd8_2213r_LNP = 0.,
@@ -7585,6 +7997,7 @@ protected:
             Cqd8_1231i_LNP = 0., Cqd8_1232i_LNP = 0., Cqd8_1233i_LNP = 0., Cqd8_1311i_LNP = 0., Cqd8_1312i_LNP = 0., Cqd8_1313i_LNP = 0., Cqd8_1321i_LNP = 0., Cqd8_1322i_LNP = 0., Cqd8_1323i_LNP = 0.,
             Cqd8_1331i_LNP = 0., Cqd8_1332i_LNP = 0., Cqd8_1333i_LNP = 0., Cqd8_2212i_LNP = 0., Cqd8_2213i_LNP = 0., Cqd8_2223i_LNP = 0., Cqd8_2312i_LNP = 0., Cqd8_2313i_LNP = 0., Cqd8_2321i_LNP = 0.,
             Cqd8_2322i_LNP = 0., Cqd8_2323i_LNP = 0., Cqd8_2331i_LNP = 0., Cqd8_2332i_LNP = 0., Cqd8_2333i_LNP = 0., Cqd8_2311i_LNP = 0., Cqd8_3312i_LNP = 0., Cqd8_3313i_LNP = 0., Cqd8_3323i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{qd}^{(8)})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cqd8_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{qd}^{(8)})_{ijkl}\f$ at the EW scale.
     double Cquqd1_1111r_LNP = 0., Cquqd1_1112r_LNP = 0., Cquqd1_1113r_LNP = 0., Cquqd1_1121r_LNP = 0., Cquqd1_1122r_LNP = 0., Cquqd1_1123r_LNP = 0., Cquqd1_1131r_LNP = 0., Cquqd1_1132r_LNP = 0., Cquqd1_1133r_LNP = 0.,
             Cquqd1_1211r_LNP = 0., Cquqd1_1212r_LNP = 0., Cquqd1_1213r_LNP = 0., Cquqd1_1221r_LNP = 0., Cquqd1_1222r_LNP = 0., Cquqd1_1223r_LNP = 0., Cquqd1_1231r_LNP = 0., Cquqd1_1232r_LNP = 0., Cquqd1_1233r_LNP = 0.,
             Cquqd1_1311r_LNP = 0., Cquqd1_1312r_LNP = 0., Cquqd1_1313r_LNP = 0., Cquqd1_1321r_LNP = 0., Cquqd1_1322r_LNP = 0., Cquqd1_1323r_LNP = 0., Cquqd1_1331r_LNP = 0., Cquqd1_1332r_LNP = 0., Cquqd1_1333r_LNP = 0.,
@@ -7603,6 +8016,7 @@ protected:
             Cquqd1_3111i_LNP = 0., Cquqd1_3112i_LNP = 0., Cquqd1_3113i_LNP = 0., Cquqd1_3121i_LNP = 0., Cquqd1_3122i_LNP = 0., Cquqd1_3123i_LNP = 0., Cquqd1_3131i_LNP = 0., Cquqd1_3132i_LNP = 0., Cquqd1_3133i_LNP = 0.,
             Cquqd1_3211i_LNP = 0., Cquqd1_3212i_LNP = 0., Cquqd1_3213i_LNP = 0., Cquqd1_3221i_LNP = 0., Cquqd1_3222i_LNP = 0., Cquqd1_3223i_LNP = 0., Cquqd1_3231i_LNP = 0., Cquqd1_3232i_LNP = 0., Cquqd1_3233i_LNP = 0.,
             Cquqd1_3311i_LNP = 0., Cquqd1_3312i_LNP = 0., Cquqd1_3313i_LNP = 0., Cquqd1_3321i_LNP = 0., Cquqd1_3322i_LNP = 0., Cquqd1_3323i_LNP = 0., Cquqd1_3331i_LNP = 0., Cquqd1_3332i_LNP = 0., Cquqd1_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(1)})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cquqd1_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(1)})_{ijkl}\f$ at the EW scale.
     double Cquqd8_1111r_LNP = 0., Cquqd8_1112r_LNP = 0., Cquqd8_1113r_LNP = 0., Cquqd8_1121r_LNP = 0., Cquqd8_1122r_LNP = 0., Cquqd8_1123r_LNP = 0., Cquqd8_1131r_LNP = 0., Cquqd8_1132r_LNP = 0., Cquqd8_1133r_LNP = 0.,
             Cquqd8_1211r_LNP = 0., Cquqd8_1212r_LNP = 0., Cquqd8_1213r_LNP = 0., Cquqd8_1221r_LNP = 0., Cquqd8_1222r_LNP = 0., Cquqd8_1223r_LNP = 0., Cquqd8_1231r_LNP = 0., Cquqd8_1232r_LNP = 0., Cquqd8_1233r_LNP = 0.,
             Cquqd8_1311r_LNP = 0., Cquqd8_1312r_LNP = 0., Cquqd8_1313r_LNP = 0., Cquqd8_1321r_LNP = 0., Cquqd8_1322r_LNP = 0., Cquqd8_1323r_LNP = 0., Cquqd8_1331r_LNP = 0., Cquqd8_1332r_LNP = 0., Cquqd8_1333r_LNP = 0.,
@@ -7621,6 +8035,7 @@ protected:
             Cquqd8_3111i_LNP = 0., Cquqd8_3112i_LNP = 0., Cquqd8_3113i_LNP = 0., Cquqd8_3121i_LNP = 0., Cquqd8_3122i_LNP = 0., Cquqd8_3123i_LNP = 0., Cquqd8_3131i_LNP = 0., Cquqd8_3132i_LNP = 0., Cquqd8_3133i_LNP = 0.,
             Cquqd8_3211i_LNP = 0., Cquqd8_3212i_LNP = 0., Cquqd8_3213i_LNP = 0., Cquqd8_3221i_LNP = 0., Cquqd8_3222i_LNP = 0., Cquqd8_3223i_LNP = 0., Cquqd8_3231i_LNP = 0., Cquqd8_3232i_LNP = 0., Cquqd8_3233i_LNP = 0.,
             Cquqd8_3311i_LNP = 0., Cquqd8_3312i_LNP = 0., Cquqd8_3313i_LNP = 0., Cquqd8_3321i_LNP = 0., Cquqd8_3322i_LNP = 0., Cquqd8_3323i_LNP = 0., Cquqd8_3331i_LNP = 0., Cquqd8_3332i_LNP = 0., Cquqd8_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(8)})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Cquqd8_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{quqd}^{(8)})_{ijkl}\f$ at the EW scale.
     double Clequ1_1111r_LNP = 0., Clequ1_1112r_LNP = 0., Clequ1_1113r_LNP = 0., Clequ1_1121r_LNP = 0., Clequ1_1122r_LNP = 0., Clequ1_1123r_LNP = 0., Clequ1_1131r_LNP = 0., Clequ1_1132r_LNP = 0., Clequ1_1133r_LNP = 0.,
             Clequ1_1211r_LNP = 0., Clequ1_1212r_LNP = 0., Clequ1_1213r_LNP = 0., Clequ1_1221r_LNP = 0., Clequ1_1222r_LNP = 0., Clequ1_1223r_LNP = 0., Clequ1_1231r_LNP = 0., Clequ1_1232r_LNP = 0., Clequ1_1233r_LNP = 0.,
             Clequ1_1311r_LNP = 0., Clequ1_1312r_LNP = 0., Clequ1_1313r_LNP = 0., Clequ1_1321r_LNP = 0., Clequ1_1322r_LNP = 0., Clequ1_1323r_LNP = 0., Clequ1_1331r_LNP = 0., Clequ1_1332r_LNP = 0., Clequ1_1333r_LNP = 0.,
@@ -7639,6 +8054,7 @@ protected:
             Clequ1_3111i_LNP = 0., Clequ1_3112i_LNP = 0., Clequ1_3113i_LNP = 0., Clequ1_3121i_LNP = 0., Clequ1_3122i_LNP = 0., Clequ1_3123i_LNP = 0., Clequ1_3131i_LNP = 0., Clequ1_3132i_LNP = 0., Clequ1_3133i_LNP = 0.,
             Clequ1_3211i_LNP = 0., Clequ1_3212i_LNP = 0., Clequ1_3213i_LNP = 0., Clequ1_3221i_LNP = 0., Clequ1_3222i_LNP = 0., Clequ1_3223i_LNP = 0., Clequ1_3231i_LNP = 0., Clequ1_3232i_LNP = 0., Clequ1_3233i_LNP = 0.,
             Clequ1_3311i_LNP = 0., Clequ1_3312i_LNP = 0., Clequ1_3313i_LNP = 0., Clequ1_3321i_LNP = 0., Clequ1_3322i_LNP = 0., Clequ1_3323i_LNP = 0., Clequ1_3331i_LNP = 0., Clequ1_3332i_LNP = 0., Clequ1_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(1)})_{ijkm}\f$ (Imaginary part).
+    gslpp::complex Clequ1_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(1)})_{ijkl}\f$ at the EW scale.
     double Clequ3_1111r_LNP = 0., Clequ3_1112r_LNP = 0., Clequ3_1113r_LNP = 0., Clequ3_1121r_LNP = 0., Clequ3_1122r_LNP = 0., Clequ3_1123r_LNP = 0., Clequ3_1131r_LNP = 0., Clequ3_1132r_LNP = 0., Clequ3_1133r_LNP = 0.,
             Clequ3_1211r_LNP = 0., Clequ3_1212r_LNP = 0., Clequ3_1213r_LNP = 0., Clequ3_1221r_LNP = 0., Clequ3_1222r_LNP = 0., Clequ3_1223r_LNP = 0., Clequ3_1231r_LNP = 0., Clequ3_1232r_LNP = 0., Clequ3_1233r_LNP = 0.,
             Clequ3_1311r_LNP = 0., Clequ3_1312r_LNP = 0., Clequ3_1313r_LNP = 0., Clequ3_1321r_LNP = 0., Clequ3_1322r_LNP = 0., Clequ3_1323r_LNP = 0., Clequ3_1331r_LNP = 0., Clequ3_1332r_LNP = 0., Clequ3_1333r_LNP = 0.,
@@ -7657,7 +8073,8 @@ protected:
             Clequ3_3111i_LNP = 0., Clequ3_3112i_LNP = 0., Clequ3_3113i_LNP = 0., Clequ3_3121i_LNP = 0., Clequ3_3122i_LNP = 0., Clequ3_3123i_LNP = 0., Clequ3_3131i_LNP = 0., Clequ3_3132i_LNP = 0., Clequ3_3133i_LNP = 0.,
             Clequ3_3211i_LNP = 0., Clequ3_3212i_LNP = 0., Clequ3_3213i_LNP = 0., Clequ3_3221i_LNP = 0., Clequ3_3222i_LNP = 0., Clequ3_3223i_LNP = 0., Clequ3_3231i_LNP = 0., Clequ3_3232i_LNP = 0., Clequ3_3233i_LNP = 0.,
             Clequ3_3311i_LNP = 0., Clequ3_3312i_LNP = 0., Clequ3_3313i_LNP = 0., Clequ3_3321i_LNP = 0., Clequ3_3322i_LNP = 0., Clequ3_3323i_LNP = 0., Clequ3_3331i_LNP = 0., Clequ3_3332i_LNP = 0., Clequ3_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}\f$ (Imaginary part).
- 
+    gslpp::complex Clequ3_EW[3][3][3][3]; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkl}\f$ at the EW scale.
+
     double Lambda_NP; ///< The new physics scale [GeV].
     // The intrinsic and parametric theory relative errors in the Higgs observables.
     double eggFint = 0.; ///< Intrinsic relative theoretical error in ggF production. (Assumed to be constant in energy.)

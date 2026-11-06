@@ -12,27 +12,27 @@
 #define NOLEPTONFLAVOURVIOLATION
 
 namespace {
-// Complex Wilson coefficient C = CR + i CI of an SMEFT operator, cached by flavour indices.
+// EW-scale Wilson coefficients cached locally with callable flavour-index access.
 struct Coeff2 {
     gslpp::complex v[9];
-    Coeff2(const NPSMEFTd6General &m, const std::string &n)
+    explicit Coeff2(const gslpp::complex (&c)[3][3])
     {
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
-                v[3 * i + j] = gslpp::complex(m.getSMEFTCoeffEW(n + "R", i, j), m.getSMEFTCoeffEW(n + "I", i, j));
+                v[3 * i + j] = c[i][j];
     }
     const gslpp::complex &operator()(int i, int j) const { return v[3 * i + j]; }
 };
 
 struct Coeff4 {
     gslpp::complex v[81];
-    Coeff4(const NPSMEFTd6General &m, const std::string &n)
+    explicit Coeff4(const gslpp::complex (&c)[3][3][3][3])
     {
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 3; j++)
                 for (int k = 0; k < 3; k++)
                     for (int l = 0; l < 3; l++)
-                        v[27 * i + 9 * j + 3 * k + l] = gslpp::complex(m.getSMEFTCoeffEW(n + "R", i, j, k, l), m.getSMEFTCoeffEW(n + "I", i, j, k, l));
+                        v[27 * i + 9 * j + 3 * k + l] = c[i][j][k][l];
     }
     const gslpp::complex &operator()(int i, int j, int k, int l) const { return v[27 * i + 9 * j + 3 * k + l]; }
 };
@@ -40,20 +40,6 @@ struct Coeff4 {
 
 NPSMEFTd6GeneralMatching::NPSMEFTd6GeneralMatching(const NPSMEFTd6General &NPSMEFTd6General_i) : StandardModelMatching(NPSMEFTd6General_i),
                                                                                                  mySMEFT(NPSMEFTd6General_i), 
-                                                                                                 VuL(gslpp::matrix<complex>::Id(3)), 
-                                                                                                 VuLd(gslpp::matrix<complex>::Id(3)), 
-                                                                                                 VuR(gslpp::matrix<complex>::Id(3)), 
-                                                                                                 VuRd(gslpp::matrix<complex>::Id(3)), 
-                                                                                                 VdL(gslpp::matrix<complex>::Id(3)), 
-                                                                                                 VdLd(gslpp::matrix<complex>::Id(3)), 
-                                                                                                 VdR(gslpp::matrix<complex>::Id(3)), 
-                                                                                                 VdRd(gslpp::matrix<complex>::Id(3)), 
-                                                                                                 VeL(gslpp::matrix<complex>::Id(3)), 
-                                                                                                 VeLd(gslpp::matrix<complex>::Id(3)), 
-                                                                                                 VeR(gslpp::matrix<complex>::Id(3)), 
-                                                                                                 VeRd(gslpp::matrix<complex>::Id(3)), 
-                                                                                                 MU(3, 0.), 
-                                                                                                 MD(3, 0.),
                                                                                                  mcd2(5, NDR, NLO), 
                                                                                                  mcd1(10, NDR, NLO), 
                                                                                                  mcbd(5, NDR, NLO), 
@@ -80,10 +66,10 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
         double vT = v;
         double delta_vT = mySMEFT.getDelta_v();
         double vTosq2 = vT / sqrt(2.);
-        const double c_CHbox = mySMEFT.getSMEFTCoeffEW("CHbox");
-        const double c_CHD = mySMEFT.getSMEFTCoeffEW("CHD");
-        const double c_CH = mySMEFT.getSMEFTCoeffEW("CH");
-        const double c_CHWB = mySMEFT.getSMEFTCoeffEW("CHWB");
+        const double c_CHbox = mySMEFT.getCHbox_EW();
+        const double c_CHD = mySMEFT.getCHD_EW();
+        const double c_CH = mySMEFT.getCH_EW();
+        const double c_CHWB = mySMEFT.getCHWB_EW();
 
         //    CG = mySMEFT.getSMEFTCoeffEW("CG")*LambdaNP2;
         //    CW = mySMEFT.getSMEFTCoeffEW("CW")*LambdaNP2;
@@ -112,21 +98,7 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
         //    CDW = 0.;
         //    CT = 0.;
 
-        // For operators with quark indices we need to switch to the mass eigenstate basis; leptons are already in the mass eigenstate basis since we do not have any lepton flavour violation
 
-        VuL = mySMEFT.getVuL();
-        VdL = mySMEFT.getVdL();
-        VeL = mySMEFT.getVeL();
-        VuLd = mySMEFT.getVuLd();
-        VdLd = mySMEFT.getVdLd();
-        VeLd = mySMEFT.getVeLd();
-        VuR = mySMEFT.getVuR();
-        VdR = mySMEFT.getVdR();
-        VeR = mySMEFT.getVeR();
-        VuRd = mySMEFT.getVuRd();
-        VdRd = mySMEFT.getVdRd();
-        VeRd = mySMEFT.getVeRd();
-        
         // to implement Manohar's matching formulae we define the couplings
         // in his notation. Namely, in the formulae below, the barred quantities are
         // tree level in the theory scheme.
@@ -190,53 +162,56 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
         // match and rotate following Manohar. This is performed AT LINEAR ORDER for the moment
 
         // Coefficients are read once here instead of at every use inside the loops below
-        const Coeff2 c_CHd(mySMEFT, "CHd");
-        const Coeff2 c_CHe(mySMEFT, "CHe");
-        const Coeff2 c_CHl1(mySMEFT, "CHl1");
-        const Coeff2 c_CHl3(mySMEFT, "CHl3");
-        const Coeff2 c_CHq1(mySMEFT, "CHq1");
-        const Coeff2 c_CHq3(mySMEFT, "CHq3");
-        const Coeff2 c_CHu(mySMEFT, "CHu");
-        const Coeff2 c_CHud(mySMEFT, "CHud");
-        const Coeff2 c_CdB(mySMEFT, "CdB");
-        const Coeff2 c_CdG(mySMEFT, "CdG");
-        const Coeff2 c_CdH(mySMEFT, "CdH");
-        const Coeff2 c_CdW(mySMEFT, "CdW");
-        const Coeff2 c_CeB(mySMEFT, "CeB");
-        const Coeff2 c_CeH(mySMEFT, "CeH");
-        const Coeff2 c_CeW(mySMEFT, "CeW");
-        const Coeff2 c_CuB(mySMEFT, "CuB");
-        const Coeff2 c_CuG(mySMEFT, "CuG");
-        const Coeff2 c_CuH(mySMEFT, "CuH");
-        const Coeff2 c_CuW(mySMEFT, "CuW");
-        const Coeff2 c_Yd(mySMEFT, "Yd");
-        const Coeff2 c_Ye(mySMEFT, "Ye");
-        const Coeff2 c_Yu(mySMEFT, "Yu");
-        const Coeff4 c_Cdd(mySMEFT, "Cdd");
-        const Coeff4 c_Ced(mySMEFT, "Ced");
-        const Coeff4 c_Cee(mySMEFT, "Cee");
-        const Coeff4 c_Ceu(mySMEFT, "Ceu");
-        const Coeff4 c_Cld(mySMEFT, "Cld");
-        const Coeff4 c_Cle(mySMEFT, "Cle");
-        const Coeff4 c_Cledq(mySMEFT, "Cledq");
-        const Coeff4 c_Clequ1(mySMEFT, "Clequ1");
-        const Coeff4 c_Clequ3(mySMEFT, "Clequ3");
-        const Coeff4 c_Cll(mySMEFT, "Cll");
-        const Coeff4 c_Clq1(mySMEFT, "Clq1");
-        const Coeff4 c_Clq3(mySMEFT, "Clq3");
-        const Coeff4 c_Clu(mySMEFT, "Clu");
-        const Coeff4 c_Cqd1(mySMEFT, "Cqd1");
-        const Coeff4 c_Cqd8(mySMEFT, "Cqd8");
-        const Coeff4 c_Cqe(mySMEFT, "Cqe");
-        const Coeff4 c_Cqq1(mySMEFT, "Cqq1");
-        const Coeff4 c_Cqq3(mySMEFT, "Cqq3");
-        const Coeff4 c_Cqu1(mySMEFT, "Cqu1");
-        const Coeff4 c_Cqu8(mySMEFT, "Cqu8");
-        const Coeff4 c_Cquqd1(mySMEFT, "Cquqd1");
-        const Coeff4 c_Cquqd8(mySMEFT, "Cquqd8");
-        const Coeff4 c_Cud1(mySMEFT, "Cud1");
-        const Coeff4 c_Cud8(mySMEFT, "Cud8");
-        const Coeff4 c_Cuu(mySMEFT, "Cuu");
+
+        const Coeff2 c_CHl1(mySMEFT.getCHl1_EW());
+        const Coeff2 c_CHl3(mySMEFT.getCHl3_EW());
+        const Coeff2 c_CHe(mySMEFT.getCHe_EW());
+        const Coeff2 c_CHq1(mySMEFT.getCHq1_EW());
+        const Coeff2 c_CHq3(mySMEFT.getCHq3_EW());
+        const Coeff2 c_CHu(mySMEFT.getCHu_EW());
+        const Coeff2 c_CHd(mySMEFT.getCHd_EW());
+        const Coeff2 c_CHud(mySMEFT.getCHud_EW());
+        const Coeff2 c_CeH(mySMEFT.getCeH_EW());
+        const Coeff2 c_CuH(mySMEFT.getCuH_EW());
+        const Coeff2 c_CdH(mySMEFT.getCdH_EW());
+        const Coeff2 c_CuG(mySMEFT.getCuG_EW());
+        const Coeff2 c_CuW(mySMEFT.getCuW_EW());
+        const Coeff2 c_CuB(mySMEFT.getCuB_EW());
+        const Coeff2 c_CdG(mySMEFT.getCdG_EW());
+        const Coeff2 c_CdW(mySMEFT.getCdW_EW());
+        const Coeff2 c_CdB(mySMEFT.getCdB_EW());
+        const Coeff2 c_CeW(mySMEFT.getCeW_EW());
+        const Coeff2 c_CeB(mySMEFT.getCeB_EW());
+        const Coeff4 c_Cll(mySMEFT.getCll_EW());
+        const Coeff4 c_Clq1(mySMEFT.getClq1_EW());
+        const Coeff4 c_Clq3(mySMEFT.getClq3_EW());
+        const Coeff4 c_Cee(mySMEFT.getCee_EW());
+        const Coeff4 c_Ceu(mySMEFT.getCeu_EW());
+        const Coeff4 c_Ced(mySMEFT.getCed_EW());
+        const Coeff4 c_Cle(mySMEFT.getCle_EW());
+        const Coeff4 c_Clu(mySMEFT.getClu_EW());
+        const Coeff4 c_Cld(mySMEFT.getCld_EW());
+        const Coeff4 c_Cqe(mySMEFT.getCqe_EW());
+        const Coeff4 c_Cledq(mySMEFT.getCledq_EW());
+        const Coeff4 c_Cqq1(mySMEFT.getCqq1_EW());
+        const Coeff4 c_Cqq3(mySMEFT.getCqq3_EW());
+        const Coeff4 c_Cuu(mySMEFT.getCuu_EW());
+        const Coeff4 c_Cdd(mySMEFT.getCdd_EW());
+        const Coeff4 c_Cud1(mySMEFT.getCud1_EW());
+        const Coeff4 c_Cud8(mySMEFT.getCud8_EW());
+        const Coeff4 c_Cqu1(mySMEFT.getCqu1_EW());
+        const Coeff4 c_Cqu8(mySMEFT.getCqu8_EW());
+        const Coeff4 c_Cqd1(mySMEFT.getCqd1_EW());
+        const Coeff4 c_Cqd8(mySMEFT.getCqd8_EW());
+        const Coeff4 c_Cquqd1(mySMEFT.getCquqd1_EW());
+        const Coeff4 c_Cquqd8(mySMEFT.getCquqd8_EW());
+        const Coeff4 c_Clequ1(mySMEFT.getClequ1_EW());
+        const Coeff4 c_Clequ3(mySMEFT.getClequ3_EW());
+
+        const gslpp::matrix<gslpp::complex> c_Ye = mySMEFT.getYe();
+        const gslpp::matrix<gslpp::complex> c_Yu = mySMEFT.getYu();
+        const gslpp::matrix<gslpp::complex> c_Yd = mySMEFT.getYd();
+
 
         // fill all coefficients with zeroes first
         gslpp::matrix<complex> VCKM = mySMEFT.getCKM().getCKM();
@@ -309,665 +284,692 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
         CudduS8RR = zero2332;
 
 #ifdef NOLEPTONFLAVOURVIOLATION
-
-        // matching of operators with two external indices and zero internal indices
-
-        for (int i = 0; i < 3; i++)
-                for (int j = 0; j < 3; j++)
-                {
-                        Ceg.at(i).at(j) += vTosq2 * (-(c_CeW(i, j)) * sbar + (c_CeB(i, j)) * cbar);
-
-                        CnunuVLL.at(i).at(i).at(j).at(j) += -0.0625 * (delta_gZ2oMZ2 * gZ2oMZ2);
-                        CnunuVLL.at(i).at(j).at(j).at(i) += -0.0625 * (delta_gZ2oMZ2 * gZ2oMZ2);
-                        CeeVLL.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * (-1 + 2 * sbar2) * (delta_gZ2oMZ2 - 2 * delta_gZ2oMZ2 * sbar2 - 8 * delta_sbar * sbar2)) / 16.;
-                        CeeVLL.at(i).at(j).at(j).at(i) += (gZ2oMZ2 * (-1 + 2 * sbar2) * (delta_gZ2oMZ2 - 2 * delta_gZ2oMZ2 * sbar2 - 8 * delta_sbar * sbar2)) / 16.;
-                        CnueVLL.at(i).at(i).at(j).at(j) += -0.25 * (gZ2oMZ2 * (4 * delta_sbar * sbar2 + delta_gZ2oMZ2 * (-1 + 2 * sbar2)));
-                        CnueVLL.at(i).at(j).at(j).at(i) += -0.5 * (delta_g22oMW2 * g22oMW2);
-                        CnudVLL.at(i).at(i).at(j).at(j) += -0.08333333333333333 * (gZ2oMZ2 * (4 * delta_sbar * sbar2 + delta_gZ2oMZ2 * (-3 + 2 * sbar2)));
-                        CedVLL.at(i).at(i).at(j).at(j) += -0.08333333333333333 * (gZ2oMZ2 * (16 * delta_sbar * (-1 + sbar2) * sbar2 + delta_gZ2oMZ2 * (3 - 8 * sbar2 + 4 * sbar2 * sbar2)));
-                        CddVLL.at(i).at(i).at(j).at(j) += -0.013888888888888888 * (gZ2oMZ2 * (-3 + 2 * sbar2) * (8 * delta_sbar * sbar2 + delta_gZ2oMZ2 * (-3 + 2 * sbar2)));
-                        CeeVRR.at(i).at(i).at(j).at(j) += -0.25 * ((delta_gZ2oMZ2 + 4 * delta_sbar) * gZ2oMZ2 * sbar2 * sbar2);
-                        CeeVRR.at(i).at(j).at(j).at(i) += -0.25 * ((delta_gZ2oMZ2 + 4 * delta_sbar) * gZ2oMZ2 * sbar2 * sbar2);
-                        CedVRR.at(i).at(i).at(j).at(j) += -0.3333333333333333 * ((delta_gZ2oMZ2 + 4 * delta_sbar) * gZ2oMZ2 * sbar2 * sbar2);
-                        CddVRR.at(i).at(i).at(j).at(j) += -0.05555555555555555 * ((delta_gZ2oMZ2 + 4 * delta_sbar) * gZ2oMZ2 * sbar2 * sbar2);
-                        CnueVLR.at(i).at(i).at(j).at(j) += -0.5 * ((delta_gZ2oMZ2 + 2 * delta_sbar) * gZ2oMZ2 * sbar2);
-                        CeeVLR.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * sbar2 * (delta_gZ2oMZ2 + delta_sbar * (2 - 8 * sbar2) - 2 * delta_gZ2oMZ2 * sbar2)) / 2.;
-                        CnudVLR.at(i).at(i).at(j).at(j) += -0.16666666666666666 * ((delta_gZ2oMZ2 + 2 * delta_sbar) * gZ2oMZ2 * sbar2);
-                        CedVLR.at(i).at(i).at(j).at(j) += -0.16666666666666666 * (gZ2oMZ2 * sbar2 * (-delta_gZ2oMZ2 - 2 * delta_sbar + 2 * delta_gZ2oMZ2 * sbar2 + 8 * delta_sbar * sbar2));
-                        CdeVLR.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * (delta_sbar * (6 - 8 * sbar2) + delta_gZ2oMZ2 * (3 - 2 * sbar2)) * sbar2) / 6.;
-                        CddV1LR.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * (delta_sbar * (6 - 8 * sbar2) + delta_gZ2oMZ2 * (3 - 2 * sbar2)) * sbar2) / 18.;
-                        if (mySMEFT.FlagNewTerms) {
-                            CnueVLR.at(i).at(j).at(j).at(i) += -0.25*((1 + deltag2bar2oMW4)*g2bar2oMW4*Me[i]*Me[j]);
-                            CeeVLR.at(i).at(j).at(j).at(i) += -0.125*(gZbar2oMZ4*(-1 + 2*sbar2)*(-1 + (2 + 8*delta_sbar)*sbar2 + deltagZbar2oMZ4*(-1 + 2*sbar2))*Me[i]*Me[j]);
-                            CeeVLR.at(i).at(j).at(j).at(i) += (gZbar2oMZ4*sbar2*(-1 + 2*sbar2 + deltagZbar2oMZ4*(-1 + 2*sbar2) + delta_sbar*(-2 + 8*sbar2))*Me[i]*Me[j])/4.;
-                            CeeVLR.at(i).at(j).at(j).at(i) += (gZbar2oMZ4*sbar2*(-1 + 2*sbar2 + deltagZbar2oMZ4*(-1 + 2*sbar2) + delta_sbar*(-2 + 8*sbar2))*Me[i]*Me[j])/4.;
-                            CeeVLR.at(i).at(j).at(j).at(i) += -0.5*((1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Me[i]*Me[j]);
-                            CddV1LR.at(i).at(j).at(j).at(i) += -0.004629629629629629*(gZbar2oMZ4*(-3 + 2*sbar2)*(-3 + (2 + 8*delta_sbar)*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2))*Md[i]*Md[j]);
-                            CddV1LR.at(i).at(j).at(j).at(i) += (gZbar2oMZ4*sbar2*(-3 + 2*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2) + delta_sbar*(-6 + 8*sbar2))*Md[i]*Md[j])/108.;
-                            CddV1LR.at(i).at(j).at(j).at(i) += (gZbar2oMZ4*sbar2*(-3 + 2*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2) + delta_sbar*(-6 + 8*sbar2))*Md[i]*Md[j])/108.;
-                            CddV1LR.at(i).at(j).at(j).at(i) += -0.018518518518518517*((1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Md[i]*Md[j]);
-                            CddV8LR.at(i).at(j).at(j).at(i) += -0.027777777777777776*(gZbar2oMZ4*(-3 + 2*sbar2)*(-3 + (2 + 8*delta_sbar)*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2))*Md[i]*Md[j]);
-                            CddV8LR.at(i).at(j).at(j).at(i) += (gZbar2oMZ4*sbar2*(-3 + 2*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2) + delta_sbar*(-6 + 8*sbar2))*Md[i]*Md[j])/18.;
-                            CddV8LR.at(i).at(j).at(j).at(i) += (gZbar2oMZ4*sbar2*(-3 + 2*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2) + delta_sbar*(-6 + 8*sbar2))*Md[i]*Md[j])/18.;
-                            CddV8LR.at(i).at(j).at(j).at(i) += -0.1111111111111111*((1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Md[i]*Md[j]);
-                            CedSRL.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*(3 - 8*(1 + 2*delta_sbar)*sbar2 + 4*(1 + 4*delta_sbar)*pow(sbar2,2) + deltagZbar2oMZ4*(3 - 8*sbar2 + 4*pow(sbar2,2)))*Md[j]*Me[i])/12.;
-                            CedSRL.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(1 + deltagZbar2oMZ4 + delta_sbar*(2 - 8*sbar2) - 2*sbar2 - 2*deltagZbar2oMZ4*sbar2)*Md[j]*Me[i])/6.;
-                            CedSRL.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*(3 + delta_sbar*(6 - 8*sbar2) + deltagZbar2oMZ4*(3 - 2*sbar2) - 2*sbar2)*sbar2*Md[j]*Me[i])/6.;
-                            CedSRL.at(i).at(i).at(j).at(j) += ((1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Md[j]*Me[i])/3.;
-                            CeeSRR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(-1 + 2*sbar2 + deltagZbar2oMZ4*(-1 + 2*sbar2) + delta_sbar*(-2 + 8*sbar2))*Me[i]*Me[j])/4.;
-                            CeeSRR.at(i).at(i).at(j).at(j) += -0.125*(gZbar2oMZ4*(-1 + 2*sbar2)*(-1 + (2 + 8*delta_sbar)*sbar2 + deltagZbar2oMZ4*(-1 + 2*sbar2))*Me[i]*Me[j]);
-                            CeeSRR.at(i).at(i).at(j).at(j) += -0.5*((1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Me[i]*Me[j]);
-                            CeeSRR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(-1 + 2*sbar2 + deltagZbar2oMZ4*(-1 + 2*sbar2) + delta_sbar*(-2 + 8*sbar2))*Me[i]*Me[j])/4.;
-                            CedSRR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(-1 + 2*sbar2 + deltagZbar2oMZ4*(-1 + 2*sbar2) + delta_sbar*(-2 + 8*sbar2))*Md[j]*Me[i])/6.;
-                            CedSRR.at(i).at(i).at(j).at(j) += -0.08333333333333333*(gZbar2oMZ4*(3 - 8*(1 + 2*delta_sbar)*sbar2 + 4*(1 + 4*delta_sbar)*pow(sbar2,2) + deltagZbar2oMZ4*(3 - 8*sbar2 + 4*pow(sbar2,2)))*Md[j]*Me[i]);
-                            CedSRR.at(i).at(i).at(j).at(j) += -0.3333333333333333*((1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Md[j]*Me[i]);
-                            CedSRR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(-3 + 2*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2) + delta_sbar*(-6 + 8*sbar2))*Md[j]*Me[i])/6.;
-                            CddS1RR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(-3 + 2*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2) + delta_sbar*(-6 + 8*sbar2))*Md[i]*Md[j])/18.;
-                            CddS1RR.at(i).at(i).at(j).at(j) += -0.027777777777777776*(gZbar2oMZ4*(-3 + 2*sbar2)*(-3 + (2 + 8*delta_sbar)*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2))*Md[i]*Md[j]);
-                            CddS1RR.at(i).at(i).at(j).at(j) += -0.1111111111111111*((1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Md[i]*Md[j]);
-                            CddS1RR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(-3 + 2*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2) + delta_sbar*(-6 + 8*sbar2))*Md[i]*Md[j])/18.;
-                        }
-                        for (int k = 0; k < 3; k++)
-                        {
-                                CnunuVLL.at(i).at(i).at(j).at(k) += (gZ2oMZ2 * v2 * ((c_CHl1(j, k)) - (c_CHl3(j, k)))) / 16.;
-                                CnunuVLL.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * v2 * ((c_CHl1(j, k)) - (c_CHl3(j, k)))) / 16.;
-                                CnunuVLL.at(j).at(i).at(i).at(k) += (gZ2oMZ2 * v2 * ((c_CHl1(j, k)) - (c_CHl3(j, k)))) / 16.;
-                                CnunuVLL.at(i).at(j).at(k).at(i) += (gZ2oMZ2 * v2 * ((c_CHl1(k, j)) - (c_CHl3(k, j)))) / 16.;
-                                CeeVLL.at(i).at(i).at(j).at(k) += (gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k)))) / 16.;
-                                CeeVLL.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k)))) / 16.;
-                                CeeVLL.at(j).at(i).at(i).at(k) += (gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k)))) / 16.;
-                                CeeVLL.at(i).at(j).at(k).at(i) += (gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * ((c_CHl1(k, j)) + (c_CHl3(k, j)))) / 16.;
-                                CnueVLL.at(i).at(i).at(j).at(k) += (gZ2oMZ2 * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k)))) / 4.;
-                                CnueVLL.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * ((c_CHl1(j, k)) - (c_CHl3(j, k)))) / 4.;
-                                CnueVLL.at(j).at(i).at(i).at(k) += -0.5 * (g22oMW2 * v2 * (c_CHl3(j, k)));
-                                CnueVLL.at(i).at(j).at(k).at(i) += -0.5 * (g22oMW2 * v2 * (c_CHl3(j, k).conjugate()));
-                                CnudVLL.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * (-3 + 2 * sbar2) * v2 * ((c_CHl1(j, k)) - (c_CHl3(j, k)))) / 12.;
-                                CedVLL.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * (-3 + 2 * sbar2) * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k)))) / 12.;
-                                CeeVRR.at(i).at(i).at(j).at(k) += (gZ2oMZ2 * sbar2 * v2 * (c_CHe(j, k))) / 8.;
-                                CeeVRR.at(j).at(k).at(i).at(i) += ((gZ2oMZ2 * sbar2 * v2 * (c_CHe(j, k))) / 8.);
-                                CeeVRR.at(j).at(i).at(i).at(k) += (gZ2oMZ2 * sbar2 * v2 * (c_CHe(j, k))) / 8.;
-                                CeeVRR.at(i).at(j).at(k).at(i) += (gZ2oMZ2 * sbar2 * v2 * (c_CHe(k, j))) / 8.;
-                                CedVRR.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * sbar2 * v2 * (c_CHe(j, k))) / 6.;
-                                CnueVLR.at(i).at(i).at(j).at(k) += (gZ2oMZ2 * v2 * (c_CHe(j, k))) / 4.;
-                                CnueVLR.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * sbar2 * v2 * ((c_CHl1(j, k)) - (c_CHl3(j, k)))) / 2.;
-                                CeeVLR.at(i).at(i).at(j).at(k) += (gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * (c_CHe(j, k))) / 4.;
-                                CeeVLR.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * sbar2 * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k)))) / 2.;
-                                CnudVLR.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * sbar2 * v2 * ((c_CHl1(j, k)) - (c_CHl3(j, k)))) / 6.;
-                                CedVLR.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * sbar2 * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k)))) / 6.;
-                                CdeVLR.at(i).at(i).at(j).at(k) += (gZ2oMZ2 * (-3 + 2 * sbar2) * v2 * (c_CHe(j, k))) / 12.;
-                                if (mySMEFT.FlagNewTerms) {
-                                    CeeVLL.at(i).at(i).at(j).at(k) += (gZbar2oMZ3*(0.5 - sbar2)*v2*((sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/(4.*sqrt(2));
-                                    CeeVLL.at(j).at(k).at(i).at(i) += -0.125*(gZbar2oMZ3*(-1 + 2*sbar2)*v2*(sbar*(c_CeB(k, j).conjugate())*Me[j] + cbar*(c_CeW(k, j).conjugate())*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/sqrt(2);
-                                    CeeVLL.at(j).at(i).at(i).at(k) += -0.125*(gZbar2oMZ3*(-1 + 2*sbar2)*v2*(sbar*(c_CeB(k, j).conjugate())*Me[j] + cbar*(c_CeW(k, j).conjugate())*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/sqrt(2);
-                                    CeeVLL.at(i).at(j).at(k).at(i) += -0.125*(gZbar2oMZ3*(-1 + 2*sbar2)*v2*(sbar*(c_CeB(k, j))*Me[j] + cbar*(c_CeW(k, j))*Me[j] + (sbar*(c_CeB(j, k).conjugate()) + cbar*(c_CeW(j, k).conjugate()))*Me[k]))/sqrt(2);
-                                    CnueVLL.at(i).at(i).at(j).at(k) += -0.5*(gZbar2oMZ3*v2*((sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/sqrt(2);
-                                    CnueVLL.at(j).at(i).at(i).at(k) += (g2bar2oMW3*v2*(c_CeW(j, k))*Me[k])/sqrt(2);
-                                    CnueVLL.at(i).at(j).at(k).at(i) += -((g2bar2oMW3*v2*(c_CeW(j, k).conjugate())*Me[k])/sqrt(2));
-                                    CedVLL.at(j).at(k).at(i).at(i) += -0.16666666666666666*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CeB(k, j).conjugate())*Me[j] + cbar*(c_CeW(k, j).conjugate())*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/sqrt(2);
-                                    CeeVRR.at(i).at(i).at(j).at(k) += -0.25*(gZbar2oMZ3*sbar2*v2*((sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/sqrt(2);
-                                    CeeVRR.at(j).at(k).at(i).at(i) += -0.25*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CeB(j, k))*Me[j] + cbar*(c_CeW(j, k))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/sqrt(2);
-                                    CeeVRR.at(j).at(i).at(i).at(k) += -0.25*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CeB(j, k))*Me[j] + cbar*(c_CeW(j, k))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/sqrt(2);
-                                    CeeVRR.at(i).at(j).at(k).at(i) += -0.25*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CeB(k, j).conjugate())*Me[j] + cbar*(c_CeW(k, j).conjugate())*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/sqrt(2);
-                                    CedVRR.at(j).at(k).at(i).at(i) += -0.3333333333333333*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CeB(j, k))*Me[j] + cbar*(c_CeW(j, k))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/sqrt(2);
-                                    CnueVLR.at(i).at(j).at(k).at(i) += -0.25*(g2bar2oMW4*v2*(c_CHl3(j, k).conjugate())*Me[i]*Me[k]);
-                                    CnueVLR.at(j).at(i).at(i).at(k) += -0.25*(g2bar2oMW4*v2*(c_CHl3(j, k))*Me[i]*Me[k]);
-                                    CnueVLR.at(i).at(i).at(j).at(k) += -0.5*(gZbar2oMZ3*v2*(sbar*(c_CeB(j, k))*Me[j] + cbar*(c_CeW(j, k))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/sqrt(2);
-                                    CeeVLR.at(i).at(j).at(k).at(i) += (gZbar2oMZ4*v2*Me[i]*((c_CHe(k, j))*Me[j] - ((c_CHl1(k, j)) + (c_CHl3(k, j)))*Me[k]))/8.;
-                                    CeeVLR.at(j).at(i).at(i).at(k) += (gZbar2oMZ4*v2*Me[i]*((c_CHe(j, k))*Me[j] - ((c_CHl1(j, k)) + (c_CHl3(j, k)))*Me[k]))/8.;
-                                    CeeVLR.at(i).at(i).at(j).at(k) += -0.5*(gZbar2oMZ3*(-1 + 2*sbar2)*v2*(sbar*(c_CeB(j, k))*Me[j] + cbar*(c_CeW(j, k))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/sqrt(2);
-                                    CeeVLR.at(j).at(k).at(i).at(i) += -((gZbar2oMZ3*sbar2*v2*(sbar*(c_CeB(k, j).conjugate())*Me[j] + cbar*(c_CeW(k, j).conjugate())*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/sqrt(2));
-                                    CedVLR.at(j).at(k).at(i).at(i) += -0.3333333333333333*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CeB(k, j).conjugate())*Me[j] + cbar*(c_CeW(k, j).conjugate())*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/sqrt(2);
-                                    CdeVLR.at(i).at(i).at(j).at(k) += -0.16666666666666666*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*((sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/sqrt(2);
-                                    CedSRL.at(j).at(k).at(i).at(i) += (gZbar2oMZ4*v2*Md[i]*(-((c_CHe(j, k))*Me[j]) + ((c_CHl1(j, k)) + (c_CHl3(j, k)))*Me[k]))/4.;
-                                    CeeSRR.at(i).at(i).at(j).at(k) += (gZbar2oMZ4*v2*Me[i]*((c_CHe(j, k))*Me[j] - ((c_CHl1(j, k)) + (c_CHl3(j, k)))*Me[k]))/8.;
-                                    CeeSRR.at(j).at(k).at(i).at(i) += (gZbar2oMZ4*v2*Me[i]*((c_CHe(j, k))*Me[j] - ((c_CHl1(j, k)) + (c_CHl3(j, k)))*Me[k]))/8.;
-                                    CedSRR.at(j).at(k).at(i).at(i) += (gZbar2oMZ4*v2*Md[i]*((c_CHe(j, k))*Me[j] - ((c_CHl1(j, k)) + (c_CHl3(j, k)))*Me[k]))/4.;
-                                }
-                                for (int p = 0; p < 3; p++)
-                                        for (int r = 0; r < 3; r++)
-                                        {
-                                                CnudVLL.at(i).at(i).at(j).at(k) += VdLd(j, p) * ((gZ2oMZ2 * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r)))) / 4.) * VdL(r, k);
-                                                CedVLL.at(i).at(i).at(j).at(k) += VdLd(j, p) * ((gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r)))) / 4.) * VdL(r, k);
-                                                CddVLL.at(i).at(i).at(j).at(k) += VdLd(j, p) * ((gZ2oMZ2 * (-3 + 2 * sbar2) * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r)))) / 24.) * VdL(r, k);
-                                                CddVLL.at(j).at(k).at(i).at(i) += VdLd(j, p) * ((gZ2oMZ2 * (-3 + 2 * sbar2) * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r)))) / 24.) * VdL(r, k);
-                                                CedVRR.at(i).at(i).at(j).at(k) += VdRd(j, p) * ((gZ2oMZ2 * sbar2 * v2 * (c_CHd(p, r))) / 2.) * VdR(r, k);
-                                                CddVRR.at(i).at(i).at(j).at(k) += VdRd(j, p) * ((gZ2oMZ2 * sbar2 * v2 * (c_CHd(p, r))) / 12.) * VdR(r, k);
-                                                CddVRR.at(j).at(k).at(i).at(i) += VdRd(j, p) * ((gZ2oMZ2 * sbar2 * v2 * (c_CHd(p, r))) / 12.) * VdR(r, k);
-                                                CnudVLR.at(i).at(i).at(j).at(k) += VdRd(j, p) * ((gZ2oMZ2 * v2 * (c_CHd(p, r))) / 4.) * VdR(r, k);
-                                                CnudVLR.at(i).at(i).at(j).at(k) += VdLd(j,p) * (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*Md[j])/sqrt(2)) * VdR(r,k);
-                                                CedVLR.at(i).at(i).at(j).at(k) += VdRd(j, p) * ((gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * (c_CHd(p, r))) / 4.) * VdR(r, k);
-                                                CdeVLR.at(j).at(k).at(i).at(i) += VdLd(j, p) * ((gZ2oMZ2 * sbar2 * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r)))) / 2.) * VdL(r, k);
-                                                CddV1LR.at(i).at(i).at(j).at(k) += VdRd(j, p) * ((gZ2oMZ2 * (-3 + 2 * sbar2) * v2 * (c_CHd(p, r))) / 12.) * VdR(r, k);
-                                                CddV1LR.at(j).at(k).at(i).at(i) += VdLd(j, p) * ((gZ2oMZ2 * sbar2 * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r)))) / 6.) * VdL(r, k);
-                                                if (mySMEFT.FlagNewTerms) {
-                                                    CnudVLL.at(i).at(i).at(j).at(k) += VdRd(j,p) * (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*Md[j])/sqrt(2)) * VdL(r,k);
-                                                    CnudVLL.at(i).at(i).at(j).at(k) += VdLd(j,p) * (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*Md[k])/sqrt(2)) * VdR(r,k);
-                                                    CedVLL.at(i).at(i).at(j).at(k) += VdRd(j,p) * (-((gZbar2oMZ3*(-0.5 + sbar2)*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*Md[j])/sqrt(2))) * VdL(r,k);
-                                                    CedVLL.at(i).at(i).at(j).at(k) += VdLd(j,p) * (-((gZbar2oMZ3*(-0.5 + sbar2)*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*Md[k])/sqrt(2))) * VdR(r,k);
-                                                    CddVLL.at(i).at(i).at(j).at(k) += VdRd(j,p) * (-0.041666666666666664*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*Md[j])/sqrt(2)) * VdL(r,k);
-                                                    CddVLL.at(i).at(i).at(j).at(k) += VdLd(j,p) * (-0.041666666666666664*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*Md[k])/sqrt(2)) * VdR(r,k);
-                                                    CddVLL.at(j).at(k).at(i).at(i) += VdRd(j,p) * (-0.041666666666666664*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*Md[j])/sqrt(2)) * VdL(r,k);
-                                                    CddVLL.at(j).at(k).at(i).at(i) += VdLd(j,p) * (-0.041666666666666664*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*Md[k])/sqrt(2)) * VdR(r,k);
-                                                    CedVRR.at(i).at(i).at(j).at(k) += VdRd(j,p) * (-((gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*Md[k])/sqrt(2))) * VdL(r,k);
-                                                    CedVRR.at(i).at(i).at(j).at(k) += VdLd(j,p) * (-((gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*Md[j])/sqrt(2))) * VdR(r,k);
-                                                    CddVRR.at(i).at(i).at(j).at(k) += VdRd(j,p) * (-0.16666666666666666*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*Md[k])/sqrt(2)) * VdL(r,k);
-                                                    CddVRR.at(i).at(i).at(j).at(k) += VdLd(j,p) * (-0.16666666666666666*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*Md[j])/sqrt(2)) * VdR(r,k);
-                                                    CddVRR.at(j).at(k).at(i).at(i) += VdRd(j,p) * (-0.16666666666666666*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*Md[k])/sqrt(2)) * VdL(r,k);
-                                                    CddVRR.at(j).at(k).at(i).at(i) += VdLd(j,p) * (-0.16666666666666666*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*Md[j])/sqrt(2)) * VdR(r,k);
-                                                    CnudVLR.at(i).at(i).at(j).at(k) += VdRd(j,p) * (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*Md[k])/sqrt(2)) * VdL(r,k);
-                                                    CnudVLR.at(i).at(i).at(j).at(k) += VdLd(j,p) * (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*Md[j])/sqrt(2)) * VdR(r,k);
-                                                    CedVLR.at(i).at(i).at(j).at(k) += VdRd(j,p) * (-((gZbar2oMZ3*(-0.5 + sbar2)*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*Md[k])/sqrt(2))) * VdL(r,k);
-                                                    CedVLR.at(i).at(i).at(j).at(k) += VdLd(j,p) * (-((gZbar2oMZ3*(-0.5 + sbar2)*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*Md[j])/sqrt(2))) * VdR(r,k);
-                                                    CdeVLR.at(j).at(k).at(i).at(i) += VdRd(j,p) * (-((gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*Md[j])/sqrt(2))) * VdL(r,k);
-                                                    CdeVLR.at(j).at(k).at(i).at(i) += VdLd(j,p) * (-((gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*Md[k])/sqrt(2))) * VdR(r,k);
-                                                    CddV1LR.at(i).at(j).at(k).at(i) += VdLd(k,p) * (-0.041666666666666664*(gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[i]*Md[k])) * VdL(r,j);
-                                                    CddV1LR.at(i).at(j).at(k).at(i) += VdRd(k,p) * ((gZbar2oMZ4*v2*(c_CHd(p, r))*Md[i]*Md[j])/24.) * VdR(r,j);
-                                                    CddV1LR.at(j).at(i).at(i).at(k) += VdLd(j,p) * (-0.041666666666666664*(gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[i]*Md[k])) * VdL(r,k);
-                                                    CddV1LR.at(j).at(i).at(i).at(k) += VdRd(j,p) * ((gZbar2oMZ4*v2*(c_CHd(p, r))*Md[i]*Md[j])/24.) * VdR(r,k);
-                                                    CddV1LR.at(i).at(i).at(j).at(k) += VdRd(j,p) * (-0.16666666666666666*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*Md[k])/sqrt(2)) * VdL(r,k);
-                                                    CddV1LR.at(i).at(i).at(j).at(k) += VdLd(j,p) * (-0.16666666666666666*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*Md[j])/sqrt(2)) * VdR(r,k);
-                                                    CddV1LR.at(j).at(k).at(i).at(i) += VdRd(j,p) * (-0.3333333333333333*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*Md[j])/sqrt(2)) * VdL(r,k);
-                                                    CddV1LR.at(j).at(k).at(i).at(i) += VdLd(j,p) * (-0.3333333333333333*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*Md[k])/sqrt(2)) * VdR(r,k);
-                                                    CddV8LR.at(i).at(j).at(k).at(i) += VdLd(k,p) * (-0.25*(gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[i]*Md[k])) * VdL(r,j);
-                                                    CddV8LR.at(i).at(j).at(k).at(i) += VdRd(k,p) * ((gZbar2oMZ4*v2*(c_CHd(p, r))*Md[i]*Md[j])/4.) * VdR(r,j);
-                                                    CddV8LR.at(j).at(i).at(i).at(k) += VdLd(j,p) * (-0.25*(gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[i]*Md[k])) * VdL(r,k);
-                                                    CddV8LR.at(j).at(i).at(i).at(k) += VdRd(j,p) * ((gZbar2oMZ4*v2*(c_CHd(p, r))*Md[i]*Md[j])/4.) * VdR(r,k);
-                                                    CedSRL.at(i).at(i).at(j).at(k) += VdLd(j,p) * ((gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[j]*Me[i])/4.) * VdL(r,k);
-                                                    CedSRL.at(i).at(i).at(j).at(k) += VdRd(j,p) * (-0.25*(gZbar2oMZ4*v2*(c_CHd(p, r))*Md[k]*Me[i])) * VdR(r,k);
-                                                    CedSRR.at(i).at(i).at(j).at(k) += VdRd(j,p) * ((gZbar2oMZ4*v2*(c_CHd(p, r))*Md[j]*Me[i])/4.) * VdR(r,k);
-                                                    CedSRR.at(i).at(i).at(j).at(k) += VdLd(j,p) * (-0.25*(gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[k]*Me[i])) * VdL(r,k);
-                                                    CddS1RR.at(i).at(i).at(j).at(k) += VdRd(j,p) * ((gZbar2oMZ4*v2*(c_CHd(p, r))*Md[i]*Md[j])/4.) * VdR(r,k);
-                                                    CddS1RR.at(i).at(i).at(j).at(k) += VdLd(j,p) * (-0.25*(gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[i]*Md[k])) * VdL(r,k);
-                                                    CddS1RR.at(j).at(k).at(i).at(i) += VdLd(j,p) * (-0.25*(gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[i]*Md[k])) * VdL(r,k);
-                                                    CddS1RR.at(j).at(k).at(i).at(i) += VdRd(j,p) * ((gZbar2oMZ4*v2*(c_CHd(p, r))*Md[i]*Md[j])/4.) * VdR(r,k);
-                                                }
-                                        }
-
-                                for (int l = 0; l < 3; l++)
-                                {
-                                        CnunuVLL.at(i).at(j).at(k).at(l) += (c_Cll(i, j, k, l));
-                                        CeeVLL.at(i).at(j).at(k).at(l) += (c_Cll(i, j, k, l));
-                                        CnueVLL.at(i).at(j).at(k).at(l) += (c_Cll(i, j, k, l)) + (c_Cll(k, l, i, j));
-                                        CeeVRR.at(i).at(j).at(k).at(l) += (c_Cee(i, j, k, l));
-                                        CnueVLR.at(i).at(j).at(k).at(l) += (c_Cle(i, j, k, l));
-                                        CeeVLR.at(i).at(j).at(k).at(l) += (c_Cle(i, j, k, l));
-                                        if (mySMEFT.FlagNewTerms) {
-                                            CeeVLR.at(i).at(j).at(k).at(l) += (oneoMh2*(3*v2*(c_CeH(i, l))*(c_Ye(k, j)) + (3*v2*(c_CeH(j, k).conjugate()) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Ye(k, j)))*(c_Ye(l, i).conjugate())))/4.;
-                                            CedSRL.at(i).at(j).at(k).at(l) += VCKMd(k,l) * ((g2bar2oMW4*v2*(c_CHl3(i, j))*Md[k]*Me[j])/2.);
-                                            CeeSRR.at(i).at(j).at(k).at(l) += -0.25*(oneoMh2*(3*v2*(c_CeH(k, l))*(c_Ye(j, i).conjugate()) + (3*v2*(c_CeH(i, j)) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Ye(j, i).conjugate()))*(c_Ye(l, k).conjugate())));
-                                        }
-                                        for (int p = 0; p < 3; p++)
-                                                for (int r = 0; r < 3; r++)
-                                                {
-                                                        CnudVLL.at(i).at(j).at(k).at(l) += VdLd(k, p) * ((c_Clq1(i, j, p, r)) - (c_Clq3(i, j, p, r))) * VdL(r, l);
-                                                        CedVLL.at(i).at(j).at(k).at(l) += VdLd(k, p) * ((c_Clq1(i, j, p, r)) + (c_Clq3(i, j, p, r))) * VdL(r, l);
-                                                        CedVRR.at(i).at(j).at(k).at(l) += VdRd(k, p) * ((c_Ced(i, j, p, r))) * VdR(r, l);
-                                                        CnudVLR.at(i).at(j).at(k).at(l) += VdRd(k, p) * ((c_Cld(i, j, p, r))) * VdR(r, l);
-                                                        CedVLR.at(i).at(j).at(k).at(l) += VdRd(k, p) * ((c_Cld(i, j, p, r))) * VdR(r, l);
-                                                        CdeVLR.at(i).at(j).at(k).at(l) += VdLd(i, p) * ((c_Cqe(p, r, k, l))) * VdL(r, j);
-                                                        CedSRL.at(i).at(j).at(k).at(l) += VdRd(k, p) * ((c_Cledq(i, j, p, r))) * VdL(r, l);
-                                                        if (mySMEFT.FlagNewTerms) {
-                                                            CedSRL.at(i).at(j).at(k).at(l) += VdRd(k,p) * (-0.5*(oneoMh2*(3*v2*(c_CeH(i, j))*(c_Yd(p, r)) + (3*v2*(c_CdH(r, p).conjugate()) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yd(p, r)))*(c_Ye(j, i).conjugate()))))* VdL(r,l);
-                                                            CedSRR.at(i).at(j).at(k).at(l) += VdLd(k,p) * (-0.5*(oneoMh2*(3*v2*(c_CeH(i, j))*(c_Yd(r, p).conjugate()) + (3*v2*(c_CdH(p, r)) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yd(r, p).conjugate()))*(c_Ye(j, i).conjugate())))) * VdR(r,l);
-
-                                                        }
-                                                        for (int s = 0; s < 3; s++)
-                                                                for (int t = 0; t < 3; t++)
-                                                                {
-                                                                        CddVLL.at(i).at(j).at(k).at(l) += VdLd(i, p) * VdLd(k, s) * ((c_Cqq1(p, r, s, t)) + (c_Cqq3(p, r, s, t))) * VdL(r, j) * VdL(t, l);
-                                                                        CddVRR.at(i).at(j).at(k).at(l) += VdRd(i, p) * VdRd(k, s) * ((c_Cdd(p, r, s, t))) * VdR(r, j) * VdR(t, l);
-                                                                        CddV1LR.at(i).at(j).at(k).at(l) += VdLd(i, p) * VdRd(k, s) * ((c_Cqd1(p, r, s, t))) * VdL(r, j) * VdR(t, l);
-                                                                        CddV8LR.at(i).at(j).at(k).at(l) += VdLd(i, p) * VdRd(k, s) * ((c_Cqd8(p, r, s, t))) * VdL(r, j) * VdR(t, l);
-                                                                        CddVLL.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdLd(k,s) * (-0.125*(gZ2oMZ2*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHq1(s, t))*(c_CHq3(p, r))) - (gZ2oMZ2*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHq3(p, r))*(c_CHq3(s, t)))/8. - (gZ2oMZ2*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHq1(p, r))*((c_CHq1(s, t)) + (c_CHq3(s, t))))/8.) * VdL(r,j) * VdL(t,l);
-                                                                        CddVRR.at(i).at(j).at(k).at(l) += VdRd(i,p) * VdRd(k,s) * ((gZ2oMZ2*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHd(p, r))*(c_CHd(s, t)))/8.) * VdR(r,j) * VdR(t,l);
-                                                                        CddV1LR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * (-0.25*(gZ2oMZ2*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHd(s, t))*((c_CHq1(p, r)) + (c_CHq3(p, r))))) * VdL(r,j) * VdR(t,l);
-                                                                        if (mySMEFT.FlagNewTerms) {
-                                                                            CddV1LR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * ((oneoMh2*(3*v2*(c_CdH(p, t))*(c_Yd(s, r)) + (3*v2*(c_CdH(r, s).conjugate()) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yd(s, r)))*(c_Yd(t, p).conjugate())))/12.) * VdL(r,j) * VdR(t,l);
-                                                                            CddV8LR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * ((oneoMh2*(3*v2*(c_CdH(p, t))*(c_Yd(s, r)) + (3*v2*(c_CdH(r, s).conjugate()) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yd(s, r)))*(c_Yd(t, p).conjugate())))/2.) * VdL(r,j) * VdR(t,l);
-                                                                            CddS1RR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdLd(k,s) * (-0.25*(oneoMh2*(3*v2*(c_CdH(s, t))*(c_Yd(r, p).conjugate()) + (3*v2*(c_CdH(p, r)) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yd(r, p).conjugate()))*(c_Yd(t, s).conjugate())))) * VdR(r,j) * VdR(t,l);
-                                                                            CddVLL.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(sbar*(c_CdB(t, s).conjugate()) + cbar*(c_CdW(t, s).conjugate()))*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[k])/(8.*sqrt(2))) * VdL(r,j) * VdL(t,l);
-                                                                            CddVLL.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdLd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(sbar*(c_CdB(s, t)) + cbar*(c_CdW(s, t)))*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[l])/(8.*sqrt(2))) * VdL(r,j) * VdR(t,l);
-                                                                            CddVLL.at(i).at(j).at(k).at(l) += VdRd(i,p) * VdLd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*((c_CHq1(s, t)) + (c_CHq3(s, t)))*Md[i])/(8.*sqrt(2))) * VdL(r,j) * VdL(t,l);
-                                                                            CddVLL.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdLd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*((c_CHq1(s, t)) + (c_CHq3(s, t)))*Md[j])/(8.*sqrt(2))) * VdR(r,j) * VdL(t,l);
-                                                                            CddVRR.at(i).at(j).at(k).at(l) += VdRd(i,p) * VdRd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(sbar*(c_CdB(t, s).conjugate()) + cbar*(c_CdW(t, s).conjugate()))*(c_CHd(p, r))*Md[l])/(4.*sqrt(2)))* VdR(r,j) * VdL(t,l);
-                                                                            CddVRR.at(i).at(j).at(k).at(l) += VdRd(i,p) * VdLd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(sbar*(c_CdB(s, t)) + cbar*(c_CdW(s, t)))*(c_CHd(p, r))*Md[k])/(4.*sqrt(2))) * VdR(r,j) * VdR(t,l);
-                                                                            CddVRR.at(i).at(j).at(k).at(l) += VdRd(i,p) * VdRd(k,s) *((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*(c_CHd(s, t))*Md[j])/(4.*sqrt(2))) * VdL(r,j) * VdR(t,l);
-                                                                            CddVRR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) *((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*(c_CHd(s, t))*Md[i])/(4.*sqrt(2))) * VdR(r,j) * VdR(t,l);
-                                                                            CddV1LR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * (-0.041666666666666664*(oneoMh2*(3*v2*(c_CdH(p, t))*(3*mySMEFT.FlagQuadraticWC*v2*(c_CdH(r, s).conjugate()))))) * VdL(r,j) * VdR(t,l);
-                                                                            CddV1LR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(sbar*(c_CdB(t, s).conjugate()) + cbar*(c_CdW(t, s).conjugate()))*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[l])/(2.*sqrt(2))) * VdL(r,j) * VdR(t,l);
-                                                                            CddV1LR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(sbar*(c_CdB(s, t)) + cbar*(c_CdW(s, t)))*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[k])/(2.*sqrt(2))) * VdL(r,j) * VdR(t,l);
-                                                                            CddV1LR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*(c_CHd(s, t))*Md[i])/(2.*sqrt(2))) * VdL(r,j) * VdR(t,l);
-                                                                            CddV1LR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*(c_CHd(s, t))*Md[j])/(2.*sqrt(2))) * VdL(r,j) * VdR(t,l);
-                                                                            CddV1LR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * (-0.041666666666666664*(gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(s, r)) + (c_CHq3(s, r)))*((c_CHq1(p, t)) + (c_CHq3(p, t)))*Md[k]*Md[l])) * VdL(r,j) * VdR(t,l);
-                                                                            CddV1LR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * ((gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHd(s, r))*((c_CHq1(p, t)) + (c_CHq3(p, t)))*Md[j]*Md[l])/24.) * VdL(r,j) * VdR(t,l);
-                                                                            CddV1LR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * ((gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHd(p, t))*((c_CHq1(s, r)) + (c_CHq3(s, r)))*Md[i]*Md[k])/24.) * VdL(r,j) * VdR(t,l);
-                                                                            CddV1LR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * (-0.041666666666666664*(gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHd(p, t))*(c_CHd(s, r))*Md[i]*Md[j])) * VdL(r,j) * VdR(t,l);
-                                                                            CddV8LR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * (-0.25*(oneoMh2*(3*v2*(c_CdH(p, t))*(3*mySMEFT.FlagQuadraticWC*v2*(c_CdH(r, s).conjugate()))))) * VdL(r,j) * VdR(t,l);
-                                                                            CddV8LR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * (-0.25*(gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(s, r)) + (c_CHq3(s, r)))*((c_CHq1(p, t)) + (c_CHq3(p, t)))*Md[k]*Md[l])) * VdL(r,j) * VdR(t,l);
-                                                                            CddV8LR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * ((gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHd(s, r))*((c_CHq1(p, t)) + (c_CHq3(p, t)))*Md[j]*Md[l])/4.) * VdL(r,j) * VdR(t,l);
-                                                                            CddV8LR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * ((gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHd(p, t))*((c_CHq1(s, r)) + (c_CHq3(s, r)))*Md[i]*Md[k])/4.) * VdL(r,j) * VdR(t,l);
-                                                                            CddV8LR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdRd(k,s) * (-0.25*(gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHd(p, t))*(c_CHd(s, r))*Md[i]*Md[j])) * VdL(r,j) * VdR(t,l);
-                                                                            CddS1RR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdLd(k,s) * ((oneoMh2*(3*v2*(c_CdH(p, r))*(3*mySMEFT.FlagQuadraticWC*v2*(c_CdH(s, t)))))/8.) * VdR(r,j) * VdR(t,l);
-                                                                            CddS1RR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdLd(k,s) * ((gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHd(s, t))*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[j]*Md[k])/4.) * VdR(r,j) * VdR(t,l);
-                                                                            CddS1RR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdLd(k,s) * (-0.25*(gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*((c_CHq1(s, t)) + (c_CHq3(s, t)))*Md[j]*Md[l])) * VdR(r,j) * VdR(t,l);
-                                                                            CddS1RR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdLd(k,s) * (-0.25*(gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHd(p, r))*(c_CHd(s, t))*Md[i]*Md[k])) * VdR(r,j) * VdR(t,l);
-                                                                            CddS1RR.at(i).at(j).at(k).at(l) += VdLd(i,p) * VdLd(k,s) * ((gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHd(p, r))*((c_CHq1(s, t)) + (c_CHq3(s, t)))*Md[i]*Md[l])/4.) * VdR(r,j) * VdR(t,l);
-                                                                        }
-                                                                }
-                                                }
-                                }
-                                for (int l = 0; l < 2; l++)
-                                {
-                                        CnueduVLL.at(i).at(j).at(k).at(l) += VCKMd(k, l) * (-0.5 * (g22oMW2 * v2 * (c_CHl3(i, j))));
-                                        if (mySMEFT.FlagNewTerms) {
-                                            CnueduVLL.at(i).at(j).at(k).at(l) += VCKMd(k,l) *((g2bar2oMW3*v2*(c_CeW(i, j))*Me[j])/sqrt(2));
-                                            CnueduSRR.at(i).at(j).at(k).at(l) += VCKMd(k,l) * (-0.5*(g2bar2oMW4*v2*(c_CHl3(i, j))*Me[j]*Mu[l]));
-                                        }
-                                        for (int p = 0; p < 3; p++)
-                                                for (int r = 0; r < 3; r++)
-                                                {
-                                                        CnueduVLL.at(i).at(j).at(k).at(l) += VdLd(k, p) * (2 * (c_Clq3(i, j, p, r))) * VuL(r, l);
-                                                        CnueduSRL.at(i).at(j).at(k).at(l) += VdRd(k, p) * ((c_Cledq(i, j, p, r))) * VuL(r, l);
-                                                        CnueduSRR.at(i).at(j).at(k).at(l) += VdLd(k, p) * ((c_Clequ1(i, j, p, r))) * VuR(r, l);
-                                                        CnueduTRR.at(i).at(j).at(k).at(l) += VdLd(k, p) * ((c_Clequ3(i, j, p, r))) * VuR(r, l);
-                                                }
-                                }
-                        }
-                        for (int k = 0; k < 2; k++)
-                        {
-                                CnueduVLL.at(i).at(i).at(j).at(k) += VCKMd(j, k) * (-0.5 * (delta_g22oMW2 * g22oMW2));
-                                if (mySMEFT.FlagNewTerms) {
-                              		CnueduSRR.at(i).at(i).at(j).at(k) += VCKMd(j,k) * (-0.5*((1 + deltag2bar2oMW4)*g2bar2oMW4*Me[i]*Mu[k]));
-                              	}
-                                for (int p = 0; p < 3; p++)
-                                        for (int r = 0; r < 3; r++)
-                                        {
-                                                CnueduVLL.at(i).at(i).at(j).at(k) += VdLd(j, p) * (-0.5 * (g22oMW2 * v2 * (c_CHq3(r, p).conjugate()))) * VuL(r, k);
-                                                CnueduVLR.at(i).at(i).at(j).at(k) += VdRd(j, p) * (-0.25 * (g22oMW2 * v2 * (c_CHud(r, p).conjugate()))) * VuR(r, k);
-                                                if (mySMEFT.FlagNewTerms) {
-                                                    CnueduVLL.at(i).at(i).at(j).at(k) += VdRd(j,p) * (-((g2bar2oMW3*v2*(c_CdW(r, p).conjugate())*Md[j])/sqrt(2))) * VuL(r,k);
-                                                    CnueduVLL.at(i).at(i).at(j).at(k) += VdLd(j,p) * (-((g2bar2oMW3*v2*(c_CuW(p, r))*Mu[k])/sqrt(2))) * VuR(r,k);
-                                                    CnueduVLR.at(i).at(i).at(j).at(k) += VdRd(j,p) * (-((g2bar2oMW3*v2*(c_CdW(r, p).conjugate())*Mu[k])/sqrt(2))) * VuL(r,k);
-                                                    CnueduVLR.at(i).at(i).at(j).at(k) += VdLd(j,p) * (-((g2bar2oMW3*v2*(c_CuW(p, r))*Md[j])/sqrt(2))) * VuR(r,k);
-                                                    CnueduSRL.at(i).at(i).at(j).at(k) += VdLd(j,p) * ((g2bar2oMW4*v2*(c_CHq3(r, p).conjugate())*Md[j]*Me[i])/2.) * VuL(r,k);
-                                                    CnueduSRL.at(i).at(i).at(j).at(k) += VdRd(j,p) * (-0.25*(g2bar2oMW4*v2*(c_CHud(r, p).conjugate())*Me[i]*Mu[k])) * VuR(r,k);
-                                                    CnueduSRR.at(i).at(i).at(j).at(k) += VdRd(j,p) * ((g2bar2oMW4*v2*(c_CHud(r, p).conjugate())*Md[j]*Me[i])/4.) * VuR(r,k);
-                                                    CnueduSRR.at(i).at(i).at(j).at(k) += VdLd(j,p) * (-0.5*(g2bar2oMW4*v2*(c_CHq3(r, p).conjugate())*Me[i]*Mu[k])) * VuL(r,k);
-                                                }
-                                        }
-                                for (int l = 0; l < 2; l++)
-                                {
-                                if (mySMEFT.FlagNewTerms) {
-                                    CduV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,l) * VCKM(k,j) * (-0.08333333333333333*((1 + deltag2bar2oMW4)*g2bar2oMW4*Mu[k]*Mu[l]));
-                                    CduV8LR.at(i).at(j).at(k).at(l) += VCKMd(i,l) * VCKM(k,j) * (-0.5*((1 + deltag2bar2oMW4)*g2bar2oMW4*Mu[k]*Mu[l]));
-                                }
-                                        for (int p = 0; p < 3; p++)
-                                                for (int r = 0; r < 3; r++)
-                                                {
-                                                        CnuuVLL.at(i).at(j).at(k).at(l) += VuLd(k, p) * ((c_Clq1(i, j, p, r)) + (c_Clq3(i, j, p, r))) * VuL(r, l);
-                                                        CeuVLL.at(i).at(j).at(k).at(l) += VuLd(k, p) * ((c_Clq1(i, j, p, r)) - (c_Clq3(i, j, p, r))) * VuL(r, l);
-                                                        CeuVRR.at(i).at(j).at(k).at(l) += VuRd(k, p) * ((c_Ceu(i, j, p, r))) * VuR(r, l);
-                                                        CnuuVLR.at(i).at(j).at(k).at(l) += VuRd(k, p) * ((c_Clu(i, j, p, r))) * VuR(r, l);
-                                                        CeuVLR.at(i).at(j).at(k).at(l) += VuRd(k, p) * ((c_Clu(i, j, p, r))) * VuR(r, l);
-                                                        CeuSRR.at(i).at(j).at(k).at(l) += VuLd(k, p) * (-(c_Clequ1(i, j, p, r))) * VuR(r, l);
-                                                        CeuTRR.at(i).at(j).at(k).at(l) += VuLd(k, p) * (-(c_Clequ3(i, j, p, r))) * VuR(r, l);
-                                                        if (mySMEFT.FlagNewTerms) {
-                                                            CduV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,l) * VuLd(k,p) * (-0.08333333333333333*(g2bar2oMW4*v2*(c_CHq3(p, r))*Mu[k]*Mu[l])) * VdL(r,j);
-                                                            CduV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,l) * VuRd(k,p) * ((g2bar2oMW4*v2*(c_CHud(p, r))*Md[j]*Mu[l])/24.) * VdR(r,j);
-                                                            CduV1LR.at(i).at(j).at(k).at(l) += VCKM(k,j) * VdLd(i,p) * (-0.08333333333333333*(g2bar2oMW4*v2*(c_CHq3(r, p).conjugate())*Mu[k]*Mu[l])) * VuL(r,l);
-                                                            CduV1LR.at(i).at(j).at(k).at(l) += VCKM(k,j) * VdRd(i,p) * ((g2bar2oMW4*v2*(c_CHud(r, p).conjugate())*Md[i]*Mu[k])/24.) * VuR(r,l);
-                                                            CduV8LR.at(i).at(j).at(k).at(l) += VCKMd(i,l) * VuLd(k,p) * (-0.5*(g2bar2oMW4*v2*(c_CHq3(p, r))*Mu[k]*Mu[l])) * VdL(r,j);
-                                                            CduV8LR.at(i).at(j).at(k).at(l) += VCKMd(i,l) * VuRd(k,p) * ((g2bar2oMW4*v2*(c_CHud(p, r))*Md[j]*Mu[l])/4.) * VdR(r,j);
-                                                            CduV8LR.at(i).at(j).at(k).at(l) += VCKM(k,j) * VdLd(i,p) * (-0.5*(g2bar2oMW4*v2*(c_CHq3(r, p).conjugate())*Mu[k]*Mu[l])) * VuL(r,l);
-                                                            CduV8LR.at(i).at(j).at(k).at(l) += VCKM(k,j) * VdRd(i,p) * ((g2bar2oMW4*v2*(c_CHud(r, p).conjugate())*Md[i]*Mu[k])/4.) * VuR(r,l);
-                                                            CeuSRL.at(i).at(j).at(k).at(l) += VuRd(k,p) * (-0.5*(oneoMh2*(3*v2*(c_CuH(r, p).conjugate())*(c_Ye(j, i).conjugate()) + (3*v2*(c_CeH(i, j)) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Ye(j, i).conjugate()))*(c_Yu(p, r)))))* VuL(r,l);
-                                                            CeuSRR.at(i).at(j).at(k).at(l) += VuLd(k,p) * (-0.5*(oneoMh2*(3*v2*(c_CuH(p, r))*(c_Ye(j, i).conjugate()) + (3*v2*(c_CeH(i, j)) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Ye(j, i).conjugate()))*(c_Yu(r, p).conjugate())))) * VuR(r,l);
-                                                        }
-                                                        for (int s = 0; s < 3; s++)
-                                                                for (int t = 0; t < 3; t++)
-                                                                {
-                                                                        CduV1LR.at(i).at(j).at(k).at(l) += VdLd(i, p) * VuRd(k, s) * ((c_Cqu1(p, r, s, t))) * VdL(r, j) * VuR(t, l);
-                                                                        CduV8LR.at(i).at(j).at(k).at(l) += VdLd(i, p) * VuRd(k, s) * ((c_Cqu8(p, r, s, t))) * VdL(r, j) * VuR(t, l);
-                                                                }
-                                                }
-                                }
-                        }
-                        for (int p = 0; p < 3; p++)
-                                for (int r = 0; r < 3; r++)
-                                {
-                                        Cdg.at(i).at(j) += vTosq2 * VdLd(i, p) * (-(c_CdW(p, r)) * sbar + (c_CdB(p, r)) * cbar) * VdR(r, j);
-                                        CdG.at(i).at(j) += vTosq2 * VdLd(i, p) * (c_CdG(p, r)) * VdR(r, j);
-                                }
-                }
+        // Work in the up-quark mass basis: VuL = VuR = VdR = 1, VdL = VCKM.
+        // Identity rotations have already been contracted; only CKM sums remain.
 
         for (int i = 0; i < 3; i++)
-                for (int j = 0; j < 2; j++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                Ceg.at(i).at(j) += vTosq2 * (-(c_CeW(i, j)) * sbar + (c_CeB(i, j)) * cbar);
+                CnunuVLL.at(i).at(i).at(j).at(j) += -0.0625 * (delta_gZ2oMZ2 * gZ2oMZ2);
+                CnunuVLL.at(i).at(j).at(j).at(i) += -0.0625 * (delta_gZ2oMZ2 * gZ2oMZ2);
+                CeeVLL.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * (-1 + 2 * sbar2) * (delta_gZ2oMZ2 - 2 * delta_gZ2oMZ2 * sbar2 - 8 * delta_sbar * sbar2)) / 16.;
+                CeeVLL.at(i).at(j).at(j).at(i) += (gZ2oMZ2 * (-1 + 2 * sbar2) * (delta_gZ2oMZ2 - 2 * delta_gZ2oMZ2 * sbar2 - 8 * delta_sbar * sbar2)) / 16.;
+                CnueVLL.at(i).at(i).at(j).at(j) += -0.25 * (gZ2oMZ2 * (4 * delta_sbar * sbar2 + delta_gZ2oMZ2 * (-1 + 2 * sbar2)));
+                CnueVLL.at(i).at(j).at(j).at(i) += -0.5 * (delta_g22oMW2 * g22oMW2);
+                CnudVLL.at(i).at(i).at(j).at(j) += -0.08333333333333333 * (gZ2oMZ2 * (4 * delta_sbar * sbar2 + delta_gZ2oMZ2 * (-3 + 2 * sbar2)));
+                CedVLL.at(i).at(i).at(j).at(j) += -0.08333333333333333 * (gZ2oMZ2 * (16 * delta_sbar * (-1 + sbar2) * sbar2 + delta_gZ2oMZ2 * (3 - 8 * sbar2 + 4 * sbar2 * sbar2)));
+                CddVLL.at(i).at(i).at(j).at(j) += -0.013888888888888888 * (gZ2oMZ2 * (-3 + 2 * sbar2) * (8 * delta_sbar * sbar2 + delta_gZ2oMZ2 * (-3 + 2 * sbar2)));
+                CeeVRR.at(i).at(i).at(j).at(j) += -0.25 * ((delta_gZ2oMZ2 + 4 * delta_sbar) * gZ2oMZ2 * sbar2 * sbar2);
+                CeeVRR.at(i).at(j).at(j).at(i) += -0.25 * ((delta_gZ2oMZ2 + 4 * delta_sbar) * gZ2oMZ2 * sbar2 * sbar2);
+                CedVRR.at(i).at(i).at(j).at(j) += -0.3333333333333333 * ((delta_gZ2oMZ2 + 4 * delta_sbar) * gZ2oMZ2 * sbar2 * sbar2);
+                CddVRR.at(i).at(i).at(j).at(j) += -0.05555555555555555 * ((delta_gZ2oMZ2 + 4 * delta_sbar) * gZ2oMZ2 * sbar2 * sbar2);
+                CnueVLR.at(i).at(i).at(j).at(j) += -0.5 * ((delta_gZ2oMZ2 + 2 * delta_sbar) * gZ2oMZ2 * sbar2);
+                CeeVLR.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * sbar2 * (delta_gZ2oMZ2 + delta_sbar * (2 - 8 * sbar2) - 2 * delta_gZ2oMZ2 * sbar2)) / 2.;
+                CnudVLR.at(i).at(i).at(j).at(j) += -0.16666666666666666 * ((delta_gZ2oMZ2 + 2 * delta_sbar) * gZ2oMZ2 * sbar2);
+                CedVLR.at(i).at(i).at(j).at(j) += -0.16666666666666666 * (gZ2oMZ2 * sbar2 * (-delta_gZ2oMZ2 - 2 * delta_sbar + 2 * delta_gZ2oMZ2 * sbar2 + 8 * delta_sbar * sbar2));
+                CdeVLR.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * (delta_sbar * (6 - 8 * sbar2) + delta_gZ2oMZ2 * (3 - 2 * sbar2)) * sbar2) / 6.;
+                CddV1LR.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * (delta_sbar * (6 - 8 * sbar2) + delta_gZ2oMZ2 * (3 - 2 * sbar2)) * sbar2) / 18.;
+                if (mySMEFT.FlagNewTerms)
                 {
-                        CnuuVLL.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * (8 * delta_sbar * sbar2 + delta_gZ2oMZ2 * (-3 + 4 * sbar2))) / 12.;
-                        CeuVLL.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * (4 * delta_sbar * sbar2 * (-5 + 8 * sbar2) + delta_gZ2oMZ2 * (3 - 10 * sbar2 + 8 * sbar2 * sbar2))) / 12.;
-                        CeuVRR.at(i).at(i).at(j).at(j) += (2 * (delta_gZ2oMZ2 + 4 * delta_sbar) * gZ2oMZ2 * sbar2 * sbar2) / 3.;
-                        CnuuVLR.at(i).at(i).at(j).at(j) += ((delta_gZ2oMZ2 + 2 * delta_sbar) * gZ2oMZ2 * sbar2) / 3.;
-                        CeuVLR.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * sbar2 * (-delta_gZ2oMZ2 - 2 * delta_sbar + 2 * delta_gZ2oMZ2 * sbar2 + 8 * delta_sbar * sbar2)) / 3.;
-                        CduV1LR.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * sbar2 * (-3 * delta_gZ2oMZ2 - 6 * delta_sbar + 2 * delta_gZ2oMZ2 * sbar2 + 8 * delta_sbar * sbar2)) / 9.;
-                        if (mySMEFT.FlagNewTerms) {
-                            CeuSRL.at(i).at(i).at(j).at(j) += -0.08333333333333333*(gZbar2oMZ4*(3 - 10*(1 + 2*delta_sbar)*sbar2 + 8*(1 + 4*delta_sbar)*pow(sbar2,2) + deltagZbar2oMZ4*(3 - 10*sbar2 + 8*pow(sbar2,2)))*Me[i]*Mu[j]);
-                            CeuSRL.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(-1 + 2*sbar2 + deltagZbar2oMZ4*(-1 + 2*sbar2) + delta_sbar*(-2 + 8*sbar2))*Me[i]*Mu[j])/3.;
-                            CeuSRL.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(-3 + 4*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2) + 2*delta_sbar*(-3 + 8*sbar2))*Me[i]*Mu[j])/6.;
-                            CeuSRL.at(i).at(i).at(j).at(j) += (-2*(1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Me[i]*Mu[j])/3.;
-                            CeuSRR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(1 + deltagZbar2oMZ4 + delta_sbar*(2 - 8*sbar2) - 2*sbar2 - 2*deltagZbar2oMZ4*sbar2)*Me[i]*Mu[j])/3.;
-                            CeuSRR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*(3 - 10*(1 + 2*delta_sbar)*sbar2 + 8*(1 + 4*delta_sbar)*pow(sbar2,2) + deltagZbar2oMZ4*(3 - 10*sbar2 + 8*pow(sbar2,2)))*Me[i]*Mu[j])/12.;
-                            CeuSRR.at(i).at(i).at(j).at(j) += (2*(1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Me[i]*Mu[j])/3.;
-                            CeuSRR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*(3 + delta_sbar*(6 - 16*sbar2) + deltagZbar2oMZ4*(3 - 4*sbar2) - 4*sbar2)*sbar2*Me[i]*Mu[j])/6.;
-                        }
-                        for (int k = 0; k < 2; k++)
-                                for (int p = 0; p < 3; p++)
-                                        for (int r = 0; r < 3; r++)
-                                        {
-                                                CudV1LL.at(j).at(k).at(i).at(i) += VuLd(j, p) * ((gZ2oMZ2 * (-3 + 2 * sbar2) * v2 * ((c_CHq1(p, r)) - (c_CHq3(p, r)))) / 12.) * VuL(r, k);
-                                                CnuuVLL.at(i).at(i).at(j).at(k) += VuLd(j, p) * ((gZ2oMZ2 * v2 * ((c_CHq1(p, r)) - (c_CHq3(p, r)))) / 4.) * VuL(r, k);
-                                                CeuVLL.at(i).at(i).at(j).at(k) += VuLd(j, p) * ((gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * ((c_CHq1(p, r)) - (c_CHq3(p, r)))) / 4.) * VuL(r, k);
-                                                CudV1RR.at(j).at(k).at(i).at(i) += VuRd(j, p) * ((gZ2oMZ2 * sbar2 * v2 * (c_CHu(p, r))) / 6.) * VuR(r, k);
-                                                CeuVRR.at(i).at(i).at(j).at(k) += VuRd(j, p) * ((gZ2oMZ2 * sbar2 * v2 * (c_CHu(p, r))) / 2.) * VuR(r, k);
-                                                CnuuVLR.at(i).at(i).at(j).at(k) += VuRd(j, p) * ((gZ2oMZ2 * v2 * (c_CHu(p, r))) / 4.) * VuR(r, k);
-                                                CeuVLR.at(i).at(i).at(j).at(k) += VuRd(j, p) * ((gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * (c_CHu(p, r))) / 4.) * VuR(r, k);
-                                                CduV1LR.at(i).at(i).at(j).at(k) += VuRd(j, p) * ((gZ2oMZ2 * (-3 + 2 * sbar2) * v2 * (c_CHu(p, r))) / 12.) * VuR(r, k);
-                                                CudV1LR.at(j).at(k).at(i).at(i) += VuLd(j, p) * ((gZ2oMZ2 * sbar2 * v2 * ((c_CHq1(p, r)) - (c_CHq3(p, r)))) / 6.) * VuL(r, k);
-                                                CueVLR.at(j).at(k).at(i).at(i) += VuLd(j, p) * ((gZ2oMZ2 * sbar2 * v2 * ((c_CHq1(p, r)) - (c_CHq3(p, r)))) / 2.) * VuL(r, k);
-                                                if (mySMEFT.FlagNewTerms) {
-                                                    CnuuVLL.at(i).at(i).at(j).at(k) += VuRd(j,p) * (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[j])/sqrt(2)) * VuL(r,k);
-                                                    CnuuVLL.at(i).at(i).at(j).at(k) += VuLd(j,p) * (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[k])/sqrt(2)) * VuR(r,k);
-                                                    CeuVLL.at(i).at(i).at(j).at(k) += VuRd(j,p) * (-((gZbar2oMZ3*(-0.5 + sbar2)*v2*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[j])/sqrt(2))) * VuL(r,k);
-                                                    CeuVLL.at(i).at(i).at(j).at(k) += VuLd(j,p) * (-((gZbar2oMZ3*(-0.5 + sbar2)*v2*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[k])/sqrt(2))) * VuR(r,k);
-                                                    CudV1LL.at(j).at(k).at(i).at(i) += VuRd(j,p) * (-0.16666666666666666*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[j])/sqrt(2)) * VuL(r,k);
-                                                    CudV1LL.at(j).at(k).at(i).at(i) += VuLd(j,p) * (-0.16666666666666666*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[k])/sqrt(2)) * VuR(r,k);
-                                                    CeuVRR.at(i).at(i).at(j).at(k) += VuRd(j,p) * (-((gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[k])/sqrt(2))) * VuL(r,k);
-                                                    CeuVRR.at(i).at(i).at(j).at(k) += VuLd(j,p) * (-((gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[j])/sqrt(2))) * VuR(r,k);
-                                                    CudV1RR.at(j).at(k).at(i).at(i) += VuRd(j,p) * (-0.3333333333333333*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[k])/sqrt(2)) * VuL(r,k);
-                                                    CudV1RR.at(j).at(k).at(i).at(i) += VuLd(j,p) * (-0.3333333333333333*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[j])/sqrt(2)) * VuR(r,k);
-                                                    CnuuVLR.at(i).at(i).at(j).at(k) += VuRd(j,p) * (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[k])/sqrt(2)) * VuL(r,k);
-                                                    CnuuVLR.at(i).at(i).at(j).at(k) += VuLd(j,p) * (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[j])/sqrt(2)) * VuR(r,k);
-                                                    CeuVLR.at(i).at(i).at(j).at(k) += VuRd(j,p) * (-((gZbar2oMZ3*(-0.5 + sbar2)*v2*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[k])/sqrt(2))) * VuL(r,k);
-                                                    CeuVLR.at(i).at(i).at(j).at(k) += VuLd(j,p) * (-((gZbar2oMZ3*(-0.5 + sbar2)*v2*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[j])/sqrt(2))) * VuR(r,k);
-                                                    CueVLR.at(j).at(k).at(i).at(i) += VuRd(j,p) * (-((gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[j])/sqrt(2))) * VuL(r,k);
-                                                    CueVLR.at(j).at(k).at(i).at(i) += VuLd(j,p) * (-((gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[k])/sqrt(2))) * VuR(r,k);
-                                                    CudV1LR.at(j).at(k).at(i).at(i) += VuRd(j,p) * (-0.3333333333333333*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[j])/sqrt(2)) * VuL(r,k);
-                                                    CudV1LR.at(j).at(k).at(i).at(i) += VuLd(j,p) * (-0.3333333333333333*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[k])/sqrt(2)) * VuR(r,k);
-                                                    CduV1LR.at(i).at(i).at(j).at(k) += VuRd(j,p) * (-0.16666666666666666*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[k])/sqrt(2)) * VuL(r,k);
-                                                    CduV1LR.at(i).at(i).at(j).at(k) += VuLd(j,p) * (-0.16666666666666666*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[j])/sqrt(2)) * VuR(r,k);
-                                                    CudduV1LR.at(j).at(i).at(i).at(k) += VuLd(j,p) * (-0.041666666666666664*(gZbar2oMZ4*v2*((c_CHq1(p, r)) - (c_CHq3(p, r)))*Md[i]*Mu[k])) * VuL(r,k);
-                                                    CudduV1LR.at(j).at(i).at(i).at(k) += VuRd(j,p) * ((gZbar2oMZ4*v2*(c_CHu(p, r))*Md[i]*Mu[j])/24.) * VuR(r,k);
-                                                    CudduV8LR.at(j).at(i).at(i).at(k) += VuLd(j,p) * (-0.25*(gZbar2oMZ4*v2*((c_CHq1(p, r)) - (c_CHq3(p, r)))*Md[i]*Mu[k])) * VuL(r,k);
-                                                    CudduV8LR.at(j).at(i).at(i).at(k) += VuRd(j,p) * ((gZbar2oMZ4*v2*(c_CHu(p, r))*Md[i]*Mu[j])/4.) * VuR(r,k);
-                                                    CeuSRL.at(i).at(i).at(j).at(k) += VuLd(j,p) * ((gZbar2oMZ4*v2*((c_CHq1(p, r)) - (c_CHq3(p, r)))*Me[i]*Mu[j])/4.) * VuL(r,k);
-                                                    CeuSRL.at(i).at(i).at(j).at(k) += VuRd(j,p) * (-0.25*(gZbar2oMZ4*v2*(c_CHu(p, r))*Me[i]*Mu[k])) * VuR(r,k);
-                                                    CeuSRR.at(i).at(i).at(j).at(k) += VuRd(j,p) * ((gZbar2oMZ4*v2*(c_CHu(p, r))*Me[i]*Mu[j])/4.) * VuR(r,k);
-                                                    CeuSRR.at(i).at(i).at(j).at(k) += VuLd(j,p) * (-0.25*(gZbar2oMZ4*v2*((c_CHq1(p, r)) - (c_CHq3(p, r)))*Me[i]*Mu[k])) * VuL(r,k);
-                                                    CudS1RR.at(j).at(k).at(i).at(i) += VuLd(j,p) * (-0.25*(gZbar2oMZ4*v2*((c_CHq1(p, r)) - (c_CHq3(p, r)))*Md[i]*Mu[k])) * VuL(r,k);
-                                                    CudS1RR.at(j).at(k).at(i).at(i) += VuRd(j,p) * ((gZbar2oMZ4*v2*(c_CHu(p, r))*Md[i]*Mu[j])/4.) * VuR(r,k);
-                                                }
-                                        }
+                    CnueVLR.at(i).at(j).at(j).at(i) += -0.25*((1 + deltag2bar2oMW4)*g2bar2oMW4*Me[i]*Me[j]);
+                    CeeVLR.at(i).at(j).at(j).at(i) += -0.125*(gZbar2oMZ4*(-1 + 2*sbar2)*(-1 + (2 + 8*delta_sbar)*sbar2 + deltagZbar2oMZ4*(-1 + 2*sbar2))*Me[i]*Me[j]);
+                    CeeVLR.at(i).at(j).at(j).at(i) += 2. * ((gZbar2oMZ4*sbar2*(-1 + 2*sbar2 + deltagZbar2oMZ4*(-1 + 2*sbar2) + delta_sbar*(-2 + 8*sbar2))*Me[i]*Me[j])/4.);
+                    CeeVLR.at(i).at(j).at(j).at(i) += -0.5*((1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Me[i]*Me[j]);
+                    CddV1LR.at(i).at(j).at(j).at(i) += -0.004629629629629629*(gZbar2oMZ4*(-3 + 2*sbar2)*(-3 + (2 + 8*delta_sbar)*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2))*Md[i]*Md[j]);
+                    CddV1LR.at(i).at(j).at(j).at(i) += 2. * ((gZbar2oMZ4*sbar2*(-3 + 2*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2) + delta_sbar*(-6 + 8*sbar2))*Md[i]*Md[j])/108.);
+                    CddV1LR.at(i).at(j).at(j).at(i) += -0.018518518518518517*((1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Md[i]*Md[j]);
+                    CddV8LR.at(i).at(j).at(j).at(i) += -0.027777777777777776*(gZbar2oMZ4*(-3 + 2*sbar2)*(-3 + (2 + 8*delta_sbar)*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2))*Md[i]*Md[j]);
+                    CddV8LR.at(i).at(j).at(j).at(i) += 2. * ((gZbar2oMZ4*sbar2*(-3 + 2*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2) + delta_sbar*(-6 + 8*sbar2))*Md[i]*Md[j])/18.);
+                    CddV8LR.at(i).at(j).at(j).at(i) += -0.1111111111111111*((1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Md[i]*Md[j]);
+                    CedSRL.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*(3 - 8*(1 + 2*delta_sbar)*sbar2 + 4*(1 + 4*delta_sbar)*pow(sbar2,2) + deltagZbar2oMZ4*(3 - 8*sbar2 + 4*pow(sbar2,2)))*Md[j]*Me[i])/12.;
+                    CedSRL.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(1 + deltagZbar2oMZ4 + delta_sbar*(2 - 8*sbar2) - 2*sbar2 - 2*deltagZbar2oMZ4*sbar2)*Md[j]*Me[i])/6.;
+                    CedSRL.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*(3 + delta_sbar*(6 - 8*sbar2) + deltagZbar2oMZ4*(3 - 2*sbar2) - 2*sbar2)*sbar2*Md[j]*Me[i])/6.;
+                    CedSRL.at(i).at(i).at(j).at(j) += ((1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Md[j]*Me[i])/3.;
+                    CeeSRR.at(i).at(i).at(j).at(j) += 2. * ((gZbar2oMZ4*sbar2*(-1 + 2*sbar2 + deltagZbar2oMZ4*(-1 + 2*sbar2) + delta_sbar*(-2 + 8*sbar2))*Me[i]*Me[j])/4.);
+                    CeeSRR.at(i).at(i).at(j).at(j) += -0.125*(gZbar2oMZ4*(-1 + 2*sbar2)*(-1 + (2 + 8*delta_sbar)*sbar2 + deltagZbar2oMZ4*(-1 + 2*sbar2))*Me[i]*Me[j]);
+                    CeeSRR.at(i).at(i).at(j).at(j) += -0.5*((1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Me[i]*Me[j]);
+                    CedSRR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(-1 + 2*sbar2 + deltagZbar2oMZ4*(-1 + 2*sbar2) + delta_sbar*(-2 + 8*sbar2))*Md[j]*Me[i])/6.;
+                    CedSRR.at(i).at(i).at(j).at(j) += -0.08333333333333333*(gZbar2oMZ4*(3 - 8*(1 + 2*delta_sbar)*sbar2 + 4*(1 + 4*delta_sbar)*pow(sbar2,2) + deltagZbar2oMZ4*(3 - 8*sbar2 + 4*pow(sbar2,2)))*Md[j]*Me[i]);
+                    CedSRR.at(i).at(i).at(j).at(j) += -0.3333333333333333*((1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Md[j]*Me[i]);
+                    CedSRR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(-3 + 2*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2) + delta_sbar*(-6 + 8*sbar2))*Md[j]*Me[i])/6.;
+                    CddS1RR.at(i).at(i).at(j).at(j) += 2. * ((gZbar2oMZ4*sbar2*(-3 + 2*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2) + delta_sbar*(-6 + 8*sbar2))*Md[i]*Md[j])/18.);
+                    CddS1RR.at(i).at(i).at(j).at(j) += -0.027777777777777776*(gZbar2oMZ4*(-3 + 2*sbar2)*(-3 + (2 + 8*delta_sbar)*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2))*Md[i]*Md[j]);
+                    CddS1RR.at(i).at(i).at(j).at(j) += -0.1111111111111111*((1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Md[i]*Md[j]);
                 }
-
-        for (int i = 0; i < 2; i++)
-                for (int j = 0; j < 3; j++)
+                for (int k = 0; k < 3; k++)
                 {
-                        CudV1LL.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * (4 * delta_sbar * sbar2 * (-9 + 8 * sbar2) + delta_gZ2oMZ2 * (9 - 18 * sbar2 + 8 * sbar2 * sbar2))) / 36.;
-                        CudV1RR.at(i).at(i).at(j).at(j) += (2 * (delta_gZ2oMZ2 + 4 * delta_sbar) * gZ2oMZ2 * sbar2 * sbar2) / 9.;
-                        CudV1LR.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * sbar2 * (delta_gZ2oMZ2 * (-3 + 4 * sbar2) + 2 * delta_sbar * (-3 + 8 * sbar2))) / 18.;
-                        CueVLR.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * sbar2 * (delta_gZ2oMZ2 * (-3 + 4 * sbar2) + 2 * delta_sbar * (-3 + 8 * sbar2))) / 6.;
-                        if (mySMEFT.FlagNewTerms) {
-                            CudduV1LR.at(i).at(j).at(j).at(i) += (gZbar2oMZ4*(9 - 18*(1 + 2*delta_sbar)*sbar2 + 8*(1 + 4*delta_sbar)*pow(sbar2,2) + deltagZbar2oMZ4*(9 - 18*sbar2 + 8*pow(sbar2,2)))*Md[j]*Mu[i])/216.;
-                            CudduV1LR.at(i).at(j).at(j).at(i) += -0.009259259259259259*(gZbar2oMZ4*sbar2*(-3 + 4*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2) + 2*delta_sbar*(-3 + 8*sbar2))*Md[j]*Mu[i]);
-                            CudduV1LR.at(i).at(j).at(j).at(i) += -0.018518518518518517*(gZbar2oMZ4*sbar2*(-3 + 2*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2) + delta_sbar*(-6 + 8*sbar2))*Md[j]*Mu[i]);
-                            CudduV1LR.at(i).at(j).at(j).at(i) += ((1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Md[j]*Mu[i])/27.;
-                            CudduV8LR.at(i).at(j).at(j).at(i) += (gZbar2oMZ4*(9 - 18*(1 + 2*delta_sbar)*sbar2 + 8*(1 + 4*delta_sbar)*pow(sbar2,2) + deltagZbar2oMZ4*(9 - 18*sbar2 + 8*pow(sbar2,2)))*Md[j]*Mu[i])/36.;
-                            CudduV8LR.at(i).at(j).at(j).at(i) += -0.05555555555555555*(gZbar2oMZ4*sbar2*(-3 + 4*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2) + 2*delta_sbar*(-3 + 8*sbar2))*Md[j]*Mu[i]);
-                            CudduV8LR.at(i).at(j).at(j).at(i) += -0.1111111111111111*(gZbar2oMZ4*sbar2*(-3 + 2*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2) + delta_sbar*(-6 + 8*sbar2))*Md[j]*Mu[i]);
-                            CudduV8LR.at(i).at(j).at(j).at(i) += (2*(1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Md[j]*Mu[i])/9.;
-                            CudS1RR.at(i).at(i).at(j).at(j) += -0.05555555555555555*(gZbar2oMZ4*sbar2*(-3 + 4*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2) + 2*delta_sbar*(-3 + 8*sbar2))*Md[j]*Mu[i]);
-                            CudS1RR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*(9 - 18*(1 + 2*delta_sbar)*sbar2 + 8*(1 + 4*delta_sbar)*pow(sbar2,2) + deltagZbar2oMZ4*(9 - 18*sbar2 + 8*pow(sbar2,2)))*Md[j]*Mu[i])/36.;
-                            CudS1RR.at(i).at(i).at(j).at(j) += (2*(1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Md[j]*Mu[i])/9.;
-                            CudS1RR.at(i).at(i).at(j).at(j) += -0.1111111111111111*(gZbar2oMZ4*sbar2*(-3 + 2*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2) + delta_sbar*(-6 + 8*sbar2))*Md[j]*Mu[i]);
-                        }
-                        for (int k = 0; k < 3; k++)
-                        {
-                                CeuVLL.at(j).at(k).at(i).at(i) += -0.08333333333333333 * (gZ2oMZ2 * (-3 + 4 * sbar2) * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k))));
-                                CnuuVLL.at(j).at(k).at(i).at(i) += -0.08333333333333333 * (gZ2oMZ2 * (-3 + 4 * sbar2) * v2 * ((c_CHl1(j, k)) - (c_CHl3(j, k))));
-                                CeuVRR.at(j).at(k).at(i).at(i) += -0.3333333333333333 * (gZ2oMZ2 * sbar2 * v2 * (c_CHe(j, k)));
-                                CnuuVLR.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * sbar2 * v2 * (-(c_CHl1(j, k)) + (c_CHl3(j, k)))) / 3.;
-                                CeuVLR.at(j).at(k).at(i).at(i) += -0.3333333333333333 * (gZ2oMZ2 * sbar2 * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k))));
-                                CueVLR.at(i).at(i).at(j).at(k) += (gZ2oMZ2 * (3 - 4 * sbar2) * v2 * (c_CHe(j, k))) / 12.;
-                                if (mySMEFT.FlagNewTerms) {
-                                    CeuVLL.at(j).at(k).at(i).at(i) += (gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CeB(k, j).conjugate())*Me[j] + cbar*(c_CeW(k, j).conjugate())*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/(6.*sqrt(2));
-                                    CeuVRR.at(j).at(k).at(i).at(i) += (sqrt(2)*gZbar2oMZ3*sbar2*v2*(sbar*(c_CeB(j, k))*Me[j] + cbar*(c_CeW(j, k))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/3.;
-                                    CeuVLR.at(j).at(k).at(i).at(i) += (sqrt(2)*gZbar2oMZ3*sbar2*v2*(sbar*(c_CeB(k, j).conjugate())*Me[j] + cbar*(c_CeW(k, j).conjugate())*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/3.;
-                                    CueVLR.at(i).at(i).at(j).at(k) += (gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CeB(j, k))*Me[j] + cbar*(c_CeW(j, k))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/(6.*sqrt(2));
-                                    CeuSRL.at(j).at(k).at(i).at(i) += (gZbar2oMZ4*v2*((c_CHe(j, k))*Me[j] - ((c_CHl1(j, k)) + (c_CHl3(j, k)))*Me[k])*Mu[i])/4.;
-                                    CeuSRR.at(j).at(k).at(i).at(i) += (gZbar2oMZ4*v2*(-((c_CHe(j, k))*Me[j]) + ((c_CHl1(j, k)) + (c_CHl3(j, k)))*Me[k])*Mu[i])/4.;
-                                }
-                                for (int p = 0; p < 3; p++)
-                                        for (int r = 0; r < 3; r++)
-                                        {
-                                                CudV1LL.at(i).at(i).at(j).at(k) += VdLd(j, p) * (-0.08333333333333333 * (gZ2oMZ2 * (-3 + 4 * sbar2) * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r))))) * VdL(r, k);
-                                                CudV1RR.at(i).at(i).at(j).at(k) += VdRd(j, p) * (-0.3333333333333333 * (gZ2oMZ2 * sbar2 * v2 * (c_CHd(p, r)))) * VdR(r, k);
-                                                CudV1LR.at(i).at(i).at(j).at(k) += VdRd(j, p) * ((gZ2oMZ2 * (3 - 4 * sbar2) * v2 * (c_CHd(p, r))) / 12.) * VdR(r, k);
-                                                CduV1LR.at(j).at(k).at(i).at(i) += VdLd(j, p) * (-0.3333333333333333 * (gZ2oMZ2 * sbar2 * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r))))) * VdL(r, k);
-                                                if (mySMEFT.FlagNewTerms) {
-                                                    CudV1LL.at(i).at(i).at(j).at(k) += VdRd(j,p) * ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*Md[j])/(6.*sqrt(2))) * VdL(r,k);
-                                                    CudV1LL.at(i).at(i).at(j).at(k) += VdLd(j,p) * ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*Md[k])/(6.*sqrt(2))) * VdR(r,k);
-                                                    CudV1RR.at(i).at(i).at(j).at(k) += VdRd(j,p) * ((sqrt(2)*gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*Md[k])/3.) * VdL(r,k);
-                                                    CudV1RR.at(i).at(i).at(j).at(k) += VdLd(j,p) * ((sqrt(2)*gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*Md[j])/3.) * VdR(r,k);
-                                                    CudV1LR.at(i).at(i).at(j).at(k) += VdRd(j,p) * ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*Md[k])/(6.*sqrt(2))) * VdL(r,k);
-                                                    CudV1LR.at(i).at(i).at(j).at(k) += VdLd(j,p) * ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*Md[j])/(6.*sqrt(2))) * VdR(r,k);
-                                                    CduV1LR.at(j).at(k).at(i).at(i) += VdRd(j,p) * ((sqrt(2)*gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*Md[j])/3.) * VdL(r,k);
-                                                    CduV1LR.at(j).at(k).at(i).at(i) += VdLd(j,p) * ((sqrt(2)*gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*Md[k])/3.) * VdR(r,k);
-                                                    CudduV1LR.at(i).at(j).at(k).at(i) += VdLd(k,p) * ((gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[k]*Mu[i])/24.) * VdL(r,j);
-                                                    CudduV1LR.at(i).at(j).at(k).at(i) += VdRd(k,p) * (-0.041666666666666664*(gZbar2oMZ4*v2*(c_CHd(p, r))*Md[j]*Mu[i])) * VdR(r,j);
-                                                    CudduV8LR.at(i).at(j).at(k).at(i) += VdLd(k,p) * ((gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[k]*Mu[i])/4.) * VdL(r,j);
-                                                    CudduV8LR.at(i).at(j).at(k).at(i) += VdRd(k,p) * (-0.25*(gZbar2oMZ4*v2*(c_CHd(p, r))*Md[j]*Mu[i])) * VdR(r,j);
-                                                    CudS1RR.at(i).at(i).at(j).at(k) += VdRd(j,p) * (-0.25*(gZbar2oMZ4*v2*(c_CHd(p, r))*Md[j]*Mu[i])) * VdR(r,k);
-                                                    CudS1RR.at(i).at(i).at(j).at(k) += VdLd(j,p) * ((gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[k]*Mu[i])/4.) * VdL(r,k);
-                                                }
-                                        }
-                                for (int l = 0; l < 2; l++)
-                                {
-                                	if (mySMEFT.FlagNewTerms) {	
-                                 		CudduS1RR.at(i).at(j).at(k).at(l) += VCKM(i,j) * VCKMd(k,l) * (-0.5*((1 + deltag2bar2oMW4)*g2bar2oMW4*Md[j]*Mu[l]));
-                                 	}
-                                        for (int p = 0; p < 3; p++)
-                                                for (int r = 0; r < 3; r++)
-                                                {
-                                                        CudduV1LR.at(i).at(j).at(k).at(l) += VCKM(i, j) * VdRd(k, p) * (-0.25 * (g22oMW2 * v2 * (c_CHud(r, p).conjugate()))) * VuR(r, l);
-                                                        if (mySMEFT.FlagNewTerms) {
-                                                            CudduV1LR.at(i).at(j).at(k).at(l) += VCKM(i,j) * VdRd(k,p) * (-((g2bar2oMW3*v2*(c_CdW(r, p).conjugate())*Mu[l])/sqrt(2))) * VuL(r,l);
-                                                            CudduV1LR.at(i).at(j).at(k).at(l) += VCKM(i,j) * VdLd(k,p) * (-((g2bar2oMW3*v2*(c_CuW(p, r))*Md[k])/sqrt(2))) * VuR(r,l);
-                                                            CudduS1RR.at(i).at(j).at(k).at(l) += VCKM(i,j) * VdRd(k,p) * ((g2bar2oMW4*v2*(c_CHud(r, p).conjugate())*Md[j]*Md[k])/4.) * VuR(r,l);
-                                                            CudduS1RR.at(i).at(j).at(k).at(l) += VCKM(i,j) * VdLd(k,p) * (-0.5*(g2bar2oMW4*v2*(c_CHq3(r, p).conjugate())*Md[j]*Mu[l])) * VuL(r,l);
-                                                            CudduS1RR.at(i).at(j).at(k).at(l) += VCKMd(k,l) * VuLd(i,p) * (-0.5*(g2bar2oMW4*v2*(c_CHq3(p, r))*Md[j]*Mu[l])) * VdL(r,j);
-                                                            CudduS1RR.at(i).at(j).at(k).at(l) += VCKMd(k,l) * VuRd(i,p) * ((g2bar2oMW4*v2*(c_CHud(p, r))*Mu[i]*Mu[l])/4.) * VdR(r,j);
-                                                        }
-                                                        for (int s = 0; s < 3; s++)
-                                                                for (int t = 0; t < 3; t++)
-                                                                {
-                                                                        CudduS1RR.at(i).at(j).at(k).at(l) += VuLd(i, p) * VdLd(k, s) * (-(c_Cquqd1(s, t, p, r))) * VdR(r, j) * VuR(t, l);
-                                                                        CudduS8RR.at(i).at(j).at(k).at(l) += VuLd(i, p) * VdLd(k, s) * (-(c_Cquqd8(s, t, p, r))) * VdR(r, j) * VuR(t, l);
-                                                                        if (mySMEFT.FlagNewTerms) {
-                                                                            CudduV1LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VdRd(k,s) * ((oneoMh2*(3*v2*(c_CuH(p, t))*(c_Yd(s, r)) + (3*v2*(c_CdH(r, s).conjugate()) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yd(s, r)))*(c_Yu(t, p).conjugate())))/12.) * VdL(r,j) * VuR(t,l);
-                                                                            CudduV8LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VdRd(k,s) * ((oneoMh2*(3*v2*(c_CuH(p, t))*(c_Yd(s, r)) + (3*v2*(c_CdH(r, s).conjugate()) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yd(s, r)))*(c_Yu(t, p).conjugate())))/2.) * VdL(r,j) * VuR(t,l);
-                                                                        }
-                                                                }
-                                                }
-                                }
-                        }
-                }
-
-        for (int i = 0; i < 2; i++)
-                for (int j = 0; j < 2; j++)
-                {
-                        CuuVLL.at(i).at(i).at(j).at(j) += -0.013888888888888888 * (gZ2oMZ2 * (-3 + 4 * sbar2) * (16 * delta_sbar * sbar2 + delta_gZ2oMZ2 * (-3 + 4 * sbar2)));
-                        CuuVRR.at(i).at(i).at(j).at(j) += (-2 * (delta_gZ2oMZ2 + 4 * delta_sbar) * gZ2oMZ2 * sbar2 * sbar2) / 9.;
-                        CuuV1LR.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * (2 * delta_sbar * (3 - 8 * sbar2) + delta_gZ2oMZ2 * (3 - 4 * sbar2)) * sbar2) / 9.;
-                        if (mySMEFT.FlagNewTerms) {
-                            CuuV1LR.at(i).at(j).at(j).at(i) += -0.004629629629629629*(gZbar2oMZ4*(-3 + 4*sbar2)*(-3 + 4*(1 + 4*delta_sbar)*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2))*Mu[i]*Mu[j]);
-                            CuuV1LR.at(i).at(j).at(j).at(i) += (gZbar2oMZ4*sbar2*(-3 + 4*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2) + 2*delta_sbar*(-3 + 8*sbar2))*Mu[i]*Mu[j])/54.;
-                            CuuV1LR.at(i).at(j).at(j).at(i) += (gZbar2oMZ4*sbar2*(-3 + 4*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2) + 2*delta_sbar*(-3 + 8*sbar2))*Mu[i]*Mu[j])/54.;
-                            CuuV1LR.at(i).at(j).at(j).at(i) += (-2*(1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Mu[i]*Mu[j])/27.;
-                            CuuV8LR.at(i).at(j).at(j).at(i) += -0.027777777777777776*(gZbar2oMZ4*(-3 + 4*sbar2)*(-3 + 4*(1 + 4*delta_sbar)*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2))*Mu[i]*Mu[j]);
-                            CuuV8LR.at(i).at(j).at(j).at(i) += (gZbar2oMZ4*sbar2*(-3 + 4*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2) + 2*delta_sbar*(-3 + 8*sbar2))*Mu[i]*Mu[j])/9.;
-                            CuuV8LR.at(i).at(j).at(j).at(i) += (gZbar2oMZ4*sbar2*(-3 + 4*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2) + 2*delta_sbar*(-3 + 8*sbar2))*Mu[i]*Mu[j])/9.;
-                            CuuV8LR.at(i).at(j).at(j).at(i) += (-4*(1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Mu[i]*Mu[j])/9.;
-                            CuuS1RR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(-3 + 4*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2) + 2*delta_sbar*(-3 + 8*sbar2))*Mu[i]*Mu[j])/18.;
-                            CuuS1RR.at(i).at(i).at(j).at(j) += -0.013888888888888888*(gZbar2oMZ4*(-3 + 4*sbar2)*(-3 + 4*(1 + 4*delta_sbar)*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2))*Mu[i]*Mu[j]);
-                            CuuS1RR.at(i).at(i).at(j).at(j) += (-2*(1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Mu[i]*Mu[j])/9.;
-                            CuuS1RR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(-3 + 4*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2) + 2*delta_sbar*(-3 + 8*sbar2))*Mu[i]*Mu[j])/18.;
-                        }
-                        for (int k = 0; k < 3; k++)
-                        {
-                                for (int l = 0; l < 3; l++)
-                                {
-                                        CudV1LL.at(i).at(j).at(k).at(l) += VCKM(i, l) * VCKMd(k, j) * (-0.16666666666666666 * (delta_g22oMW2 * g22oMW2));
-                                        CudV8LL.at(i).at(j).at(k).at(l) += VCKM(i, l) * VCKMd(k, j) * (-(delta_g22oMW2 * g22oMW2));
-                                        if (mySMEFT.FlagNewTerms) {
-                                            CudV1LR.at(i).at(j).at(k).at(l) += VCKM(i,l) * VCKMd(k,j) * (-0.08333333333333333*((1 + deltag2bar2oMW4)*g2bar2oMW4*Md[k]*Md[l]));
-                                            CudV8LR.at(i).at(j).at(k).at(l) += VCKM(i,l) * VCKMd(k,j) * (-0.5*((1 + deltag2bar2oMW4)*g2bar2oMW4*Md[k]*Md[l]));
-                                        }
-                                        for (int p = 0; p < 3; p++)
-                                                for (int r = 0; r < 3; r++)
-                                                {
-                                                        CudV1LL.at(i).at(j).at(k).at(l) += VCKMd(k, j) * VuLd(i, p) * (-0.16666666666666666 * (g22oMW2 * v2 * (c_CHq3(p, r)))) * VdL(r, l);
-                                                        CudV1LL.at(i).at(j).at(k).at(l) += VCKM(i, l) * VdLd(k, p) * (-0.16666666666666666 * (g22oMW2 * v2 * (c_CHq3(r, p).conjugate()))) * VuL(r, j);
-                                                        CudV8LL.at(i).at(j).at(k).at(l) += VCKMd(k, j) * VuLd(i, p) * (-(g22oMW2 * v2 * (c_CHq3(p, r)))) * VdL(r, l);
-                                                        CudV8LL.at(i).at(j).at(k).at(l) += VCKM(i, l) * VdLd(k, p) * (-(g22oMW2 * v2 * (c_CHq3(r, p).conjugate()))) * VuL(r, j);
-                                                        CueVLR.at(i).at(j).at(k).at(l) += VuLd(i, p) * ((c_Cqe(p, r, k, l))) * VuL(r, j);
-                                                        if (mySMEFT.FlagNewTerms) {
-                                                            CudV1LL.at(i).at(j).at(k).at(l) += VCKMd(k,j) * VuRd(i,p) * ((g2bar2oMW3*v2*(c_CuW(r, p).conjugate())*Mu[i])/(3.*sqrt(2))) * VdL(r,l);
-                                                            CudV1LL.at(i).at(j).at(k).at(l) += VCKMd(k,j) * VuLd(i,p) * ((g2bar2oMW3*v2*(c_CdW(p, r))*Md[l])/(3.*sqrt(2))) * VdR(r,l);
-                                                            CudV1LL.at(i).at(j).at(k).at(l) += VCKM(i,l) * VdRd(k,p) * (-0.3333333333333333*(g2bar2oMW3*v2*(c_CdW(r, p).conjugate())*Md[k])/sqrt(2)) * VuL(r,j);
-                                                            CudV1LL.at(i).at(j).at(k).at(l) += VCKM(i,l) * VdLd(k,p) * (-0.3333333333333333*(g2bar2oMW3*v2*(c_CuW(p, r))*Mu[j])/sqrt(2)) * VuR(r,j);
-                                                            CudV8LL.at(i).at(j).at(k).at(l) += VCKMd(k,j) * VuRd(i,p) * (sqrt(2)*g2bar2oMW3*v2*(c_CuW(r, p).conjugate())*Mu[i]) * VdL(r,l);
-                                                            CudV8LL.at(i).at(j).at(k).at(l) += VCKMd(k,j) * VuLd(i,p) * (sqrt(2)*g2bar2oMW3*v2*(c_CdW(p, r))*Md[l]) * VdR(r,l);
-                                                            CudV8LL.at(i).at(j).at(k).at(l) += VCKM(i,l) * VdRd(k,p) * (-(sqrt(2)*g2bar2oMW3*v2*(c_CdW(r, p).conjugate())*Md[k])) * VuL(r,j);
-                                                            CudV8LL.at(i).at(j).at(k).at(l) += VCKM(i,l) * VdLd(k,p) * (-(sqrt(2)*g2bar2oMW3*v2*(c_CuW(p, r))*Mu[j])) * VuR(r,j);
-                                                            CudV1LR.at(i).at(j).at(k).at(l) += VCKM(i,l) * VdLd(k,p) * (-0.08333333333333333*(g2bar2oMW4*v2*(c_CHq3(r, p).conjugate())*Md[k]*Md[l])) * VuL(r,j);
-                                                            CudV1LR.at(i).at(j).at(k).at(l) += VCKM(i,l) * VdRd(k,p) * ((g2bar2oMW4*v2*(c_CHud(r, p).conjugate())*Md[l]*Mu[j])/24.) * VuR(r,j);
-                                                            CudV1LR.at(i).at(j).at(k).at(l) += VCKMd(k,j) * VuLd(i,p) * (-0.08333333333333333*(g2bar2oMW4*v2*(c_CHq3(p, r))*Md[k]*Md[l])) * VdL(r,l);
-                                                            CudV1LR.at(i).at(j).at(k).at(l) += VCKMd(k,j) * VuRd(i,p) * ((g2bar2oMW4*v2*(c_CHud(p, r))*Md[k]*Mu[i])/24.) * VdR(r,l);
-                                                            CudV8LR.at(i).at(j).at(k).at(l) += VCKM(i,l) * VdLd(k,p) * (-0.5*(g2bar2oMW4*v2*(c_CHq3(r, p).conjugate())*Md[k]*Md[l])) * VuL(r,j);
-                                                            CudV8LR.at(i).at(j).at(k).at(l) += VCKM(i,l) * VdRd(k,p) * ((g2bar2oMW4*v2*(c_CHud(r, p).conjugate())*Md[l]*Mu[j])/4.) * VuR(r,j);
-                                                            CudV8LR.at(i).at(j).at(k).at(l) += VCKMd(k,j) * VuLd(i,p) * (-0.5*(g2bar2oMW4*v2*(c_CHq3(p, r))*Md[k]*Md[l])) * VdL(r,l);
-                                                            CudV8LR.at(i).at(j).at(k).at(l) += VCKMd(k,j) * VuRd(i,p) * ((g2bar2oMW4*v2*(c_CHud(p, r))*Md[k]*Mu[i])/4.) * VdR(r,l);
-                                                        }
-                                                        for (int s = 0; s < 3; s++)
-                                                                for (int t = 0; t < 3; t++)
-                                                                {
-                                                                        CudV1LL.at(i).at(j).at(k).at(l) += VuLd(i, p) * VdLd(k, s) * ((c_Cqq1(p, r, s, t)) + (c_Cqq1(s, t, p, r)) - (c_Cqq3(p, r, s, t)) + (2 * (c_Cqq3(p, t, s, r))) / 3. + (2 * (c_Cqq3(s, r, p, t))) / 3. - (c_Cqq3(s, t, p, r))) * VuL(r, j) * VdL(t, l);
-                                                                        CudV8LL.at(i).at(j).at(k).at(l) += VuLd(i, p) * VdLd(k, s) * (4 * ((c_Cqq3(p, t, s, r)) + (c_Cqq3(s, r, p, t)))) * VuL(r, j) * VdL(t, l);
-                                                                        CudV1RR.at(i).at(j).at(k).at(l) += VuRd(i, p) * VdRd(k, s) * ((c_Cud1(p, r, s, t))) * VuR(r, j) * VdR(t, l);
-                                                                        CudV8RR.at(i).at(j).at(k).at(l) += VuRd(i, p) * VdRd(k, s) * ((c_Cud8(p, r, s, t))) * VuR(r, j) * VdR(t, l);
-                                                                        CudV1LR.at(i).at(j).at(k).at(l) += VuLd(i, p) * VdRd(k, s) * ((c_Cqd1(p, r, s, t))) * VuL(r, j) * VdR(t, l);
-                                                                        CudV8LR.at(i).at(j).at(k).at(l) += VuLd(i, p) * VdRd(k, s) * ((c_Cqd8(p, r, s, t))) * VuL(r, j) * VdR(t, l);
-                                                                        CudS1RR.at(i).at(j).at(k).at(l) += VuLd(i, p) * VdLd(k, s) * ((c_Cquqd1(p, r, s, t))) * VuR(r, j) * VdR(t, l);
-                                                                        CudS8RR.at(i).at(j).at(k).at(l) += VuLd(i, p) * VdLd(k, s) * ((c_Cquqd8(p, r, s, t))) * VuR(r, j) * VdR(t, l);
-                                                                        if (mySMEFT.FlagNewTerms) {
-                                                                            CudS1RR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VdLd(k,s) * ((oneoMh2*(-3*v2*(c_CuH(p, r))*(c_Yd(t, s).conjugate()) + (-3*v2*(c_CdH(s, t)) + 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yd(t, s).conjugate()))*(c_Yu(r, p).conjugate())))/2.) * VuR(r,j) * VdR(t,l);
-                                                                        }
-                                                                }
-                                                }
-                                }
-                        }
-                        for (int k = 0; k < 2; k++)
-                        {
-                                for (int p = 0; p < 3; p++)
-                                        for (int r = 0; r < 3; r++)
-                                        {
-                                                CuuVLL.at(i).at(i).at(j).at(k) += VuLd(j, p) * (-0.041666666666666664 * (gZ2oMZ2 * (-3 + 4 * sbar2) * v2 * ((c_CHq1(p, r)) - (c_CHq3(p, r))))) * VuL(r, k);
-                                                CuuVLL.at(j).at(k).at(i).at(i) += VuLd(j, p) * (-0.041666666666666664 * (gZ2oMZ2 * (-3 + 4 * sbar2) * v2 * ((c_CHq1(p, r)) - (c_CHq3(p, r))))) * VuL(r, k);
-                                                CuuVRR.at(i).at(i).at(j).at(k) += VuRd(j, p) * (-0.16666666666666666 * (gZ2oMZ2 * sbar2 * v2 * (c_CHu(p, r)))) * VuR(r, k);
-                                                CuuVRR.at(j).at(k).at(i).at(i) += VuRd(j, p) * (-0.16666666666666666 * (gZ2oMZ2 * sbar2 * v2 * (c_CHu(p, r)))) * VuR(r, k);
-                                                CuuV1LR.at(i).at(i).at(j).at(k) += VuRd(j, p) * ((gZ2oMZ2 * (3 - 4 * sbar2) * v2 * (c_CHu(p, r))) / 12.) * VuR(r, k);
-                                                CuuV1LR.at(j).at(k).at(i).at(i) += VuLd(j, p) * ((gZ2oMZ2 * sbar2 * v2 * (-(c_CHq1(p, r)) + (c_CHq3(p, r)))) / 3.) * VuL(r, k);
-                                                if (mySMEFT.FlagNewTerms) {
-                                                CuuVLL.at(i).at(i).at(j).at(k) += VuRd(j,p) * ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[j])/(12.*sqrt(2))) * VuL(r,k);
-                                                CuuVLL.at(i).at(i).at(j).at(k) += VuLd(j,p) * ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[k])/(12.*sqrt(2))) * VuR(r,k);
-                                                CuuVLL.at(j).at(k).at(i).at(i) += VuRd(j,p) * ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[j])/(12.*sqrt(2))) * VuL(r,k);
-                                                CuuVLL.at(j).at(k).at(i).at(i) += VuLd(j,p) * ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[k])/(12.*sqrt(2))) * VuR(r,k);
-                                                CuuVRR.at(i).at(i).at(j).at(k) += VuRd(j,p) * ((gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[k])/(3.*sqrt(2))) * VuL(r,k);
-                                                CuuVRR.at(i).at(i).at(j).at(k) += VuLd(j,p) * ((gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[j])/(3.*sqrt(2))) * VuR(r,k);
-                                                CuuVRR.at(j).at(k).at(i).at(i) += VuRd(j,p) * ((gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[k])/(3.*sqrt(2))) * VuL(r,k);
-                                                CuuVRR.at(j).at(k).at(i).at(i) += VuLd(j,p) * ((gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[j])/(3.*sqrt(2))) * VuR(r,k);
-                                                CuuV1LR.at(i).at(j).at(k).at(i) += VuLd(k,p) * ((gZbar2oMZ4*v2*((c_CHq1(p, r)) - (c_CHq3(p, r)))*Mu[i]*Mu[k])/24.) * VuL(r,j);
-                                                CuuV1LR.at(i).at(j).at(k).at(i) += VuRd(k,p) * (-0.041666666666666664*(gZbar2oMZ4*v2*(c_CHu(p, r))*Mu[i]*Mu[j])) * VuR(r,j);
-                                                CuuV1LR.at(j).at(i).at(i).at(k) += VuLd(j,p) * ((gZbar2oMZ4*v2*((c_CHq1(p, r)) - (c_CHq3(p, r)))*Mu[i]*Mu[k])/24.) * VuL(r,k);
-                                                CuuV1LR.at(j).at(i).at(i).at(k) += VuRd(j,p) * (-0.041666666666666664*(gZbar2oMZ4*v2*(c_CHu(p, r))*Mu[i]*Mu[j])) * VuR(r,k);
-                                                CuuV1LR.at(i).at(i).at(j).at(k) += VuRd(j,p) * ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[k])/(6.*sqrt(2))) * VuL(r,k);
-                                                CuuV1LR.at(i).at(i).at(j).at(k) += VuLd(j,p) * ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[j])/(6.*sqrt(2))) * VuR(r,k);
-                                                CuuV1LR.at(j).at(k).at(i).at(i) += VuRd(j,p) * ((sqrt(2)*gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[j])/3.) * VuL(r,k);
-                                                CuuV1LR.at(j).at(k).at(i).at(i) += VuLd(j,p) * ((sqrt(2)*gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[k])/3.) * VuR(r,k);
-                                                CuuV8LR.at(i).at(j).at(k).at(i) += VuLd(k,p) * ((gZbar2oMZ4*v2*((c_CHq1(p, r)) - (c_CHq3(p, r)))*Mu[i]*Mu[k])/4.) * VuL(r,j);
-                                                CuuV8LR.at(i).at(j).at(k).at(i) += VuRd(k,p) * (-0.25*(gZbar2oMZ4*v2*(c_CHu(p, r))*Mu[i]*Mu[j])) * VuR(r,j);
-                                                CuuV8LR.at(j).at(i).at(i).at(k) += VuLd(j,p) * ((gZbar2oMZ4*v2*((c_CHq1(p, r)) - (c_CHq3(p, r)))*Mu[i]*Mu[k])/4.) * VuL(r,k);
-                                                CuuV8LR.at(j).at(i).at(i).at(k) += VuRd(j,p) * (-0.25*(gZbar2oMZ4*v2*(c_CHu(p, r))*Mu[i]*Mu[j])) * VuR(r,k);
-                                                CuuS1RR.at(i).at(i).at(j).at(k) += VuRd(j,p) * (-0.125*(gZbar2oMZ4*v2*(c_CHu(p, r))*Mu[i]*Mu[j])) * VuR(r,k);
-                                                CuuS1RR.at(i).at(i).at(j).at(k) += VuLd(j,p) * ((gZbar2oMZ4*v2*((c_CHq1(p, r)) - (c_CHq3(p, r)))*Mu[i]*Mu[k])/8.) * VuL(r,k);
-                                                CuuS1RR.at(j).at(k).at(i).at(i) += VuLd(j,p) * ((gZbar2oMZ4*v2*((c_CHq1(p, r)) - (c_CHq3(p, r)))*Mu[i]*Mu[k])/8.) * VuL(r,k);
-                                                CuuS1RR.at(j).at(k).at(i).at(i) += VuRd(j,p) * (-0.125*(gZbar2oMZ4*v2*(c_CHu(p, r))*Mu[i]*Mu[j])) * VuR(r,k);
-                                                }
-                                        }
-                                for (int l = 0; l < 2; l++)
-                                        for (int p = 0; p < 3; p++)
-                                                for (int r = 0; r < 3; r++)
-                                                        for (int s = 0; s < 3; s++)
-                                                                for (int t = 0; t < 3; t++)
-                                                                {
-                                                                        CuuVLL.at(i).at(j).at(k).at(l) += VuLd(i, p) * VuLd(k, s) * ((c_Cqq1(p, r, s, t)) + (c_Cqq3(p, r, s, t))) * VuL(r, j) * VuL(t, l);
-                                                                        CuuVRR.at(i).at(j).at(k).at(l) += VuRd(i, p) * VuRd(k, s) * ((c_Cuu(p, r, s, t))) * VuR(r, j) * VuR(t, l);
-                                                                        CuuV1LR.at(i).at(j).at(k).at(l) += VuLd(i, p) * VuRd(k, s) * ((c_Cqu1(p, r, s, t))) * VuL(r, j) * VuR(t, l);
-                                                                        CuuV8LR.at(i).at(j).at(k).at(l) += VuLd(i, p) * VuRd(k, s) * ((c_Cqu8(p, r, s, t))) * VuL(r, j) * VuR(t, l);
-                                                                        CuuVLL.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuLd(k,s) * ((gZ2oMZ2*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHq1(s, t))*(c_CHq3(p, r)) - gZ2oMZ2*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHq3(p, r))*(c_CHq3(s, t)) + gZ2oMZ2*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHq1(p, r))*(-(c_CHq1(s, t)) + (c_CHq3(s, t))))/8.) * VuL(r,j) * VuL(t,l);
-                                                                        CuuVRR.at(i).at(j).at(k).at(l) += VuRd(i,p) * VuRd(k,s) * (-0.125*(gZ2oMZ2*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHu(p, r))*(c_CHu(s, t)))) * VuR(r,j) * VuR(t,l);
-                                                                        CuuV1LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * (-0.25*(gZ2oMZ2*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHq1(p, r))*(c_CHu(s, t))) + (gZ2oMZ2*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHq3(p, r))*(c_CHu(s, t)))/4.) * VuL(r,j) * VuR(t,l);
-                                                                        if (mySMEFT.FlagNewTerms) {
-                                                                            CuuV1LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * ((oneoMh2*(3*v2*(c_CuH(p, t))*(c_Yu(s, r)) + (3*v2*(c_CuH(r, s).conjugate()) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yu(s, r)))*(c_Yu(t, p).conjugate())))/12.) * VuL(r,j) * VuR(t,l);
-                                                                            CuuV8LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * ((oneoMh2*(3*v2*(c_CuH(p, t))*(c_Yu(s, r)) + (3*v2*(c_CuH(r, s).conjugate()) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yu(s, r)))*(c_Yu(t, p).conjugate())))/2.) * VuL(r,j) * VuR(t,l);
-                                                                            CuuS1RR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuLd(k,s) * ((oneoMh2*(-3*v2*(c_CuH(s, t))*(c_Yu(r, p).conjugate()) + (-3*v2*(c_CuH(p, r)) + 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yu(r, p).conjugate()))*(c_Yu(t, s).conjugate())))/4.) * VuR(r,j) * VuR(t,l);
-                                                                            CuuVLL.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(p, r)) - (c_CHq3(p, r)))*(sbar*(c_CuB(t, s).conjugate()) + cbar*(c_CuW(t, s).conjugate()))*Mu[k])/(4.*sqrt(2))) * VuL(r,j) * VuL(t,l);
-                                                                            CuuVLL.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuLd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(p, r)) - (c_CHq3(p, r)))*(sbar*(c_CuB(s, t)) + cbar*(c_CuW(s, t)))*Mu[l])/(4.*sqrt(2))) * VuL(r,j) * VuR(t,l);
-                                                                            CuuVLL.at(i).at(j).at(k).at(l) += VuRd(i,p) * VuLd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(s, t)) - (c_CHq3(s, t)))*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[i])/(4.*sqrt(2))) * VuL(r,j) * VuL(t,l);
-                                                                            CuuVLL.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuLd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(s, t)) - (c_CHq3(s, t)))*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[j])/(4.*sqrt(2))) * VuR(r,j) * VuL(t,l);
-                                                                            CuuVRR.at(i).at(j).at(k).at(l) += VuRd(i,p) * VuRd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHu(p, r))*(sbar*(c_CuB(t, s).conjugate()) + cbar*(c_CuW(t, s).conjugate()))*Mu[l])/(4.*sqrt(2)))* VuR(r,j) * VuL(t,l);
-                                                                            CuuVRR.at(i).at(j).at(k).at(l) += VuRd(i,p) * VuLd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHu(p, r))*(sbar*(c_CuB(s, t)) + cbar*(c_CuW(s, t)))*Mu[k])/(4.*sqrt(2))) * VuR(r,j) * VuR(t,l);
-                                                                            CuuVRR.at(i).at(j).at(k).at(l) += VuRd(i,p) * VuRd(k,s) *((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHu(s, t))*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[j])/(4.*sqrt(2))) * VuL(r,j) * VuR(t,l);
-                                                                            CuuVRR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) *((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHu(s, t))*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[i])/(4.*sqrt(2))) * VuR(r,j) * VuR(t,l);
-                                                                            CuuV1LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * (-0.041666666666666664*(oneoMh2*(3*v2*(c_CuH(p, t))*(3*mySMEFT.FlagQuadraticWC*v2*(c_CuH(r, s).conjugate()))))) * VuL(r,j) * VuR(t,l);
-                                                                            CuuV1LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(p, r)) - (c_CHq3(p, r)))*(sbar*(c_CuB(t, s).conjugate()) + cbar*(c_CuW(t, s).conjugate()))*Mu[l])/(2.*sqrt(2))) * VuL(r,j) * VuR(t,l);
-                                                                            CuuV1LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(p, r)) - (c_CHq3(p, r)))*(sbar*(c_CuB(s, t)) + cbar*(c_CuW(s, t)))*Mu[k])/(2.*sqrt(2))) * VuL(r,j) * VuR(t,l);
-                                                                            CuuV1LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHu(s, t))*(sbar*(c_CuB(r, p).conjugate()) + cbar*(c_CuW(r, p).conjugate()))*Mu[i])/(2.*sqrt(2))) * VuL(r,j) * VuR(t,l);
-                                                                            CuuV1LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * ((gZbar2oMZ3*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHu(s, t))*(sbar*(c_CuB(p, r)) + cbar*(c_CuW(p, r)))*Mu[j])/(2.*sqrt(2))) * VuL(r,j) * VuR(t,l);
-                                                                            CuuV1LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * (-0.041666666666666664*(gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(s, r)) - (c_CHq3(s, r)))*((c_CHq1(p, t)) - (c_CHq3(p, t)))*Mu[k]*Mu[l])) * VuL(r,j) * VuR(t,l);
-                                                                            CuuV1LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * ((gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(p, t)) - (c_CHq3(p, t)))*(c_CHu(s, r))*Mu[j]*Mu[l])/24.) * VuL(r,j) * VuR(t,l);
-                                                                            CuuV1LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * ((gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(s, r)) - (c_CHq3(s, r)))*(c_CHu(p, t))*Mu[i]*Mu[k])/24.) * VuL(r,j) * VuR(t,l);
-                                                                            CuuV1LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * (-0.041666666666666664*(gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHu(p, t))*(c_CHu(s, r))*Mu[i]*Mu[j])) * VuL(r,j) * VuR(t,l);
-                                                                            CuuV8LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * (-0.25*(oneoMh2*(3*v2*(c_CuH(p, t))*(3*mySMEFT.FlagQuadraticWC*v2*(c_CuH(r, s).conjugate()))))) * VuL(r,j) * VuR(t,l);
-                                                                            CuuV8LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * (-0.25*(gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(s, r)) - (c_CHq3(s, r)))*((c_CHq1(p, t)) - (c_CHq3(p, t)))*Mu[k]*Mu[l])) * VuL(r,j) * VuR(t,l);
-                                                                            CuuV8LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * ((gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(p, t)) - (c_CHq3(p, t)))*(c_CHu(s, r))*Mu[j]*Mu[l])/4.) * VuL(r,j) * VuR(t,l);
-                                                                            CuuV8LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * ((gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(s, r)) - (c_CHq3(s, r)))*(c_CHu(p, t))*Mu[i]*Mu[k])/4.) * VuL(r,j) * VuR(t,l);
-                                                                            CuuV8LR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuRd(k,s) * (-0.25*(gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHu(p, t))*(c_CHu(s, r))*Mu[i]*Mu[j])) * VuL(r,j) * VuR(t,l);
-                                                                            CuuS1RR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuLd(k,s) * ((oneoMh2*(3*v2*(c_CuH(p, r))*(3*mySMEFT.FlagQuadraticWC*v2*(c_CuH(s, t)))))/8.) * VuR(r,j) * VuR(t,l);
-                                                                            CuuS1RR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuLd(k,s) * ((gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(p, r)) - (c_CHq3(p, r)))*(c_CHu(s, t))*Mu[j]*Mu[k])/8.) * VuR(r,j) * VuR(t,l);
-                                                                            CuuS1RR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuLd(k,s) * (-0.125*(gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(p, r)) - (c_CHq3(p, r)))*((c_CHq1(s, t)) - (c_CHq3(s, t)))*Mu[j]*Mu[l])) * VuR(r,j) * VuR(t,l);
-                                                                            CuuS1RR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuLd(k,s) * (-0.125*(gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*(c_CHu(p, r))*(c_CHu(s, t))*Mu[i]*Mu[k])) * VuR(r,j) * VuR(t,l);
-                                                                            CuuS1RR.at(i).at(j).at(k).at(l) += VuLd(i,p) * VuLd(k,s) * ((gZbar2oMZ4*mySMEFT.FlagQuadraticWC*v2*v2*((c_CHq1(s, t)) - (c_CHq3(s, t)))*(c_CHu(p, r))*Mu[i]*Mu[l])/8.) * VuR(r,j) * VuR(t,l);
-                                                                        }
-                                                                }
-                        }
-
+                    CnunuVLL.at(i).at(i).at(j).at(k) += (gZ2oMZ2 * v2 * ((c_CHl1(j, k)) - (c_CHl3(j, k)))) / 16.;
+                    CnunuVLL.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * v2 * ((c_CHl1(j, k)) - (c_CHl3(j, k)))) / 16.;
+                    CnunuVLL.at(j).at(i).at(i).at(k) += (gZ2oMZ2 * v2 * ((c_CHl1(j, k)) - (c_CHl3(j, k)))) / 16.;
+                    CnunuVLL.at(i).at(j).at(k).at(i) += (gZ2oMZ2 * v2 * ((c_CHl1(k, j)) - (c_CHl3(k, j)))) / 16.;
+                    CeeVLL.at(i).at(i).at(j).at(k) += (gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k)))) / 16.;
+                    CeeVLL.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k)))) / 16.;
+                    CeeVLL.at(j).at(i).at(i).at(k) += (gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k)))) / 16.;
+                    CeeVLL.at(i).at(j).at(k).at(i) += (gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * ((c_CHl1(k, j)) + (c_CHl3(k, j)))) / 16.;
+                    CnueVLL.at(i).at(i).at(j).at(k) += (gZ2oMZ2 * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k)))) / 4.;
+                    CnueVLL.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * ((c_CHl1(j, k)) - (c_CHl3(j, k)))) / 4.;
+                    CnueVLL.at(j).at(i).at(i).at(k) += -0.5 * (g22oMW2 * v2 * (c_CHl3(j, k)));
+                    CnueVLL.at(i).at(j).at(k).at(i) += -0.5 * (g22oMW2 * v2 * (c_CHl3(j, k).conjugate()));
+                    CnudVLL.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * (-3 + 2 * sbar2) * v2 * ((c_CHl1(j, k)) - (c_CHl3(j, k)))) / 12.;
+                    CedVLL.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * (-3 + 2 * sbar2) * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k)))) / 12.;
+                    CeeVRR.at(i).at(i).at(j).at(k) += (gZ2oMZ2 * sbar2 * v2 * (c_CHe(j, k))) / 8.;
+                    CeeVRR.at(j).at(k).at(i).at(i) += ((gZ2oMZ2 * sbar2 * v2 * (c_CHe(j, k))) / 8.);
+                    CeeVRR.at(j).at(i).at(i).at(k) += (gZ2oMZ2 * sbar2 * v2 * (c_CHe(j, k))) / 8.;
+                    CeeVRR.at(i).at(j).at(k).at(i) += (gZ2oMZ2 * sbar2 * v2 * (c_CHe(k, j))) / 8.;
+                    CedVRR.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * sbar2 * v2 * (c_CHe(j, k))) / 6.;
+                    CnueVLR.at(i).at(i).at(j).at(k) += (gZ2oMZ2 * v2 * (c_CHe(j, k))) / 4.;
+                    CnueVLR.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * sbar2 * v2 * ((c_CHl1(j, k)) - (c_CHl3(j, k)))) / 2.;
+                    CeeVLR.at(i).at(i).at(j).at(k) += (gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * (c_CHe(j, k))) / 4.;
+                    CeeVLR.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * sbar2 * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k)))) / 2.;
+                    CnudVLR.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * sbar2 * v2 * ((c_CHl1(j, k)) - (c_CHl3(j, k)))) / 6.;
+                    CedVLR.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * sbar2 * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k)))) / 6.;
+                    CdeVLR.at(i).at(i).at(j).at(k) += (gZ2oMZ2 * (-3 + 2 * sbar2) * v2 * (c_CHe(j, k))) / 12.;
+                    if (mySMEFT.FlagNewTerms)
+                    {
+                        CeeVLL.at(i).at(i).at(j).at(k) += (gZbar2oMZ3*(0.5 - sbar2)*v2*((sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/(4.*sqrt(2));
+                        CeeVLL.at(j).at(k).at(i).at(i) += -0.125*(gZbar2oMZ3*(-1 + 2*sbar2)*v2*(sbar*(c_CeB(k, j).conjugate())*Me[j] + cbar*(c_CeW(k, j).conjugate())*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/sqrt(2);
+                        CeeVLL.at(j).at(i).at(i).at(k) += -0.125*(gZbar2oMZ3*(-1 + 2*sbar2)*v2*(sbar*(c_CeB(k, j).conjugate())*Me[j] + cbar*(c_CeW(k, j).conjugate())*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/sqrt(2);
+                        CeeVLL.at(i).at(j).at(k).at(i) += -0.125*(gZbar2oMZ3*(-1 + 2*sbar2)*v2*(sbar*(c_CeB(k, j))*Me[j] + cbar*(c_CeW(k, j))*Me[j] + (sbar*(c_CeB(j, k).conjugate()) + cbar*(c_CeW(j, k).conjugate()))*Me[k]))/sqrt(2);
+                        CnueVLL.at(i).at(i).at(j).at(k) += -0.5*(gZbar2oMZ3*v2*((sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/sqrt(2);
+                        CnueVLL.at(j).at(i).at(i).at(k) += (g2bar2oMW3*v2*(c_CeW(j, k))*Me[k])/sqrt(2);
+                        CnueVLL.at(i).at(j).at(k).at(i) += -((g2bar2oMW3*v2*(c_CeW(j, k).conjugate())*Me[k])/sqrt(2));
+                        CedVLL.at(j).at(k).at(i).at(i) += -0.16666666666666666*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CeB(k, j).conjugate())*Me[j] + cbar*(c_CeW(k, j).conjugate())*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/sqrt(2);
+                        CeeVRR.at(i).at(i).at(j).at(k) += -0.25*(gZbar2oMZ3*sbar2*v2*((sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/sqrt(2);
+                        CeeVRR.at(j).at(k).at(i).at(i) += -0.25*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CeB(j, k))*Me[j] + cbar*(c_CeW(j, k))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/sqrt(2);
+                        CeeVRR.at(j).at(i).at(i).at(k) += -0.25*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CeB(j, k))*Me[j] + cbar*(c_CeW(j, k))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/sqrt(2);
+                        CeeVRR.at(i).at(j).at(k).at(i) += -0.25*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CeB(k, j).conjugate())*Me[j] + cbar*(c_CeW(k, j).conjugate())*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/sqrt(2);
+                        CedVRR.at(j).at(k).at(i).at(i) += -0.3333333333333333*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CeB(j, k))*Me[j] + cbar*(c_CeW(j, k))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/sqrt(2);
+                        CnueVLR.at(i).at(j).at(k).at(i) += -0.25*(g2bar2oMW4*v2*(c_CHl3(j, k).conjugate())*Me[i]*Me[k]);
+                        CnueVLR.at(j).at(i).at(i).at(k) += -0.25*(g2bar2oMW4*v2*(c_CHl3(j, k))*Me[i]*Me[k]);
+                        CnueVLR.at(i).at(i).at(j).at(k) += -0.5*(gZbar2oMZ3*v2*(sbar*(c_CeB(j, k))*Me[j] + cbar*(c_CeW(j, k))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/sqrt(2);
+                        CeeVLR.at(i).at(j).at(k).at(i) += (gZbar2oMZ4*v2*Me[i]*((c_CHe(k, j))*Me[j] - ((c_CHl1(k, j)) + (c_CHl3(k, j)))*Me[k]))/8.;
+                        CeeVLR.at(j).at(i).at(i).at(k) += (gZbar2oMZ4*v2*Me[i]*((c_CHe(j, k))*Me[j] - ((c_CHl1(j, k)) + (c_CHl3(j, k)))*Me[k]))/8.;
+                        CeeVLR.at(i).at(i).at(j).at(k) += -0.5*(gZbar2oMZ3*(-1 + 2*sbar2)*v2*(sbar*(c_CeB(j, k))*Me[j] + cbar*(c_CeW(j, k))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/sqrt(2);
+                        CeeVLR.at(j).at(k).at(i).at(i) += -((gZbar2oMZ3*sbar2*v2*(sbar*(c_CeB(k, j).conjugate())*Me[j] + cbar*(c_CeW(k, j).conjugate())*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/sqrt(2));
+                        CedVLR.at(j).at(k).at(i).at(i) += -0.3333333333333333*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CeB(k, j).conjugate())*Me[j] + cbar*(c_CeW(k, j).conjugate())*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/sqrt(2);
+                        CdeVLR.at(i).at(i).at(j).at(k) += -0.16666666666666666*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*((sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/sqrt(2);
+                        CedSRL.at(j).at(k).at(i).at(i) += (gZbar2oMZ4*v2*Md[i]*(-((c_CHe(j, k))*Me[j]) + ((c_CHl1(j, k)) + (c_CHl3(j, k)))*Me[k]))/4.;
+                        CeeSRR.at(i).at(i).at(j).at(k) += (gZbar2oMZ4*v2*Me[i]*((c_CHe(j, k))*Me[j] - ((c_CHl1(j, k)) + (c_CHl3(j, k)))*Me[k]))/8.;
+                        CeeSRR.at(j).at(k).at(i).at(i) += (gZbar2oMZ4*v2*Me[i]*((c_CHe(j, k))*Me[j] - ((c_CHl1(j, k)) + (c_CHl3(j, k)))*Me[k]))/8.;
+                        CedSRR.at(j).at(k).at(i).at(i) += (gZbar2oMZ4*v2*Md[i]*((c_CHe(j, k))*Me[j] - ((c_CHl1(j, k)) + (c_CHl3(j, k)))*Me[k]))/4.;
                         for (int p = 0; p < 3; p++)
+                        {
+                            CnudVLL.at(i).at(i).at(j).at(k) += (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CdB(p, j).conjugate()) + cbar*(c_CdW(p, j).conjugate()))*Md[j])/sqrt(2)) * VCKM(p,k);
+                            CnudVLL.at(i).at(i).at(j).at(k) += VCKMd(j,p) * (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[k])/sqrt(2));
+                            CedVLL.at(i).at(i).at(j).at(k) += (-((gZbar2oMZ3*(-0.5 + sbar2)*v2*(sbar*(c_CdB(p, j).conjugate()) + cbar*(c_CdW(p, j).conjugate()))*Md[j])/sqrt(2))) * VCKM(p,k);
+                            CedVLL.at(i).at(i).at(j).at(k) += VCKMd(j,p) * (-((gZbar2oMZ3*(-0.5 + sbar2)*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[k])/sqrt(2)));
+                            CddVLL.at(i).at(i).at(j).at(k) += (-0.041666666666666664*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CdB(p, j).conjugate()) + cbar*(c_CdW(p, j).conjugate()))*Md[j])/sqrt(2)) * VCKM(p,k);
+                            CddVLL.at(i).at(i).at(j).at(k) += VCKMd(j,p) * (-0.041666666666666664*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[k])/sqrt(2));
+                            CddVLL.at(j).at(k).at(i).at(i) += (-0.041666666666666664*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CdB(p, j).conjugate()) + cbar*(c_CdW(p, j).conjugate()))*Md[j])/sqrt(2)) * VCKM(p,k);
+                            CddVLL.at(j).at(k).at(i).at(i) += VCKMd(j,p) * (-0.041666666666666664*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[k])/sqrt(2));
+                            CedVRR.at(i).at(i).at(j).at(k) += (-((gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, j).conjugate()) + cbar*(c_CdW(p, j).conjugate()))*Md[k])/sqrt(2))) * VCKM(p,k);
+                            CedVRR.at(i).at(i).at(j).at(k) += VCKMd(j,p) * (-((gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[j])/sqrt(2)));
+                            CddVRR.at(i).at(i).at(j).at(k) += (-0.16666666666666666*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, j).conjugate()) + cbar*(c_CdW(p, j).conjugate()))*Md[k])/sqrt(2)) * VCKM(p,k);
+                            CddVRR.at(i).at(i).at(j).at(k) += VCKMd(j,p) * (-0.16666666666666666*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[j])/sqrt(2));
+                            CddVRR.at(j).at(k).at(i).at(i) += (-0.16666666666666666*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, j).conjugate()) + cbar*(c_CdW(p, j).conjugate()))*Md[k])/sqrt(2)) * VCKM(p,k);
+                            CddVRR.at(j).at(k).at(i).at(i) += VCKMd(j,p) * (-0.16666666666666666*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[j])/sqrt(2));
+                            CnudVLR.at(i).at(i).at(j).at(k) += (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CdB(p, j).conjugate()) + cbar*(c_CdW(p, j).conjugate()))*Md[k])/sqrt(2)) * VCKM(p,k);
+                            CnudVLR.at(i).at(i).at(j).at(k) += VCKMd(j,p) * (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[j])/sqrt(2));
+                            CedVLR.at(i).at(i).at(j).at(k) += (-((gZbar2oMZ3*(-0.5 + sbar2)*v2*(sbar*(c_CdB(p, j).conjugate()) + cbar*(c_CdW(p, j).conjugate()))*Md[k])/sqrt(2))) * VCKM(p,k);
+                            CedVLR.at(i).at(i).at(j).at(k) += VCKMd(j,p) * (-((gZbar2oMZ3*(-0.5 + sbar2)*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[j])/sqrt(2)));
+                            CdeVLR.at(j).at(k).at(i).at(i) += (-((gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, j).conjugate()) + cbar*(c_CdW(p, j).conjugate()))*Md[j])/sqrt(2))) * VCKM(p,k);
+                            CdeVLR.at(j).at(k).at(i).at(i) += VCKMd(j,p) * (-((gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[k])/sqrt(2)));
+                            for (int r = 0; r < 3; r++)
+                            {
+                                CddV1LR.at(i).at(j).at(k).at(i) += VCKMd(k,p) * (-0.041666666666666664*(gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[i]*Md[k])) * VCKM(r,j);
+                                CddV1LR.at(j).at(i).at(i).at(k) += VCKMd(j,p) * (-0.041666666666666664*(gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[i]*Md[k])) * VCKM(r,k);
+                                CddV8LR.at(i).at(j).at(k).at(i) += VCKMd(k,p) * (-0.25*(gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[i]*Md[k])) * VCKM(r,j);
+                                CddV8LR.at(j).at(i).at(i).at(k) += VCKMd(j,p) * (-0.25*(gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[i]*Md[k])) * VCKM(r,k);
+                                CedSRL.at(i).at(i).at(j).at(k) += VCKMd(j,p) * ((gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[j]*Me[i])/4.) * VCKM(r,k);
+                                CedSRR.at(i).at(i).at(j).at(k) += VCKMd(j,p) * (-0.25*(gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[k]*Me[i])) * VCKM(r,k);
+                                CddS1RR.at(i).at(i).at(j).at(k) += VCKMd(j,p) * (-0.25*(gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[i]*Md[k])) * VCKM(r,k);
+                                CddS1RR.at(j).at(k).at(i).at(i) += VCKMd(j,p) * (-0.25*(gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[i]*Md[k])) * VCKM(r,k);
+                            }
+                            CddV1LR.at(i).at(i).at(j).at(k) += (-0.16666666666666666*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CdB(p, j).conjugate()) + cbar*(c_CdW(p, j).conjugate()))*Md[k])/sqrt(2)) * VCKM(p,k);
+                            CddV1LR.at(i).at(i).at(j).at(k) += VCKMd(j,p) * (-0.16666666666666666*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[j])/sqrt(2));
+                            CddV1LR.at(j).at(k).at(i).at(i) += (-0.3333333333333333*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, j).conjugate()) + cbar*(c_CdW(p, j).conjugate()))*Md[j])/sqrt(2)) * VCKM(p,k);
+                            CddV1LR.at(j).at(k).at(i).at(i) += VCKMd(j,p) * (-0.3333333333333333*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[k])/sqrt(2));
+                        }
+                        CddV1LR.at(i).at(j).at(k).at(i) += ((gZbar2oMZ4*v2*(c_CHd(k, j))*Md[i]*Md[j])/24.);
+                        CddV1LR.at(j).at(i).at(i).at(k) += ((gZbar2oMZ4*v2*(c_CHd(j, k))*Md[i]*Md[j])/24.);
+                        CddV8LR.at(i).at(j).at(k).at(i) += ((gZbar2oMZ4*v2*(c_CHd(k, j))*Md[i]*Md[j])/4.);
+                        CddV8LR.at(j).at(i).at(i).at(k) += ((gZbar2oMZ4*v2*(c_CHd(j, k))*Md[i]*Md[j])/4.);
+                        CedSRL.at(i).at(i).at(j).at(k) += (-0.25*(gZbar2oMZ4*v2*(c_CHd(j, k))*Md[k]*Me[i]));
+                        CedSRR.at(i).at(i).at(j).at(k) += ((gZbar2oMZ4*v2*(c_CHd(j, k))*Md[j]*Me[i])/4.);
+                        CddS1RR.at(i).at(i).at(j).at(k) += ((gZbar2oMZ4*v2*(c_CHd(j, k))*Md[i]*Md[j])/4.);
+                        CddS1RR.at(j).at(k).at(i).at(i) += ((gZbar2oMZ4*v2*(c_CHd(j, k))*Md[i]*Md[j])/4.);
+                    }
+                    for (int p = 0; p < 3; p++)
+                    {
+                        for (int r = 0; r < 3; r++)
+                        {
+                            CnudVLL.at(i).at(i).at(j).at(k) += VCKMd(j, p) * ((gZ2oMZ2 * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r)))) / 4.) * VCKM(r, k);
+                            CedVLL.at(i).at(i).at(j).at(k) += VCKMd(j, p) * ((gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r)))) / 4.) * VCKM(r, k);
+                            CddVLL.at(i).at(i).at(j).at(k) += VCKMd(j, p) * ((gZ2oMZ2 * (-3 + 2 * sbar2) * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r)))) / 24.) * VCKM(r, k);
+                            CddVLL.at(j).at(k).at(i).at(i) += VCKMd(j, p) * ((gZ2oMZ2 * (-3 + 2 * sbar2) * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r)))) / 24.) * VCKM(r, k);
+                            CdeVLR.at(j).at(k).at(i).at(i) += VCKMd(j, p) * ((gZ2oMZ2 * sbar2 * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r)))) / 2.) * VCKM(r, k);
+                            CddV1LR.at(j).at(k).at(i).at(i) += VCKMd(j, p) * ((gZ2oMZ2 * sbar2 * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r)))) / 6.) * VCKM(r, k);
+                        }
+                        CnudVLR.at(i).at(i).at(j).at(k) += VCKMd(j,p) * (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[j])/sqrt(2));
+                    }
+                    CedVRR.at(i).at(i).at(j).at(k) += ((gZ2oMZ2 * sbar2 * v2 * (c_CHd(j, k))) / 2.);
+                    CddVRR.at(i).at(i).at(j).at(k) += ((gZ2oMZ2 * sbar2 * v2 * (c_CHd(j, k))) / 12.);
+                    CddVRR.at(j).at(k).at(i).at(i) += ((gZ2oMZ2 * sbar2 * v2 * (c_CHd(j, k))) / 12.);
+                    CnudVLR.at(i).at(i).at(j).at(k) += ((gZ2oMZ2 * v2 * (c_CHd(j, k))) / 4.);
+                    CedVLR.at(i).at(i).at(j).at(k) += ((gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * (c_CHd(j, k))) / 4.);
+                    CddV1LR.at(i).at(i).at(j).at(k) += ((gZ2oMZ2 * (-3 + 2 * sbar2) * v2 * (c_CHd(j, k))) / 12.);
+                    for (int l = 0; l < 3; l++)
+                    {
+                        CnunuVLL.at(i).at(j).at(k).at(l) += (c_Cll(i, j, k, l));
+                        CeeVLL.at(i).at(j).at(k).at(l) += (c_Cll(i, j, k, l));
+                        CnueVLL.at(i).at(j).at(k).at(l) += (c_Cll(i, j, k, l)) + (c_Cll(k, l, i, j));
+                        CeeVRR.at(i).at(j).at(k).at(l) += (c_Cee(i, j, k, l));
+                        CnueVLR.at(i).at(j).at(k).at(l) += (c_Cle(i, j, k, l));
+                        CeeVLR.at(i).at(j).at(k).at(l) += (c_Cle(i, j, k, l));
+                        if (mySMEFT.FlagNewTerms)
+                        {
+                            CeeVLR.at(i).at(j).at(k).at(l) += (oneoMh2*(3*v2*(c_CeH(i, l))*(c_Ye(k, j)) + (3*v2*(c_CeH(j, k).conjugate()) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Ye(k, j)))*(c_Ye(l, i).conjugate())))/4.;
+                            CedSRL.at(i).at(j).at(k).at(l) += VCKMd(k,l) * ((g2bar2oMW4*v2*(c_CHl3(i, j))*Md[k]*Me[j])/2.);
+                            CeeSRR.at(i).at(j).at(k).at(l) += -0.25*(oneoMh2*(3*v2*(c_CeH(k, l))*(c_Ye(j, i).conjugate()) + (3*v2*(c_CeH(i, j)) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Ye(j, i).conjugate()))*(c_Ye(l, k).conjugate())));
+                            for (int p = 0; p < 3; p++)
+                            {
+                                CedSRL.at(i).at(j).at(k).at(l) += (-0.5*(oneoMh2*(3*v2*(c_CeH(i, j))*(c_Yd(k, p)) + (3*v2*(c_CdH(p, k).conjugate()) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yd(k, p)))*(c_Ye(j, i).conjugate()))))* VCKM(p,l);
+                                CedSRR.at(i).at(j).at(k).at(l) += VCKMd(k,p) * (-0.5*(oneoMh2*(3*v2*(c_CeH(i, j))*(c_Yd(l, p).conjugate()) + (3*v2*(c_CdH(p, l)) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yd(l, p).conjugate()))*(c_Ye(j, i).conjugate()))));
                                 for (int r = 0; r < 3; r++)
                                 {
-                                        Cug.at(i).at(j) += vTosq2 * VuLd(i, p) * ((c_CuW(p, r)) * sbar + (c_CuB(p, r)) * cbar) * VuR(r, j);
-                                        CuG.at(i).at(j) += vTosq2 * VuLd(i, p) * (c_CuG(p, r)) * VuR(r, j);
+                                    CddV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * ((oneoMh2*(3*v2*(c_CdH(p, l))*(c_Yd(k, r)) + (3*v2*(c_CdH(r, k).conjugate()) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yd(k, r)))*(c_Yd(l, p).conjugate())))/12.) * VCKM(r,j);
+                                    CddV8LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * ((oneoMh2*(3*v2*(c_CdH(p, l))*(c_Yd(k, r)) + (3*v2*(c_CdH(r, k).conjugate()) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yd(k, r)))*(c_Yd(l, p).conjugate())))/2.) * VCKM(r,j);
+                                    CddS1RR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * VCKMd(k,r) * (-0.25*(oneoMh2*(3*v2*(c_CdH(r, l))*(c_Yd(j, p).conjugate()) + (3*v2*(c_CdH(p, j)) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yd(j, p).conjugate()))*(c_Yd(l, r).conjugate()))));
                                 }
+                            }
+                        }
+                        for (int p = 0; p < 3; p++)
+                        {
+                            for (int r = 0; r < 3; r++)
+                            {
+                                CnudVLL.at(i).at(j).at(k).at(l) += VCKMd(k, p) * ((c_Clq1(i, j, p, r)) - (c_Clq3(i, j, p, r))) * VCKM(r, l);
+                                CedVLL.at(i).at(j).at(k).at(l) += VCKMd(k, p) * ((c_Clq1(i, j, p, r)) + (c_Clq3(i, j, p, r))) * VCKM(r, l);
+                                CdeVLR.at(i).at(j).at(k).at(l) += VCKMd(i, p) * ((c_Cqe(p, r, k, l))) * VCKM(r, j);
+                                for (int s = 0; s < 3; s++)
+                                {
+                                    for (int t = 0; t < 3; t++)
+                                    {
+                                        CddVLL.at(i).at(j).at(k).at(l) += VCKMd(i, p) * VCKMd(k, s) * ((c_Cqq1(p, r, s, t)) + (c_Cqq3(p, r, s, t))) * VCKM(r, j) * VCKM(t, l);
+                                    }
+                                }
+                                CddV1LR.at(i).at(j).at(k).at(l) += VCKMd(i, p) * ((c_Cqd1(p, r, k, l))) * VCKM(r, j);
+                                CddV8LR.at(i).at(j).at(k).at(l) += VCKMd(i, p) * ((c_Cqd8(p, r, k, l))) * VCKM(r, j);
+                            }
+                            CedSRL.at(i).at(j).at(k).at(l) += ((c_Cledq(i, j, k, p))) * VCKM(p, l);
+                        }
+                        CedVRR.at(i).at(j).at(k).at(l) += ((c_Ced(i, j, k, l)));
+                        CnudVLR.at(i).at(j).at(k).at(l) += ((c_Cld(i, j, k, l)));
+                        CedVLR.at(i).at(j).at(k).at(l) += ((c_Cld(i, j, k, l)));
+                        CddVRR.at(i).at(j).at(k).at(l) += ((c_Cdd(i, j, k, l)));
+                        if (mySMEFT.FlagQuadraticWC)
+                        {
+                            for (int p = 0; p < 3; p++)
+                            {
+                                for (int r = 0; r < 3; r++)
+                                {
+                                    for (int s = 0; s < 3; s++)
+                                    {
+                                        for (int t = 0; t < 3; t++)
+                                        {
+                                            CddVLL.at(i).at(j).at(k).at(l) += VCKMd(i,p) * VCKMd(k,s) * (-0.125*(gZ2oMZ2*v2*v2*(c_CHq1(s, t))*(c_CHq3(p, r))) - (gZ2oMZ2*v2*v2*(c_CHq3(p, r))*(c_CHq3(s, t)))/8. - (gZ2oMZ2*v2*v2*(c_CHq1(p, r))*((c_CHq1(s, t)) + (c_CHq3(s, t))))/8.) * VCKM(r,j) * VCKM(t,l);
+                                        }
+                                    }
+                                    CddV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * (-0.25*(gZ2oMZ2*v2*v2*(c_CHd(k, l))*((c_CHq1(p, r)) + (c_CHq3(p, r))))) * VCKM(r,j);
+                                }
+                            }
+                            CddVRR.at(i).at(j).at(k).at(l) += ((gZ2oMZ2*v2*v2*(c_CHd(i, j))*(c_CHd(k, l)))/8.);
+                            if (mySMEFT.FlagNewTerms)
+                            {
+                                for (int p = 0; p < 3; p++)
+                                {
+                                    for (int r = 0; r < 3; r++)
+                                    {
+                                        for (int s = 0; s < 3; s++)
+                                        {
+                                            CddVLL.at(i).at(j).at(k).at(l) += VCKMd(i,p) * ((gZbar2oMZ3*v2*v2*(sbar*(c_CdB(s, k).conjugate()) + cbar*(c_CdW(s, k).conjugate()))*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[k])/(8.*sqrt(2))) * VCKM(r,j) * VCKM(s,l);
+                                            CddVLL.at(i).at(j).at(k).at(l) += VCKMd(i,p) * VCKMd(k,s) * ((gZbar2oMZ3*v2*v2*(sbar*(c_CdB(s, l)) + cbar*(c_CdW(s, l)))*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[l])/(8.*sqrt(2))) * VCKM(r,j);
+                                            CddVLL.at(i).at(j).at(k).at(l) += VCKMd(k,r) * ((gZbar2oMZ3*v2*v2*(sbar*(c_CdB(p, i).conjugate()) + cbar*(c_CdW(p, i).conjugate()))*((c_CHq1(r, s)) + (c_CHq3(r, s)))*Md[i])/(8.*sqrt(2))) * VCKM(p,j) * VCKM(s,l);
+                                            CddVLL.at(i).at(j).at(k).at(l) += VCKMd(i,p) * VCKMd(k,r) * ((gZbar2oMZ3*v2*v2*(sbar*(c_CdB(p, j)) + cbar*(c_CdW(p, j)))*((c_CHq1(r, s)) + (c_CHq3(r, s)))*Md[j])/(8.*sqrt(2))) * VCKM(s,l);
+                                        }
+                                        CddV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * (-0.041666666666666664*(oneoMh2*(3*v2*(c_CdH(p, l))*(3*v2*(c_CdH(r, k).conjugate()))))) * VCKM(r,j);
+                                        CddV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * ((gZbar2oMZ3*v2*v2*(sbar*(c_CdB(l, k).conjugate()) + cbar*(c_CdW(l, k).conjugate()))*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[l])/(2.*sqrt(2))) * VCKM(r,j);
+                                        CddV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * ((gZbar2oMZ3*v2*v2*(sbar*(c_CdB(k, l)) + cbar*(c_CdW(k, l)))*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[k])/(2.*sqrt(2))) * VCKM(r,j);
+                                        CddV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * ((gZbar2oMZ3*v2*v2*(sbar*(c_CdB(r, p).conjugate()) + cbar*(c_CdW(r, p).conjugate()))*(c_CHd(k, l))*Md[i])/(2.*sqrt(2))) * VCKM(r,j);
+                                        CddV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * ((gZbar2oMZ3*v2*v2*(sbar*(c_CdB(p, r)) + cbar*(c_CdW(p, r)))*(c_CHd(k, l))*Md[j])/(2.*sqrt(2))) * VCKM(r,j);
+                                        CddV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * (-0.041666666666666664*(gZbar2oMZ4*v2*v2*((c_CHq1(k, r)) + (c_CHq3(k, r)))*((c_CHq1(p, l)) + (c_CHq3(p, l)))*Md[k]*Md[l])) * VCKM(r,j);
+                                        CddV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * ((gZbar2oMZ4*v2*v2*(c_CHd(k, r))*((c_CHq1(p, l)) + (c_CHq3(p, l)))*Md[j]*Md[l])/24.) * VCKM(r,j);
+                                        CddV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * ((gZbar2oMZ4*v2*v2*(c_CHd(p, l))*((c_CHq1(k, r)) + (c_CHq3(k, r)))*Md[i]*Md[k])/24.) * VCKM(r,j);
+                                        CddV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * (-0.041666666666666664*(gZbar2oMZ4*v2*v2*(c_CHd(p, l))*(c_CHd(k, r))*Md[i]*Md[j])) * VCKM(r,j);
+                                        CddV8LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * (-0.25*(oneoMh2*(3*v2*(c_CdH(p, l))*(3*v2*(c_CdH(r, k).conjugate()))))) * VCKM(r,j);
+                                        CddV8LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * (-0.25*(gZbar2oMZ4*v2*v2*((c_CHq1(k, r)) + (c_CHq3(k, r)))*((c_CHq1(p, l)) + (c_CHq3(p, l)))*Md[k]*Md[l])) * VCKM(r,j);
+                                        CddV8LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * ((gZbar2oMZ4*v2*v2*(c_CHd(k, r))*((c_CHq1(p, l)) + (c_CHq3(p, l)))*Md[j]*Md[l])/4.) * VCKM(r,j);
+                                        CddV8LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * ((gZbar2oMZ4*v2*v2*(c_CHd(p, l))*((c_CHq1(k, r)) + (c_CHq3(k, r)))*Md[i]*Md[k])/4.) * VCKM(r,j);
+                                        CddV8LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * (-0.25*(gZbar2oMZ4*v2*v2*(c_CHd(p, l))*(c_CHd(k, r))*Md[i]*Md[j])) * VCKM(r,j);
+                                        CddS1RR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * VCKMd(k,r) * ((oneoMh2*(3*v2*(c_CdH(p, j))*(3*v2*(c_CdH(r, l)))))/8.);
+                                        CddS1RR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * VCKMd(k,r) * ((gZbar2oMZ4*v2*v2*(c_CHd(r, l))*((c_CHq1(p, j)) + (c_CHq3(p, j)))*Md[j]*Md[k])/4.);
+                                        CddS1RR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * VCKMd(k,r) * (-0.25*(gZbar2oMZ4*v2*v2*((c_CHq1(p, j)) + (c_CHq3(p, j)))*((c_CHq1(r, l)) + (c_CHq3(r, l)))*Md[j]*Md[l]));
+                                        CddS1RR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * VCKMd(k,r) * (-0.25*(gZbar2oMZ4*v2*v2*(c_CHd(p, j))*(c_CHd(r, l))*Md[i]*Md[k]));
+                                        CddS1RR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * VCKMd(k,r) * ((gZbar2oMZ4*v2*v2*(c_CHd(p, j))*((c_CHq1(r, l)) + (c_CHq3(r, l)))*Md[i]*Md[l])/4.);
+                                    }
+                                    CddVRR.at(i).at(j).at(k).at(l) += ((gZbar2oMZ3*v2*v2*(sbar*(c_CdB(p, k).conjugate()) + cbar*(c_CdW(p, k).conjugate()))*(c_CHd(i, j))*Md[l])/(4.*sqrt(2)))* VCKM(p,l);
+                                    CddVRR.at(i).at(j).at(k).at(l) += VCKMd(k,p) * ((gZbar2oMZ3*v2*v2*(sbar*(c_CdB(p, l)) + cbar*(c_CdW(p, l)))*(c_CHd(i, j))*Md[k])/(4.*sqrt(2)));
+                                    CddVRR.at(i).at(j).at(k).at(l) += ((gZbar2oMZ3*v2*v2*(sbar*(c_CdB(p, i).conjugate()) + cbar*(c_CdW(p, i).conjugate()))*(c_CHd(k, l))*Md[j])/(4.*sqrt(2))) * VCKM(p,j);
+                                    CddVRR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * ((gZbar2oMZ3*v2*v2*(sbar*(c_CdB(p, j)) + cbar*(c_CdW(p, j)))*(c_CHd(k, l))*Md[i])/(4.*sqrt(2)));
+                                }
+                            }
+                        }
+                    }
+                    for (int l = 0; l < 2; l++)
+                    {
+                        CnueduVLL.at(i).at(j).at(k).at(l) += VCKMd(k, l) * (-0.5 * (g22oMW2 * v2 * (c_CHl3(i, j))));
+                        if (mySMEFT.FlagNewTerms)
+                        {
+                            CnueduVLL.at(i).at(j).at(k).at(l) += VCKMd(k,l) *((g2bar2oMW3*v2*(c_CeW(i, j))*Me[j])/sqrt(2));
+                            CnueduSRR.at(i).at(j).at(k).at(l) += VCKMd(k,l) * (-0.5*(g2bar2oMW4*v2*(c_CHl3(i, j))*Me[j]*Mu[l]));
+                        }
+                        for (int p = 0; p < 3; p++)
+                        {
+                            CnueduVLL.at(i).at(j).at(k).at(l) += VCKMd(k, p) * (2 * (c_Clq3(i, j, p, l)));
+                            CnueduSRR.at(i).at(j).at(k).at(l) += VCKMd(k, p) * ((c_Clequ1(i, j, p, l)));
+                            CnueduTRR.at(i).at(j).at(k).at(l) += VCKMd(k, p) * ((c_Clequ3(i, j, p, l)));
+                        }
+                        CnueduSRL.at(i).at(j).at(k).at(l) += ((c_Cledq(i, j, k, l)));
+                    }
                 }
+                for (int k = 0; k < 2; k++)
+                {
+                    CnueduVLL.at(i).at(i).at(j).at(k) += VCKMd(j, k) * (-0.5 * (delta_g22oMW2 * g22oMW2));
+                    if (mySMEFT.FlagNewTerms)
+                    {
+                        CnueduSRR.at(i).at(i).at(j).at(k) += VCKMd(j,k) * (-0.5*((1 + deltag2bar2oMW4)*g2bar2oMW4*Me[i]*Mu[k]));
+                        CnueduVLL.at(i).at(i).at(j).at(k) += (-((g2bar2oMW3*v2*(c_CdW(k, j).conjugate())*Md[j])/sqrt(2)));
+                        for (int p = 0; p < 3; p++)
+                        {
+                            CnueduVLL.at(i).at(i).at(j).at(k) += VCKMd(j,p) * (-((g2bar2oMW3*v2*(c_CuW(p, k))*Mu[k])/sqrt(2)));
+                            CnueduVLR.at(i).at(i).at(j).at(k) += VCKMd(j,p) * (-((g2bar2oMW3*v2*(c_CuW(p, k))*Md[j])/sqrt(2)));
+                            CnueduSRL.at(i).at(i).at(j).at(k) += VCKMd(j,p) * ((g2bar2oMW4*v2*(c_CHq3(k, p).conjugate())*Md[j]*Me[i])/2.);
+                            CnueduSRR.at(i).at(i).at(j).at(k) += VCKMd(j,p) * (-0.5*(g2bar2oMW4*v2*(c_CHq3(k, p).conjugate())*Me[i]*Mu[k]));
+                        }
+                        CnueduVLR.at(i).at(i).at(j).at(k) += (-((g2bar2oMW3*v2*(c_CdW(k, j).conjugate())*Mu[k])/sqrt(2)));
+                        CnueduSRL.at(i).at(i).at(j).at(k) += (-0.25*(g2bar2oMW4*v2*(c_CHud(k, j).conjugate())*Me[i]*Mu[k]));
+                        CnueduSRR.at(i).at(i).at(j).at(k) += ((g2bar2oMW4*v2*(c_CHud(k, j).conjugate())*Md[j]*Me[i])/4.);
+                    }
+                    for (int p = 0; p < 3; p++)
+                    {
+                        CnueduVLL.at(i).at(i).at(j).at(k) += VCKMd(j, p) * (-0.5 * (g22oMW2 * v2 * (c_CHq3(k, p).conjugate())));
+                    }
+                    CnueduVLR.at(i).at(i).at(j).at(k) += (-0.25 * (g22oMW2 * v2 * (c_CHud(k, j).conjugate())));
+                    for (int l = 0; l < 2; l++)
+                    {
+                        if (mySMEFT.FlagNewTerms)
+                        {
+                            CduV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,l) * VCKM(k,j) * (-0.08333333333333333*((1 + deltag2bar2oMW4)*g2bar2oMW4*Mu[k]*Mu[l]));
+                            CduV8LR.at(i).at(j).at(k).at(l) += VCKMd(i,l) * VCKM(k,j) * (-0.5*((1 + deltag2bar2oMW4)*g2bar2oMW4*Mu[k]*Mu[l]));
+                            for (int p = 0; p < 3; p++)
+                            {
+                                CduV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,l) * (-0.08333333333333333*(g2bar2oMW4*v2*(c_CHq3(k, p))*Mu[k]*Mu[l])) * VCKM(p,j);
+                                CduV1LR.at(i).at(j).at(k).at(l) += VCKM(k,j) * VCKMd(i,p) * (-0.08333333333333333*(g2bar2oMW4*v2*(c_CHq3(l, p).conjugate())*Mu[k]*Mu[l]));
+                                CduV8LR.at(i).at(j).at(k).at(l) += VCKMd(i,l) * (-0.5*(g2bar2oMW4*v2*(c_CHq3(k, p))*Mu[k]*Mu[l])) * VCKM(p,j);
+                                CduV8LR.at(i).at(j).at(k).at(l) += VCKM(k,j) * VCKMd(i,p) * (-0.5*(g2bar2oMW4*v2*(c_CHq3(l, p).conjugate())*Mu[k]*Mu[l]));
+                            }
+                            CduV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,l) * ((g2bar2oMW4*v2*(c_CHud(k, j))*Md[j]*Mu[l])/24.);
+                            CduV1LR.at(i).at(j).at(k).at(l) += VCKM(k,j) * ((g2bar2oMW4*v2*(c_CHud(l, i).conjugate())*Md[i]*Mu[k])/24.);
+                            CduV8LR.at(i).at(j).at(k).at(l) += VCKMd(i,l) * ((g2bar2oMW4*v2*(c_CHud(k, j))*Md[j]*Mu[l])/4.);
+                            CduV8LR.at(i).at(j).at(k).at(l) += VCKM(k,j) * ((g2bar2oMW4*v2*(c_CHud(l, i).conjugate())*Md[i]*Mu[k])/4.);
+                            CeuSRL.at(i).at(j).at(k).at(l) += (-0.5*(oneoMh2*(3*v2*(c_CuH(l, k).conjugate())*(c_Ye(j, i).conjugate()) + (3*v2*(c_CeH(i, j)) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Ye(j, i).conjugate()))*(c_Yu(k, l)))));
+                            CeuSRR.at(i).at(j).at(k).at(l) += (-0.5*(oneoMh2*(3*v2*(c_CuH(k, l))*(c_Ye(j, i).conjugate()) + (3*v2*(c_CeH(i, j)) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Ye(j, i).conjugate()))*(c_Yu(l, k).conjugate()))));
+                        }
+                        CnuuVLL.at(i).at(j).at(k).at(l) += ((c_Clq1(i, j, k, l)) + (c_Clq3(i, j, k, l)));
+                        CeuVLL.at(i).at(j).at(k).at(l) += ((c_Clq1(i, j, k, l)) - (c_Clq3(i, j, k, l)));
+                        CeuVRR.at(i).at(j).at(k).at(l) += ((c_Ceu(i, j, k, l)));
+                        CnuuVLR.at(i).at(j).at(k).at(l) += ((c_Clu(i, j, k, l)));
+                        CeuVLR.at(i).at(j).at(k).at(l) += ((c_Clu(i, j, k, l)));
+                        CeuSRR.at(i).at(j).at(k).at(l) += (-(c_Clequ1(i, j, k, l)));
+                        CeuTRR.at(i).at(j).at(k).at(l) += (-(c_Clequ3(i, j, k, l)));
+                        for (int p = 0; p < 3; p++)
+                        {
+                            for (int r = 0; r < 3; r++)
+                            {
+                                CduV1LR.at(i).at(j).at(k).at(l) += VCKMd(i, p) * ((c_Cqu1(p, r, k, l))) * VCKM(r, j);
+                                CduV8LR.at(i).at(j).at(k).at(l) += VCKMd(i, p) * ((c_Cqu8(p, r, k, l))) * VCKM(r, j);
+                            }
+                        }
+                    }
+                }
+                for (int p = 0; p < 3; p++)
+                {
+                    Cdg.at(i).at(j) += vTosq2 * VCKMd(i, p) * (-(c_CdW(p, j)) * sbar + (c_CdB(p, j)) * cbar);
+                    CdG.at(i).at(j) += vTosq2 * VCKMd(i, p) * (c_CdG(p, j));
+                }
+            }
+            for (int j = 0; j < 2; j++)
+            {
+                CnuuVLL.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * (8 * delta_sbar * sbar2 + delta_gZ2oMZ2 * (-3 + 4 * sbar2))) / 12.;
+                CeuVLL.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * (4 * delta_sbar * sbar2 * (-5 + 8 * sbar2) + delta_gZ2oMZ2 * (3 - 10 * sbar2 + 8 * sbar2 * sbar2))) / 12.;
+                CeuVRR.at(i).at(i).at(j).at(j) += (2 * (delta_gZ2oMZ2 + 4 * delta_sbar) * gZ2oMZ2 * sbar2 * sbar2) / 3.;
+                CnuuVLR.at(i).at(i).at(j).at(j) += ((delta_gZ2oMZ2 + 2 * delta_sbar) * gZ2oMZ2 * sbar2) / 3.;
+                CeuVLR.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * sbar2 * (-delta_gZ2oMZ2 - 2 * delta_sbar + 2 * delta_gZ2oMZ2 * sbar2 + 8 * delta_sbar * sbar2)) / 3.;
+                CduV1LR.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * sbar2 * (-3 * delta_gZ2oMZ2 - 6 * delta_sbar + 2 * delta_gZ2oMZ2 * sbar2 + 8 * delta_sbar * sbar2)) / 9.;
+                if (mySMEFT.FlagNewTerms)
+                {
+                    CeuSRL.at(i).at(i).at(j).at(j) += -0.08333333333333333*(gZbar2oMZ4*(3 - 10*(1 + 2*delta_sbar)*sbar2 + 8*(1 + 4*delta_sbar)*pow(sbar2,2) + deltagZbar2oMZ4*(3 - 10*sbar2 + 8*pow(sbar2,2)))*Me[i]*Mu[j]);
+                    CeuSRL.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(-1 + 2*sbar2 + deltagZbar2oMZ4*(-1 + 2*sbar2) + delta_sbar*(-2 + 8*sbar2))*Me[i]*Mu[j])/3.;
+                    CeuSRL.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(-3 + 4*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2) + 2*delta_sbar*(-3 + 8*sbar2))*Me[i]*Mu[j])/6.;
+                    CeuSRL.at(i).at(i).at(j).at(j) += (-2*(1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Me[i]*Mu[j])/3.;
+                    CeuSRR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*sbar2*(1 + deltagZbar2oMZ4 + delta_sbar*(2 - 8*sbar2) - 2*sbar2 - 2*deltagZbar2oMZ4*sbar2)*Me[i]*Mu[j])/3.;
+                    CeuSRR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*(3 - 10*(1 + 2*delta_sbar)*sbar2 + 8*(1 + 4*delta_sbar)*pow(sbar2,2) + deltagZbar2oMZ4*(3 - 10*sbar2 + 8*pow(sbar2,2)))*Me[i]*Mu[j])/12.;
+                    CeuSRR.at(i).at(i).at(j).at(j) += (2*(1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Me[i]*Mu[j])/3.;
+                    CeuSRR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*(3 + delta_sbar*(6 - 16*sbar2) + deltagZbar2oMZ4*(3 - 4*sbar2) - 4*sbar2)*sbar2*Me[i]*Mu[j])/6.;
+                }
+                for (int k = 0; k < 2; k++)
+                {
+                    CudV1LL.at(j).at(k).at(i).at(i) += ((gZ2oMZ2 * (-3 + 2 * sbar2) * v2 * ((c_CHq1(j, k)) - (c_CHq3(j, k)))) / 12.);
+                    CnuuVLL.at(i).at(i).at(j).at(k) += ((gZ2oMZ2 * v2 * ((c_CHq1(j, k)) - (c_CHq3(j, k)))) / 4.);
+                    CeuVLL.at(i).at(i).at(j).at(k) += ((gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * ((c_CHq1(j, k)) - (c_CHq3(j, k)))) / 4.);
+                    CudV1RR.at(j).at(k).at(i).at(i) += ((gZ2oMZ2 * sbar2 * v2 * (c_CHu(j, k))) / 6.);
+                    CeuVRR.at(i).at(i).at(j).at(k) += ((gZ2oMZ2 * sbar2 * v2 * (c_CHu(j, k))) / 2.);
+                    CnuuVLR.at(i).at(i).at(j).at(k) += ((gZ2oMZ2 * v2 * (c_CHu(j, k))) / 4.);
+                    CeuVLR.at(i).at(i).at(j).at(k) += ((gZ2oMZ2 * (-1 + 2 * sbar2) * v2 * (c_CHu(j, k))) / 4.);
+                    CduV1LR.at(i).at(i).at(j).at(k) += ((gZ2oMZ2 * (-3 + 2 * sbar2) * v2 * (c_CHu(j, k))) / 12.);
+                    CudV1LR.at(j).at(k).at(i).at(i) += ((gZ2oMZ2 * sbar2 * v2 * ((c_CHq1(j, k)) - (c_CHq3(j, k)))) / 6.);
+                    CueVLR.at(j).at(k).at(i).at(i) += ((gZ2oMZ2 * sbar2 * v2 * ((c_CHq1(j, k)) - (c_CHq3(j, k)))) / 2.);
+                    if (mySMEFT.FlagNewTerms)
+                    {
+                        CnuuVLL.at(i).at(i).at(j).at(k) += (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CuB(k, j).conjugate()) + cbar*(c_CuW(k, j).conjugate()))*Mu[j])/sqrt(2));
+                        CnuuVLL.at(i).at(i).at(j).at(k) += (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CuB(j, k)) + cbar*(c_CuW(j, k)))*Mu[k])/sqrt(2));
+                        CeuVLL.at(i).at(i).at(j).at(k) += (-((gZbar2oMZ3*(-0.5 + sbar2)*v2*(sbar*(c_CuB(k, j).conjugate()) + cbar*(c_CuW(k, j).conjugate()))*Mu[j])/sqrt(2)));
+                        CeuVLL.at(i).at(i).at(j).at(k) += (-((gZbar2oMZ3*(-0.5 + sbar2)*v2*(sbar*(c_CuB(j, k)) + cbar*(c_CuW(j, k)))*Mu[k])/sqrt(2)));
+                        CudV1LL.at(j).at(k).at(i).at(i) += (-0.16666666666666666*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CuB(k, j).conjugate()) + cbar*(c_CuW(k, j).conjugate()))*Mu[j])/sqrt(2));
+                        CudV1LL.at(j).at(k).at(i).at(i) += (-0.16666666666666666*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CuB(j, k)) + cbar*(c_CuW(j, k)))*Mu[k])/sqrt(2));
+                        CeuVRR.at(i).at(i).at(j).at(k) += (-((gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(k, j).conjugate()) + cbar*(c_CuW(k, j).conjugate()))*Mu[k])/sqrt(2)));
+                        CeuVRR.at(i).at(i).at(j).at(k) += (-((gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(j, k)) + cbar*(c_CuW(j, k)))*Mu[j])/sqrt(2)));
+                        CudV1RR.at(j).at(k).at(i).at(i) += (-0.3333333333333333*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(k, j).conjugate()) + cbar*(c_CuW(k, j).conjugate()))*Mu[k])/sqrt(2));
+                        CudV1RR.at(j).at(k).at(i).at(i) += (-0.3333333333333333*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(j, k)) + cbar*(c_CuW(j, k)))*Mu[j])/sqrt(2));
+                        CnuuVLR.at(i).at(i).at(j).at(k) += (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CuB(k, j).conjugate()) + cbar*(c_CuW(k, j).conjugate()))*Mu[k])/sqrt(2));
+                        CnuuVLR.at(i).at(i).at(j).at(k) += (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CuB(j, k)) + cbar*(c_CuW(j, k)))*Mu[j])/sqrt(2));
+                        CeuVLR.at(i).at(i).at(j).at(k) += (-((gZbar2oMZ3*(-0.5 + sbar2)*v2*(sbar*(c_CuB(k, j).conjugate()) + cbar*(c_CuW(k, j).conjugate()))*Mu[k])/sqrt(2)));
+                        CeuVLR.at(i).at(i).at(j).at(k) += (-((gZbar2oMZ3*(-0.5 + sbar2)*v2*(sbar*(c_CuB(j, k)) + cbar*(c_CuW(j, k)))*Mu[j])/sqrt(2)));
+                        CueVLR.at(j).at(k).at(i).at(i) += (-((gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(k, j).conjugate()) + cbar*(c_CuW(k, j).conjugate()))*Mu[j])/sqrt(2)));
+                        CueVLR.at(j).at(k).at(i).at(i) += (-((gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(j, k)) + cbar*(c_CuW(j, k)))*Mu[k])/sqrt(2)));
+                        CudV1LR.at(j).at(k).at(i).at(i) += (-0.3333333333333333*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(k, j).conjugate()) + cbar*(c_CuW(k, j).conjugate()))*Mu[j])/sqrt(2));
+                        CudV1LR.at(j).at(k).at(i).at(i) += (-0.3333333333333333*(gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(j, k)) + cbar*(c_CuW(j, k)))*Mu[k])/sqrt(2));
+                        CduV1LR.at(i).at(i).at(j).at(k) += (-0.16666666666666666*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CuB(k, j).conjugate()) + cbar*(c_CuW(k, j).conjugate()))*Mu[k])/sqrt(2));
+                        CduV1LR.at(i).at(i).at(j).at(k) += (-0.16666666666666666*(gZbar2oMZ3*(-3 + 2*sbar2)*v2*(sbar*(c_CuB(j, k)) + cbar*(c_CuW(j, k)))*Mu[j])/sqrt(2));
+                        CudduV1LR.at(j).at(i).at(i).at(k) += (-0.041666666666666664*(gZbar2oMZ4*v2*((c_CHq1(j, k)) - (c_CHq3(j, k)))*Md[i]*Mu[k]));
+                        CudduV1LR.at(j).at(i).at(i).at(k) += ((gZbar2oMZ4*v2*(c_CHu(j, k))*Md[i]*Mu[j])/24.);
+                        CudduV8LR.at(j).at(i).at(i).at(k) += (-0.25*(gZbar2oMZ4*v2*((c_CHq1(j, k)) - (c_CHq3(j, k)))*Md[i]*Mu[k]));
+                        CudduV8LR.at(j).at(i).at(i).at(k) += ((gZbar2oMZ4*v2*(c_CHu(j, k))*Md[i]*Mu[j])/4.);
+                        CeuSRL.at(i).at(i).at(j).at(k) += ((gZbar2oMZ4*v2*((c_CHq1(j, k)) - (c_CHq3(j, k)))*Me[i]*Mu[j])/4.);
+                        CeuSRL.at(i).at(i).at(j).at(k) += (-0.25*(gZbar2oMZ4*v2*(c_CHu(j, k))*Me[i]*Mu[k]));
+                        CeuSRR.at(i).at(i).at(j).at(k) += ((gZbar2oMZ4*v2*(c_CHu(j, k))*Me[i]*Mu[j])/4.);
+                        CeuSRR.at(i).at(i).at(j).at(k) += (-0.25*(gZbar2oMZ4*v2*((c_CHq1(j, k)) - (c_CHq3(j, k)))*Me[i]*Mu[k]));
+                        CudS1RR.at(j).at(k).at(i).at(i) += (-0.25*(gZbar2oMZ4*v2*((c_CHq1(j, k)) - (c_CHq3(j, k)))*Md[i]*Mu[k]));
+                        CudS1RR.at(j).at(k).at(i).at(i) += ((gZbar2oMZ4*v2*(c_CHu(j, k))*Md[i]*Mu[j])/4.);
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                CudV1LL.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * (4 * delta_sbar * sbar2 * (-9 + 8 * sbar2) + delta_gZ2oMZ2 * (9 - 18 * sbar2 + 8 * sbar2 * sbar2))) / 36.;
+                CudV1RR.at(i).at(i).at(j).at(j) += (2 * (delta_gZ2oMZ2 + 4 * delta_sbar) * gZ2oMZ2 * sbar2 * sbar2) / 9.;
+                CudV1LR.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * sbar2 * (delta_gZ2oMZ2 * (-3 + 4 * sbar2) + 2 * delta_sbar * (-3 + 8 * sbar2))) / 18.;
+                CueVLR.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * sbar2 * (delta_gZ2oMZ2 * (-3 + 4 * sbar2) + 2 * delta_sbar * (-3 + 8 * sbar2))) / 6.;
+                if (mySMEFT.FlagNewTerms)
+                {
+                    CudduV1LR.at(i).at(j).at(j).at(i) += (gZbar2oMZ4*(9 - 18*(1 + 2*delta_sbar)*sbar2 + 8*(1 + 4*delta_sbar)*pow(sbar2,2) + deltagZbar2oMZ4*(9 - 18*sbar2 + 8*pow(sbar2,2)))*Md[j]*Mu[i])/216.;
+                    CudduV1LR.at(i).at(j).at(j).at(i) += -0.009259259259259259*(gZbar2oMZ4*sbar2*(-3 + 4*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2) + 2*delta_sbar*(-3 + 8*sbar2))*Md[j]*Mu[i]);
+                    CudduV1LR.at(i).at(j).at(j).at(i) += -0.018518518518518517*(gZbar2oMZ4*sbar2*(-3 + 2*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2) + delta_sbar*(-6 + 8*sbar2))*Md[j]*Mu[i]);
+                    CudduV1LR.at(i).at(j).at(j).at(i) += ((1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Md[j]*Mu[i])/27.;
+                    CudduV8LR.at(i).at(j).at(j).at(i) += (gZbar2oMZ4*(9 - 18*(1 + 2*delta_sbar)*sbar2 + 8*(1 + 4*delta_sbar)*pow(sbar2,2) + deltagZbar2oMZ4*(9 - 18*sbar2 + 8*pow(sbar2,2)))*Md[j]*Mu[i])/36.;
+                    CudduV8LR.at(i).at(j).at(j).at(i) += -0.05555555555555555*(gZbar2oMZ4*sbar2*(-3 + 4*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2) + 2*delta_sbar*(-3 + 8*sbar2))*Md[j]*Mu[i]);
+                    CudduV8LR.at(i).at(j).at(j).at(i) += -0.1111111111111111*(gZbar2oMZ4*sbar2*(-3 + 2*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2) + delta_sbar*(-6 + 8*sbar2))*Md[j]*Mu[i]);
+                    CudduV8LR.at(i).at(j).at(j).at(i) += (2*(1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Md[j]*Mu[i])/9.;
+                    CudS1RR.at(i).at(i).at(j).at(j) += -0.05555555555555555*(gZbar2oMZ4*sbar2*(-3 + 4*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2) + 2*delta_sbar*(-3 + 8*sbar2))*Md[j]*Mu[i]);
+                    CudS1RR.at(i).at(i).at(j).at(j) += (gZbar2oMZ4*(9 - 18*(1 + 2*delta_sbar)*sbar2 + 8*(1 + 4*delta_sbar)*pow(sbar2,2) + deltagZbar2oMZ4*(9 - 18*sbar2 + 8*pow(sbar2,2)))*Md[j]*Mu[i])/36.;
+                    CudS1RR.at(i).at(i).at(j).at(j) += (2*(1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Md[j]*Mu[i])/9.;
+                    CudS1RR.at(i).at(i).at(j).at(j) += -0.1111111111111111*(gZbar2oMZ4*sbar2*(-3 + 2*sbar2 + deltagZbar2oMZ4*(-3 + 2*sbar2) + delta_sbar*(-6 + 8*sbar2))*Md[j]*Mu[i]);
+                }
+                for (int k = 0; k < 3; k++)
+                {
+                    CeuVLL.at(j).at(k).at(i).at(i) += -0.08333333333333333 * (gZ2oMZ2 * (-3 + 4 * sbar2) * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k))));
+                    CnuuVLL.at(j).at(k).at(i).at(i) += -0.08333333333333333 * (gZ2oMZ2 * (-3 + 4 * sbar2) * v2 * ((c_CHl1(j, k)) - (c_CHl3(j, k))));
+                    CeuVRR.at(j).at(k).at(i).at(i) += -0.3333333333333333 * (gZ2oMZ2 * sbar2 * v2 * (c_CHe(j, k)));
+                    CnuuVLR.at(j).at(k).at(i).at(i) += (gZ2oMZ2 * sbar2 * v2 * (-(c_CHl1(j, k)) + (c_CHl3(j, k)))) / 3.;
+                    CeuVLR.at(j).at(k).at(i).at(i) += -0.3333333333333333 * (gZ2oMZ2 * sbar2 * v2 * ((c_CHl1(j, k)) + (c_CHl3(j, k))));
+                    CueVLR.at(i).at(i).at(j).at(k) += (gZ2oMZ2 * (3 - 4 * sbar2) * v2 * (c_CHe(j, k))) / 12.;
+                    if (mySMEFT.FlagNewTerms)
+                    {
+                        CeuVLL.at(j).at(k).at(i).at(i) += (gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CeB(k, j).conjugate())*Me[j] + cbar*(c_CeW(k, j).conjugate())*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/(6.*sqrt(2));
+                        CeuVRR.at(j).at(k).at(i).at(i) += (sqrt(2)*gZbar2oMZ3*sbar2*v2*(sbar*(c_CeB(j, k))*Me[j] + cbar*(c_CeW(j, k))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/3.;
+                        CeuVLR.at(j).at(k).at(i).at(i) += (sqrt(2)*gZbar2oMZ3*sbar2*v2*(sbar*(c_CeB(k, j).conjugate())*Me[j] + cbar*(c_CeW(k, j).conjugate())*Me[j] + (sbar*(c_CeB(j, k)) + cbar*(c_CeW(j, k)))*Me[k]))/3.;
+                        CueVLR.at(i).at(i).at(j).at(k) += (gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CeB(j, k))*Me[j] + cbar*(c_CeW(j, k))*Me[j] + (sbar*(c_CeB(k, j).conjugate()) + cbar*(c_CeW(k, j).conjugate()))*Me[k]))/(6.*sqrt(2));
+                        CeuSRL.at(j).at(k).at(i).at(i) += (gZbar2oMZ4*v2*((c_CHe(j, k))*Me[j] - ((c_CHl1(j, k)) + (c_CHl3(j, k)))*Me[k])*Mu[i])/4.;
+                        CeuSRR.at(j).at(k).at(i).at(i) += (gZbar2oMZ4*v2*(-((c_CHe(j, k))*Me[j]) + ((c_CHl1(j, k)) + (c_CHl3(j, k)))*Me[k])*Mu[i])/4.;
+                        for (int p = 0; p < 3; p++)
+                        {
+                            CudV1LL.at(i).at(i).at(j).at(k) += ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CdB(p, j).conjugate()) + cbar*(c_CdW(p, j).conjugate()))*Md[j])/(6.*sqrt(2))) * VCKM(p,k);
+                            CudV1LL.at(i).at(i).at(j).at(k) += VCKMd(j,p) * ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[k])/(6.*sqrt(2)));
+                            CudV1RR.at(i).at(i).at(j).at(k) += ((sqrt(2)*gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, j).conjugate()) + cbar*(c_CdW(p, j).conjugate()))*Md[k])/3.) * VCKM(p,k);
+                            CudV1RR.at(i).at(i).at(j).at(k) += VCKMd(j,p) * ((sqrt(2)*gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[j])/3.);
+                            CudV1LR.at(i).at(i).at(j).at(k) += ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CdB(p, j).conjugate()) + cbar*(c_CdW(p, j).conjugate()))*Md[k])/(6.*sqrt(2))) * VCKM(p,k);
+                            CudV1LR.at(i).at(i).at(j).at(k) += VCKMd(j,p) * ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[j])/(6.*sqrt(2)));
+                            CduV1LR.at(j).at(k).at(i).at(i) += ((sqrt(2)*gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, j).conjugate()) + cbar*(c_CdW(p, j).conjugate()))*Md[j])/3.) * VCKM(p,k);
+                            CduV1LR.at(j).at(k).at(i).at(i) += VCKMd(j,p) * ((sqrt(2)*gZbar2oMZ3*sbar2*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[k])/3.);
+                            for (int r = 0; r < 3; r++)
+                            {
+                                CudduV1LR.at(i).at(j).at(k).at(i) += VCKMd(k,p) * ((gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[k]*Mu[i])/24.) * VCKM(r,j);
+                                CudduV8LR.at(i).at(j).at(k).at(i) += VCKMd(k,p) * ((gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[k]*Mu[i])/4.) * VCKM(r,j);
+                                CudS1RR.at(i).at(i).at(j).at(k) += VCKMd(j,p) * ((gZbar2oMZ4*v2*((c_CHq1(p, r)) + (c_CHq3(p, r)))*Md[k]*Mu[i])/4.) * VCKM(r,k);
+                            }
+                        }
+                        CudduV1LR.at(i).at(j).at(k).at(i) += (-0.041666666666666664*(gZbar2oMZ4*v2*(c_CHd(k, j))*Md[j]*Mu[i]));
+                        CudduV8LR.at(i).at(j).at(k).at(i) += (-0.25*(gZbar2oMZ4*v2*(c_CHd(k, j))*Md[j]*Mu[i]));
+                        CudS1RR.at(i).at(i).at(j).at(k) += (-0.25*(gZbar2oMZ4*v2*(c_CHd(j, k))*Md[j]*Mu[i]));
+                    }
+                    for (int p = 0; p < 3; p++)
+                    {
+                        for (int r = 0; r < 3; r++)
+                        {
+                            CudV1LL.at(i).at(i).at(j).at(k) += VCKMd(j, p) * (-0.08333333333333333 * (gZ2oMZ2 * (-3 + 4 * sbar2) * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r))))) * VCKM(r, k);
+                            CduV1LR.at(j).at(k).at(i).at(i) += VCKMd(j, p) * (-0.3333333333333333 * (gZ2oMZ2 * sbar2 * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r))))) * VCKM(r, k);
+                        }
+                    }
+                    CudV1RR.at(i).at(i).at(j).at(k) += (-0.3333333333333333 * (gZ2oMZ2 * sbar2 * v2 * (c_CHd(j, k))));
+                    CudV1LR.at(i).at(i).at(j).at(k) += ((gZ2oMZ2 * (3 - 4 * sbar2) * v2 * (c_CHd(j, k))) / 12.);
+                    for (int l = 0; l < 2; l++)
+                    {
+                        if (mySMEFT.FlagNewTerms)
+                        {
+                            CudduS1RR.at(i).at(j).at(k).at(l) += VCKM(i,j) * VCKMd(k,l) * (-0.5*((1 + deltag2bar2oMW4)*g2bar2oMW4*Md[j]*Mu[l]));
+                            CudduV1LR.at(i).at(j).at(k).at(l) += VCKM(i,j) * (-((g2bar2oMW3*v2*(c_CdW(l, k).conjugate())*Mu[l])/sqrt(2)));
+                            for (int p = 0; p < 3; p++)
+                            {
+                                CudduV1LR.at(i).at(j).at(k).at(l) += VCKM(i,j) * VCKMd(k,p) * (-((g2bar2oMW3*v2*(c_CuW(p, l))*Md[k])/sqrt(2)));
+                                CudduS1RR.at(i).at(j).at(k).at(l) += VCKM(i,j) * VCKMd(k,p) * (-0.5*(g2bar2oMW4*v2*(c_CHq3(l, p).conjugate())*Md[j]*Mu[l]));
+                                CudduS1RR.at(i).at(j).at(k).at(l) += VCKMd(k,l) * (-0.5*(g2bar2oMW4*v2*(c_CHq3(i, p))*Md[j]*Mu[l])) * VCKM(p,j);
+                                CudduV1LR.at(i).at(j).at(k).at(l) += ((oneoMh2*(3*v2*(c_CuH(i, l))*(c_Yd(k, p)) + (3*v2*(c_CdH(p, k).conjugate()) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yd(k, p)))*(c_Yu(l, i).conjugate())))/12.) * VCKM(p,j);
+                                CudduV8LR.at(i).at(j).at(k).at(l) += ((oneoMh2*(3*v2*(c_CuH(i, l))*(c_Yd(k, p)) + (3*v2*(c_CdH(p, k).conjugate()) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yd(k, p)))*(c_Yu(l, i).conjugate())))/2.) * VCKM(p,j);
+                            }
+                            CudduS1RR.at(i).at(j).at(k).at(l) += VCKM(i,j) * ((g2bar2oMW4*v2*(c_CHud(l, k).conjugate())*Md[j]*Md[k])/4.);
+                            CudduS1RR.at(i).at(j).at(k).at(l) += VCKMd(k,l) * ((g2bar2oMW4*v2*(c_CHud(i, j))*Mu[i]*Mu[l])/4.);
+                        }
+                        CudduV1LR.at(i).at(j).at(k).at(l) += VCKM(i, j) * (-0.25 * (g22oMW2 * v2 * (c_CHud(l, k).conjugate())));
+                        for (int p = 0; p < 3; p++)
+                        {
+                            CudduS1RR.at(i).at(j).at(k).at(l) += VCKMd(k, p) * (-(c_Cquqd1(p, l, i, j)));
+                            CudduS8RR.at(i).at(j).at(k).at(l) += VCKMd(k, p) * (-(c_Cquqd8(p, l, i, j)));
+                        }
+                    }
+                }
+            }
+            for (int j = 0; j < 2; j++)
+            {
+                CuuVLL.at(i).at(i).at(j).at(j) += -0.013888888888888888 * (gZ2oMZ2 * (-3 + 4 * sbar2) * (16 * delta_sbar * sbar2 + delta_gZ2oMZ2 * (-3 + 4 * sbar2)));
+                CuuVRR.at(i).at(i).at(j).at(j) += (-2 * (delta_gZ2oMZ2 + 4 * delta_sbar) * gZ2oMZ2 * sbar2 * sbar2) / 9.;
+                CuuV1LR.at(i).at(i).at(j).at(j) += (gZ2oMZ2 * (2 * delta_sbar * (3 - 8 * sbar2) + delta_gZ2oMZ2 * (3 - 4 * sbar2)) * sbar2) / 9.;
+                if (mySMEFT.FlagNewTerms)
+                {
+                    CuuV1LR.at(i).at(j).at(j).at(i) += -0.004629629629629629*(gZbar2oMZ4*(-3 + 4*sbar2)*(-3 + 4*(1 + 4*delta_sbar)*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2))*Mu[i]*Mu[j]);
+                    CuuV1LR.at(i).at(j).at(j).at(i) += 2. * ((gZbar2oMZ4*sbar2*(-3 + 4*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2) + 2*delta_sbar*(-3 + 8*sbar2))*Mu[i]*Mu[j])/54.);
+                    CuuV1LR.at(i).at(j).at(j).at(i) += (-2*(1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Mu[i]*Mu[j])/27.;
+                    CuuV8LR.at(i).at(j).at(j).at(i) += -0.027777777777777776*(gZbar2oMZ4*(-3 + 4*sbar2)*(-3 + 4*(1 + 4*delta_sbar)*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2))*Mu[i]*Mu[j]);
+                    CuuV8LR.at(i).at(j).at(j).at(i) += 2. * ((gZbar2oMZ4*sbar2*(-3 + 4*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2) + 2*delta_sbar*(-3 + 8*sbar2))*Mu[i]*Mu[j])/9.);
+                    CuuV8LR.at(i).at(j).at(j).at(i) += (-4*(1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Mu[i]*Mu[j])/9.;
+                    CuuS1RR.at(i).at(i).at(j).at(j) += 2. * ((gZbar2oMZ4*sbar2*(-3 + 4*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2) + 2*delta_sbar*(-3 + 8*sbar2))*Mu[i]*Mu[j])/18.);
+                    CuuS1RR.at(i).at(i).at(j).at(j) += -0.013888888888888888*(gZbar2oMZ4*(-3 + 4*sbar2)*(-3 + 4*(1 + 4*delta_sbar)*sbar2 + deltagZbar2oMZ4*(-3 + 4*sbar2))*Mu[i]*Mu[j]);
+                    CuuS1RR.at(i).at(i).at(j).at(j) += (-2*(1 + deltagZbar2oMZ4 + 4*delta_sbar)*gZbar2oMZ4*pow(sbar2,2)*Mu[i]*Mu[j])/9.;
+                }
+                for (int k = 0; k < 3; k++)
+                {
+                    for (int l = 0; l < 3; l++)
+                    {
+                        CudV1LL.at(i).at(j).at(k).at(l) += VCKM(i, l) * VCKMd(k, j) * (-0.16666666666666666 * (delta_g22oMW2 * g22oMW2));
+                        CudV8LL.at(i).at(j).at(k).at(l) += VCKM(i, l) * VCKMd(k, j) * (-(delta_g22oMW2 * g22oMW2));
+                        if (mySMEFT.FlagNewTerms)
+                        {
+                            CudV1LR.at(i).at(j).at(k).at(l) += VCKM(i,l) * VCKMd(k,j) * (-0.08333333333333333*((1 + deltag2bar2oMW4)*g2bar2oMW4*Md[k]*Md[l]));
+                            CudV8LR.at(i).at(j).at(k).at(l) += VCKM(i,l) * VCKMd(k,j) * (-0.5*((1 + deltag2bar2oMW4)*g2bar2oMW4*Md[k]*Md[l]));
+                            for (int p = 0; p < 3; p++)
+                            {
+                                CudV1LL.at(i).at(j).at(k).at(l) += VCKMd(k,j) * ((g2bar2oMW3*v2*(c_CuW(p, i).conjugate())*Mu[i])/(3.*sqrt(2))) * VCKM(p,l);
+                                CudV1LL.at(i).at(j).at(k).at(l) += VCKM(i,l) * VCKMd(k,p) * (-0.3333333333333333*(g2bar2oMW3*v2*(c_CuW(p, j))*Mu[j])/sqrt(2));
+                                CudV8LL.at(i).at(j).at(k).at(l) += VCKMd(k,j) * (sqrt(2)*g2bar2oMW3*v2*(c_CuW(p, i).conjugate())*Mu[i]) * VCKM(p,l);
+                                CudV8LL.at(i).at(j).at(k).at(l) += VCKM(i,l) * VCKMd(k,p) * (-(sqrt(2)*g2bar2oMW3*v2*(c_CuW(p, j))*Mu[j]));
+                                CudV1LR.at(i).at(j).at(k).at(l) += VCKM(i,l) * VCKMd(k,p) * (-0.08333333333333333*(g2bar2oMW4*v2*(c_CHq3(j, p).conjugate())*Md[k]*Md[l]));
+                                CudV1LR.at(i).at(j).at(k).at(l) += VCKMd(k,j) * (-0.08333333333333333*(g2bar2oMW4*v2*(c_CHq3(i, p))*Md[k]*Md[l])) * VCKM(p,l);
+                                CudV8LR.at(i).at(j).at(k).at(l) += VCKM(i,l) * VCKMd(k,p) * (-0.5*(g2bar2oMW4*v2*(c_CHq3(j, p).conjugate())*Md[k]*Md[l]));
+                                CudV8LR.at(i).at(j).at(k).at(l) += VCKMd(k,j) * (-0.5*(g2bar2oMW4*v2*(c_CHq3(i, p))*Md[k]*Md[l])) * VCKM(p,l);
+                                CudS1RR.at(i).at(j).at(k).at(l) += VCKMd(k,p) * ((oneoMh2*(-3*v2*(c_CuH(i, j))*(c_Yd(l, p).conjugate()) + (-3*v2*(c_CdH(p, l)) + 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yd(l, p).conjugate()))*(c_Yu(j, i).conjugate())))/2.);
+                            }
+                            CudV1LL.at(i).at(j).at(k).at(l) += VCKMd(k,j) * ((g2bar2oMW3*v2*(c_CdW(i, l))*Md[l])/(3.*sqrt(2)));
+                            CudV1LL.at(i).at(j).at(k).at(l) += VCKM(i,l) * (-0.3333333333333333*(g2bar2oMW3*v2*(c_CdW(j, k).conjugate())*Md[k])/sqrt(2));
+                            CudV8LL.at(i).at(j).at(k).at(l) += VCKMd(k,j) * (sqrt(2)*g2bar2oMW3*v2*(c_CdW(i, l))*Md[l]);
+                            CudV8LL.at(i).at(j).at(k).at(l) += VCKM(i,l) * (-(sqrt(2)*g2bar2oMW3*v2*(c_CdW(j, k).conjugate())*Md[k]));
+                            CudV1LR.at(i).at(j).at(k).at(l) += VCKM(i,l) * ((g2bar2oMW4*v2*(c_CHud(j, k).conjugate())*Md[l]*Mu[j])/24.);
+                            CudV1LR.at(i).at(j).at(k).at(l) += VCKMd(k,j) * ((g2bar2oMW4*v2*(c_CHud(i, l))*Md[k]*Mu[i])/24.);
+                            CudV8LR.at(i).at(j).at(k).at(l) += VCKM(i,l) * ((g2bar2oMW4*v2*(c_CHud(j, k).conjugate())*Md[l]*Mu[j])/4.);
+                            CudV8LR.at(i).at(j).at(k).at(l) += VCKMd(k,j) * ((g2bar2oMW4*v2*(c_CHud(i, l))*Md[k]*Mu[i])/4.);
+                        }
+                        for (int p = 0; p < 3; p++)
+                        {
+                            CudV1LL.at(i).at(j).at(k).at(l) += VCKMd(k, j) * (-0.16666666666666666 * (g22oMW2 * v2 * (c_CHq3(i, p)))) * VCKM(p, l);
+                            CudV1LL.at(i).at(j).at(k).at(l) += VCKM(i, l) * VCKMd(k, p) * (-0.16666666666666666 * (g22oMW2 * v2 * (c_CHq3(j, p).conjugate())));
+                            CudV8LL.at(i).at(j).at(k).at(l) += VCKMd(k, j) * (-(g22oMW2 * v2 * (c_CHq3(i, p)))) * VCKM(p, l);
+                            CudV8LL.at(i).at(j).at(k).at(l) += VCKM(i, l) * VCKMd(k, p) * (-(g22oMW2 * v2 * (c_CHq3(j, p).conjugate())));
+                            for (int r = 0; r < 3; r++)
+                            {
+                                CudV1LL.at(i).at(j).at(k).at(l) += VCKMd(k, p) * ((c_Cqq1(i, j, p, r)) + (c_Cqq1(p, r, i, j)) - (c_Cqq3(i, j, p, r)) + (2 * (c_Cqq3(i, r, p, j))) / 3. + (2 * (c_Cqq3(p, j, i, r))) / 3. - (c_Cqq3(p, r, i, j))) * VCKM(r, l);
+                                CudV8LL.at(i).at(j).at(k).at(l) += VCKMd(k, p) * (4 * ((c_Cqq3(i, r, p, j)) + (c_Cqq3(p, j, i, r)))) * VCKM(r, l);
+                            }
+                            CudS1RR.at(i).at(j).at(k).at(l) += VCKMd(k, p) * ((c_Cquqd1(i, j, p, l)));
+                            CudS8RR.at(i).at(j).at(k).at(l) += VCKMd(k, p) * ((c_Cquqd8(i, j, p, l)));
+                        }
+                        CueVLR.at(i).at(j).at(k).at(l) += ((c_Cqe(i, j, k, l)));
+                        CudV1RR.at(i).at(j).at(k).at(l) += ((c_Cud1(i, j, k, l)));
+                        CudV8RR.at(i).at(j).at(k).at(l) += ((c_Cud8(i, j, k, l)));
+                        CudV1LR.at(i).at(j).at(k).at(l) += ((c_Cqd1(i, j, k, l)));
+                        CudV8LR.at(i).at(j).at(k).at(l) += ((c_Cqd8(i, j, k, l)));
+                    }
+                }
+                for (int k = 0; k < 2; k++)
+                {
+                    CuuVLL.at(i).at(i).at(j).at(k) += (-0.041666666666666664 * (gZ2oMZ2 * (-3 + 4 * sbar2) * v2 * ((c_CHq1(j, k)) - (c_CHq3(j, k)))));
+                    CuuVLL.at(j).at(k).at(i).at(i) += (-0.041666666666666664 * (gZ2oMZ2 * (-3 + 4 * sbar2) * v2 * ((c_CHq1(j, k)) - (c_CHq3(j, k)))));
+                    CuuVRR.at(i).at(i).at(j).at(k) += (-0.16666666666666666 * (gZ2oMZ2 * sbar2 * v2 * (c_CHu(j, k))));
+                    CuuVRR.at(j).at(k).at(i).at(i) += (-0.16666666666666666 * (gZ2oMZ2 * sbar2 * v2 * (c_CHu(j, k))));
+                    CuuV1LR.at(i).at(i).at(j).at(k) += ((gZ2oMZ2 * (3 - 4 * sbar2) * v2 * (c_CHu(j, k))) / 12.);
+                    CuuV1LR.at(j).at(k).at(i).at(i) += ((gZ2oMZ2 * sbar2 * v2 * (-(c_CHq1(j, k)) + (c_CHq3(j, k)))) / 3.);
+                    if (mySMEFT.FlagNewTerms)
+                    {
+                        CuuVLL.at(i).at(i).at(j).at(k) += ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CuB(k, j).conjugate()) + cbar*(c_CuW(k, j).conjugate()))*Mu[j])/(12.*sqrt(2)));
+                        CuuVLL.at(i).at(i).at(j).at(k) += ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CuB(j, k)) + cbar*(c_CuW(j, k)))*Mu[k])/(12.*sqrt(2)));
+                        CuuVLL.at(j).at(k).at(i).at(i) += ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CuB(k, j).conjugate()) + cbar*(c_CuW(k, j).conjugate()))*Mu[j])/(12.*sqrt(2)));
+                        CuuVLL.at(j).at(k).at(i).at(i) += ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CuB(j, k)) + cbar*(c_CuW(j, k)))*Mu[k])/(12.*sqrt(2)));
+                        CuuVRR.at(i).at(i).at(j).at(k) += ((gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(k, j).conjugate()) + cbar*(c_CuW(k, j).conjugate()))*Mu[k])/(3.*sqrt(2)));
+                        CuuVRR.at(i).at(i).at(j).at(k) += ((gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(j, k)) + cbar*(c_CuW(j, k)))*Mu[j])/(3.*sqrt(2)));
+                        CuuVRR.at(j).at(k).at(i).at(i) += ((gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(k, j).conjugate()) + cbar*(c_CuW(k, j).conjugate()))*Mu[k])/(3.*sqrt(2)));
+                        CuuVRR.at(j).at(k).at(i).at(i) += ((gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(j, k)) + cbar*(c_CuW(j, k)))*Mu[j])/(3.*sqrt(2)));
+                        CuuV1LR.at(i).at(j).at(k).at(i) += ((gZbar2oMZ4*v2*((c_CHq1(k, j)) - (c_CHq3(k, j)))*Mu[i]*Mu[k])/24.);
+                        CuuV1LR.at(i).at(j).at(k).at(i) += (-0.041666666666666664*(gZbar2oMZ4*v2*(c_CHu(k, j))*Mu[i]*Mu[j]));
+                        CuuV1LR.at(j).at(i).at(i).at(k) += ((gZbar2oMZ4*v2*((c_CHq1(j, k)) - (c_CHq3(j, k)))*Mu[i]*Mu[k])/24.);
+                        CuuV1LR.at(j).at(i).at(i).at(k) += (-0.041666666666666664*(gZbar2oMZ4*v2*(c_CHu(j, k))*Mu[i]*Mu[j]));
+                        CuuV1LR.at(i).at(i).at(j).at(k) += ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CuB(k, j).conjugate()) + cbar*(c_CuW(k, j).conjugate()))*Mu[k])/(6.*sqrt(2)));
+                        CuuV1LR.at(i).at(i).at(j).at(k) += ((gZbar2oMZ3*(-3 + 4*sbar2)*v2*(sbar*(c_CuB(j, k)) + cbar*(c_CuW(j, k)))*Mu[j])/(6.*sqrt(2)));
+                        CuuV1LR.at(j).at(k).at(i).at(i) += ((sqrt(2)*gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(k, j).conjugate()) + cbar*(c_CuW(k, j).conjugate()))*Mu[j])/3.);
+                        CuuV1LR.at(j).at(k).at(i).at(i) += ((sqrt(2)*gZbar2oMZ3*sbar2*v2*(sbar*(c_CuB(j, k)) + cbar*(c_CuW(j, k)))*Mu[k])/3.);
+                        CuuV8LR.at(i).at(j).at(k).at(i) += ((gZbar2oMZ4*v2*((c_CHq1(k, j)) - (c_CHq3(k, j)))*Mu[i]*Mu[k])/4.);
+                        CuuV8LR.at(i).at(j).at(k).at(i) += (-0.25*(gZbar2oMZ4*v2*(c_CHu(k, j))*Mu[i]*Mu[j]));
+                        CuuV8LR.at(j).at(i).at(i).at(k) += ((gZbar2oMZ4*v2*((c_CHq1(j, k)) - (c_CHq3(j, k)))*Mu[i]*Mu[k])/4.);
+                        CuuV8LR.at(j).at(i).at(i).at(k) += (-0.25*(gZbar2oMZ4*v2*(c_CHu(j, k))*Mu[i]*Mu[j]));
+                        CuuS1RR.at(i).at(i).at(j).at(k) += (-0.125*(gZbar2oMZ4*v2*(c_CHu(j, k))*Mu[i]*Mu[j]));
+                        CuuS1RR.at(i).at(i).at(j).at(k) += ((gZbar2oMZ4*v2*((c_CHq1(j, k)) - (c_CHq3(j, k)))*Mu[i]*Mu[k])/8.);
+                        CuuS1RR.at(j).at(k).at(i).at(i) += ((gZbar2oMZ4*v2*((c_CHq1(j, k)) - (c_CHq3(j, k)))*Mu[i]*Mu[k])/8.);
+                        CuuS1RR.at(j).at(k).at(i).at(i) += (-0.125*(gZbar2oMZ4*v2*(c_CHu(j, k))*Mu[i]*Mu[j]));
+                    }
+                    for (int l = 0; l < 2; l++)
+                    {
+                        CuuVLL.at(i).at(j).at(k).at(l) += ((c_Cqq1(i, j, k, l)) + (c_Cqq3(i, j, k, l)));
+                        CuuVRR.at(i).at(j).at(k).at(l) += ((c_Cuu(i, j, k, l)));
+                        CuuV1LR.at(i).at(j).at(k).at(l) += ((c_Cqu1(i, j, k, l)));
+                        CuuV8LR.at(i).at(j).at(k).at(l) += ((c_Cqu8(i, j, k, l)));
+                        if (mySMEFT.FlagQuadraticWC)
+                        {
+                            CuuVLL.at(i).at(j).at(k).at(l) += ((gZ2oMZ2*v2*v2*(c_CHq1(k, l))*(c_CHq3(i, j)) - gZ2oMZ2*v2*v2*(c_CHq3(i, j))*(c_CHq3(k, l)) + gZ2oMZ2*v2*v2*(c_CHq1(i, j))*(-(c_CHq1(k, l)) + (c_CHq3(k, l))))/8.);
+                            CuuVRR.at(i).at(j).at(k).at(l) += (-0.125*(gZ2oMZ2*v2*v2*(c_CHu(i, j))*(c_CHu(k, l))));
+                            CuuV1LR.at(i).at(j).at(k).at(l) += (-0.25*(gZ2oMZ2*v2*v2*(c_CHq1(i, j))*(c_CHu(k, l))) + (gZ2oMZ2*v2*v2*(c_CHq3(i, j))*(c_CHu(k, l)))/4.);
+                        }
+                        if (mySMEFT.FlagNewTerms)
+                        {
+                            CuuV1LR.at(i).at(j).at(k).at(l) += ((oneoMh2*(3*v2*(c_CuH(i, l))*(c_Yu(k, j)) + (3*v2*(c_CuH(j, k).conjugate()) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yu(k, j)))*(c_Yu(l, i).conjugate())))/12.);
+                            CuuV8LR.at(i).at(j).at(k).at(l) += ((oneoMh2*(3*v2*(c_CuH(i, l))*(c_Yu(k, j)) + (3*v2*(c_CuH(j, k).conjugate()) - 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yu(k, j)))*(c_Yu(l, i).conjugate())))/2.);
+                            CuuS1RR.at(i).at(j).at(k).at(l) += ((oneoMh2*(-3*v2*(c_CuH(k, l))*(c_Yu(j, i).conjugate()) + (-3*v2*(c_CuH(i, j)) + 2*(1 + 2*(c_CHbox - 0.25 * c_CHD) * v2 + deltaoneoMh2)*(c_Yu(j, i).conjugate()))*(c_Yu(l, k).conjugate())))/4.);
+                            if (mySMEFT.FlagQuadraticWC)
+                            {
+                                CuuVLL.at(i).at(j).at(k).at(l) += ((gZbar2oMZ3*v2*v2*((c_CHq1(i, j)) - (c_CHq3(i, j)))*(sbar*(c_CuB(l, k).conjugate()) + cbar*(c_CuW(l, k).conjugate()))*Mu[k])/(4.*sqrt(2)));
+                                CuuVLL.at(i).at(j).at(k).at(l) += ((gZbar2oMZ3*v2*v2*((c_CHq1(i, j)) - (c_CHq3(i, j)))*(sbar*(c_CuB(k, l)) + cbar*(c_CuW(k, l)))*Mu[l])/(4.*sqrt(2)));
+                                CuuVLL.at(i).at(j).at(k).at(l) += ((gZbar2oMZ3*v2*v2*((c_CHq1(k, l)) - (c_CHq3(k, l)))*(sbar*(c_CuB(j, i).conjugate()) + cbar*(c_CuW(j, i).conjugate()))*Mu[i])/(4.*sqrt(2)));
+                                CuuVLL.at(i).at(j).at(k).at(l) += ((gZbar2oMZ3*v2*v2*((c_CHq1(k, l)) - (c_CHq3(k, l)))*(sbar*(c_CuB(i, j)) + cbar*(c_CuW(i, j)))*Mu[j])/(4.*sqrt(2)));
+                                CuuVRR.at(i).at(j).at(k).at(l) += ((gZbar2oMZ3*v2*v2*(c_CHu(i, j))*(sbar*(c_CuB(l, k).conjugate()) + cbar*(c_CuW(l, k).conjugate()))*Mu[l])/(4.*sqrt(2)));
+                                CuuVRR.at(i).at(j).at(k).at(l) += ((gZbar2oMZ3*v2*v2*(c_CHu(i, j))*(sbar*(c_CuB(k, l)) + cbar*(c_CuW(k, l)))*Mu[k])/(4.*sqrt(2)));
+                                CuuVRR.at(i).at(j).at(k).at(l) += ((gZbar2oMZ3*v2*v2*(c_CHu(k, l))*(sbar*(c_CuB(j, i).conjugate()) + cbar*(c_CuW(j, i).conjugate()))*Mu[j])/(4.*sqrt(2)));
+                                CuuVRR.at(i).at(j).at(k).at(l) += ((gZbar2oMZ3*v2*v2*(c_CHu(k, l))*(sbar*(c_CuB(i, j)) + cbar*(c_CuW(i, j)))*Mu[i])/(4.*sqrt(2)));
+                                CuuV1LR.at(i).at(j).at(k).at(l) += (-0.041666666666666664*(oneoMh2*(3*v2*(c_CuH(i, l))*(3*v2*(c_CuH(j, k).conjugate())))));
+                                CuuV1LR.at(i).at(j).at(k).at(l) += ((gZbar2oMZ3*v2*v2*((c_CHq1(i, j)) - (c_CHq3(i, j)))*(sbar*(c_CuB(l, k).conjugate()) + cbar*(c_CuW(l, k).conjugate()))*Mu[l])/(2.*sqrt(2)));
+                                CuuV1LR.at(i).at(j).at(k).at(l) += ((gZbar2oMZ3*v2*v2*((c_CHq1(i, j)) - (c_CHq3(i, j)))*(sbar*(c_CuB(k, l)) + cbar*(c_CuW(k, l)))*Mu[k])/(2.*sqrt(2)));
+                                CuuV1LR.at(i).at(j).at(k).at(l) += ((gZbar2oMZ3*v2*v2*(c_CHu(k, l))*(sbar*(c_CuB(j, i).conjugate()) + cbar*(c_CuW(j, i).conjugate()))*Mu[i])/(2.*sqrt(2)));
+                                CuuV1LR.at(i).at(j).at(k).at(l) += ((gZbar2oMZ3*v2*v2*(c_CHu(k, l))*(sbar*(c_CuB(i, j)) + cbar*(c_CuW(i, j)))*Mu[j])/(2.*sqrt(2)));
+                                CuuV1LR.at(i).at(j).at(k).at(l) += (-0.041666666666666664*(gZbar2oMZ4*v2*v2*((c_CHq1(k, j)) - (c_CHq3(k, j)))*((c_CHq1(i, l)) - (c_CHq3(i, l)))*Mu[k]*Mu[l]));
+                                CuuV1LR.at(i).at(j).at(k).at(l) += ((gZbar2oMZ4*v2*v2*((c_CHq1(i, l)) - (c_CHq3(i, l)))*(c_CHu(k, j))*Mu[j]*Mu[l])/24.);
+                                CuuV1LR.at(i).at(j).at(k).at(l) += ((gZbar2oMZ4*v2*v2*((c_CHq1(k, j)) - (c_CHq3(k, j)))*(c_CHu(i, l))*Mu[i]*Mu[k])/24.);
+                                CuuV1LR.at(i).at(j).at(k).at(l) += (-0.041666666666666664*(gZbar2oMZ4*v2*v2*(c_CHu(i, l))*(c_CHu(k, j))*Mu[i]*Mu[j]));
+                                CuuV8LR.at(i).at(j).at(k).at(l) += (-0.25*(oneoMh2*(3*v2*(c_CuH(i, l))*(3*v2*(c_CuH(j, k).conjugate())))));
+                                CuuV8LR.at(i).at(j).at(k).at(l) += (-0.25*(gZbar2oMZ4*v2*v2*((c_CHq1(k, j)) - (c_CHq3(k, j)))*((c_CHq1(i, l)) - (c_CHq3(i, l)))*Mu[k]*Mu[l]));
+                                CuuV8LR.at(i).at(j).at(k).at(l) += ((gZbar2oMZ4*v2*v2*((c_CHq1(i, l)) - (c_CHq3(i, l)))*(c_CHu(k, j))*Mu[j]*Mu[l])/4.);
+                                CuuV8LR.at(i).at(j).at(k).at(l) += ((gZbar2oMZ4*v2*v2*((c_CHq1(k, j)) - (c_CHq3(k, j)))*(c_CHu(i, l))*Mu[i]*Mu[k])/4.);
+                                CuuV8LR.at(i).at(j).at(k).at(l) += (-0.25*(gZbar2oMZ4*v2*v2*(c_CHu(i, l))*(c_CHu(k, j))*Mu[i]*Mu[j]));
+                                CuuS1RR.at(i).at(j).at(k).at(l) += ((oneoMh2*(3*v2*(c_CuH(i, j))*(3*v2*(c_CuH(k, l)))))/8.);
+                                CuuS1RR.at(i).at(j).at(k).at(l) += ((gZbar2oMZ4*v2*v2*((c_CHq1(i, j)) - (c_CHq3(i, j)))*(c_CHu(k, l))*Mu[j]*Mu[k])/8.);
+                                CuuS1RR.at(i).at(j).at(k).at(l) += (-0.125*(gZbar2oMZ4*v2*v2*((c_CHq1(i, j)) - (c_CHq3(i, j)))*((c_CHq1(k, l)) - (c_CHq3(k, l)))*Mu[j]*Mu[l]));
+                                CuuS1RR.at(i).at(j).at(k).at(l) += (-0.125*(gZbar2oMZ4*v2*v2*(c_CHu(i, j))*(c_CHu(k, l))*Mu[i]*Mu[k]));
+                                CuuS1RR.at(i).at(j).at(k).at(l) += ((gZbar2oMZ4*v2*v2*((c_CHq1(k, l)) - (c_CHq3(k, l)))*(c_CHu(i, j))*Mu[i]*Mu[l])/8.);
+                            }
+                        }
+                    }
+                }
+                Cug.at(i).at(j) += vTosq2 * ((c_CuW(i, j)) * sbar + (c_CuB(i, j)) * cbar);
+                CuG.at(i).at(j) += vTosq2 * (c_CuG(i, j));
+            }
+        }
 
 #endif
 
@@ -1113,6 +1115,7 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdd2()
 
 std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbd2()
 {
+        //SUSY basis for Delta B=2 Hamiltonian: we are using bbar d bbar d operators
 
         vmcdb.clear();
         vmcdb = StandardModelMatching::CMdbd2();
@@ -1126,11 +1129,11 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbd2()
             for (int l = 0; l < 5; l++)
                 mcbd.setCoeff(l, 0., NLO);
         case LO:
-                mcbd.setCoeff(0, -CddVLL.at(0).at(2).at(0).at(2), LO);
-                mcbd.setCoeff(1, -(CddS1RR.at(2).at(0).at(2).at(0).conjugate() - CddS8RR.at(2).at(0).at(2).at(0).conjugate() / 6.), LO);
-                mcbd.setCoeff(2, -CddS8RR.at(2).at(0).at(2).at(0).conjugate() / 2., LO);
-                mcbd.setCoeff(3, CddV8LR.at(0).at(2).at(0).at(2), LO);
-                mcbd.setCoeff(4, 2. * CddV1LR.at(0).at(2).at(0).at(2) - CddV8LR.at(0).at(2).at(0).at(2) / 3., LO);
+                mcbd.setCoeff(0, -CddVLL.at(2).at(0).at(2).at(0), LO);
+                mcbd.setCoeff(1, -(CddS1RR.at(2).at(0).at(2).at(0) - CddS8RR.at(2).at(0).at(2).at(0) / 6.), LO);
+                mcbd.setCoeff(2, -CddS8RR.at(2).at(0).at(2).at(0) / 2., LO);
+                mcbd.setCoeff(3, CddV8LR.at(2).at(0).at(2).at(0), LO);
+                mcbd.setCoeff(4, 2. * CddV1LR.at(2).at(0).at(2).at(0) - CddV8LR.at(2).at(0).at(2).at(0) / 3., LO);
                 break;
         default:
                 std::stringstream out;
@@ -1156,9 +1159,9 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbd2()
             for (int l = 0; l < 5; l++)
                 mcbd.setCoeff(l, 0., NLO);
         case LO:
-                mcbd.setCoeff(0, -CddVRR.at(0).at(2).at(0).at(2), LO);
-                mcbd.setCoeff(1, -(CddS1RR.at(0).at(2).at(0).at(2) - CddS8RR.at(0).at(2).at(0).at(2) / 6.), LO);
-                mcbd.setCoeff(2, -CddS8RR.at(0).at(2).at(0).at(2) / 2., LO);
+                mcbd.setCoeff(0, -CddVRR.at(2).at(0).at(2).at(0), LO);
+                mcbd.setCoeff(1, -(CddS1RR.at(2).at(0).at(2).at(0) - CddS8RR.at(2).at(0).at(2).at(0) / 6.), LO);
+                mcbd.setCoeff(2, -CddS8RR.at(2).at(0).at(2).at(0) / 2., LO);
                 mcbd.setCoeff(3, 0., LO);
                 mcbd.setCoeff(4, 0., LO);
                 break;
@@ -1179,6 +1182,7 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbd2()
 
 std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbs2()
 {
+        //SUSY basis for Delta B=2 Hamiltonian: we are using bbar s bbar s operators
 
         vmcds.clear();
         vmcds = StandardModelMatching::CMdbs2();
@@ -1192,11 +1196,11 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbs2()
             for (int l = 0; l < 5; l++)
                 mcbs.setCoeff(l, 0., NLO);
         case LO:
-                mcbs.setCoeff(0, -CddVLL.at(1).at(2).at(1).at(2), LO);
-                mcbs.setCoeff(1, -(CddS1RR.at(2).at(1).at(2).at(1).conjugate() - CddS8RR.at(2).at(1).at(2).at(1).conjugate() / 6.), LO);
-                mcbs.setCoeff(2, -CddS8RR.at(2).at(1).at(2).at(1).conjugate() / 2., LO);
-                mcbs.setCoeff(3, CddV8LR.at(1).at(2).at(1).at(2), LO);
-                mcbs.setCoeff(4, 2. * CddV1LR.at(1).at(2).at(1).at(2) - CddV8LR.at(1).at(2).at(1).at(2) / 3., LO);
+                mcbs.setCoeff(0, -CddVLL.at(2).at(1).at(2).at(1), LO);
+                mcbs.setCoeff(1, -(CddS1RR.at(2).at(1).at(2).at(1) - CddS8RR.at(2).at(1).at(2).at(1) / 6.), LO);
+                mcbs.setCoeff(2, -CddS8RR.at(2).at(1).at(2).at(1) / 2., LO);
+                mcbs.setCoeff(3, CddV8LR.at(2).at(1).at(2).at(1), LO);
+                mcbs.setCoeff(4, 2. * CddV1LR.at(2).at(1).at(2).at(1) - CddV8LR.at(2).at(1).at(2).at(1) / 3., LO);
                 break;
         default:
                 std::stringstream out;
@@ -1222,9 +1226,9 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbs2()
             for (int l = 0; l < 5; l++)
                 mcbs.setCoeff(l, 0., NLO);
         case LO:
-                mcbs.setCoeff(0, -CddVRR.at(1).at(2).at(1).at(2), LO);
-                mcbs.setCoeff(1, -(CddS1RR.at(1).at(2).at(1).at(2) - CddS8RR.at(1).at(2).at(1).at(2) / 6.), LO);
-                mcbs.setCoeff(2, - CddS8RR.at(1).at(2).at(1).at(2) / 2., LO);
+                mcbs.setCoeff(0, -CddVRR.at(2).at(1).at(2).at(1), LO);
+                mcbs.setCoeff(1, -(CddS1RR.at(2).at(1).at(2).at(1) - CddS8RR.at(2).at(1).at(2).at(1) / 6.), LO);
+                mcbs.setCoeff(2, - CddS8RR.at(2).at(1).at(2).at(1) / 2., LO);
                 mcbs.setCoeff(3, 0., LO);
                 mcbs.setCoeff(4, 0., LO);
                 break;
@@ -1328,9 +1332,11 @@ std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMbsg() {
         case NNLO:
         case NLO:
         case LO:
-        //  {O1, O2} = {{-(1/N), (-1 + N^2)/(2 N^2)}, {2, 1/N}} {OV8LLud,OV1LLud}
-            mcbsg.setCoeff(0, (-1./mySMEFT.getNc() * getCudV8LL(1,1,1,2) + .5 * (1. - 1./mySMEFT.getNc()/mySMEFT.getNc()) * getCudV1LL(1,1,1,2)) * LEFT_factor, LO);
-            mcbsg.setCoeff(1, (2. * getCudV8LL(1,1,1,2) + 1./mySMEFT.getNc() * getCudV1LL(1,1,1,2)) * LEFT_factor, LO);
+        //  {O1Misiak, O2Misiak} = {{sbarTac cbarTab}, {sbarc cbar b}} = {{-(1/N), (-1 + N^2)/(2 N^2)}, {2, 1/N}} {OV8LLud_Fierzed,OV1LLud_Fierzed}
+        //  C_JMS^T O_JMS = C_JMS^T M O_Misiak = C_Misiak^T O_Misiak
+        //  C_Misiak = M^T C_JMS = {{-(1/N), 2}, {(-1 + N^2)/(2 N^2), 1/N}} {CudV8LL, CudV1LL}
+            mcbsg.setCoeff(0, (-1./mySMEFT.getNc() * getCudV8LL(1,1,1,2) + 2. * getCudV1LL(1,1,1,2)) * LEFT_factor, LO);
+            mcbsg.setCoeff(1, (.5 * (1. - 1./mySMEFT.getNc()/mySMEFT.getNc()) * getCudV8LL(1,1,1,2) + 1./mySMEFT.getNc() * getCudV1LL(1,1,1,2)) * LEFT_factor, LO);
             // Add penguin operators in the future
             mcbsg.setCoeff(6, getCdg(1,2) * LEFT_factor_radiative, LO);
             mcbsg.setCoeff(7, getCdG(1,2) * LEFT_factor_radiative * sqrt(mySMEFT.getAle()/mySMEFT.Als(mySMEFT.getMuw())), LO);
@@ -1352,18 +1358,20 @@ std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMprimebsg() {
     mcprimebsg.setMu(mySMEFT.getMuw());
 
     gslpp::complex LEFT_factor = sqrt(2.) / 4. / mySMEFT.getGF() / mySMEFT.getCKM().computelamt_s() ;
-    gslpp::complex LEFT_factor_radiative = 16. * M_PI * M_PI / mySMEFT.getQuarks(QCD::BOTTOM).getMass() * LEFT_factor / sqrt(4. * M_PI * mySMEFT.getAle());
+    gslpp::complex LEFT_factor_radiative = 16. * M_PI * M_PI / mySMEFT.Mrun(mySMEFT.getMuw(),mySMEFT.getQuarks(QCD::BOTTOM).getMass(),QCD::BOTTOM) * LEFT_factor / sqrt(4. * M_PI * mySMEFT.getAle());
 
     switch (mcprimebsg.getOrder()) {
         case NNLO:
         case NLO:
         case LO:
-        //  {O1prime, O2prime} = {{-(1/N), (-1 + N^2)/(2 N^2)}, {2, 1/N}} {OV8RRud,OV1RRud}
-            mcprimebsg.setCoeff(0, (-1./mySMEFT.getNc() * getCudV8RR(1,1,1,2) + .5 * (1. - 1./mySMEFT.getNc()/mySMEFT.getNc()) * getCudV1RR(1,1,1,2)) * LEFT_factor, LO);
-            mcprimebsg.setCoeff(1, (2. * getCudV8RR(1,1,1,2) + 1./mySMEFT.getNc() * getCudV1RR(1,1,1,2)) * LEFT_factor, LO);
+        //  {O1Misiak, O2Misiak} = {{sbarTac cbarTab}, {sbarc cbar b}} = {{-(1/N), (-1 + N^2)/(2 N^2)}, {2, 1/N}} {OV8LLud_Fierzed,OV1LLud_Fierzed}
+        //  C_JMS^T O_JMS = C_JMS^T M O_Misiak = C_Misiak^T O_Misiak
+        //  C_Misiak = M^T C_JMS = {{-(1/N), 2}, {(-1 + N^2)/(2 N^2), 1/N}} {CudV8LL, CudV1LL}
+            mcprimebsg.setCoeff(0, (-1./mySMEFT.getNc() * getCudV8RR(1,1,1,2) + 2. * getCudV1RR(1,1,1,2)) * LEFT_factor, LO);
+            mcprimebsg.setCoeff(1, (.5 * (1. - 1./mySMEFT.getNc()/mySMEFT.getNc()) * getCudV8RR(1,1,1,2) + 1./mySMEFT.getNc() * getCudV1RR(1,1,1,2)) * LEFT_factor, LO);
             // Add penguin operators in the future
             mcprimebsg.setCoeff(6, getCdg(2,1).conjugate() * LEFT_factor_radiative, LO);
-            mcprimebsg.setCoeff(7, getCdG(2,1).conjugate() * LEFT_factor_radiative * (mySMEFT.getAle()/mySMEFT.Als(mySMEFT.getQuarks(QCD::BOTTOM).getMass())), LO);
+            mcprimebsg.setCoeff(7, getCdG(2,1).conjugate() * LEFT_factor_radiative * (mySMEFT.getAle()/mySMEFT.Als(mySMEFT.getMuw())), LO);
             break;
         default:
             std::stringstream out;
@@ -1705,30 +1713,30 @@ const gslpp::complex NPSMEFTd6GeneralMatching::getCdg(int i, int j) const
     
 const gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVuL() const
 {
-    return VuL;
+    return gslpp::matrix<gslpp::complex>::Id(3);
 }   
 
 const gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVuR() const
 {
-    return VuR;
+    return gslpp::matrix<gslpp::complex>::Id(3);
 }   
     
 const gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVdL() const
 {
-    return VdL;
+    return mySMEFT.getCKM().getCKM();
 }   
     
 const gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVdR() const
 {
-    return VdL;
+    return gslpp::matrix<gslpp::complex>::Id(3);
 }   
     
 const gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVeL() const
 {
-    return VeL;
+    return mySMEFT.getVeL();
 }   
     
 const gslpp::matrix<gslpp::complex> NPSMEFTd6GeneralMatching::getVeR() const
 {
-    return VeR;
+    return mySMEFT.getVeR();
 }   

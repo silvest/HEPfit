@@ -17,6 +17,34 @@
 
 using namespace boost::placeholders;
 
+namespace {
+// Complex Wilson coefficient C = CR + i CI of an SMEFT operator, cached by flavour indices.
+struct Coeff2 {
+    gslpp::complex v[9];
+    Coeff2(const NPSMEFTd6General &model, const std::string &n)
+    {
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++)
+                v[3 * i + j] = gslpp::complex(model.getSMEFTCoeffEW(n + "R", i, j), model.getSMEFTCoeffEW(n + "I", i, j));
+    }
+    const gslpp::complex &operator()(int i, int j) const { return v[3 * i + j]; }
+};
+
+struct Coeff4 {
+    gslpp::complex v[81];
+    Coeff4(const NPSMEFTd6General &model, const std::string &n)
+    {
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++)
+                for (int k = 0; k < 3; k++)
+                    for (int l = 0; l < 3; l++)
+                        v[27 * i + 9 * j + 3 * k + l] = gslpp::complex(model.getSMEFTCoeffEW(n + "R", i, j, k, l), model.getSMEFTCoeffEW(n + "I", i, j, k, l));
+    }
+    const gslpp::complex &operator()(int i, int j, int k, int l) const { return v[27 * i + 9 * j + 3 * k + l]; }
+};
+}
+
+
 const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
         = {
     //    "g1_LNP", "g2_LNP", "g3_LNP", "lambdaH_LNP", "muH_LNP",
@@ -8751,35 +8779,13 @@ bool NPSMEFTd6General::PostUpdate() {
 
     // std::cout << "CKM unphys = " << CKMUnphys << std::endl;
 
-    myCKM.computeCKM(CKMUnphys(0, 1).abs(), CKMUnphys(1, 2).abs(), CKMUnphys(0, 2).abs(),
-            (-CKMUnphys(0, 0) * CKMUnphys(0, 2).conjugate() / (CKMUnphys(1, 0) * CKMUnphys(1, 2).conjugate())).arg());
+    myCKM.convertCKMtoStandard(CKMUnphys);
     trueSM.setCKM(myCKM);
 
-    // std::cout << "computed CKM = " << getCKM().getCKM() << std::endl;
-
-    double a11 = remainder(CKMUnphys(0, 0).arg() - getCKM().getV_ud().arg(), 2. * M_PI);
-    double a12 = remainder(CKMUnphys(0, 1).arg() - getCKM().getV_us().arg(), 2. * M_PI);
-    double a13 = remainder(CKMUnphys(0, 2).arg() - getCKM().getV_ub().arg(), 2. * M_PI);
-
-    //    double a23 = (gslpp::complex(CKMUnphys(1, 0) / CKM(1, 0))).arg() - a11 + a13;
-    //    double a33 = (gslpp::complex(CKMUnphys(2, 0) / CKM(2, 0))).arg() - a11 + a13;
-    double a23 = remainder(CKMUnphys(1, 0).arg() - getCKM().getV_cd().arg(), 2. * M_PI) - a11 + a13;
-    double a33 = remainder(CKMUnphys(2, 0).arg() - getCKM().getV_td().arg(), 2. * M_PI) - a11 + a13;
-
-    gslpp::matrix<gslpp::complex> phi1(3, 3, 0.);
-    phi1.assign(0, 0, 1.);
-    phi1.assign(1, 1, gslpp::complex(1., a23 - a13, true));
-    phi1.assign(2, 2, gslpp::complex(1., a33 - a13, true));
-
-    gslpp::matrix<gslpp::complex> phi2dag(3, 3, 0.);
-    phi2dag.assign(0, 0, gslpp::complex(1., -a11, true));
-    phi2dag.assign(1, 1, gslpp::complex(1., -a12, true));
-    phi2dag.assign(2, 2, gslpp::complex(1., -a13, true));
-
-    VuL = VuL * phi1;
-    VuR = VuR * phi1;
-    VdL = VdL * phi2dag;
-    VdR = VdR * phi2dag;
+    VuL = VuL * myCKM.getPhi1();
+    VuR = VuR * myCKM.getPhi1();
+    VdL = VdL * myCKM.getPhi2dag();
+    VdR = VdR * myCKM.getPhi2dag();
 
     // Hermitian conjugates
     VuLd = VuL.hconjugate();
@@ -8793,6 +8799,20 @@ bool NPSMEFTd6General::PostUpdate() {
     trueSM.setComputemt(false);
     requireCKM=false;
     trueSM.setRequireCKM(false);
+
+    //Rotate the Yukawas to the SMEFTSIM/Angelica/Manohar basis
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++) {
+            Yu.assignre(i, j, getSMEFTCoeffEW("YuR", i, j) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYuR", i, j) );
+            Yu.assignim(i, j, getSMEFTCoeffEW("YuI", i, j) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYuI", i, j) );
+            Yd.assignre(i, j, getSMEFTCoeffEW("YdR", i, j) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYdR", i, j) );
+            Yd.assignim(i, j, getSMEFTCoeffEW("YdI", i, j) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYdI", i, j) );
+            Ye.assignre(i, j, getSMEFTCoeffEW("YeR", i, j) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYeR", i, j) );
+            Ye.assignim(i, j, getSMEFTCoeffEW("YeI", i, j) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYeI", i, j) );
+        }
+
+    Yd = VdRd * Yd * VuL;
+    Yu = VuRd * Yu * VuL;
 
     if (!NPbase::PostUpdate()) return (false);
     if (!trueSM.PostUpdate()) return (false);
@@ -8860,6 +8880,153 @@ bool NPSMEFTd6General::PostUpdate() {
     //    aiu = -getSMEFTCoeffEW("CuHR",2,2) * v2 / Yukt;
     //    aiuG = getSMEFTCoeffEW("CuGR",2,2) * Mw_tree * Mw_tree / g3_tree / LambdaNP2 / getSMEFTCoeffEW("YuR",2,2) / 4.0; // From HEL.fr Lagrangian. Not in original note. Valid only for flavour universal NP
 
+    // Go to the SMEFTSIM/Angelica/Manohar UP-MASS basis, where the up-quark full mass matrix is diagonal, and the down-quark mass matrix is rotated by the CKM matrix
+
+        // Coefficients are read once here instead of at every use inside the loops below
+        const Coeff2 c_CHd(*this, "CHd");
+        const Coeff2 c_CHq1(*this, "CHq1");
+        const Coeff2 c_CHq3(*this, "CHq3");
+        const Coeff2 c_CHu(*this, "CHu");
+        const Coeff2 c_CHud(*this, "CHud");
+        const Coeff2 c_CdB(*this, "CdB");
+        const Coeff2 c_CdG(*this, "CdG");
+        const Coeff2 c_CdH(*this, "CdH");
+        const Coeff2 c_CdW(*this, "CdW");
+        const Coeff2 c_CuB(*this, "CuB");
+        const Coeff2 c_CuG(*this, "CuG");
+        const Coeff2 c_CuH(*this, "CuH");
+        const Coeff2 c_CuW(*this, "CuW");
+        const Coeff4 c_Cdd(*this, "Cdd");
+        const Coeff4 c_Ced(*this, "Ced");
+        const Coeff4 c_Ceu(*this, "Ceu");
+        const Coeff4 c_Cld(*this, "Cld");
+        const Coeff4 c_Cledq(*this, "Cledq");
+        const Coeff4 c_Clequ1(*this, "Clequ1");
+        const Coeff4 c_Clequ3(*this, "Clequ3");
+        const Coeff4 c_Clq1(*this, "Clq1");
+        const Coeff4 c_Clq3(*this, "Clq3");
+        const Coeff4 c_Clu(*this, "Clu");
+        const Coeff4 c_Cqd1(*this, "Cqd1");
+        const Coeff4 c_Cqd8(*this, "Cqd8");
+        const Coeff4 c_Cqe(*this, "Cqe");
+        const Coeff4 c_Cqq1(*this, "Cqq1");
+        const Coeff4 c_Cqq3(*this, "Cqq3");
+        const Coeff4 c_Cqu1(*this, "Cqu1");
+        const Coeff4 c_Cqu8(*this, "Cqu8");
+        const Coeff4 c_Cquqd1(*this, "Cquqd1");
+        const Coeff4 c_Cquqd8(*this, "Cquqd8");
+        const Coeff4 c_Cud1(*this, "Cud1");
+        const Coeff4 c_Cud8(*this, "Cud8");
+        const Coeff4 c_Cuu(*this, "Cuu");
+
+// Assign here the SMEFT Wilson Coefficients at the EW scale in the SMEFTSIM/Angelica/Manohar UP-MASS basis
+
+    CG_EW = getSMEFTCoeffEW("CG");
+    CW_EW = getSMEFTCoeffEW("CW");
+    CHG_EW = getSMEFTCoeffEW("CHG");
+    CHW_EW = getSMEFTCoeffEW("CHW");
+    CHB_EW = getSMEFTCoeffEW("CHB");
+    CHWB_EW = getSMEFTCoeffEW("CHWB");
+    CHD_EW = getSMEFTCoeffEW("CHD");
+    CHbox_EW = getSMEFTCoeffEW("CHbox");
+    CH_EW = getSMEFTCoeffEW("CH");
+    
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++) {
+            CHl1_EW[i][j] = gslpp::complex(getSMEFTCoeffEW("CHl1R", i, j), getSMEFTCoeffEW("CHl1I", i, j));
+            CHl3_EW[i][j] = gslpp::complex(getSMEFTCoeffEW("CHl3R", i, j), getSMEFTCoeffEW("CHl3I", i, j));
+            CHe_EW[i][j] = gslpp::complex(getSMEFTCoeffEW("CHeR", i, j), getSMEFTCoeffEW("CHeI", i, j));
+            CeH_EW[i][j] = gslpp::complex(getSMEFTCoeffEW("CeHR", i, j), getSMEFTCoeffEW("CeHI", i, j));
+            CeW_EW[i][j] = gslpp::complex(getSMEFTCoeffEW("CeWR", i, j), getSMEFTCoeffEW("CeWI", i, j));
+            CeB_EW[i][j] = gslpp::complex(getSMEFTCoeffEW("CeBR", i, j), getSMEFTCoeffEW("CeBI", i, j));
+            CHq1_EW[i][j] = 0.0;
+            CHq3_EW[i][j] = 0.0;
+            CHu_EW[i][j] = 0.0;
+            CHd_EW[i][j] = 0.0;
+            CHud_EW[i][j] = 0.0;
+            CuG_EW[i][j] = 0.0;
+            CuW_EW[i][j] = 0.0;
+            CuB_EW[i][j] = 0.0;
+            CdG_EW[i][j] = 0.0;
+            CdW_EW[i][j] = 0.0;
+            CdB_EW[i][j] = 0.0;
+            CuH_EW[i][j] = 0.0;
+            CdH_EW[i][j] = 0.0;
+            for (int p = 0; p < 3; p++) 
+                for (int r = 0; r < 3; r++) {
+                    //In the SMEFTSIM/Angelica/Manohar UP-MASS basis, the qL field is rotated with VuL
+                    CHq1_EW[i][j] += VuLd(i, p) * c_CHq1(p, r) * VuL(r, j);
+                    CHq3_EW[i][j] += VuLd(i, p) * c_CHq3(p, r) * VuL(r, j);
+                    CHu_EW[i][j] += VuRd(i, p) * c_CHu(p, r) * VuR(r, j);
+                    CHd_EW[i][j] += VdRd(i, p) * c_CHd(p, r) * VdR(r, j);
+                    CHud_EW[i][j] += VuRd(i, p) * c_CHud(p, r) * VdR(r, j);
+                    CuG_EW[i][j] += VuLd(i, p) * c_CuG(p, r) * VuR(r, j);
+                    CuW_EW[i][j] += VuLd(i, p) * c_CuW(p, r) * VuR(r, j);
+                    CuB_EW[i][j] += VuLd(i, p) * c_CuB(p, r) * VuR(r, j);
+                    CdG_EW[i][j] += VuLd(i, p) * c_CdG(p, r) * VdR(r, j);
+                    CdW_EW[i][j] += VuLd(i, p) * c_CdW(p, r) * VdR(r, j);
+                    CdB_EW[i][j] += VuLd(i, p) * c_CdB(p, r) * VdR(r, j);
+                    CuH_EW[i][j] += VuLd(i, p) * c_CuH(p, r) * VuR(r, j);
+                    CdH_EW[i][j] += VuLd(i, p) * c_CdH(p, r) * VdR(r, j);
+                }
+            for (int k = 0; k < 3; k++) 
+                for (int l = 0; l < 3; l++) {
+                    Cll_EW[i][j][k][l] = gslpp::complex(getSMEFTCoeffEW("CllR", i, j, k, l), getSMEFTCoeffEW("CllI", i, j, k, l));
+                    Cee_EW[i][j][k][l] = gslpp::complex(getSMEFTCoeffEW("CeeR", i, j, k, l), getSMEFTCoeffEW("CeeI", i, j, k, l));
+                    Cle_EW[i][j][k][l] = gslpp::complex(getSMEFTCoeffEW("CleR", i, j, k, l), getSMEFTCoeffEW("CleI", i, j, k, l));
+                    Clq1_EW[i][j][k][l] = 0.;
+                    Clq3_EW[i][j][k][l] = 0.;
+                    Ceu_EW[i][j][k][l] = 0.;
+                    Ced_EW[i][j][k][l] = 0.;
+                    Clu_EW[i][j][k][l] = 0.;
+                    Cld_EW[i][j][k][l] = 0.;
+                    Cqe_EW[i][j][k][l] = 0.;
+                    Cledq_EW[i][j][k][l] = 0.;
+                    Cqq1_EW[i][j][k][l] = 0.;
+                    Cqq3_EW[i][j][k][l] = 0.;
+                    Cuu_EW[i][j][k][l] = 0.;
+                    Cdd_EW[i][j][k][l] = 0.;
+                    Cud1_EW[i][j][k][l] = 0.;
+                    Cud8_EW[i][j][k][l] = 0.;
+                    Cqu1_EW[i][j][k][l] = 0.;
+                    Cqu8_EW[i][j][k][l] = 0.;
+                    Cqd1_EW[i][j][k][l] = 0.;
+                    Cqd8_EW[i][j][k][l] = 0.;
+                    Cquqd1_EW[i][j][k][l] = 0.;
+                    Cquqd8_EW[i][j][k][l] = 0.;
+                    Clequ1_EW[i][j][k][l] = 0.;
+                    Clequ3_EW[i][j][k][l] = 0.;
+                    for (int p = 0; p < 3; p++) 
+                        for (int r = 0; r < 3; r++) {
+                            Clq1_EW[i][j][k][l] += VuLd(k, p) * c_Clq1(i, j, p, r) * VuL(r, l);
+                            Clq3_EW[i][j][k][l] += VuLd(k, p) * c_Clq3(i, j, p, r) * VuL(r, l);
+                            Ceu_EW[i][j][k][l] += VuRd(k, p) * c_Ceu(i, j, p, r) * VuR(r, l);
+                            Ced_EW[i][j][k][l] += VdRd(k, p) * c_Ced(i, j, p, r) * VdR(r, l);
+                            Clu_EW[i][j][k][l] += VuRd(k, p) * c_Clu(i, j, p, r) * VuR(r, l);
+                            Cld_EW[i][j][k][l] += VdRd(k, p) * c_Cld(i, j, p, r) * VdR(r, l);
+                            Cqe_EW[i][j][k][l] += VuLd(i, p) * c_Cqe(p, r, k, l) * VuL(r, j);
+                            Cledq_EW[i][j][k][l] += VdRd(k, p) * c_Cledq(i, j, p, r) * VuL(r, l);
+                            Clequ1_EW[i][j][k][l] += VuLd(k, p) * c_Clequ1(i, j, p, r) * VuR(r, l);
+                            Clequ3_EW[i][j][k][l] += VuLd(k, p) * c_Clequ3(i, j, p, r) * VuR(r, l);
+                            for (int s = 0; s < 3; s++) 
+                                for (int t = 0; t < 3; t++) {
+                                    Cqq1_EW[i][j][k][l] += VuLd(i, p) * VuLd(k, s) * c_Cqq1(p, r, s, t) * VuL(r, j) * VuL(t, l);
+                                    Cqq3_EW[i][j][k][l] += VuLd(i, p) * VuLd(k, s) * c_Cqq3(p, r, s, t) * VuL(r, j) * VuL(t, l);
+                                    Cuu_EW[i][j][k][l] += VuRd(i, p) * VuRd(k, s) * c_Cuu(p, r, s, t) * VuR(r, j) * VuR(t, l);
+                                    Cdd_EW[i][j][k][l] += VdRd(i, p) * VdRd(k, s) * c_Cdd(p, r, s, t) * VdR(r, j) * VdR(t, l);
+                                    Cud1_EW[i][j][k][l] += VuRd(i, p) * VdRd(k, s) * c_Cud1(p, r, s, t) * VuR(r, j) * VdR(t, l);
+                                    Cud8_EW[i][j][k][l] += VuRd(i, p) * VdRd(k, s) * c_Cud8(p, r, s, t) * VuR(r, j) * VdR(t, l);
+                                    Cqu1_EW[i][j][k][l] += VuLd(i, p) * VuRd(k, s) * c_Cqu1(p, r, s, t) * VuL(r, j) * VuR(t, l);
+                                    Cqu8_EW[i][j][k][l] += VuLd(i, p) * VuRd(k, s) * c_Cqu8(p, r, s, t) * VuL(r, j) * VuR(t, l);
+                                    Cqd1_EW[i][j][k][l] += VuLd(i, p) * VdRd(k, s) * c_Cqd1(p, r, s, t) * VuL(r, j) * VdR(t, l);
+                                    Cqd8_EW[i][j][k][l] += VuLd(i, p) * VdRd(k, s) * c_Cqd8(p, r, s, t) * VuL(r, j) * VdR(t, l);
+                                    Cquqd1_EW[i][j][k][l] += VuLd(i, p) * VuLd(k, s) * c_Cquqd1(p, r, s, t) * VuR(r, j) * VdR(t, l);
+                                    Cquqd8_EW[i][j][k][l] += VuLd(i, p) * VuLd(k, s) * c_Cquqd8(p, r, s, t) * VuR(r, j) * VdR(t, l);
+                                }
+                        }
+                }
+            }
+
     //  Dim 6 SMEFT-LEFT matching
 
     // update LEFT Wilson coefficients (time consuming, do only if FlagmatchLEFT=true
@@ -8871,37 +9038,74 @@ bool NPSMEFTd6General::PostUpdate() {
     // Diagonal-elements of neutral-current (NC) combinations are always real
     
     // NC up-quark sector
-    CHq1EWuu = getSMEFTCoeffEWMB("CHq1", 0, 0, VuLd, VuL).real();
-    CHq1EWcc = getSMEFTCoeffEWMB("CHq1", 1, 1, VuLd, VuL).real();
-    CHq1EWtt = getSMEFTCoeffEWMB("CHq1", 2, 2, VuLd, VuL).real();
+    CHq1EWuu = CHq1_EW[0][0].real();
+    CHq1EWcc = CHq1_EW[1][1].real();
+    CHq1EWtt = CHq1_EW[2][2].real();
     
-    CHq3EWuu = getSMEFTCoeffEWMB("CHq3", 0, 0, VuLd, VuL).real();
-    CHq3EWcc = getSMEFTCoeffEWMB("CHq3", 1, 1, VuLd, VuL).real();
-    CHq3EWtt = getSMEFTCoeffEWMB("CHq3", 2, 2, VuLd, VuL).real();
+    CHq3EWuu = CHq3_EW[0][0].real();
+    CHq3EWcc = CHq3_EW[1][1].real();
+    CHq3EWtt = CHq3_EW[2][2].real();
     
-    CHuEWuu = getSMEFTCoeffEWMB("CHu", 0, 0, VuRd, VuR).real();
-    CHuEWcc = getSMEFTCoeffEWMB("CHu", 1, 1, VuRd, VuR).real();
-    CHuEWtt = getSMEFTCoeffEWMB("CHu", 2, 2, VuRd, VuR).real();
+    CHuEWuu = CHu_EW[0][0].real();
+    CHuEWcc = CHu_EW[1][1].real();
+    CHuEWtt = CHu_EW[2][2].real();
     
     // NC down-quark sector
-    CHq1EWdd = getSMEFTCoeffEWMB("CHq1", 0, 0, VdLd, VdL).real();
-    CHq1EWss = getSMEFTCoeffEWMB("CHq1", 1, 1, VdLd, VdL).real();
-    CHq1EWbb = getSMEFTCoeffEWMB("CHq1", 2, 2, VdLd, VdL).real();
+
+    gslpp::matrix<gslpp::complex> VCKM = myCKM.getCKM();
+    gslpp::matrix<gslpp::complex> VCKMd = VCKM.hconjugate();
+
+    gslpp::complex CHq1EWddc = 0.;
+    gslpp::complex CHq1EWssc = 0.;
+    gslpp::complex CHq1EWbbc = 0.;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+                CHq1EWddc += CHq1_EW[i][j] * VCKMd(0, i) * VCKM(j, 0);
+                CHq1EWssc += CHq1_EW[i][j] * VCKMd(1, i) * VCKM(j, 1);
+                CHq1EWbbc += CHq1_EW[i][j] * VCKMd(2, i) * VCKM(j, 2);
+        }
+    }
+    CHq1EWdd = CHq1EWddc.real();
+    CHq1EWss = CHq1EWssc.real();
+    CHq1EWbb = CHq1EWbbc.real();
     
-    CHq3EWdd = getSMEFTCoeffEWMB("CHq3", 0, 0, VdLd, VdL).real();
-    CHq3EWss = getSMEFTCoeffEWMB("CHq3", 1, 1, VdLd, VdL).real();
-    CHq3EWbb = getSMEFTCoeffEWMB("CHq3", 2, 2, VdLd, VdL).real();
+    gslpp::complex CHdEWddc = 0.;
+    gslpp::complex CHdEWssc = 0.;
+    gslpp::complex CHdEWbbc = 0.;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+                CHdEWddc += CHd_EW[i][j] * VCKMd(0, i) * VCKM(j, 0);
+                CHdEWssc += CHd_EW[i][j] * VCKMd(1, i) * VCKM(j, 1);
+                CHdEWbbc += CHd_EW[i][j] * VCKMd(2, i) * VCKM(j, 2);
+        }
+    }
+    CHdEWdd = CHdEWddc.real();
+    CHdEWss = CHdEWssc.real();
+    CHdEWbb = CHdEWbbc.real();
     
-    CHdEWdd = getSMEFTCoeffEWMB("CHd", 0, 0, VdRd, VdR).real();
-    CHdEWss = getSMEFTCoeffEWMB("CHd", 1, 1, VdRd, VdR).real();
-    CHdEWbb = getSMEFTCoeffEWMB("CHd", 2, 2, VdRd, VdR).real();
-    
-    // Charged-Current up-down-quark sector (complex)   
-    CHq3EWud = getSMEFTCoeffEWMB("CHq3", 0, 0, VuLd, VdL);
-    CHq3EWcs = getSMEFTCoeffEWMB("CHq3", 1, 1, VuLd, VdL);
-    CHq3EWtb = getSMEFTCoeffEWMB("CHq3", 2, 2, VuLd, VdL);
-    
-    
+    gslpp::complex CHq3EWddc = 0.;
+    gslpp::complex CHq3EWssc = 0.;
+    gslpp::complex CHq3EWbbc = 0.;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+                CHq3EWddc += CHq3_EW[i][j] * VCKMd(0, i) * VCKM(j, 0);
+                CHq3EWssc += CHq3_EW[i][j] * VCKMd(1, i) * VCKM(j, 1);
+                CHq3EWbbc += CHq3_EW[i][j] * VCKMd(2, i) * VCKM(j, 2);
+        }
+    }
+    CHq3EWdd = CHq3EWddc.real();
+    CHq3EWss = CHq3EWssc.real();
+    CHq3EWbb = CHq3EWbbc.real();
+
+    CHq3EWud = 0.;
+    CHq3EWcs = 0.;
+    CHq3EWtb = 0.;
+    for (int j = 0; j < 3; j++) {
+                CHq3EWud += CHq3_EW[0][j] * VCKM(j, 0);
+                CHq3EWcs += CHq3_EW[1][j] * VCKM(j, 1);
+                CHq3EWtb += CHq3_EW[2][j] * VCKM(j, 2);
+    }
+
     return (true);
 }
 
@@ -14196,75 +14400,12 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value) {
 bool NPSMEFTd6General::setFlagStr(const std::string name, const std::string value)
 {
     if (name.compare("SMEFTBasisFlag") == 0) {
-        SMEFTBasisFlag = value;
-        
-        if (SMEFTBasisFlag == "UP") {
-            flavBas = 1;
-        } else if (SMEFTBasisFlag == "DOWN") {
-            flavBas = 2;
-        } else
-            throw std::runtime_error("Bad argument in SMEFTBasisFlag. (Only UP or DOWN are currently allowed)");
-        
+        SMEFTBasisFlag = value;        
         return true;
     } else
         return NPbase::setFlagStr(name, value);
     return false;
 }
-
-////////////////////////////////////////////////////////////////////////
-
-// Coefficients of fermionic operators in the mass basis
-    
-// Coefficients are assumed to be complex, "name" is the name without R or I at the end. That is added here 
-inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string& name, int i, int j, const gslpp::matrix<gslpp::complex>& Vi, const gslpp::matrix<gslpp::complex>& Vj) const
-{
-        std::string nameR, nameI;
-        gslpp::complex Cij;
-        
-        // Add the R and I to the name of the operator, to call the real and imaginary parts of the operator from RGEsolver
-        nameR = name;
-        nameI = name;
-        
-        nameR.push_back('R');
-        nameI.push_back('I');
-
-        Cij = 0.;
-        
-        for (int k = 0; k < 3; k++)
-            for (int l = 0; l < 3; l++) 
-            {
-                Cij +=  Vi(i,k) * ( getSMEFTCoeffEW(nameR, k, l) + gslpp::complex::i() * getSMEFTCoeffEW(nameI, k, l) ) * Vj(l,j);
-            }
-        
-        return Cij;
-}
-    
-inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffEWMB(const std::string& name, int i, int j, int k, int l, const gslpp::matrix<gslpp::complex>& Vi, const gslpp::matrix<gslpp::complex>& Vj, const gslpp::matrix<gslpp::complex>& Vk, const gslpp::matrix<gslpp::complex>& Vl) const
-{
-        std::string nameR, nameI;
-        gslpp::complex Cijkl;
-        
-        // Add the R and I to the name of the operator, to call the real and imaginary parts of the operator from RGEsolver
-        nameR = name;
-        nameI = name;
-        
-        nameR.push_back('R');
-        nameI.push_back('I');
-
-        Cijkl = 0.;
-        
-        for (int m1 = 0; m1 < 3; m1++)
-            for (int n1 = 0; n1 < 3; n1++) 
-                for (int m2 = 0; m2 < 3; m2++) 
-                    for (int n2 = 0; n2 < 3; n2++)
-                    {
-                        Cijkl +=  Vi(i,m1) * Vk(k,m2) * ( getSMEFTCoeffEW(nameR, m1, n1, m2, n2) + gslpp::complex::i() * getSMEFTCoeffEW(nameI, m1, n1, m2, n2) ) * Vj(n1,j) * Vl(n2,l);
-                    }
-        
-        return Cijkl;   
-}
-
-////////////////////////////////////////////////////////////////////////
 
 // Functions to select the SMEFT WC at different energy scales 
 
@@ -14929,7 +15070,7 @@ double NPSMEFTd6General::CHF1_diag(const Particle F) const {
     //    throw std::runtime_error("NPSMEFTd6General::CHF1_diag(): wrong argument");
     switch(F.getIndex()){
         case 0:
-            return getSMEFTCoeffEW("CHl1R", 0, 0);
+            return  getSMEFTCoeffEW("CHl1R", 0, 0);
         case 1:
             return getSMEFTCoeffEW("CHl1R", 0, 0);
         case 2:
@@ -47132,7 +47273,7 @@ const double NPSMEFTd6General::delta_TauLFU_gmuge() const {
     double dCnueVLL3223, dCnueVLL3113, delta;
 
     dCnueVLL3223 = (getMatching().getCnueVLL(2, 1, 1, 2)).real();
-    dCnueVLL3113 = (getMatching().getCnueVLR(2, 0, 0, 2)).real();
+    dCnueVLL3113 = (getMatching().getCnueVLL(2, 0, 0, 2)).real();
 
     // Modification in terms of the LEFT basis (at low energies)        
     delta = (-1. / GF / 2. / sqrt(2.)) * (dCnueVLL3223 - dCnueVLL3113);
@@ -47144,7 +47285,7 @@ const double NPSMEFTd6General::delta_TauLFU_gtaugmu() const {
     double dCnueVLL3113, dCnueVLL2112, delta;
 
     dCnueVLL3113 = (getMatching().getCnueVLL(2, 0, 0, 2)).real();
-    dCnueVLL2112 = (getMatching().getCnueVLR(1, 0, 0, 1)).real();
+    dCnueVLL2112 = (getMatching().getCnueVLL(1, 0, 0, 1)).real();
 
     // Modification in terms of the LEFT basis (at low energies)        
     delta = (-1. / GF / 2. / sqrt(2.)) * (dCnueVLL3113 - dCnueVLL2112);
@@ -47156,7 +47297,7 @@ const double NPSMEFTd6General::delta_TauLFU_gtauge() const {
     double dCnueVLL3223, dCnueVLL2112, delta;
 
     dCnueVLL3223 = (getMatching().getCnueVLL(2, 1, 1, 2)).real();
-    dCnueVLL2112 = (getMatching().getCnueVLR(1, 0, 0, 1)).real();
+    dCnueVLL2112 = (getMatching().getCnueVLL(1, 0, 0, 1)).real();
 
     // Modification in terms of the LEFT basis (at low energies)        
     delta = (-1. / GF / 2. / sqrt(2.)) * (dCnueVLL3223 - dCnueVLL2112);

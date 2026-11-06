@@ -14,7 +14,7 @@
 class NPSMEFTd6MFV: public NPSMEFTd6General {
 public:
     
-    static const int NNPSMEFTd6MFVVars = 200+1;
+    static const int NNPSMEFTd6MFVVars = 192+1;
     
     static std::string NPSMEFTd6MFVVars[NNPSMEFTd6MFVVars];
     

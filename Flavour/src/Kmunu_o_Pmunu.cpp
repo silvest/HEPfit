@@ -52,8 +52,8 @@ double Kmunu_o_Pmunu::computeThValue()
     double delKl2Pl2em = SM.getOptionalParameter("delKl2Pl2em"); //this is the non-perturbative EM + strong isospin violation correction to the ratio of decay rates
     
     
-    double num = ((*(allcoeff_K_mu_nu[LO]))(0) -(*(allcoeff_K_mu_nu[LO]))(1) + mK * mK / (ms+mu) / mmu * ((*(allcoeff_K_mu_nu[LO]))(2) - (*(allcoeff_K_mu_nu[LO]))(3))).abs2();
-    double den = ((*(allcoeff_P_mu_nu[LO]))(0) -(*(allcoeff_P_mu_nu[LO]))(1) + mP * mP / (md+mu) / mmu * ((*(allcoeff_P_mu_nu[LO]))(2) - (*(allcoeff_P_mu_nu[LO]))(3))).abs2();
+    double num = ((*(allcoeff_K_mu_nu[LO]))(0) -(*(allcoeff_K_mu_nu[LO]))(1) - mK * mK / (ms+mu) / mmu * ((*(allcoeff_K_mu_nu[LO]))(2) - (*(allcoeff_K_mu_nu[LO]))(3))).abs2();
+    double den = ((*(allcoeff_P_mu_nu[LO]))(0) -(*(allcoeff_P_mu_nu[LO]))(1) - mP * mP / (md+mu) / mmu * ((*(allcoeff_P_mu_nu[LO]))(2) - (*(allcoeff_P_mu_nu[LO]))(3))).abs2();
     
     //double WCnum = 1.0;
     //double WCden = 1.0;

@@ -54,7 +54,7 @@ std::string NPSMEFTd6MFP::NPSMEFTd6MFPVars[NNPSMEFTd6MFPVars] = {
 NPSMEFTd6MFP::NPSMEFTd6MFP()
 : NPSMEFTd6General() {
     setModelName("NPSMEFTd6MFP");
-    SMEFTBasisFlag = "UP";
+    SMEFTBasisFlag = "MFP";
     ModelParamMap.insert(std::make_pair("CG_LNP", std::cref(CG_LNP)));
     ModelParamMap.insert(std::make_pair("CW_LNP", std::cref(CW_LNP)));
     ModelParamMap.insert(std::make_pair("CHG_LNP", std::cref(CHG_LNP)));
@@ -242,8 +242,8 @@ NPSMEFTd6MFP::NPSMEFTd6MFP()
 
 bool NPSMEFTd6MFP::Init(const std::map<std::string, double>& DPars) {
 
-    if (SMEFTBasisFlag != "UP") {
-        std::cerr << "Error in NPSMEFTd6MFP::Init() : SMEFT basis flag must be 'UP' for this model." << std::endl;
+    if (SMEFTBasisFlag != "MFP") {
+        std::cerr << "Error in NPSMEFTd6MFP::Init() : SMEFT basis flag must be 'MFP' for this model." << std::endl;
         return false;
     }
 

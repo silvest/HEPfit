@@ -50,8 +50,8 @@ double tauKnu_o_tauPnu::computeThValue()
     double deltauK2tauP2em = SM.getOptionalParameter("deltauK2tauP2em");
     
     
-    double num = ((*(allcoeff_tau_K_nu[LO]))(0) -(*(allcoeff_tau_K_nu[LO]))(1) + mK * mK / (ms+mu) / mtau * ((*(allcoeff_tau_K_nu[LO]))(2) - (*(allcoeff_tau_K_nu[LO]))(3))).abs2();
-    double den = ((*(allcoeff_tau_P_nu[LO]))(0) -(*(allcoeff_tau_P_nu[LO]))(1) + mP * mP / (md+mu) / mtau * ((*(allcoeff_tau_P_nu[LO]))(2) - (*(allcoeff_tau_P_nu[LO]))(3))).abs2();
+    double num = ((*(allcoeff_tau_K_nu[LO]))(0) -(*(allcoeff_tau_K_nu[LO]))(1) - mK * mK / (ms+mu) / mtau * ((*(allcoeff_tau_K_nu[LO]))(2) - (*(allcoeff_tau_K_nu[LO]))(3))).abs2();
+    double den = ((*(allcoeff_tau_P_nu[LO]))(0) -(*(allcoeff_tau_P_nu[LO]))(1) - mP * mP / (md+mu) / mtau * ((*(allcoeff_tau_P_nu[LO]))(2) - (*(allcoeff_tau_P_nu[LO]))(3))).abs2();
     
     //double WCnum = 1.0;
     //double WCden = 1.0;
