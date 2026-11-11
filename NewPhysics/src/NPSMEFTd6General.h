@@ -1059,6 +1059,24 @@ public:
     virtual const double deltaMwd62() const;
 
     /**
+     * @brief The dimension 6 universal correction to neutral current EW couplings.
+     * @return @f$\delta U_{g}^{NC}@f$
+     */
+    const double getDelta_UgNC() const;
+
+    /**
+     * @brief The dimension 6 charge correction to neutral current EW couplings.
+     * @return @f$\delta Q_{g}^{NC}@f$
+     */
+    const double getDelta_QgNC() const;
+
+    /**
+     * @brief The dimension 6 universal correction to charged current EW couplings.
+     * @return @f$\delta U_{g}^{CC}@f$
+     */
+    const double getDelta_UgCC() const;
+
+    /**
      * @brief The new physics contribution to the decay width of the @f$W@f$ boson into a given fermion pair, @f$\delta \Gamma_Z^{f}@f$.
      * @param[in] fi a lepton or quark
      * @param[in] fj a lepton or quark
@@ -7388,6 +7406,57 @@ public:
 
     ////////////////////////////////////////////    
     
+    /** @brief Fermion masses at the EW scale (including NP corrections) used as inputs for the evolutor. */
+    double getMe_LEW() const
+    {
+        return me_LEW;
+    }
+
+    double getMmu_LEW() const
+    {
+        return mmu_LEW;
+    }
+
+    double getMtau_LEW() const
+    {
+        return mtau_LEW;
+    }
+
+    double getMu_LEW() const
+    {
+        return mu_LEW;
+    }
+
+    double getMc_LEW() const
+    {
+        return mc_LEW;
+    }
+
+    double getMt_LEW() const
+    {
+        return mt_LEW;
+    }
+
+    double getMd_LEW() const
+    {
+        return md_LEW;
+    }
+
+    double getMs_LEW() const
+    {
+        return ms_LEW;
+    }
+
+    double getMb_LEW() const
+    {
+        return mb_LEW;
+    }
+
+    const double getDelta_Mw2() const
+    {
+        return delta_Mw2;
+    }
+
     const double getDelta_v() const
     {
         return delta_v;
@@ -8271,6 +8340,20 @@ protected:
      * \f]
      */
     double delta_Mz2;
+    
+    /**
+     * @brief The \f$\mathcal{O}(\Lambda^{-2})\f$ dimension 6 correction to the W-boson mass squared, 
+     * for the Alpha-Scheme (cAsch=1, cWsch=0) or the Mw-Scheme (cAsch=0, cWsch=1).
+     * @details
+     * \f$\nc{\dg2}{\delta_{g_2}}\f$
+     * \f$\nc{\dGF}{\delta_{G_F}}\f$
+     * \f$\nc{\dMW2}{\delta_{M_W^2}}\f$
+     * \f[
+     * \dMW2 =  \text{cAsch} \left[2 * \dg2 + \dGF) \right] 
+     * \f]
+     */
+    
+    double delta_Mw2;    
     
     /**
      * @brief The \f$\mathcal{O}(\Lambda^{-4})\f$ dimension 6 correction to the Z-boson mass squared.

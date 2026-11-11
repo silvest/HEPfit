@@ -771,7 +771,7 @@ public:
      * @brief A get method to access the input value of the mass of the \f$W\f$ boson \f$M_W\f$.
      * @return the @f$W@f$-boson mass @f$M_W@f$
      */
-    const double getMw() const
+    const double getMw_inp() const
     {
         return Mw_inp;
     }

@@ -25,8 +25,12 @@ gslpp::complex AmpDD2::AmpDD(orders order)
             mySM.getBD().getScheme());
     gslpp::vector<double> me(mySM.getBD().getBpars());
     double MD = mySM.getMesons(QCD::D_0).getMass();
-    double Mc = mySM.getQuarks(QCD::CHARM).getMass();
-    double Mu = mySM.getQuarks(QCD::UP).getMass();
+    double Mc = mySM.Mrun(mySM.getBD().getMu(),
+                          mySM.getQuarks(QCD::CHARM).getMass_scale(),
+                          mySM.getQuarks(QCD::CHARM).getMass(), QCD::CHARM, FULLNNLO);
+    double Mu = mySM.Mrun(mySM.getBD().getMu(),
+                          mySM.getQuarks(QCD::UP).getMass_scale(),
+                          mySM.getQuarks(QCD::UP).getMass(), QCD::UP, FULLNNLO);
     double KD = MD/(Mc+Mu)*MD/(Mc+Mu);
     double FD = mySM.getMesons(QCD::D_0).getDecayconst();
     me(0) *= 1./3.*MD*FD*FD;

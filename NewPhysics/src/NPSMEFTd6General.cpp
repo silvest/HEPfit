@@ -8704,6 +8704,8 @@ bool NPSMEFTd6General::PostUpdate() {
     delta_g2 = cAsch * (g2_tree * (sW2_tree * delta_ale - cW2_tree * (delta_Mz2 + delta_GF)) / 2.0 / (cW2_tree - sW2_tree))
             + cWsch * (g2_tree * (-delta_GF / 2.0));
 
+    delta_Mw2 = cAsch * (2. * delta_g2 + delta_GF);
+
     xWZ_tree = +g2_tree / pow((g1_tree * g1_tree + g2_tree * g2_tree), 0.5); // cbar of Manohar
     delta_xWZ = g1_tree * (g1_tree * delta_g2 - g2_tree * delta_g1 + g1_tree * g1_tree * getSMEFTCoeffEW("CHWB") * v2) / pow((g1_tree * g1_tree + g2_tree * g2_tree), 1.5);
 
@@ -8714,7 +8716,7 @@ bool NPSMEFTd6General::PostUpdate() {
 
     //Go to mass eigenstate basis first; this is done here since we need to reassign quark masses and the CKM matrix
 
-    double vT = v();
+    double vT = v(); //this is vtilde in Angelica's notation
     double delta_vT = getDelta_v();
     double vTosq2 = vT / sqrt(2.);
 
@@ -14313,6 +14315,24 @@ bool NPSMEFTd6General::setFlag(const std::string name, const bool value) {
         res = NPbase::setFlag(name, value);
         res = trueSM.setFlag(name, value);
         //    res = true;    
+    } else if (name.compare("Wolfenstein") == 0) {
+        if(value) {
+            res = NPbase::setFlag(name, value);
+            res *= trueSM.setFlag(name, value);
+        }
+        else {
+            std::cout << "ERROR: Wolfenstein flag in NPSMEFTd6General and derived classes can only be set to true" << std::endl;
+            res = false;
+        }
+    } else if (name.compare("MtPole") == 0) {
+        if(!value) {
+            res = NPbase::setFlag(name, value);
+            res *= trueSM.setFlag(name, value);
+        }
+        else {
+            std::cout << "ERROR: MtPole flag in NPSMEFTd6General and derived classes can only be set to false" << std::endl;
+            res = false;
+        }
     } else if (name.compare("QuadraticTerms") == 0) {
         FlagQuadraticTerms = value;
         if (value) setModelLinearized(false);
@@ -15790,6 +15810,18 @@ const double NPSMEFTd6General::deltaMwd62() const {
     double dMW = 0.0;
 
     return (dMW * dMW);
+}
+
+const double NPSMEFTd6General::getDelta_UgNC() const {
+    return delta_UgNC;
+}
+
+const double NPSMEFTd6General::getDelta_QgNC() const {
+    return delta_QgNC;
+}
+
+const double NPSMEFTd6General::getDelta_UgCC() const {
+    return delta_UgCC;
 }
 
 const double NPSMEFTd6General::deltaGamma_Wff(const Particle fi, const Particle fj) const {

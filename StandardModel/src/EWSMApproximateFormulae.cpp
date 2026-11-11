@@ -115,7 +115,7 @@ double EWSMApproximateFormulae::dAlpha5hMw() const
     double dZ = mycache.getSM().getMz() / 91.1875 - 1.0;
     double dalphas = mycache.getSM().getAlsMz() / 0.119 - 1.0;
 
-    double MwInp = mycache.getSM().getMw();    
+    double MwInp = mycache.getSM().getMw_inp();    
     double Mz2 = (mycache.getSM().getMz())*(mycache.getSM().getMz());
     double dalphaeLept = mycache.getSM().DeltaAlphaLepton(Mz2);
     double dalphae;

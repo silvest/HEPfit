@@ -56,8 +56,10 @@ void Bsmumu::computeObs(orders order, orders_qed order_qed)
     mlep = SM.getLeptons(lep).getMass();
     mBs = SM.getMesons(QCD::B_S).getMass();
     mW = SM.Mw();
-    mb = SM.getQuarks(QCD::BOTTOM).getMass();
-    ms = SM.getQuarks(QCD::STRANGE).getMass();
+    mb = SM.Mrun(mu, SM.getQuarks(QCD::BOTTOM).getMass_scale(),
+            SM.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
+    ms = SM.Mrun(mu, SM.getQuarks(QCD::STRANGE).getMass_scale(),
+            SM.getQuarks(QCD::STRANGE).getMass(), QCD::STRANGE, FULLNNLO);
     chiral = pow(mBs, 2.) / 2. / mlep * mb / (mb + ms);
     beta = sqrt(1. - pow(2. * mlep / mBs, 2.));
     computeAmpSq(order, order_qed, mu);
@@ -114,18 +116,62 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
 
             if( const NPSMEFTd6GeneralMatching* matching = dynamic_cast<const NPSMEFTd6GeneralMatching*>(&SM.getMatching()))
             {
-                C_10 = C_10 + ( matching->getCdeVLR(1,2,leptonindex,leptonindex) - 
-                    matching->getCedVLL(leptonindex,leptonindex,1,2)) / NPfactor; 
-                C_10p = C_10p + (- matching->getCedVLR(leptonindex,leptonindex,1,2) + 
-                    matching->getCedVRR(leptonindex,leptonindex,1,2)) / NPfactor; 
-                C_S = C_S + (matching->getCedSRR(leptonindex,leptonindex,1,2) + 
-                    matching->getCedSRL(leptonindex,leptonindex,2,1).conjugate()) / NPfactor; 
-                C_Sp = C_Sp + (matching->getCedSRL(leptonindex,leptonindex,1,2) + 
-                    matching->getCedSRR(leptonindex,leptonindex,2,1).conjugate()) / NPfactor; 
-                C_P = C_P + (matching->getCedSRR(leptonindex,leptonindex,1,2) - 
-                    matching->getCedSRL(leptonindex,leptonindex,2,1).conjugate()) / NPfactor; 
-                C_Pp = C_Pp + (matching->getCedSRL(leptonindex,leptonindex,1,2) - 
-                    matching->getCedSRR(leptonindex,leptonindex,2,1).conjugate()) / NPfactor; 
+                /*
+                 * Run the NP LEFT coefficients from the EW matching scale to mu.
+                 * For QED we keep only the one-loop leading logarithm. In the
+                 * axial combinations entering B_s -> l+l-, the QED penguin
+                 * terms in the JMS RGEs cancel. With q_e=-1 and q_d=-1/3,
+                 * the remaining vector-current mixing is 4 * alpha_e/(4 pi)
+                 * * log(muEW/mu).
+                 *
+                 * The scalar LEFT coefficients have the same QCD anomalous
+                 * dimension as the quark mass, so their QCD running is
+                 * implemented with the exact HEPfit mass-running machinery.
+                 */
+                const double muEW = SM.getMuw();
+                const double qedLog = evolbsmm->alphatilde_e(muEW) * log(muEW / mu);
+                const double vectorQEDMix = 4. * qedLog;
+
+                const double mbEW = SM.Mrun(muEW, SM.getQuarks(QCD::BOTTOM).getMass_scale(),
+                        SM.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
+                const double scalarQCD = mb / mbEW;
+                const double scalarQED = 1. + 20. / 3. * qedLog;
+                const double scalarRunning = scalarQCD * scalarQED;
+
+                const gslpp::complex LdeVLR = matching->getCdeVLR(1,2,leptonindex,leptonindex);
+                const gslpp::complex LedVLL = matching->getCedVLL(leptonindex,leptonindex,1,2);
+                const gslpp::complex LedVLR = matching->getCedVLR(leptonindex,leptonindex,1,2);
+                const gslpp::complex LedVRR = matching->getCedVRR(leptonindex,leptonindex,1,2);
+
+                C_10 = C_10 + (LdeVLR - LedVLL
+                        + vectorQEDMix * (LdeVLR + LedVLL)) / NPfactor;
+                C_10p = C_10p + (-LedVLR + LedVRR
+                        - vectorQEDMix * (LedVLR + LedVRR)) / NPfactor;
+
+                /* JMS also contains T^{RR}_{ed} -> S^{RR}_{ed} QED mixing.
+                 * It vanishes for the present tree-level SMEFT matching, but
+                 * keeping it here makes the LEFT running complete at O(alpha_e).
+                 * The tensor-induced term is kept as a strict QED leading log;
+                 * mixed QCD-QED logarithms are beyond the accuracy used here.
+                 */
+                const double tensorToScalarQED = 32. * qedLog;
+                const gslpp::complex LedSRR = scalarRunning
+                        * matching->getCedSRR(leptonindex,leptonindex,1,2)
+                        + tensorToScalarQED
+                        * matching->getCedTRR(leptonindex,leptonindex,1,2);
+                const gslpp::complex LedSRL = scalarRunning
+                        * matching->getCedSRL(leptonindex,leptonindex,1,2);
+                const gslpp::complex LedSRRhc = scalarRunning
+                        * matching->getCedSRR(leptonindex,leptonindex,2,1).conjugate()
+                        + tensorToScalarQED
+                        * matching->getCedTRR(leptonindex,leptonindex,2,1).conjugate();
+                const gslpp::complex LedSRLhc = scalarRunning
+                        * matching->getCedSRL(leptonindex,leptonindex,2,1).conjugate();
+
+                C_S = C_S + (LedSRR + LedSRLhc) / NPfactor;
+                C_Sp = C_Sp + (LedSRL + LedSRRhc) / NPfactor;
+                C_P = C_P + (LedSRR - LedSRLhc) / NPfactor;
+                C_Pp = C_Pp + (LedSRL - LedSRRhc) / NPfactor;
             }
 
             gslpp::complex CC_P = (C_10 - C_10p + mBs * mBs / ( 2. * mlep * (mb + ms)) * (C_P - C_Pp) );

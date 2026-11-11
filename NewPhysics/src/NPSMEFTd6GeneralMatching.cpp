@@ -99,59 +99,62 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
         //    CT = 0.;
 
 
-        // to implement Manohar's matching formulae we define the couplings
-        // in his notation. Namely, in the formulae below, the barred quantities are
-        // tree level in the theory scheme.
+        // JMS formulae for the matching are given in terms of the "barred" couplings.
+        // In the Mathematica notebook we have expanded them keeping only the linear terms in the Wilson coefficients, 
+        // since the zeoth order terms are already included in the SM part of the matching.
+        // Here however we will use the tilde parameters, not the barred ones
+        // Therefore we need to add to the JMS deltas the additional term needed to switch from barred to tilde parameters
+        // These additional terms are given by eqs. (166)-(190) from Angelica's notes.
+        // Thus what appears here as deltas are the sum of the two contributions, the one from JMS and the one from the barred to tilde conversion.
 
         double cbar = mySMEFT.getXWZ_tree();
         double sbar = -mySMEFT.getXBZ_tree();
         double sbar2 = sbar * sbar;
-        //    double delta_cbar = mySMEFT.getDelta_xWZ(); not needed currently
-        double delta_sbar = mySMEFT.getDelta_xBZ();
+        double cbar2 = cbar * cbar;
+        double delta_sbar = -(mySMEFT.getDelta_xBZ() + 0.5 * c_CHWB * v2 * cbar) / sbar;
+        double delta_cbar = - delta_sbar * sbar2 / cbar2;
         double g1bar = mySMEFT.getG1_tree();
-        //    double delta_g1bar = mySMEFT.getDelta_g1(); not needed currently
+        double delta_g1bar = mySMEFT.getDelta_g1(); 
         double g2bar = mySMEFT.getG2_tree();
-        //    double delta_g2bar = mySMEFT.getDelta_g2(); not needed currently
+        double delta_g2bar = mySMEFT.getDelta_g2();
         double delta_MZ2 = mySMEFT.getDelta_Mz2();
         double ebar = mySMEFT.getEeMz(); 
-        //    double delta_ebar = mySMEFT.getDelta_ale() / 2.; not needed currently
-        // the Z coupling and its correction  were not explicit in Angelica's notes, so they need to be checked
-        double gZbar = ebar / sbar / cbar;
-        double delta_gZbar = (g1bar * g1bar + g2bar * g2bar) / (2. * g1bar * g2bar) * v2 * c_CHWB;
-        // indeed a piece was missing, I add it here
-        delta_gZbar += -(g1bar * g1bar * g1bar * g1bar + g2bar * g2bar * g2bar * g2bar) / (2. * (g1bar * g1bar + g2bar * g2bar) * g1bar * g2bar) * v2 * c_CHWB;
+        double delta_ebar = mySMEFT.getDelta_ale() / 2.; 
+        double gZbar = ebar / (sbar * cbar);
+        double delta_gZbar = (g1bar * g1bar + g2bar * g2bar) / (2. * g1bar * g2bar) * v2 * c_CHWB / gZbar; //JMS terms
+        delta_gZbar += (delta_ebar - delta_sbar - delta_cbar); //barred to tilde conversion terms
         double gZ2oMZ2 = gZbar / mySMEFT.getMz();
         gZ2oMZ2 *= gZ2oMZ2;
-        double delta_gZ2oMZ2 = 2. * delta_gZbar - delta_MZ2;
+        double delta_gZ2oMZ2 = 2. * delta_gZbar - 2. * delta_MZ2;
         double g22oMW2 = 4. / v2;
         double delta_g22oMW2 = -2. * delta_vT;
         //new terms from now on
         //Z boson
         double gZbar2oMZ3 = mySMEFT.FlagMomVert * gZ2oMZ2 / mySMEFT.getMz();
-        double gZbar2oMZ4 = mySMEFT.FlagMomProp * gZbar2oMZ3 / mySMEFT.getMz();
+        double gZbar2oMZ4 = mySMEFT.FlagMomProp * gZ2oMZ2 / mySMEFT.getMz() / mySMEFT.getMz();
         double deltagZbar2oMZ4 = 2. * delta_gZbar - 2. * delta_MZ2;
         //W boson
-        double g2bar2oMW3 = mySMEFT.FlagMomVert * g22oMW2 / mySMEFT.getMw();
-        double g2bar2oMW4 = mySMEFT.FlagMomProp * g2bar2oMW3 / mySMEFT.getMw();
-        double deltag2bar2oMW4 = -4. * delta_vT;
+        double g2bar2oMW3 = mySMEFT.FlagMomVert * g22oMW2 / mySMEFT.getMw_tree();
+        double g2bar2oMW4 = mySMEFT.FlagMomProp * g22oMW2 / mySMEFT.getMw_tree() / mySMEFT.getMw_tree();
+        double deltag2bar2oMW4 = delta_g22oMW2 - mySMEFT.getDelta_Mw2();
         //h boson
         double lambda = mySMEFT.getLambdaH_tree() * 2.;
         double oneoMh2 = mySMEFT.FlagHiggsExch * 1. / (lambda * v2);
         double deltaoneoMh2 = (- 2. * c_CHbox + 0.5 * c_CHD + 3 * c_CH / lambda) * v2;
         
         std::array<double, 3> Me = {
-    	mySMEFT.getLeptons(StandardModel::ELECTRON).getMass(),
-    	mySMEFT.getLeptons(StandardModel::MU).getMass(),
-    	mySMEFT.getLeptons(StandardModel::TAU).getMass()
+    	mySMEFT.getMe_LEW(),
+    	mySMEFT.getMmu_LEW(),
+    	mySMEFT.getMtau_LEW()
 };
-        std::array<double, 3> Mu = {
-        mySMEFT.getQuarks(QCD::UP).getMass(),   
-        mySMEFT.getQuarks(QCD::CHARM).getMass()
+        std::array<double, 2> Mu = {
+        mySMEFT.getMu_LEW(),   
+        mySMEFT.getMc_LEW(),
 };
         std::array<double, 3> Md = {
-        mySMEFT.getQuarks(QCD::DOWN).getMass(),
-        mySMEFT.getQuarks(QCD::STRANGE).getMass(),
-        mySMEFT.getQuarks(QCD::BOTTOM).getMass(),
+        mySMEFT.getMd_LEW(),
+        mySMEFT.getMs_LEW(),
+        mySMEFT.getMb_LEW()
 };
 
         // std::cout << "CKM from rotated UfA = " << (VuL.hconjugate()) * VdL << std::endl;
@@ -452,7 +455,6 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
                             CdeVLR.at(j).at(k).at(i).at(i) += VCKMd(j, p) * ((gZ2oMZ2 * sbar2 * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r)))) / 2.) * VCKM(r, k);
                             CddV1LR.at(j).at(k).at(i).at(i) += VCKMd(j, p) * ((gZ2oMZ2 * sbar2 * v2 * ((c_CHq1(p, r)) + (c_CHq3(p, r)))) / 6.) * VCKM(r, k);
                         }
-                        CnudVLR.at(i).at(i).at(j).at(k) += VCKMd(j,p) * (-0.5*(gZbar2oMZ3*v2*(sbar*(c_CdB(p, k)) + cbar*(c_CdW(p, k)))*Md[j])/sqrt(2));
                     }
                     CedVRR.at(i).at(i).at(j).at(k) += ((gZ2oMZ2 * sbar2 * v2 * (c_CHd(j, k))) / 2.);
                     CddVRR.at(i).at(i).at(j).at(k) += ((gZ2oMZ2 * sbar2 * v2 * (c_CHd(j, k))) / 12.);
@@ -524,7 +526,7 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
                                     CddV1LR.at(i).at(j).at(k).at(l) += VCKMd(i,p) * (-0.25*(gZ2oMZ2*v2*v2*(c_CHd(k, l))*((c_CHq1(p, r)) + (c_CHq3(p, r))))) * VCKM(r,j);
                                 }
                             }
-                            CddVRR.at(i).at(j).at(k).at(l) += ((gZ2oMZ2*v2*v2*(c_CHd(i, j))*(c_CHd(k, l)))/8.);
+                            CddVRR.at(i).at(j).at(k).at(l) += -((gZ2oMZ2*v2*v2*(c_CHd(i, j))*(c_CHd(k, l)))/8.);
                             if (mySMEFT.FlagNewTerms)
                             {
                                 for (int p = 0; p < 3; p++)
@@ -573,6 +575,7 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
                         {
                             CnueduVLL.at(i).at(j).at(k).at(l) += VCKMd(k,l) *((g2bar2oMW3*v2*(c_CeW(i, j))*Me[j])/sqrt(2));
                             CnueduSRR.at(i).at(j).at(k).at(l) += VCKMd(k,l) * (-0.5*(g2bar2oMW4*v2*(c_CHl3(i, j))*Me[j]*Mu[l]));
+                            CnueduSRL.at(i).at(j).at(k).at(l) += VCKMd(k,l) * (+0.5*(g2bar2oMW4*v2*(c_CHl3(i, j))*Me[j]*Md[k]));
                         }
                         for (int p = 0; p < 3; p++)
                         {
@@ -589,6 +592,7 @@ void NPSMEFTd6GeneralMatching::updateLEFTGeneralParameters()
                     if (mySMEFT.FlagNewTerms)
                     {
                         CnueduSRR.at(i).at(i).at(j).at(k) += VCKMd(j,k) * (-0.5*((1 + deltag2bar2oMW4)*g2bar2oMW4*Me[i]*Mu[k]));
+                        CnueduSRL.at(i).at(i).at(j).at(k) += VCKMd(j,k) * (+0.5*((1 + deltag2bar2oMW4)*g2bar2oMW4*Me[i]*Md[j]));
                         CnueduVLL.at(i).at(i).at(j).at(k) += (-((g2bar2oMW3*v2*(c_CdW(k, j).conjugate())*Md[j])/sqrt(2)));
                         for (int p = 0; p < 3; p++)
                         {

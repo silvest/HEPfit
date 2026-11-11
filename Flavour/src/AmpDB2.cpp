@@ -101,7 +101,7 @@ gslpp::complex AmpDB2::RBs(orders order)
         return (*(allcoeff[LO]) + *(allcoeff[NLO])) * me /
                (C_1_SM * me(0));
     case LO:
-        return ((*(allcoeff[LO])) * me /(*(allcoeff_SM[LO]))(0) * me(0));
+        return ((*(allcoeff[LO])) * me /((*(allcoeff_SM[LO]))(0) * me(0)));
     default:
         throw std::runtime_error("RBs::RBs(): order not implemented");
     }
