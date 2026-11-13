@@ -283,6 +283,108 @@ private:
 };
 
 
+/**
+ * @class unitarity_bound_fp
+ * @ingroup Flavour
+ * @brief A class for the unitarity constraints on form factors \f$ f_+ \f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the unitarity constraints on form factors \f$ f_+ \f$ in @f$M \to P@f$ decays.
+ */
+class unitarity_bound_fp : public ThObservable{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] pseudoscalar_i final pseudoscalar meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    unitarity_bound_fp(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
+
+    /**
+    * @brief The unitarity bound on form factors \f$ f_+ \f$ in @f$M \to P@f$ decays.
+    * @return @f$b_2@f$
+    */
+    double computeThValue();
+
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson pseudoscalar; /**< Final pseudoscalar meson type. */
+
+};
+
+
+/**
+ * @class unitarity_bound_fT
+ * @ingroup Flavour
+ * @brief A class for the unitarity constraints on form factors \f$ f_T \f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the unitarity constraints on form factors \f$ f_T \f$ in @f$M \to P@f$ decays.
+ */
+class unitarity_bound_fT : public ThObservable{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] pseudoscalar_i final pseudoscalar meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    unitarity_bound_fT(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
+
+    /**
+    * @brief The unitarity bound on form factors \f$ f_T \f$ in @f$M \to P@f$ decays.
+    * @return @f$b_3@f$
+    */
+    double computeThValue();
+
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson pseudoscalar; /**< Final pseudoscalar meson type. */
+
+};
+
+
+/**
+ * @class unitarity_bound_f0
+ * @ingroup Flavour
+ * @brief A class for the unitarity constraints on form factors \f$ f_0 \f$.
+ * @author HEPfit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the unitarity constraints on form factors \f$ f_0 \f$ in @f$M \to P@f$ decays.
+ */
+class unitarity_bound_f0 : public ThObservable{
+public:
+    
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     * @param[in] meson_i initial meson of the decay
+     * @param[in] pseudoscalar_i final pseudoscalar meson of the decay
+     * @param[in] lep_i final leptons of the decay
+     */
+    unitarity_bound_f0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
+
+    /**
+    * @brief The unitarity bound on form factors \f$ f_0 \f$ in @f$M \to P@f$ decays.
+    * @return @f$b_4@f$
+    */
+    double computeThValue();
+
+private:
+    QCD::lepton lep; /**< Final leptons type. */
+    QCD::meson meson; /**< Initial meson type. */
+    QCD::meson pseudoscalar; /**< Final pseudoscalar meson type. */
+
+};
+
+
 #endif	/* MPLLOBSERVABLES_H */
 
     

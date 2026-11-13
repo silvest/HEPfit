@@ -19,9 +19,9 @@ using namespace boost::placeholders;
 
 MPll::MPll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i)
 : mySM(SM_i), myF_1(new F_1()), myF_2(new F_2()),
-fplus_lat_cache(3, 0.),
-fT_lat_cache(3, 0.),
-f0_lat_cache(3, 0.),
+fplus_lat_cache(4, 0.),
+fT_lat_cache(4, 0.),
+f0_lat_cache(4, 0.),
 fplus_cache(2, 0.),
 fT_cache(2, 0.),
 k2_cache(2, 0.),
@@ -96,9 +96,9 @@ std::vector<std::string> MPll::initializeMPllParameters()
             << "b_0_fT" << "b_1_fT" << "b_2_fT" << "m_fit_fT_lat"
             << "b_1_f0" << "b_2_f0" << "m_fit_f0_lat" ;
         else if (MPll_DM_flag) mpllParameters = make_vector<std::string>()
-            << "b_0_fplus" << "b_1_fplus" << "b_2_fplus"
-            << "b_0_fT" << "b_1_fT" << "b_2_fT"
-            << "b_1_f0" << "b_2_f0"
+            << "b_0_fplus" << "b_1_fplus" << "b_2_fplus" << "b_3_fplus"
+            << "b_0_fT" << "b_1_fT" << "b_2_fT" << "b_3_fT"
+            << "b_1_f0" << "b_2_f0" << "b_3_f0"
             << "mBsst0" << "mBsst_1"
             << "Chi1minus" << "Chi0plus" << "ChiTT" ;
         else mpllParameters = make_vector<std::string>()
@@ -195,15 +195,22 @@ void MPll::updateParameters()
             b_0_fplus = mySM.getOptionalParameter("b_0_fplus");
             b_1_fplus = mySM.getOptionalParameter("b_1_fplus");
             b_2_fplus = mySM.getOptionalParameter("b_2_fplus");
+            b_3_fplus = mySM.getOptionalParameter("b_3_fplus");
             m_fit2_fplus_lat = mySM.getOptionalParameter("mBsst_1") * mySM.getOptionalParameter("mBsst_1");
             b_0_fT = mySM.getOptionalParameter("b_0_fT");
             b_1_fT = mySM.getOptionalParameter("b_1_fT");
             b_2_fT = mySM.getOptionalParameter("b_2_fT");
+            b_3_fT = mySM.getOptionalParameter("b_3_fT");
             m_fit2_fT_lat = mySM.getOptionalParameter("mBsst_1") * mySM.getOptionalParameter("mBsst_1");
             b_1_f0 = mySM.getOptionalParameter("b_1_f0");
             b_2_f0 = mySM.getOptionalParameter("b_2_f0");
+            b_3_f0 = mySM.getOptionalParameter("b_3_f0");
             m_fit2_f0_lat = mySM.getOptionalParameter("mBsst0") * mySM.getOptionalParameter("mBsst0");
-            b_0_f0 = fplus_DM(0.,b_0_fplus,b_1_fplus,b_2_fplus,m_fit2_fplus_lat)*phi0_DM(0.,m_fit2_f0_lat) - b_1_f0*zeta_DM(0) - b_2_f0*zeta_DM(0)*zeta_DM(0);
+            b_0_f0 = fplus_DM(0.,b_0_fplus,b_1_fplus,b_2_fplus,b_3_fplus,m_fit2_fplus_lat)*phi0_DM(0.,m_fit2_f0_lat) - b_1_f0*zeta_DM(0) - b_2_f0*zeta_DM(0)*zeta_DM(0);
+
+            unitarity_bound_fp = pow(b_0_fplus,2) + pow(b_1_fplus,2) + pow(b_2_fplus,2) + pow(b_3_fplus,2);
+            unitarity_bound_fT = pow(b_0_fT,2) + pow(b_1_fT,2) + pow(b_2_fT,2) + pow(b_3_fT,2);
+            unitarity_bound_f0 = pow(b_0_f0,2) + pow(b_1_f0,2) + pow(b_2_f0,2) + pow(b_3_f0,2);
         } else {
             r_1_fplus = mySM.getOptionalParameter("r_1_fplus");
             r_2_fplus = mySM.getOptionalParameter("r_2_fplus");
@@ -469,7 +476,7 @@ void MPll::checkCache()
         k2_cache(1) = MP;
     }
 
-    if (MPll_Lattice_flag || MPll_GRvDV_flag || MPll_DM_flag) {
+    if (MPll_Lattice_flag || MPll_GRvDV_flag) {
         if (b_0_fplus == fplus_lat_cache(0) && b_1_fplus == fplus_lat_cache(1) && b_2_fplus == fplus_lat_cache(2)) {
             fplus_lat_updated = 1;
         } else {
@@ -495,6 +502,36 @@ void MPll::checkCache()
             f0_lat_cache(0) = b_0_f0;
             f0_lat_cache(1) = b_1_f0;
             f0_lat_cache(2) = b_2_f0;
+        }
+    } else if (MPll_DM_flag) {
+        if (b_0_fplus == fplus_lat_cache(0) && b_1_fplus == fplus_lat_cache(1) && b_2_fplus == fplus_lat_cache(2) && b_3_fplus == fplus_lat_cache(3)) {
+            fplus_lat_updated = 1;
+        } else {
+            fplus_lat_updated = 0;
+            fplus_lat_cache(0) = b_0_fplus;
+            fplus_lat_cache(1) = b_1_fplus;
+            fplus_lat_cache(2) = b_2_fplus;
+            fplus_lat_cache(3) = b_3_fplus;
+        }
+
+        if (b_0_fT == fT_lat_cache(0) && b_1_fT == fT_lat_cache(1) && b_2_fT == fT_lat_cache(2) && b_3_fT == fT_lat_cache(3)) {
+            fT_lat_updated = 1;
+        } else {
+            fT_lat_updated = 0;
+            fT_lat_cache(0) = b_0_fT;
+            fT_lat_cache(1) = b_1_fT;
+            fT_lat_cache(2) = b_2_fT;
+            fT_lat_cache(3) = b_3_fT;
+        }
+
+        if (b_0_f0 == f0_lat_cache(0) && b_1_f0 == f0_lat_cache(1) && b_2_f0 == f0_lat_cache(2) && b_3_f0 == f0_lat_cache(3)) {
+            f0_lat_updated = 1;
+        } else {
+            f0_lat_updated = 0;
+            f0_lat_cache(0) = b_0_f0;
+            f0_lat_cache(1) = b_1_f0;
+            f0_lat_cache(2) = b_2_f0;
+            f0_lat_cache(3) = b_3_f0;
         }
     } else {
         if (r_1_fplus == fplus_cache(0) && r_2_fplus == fplus_cache(1)) {
@@ -883,25 +920,25 @@ double MPll::phiT_DM(double q2, double m_fit2)
     return 16*rP*rP/MM/(1. + rP)*sqrt(4./3./ChiTT/M_PI) * (1. + z)*(1. + z)/sqrt(1. - z)/pow((1. + rP)*(1. - z)+2.*sqrt(rP)*(1. + z),4) * (z - z_M)/(1. - z_M*z);
 }
 
-double MPll::fplus_DM(double q2, double b_0, double b_1, double b_2, double m_fit2)
+double MPll::fplus_DM(double q2, double b_0, double b_1, double b_2, double b_3, double m_fit2)
 {
     double z = zeta_DM(q2);
 
-    return (b_0 + b_1*z + b_2*z*z) / phiplus_DM(q2, m_fit2);
+    return (b_0 + b_1*z + b_2*z*z + b_3*z*z*z) / phiplus_DM(q2, m_fit2);
 }
 
-double MPll::f0_DM(double q2, double b_0, double b_1, double b_2, double m_fit2)
+double MPll::f0_DM(double q2, double b_0, double b_1, double b_2, double b_3, double m_fit2)
 {
     double z = zeta_DM(q2);
 
-    return (b_0 + b_1*z + b_2*z*z) / phi0_DM(q2, m_fit2);
+    return (b_0 + b_1*z + b_2*z*z + b_3*z*z*z) / phi0_DM(q2, m_fit2);
 }
 
-double MPll::fT_DM(double q2, double b_0, double b_1, double b_2, double m_fit2)
+double MPll::fT_DM(double q2, double b_0, double b_1, double b_2, double b_3, double m_fit2)
 {
     double z = zeta_DM(q2);
 
-    return (b_0 + b_1*z + b_2*z*z) / phiT_DM(q2, m_fit2);
+    return (b_0 + b_1*z + b_2*z*z + b_3*z*z*z) / phiT_DM(q2, m_fit2);
 }
 
 
@@ -926,7 +963,7 @@ double MPll::f_plus(double q2)
     else if (MPll_GRvDV_flag)
         return LCSR_fit3(q2, b_0_fplus, b_1_fplus, b_2_fplus, m_fit2_fplus_lat);
     else  if (MPll_DM_flag)
-        return fplus_DM(q2, b_0_fplus, b_1_fplus, b_2_fplus, m_fit2_fplus_lat);
+        return fplus_DM(q2, b_0_fplus, b_1_fplus, b_2_fplus, b_3_fplus, m_fit2_fplus_lat);
     else 
         return LCSR_fit1(q2, r_1_fplus, r_2_fplus, m_fit2_fplus);
 }
@@ -938,7 +975,7 @@ double MPll::f_T(double q2)
     else if (MPll_GRvDV_flag)
         return LCSR_fit3(q2, b_0_fT, b_1_fT, b_2_fT, m_fit2_fT_lat);
     else if (MPll_DM_flag)
-        return fT_DM(q2, b_0_fT, b_1_fT, b_2_fT, m_fit2_fT_lat);
+        return fT_DM(q2, b_0_fT, b_1_fT, b_2_fT, b_3_fT, m_fit2_fT_lat);
     else
         return LCSR_fit1(q2, r_1_fT, r_2_fT, m_fit2_fT);
 }
@@ -950,7 +987,7 @@ double MPll::f_0(double q2)
     else if (MPll_GRvDV_flag)
         return LCSR_fit3(q2, b_0_f0, b_1_f0, b_2_f0, m_fit2_f0_lat);
     else if (MPll_DM_flag)
-        return f0_DM(q2, b_0_f0, b_1_f0, b_2_f0, m_fit2_f0_lat);
+        return f0_DM(q2, b_0_f0, b_1_f0, b_2_f0, b_3_f0, m_fit2_f0_lat);
     else
         return LCSR_fit2(q2, r_2_f0, m_fit2_f0);
 }

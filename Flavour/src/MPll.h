@@ -303,6 +303,36 @@ public:
         updateParameters();
         return width;
     }
+    
+    /**
+    * @brief The unitarity constraints on form factors \f$ f_+ \f$.
+    * @return \f$ S \f$
+    */
+    double get_unitarity_bound_fp()
+    {
+        updateParameters();
+        return unitarity_bound_fp;
+    };
+    
+    /**
+    * @brief The unitarity constraints on form factors \f$ f_T \f$.
+    * @return \f$ S \f$
+    */
+    double get_unitarity_bound_fT()
+    {
+        updateParameters();
+        return unitarity_bound_fT;
+    };
+    
+    /**
+    * @brief The unitarity constraints on form factors \f$ f_0 \f$.
+    * @return \f$ S \f$
+    */
+    double get_unitarity_bound_f0()
+    {
+        updateParameters();
+        return unitarity_bound_f0;
+    };
 
     /**
     * @brief A method for initializing the parameters necessary for MPll.
@@ -362,18 +392,24 @@ private:
     double b_0_fplus;/**<LATTICE fit parameter */
     double b_1_fplus;/**<LATTICE fit parameter */
     double b_2_fplus;/**<LATTICE fit parameter */
+    double b_3_fplus;/**<LATTICE fit parameter */
     double m_fit2_fplus_lat;/**<LATTICE fit parameter */
     double b_0_fT;/**<LATTICE fit parameter */
     double b_1_fT;/**<LATTICE fit parameter */
     double b_2_fT;/**<LATTICE fit parameter */
+    double b_3_fT;/**<LATTICE fit parameter */
     double m_fit2_fT_lat;/**<LATTICE fit parameter */
     double b_0_f0;/**<LATTICE fit parameter */
     double b_1_f0;/**<LATTICE fit parameter */
     double b_2_f0;/**<LATTICE fit parameter */
+    double b_3_f0;/**<LATTICE fit parameter */
     double m_fit2_f0_lat;/**<LATTICE fit parameter */
     double Chi1minus;/**< Cache variable */
     double Chi0plus;/**< Cache variable */
     double ChiTT;/**< Cache variable */
+    double unitarity_bound_fp;/**<FF unitarity bound parameter */
+    double unitarity_bound_fT;/**<FF unitarity bound parameter */
+    double unitarity_bound_f0;/**<FF unitarity bound parameter */
     /*LCSR fit parameters*/
     double r_1_fplus;/**<LCSR fit parameter */
     double r_2_fplus;/**<LCSR fit parameter */
@@ -822,10 +858,11 @@ private:
     * @param[in] b_0 fit parameter
     * @param[in] b_1 fit parameter
     * @param[in] b_2 fit parameter
+    * @param[in] b_3 fit parameter
     * @param[in] m_fit2 fit parameter
     * @return \f$ f_+^{DM} \f$
     */
-    double fplus_DM(double q2, double b_0, double b_1, double b_2, double m_fit2);
+    double fplus_DM(double q2, double b_0, double b_1, double b_2, double b_3, double m_fit2);
 
     /**
     * @brief The first fit function from arXiv:hep-ph/0412079v1,\f$ f_0^{DM} \f$.
@@ -833,10 +870,11 @@ private:
     * @param[in] b_0 fit parameter
     * @param[in] b_1 fit parameter
     * @param[in] b_2 fit parameter
+    * @param[in] b_3 fit parameter
     * @param[in] m_fit2 fit parameter
     * @return \f$ f_0^{DM} \f$
     */
-    double f0_DM(double q2, double b_0, double b_1, double b_2, double m_fit2);
+    double f0_DM(double q2, double b_0, double b_1, double b_2, double b_3, double m_fit2);
 
     /**
     * @brief The first fit function from arXiv:hep-ph/0412079v1,\f$ f_T^{DM} \f$.
@@ -844,10 +882,11 @@ private:
     * @param[in] b_0 fit parameter
     * @param[in] b_1 fit parameter
     * @param[in] b_2 fit parameter
+    * @param[in] b_3 fit parameter
     * @param[in] m_fit2 fit parameter
     * @return \f$ f_T^{DM} \f$
     */
-    double fT_DM(double q2, double b_0, double b_1, double b_2, double m_fit2);
+    double fT_DM(double q2, double b_0, double b_1, double b_2, double b_3, double m_fit2);
 
 
     /**

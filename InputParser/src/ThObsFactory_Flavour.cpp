@@ -379,6 +379,10 @@ void ThObsFactory::registerFlavourObservables()
     obsThFactory["FH_BpKe"] = [=](const StandardModel& SM) { return new FH_MPll(SM, StandardModel::B_P, StandardModel::K_P, StandardModel::ELECTRON); };
     obsThFactory["RK_BpKll"] = [=](const StandardModel& SM) { return new R_MPll(SM, StandardModel::B_P, StandardModel::K_P, StandardModel::MU, StandardModel::ELECTRON); };
 
+    obsThFactory["unitarity_bound_1_BKmu"] = [=](const StandardModel& SM) { return new unitarity_bound_fT(SM, StandardModel::B_P, StandardModel::K_P, StandardModel::MU); };
+    obsThFactory["unitarity_bound_2_BKmu"] = [=](const StandardModel& SM) { return new unitarity_bound_f0(SM, StandardModel::B_P, StandardModel::K_P, StandardModel::MU); };
+    obsThFactory["unitarity_bound_3_BKmu"] = [=](const StandardModel& SM) { return new unitarity_bound_fp(SM, StandardModel::B_P, StandardModel::K_P, StandardModel::MU); };
+
     //----- B0 to K0 ll  -----
     obsThFactory["BR_B0Kmu"] = [=](const StandardModel& SM) { return new BR_MPll(SM, StandardModel::B_D, StandardModel::K_0, StandardModel::MU); };
     obsThFactory["BR_B0Ke"] = [=](const StandardModel& SM) { return new BR_MPll(SM, StandardModel::B_D, StandardModel::K_0, StandardModel::ELECTRON); };

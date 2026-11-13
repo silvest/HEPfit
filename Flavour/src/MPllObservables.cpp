@@ -156,3 +156,48 @@ double DC9_hlambda::computeThValue()
     gslpp::complex result = - sixteenM_PI2 * hlambda * MM * MM / q2 / VL;
     return result.abs();
 }
+
+unitarity_bound_f0::unitarity_bound_f0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
+   lep = lep_i;
+   meson = meson_i;
+   pseudoscalar = pseudoscalar_i;
+
+   setParametersForObservable(SM.getFlavour().getMPll(meson, pseudoscalar, lep).initializeMPllParameters());
+}
+
+double unitarity_bound_f0::computeThValue()
+{
+   return SM.getFlavour().getMPll(meson, pseudoscalar, lep).get_unitarity_bound_f0();
+}
+
+unitarity_bound_fT::unitarity_bound_fT(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
+   lep = lep_i;
+   meson = meson_i;
+   pseudoscalar = pseudoscalar_i;
+
+   setParametersForObservable(SM.getFlavour().getMPll(meson, pseudoscalar, lep).initializeMPllParameters());
+}
+
+double unitarity_bound_fT::computeThValue()
+{
+   return SM.getFlavour().getMPll(meson, pseudoscalar, lep).get_unitarity_bound_fT();
+}
+
+unitarity_bound_fp::unitarity_bound_fp(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i)
+: ThObservable(SM_i)
+{
+   lep = lep_i;
+   meson = meson_i;
+   pseudoscalar = pseudoscalar_i;
+
+   setParametersForObservable(SM.getFlavour().getMPll(meson, pseudoscalar, lep).initializeMPllParameters());
+}
+
+double unitarity_bound_fp::computeThValue()
+{
+   return SM.getFlavour().getMPll(meson, pseudoscalar, lep).get_unitarity_bound_fp();
+}
