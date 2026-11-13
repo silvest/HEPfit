@@ -806,7 +806,7 @@ private:
     * @param[in] m_fit2 fit parameter
     * @return \f$ f_+^{DM} \f$
     */
-    double phi0_DM(double q2);
+    double phi0_DM(double q2, double m_fit2);
 
     /**
     * @brief The first fit function from arXiv:hep-ph/0412079v1,\f$ f_+^{DM} \f$.
@@ -836,7 +836,7 @@ private:
     * @param[in] m_fit2 fit parameter
     * @return \f$ f_0^{DM} \f$
     */
-    double f0_DM(double q2, double b_0, double b_1, double b_2);
+    double f0_DM(double q2, double b_0, double b_1, double b_2, double m_fit2);
 
     /**
     * @brief The first fit function from arXiv:hep-ph/0412079v1,\f$ f_T^{DM} \f$.

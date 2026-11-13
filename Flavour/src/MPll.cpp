@@ -99,7 +99,7 @@ std::vector<std::string> MPll::initializeMPllParameters()
             << "b_0_fplus" << "b_1_fplus" << "b_2_fplus"
             << "b_0_fT" << "b_1_fT" << "b_2_fT"
             << "b_1_f0" << "b_2_f0"
-            << "mBsst_1"
+            << "mBsst0" << "mBsst_1"
             << "Chi1minus" << "Chi0plus" << "ChiTT" ;
         else mpllParameters = make_vector<std::string>()
             << "r_1_fplus" << "r_2_fplus" << "m_fit2_fplus" << "r_1_fT" << "r_2_fT" << "m_fit2_fT" << "r_2_f0" << "m_fit2_f0";
@@ -202,7 +202,8 @@ void MPll::updateParameters()
             m_fit2_fT_lat = mySM.getOptionalParameter("mBsst_1") * mySM.getOptionalParameter("mBsst_1");
             b_1_f0 = mySM.getOptionalParameter("b_1_f0");
             b_2_f0 = mySM.getOptionalParameter("b_2_f0");
-            b_0_f0 = fplus_DM(0.,b_0_fplus,b_1_fplus,b_2_fplus,m_fit2_fplus_lat)*phi0_DM(0) - b_1_f0*zeta_DM(0) - b_2_f0*zeta_DM(0)*zeta_DM(0);
+            m_fit2_f0_lat = mySM.getOptionalParameter("mBsst0") * mySM.getOptionalParameter("mBsst0");
+            b_0_f0 = fplus_DM(0.,b_0_fplus,b_1_fplus,b_2_fplus,m_fit2_fplus_lat)*phi0_DM(0.,m_fit2_f0_lat) - b_1_f0*zeta_DM(0) - b_2_f0*zeta_DM(0)*zeta_DM(0);
         } else {
             r_1_fplus = mySM.getOptionalParameter("r_1_fplus");
             r_2_fplus = mySM.getOptionalParameter("r_2_fplus");
@@ -864,12 +865,13 @@ double MPll::phiplus_DM(double q2, double m_fit2)
     return 16.*rP*rP/MM*sqrt(4./3./Chi1minus/M_PI) * (1. + z)*(1. + z)*sqrt(1. - z)/pow((1. + rP)*(1. - z)+2.*sqrt(rP)*(1. + z),5)  * (z - z_M)/(1. - z_M*z);
 }
 
-double MPll::phi0_DM(double q2)
+double MPll::phi0_DM(double q2, double m_fit2)
 {
     double z = zeta_DM(q2);
+    double z_M = zeta_DM(m_fit2);
     double rP = MP/MM;
     
-    return 2.*rP*(1 - rP*rP)*sqrt(4./Chi0plus/M_PI)* (1. - z*z)*sqrt(1. - z)/pow((1. + rP)*(1. - z)+2.*sqrt(rP)*(1. + z),4);
+    return 2.*rP*(1 - rP*rP)*sqrt(4./Chi0plus/M_PI)* (1. - z*z)*sqrt(1. - z)/pow((1. + rP)*(1. - z)+2.*sqrt(rP)*(1. + z),4) * (z - z_M)/(1. - z_M*z);
 }
 
 double MPll::phiT_DM(double q2, double m_fit2)
@@ -888,11 +890,11 @@ double MPll::fplus_DM(double q2, double b_0, double b_1, double b_2, double m_fi
     return (b_0 + b_1*z + b_2*z*z) / phiplus_DM(q2, m_fit2);
 }
 
-double MPll::f0_DM(double q2, double b_0, double b_1, double b_2)
+double MPll::f0_DM(double q2, double b_0, double b_1, double b_2, double m_fit2)
 {
     double z = zeta_DM(q2);
 
-    return (b_0 + b_1*z + b_2*z*z) / phi0_DM(q2);
+    return (b_0 + b_1*z + b_2*z*z) / phi0_DM(q2, m_fit2);
 }
 
 double MPll::fT_DM(double q2, double b_0, double b_1, double b_2, double m_fit2)
@@ -948,7 +950,7 @@ double MPll::f_0(double q2)
     else if (MPll_GRvDV_flag)
         return LCSR_fit3(q2, b_0_f0, b_1_f0, b_2_f0, m_fit2_f0_lat);
     else if (MPll_DM_flag)
-        return f0_DM(q2, b_0_f0, b_1_f0, b_2_f0);
+        return f0_DM(q2, b_0_f0, b_1_f0, b_2_f0, m_fit2_f0_lat);
     else
         return LCSR_fit2(q2, r_2_f0, m_fit2_f0);
 }
