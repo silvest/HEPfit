@@ -28,6 +28,7 @@ if [[ $Model == "Standard_Model" ]] || [[ $Model == "Standard_Model_DM" ]]; then
     sed -i 's/ModelParameter\s\+'BK'\([2-5]\s\+[0-9\.]\+\s\+\)[0-9\.]\+/ModelParameter  BK\1 0./' UTfit.conf
 fi
 if [ ${Model} == "NPWC" ] || [ ${Model} == "NPWC_NMFV" ]; then
+    perl -pi -e 's/StandardModel.conf/'${Model}'.conf/' submit_job.sh
     for Coefficient in C1 C2 C3 C4 C5; do
         if [ ! -d "$Coefficient" ]; then
             mkdir "$Coefficient"
@@ -46,6 +47,7 @@ if [ ${Model} == "NPWC" ] || [ ${Model} == "NPWC_NMFV" ]; then
         done
     done
 elif [ ${Model} == "NPDF2" ]; then
+    perl -pi -e 's/StandardModel.conf/'${Model}'.conf/' submit_job.sh
     sed -i 's/-J name/-J '${Model}'/' submit_job.sh
     sed -i 's/-N MPICH2_job/-N '${Model}'/' submit_job.sh
 else
@@ -110,6 +112,23 @@ else
         sed -i 's/-J name/-J '${Model}_no${Obs}'/' Pred_Obs/${Obs}/submit_job.sh
         sed -i 's/-N MPICH2_job/-N '${Model}_no${Obs}'/' Pred_Obs/${Obs}/submit_job.sh
     done
+    #simultaneous prediction for Vub and Vcb
+    if [ ! -d "Pred_Obs/Vub_Vcb" ]; then
+        if [ ! -d "Pred_Obs" ]; then
+            mkdir Pred_Obs
+        fi
+        mkdir Pred_Obs/Vub_Vcb
+    fi
+    cp StandardModel.conf SM_parameters.conf Flavour.conf UTfit.conf UTfit_SM.conf MonteCarlo.conf submit_job.sh Pred_Obs/Vub_Vcb/
+    if [ ! -L "Pred_Obs/Vub_Vcb/input" ]; then
+        ln -s $(pwd)/input Pred_Obs/Vub_Vcb/input
+    fi
+    sed -i '/CorrelatedGaussianParameters VubVcb 2/{s/.*/#&/ ; n; n; n; s/.*/#&/ ; n;  s/.*/#&/ }' Pred_Obs/Vub_Vcb/UTfit.conf
+    for Obs in V_ub V_cb; do
+        sed -i 's/ModelParameter\s\+'${Obs}'\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)\s\+\([0-9\.\-]\+\)/ModelParameter '${Obs}$'\t'${CKMInputVals[$Obs]}$'\t''0. '$'\t'${CKMInputErrs[$Obs]}'/' Pred_Obs/Vub_Vcb/UTfit.conf
+    done
+    sed -i 's/-J name/-J '${Model}_noVub_Vcb'/' Pred_Obs/Vub_Vcb/submit_job.sh
+    sed -i 's/-N MPICH2_job/-N '${Model}_noVub_Vcb'/' Pred_Obs/Vub_Vcb/submit_job.sh
     # Predictions for lattice and other parameters
     allFits="BBs1BBsoBBdOnly FBsoFBdBBsoBBdOnly BKOnly"
     declare -A LatInpVals=(["FBs"]=0.225 ["FBsoFBd"]=1.22 ["BBsoBBd"]=1.06 ["BBs1"]=0.84 ["BK1"]=0.62)

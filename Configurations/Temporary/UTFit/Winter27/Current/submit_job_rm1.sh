@@ -10,4 +10,4 @@
 ##########################################
 
 # COMMAND to EXECUTE:
-/teo/soft/silvest/bin/mpiexec -n 10 /teo/soft/silvest/HEPfit/Analysis/dist/RM1_MPI/GNU_MPI-Linux/analysis StandardModel.conf MonteCarlo.conf
+/teo/soft/silvest/bin/mpiexec -n 10 /teo/soft/silvest/HEPfit/dist/bin/analysis StandardModel.conf MonteCarlo.conf

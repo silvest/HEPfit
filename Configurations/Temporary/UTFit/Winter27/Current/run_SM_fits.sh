@@ -21,12 +21,16 @@ do
 		if [ ! -f MCout.root ]  
 		then
 		    #-------------------------------------------------------------  
+	       	    while (( `qstat -u silvest | grep " WAITING" | wc -l` > 5 ))
+       		    do
+               		sleep 60
+       		    done
 		    echo "submitting job in $PWD"  
-                    qsub -vARGS="StandardModel.conf MonteCarlo.conf" -N ${dir0}_${dir} submit_job.sh 
+                    #qsub -vARGS="StandardModel.conf MonteCarlo.conf" -N ${dir0}_${dir} submit_job.sh 
 		    #qsub -w `pwd` -vARGS="model.conf ../MonteCarlo-HIGH.conf" -N SM_FullFit /storage/local/home/theorm3/silvestrini/storage/HEPfit/Analysis_EW/submit_analysis_v1.sh  
 		    #rm -rf analysis core.*  
 		    #ln -s ~/storage/HEPfit/Analysis/dist/Debug_MPI/GNU-Linux/analysis .  
-		    #bsub < submit_job.sh  
+		    bsub -n 10 -R "span[hosts=1]" < submit_job.sh  
 		else  
 		    rm -f *.o* analysis core.*  
 		    #-------------------------------------------------------------  
@@ -50,12 +54,16 @@ do
 		    if [ ! -f MCout.root ]  
 		    then  
 			#-------------------------------------------------------------  
+                        while (( `qstat -u silvest | grep " WAITING" | wc -l` > 5 ))
+                        do
+                        	sleep 60
+                        done
 			echo "submitting job in $PWD"  
-	                qsub -vARGS="StandardModel.conf MonteCarlo.conf" -N ${dir0}_${dir} submit_job.sh 
+	                #qsub -vARGS="StandardModel.conf MonteCarlo.conf" -N ${dir0}_${dir} submit_job.sh 
 			#qsub -w `pwd` -vARGS="model.conf ../../MonteCarlo-HIGH.conf" -N ${dir0}_${dir1}_${dir2} /storage/local/home/theorm3/silvestrini/storage/HEPfit/Analysis_EW/submit_analysis_v1.sh  
 			#rm -rf analysis core.*  
 			#ln -s ~/storage/HEPfit/Analysis/dist/Debug_MPI/GNU-Linux/analysis .  
-			#bsub < submit_job.sh  
+			bsub -n 10 -R "span[hosts=1]" < submit_job.sh  
                     else  
 			rm -f *.o* analysis core.*  
 			#-------------------------------------------------------------  

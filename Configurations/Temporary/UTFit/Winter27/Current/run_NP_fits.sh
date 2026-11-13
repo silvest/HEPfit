@@ -6,7 +6,8 @@ do
 		cd ${dir0}
 		if [[ "$dir0" == "NPDF2"* ]]; then
 	    	echo "submitting job in $PWD"  
-	    	qsub -vARGS="NPDF2.conf MonteCarlo.conf" -N ${dir0} submit_job.sh 
+#	    	qsub -vARGS="NPDF2.conf MonteCarlo.conf" -N ${dir0} submit_job.sh 
+                bsub -n 10 -R "span[hosts=1]" < submit_job.sh  
 		else
 			for dir in `ls -d */`
 			do
@@ -17,8 +18,8 @@ do
 #		then
 		    #-------------------------------------------------------------  
 		    		echo "submitting job in $PWD"  
-		    		qsub -vARGS="NPWC.conf MonteCarlo.conf" -N ${dir0}_${dir} submit_job.sh 
-#		    bsub < submit_job.sh  
+#		    		qsub -vARGS="NPWC.conf MonteCarlo.conf" -N ${dir0}_${dir} submit_job.sh 
+		    	bsub -n 10 -R "span[hosts=1]"< submit_job.sh  
 #		fi  
 					cd ..  
 	    		fi  
