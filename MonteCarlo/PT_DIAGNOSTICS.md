@@ -348,3 +348,69 @@ This also works before a job finishes: it reads complete committed counter windo
 marks unfinished phases, and ignores uncommitted trailing output. It does not check
 cold posterior R-hat/ESS. Run the ordinary ROOT analysis for those checks. Details of
 all files and diagnostic interpretation are in `bat_MPI/diagnostics/README.txt`.
+
+
+## Optional temperature-ladder optimization
+
+Reinstall the updated `bat_MPI` and reconfigure/rebuild HEPfit. CMake reports
+`BAT PT temperature adaptation: 1`; older BAT remains supported with this
+feature disabled. Add to `MonteCarlo.conf`:
+
+```text
+PreRunPolicy staged
+SettlingSweeps 2000
+PrerunMaxIter 50000
+NIterationsUpdateMax 1000
+NIterationsPreRunFactorized 10000
+PTAdaptTemperatures true
+PTAdaptInterval 1000
+PTAdaptRounds 4
+PTAdaptDamping 0.5
+SaveProposal fit_proposal.txt
+```
+
+Keep `ParallelTempering true`, `NChains` and an initial `PTTemperatures` ladder
+of at least three temperatures. The four doubling pilot batches update at
+sweeps 1000, 3000, 7000 and 15000; proposals then adapt on the final grid for
+the rest of the prerun. Both grid and proposals are fixed during discarded
+settling and production. `SmoothAdaptation` remains independently selectable.
+The initial batch must include an exchange round. The last temperature update
+and the joint-proposal switch must leave at least one full proposal-check
+window inside `PrerunMaxIter`; invalid budgets are rejected. Positive settling
+is required. `PTAdaptInterval`, `PTAdaptRounds` and `PTAdaptDamping` require
+`PTAdaptTemperatures true`. Defaults are 1000, 4 and 0.5; rounds are 1..30 and
+damping is finite in (0,1]. Temperature adaptation defaults to false.
+
+This implements the communication-barrier schedule method of
+[Syed et al.](https://arxiv.org/abs/1905.02939), Sections 5.1, 5.2 and 5.4,
+using monotone piecewise-linear interpolation and bounded damped updates.
+It preserves temperature endpoints, replica count and exchange interval.
+Expected rejections are measured across neighboring pairs and independent
+ladders without extra likelihood evaluations. Proposal-training moments and
+covariance gain reset after each temperature update. The number of replicas,
+the hottest endpoint and the path of distributions are not optimized.
+
+`<root-prefix>_pt_temperature_adaptation.csv` records initial and updated grids,
+rejection estimates on the old grid, observations, estimated barrier and damping.
+Warmup status records update count, last update sweep and whether temperatures
+are frozen. Streaming blocks close before grid changes, retaining their actual
+temperatures; `pt_temperatures.csv` reflects the current grid. Full diagnostics
+continue to assess cold production R-hat, ESS and any configured region weights.
+Use cold ESS/hour and region-weight precision to compare equal-cost runs; faster
+round trips alone are not a convergence criterion.
+
+Optimized proposals use BAT cache format v2, storing the matching ladder. To
+reuse, remove the staged/smooth/settling and `PTAdapt*` settings, then set:
+
+```text
+LoadProposal fit_proposal.txt
+ProposalWarmup 2000
+```
+
+The same number of ladders/temperatures and the same endpoints are required.
+The optimized intermediate temperatures are restored automatically. Proposal
+reload cannot be combined with temperature adaptation. Ordinary v1 caches and
+unoptimized runs keep their existing behavior; v1 still requires an exact grid.
+Older BAT cannot read v2 caches. The MPI integration test
+`HEPfit_temperature_adaptation` exercises both proposal types, diagnostic grids,
+cache restoration, cold-only production output and invalid configurations.

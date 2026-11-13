@@ -43,5 +43,28 @@ int main()
     reject({"ParallelTempering yes"});
     reject({"PTDiagnostics true junk"});
     reject({"PTDiagnostics"});
+    reject({"PTAdaptTemperatures yes"});
+    reject({"PTAdaptTemperatures true"});
+    reject({"ParallelTempering true", "PTTemperatures 1:2", "PTAdaptTemperatures true"});
+    reject({"PTAdaptInterval 1"});
+    reject({"PTAdaptInterval -1"});
+    reject({"PTAdaptInterval 2147483648"});
+    reject({"PTAdaptRounds 31"});
+    reject({"PTAdaptRounds 1.5"});
+    reject({"PTAdaptDamping 0"});
+    reject({"PTAdaptDamping nan"});
+    reject({"PTAdaptDamping 1.01"});
+    config.ParseLine("PTAdaptTemperatures true");
+    config.ParseLine("PTAdaptInterval 20");
+    config.ParseLine("PTAdaptRounds 3");
+    config.ParseLine("PTAdaptDamping .75");
+    config.ValidateAdaptation(true, false, 5, 200, 150, 20, true);
+    for (unsigned problem=0; problem<5; ++problem) {
+        bool failed=false;
+        try { config.ValidateAdaptation(problem!=0, problem==1, problem==2?0:5,
+                                         problem==3?159:200, problem==4?190:150, 20, true); }
+        catch (const std::runtime_error&) { failed=true; }
+        check(failed);
+    }
     std::cout << "PT configuration validation passed\n";
 }

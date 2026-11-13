@@ -22,9 +22,16 @@ def rows(path):
 def kernel(path):
     """Independent cache reader: compare every proposal field, excluding positions."""
     tokens = iter(shlex.split(path.read_text()))
-    assert next(tokens) == 'BAT_MPI_PROPOSAL' and next(tokens) == '1'
+    assert next(tokens) == 'BAT_MPI_PROPOSAL'
+    version = next(tokens)
+    assert version in ('1', '2')
     n, dimension, chains, joint = [int(next(tokens)) for _ in range(4)]
     dof, updates = next(tokens), next(tokens)
+    ladder = None
+    if version == '2':
+        assert next(tokens) == 'PT_LADDER'
+        ladders, count = int(next(tokens)), int(next(tokens))
+        ladder = (ladders, tuple(next(tokens) for _ in range(count)))
     parameters = [tuple(next(tokens) for _ in range(5)) for _ in range(n)]
     replicas = []
     for _ in range(chains):
@@ -35,7 +42,7 @@ def kernel(path):
         assert len(positions) == n
         replicas.append((temperature, scales, matrices))
     assert next(tokens) == 'END' and next(tokens, None) is None
-    return (n, dimension, chains, joint, dof, updates, parameters, replicas)
+    return (n, dimension, chains, joint, dof, updates, parameters, replicas, ladder)
 
 
 def output_checks(work, prefix):

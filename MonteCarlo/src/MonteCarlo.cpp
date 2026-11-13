@@ -970,6 +970,13 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
     MCEngine.SetScaleAdaptation(warmup.smooth ? BCEngineMCMC::kScaleSmooth : BCEngineMCMC::kScaleLegacy);
 #endif
     pt.Validate();
+    pt.ValidateAdaptation(warmup.staged, !proposal.load.empty(), warmup.settlingSweeps,
+                         MCEngine.GetNIterationsPreRunMax(), MCEngine.GetNIterationsPreRunFactorized(),
+                         MCEngine.GetNIterationsPreRunCheck(), MCEngine.GetProposeMultivariate());
+#ifndef HEPFIT_BAT_HAS_PT_TEMPERATURE_ADAPTATION
+    if (pt.adaptTemperatures)
+        throw std::runtime_error("PTAdaptTemperatures requires an updated bat_MPI installation; rebuild HEPfit against it with BAT_INSTALL=OFF.");
+#endif
     parallelTempering = pt.enabled;
     ptDiagnostics = pt.diagnostics;
     if (parallelTempering) {
@@ -987,6 +994,11 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
         if (ladders < 2)
             throw std::runtime_error("PT requires NChains >= 2 independent ladders for convergence diagnostics.");
         MCEngine.SetParallelTempering(pt.temperatures, ladders, pt.swapInterval);
+#ifdef HEPFIT_BAT_HAS_PT_TEMPERATURE_ADAPTATION
+        MCEngine.SetPTTemperatureAdaptation(pt.adaptTemperatures, pt.adaptInterval, pt.adaptRounds, pt.adaptDamping);
+        if (pt.adaptTemperatures)
+            MCEngine.SetPTTemperatureAdaptationOutput(OutFile.substr(0, OutFile.size() - 5) + "_pt_temperature_adaptation.csv");
+#endif
 #ifdef HEPFIT_BAT_HAS_PT_STREAMING
         if (ptDiagnostics)
             MCEngine.SetPTDiagnosticsOutput(OutFile.substr(0, OutFile.size() - 5) + "_", 1000, 100);
