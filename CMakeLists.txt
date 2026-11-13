@@ -387,6 +387,7 @@ unset(HEPFIT_BAT_HAS_PT_STREAMING CACHE)
 unset(HEPFIT_BAT_HAS_STAGED_WARMUP CACHE)
 unset(HEPFIT_BAT_HAS_SMOOTH_ADAPTATION CACHE)
 unset(HEPFIT_BAT_HAS_PROPOSAL_CACHE CACHE)
+unset(HEPFIT_BAT_HAS_PT_TEMPERATURE_ADAPTATION CACHE)
 if(BAT_INSTALL)
   # The bundled download is legacy BAT even if the current prefix has a PT API.
   set(HEPFIT_BAT_HAS_PT FALSE)
@@ -394,6 +395,7 @@ if(BAT_INSTALL)
   set(HEPFIT_BAT_HAS_STAGED_WARMUP FALSE)
   set(HEPFIT_BAT_HAS_SMOOTH_ADAPTATION FALSE)
   set(HEPFIT_BAT_HAS_PROPOSAL_CACHE FALSE)
+  set(HEPFIT_BAT_HAS_PT_TEMPERATURE_ADAPTATION FALSE)
 else()
 check_cxx_source_compiles("#include <BAT/BCEngineMCMC.h>
 int main() {
@@ -427,6 +429,12 @@ int main() {
     auto save = &BCEngineMCMC::SetProposalFunctionOutput;
     (void) load; (void) save;
 }" HEPFIT_BAT_HAS_PROPOSAL_CACHE)
+check_cxx_source_compiles("#include <BAT/BCEngineMCMC.h>
+int main() {
+    auto configure = &BCEngineMCMC::SetPTTemperatureAdaptation;
+    auto output = &BCEngineMCMC::SetPTTemperatureAdaptationOutput;
+    (void)configure; (void)output;
+}" HEPFIT_BAT_HAS_PT_TEMPERATURE_ADAPTATION)
 endif()
 set(CMAKE_REQUIRED_FLAGS "${_pt_saved_flags}")
 set(CMAKE_REQUIRED_INCLUDES "${_pt_saved_includes}")
@@ -442,6 +450,7 @@ else()
 endif()
 message(STATUS "BAT staged warmup: ${HEPFIT_BAT_HAS_STAGED_WARMUP}; smooth adaptation: ${HEPFIT_BAT_HAS_SMOOTH_ADAPTATION}")
 message(STATUS "BAT proposal cache: ${HEPFIT_BAT_HAS_PROPOSAL_CACHE}")
+message(STATUS "BAT PT temperature adaptation: ${HEPFIT_BAT_HAS_PT_TEMPERATURE_ADAPTATION}")
 
 unset(IBAT CACHE)
 unset(LBAT CACHE)
@@ -804,6 +813,14 @@ if(HEPFIT_BUILD_PT_TESTS)
   add_executable(HEPfitProposalConfigTest MonteCarlo/tests/proposal_config_test.cpp)
   target_include_directories(HEPfitProposalConfigTest PRIVATE MonteCarlo/src)
   add_test(NAME HEPfit_proposal_config COMMAND HEPfitProposalConfigTest)
+  if(HEPFIT_BAT_HAS_PT_TEMPERATURE_ADAPTATION AND MPIBAT AND HEPFIT_DIAGNOSTICS_PYTHON AND HEPFIT_BAT_SOURCE_DIR)
+    add_test(NAME HEPfit_temperature_adaptation COMMAND ${HEPFIT_DIAGNOSTICS_PYTHON}
+      ${CMAKE_SOURCE_DIR}/MonteCarlo/tests/test_temperature_adaptation.py
+      --analysis $<TARGET_FILE:analysis> --bat-source ${HEPFIT_BAT_SOURCE_DIR}
+      --mpiexec ${MPIEXEC_EXECUTABLE} "--mpi-flags=${MPIEXEC_PREFLAGS}")
+    set_tests_properties(HEPfit_temperature_adaptation PROPERTIES TIMEOUT 180 RUN_SERIAL TRUE
+      ENVIRONMENT "MPLCONFIGDIR=${CMAKE_BINARY_DIR}/diagnostics-mpl;XDG_CACHE_HOME=${CMAKE_BINARY_DIR}/diagnostics-cache;PYTHONDONTWRITEBYTECODE=1")
+  endif()
   if(HEPFIT_BAT_HAS_PT AND MPIBAT AND HEPFIT_DIAGNOSTICS_PYTHON AND HEPFIT_BAT_SOURCE_DIR)
     set(_pt_streaming_test_option "")
     if(HEPFIT_BAT_HAS_PT_STREAMING)
