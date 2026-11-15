@@ -689,11 +689,20 @@ gslpp::matrix< double > & EvolBsmm::Df1Evol(double mu, double M, orders order, o
             throw std::runtime_error("EvolDF1nlep::Df1Evol(): scheme " + out.str()  + " not implemented ");
     }
 
-    if (mu == this->mu && M == this->M && scheme == this->scheme && order_qed == NO_QED)
+    // the evolution also depends on alpha_s(M_Z), alpha(M_Z) and M_Z: include them in the cache check
+    // (it used to be keyed on the scales only, so the first evaluated point fixed the evolution for all others)
+    bool same = (mu == this->mu && M == this->M && scheme == this->scheme && model.getAlsMz() == cacheAlsMz
+                 && model.alphaMz() == cacheAleMz && model.getMz() == cacheMz);
+
+    if (same && order_qed == NO_QED)
         return (*Evol(order));
 
-    if (mu == this->mu && M == this->M && scheme == this->scheme &&  order_qed != NO_QED)
+    if (same && order_qed != NO_QED)
         return (*Evol(order_qed));
+
+    cacheAlsMz = model.getAlsMz();
+    cacheAleMz = model.alphaMz();
+    cacheMz = model.getMz();
 
 
     if (M < mu) {
