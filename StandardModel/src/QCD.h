@@ -970,6 +970,7 @@ public:
      * @param[in] n the dimension of the cache to be shifted
      */
     void CacheShift(double cache[][5], int n) const;
+    void ClearCaches() const; ///< invalidate the alpha_s and running-mass caches
     void CacheShift(int cache[][5], int n) const;
 
     /**

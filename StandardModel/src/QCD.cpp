@@ -19,6 +19,7 @@
 #include <Math/BrentRootFinder.h>
 #include <algorithm>
 #include "QCD.h"
+#include <limits>
 #include "gslpp_special_functions.h"
 
 std::string QCD::QCDvars[NQCDvars] = {
@@ -193,6 +194,7 @@ bool QCD::PostUpdate()
         else
             mtpole = Mbar2Mp(quarks[TOP].getMass(), TOP, FULLNNLO);
    }
+    ClearCaches(); // see ClearCaches()
     return (QCDsuccess);
 }
 
@@ -578,6 +580,23 @@ const double QCD::Nf(const double mu) const
     QCDsuccess = false;
     std::cout << "Error in QCD::Nf(" << mu <<")! QCDsuccess set to false" << std::endl;
     return (0.);
+}
+
+// The alpha_s and running-mass caches are keyed on alpha_s(M), M and the threshold scales, but the
+// threshold matching also uses the quark MSbar masses (and m_t is temporarily set to 163 GeV in PostUpdate while
+// converting the pole mass). Entries computed with other masses could therefore be returned, making results depend
+// on the evaluation history. Clearing the caches after each update (masses final) restores reproducibility; the
+// caches still serve repeated calls within one parameter point.
+void QCD::ClearCaches() const
+{
+    const double nan = std::numeric_limits<double>::quiet_NaN();
+    for (int i = 0; i < CacheSize; i++) {
+        for (int j = 0; j < 9; j++) als_cache[j][i] = nan;
+        for (int j = 0; j < 4; j++) logLambda5_cache[j][i] = nan;
+        for (int j = 0; j < 9; j++) logLambdaNLO_cache[j][i] = nan;
+        for (int j = 0; j < 11; j++) mrun_cache[j][i] = nan;
+        for (int j = 0; j < 6; j++) mp2mbar_cache[j][i] = nan;
+    }
 }
 
 void QCD::CacheShift(double cache[][CacheSize], int n) const
