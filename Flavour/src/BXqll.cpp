@@ -2403,12 +2403,12 @@ double BXqll::tau22fit(double sh)
     double sh2 = sh*sh;
     double sh3 = sh*sh2;
     
-    if (q2 <= 6.)
+    if (q2 <= 6. * (1. + 1.e-10)) // tolerance: q2 = sh*Mb_pole^2 at the integration endpoint can round above 6
     {
         c0 = -85.5881372; c1 = 597.0445584; c2 = -3951.5752864; c3 = 19597.1776773;
         c4 = -61781.6106761; c5 = 109385.1435323; c6 = -82410.437659; c7 = -23.4496345;    
     }
-    else if (q2 >= 14.4)
+    else if (q2 >= 14.4 * (1. - 1.e-10)) // tolerance, see above
     {
         c0 = -606.8557516; c1 = 1655.5780054, c2 = -2473.7140331; c3 = 2628.5002517;
         c4 = -1766.6491578; c5 = 674.9172919; c6 = -111.776621; c7 = -230.9832054;
@@ -2426,12 +2426,12 @@ double BXqll::tau27fit_Re(double sh)
     double sh2 = sh*sh;
     double sh3 = sh*sh2;
     
-    if (q2 <= 6.)
+    if (q2 <= 6. * (1. + 1.e-10)) // tolerance: q2 = sh*Mb_pole^2 at the integration endpoint can round above 6
     {
         c0 = -110.2528109; c1 = 778.1558706; c2 = -5200.7693192; c3 = 25864.3213911;
         c4 = -81610.5151368; c5 = 144546.094428; c6 = -108930.3093624; c7 = -31.0505015;
     }
-    else if (q2 >= 14.4)
+    else if (q2 >= 14.4 * (1. - 1.e-10)) // tolerance, see above
     {
         c0 = 104.4988411; c1 = -236.2534692; c2 = 265.8226647; c3 = -224.7002307;
         c4 = 126.6513245; c5 = -42.3215314; c6 = 6.3024015; c7 = 45.8968367;
@@ -2449,12 +2449,12 @@ double BXqll::tau27fit_Im(double sh)
     double sh2 = sh*sh;
     double sh3 = sh*sh2;
     
-    if (q2 <= 6.)
+    if (q2 <= 6. * (1. + 1.e-10)) // tolerance: q2 = sh*Mb_pole^2 at the integration endpoint can round above 6
     {
         c0 = -109.7117334; c1 = 770.3496716; c2 = -5092.660051; c3 = 25238.4761864;
         c4 = -79546.8013633; c5 = 140825.6087763; c6 = -106089.2269733; c7 = -30.1707767;
     }
-    else if (q2 >= 14.4)
+    else if (q2 >= 14.4 * (1. - 1.e-10)) // tolerance, see above
     {
         c0 = -3232.2938841; c1 = 8748.3523192; c2 = -12941.1559426; c3 = 13657.4529099;
         c4 = -9136.8371605; c5 = 3479.428199; c6 = -574.9465146; c7 = -1238.52469;
@@ -2472,12 +2472,12 @@ double BXqll::tau28fit_Re(double sh)
     double sh2 = sh*sh;
     double sh3 = sh*sh2;
     
-    if (q2 <= 6.)
+    if (q2 <= 6. * (1. + 1.e-10)) // tolerance: q2 = sh*Mb_pole^2 at the integration endpoint can round above 6
     {
         c0 = 31.4802423; c1 = -241.0846881; c2 = 1656.2061824; c3 = -8298.8096208;
         c4 = 26278.5739013; c5 = -46638.1094866; c6 = 35189.3746188; c7 = 7.7075461;
     }
-    else if (q2 >= 14.4)
+    else if (q2 >= 14.4 * (1. - 1.e-10)) // tolerance, see above
     {
         c0 = 4.6900829; c1 = -11.9199517; c2 = 15.9522495; c3 = -15.3178755;
         c4 = 9.3880956; c5 = -3.2996681; c6 = 0.5070672; c7 = 1.8726389;
@@ -2495,12 +2495,12 @@ double BXqll::tau28fit_Im(double sh)
     double sh2 = sh*sh;
     double sh3 = sh*sh2;
     
-    if (q2 <= 6.)
+    if (q2 <= 6. * (1. + 1.e-10)) // tolerance: q2 = sh*Mb_pole^2 at the integration endpoint can round above 6
     {
         c0 = 33.7994469; c1 = -246.7751255; c2 = 1660.6205985; c3 = -8272.13013;
         c4 = 26130.6171608; c5 = -46315.2850273; c6 = 34917.5988012; c7 = 8.6664919;
     }
-    else if (q2 >= 14.4)
+    else if (q2 >= 14.4 * (1. - 1.e-10)) // tolerance, see above
     {
         c0 = -36.7487481; c1 = 99.7027369; c2 = -147.7606619; c3 = 155.8859306;
         c4 = -104.1170313; c5 = 39.5573846; c6 = -6.5196117; c7 = -14.0404657;
@@ -2518,12 +2518,12 @@ double BXqll::tau29fit_Re(double sh)
     double sh2 = sh*sh;
     double sh3 = sh*sh2;
     
-    if (q2 <= 6.)
+    if (q2 <= 6. * (1. + 1.e-10)) // tolerance: q2 = sh*Mb_pole^2 at the integration endpoint can round above 6
     {
         c0 = 0.6273561; c1 = -0.6332694; c2 = -2.9264173; c3 = 8.9668433;
         c4 = -17.5473592; c5 = 25.1466317; c6 = -19.5875632; c7 = 0.0002596;
     }
-    else if (q2 >= 14.4)
+    else if (q2 >= 14.4 * (1. - 1.e-10)) // tolerance, see above
     {
         c0 = 5.6720573; c1 = -8.2946135; c2 = 2.2577422; c3 = 1.1204784;
         c4 = -0.9164538; c5 = 0.1768918; c6 = -0.0161023; c7 = 3.2956642;
@@ -2541,12 +2541,12 @@ double BXqll::tau29fit_Im(double sh)
     double sh2 = sh*sh;
     double sh3 = sh*sh2;
     
-    if (q2 <= 6.)
+    if (q2 <= 6. * (1. + 1.e-10)) // tolerance: q2 = sh*Mb_pole^2 at the integration endpoint can round above 6
     {
         c0 = 0.3394312; c1 = -0.2742808; c2 = -0.1496318; c3 = 1.6480602;
         c4 = -6.3928038; c5 = 13.9968788; c6 = -11.1080801; c7 = -0.0001847;
     }
-    else if (q2 >= 14.4)
+    else if (q2 >= 14.4 * (1. - 1.e-10)) // tolerance, see above
     {
         c0 = -823.7736; c1 = 2231.2869412; c2 = -3306.5226002; c3 = 3497.1579714;
         c4 = -2344.7802726; c5 = 894.7382317; c6 = -148.1066909; c7 = -315.648791;
@@ -2586,12 +2586,12 @@ double BXqll::t210fit(double sh)
     double sh2 = sh*sh;
     double sh3 = sh*sh2;
     
-    if (q2 <= 6.)
+    if (q2 <= 6. * (1. + 1.e-10)) // tolerance: q2 = sh*Mb_pole^2 at the integration endpoint can round above 6
     {
         c0 = 0.4853155; c1 = -0.4841452; c2 = 2.1099434; c3 = -17.9649531;
         c4 = 69.0927112; c5 = -154.3567398; c6 = 145.5137293; c7 = -0.001321;
     }
-    else if (q2 >= 14.4)
+    else if (q2 >= 14.4 * (1. - 1.e-10)) // tolerance, see above
     {
         c0 = 0.84111; c1 = -0.2282341; c2 = -1.3546028; c3 = 1.3081906;
         c4 = -0.8150979; c5 = 0.2963146; c6 = -0.0476803; c7 = 1.0777667;
