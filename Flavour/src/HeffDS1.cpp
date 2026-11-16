@@ -214,6 +214,7 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1pnunu()
 
 gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1pnunuC()
 {
+    uKpnunu->update(); // charm contribution at the current parameters
     const std::vector<WilsonCoefficient>& mcbC = uKpnunu->EVOCkpnn();
     coeffds1pnunuC.resetCoefficient();
     orders ordDF1 = coeffds1pnunuC.getOrder();

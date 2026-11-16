@@ -19,6 +19,7 @@
 #include <Math/BrentRootFinder.h>
 #include <algorithm>
 #include "QCD.h"
+#include <limits>
 #include "gslpp_special_functions.h"
 
 std::string QCD::QCDvars[NQCDvars] = {
@@ -193,6 +194,7 @@ bool QCD::PostUpdate()
         else
             mtpole = Mbar2Mp(quarks[TOP].getMass(), TOP, FULLNNLO);
    }
+    ClearCaches(); // see ClearCaches()
     return (QCDsuccess);
 }
 
@@ -580,6 +582,23 @@ const double QCD::Nf(const double mu) const
     return (0.);
 }
 
+// The alpha_s and running-mass caches are keyed on alpha_s(M), M and the threshold scales, but the
+// threshold matching also uses the quark MSbar masses (and m_t is temporarily set to 163 GeV in PostUpdate while
+// converting the pole mass). Entries computed with other masses could therefore be returned, making results depend
+// on the evaluation history. Clearing the caches after each update (masses final) restores reproducibility; the
+// caches still serve repeated calls within one parameter point.
+void QCD::ClearCaches() const
+{
+    const double nan = std::numeric_limits<double>::quiet_NaN();
+    for (int i = 0; i < CacheSize; i++) {
+        for (int j = 0; j < 9; j++) als_cache[j][i] = nan;
+        for (int j = 0; j < 4; j++) logLambda5_cache[j][i] = nan;
+        for (int j = 0; j < 9; j++) logLambdaNLO_cache[j][i] = nan;
+        for (int j = 0; j < 11; j++) mrun_cache[j][i] = nan;
+        for (int j = 0; j < 6; j++) mp2mbar_cache[j][i] = nan;
+    }
+}
+
 void QCD::CacheShift(double cache[][CacheSize], int n) const
 {
     int i, j;
@@ -811,7 +830,7 @@ const double QCD::AlsByOrder(const double mu, const orders order, const bool Nf_
         if ((mu == als_cache[0][i]) && ((double)order == als_cache[1][i]) &&
             (AlsM == als_cache[2][i]) && (MAls == als_cache[3][i]) &&
             (mut == als_cache[4][i]) && (mub == als_cache[5][i]) &&
-            (muc == als_cache[6][i]) && (Nf_thr == (bool)als_cache[7][i]))
+            (muc == als_cache[6][i]) && (100 + (int)Nf_thr == (int)als_cache[7][i])) // disjoint from AlsOLD (-1) and AlsByOrder(mu, Nf, order) (Nf)
             return als_cache[8][i];
 
     switch (order)
@@ -859,7 +878,7 @@ const double QCD::AlsByOrder(const double mu, const orders order, const bool Nf_
         als_cache[4][0] = mut;
         als_cache[5][0] = mub;
         als_cache[6][0] = muc;
-        als_cache[7][0] = (int)Nf_thr;
+        als_cache[7][0] = 100 + (int)Nf_thr; // see the lookup above
         als_cache[8][0] = als;
 
         return als;

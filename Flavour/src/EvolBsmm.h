@@ -24,6 +24,7 @@ public:
 
 
 private:
+    double cacheAlsMz = -1., cacheAleMz = -1., cacheMz = -1.; ///< couplings of the cached evolution
     int nu, nd;
     double a[4][8], b[4][8][8][8];
     const StandardModel& model;

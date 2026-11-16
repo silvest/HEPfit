@@ -17,6 +17,13 @@ Charm_Kpnunu::Charm_Kpnunu(const StandardModel& model_i)
     U0_4p(3,0.),U0_5p(3,0.),J1_4p(3,0.),J2_4p(3,0.),J1_5p(3,0.),J2_5p(3,0.),
     R0_4p(3,0.),R0_5p(3,0.),R1_4p(3,0.),R1_5p(3,0.)      
 {
+    update();
+}
+
+// The parameter-dependent quantities used to be computed only in the constructor, i.e. once, at the
+// parameters of the first evaluated point; they are now recomputed by update(), called before every use.
+void Charm_Kpnunu::update()
+{
     mc_mc=model.getQuarks(QCD::CHARM).getMass();
     etab=model.Als(model.getMuw()) / model.Als(model.getMub());
     etacb=model.Als(model.getMub()) / model.Als(model.getMuc());
@@ -70,7 +77,7 @@ Charm_Kpnunu::Charm_Kpnunu(const StandardModel& model_i)
     R0_5p = RGevol_R(LO_QED,5,1);
     R1_4p = RGevol_R(NLO_QED11,4,1);
     R1_5p = RGevol_R(NLO_QED11,5,1); 
-}       
+}
 
 Charm_Kpnunu::~Charm_Kpnunu()
 {}
