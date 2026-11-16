@@ -349,6 +349,16 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsmumu(double mu, schemes sc
                         }
                     }
                 }
+                // also compare the QED orders: a change in the O(alpha_e) coefficients alone (e.g. a new-physics
+                // shift of Y) was otherwise not detected and the cached coefficients were returned
+                if (mcbsm[i].getOrder_qed() != Bsmumu_WC_cache[i].getOrder_qed()) check = 0;
+                else for (int q = LO_QED; q <= mcbsm[i].getOrder_qed(); q++) {
+                    gslpp::vector<gslpp::complex>* a = mcbsm[i].getCoeff(orders_qed(q));
+                    gslpp::vector<gslpp::complex>* b = Bsmumu_WC_cache[i].getCoeff(orders_qed(q));
+                    if ((a == NULL) != (b == NULL)) check = 0;
+                    else if (a != NULL)
+                        for (int l = 0; l < 8; l++) check *= ((*a)(l) == (*b)(l));
+                }
             } else check = 0;
         } 
         if (check == 1) return coeffsmumu.getCoeff();
@@ -537,6 +547,16 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsmumuStandardNorm(double mu
                         }
                     }
                 }
+                // also compare the QED orders: a change in the O(alpha_e) coefficients alone (e.g. a new-physics
+                // shift of Y) was otherwise not detected and the cached coefficients were returned
+                if (mcbsm[i].getOrder_qed() != Bsmumu_WC_cache[i].getOrder_qed()) check = 0;
+                else for (int q = LO_QED; q <= mcbsm[i].getOrder_qed(); q++) {
+                    gslpp::vector<gslpp::complex>* a = mcbsm[i].getCoeff(orders_qed(q));
+                    gslpp::vector<gslpp::complex>* b = Bsmumu_WC_cache[i].getCoeff(orders_qed(q));
+                    if ((a == NULL) != (b == NULL)) check = 0;
+                    else if (a != NULL)
+                        for (int l = 0; l < 8; l++) check *= ((*a)(l) == (*b)(l));
+                }
             } else check = 0;
         } 
         if (check == 1) return coeffsmumu.getCoeff();
@@ -691,6 +711,16 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdmumu(double mu, schemes sc
                             check *= ((*(mcbdm[i].getCoeff(orders(j - k))))(l) == (*(Bdmumu_WC_cache[i].getCoeff(orders(j - k))))(l));
                         }
                     }
+                }
+                // also compare the QED orders: a change in the O(alpha_e) coefficients alone (e.g. a new-physics
+                // shift of Y) was otherwise not detected and the cached coefficients were returned
+                if (mcbdm[i].getOrder_qed() != Bdmumu_WC_cache[i].getOrder_qed()) check = 0;
+                else for (int q = LO_QED; q <= mcbdm[i].getOrder_qed(); q++) {
+                    gslpp::vector<gslpp::complex>* a = mcbdm[i].getCoeff(orders_qed(q));
+                    gslpp::vector<gslpp::complex>* b = Bdmumu_WC_cache[i].getCoeff(orders_qed(q));
+                    if ((a == NULL) != (b == NULL)) check = 0;
+                    else if (a != NULL)
+                        for (int l = 0; l < 8; l++) check *= ((*a)(l) == (*b)(l));
                 }
             } else check = 0;
         }
