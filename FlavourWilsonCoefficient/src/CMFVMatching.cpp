@@ -81,20 +81,19 @@ std::vector<WilsonCoefficient>& CMFVMatching::CMBXdnn()
     return (vbdnn);
 }
 
-// B_q -> mu mu. In the basis of StandardModelMatching::setWCBsmm the O(alpha_e) coefficients are
-// [7] = -Y_0 and [6] = Y_0 + s_W^2 (...), times V_tb^* V_tq, with s_W^2 = pi alpha/(sqrt2 G_F M_W^2).
-// CMFV: [7] += -dY, [6] += dY - 4 s_W^2 dZ.
+// B_q -> mu mu. In the basis of StandardModelMatching::setWCBsmm the O(alpha_e) coefficient [7] = -Y_0
+// V_tb^* V_tq is C10. The improved calculation used by Bsmumu/Bdmumu (Bobeth, Gorbahn, Stamou: NNLO QCD, NLO EW)
+// is valid for new physics in C10 only, so the CMFV shift enters only there: [7] += -dY V_tb^* V_tq.
+// (dZ would enter the vector coefficient [6], which reaches the rate only through O(alpha_e) mixing into C10,
+// a ~1% effect for dZ = 1; it is deliberately not included.)
 std::vector<WilsonCoefficient>& CMFVMatching::CMbsmm()
 {
     vbsmm.clear();
     for (const WilsonCoefficient& w : StandardModelMatching::CMbsmm()) vbsmm.push_back(w);
     zeroAll(npbsmm, 8, true);
-    double Mw = myCMFV.Mw();
-    double sw2 = M_PI * myCMFV.getAle() / (sqrt(2.) * myCMFV.getGF() * Mw * Mw);
     gslpp::complex lam = myCMFV.getCKM().getV_tb().conjugate() * myCMFV.getCKM().getV_ts();
     npbsmm.setMu(myCMFV.getMuw());
-    npbsmm.setCoeff(7, lam * (-myCMFV.getdY()), NLO_QED11);
-    npbsmm.setCoeff(6, lam * (myCMFV.getdY() - 4. * sw2 * myCMFV.getdZ()), NLO_QED11);
+    npbsmm.setCoeff(7, lam * (-myCMFV.getdY()), NLO_QED11); // C10 only, see above
     vbsmm.push_back(npbsmm);
     return (vbsmm);
 }
@@ -104,12 +103,9 @@ std::vector<WilsonCoefficient>& CMFVMatching::CMbdmm()
     vbdmm.clear();
     for (const WilsonCoefficient& w : StandardModelMatching::CMbdmm()) vbdmm.push_back(w);
     zeroAll(npbdmm, 8, true);
-    double Mw = myCMFV.Mw();
-    double sw2 = M_PI * myCMFV.getAle() / (sqrt(2.) * myCMFV.getGF() * Mw * Mw);
     gslpp::complex lam = myCMFV.getCKM().getV_tb().conjugate() * myCMFV.getCKM().getV_td();
     npbdmm.setMu(myCMFV.getMuw());
-    npbdmm.setCoeff(7, lam * (-myCMFV.getdY()), NLO_QED11);
-    npbdmm.setCoeff(6, lam * (myCMFV.getdY() - 4. * sw2 * myCMFV.getdZ()), NLO_QED11);
+    npbdmm.setCoeff(7, lam * (-myCMFV.getdY()), NLO_QED11); // C10 only, see above
     vbdmm.push_back(npbdmm);
     return (vbdmm);
 }
