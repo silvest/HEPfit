@@ -1101,7 +1101,7 @@ gslpp::complex GeneralTHDMMatching::CPZUBll(double xt, double xHp, double sW2, g
             + ((xt * xt * (3 * xHp + xt)) / (xHp - xt))*(log(xHp) - log(xt))))
             + sW2 * (xt / (6 * (xHp - xt)*(xHp - xt)))*(sd * su.conjugate()*((5 * xt - 3 * xHp) / 2
             + ((xHp * (2 * xHp - 3 * xt)) / (xHp - xt))*(log(xHp) - log(xt))) -
-            su.abs2()*(1 / (6 * (xHp - xt)))*(((4 * xHp * xHp * xHp - 12 * xHp * xHp * xHp * xt + 9 * xHp * xt * xt + 3 * xt * xt * xt) / (xHp - xt))* (log(xHp) - log(xt))
+            su.abs2()*(1 / (6 * (xHp - xt)))*(((4 * xHp * xHp * xHp - 12 * xHp * xHp * xt + 9 * xHp * xt * xt + 3 * xt * xt * xt) / (xHp - xt))* (log(xHp) - log(xt))
             - (17 * xHp * xHp - 64 * xHp * xt + 71.0 * xt * xt) / 6));
 
     //CPGBF. Goldstone penguin diagrams. Eq. (53)
@@ -1210,8 +1210,8 @@ double GeneralTHDMMatching::f9(double xHp, double xt) {
 
 double GeneralTHDMMatching::f10(double xHp, double xt) {
     double f10 = (1.0 / (8 * (xHp - xt)))*
-            ((xHp - xt) / ((xHp - 1.0)*(xt - 1.0)) + ((xt * (xt - 2.0)) / (xt - 1.0)*(xt - 1.0)) *
-            log(xt) - ((xHp * (xHp - 2.0)) / (xHp - 1.0)*(xHp - 1.0)) * log(xHp));
+            ((xHp - xt) / ((xHp - 1.0)*(xt - 1.0)) + ((xt * (xt - 2.0)) / ((xt - 1.0)*(xt - 1.0))) *
+            log(xt) - ((xHp * (xHp - 2.0)) / ((xHp - 1.0)*(xHp - 1.0))) * log(xHp));
 
     return f10;
 
@@ -1363,7 +1363,9 @@ std::vector<WilsonCoefficient>& GeneralTHDMMatching::CMBMll(QCD::lepton lepton) 
 
 
     vmcBMll = StandardModelMatching::CMBMll(lepton);
-    switch (mcbsg.getScheme()) {
+//    switch (mcbsg.getScheme()) {
+    // Fixed typo: check the scheme of the B -> ll coefficients, not the b -> s gamma ones
+    switch (mcBMll.getScheme()) {
         case NDR:
 
             break;

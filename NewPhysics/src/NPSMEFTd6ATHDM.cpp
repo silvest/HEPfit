@@ -108,11 +108,11 @@ void NPSMEFTd6ATHDM::setNPSMEFTd6MFVParameters()
     // alphaOqu1[mif1_, mif2_, mif3_, mif4_] -> -1/6*(lamU2[mif3, mif2]*lamU2bar[mif4, mif1])/MH2^2
     // The implemented term in the MFV model is Cqu1_y_LNP*YucL(mif1, mif4)*YuL(mif3, mif2) 
     // Check conventions carefully
-    Cqu1_y_LNP = -1/6*etau*etau;
-    Cqu8_y_LNP = -1*etau*etau;
+    Cqu1_y_LNP = -1./6.*etau*etau;
+    Cqu8_y_LNP = -1.*etau*etau;
     
-    Cqd1_y_LNP = -1/6*etad*etad;
-    Cqd8_y_LNP = -1*etad*etad;
+    Cqd1_y_LNP = -1./6.*etad*etad;
+    Cqd8_y_LNP = -1.*etad*etad;
     
     //alphaOquqd1[mif1_, mif2_, mif3_, mif4_] -> (lamD2bar[mif4, mif3]*lamU2bar[mif2, mif1])/MH2^2
     // The implemented term in the MFV model is Cquqd1_00_LNP*YdcL(mif3, mif4)*YuL(mif1, mif2) 

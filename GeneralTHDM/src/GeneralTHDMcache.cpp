@@ -10702,7 +10702,7 @@ double GeneralTHDMcache::updateCache()
     Rij_GTHDM.assign(1, 0, cosa1*sina2*sina3 - sina1*cosa3);
     Rij_GTHDM.assign(1, 1, sina1*sina2*sina3 + cosa1*cosa3);
     Rij_GTHDM.assign(1, 2, cosa2*sina3);
-    Rij_GTHDM.assign(2, 0, cosa2*sina2*cosa3 + sina1*sina3);
+    Rij_GTHDM.assign(2, 0, cosa1*sina2*cosa3 + sina1*sina3);
     Rij_GTHDM.assign(2, 1, sina1*sina2*cosa3 - cosa1*sina3);
     Rij_GTHDM.assign(2, 2, cosa2*cosa3);
     

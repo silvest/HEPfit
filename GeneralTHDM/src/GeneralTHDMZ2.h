@@ -77,6 +77,8 @@ public:
 
     /**
      * @brief A method to set a flag of %GeneralTHDMZ2.
+     * @details With Decoupling = true (false by default) m12_2 is not an input and is fixed to
+     * mH^2 tan(beta)/(1+tan(beta)^2), with mH the mass of the heavy CP-even scalar.
      * @param[in] name name of a model flag
      * @param[in] value the boolean to be assigned to the flag specified by name
      * @return a boolean that is true if the execution is successful
@@ -222,8 +224,10 @@ private:
     double logtb, bma, m12_2; ///< parameters exclusively in Z2 models: log(tan(beta)), beta-alpha, m_12^2
     double beta, tanb, cosb, cos2b, cos4b, cos6b, sinb, sin2b, sin4b, sin6b, cos2bma, sin2bma, cos2bmbma, sin2bmbma;
     double vev, mh_2, mH_2, mA_2, mHp_2, M2aux;
+    double cosbma; ///< cos(beta-alpha), only to be used as an observable
     std::string flag_model;
     bool flag_wfr;
+    bool flag_decoupling = false; ///< If true, m12_2 is not an input and is fixed to mH^2 tan(beta)/(1+tan(beta)^2)
 };
 
 #endif /* GENERALTHDMZ2_H */

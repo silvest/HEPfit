@@ -14,6 +14,7 @@ GeneralTHDMZ2::GeneralTHDMZ2() : GeneralTHDM()
     ModelParamMap.insert(std::make_pair("logtb", std::cref(logtb)));
     ModelParamMap.insert(std::make_pair("bma",   std::cref(bma)));
     ModelParamMap.insert(std::make_pair("m12_2", std::cref(m12_2)));
+    ModelParamMap.insert(std::make_pair("cosbma", std::cref(cosbma)));// just to print this as an observable
 }
 
 GeneralTHDMZ2::~GeneralTHDMZ2()
@@ -52,6 +53,10 @@ bool GeneralTHDMZ2::Update(const std::map<std::string, double>& DPars)
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameter(it->first, it->second);
 
+    // With the flag Decoupling m12_2 is not an input, but the Z2 relations still have to be set
+    // once logtb, bma and the masses have been updated
+    if (flag_decoupling) setParameter("m12_2", 0.);
+
     if (UpdateError) return (false);
 
     if (!PostUpdate()) return (false);
@@ -82,24 +87,31 @@ void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
     }
     else if (name.compare("bma") == 0) {
         bma = value;
+        cosbma = cos(bma);
         cos2bma = cos(2.*bma);
         sin2bma = sin(2.*bma);
         cos2bmbma = cos(2.*(beta-bma));
         sin2bmbma = sin(2.*(beta-bma));
     }
     else if (name.compare("m12_2") == 0) {
-        m12_2 = value;
+        mh_2 = getmH1sq();
+        mH_2 = getmH2sq();
+        mA_2 = getmH3sq();
+        mHp_2 = getmHp2();
+        vev = GeneralTHDM::v();
+
+        // With the flag Decoupling the input value is ignored and m12_2 is fixed such that
+        // M2aux = mH^2, the mass of the heavy CP-even scalar
+        if (flag_decoupling)
+            m12_2 = mH_2*cosb*sinb;
+        else
+            m12_2 = value;
         M2aux = m12_2/cosb/sinb;
 
         // Fix alpha1 in Higgs basis of Z2-symmetric model (cross-checked against 1509.06060)
         GeneralTHDM::setParameter("alpha1", M_PI/2. - bma);
 
         // Fix lambda2 in Higgs basis of Z2-symmetric model
-        mh_2 = getmH1sq();
-        mH_2 = getmH2sq();
-        mA_2 = getmH3sq();
-        mHp_2 = getmHp2();
-        vev = GeneralTHDM::v();
         GeneralTHDM::setParameter("lambda2", (-8.*M2aux + 5.*(mh_2+mH_2) + (-8.*M2aux + 3.*(mh_2+mH_2))*cos4b
         + (mh_2-mH_2)*(3.+5.*cos4b)*cos2bma + 4.*(mh_2-mH_2)*sin4b*sin2bma)/4./vev/vev/sin2b/sin2b);
 
@@ -159,6 +171,12 @@ void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
 bool GeneralTHDMZ2::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for (int i = 0; i < NGeneralTHDMZ2vars; i++) {
+        if (flag_decoupling && GeneralTHDMZ2vars[i] == "m12_2") {
+            if (DPars.find("m12_2") != DPars.end())
+                std::cout << "WARNING: with the flag Decoupling the GeneralTHDMZ2 parameter m12_2"
+                        << " is computed internally, the input value will be ignored" << std::endl;
+            continue;
+        }
         if (DPars.find(GeneralTHDMZ2vars[i]) == DPars.end()) {
             std::cout << "ERROR: missing mandatory GeneralTHDMZ2 parameter " << GeneralTHDMZ2vars[i] << std::endl;
             raiseMissingModelParameterCount();
@@ -212,6 +230,10 @@ bool GeneralTHDMZ2::setFlag(const std::string name, const bool value)
 
     if(name.compare("use_wf_renorm") == 0) {
         flag_wfr = value;
+        res = true;
+    }
+    else if(name.compare("Decoupling") == 0) {
+        flag_decoupling = value;
         res = true;
     }
     else

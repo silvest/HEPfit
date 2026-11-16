@@ -20,6 +20,7 @@
       <itemPath>src/NPSMEFTd6MFP.h</itemPath>
       <itemPath>src/NPSMEFTd6MFV.h</itemPath>
       <itemPath>src/NPSMEFTd6Matching.h</itemPath>
+      <itemPath>src/NPSMEFTd6THDMZ2.h</itemPath>
       <itemPath>src/NPSMEFTd6U2.h</itemPath>
       <itemPath>src/NPSMEFTd6U2qU1le.h</itemPath>
       <itemPath>src/NPSMEFTd6U3.h</itemPath>
@@ -59,6 +60,7 @@
       <itemPath>src/NPSMEFTd6MFP.cpp</itemPath>
       <itemPath>src/NPSMEFTd6MFV.cpp</itemPath>
       <itemPath>src/NPSMEFTd6Matching.cpp</itemPath>
+      <itemPath>src/NPSMEFTd6THDMZ2.cpp</itemPath>
       <itemPath>src/NPSMEFTd6U2.cpp</itemPath>
       <itemPath>src/NPSMEFTd6U2qU1le.cpp</itemPath>
       <itemPath>src/NPSMEFTd6U3.cpp</itemPath>
@@ -209,6 +211,10 @@
       <item path="src/NPSMEFTd6Matching.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6Matching.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6THDMZ2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6THDMZ2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6U2.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -382,6 +388,10 @@
       </item>
       <item path="src/NPSMEFTd6Matching.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPSMEFTd6THDMZ2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6THDMZ2.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPSMEFTd6U2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6U2.h" ex="false" tool="3" flavor2="0">
@@ -542,6 +552,10 @@
       </item>
       <item path="src/NPSMEFTd6Matching.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPSMEFTd6THDMZ2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6THDMZ2.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPSMEFTd6U2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6U2.h" ex="false" tool="3" flavor2="0">
@@ -692,6 +706,10 @@
       <item path="src/NPSMEFTd6Matching.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6Matching.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6THDMZ2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSMEFTd6THDMZ2.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPSMEFTd6U2.cpp" ex="false" tool="1" flavor2="0">
       </item>
