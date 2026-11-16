@@ -39,6 +39,9 @@ public:
      */
     ~Charm_Kpnunu();
 
+    /** @brief recompute the parameter-dependent quantities (m_c, alpha_s, scales) at the current point. */
+    void update();
+
     /**
      * 
      * @param order, QCD perturbation theory order
