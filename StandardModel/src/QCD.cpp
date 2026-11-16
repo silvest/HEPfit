@@ -811,7 +811,7 @@ const double QCD::AlsByOrder(const double mu, const orders order, const bool Nf_
         if ((mu == als_cache[0][i]) && ((double)order == als_cache[1][i]) &&
             (AlsM == als_cache[2][i]) && (MAls == als_cache[3][i]) &&
             (mut == als_cache[4][i]) && (mub == als_cache[5][i]) &&
-            (muc == als_cache[6][i]) && (Nf_thr == (bool)als_cache[7][i]))
+            (muc == als_cache[6][i]) && (100 + (int)Nf_thr == (int)als_cache[7][i])) // disjoint from AlsOLD (-1) and AlsByOrder(mu, Nf, order) (Nf)
             return als_cache[8][i];
 
     switch (order)
@@ -859,7 +859,7 @@ const double QCD::AlsByOrder(const double mu, const orders order, const bool Nf_
         als_cache[4][0] = mut;
         als_cache[5][0] = mub;
         als_cache[6][0] = muc;
-        als_cache[7][0] = (int)Nf_thr;
+        als_cache[7][0] = 100 + (int)Nf_thr; // see the lookup above
         als_cache[8][0] = als;
 
         return als;
