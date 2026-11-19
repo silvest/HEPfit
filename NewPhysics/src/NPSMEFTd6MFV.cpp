@@ -635,7 +635,7 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
 
         // Leptons (flavor diagonal)
         for (int i = 0; i < 3; i++) {
-                double yl = getSMEFTCoeffEW("YeR", i, i);
+                double yl = getRawSMEFTCoeffEW("YeR", i, i);
                 Y.YlL.assign(i, yl);
                 Y.Yl2L.assign(i, yl*yl);
         }
@@ -643,15 +643,15 @@ void NPSMEFTd6MFV::setNPSMEFTd6GeneralParameters() {
         // Quark Sector - Single Yukawa
         for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            Y.YuL.assignre(i, j, getSMEFTCoeffEW("YuR", i, j));
-            Y.YuL.assignim(i, j, getSMEFTCoeffEW("YuI", i, j));
+            Y.YuL.assignre(i, j, getRawSMEFTCoeffEW("YuR", i, j));
+            Y.YuL.assignim(i, j, getRawSMEFTCoeffEW("YuI", i, j));
         }
         }
 
         for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            Y.YdL.assignre(i, j, getSMEFTCoeffEW("YdR", i, j));
-            Y.YdL.assignim(i, j, getSMEFTCoeffEW("YdI", i, j));
+            Y.YdL.assignre(i, j, getRawSMEFTCoeffEW("YdR", i, j));
+            Y.YdL.assignim(i, j, getRawSMEFTCoeffEW("YdI", i, j));
         }
         }
 

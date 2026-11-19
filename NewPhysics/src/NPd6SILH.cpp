@@ -209,10 +209,10 @@ bool NPd6SILH::setFlag(const std::string name, const bool value) {
 void NPd6SILH::setNPSMEFTd6GeneralParameters()
 {    
     // SM parameters at the UV scale
-    g1UV = getSMEFTCoeffEW("g1");
-    g2UV = getSMEFTCoeffEW("g2");
-    g3UV = getSMEFTCoeffEW("g3");
-    lambdaHUV = getSMEFTCoeffEW("lambda");
+    g1UV = getRawSMEFTCoeffEW("g1");
+    g2UV = getRawSMEFTCoeffEW("g2");
+    g3UV = getRawSMEFTCoeffEW("g3");
+    lambdaHUV = getRawSMEFTCoeffEW("lambda");
 
     g1UV2 = g1UV * g1UV;
     g2UV2 = g2UV * g2UV;
@@ -220,12 +220,12 @@ void NPd6SILH::setNPSMEFTd6GeneralParameters()
 
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            YuUV.assignre(i, j, getSMEFTCoeffEW("YuR", i, j) );
-            YuUV.assignim(i, j, getSMEFTCoeffEW("YuI", i, j) );
-            YdUV.assignre(i, j, getSMEFTCoeffEW("YdR", i, j) );
-            YdUV.assignim(i, j, getSMEFTCoeffEW("YdI", i, j) );
-            YeUV.assignre(i, j, getSMEFTCoeffEW("YeR", i, j) );
-            YeUV.assignim(i, j, getSMEFTCoeffEW("YeI", i, j) );
+            YuUV.assignre(i, j, getRawSMEFTCoeffEW("YuR", i, j) );
+            YuUV.assignim(i, j, getRawSMEFTCoeffEW("YuI", i, j) );
+            YdUV.assignre(i, j, getRawSMEFTCoeffEW("YdR", i, j) );
+            YdUV.assignim(i, j, getRawSMEFTCoeffEW("YdI", i, j) );
+            YeUV.assignre(i, j, getRawSMEFTCoeffEW("YeR", i, j) );
+            YeUV.assignim(i, j, getRawSMEFTCoeffEW("YeI", i, j) );
         }
     }
 
