@@ -41,6 +41,7 @@ std::string NPSMEFTd6MFV::NPSMEFTd6MFVVars[NNPSMEFTd6MFVVars] = {
 
 NPSMEFTd6MFV::NPSMEFTd6MFV(): NPSMEFTd6General() {
     setModelName("NPSMEFTd6MFV");
+    restrictWilsonCoefficientInputs(NPSMEFTd6MFVVars);
 	ModelParamMap.insert(std::make_pair("CG_LNP",std::cref(CG_LNP)));
 	ModelParamMap.insert(std::make_pair("CW_LNP",std::cref(CW_LNP)));
 	ModelParamMap.insert(std::make_pair("CHG_LNP",std::cref(CHG_LNP)));

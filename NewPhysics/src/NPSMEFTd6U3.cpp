@@ -20,6 +20,7 @@ NPSMEFTd6U3::NPSMEFTd6U3()
 : NPSMEFTd6General()
 {
     setModelName("NPSMEFTd6U3");
+    restrictWilsonCoefficientInputs(NPSMEFTd6U3Vars);
    
     ModelParamMap.insert(std::make_pair("CG_LNP", std::cref(CG_LNP)));
     ModelParamMap.insert(std::make_pair("CW_LNP", std::cref(CW_LNP)));

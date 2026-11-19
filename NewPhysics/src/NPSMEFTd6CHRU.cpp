@@ -55,6 +55,7 @@ std::string NPSMEFTd6CHRU::NPSMEFTd6CHRUVars[NNPSMEFTd6CHRUVars] = {
 
 NPSMEFTd6CHRU::NPSMEFTd6CHRU(): NPSMEFTd6MFV() {
     setModelName("NPSMEFTd6CHRU");
+    restrictWilsonCoefficientInputs(NPSMEFTd6CHRUVars);
 
     ModelParamMap.insert(std::make_pair("mstar",std::cref(mstar)));
     ModelParamMap.insert(std::make_pair("gstar",std::cref(gstar)));

@@ -54,6 +54,7 @@ std::string NPSMEFTd6MFP::NPSMEFTd6MFPVars[NNPSMEFTd6MFPVars] = {
 NPSMEFTd6MFP::NPSMEFTd6MFP()
 : NPSMEFTd6General() {
     setModelName("NPSMEFTd6MFP");
+    restrictWilsonCoefficientInputs(NPSMEFTd6MFPVars);
     SMEFTBasisFlag = "MFP";
     ModelParamMap.insert(std::make_pair("CG_LNP", std::cref(CG_LNP)));
     ModelParamMap.insert(std::make_pair("CW_LNP", std::cref(CW_LNP)));

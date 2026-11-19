@@ -18,6 +18,7 @@ NPSMEFTd6ATHDM::NPSMEFTd6ATHDM()
 {
     
     setModelName("NPSMEFTd6ATHDM");
+    restrictWilsonCoefficientInputs(NPSMEFTd6ATHDMVars);
     
    
     ModelParamMap.insert(std::make_pair("sqY2", std::cref(sqY2)));
