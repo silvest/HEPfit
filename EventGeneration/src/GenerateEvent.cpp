@@ -472,6 +472,8 @@ void GenerateEvent::generateRandomEvent(int iterationNo) {
     }
 
     setDParsFromParameters(vec, DPars);
+    if (!Mod->Update(DPars))
+        throw std::runtime_error("GenerateEvent: Model update failed for event " + std::to_string(iterationNo) + ".");
     for (std::vector<ModelParameter>::const_iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++) {
         if (it->IsCorrelated()) {
             for (unsigned int i = 0; i < CGP.size(); i++) {
@@ -495,7 +497,6 @@ void GenerateEvent::generateRandomEvent(int iterationNo) {
             positionID++;
         }
     }
-    Mod->Update(DPars);
 }
 
 void GenerateEvent::setDParsFromParameters(const std::vector<double>& parameters, std::map<std::string, double>& DPars_i) {

@@ -12,17 +12,16 @@
 double LEP2sigmaHadron::computeThValue()
 { 
     double sigmaH = SM.LEP2sigmaHadron(s);
+    if (SM.LEP2UsesExactInclusiveCrossSections())
+        sigmaH *= SM.GeVminus2_to_nb * 1000.0;
     
     // Intrinsic SM theory uncertainty
     double SM_intr_err = SM.getOptionalParameter("errSMint_xseejjLEP2");
     
     #ifdef LEP2TEST
-    sigmaH = myTEST.sigmaHadronTEST(sqrt_s)/SM.GeVminus2_to_nb/1000.0;
+    sigmaH = myTEST.sigmaHadronTEST(sqrt_s);
     #endif
     
-//    return ( sigmaH*SM.GeVminus2_to_nb*1000.0 );
-    
-    //  Approximate formulae returns result in pb    
     return ( sigmaH * ( 1.0 + SM_intr_err ) );
 }
         

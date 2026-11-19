@@ -12,17 +12,16 @@
 double LEP2sigmaTau::computeThValue() 
 { 
     double sigma_tau = SM.LEP2sigmaTau(s);
+    if (SM.LEP2UsesExactInclusiveCrossSections())
+        sigma_tau *= SM.GeVminus2_to_nb * 1000.0;
     
     // Intrinsic SM theory uncertainty
     double SM_intr_err = SM.getOptionalParameter("errSMint_xseellLEP2");
     
     #ifdef LEP2TEST
-    sigma_tau = myTEST.sigmaTauTEST(sqrt_s)/SM.GeVminus2_to_nb/1000.0;
+    sigma_tau = myTEST.sigmaTauTEST(sqrt_s);
     #endif 
     
-//    return ( sigma_tau*SM.GeVminus2_to_nb*1000.0 );
-    
-    //  Approximate formulae returns result in pb
     return ( sigma_tau * ( 1.0 + SM_intr_err ) );
 }
         
@@ -68,4 +67,3 @@ double eeffRtau::computeThValue()
     
     return ( R_tau * ( 1.0 + SM_intr_err ) );
 }
-     

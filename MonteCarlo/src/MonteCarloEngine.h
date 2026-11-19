@@ -100,6 +100,14 @@ public:
      * @param[in] Mod_i the pointer to the model defined in SomeModel.conf
      */
     void Initialize(StandardModel* Mod_i);
+
+#ifdef _MPI
+    /** @brief Size of one MPI reply containing observables and their requested weights. */
+    int getObservableBufferSize() const;
+
+    /** @brief Fills one MPI reply using the model state for the supplied chain parameters. */
+    void fillObservableBuffer(const std::vector<double>& parameters, double* buffer);
+#endif
     
     /**
      * @brief Creation of the histogram maps for Observables, Observable2D and Correlated Gaussian Observable.
@@ -680,6 +688,8 @@ private:
      * @return a string containing the formatted number
      */
     std::string goodFormat(double value, double rms, int rmsPrecision = 2);
+
+    bool collectObservableWeight(const Observable& observable) const;
 
     const std::vector<ModelParameter>& ModPars; ///< A vector of model parameters.
     const std::vector<CorrelatedGaussianParameters>& CGP; ///< A vector of correlated Gaussian parameters.

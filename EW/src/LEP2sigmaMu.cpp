@@ -11,16 +11,16 @@
 double LEP2sigmaMu::computeThValue() 
 { 
     double sigma_mu = SM.LEP2sigmaMu(s);
+    if (SM.LEP2UsesExactInclusiveCrossSections())
+        sigma_mu *= SM.GeVminus2_to_nb * 1000.0;
     
     // Intrinsic SM theory uncertainty
     double SM_intr_err = SM.getOptionalParameter("errSMint_xseellLEP2");
     
     #ifdef LEP2TEST
-    sigma_mu = myTEST.sigmaMuTEST(sqrt_s)/SM.GeVminus2_to_nb/1000.0;
+    sigma_mu = myTEST.sigmaMuTEST(sqrt_s);
     #endif 
         
-//    return ( sigma_mu*SM.GeVminus2_to_nb*1000.0 );
-    //  Approximate formulae returns result in pb
     return ( sigma_mu * ( 1.0 + SM_intr_err ) );
 }
 
@@ -66,4 +66,3 @@ double eeffRmuon::computeThValue()
     
     return ( R_muon * ( 1.0 + SM_intr_err ) );
 }
-     

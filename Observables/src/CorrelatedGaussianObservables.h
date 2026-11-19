@@ -67,9 +67,12 @@ public:
     virtual double computeWeight();
 
     /**
-     * @brief A method to compute the full weight and the weights associated with the observable when one observable is left out of the set.
+     * @brief Returns the full log weight followed by its difference from each leave-one-out log weight.
      */
     std::vector<double> computeLeaveOneOutWeights();
+
+    /** @brief Computes the same weights from predictions supplied in observable order. */
+    std::vector<double> computeLeaveOneOutWeights(const std::vector<double>& predictions) const;
 
     /**
      * @brief A method to add observables to the list of correlated Gaussian observables.

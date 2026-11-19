@@ -7,9 +7,8 @@
 
 #include "THDM.h"
 #include "THDMcache.h"
-#include <algorithm>
 
-std::string THDM::THDMvars[NTHDMvars] = {"logtb","bma",/*"mHh1","mA1","mHp1",*/"mHh2","mA2","mHp2","m12_2",
+std::string THDM::THDMvars[NTHDMvars] = {"logtb","bma","mHh2","mA2","mHp2","m12_2",
                                                "BDtaunu_SM","BDtaunu_A","BDtaunu_B","BDstartaunu_SM","BDstartaunu_A","BDstartaunu_B",
                                                "bsgamma_theoryerror","Q_THDM","Rpeps","NLOuniscale"};
 
@@ -86,7 +85,9 @@ bool THDM::PostUpdate()
 {
     if(!StandardModel::PostUpdate()) return (false);
 
-    mHl2=myTHDMcache->updateCache();
+    const double higgsMass = getMHl();
+    mHl2 = higgsMass * higgsMass;
+    myTHDMcache->updateCache();
 
     return (true);
 }
@@ -183,11 +184,13 @@ void THDM::setParameter(const std::string name, const double& value){
 }
 
 bool THDM::CheckParameters(const std::map<std::string, double>& DPars) {
-    for (int i = 0; i < NTHDMvars; i++) {
-        if (DPars.find(THDMvars[i]) == DPars.end()) {
-            std::cout << "ERROR: missing mandatory THDM parameter " << THDMvars[i] << std::endl;
+    for (std::string parameter : THDMvars) {
+        if (!flag_use_sq_masses && (parameter == "mHh2" || parameter == "mA2" || parameter == "mHp2"))
+            parameter.back() = '1';
+        if (DPars.find(parameter) == DPars.end()) {
+            std::cout << "ERROR: missing mandatory THDM parameter " << parameter << std::endl;
             raiseMissingModelParameterCount();
-            addMissingModelParameter(THDMvars[i]);
+            addMissingModelParameter(parameter);
         }
     }
     return(StandardModel::CheckParameters(DPars));
@@ -238,15 +241,6 @@ bool THDM::setFlag(const std::string name, const bool value)
     if(name.compare("use_sq_masses") == 0) {
         flag_use_sq_masses = value;
         res = true;
-        if (!flag_use_sq_masses) {
-            THDMvars[std::distance(THDMvars,std::find(THDMvars,THDMvars+NTHDMvars,"mHh2"))] = "mHh1";
-            THDMvars[std::distance(THDMvars,std::find(THDMvars,THDMvars+NTHDMvars,"mA2"))] = "mA1";
-            THDMvars[std::distance(THDMvars,std::find(THDMvars,THDMvars+NTHDMvars,"mHp2"))] = "mHp1";
-            
-            ModelParamMap.insert(std::make_pair("mHh1", std::cref(mHh1)));
-            ModelParamMap.insert(std::make_pair("mA1", std::cref(mA1)));
-            ModelParamMap.insert(std::make_pair("mHp1", std::cref(mHp1)));
-        }
     }
     else if(name.compare("wavefunctionrenormalization") == 0) {
         flag_wfr = value;

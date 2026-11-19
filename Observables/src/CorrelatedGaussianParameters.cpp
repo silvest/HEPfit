@@ -30,8 +30,8 @@ CorrelatedGaussianParameters::CorrelatedGaussianParameters(const CorrelatedGauss
  {
     Pars = orig.Pars;
     name = orig.name;
-    v = new gslpp::matrix<double>(*orig.v);
-    e = new gslpp::vector<double>(*orig.e);
+    v = orig.v ? new gslpp::matrix<double>(*orig.v) : nullptr;
+    e = orig.e ? new gslpp::vector<double>(*orig.e) : nullptr;
     DiagPars = orig.DiagPars;
     IsEOF = orig.IsEOF;
 }
@@ -117,6 +117,7 @@ std::vector<double> CorrelatedGaussianParameters::getOrigParsValue(const std::ve
         out << DiagPars_i.size();
         throw std::runtime_error("CorrelatedGaussianParameters::getOrigParsValue(DiagPars_i): DiagPars_i.size() = " + out.str() + " does not match the size of DiagPars");
     }
+    if (DiagPars_i.empty()) return {};
     gslpp::vector<double> pars_in(DiagPars_i.size(), 0.);
 
     int ind = 0;
@@ -229,7 +230,11 @@ int CorrelatedGaussianParameters::ParseCGP(std::vector<ModelParameter>& ModPars,
         }
     } else {
         if (rank == 0) std::cout << "\nWARNING: Correlated Gaussian Parameters " << name.c_str() << " defined with less than two correlated parameters. The set is being marked as normal Parameters." << std::endl;
-        if (getPars().size() == 1) ModPars.push_back(ModelParameter(getPar(0)));
+        if (getPars().size() == 1) {
+            ModelParameter parameter = getPar(0);
+            parameter.setCgp_name("");
+            ModPars.push_back(parameter);
+        }
         for (int i = 0; i < size; i++) {
             IsEOF = getline(ifile, line).eof();
             lineNo++;

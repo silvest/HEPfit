@@ -320,10 +320,17 @@ if(BAT_INSTALL)
 	  message(STATUS "Found ${BAT_FILENAME} in the current directory")
 	endif()
 	set(BAT_SHA256 620e8069d85f18f8504137823621cbb578fa5b159e3074f0f2379ac295dd1482)
+	if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.24")
+	  # BAT ships generated Autotools files whose timestamps must stay ordered.
+	  set(BAT_EXTRACT_TIMESTAMP DOWNLOAD_EXTRACT_TIMESTAMP TRUE)
+	endif()
 	configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Packaging/etc/BAT_make_wrapper.sh.in"
 	               "${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh" @ONLY)
-	# The make command to the top-level make will be inherited to the BAT make. 
-	set(BAT_MAKE $(MAKE))
+	if(CMAKE_GENERATOR MATCHES "Makefiles")
+	  set(BAT_MAKE $(MAKE))
+	else()
+	  set(BAT_MAKE make)
+	endif()
 	set(BAT_CONFIGURE "./configure")
 	if(BAT_INSTALL_DIR)
 	  set(BAT_CONFIGURE "${BAT_CONFIGURE} --prefix=${BAT_INSTALL_DIR}")
@@ -345,6 +352,7 @@ if(BAT_INSTALL)
 	    DOWNLOAD_DIR ${CMAKE_CURRENT_BINARY_DIR}
 	    URL ${BAT_URL}
 	    URL_HASH SHA256=${BAT_SHA256}
+	    ${BAT_EXTRACT_TIMESTAMP}
 	    PATCH_COMMAND ${PATCH}
 	    CONFIGURE_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_CONFIGURE} ${MPI_CXX_COMPILER}
 	    BUILD_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_MAKE}
@@ -363,6 +371,7 @@ if(BAT_INSTALL)
 	    DOWNLOAD_DIR ${CMAKE_CURRENT_BINARY_DIR}
 	    URL ${BAT_URL}
 	    URL_HASH SHA256=${BAT_SHA256}
+	    ${BAT_EXTRACT_TIMESTAMP}
 	    PATCH_COMMAND ${PATCH}
 	    CONFIGURE_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_CONFIGURE}
 	    BUILD_COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/BAT_make_wrapper.sh ${BAT_MAKE}
@@ -657,9 +666,10 @@ add_subdirectory(Analysis)
 # endforeach(_project)
 # add_library(HEPfit STATIC ${OBJECTLIST})
 
-if(BAT_INSTALL AND NOT NOMCMC)
-add_dependencies(HEPfit BATBUILD)
-endif(BAT_INSTALL AND NOT NOMCMC)
+if(TARGET BATBUILD)
+  add_dependencies(MonteCarlo BATBUILD)
+  add_dependencies(analysis BATBUILD)
+endif()
 # INSTALL(TARGETS HEPfit DESTINATION lib COMPONENT library)
 
 # HEPfit header file HEPfit.h 

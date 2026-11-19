@@ -387,8 +387,8 @@ public:
 
     /**
      * @brief The pre-update method for %QCD
-     * @details This method resets the internal flags #requireYu, #requireYd,
-     * #computeBd, #computeFBd and #computemt before updating the model parameters with the method Update().
+     * @details This method resets #QCDsuccess and #computemt before updating
+     * the model parameters with the method Update().
      * @return a boolean that is true if the execution is successful
      */
     virtual bool PreUpdate();
@@ -1037,7 +1037,9 @@ private:
     mutable bool computeBd; ///< Switch for computing \f$B_{B_d}\f$ from \f$B_{B_s}\f$.
     mutable bool computeBs; ///< Switch for computing \f$B_{B_s}\f$ from \f$F_{B_s}\sqrt{B_{B_s}}\f$.
     static const int CacheSize = 5; ///< Defines the depth of the cache.
-    mutable double als_cache[9][CacheSize]; ///< Cache for \f$\alpha_s\f$.
+    static const int AlsThresholdOrderIndex = 9;
+    static const int AlsCacheRows = AlsThresholdOrderIndex + 1;
+    mutable double als_cache[AlsCacheRows][CacheSize]; ///< Cache for \f$\alpha_s\f$.
     mutable double logLambda5_cache[4][CacheSize];
     mutable double logLambdaNLO_cache[9][CacheSize];
     mutable double mrun_cache[11][CacheSize]; ///< Cache for running quark mass.

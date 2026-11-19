@@ -163,6 +163,7 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMbsg()
             mcbsg.setCoeff(6, 0., NLO);
         case LO:
             mcbsg.setCoeff(6, C7NP, LO);
+            mcbsg.setCoeff(7, C8NP, LO);
             break;
         default:
             std::stringstream out;
@@ -198,6 +199,7 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMprimebsg()
             mcprimebsg.setCoeff(6, 0., NLO);
         case LO:
             mcprimebsg.setCoeff(6, C7pNP, LO);
+            mcprimebsg.setCoeff(7, C8pNP, LO);
             break;
         default:
             std::stringstream out;
@@ -236,6 +238,7 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMBMll(QCD::lepton lepto
                 mcBMll.setCoeff(11, 0., NLO);
         case LO:
             mcBMll.setCoeff(6, C7NP, LO);
+            mcBMll.setCoeff(7, C8NP, LO);
             if(lepton == RealWeakEFTLFV::ELECTRON){
                 mcBMll.setCoeff(8, C9NPe, LO);
                 mcBMll.setCoeff(9, C10NPe, LO);
@@ -286,6 +289,7 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMprimeBMll(QCD::lepton 
                 mcprimeBMll.setCoeff(11, 0., NLO);
         case LO:
             mcprimeBMll.setCoeff(6, C7pNP, LO);
+            mcprimeBMll.setCoeff(7, C8pNP, LO);
             if(lepton == RealWeakEFTLFV::ELECTRON){
                 mcprimeBMll.setCoeff(8, C9pNPe, LO);
                 mcprimeBMll.setCoeff(9, C10pNPe, LO);

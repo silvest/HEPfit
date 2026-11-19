@@ -9,6 +9,8 @@
 #define MLL_H
 
 class StandardModel;
+class Bdmumu;
+#include <memory>
 #include "ThObservable.h"
 #include "QCD.h"
 #include "OrderScheme.h"
@@ -72,7 +74,8 @@ private:
     gslpp::complex C_Sp;
     gslpp::complex C_P;
     gslpp::complex C_Pp;
-    bool FixedWCbtos;
+    bool FixedWCbtos = false;
+    std::shared_ptr<Bdmumu> bdmumu;
     
     gslpp::vector<gslpp::complex> ** allcoeff;
     gslpp::vector<gslpp::complex> ** allcoeffprime;

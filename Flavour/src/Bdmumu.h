@@ -9,8 +9,6 @@
 #define	BDMUMU_H
 
 class StandardModel;
-class EvolBsmm;
-#include <memory>
 #include "ThObservable.h"
 #include "QCD.h"
 #include "OrderScheme.h"
@@ -76,7 +74,6 @@ private:
     gslpp::complex C_P;
     gslpp::complex C_Pp;
 
-    std::unique_ptr<EvolBsmm> evolbdmm;
     gslpp::vector<gslpp::complex>** allcoeff;
 };
 

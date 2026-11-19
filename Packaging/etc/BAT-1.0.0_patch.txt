@@ -116,3 +116,12 @@ diff -Naur BAT-1.0.0/src/BCLog.cxx BAT-1.0.0_DBG/src/BCLog.cxx
  }
  
  // ---------------------------------------------------------
+diff --git a/src/BCIntegrate.cxx b/src/BCIntegrate.cxx
+--- a/src/BCIntegrate.cxx
++++ b/src/BCIntegrate.cxx
+@@ -23,4 +23,5 @@
+ #include <TFile.h>
+ #include <TRandom3.h>
++#include <Math/Util.h>
+ #include <TString.h>
+ #include <TTree.h>

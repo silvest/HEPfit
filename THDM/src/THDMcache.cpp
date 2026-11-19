@@ -2129,7 +2129,7 @@ void THDMcache::read(){
     CMS13_pp_H_ZZ_llqq_e = readTable(ex97e.str(),151,2);
     ex98 << tablepath << "14078150.dat";
     ATLAS8_pp_phi_Zga_llga = readTable(ex98.str(),141,2);
-    ex98e << tablepath << "14078150.dat";
+    ex98e << tablepath << "14078150_e.dat";
     ATLAS8_pp_phi_Zga_llga_e = readTable(ex98e.str(),141,2);
 
     ex99 << tablepath << "14126663.dat";
@@ -6889,65 +6889,80 @@ gslpp::matrix<double> THDMcache::readTable(std::string filename, int rowN, int c
     return arrayTab;
 }
 
-//1D interpolation
+namespace {
 
-double THDMcache::interpolate(gslpp::matrix<double> arrayTab, double x){
-
-    int rowN=arrayTab.size_i();
-    
-    double xmin = arrayTab(0,0);
-    double xmax = arrayTab(rowN-1,0);
-    double interval = arrayTab(1,0)-arrayTab(0,0);
-    int Nintervals = (x-xmin)/interval;
-    double y = 0.0;
-       
-    if(x<xmin){
-//        std::cout<<"warning: your table parameter value is smaller than the minimum allowed value"<<std::endl;
-        return 0.;
+// Find the lower index of a bracketing pair on a sorted, in-range axis.
+size_t interpolationBin(const gslpp::matrix<double>& table, double value,
+                        size_t axisSize, size_t rowStride, size_t column)
+{
+    size_t lower = 0;
+    size_t upper = axisSize - 1;
+    while (upper - lower > 1) {
+        const size_t middle = lower + (upper - lower) / 2;
+        if (value < table(middle * rowStride, column))
+            upper = middle;
+        else
+            lower = middle;
     }
-    else if(x>xmax){
-//        std::cout<<"warning: your table parameter value is greater than the maximum allowed value"<<std::endl;
-        return 0.;
-    }
-    else{
-        y =(arrayTab(Nintervals+1,1)-arrayTab(Nintervals,1))/(arrayTab(Nintervals+1,0)
-                   -arrayTab(Nintervals,0))*(x-arrayTab(Nintervals,0))+arrayTab(Nintervals,1);
-        return y;
-    }
+    return lower;
 }
 
-//2D interpolation
+}
 
-double THDMcache::interpolate2D(gslpp::matrix<double> arrayTab, double x, double y){
+double THDMcache::interpolate(gslpp::matrix<double> arrayTab, double x)
+{
+    const size_t rowCount = arrayTab.size_i();
+    if (rowCount == 0)
+        return 0.0;
 
-    int rowN=arrayTab.size_i();
+    const double xmin = arrayTab(0, 0);
+    const double xmax = arrayTab(rowCount - 1, 0);
+    if (!(xmin <= x && x <= xmax))
+        return 0.0;
+    if (xmin == xmax)
+        return arrayTab(0, 1);
 
-    double xmin = arrayTab(0,0);
-    double xmax = arrayTab(rowN-1,0);
-    double ymin = arrayTab(0,1);
-    double ymax = arrayTab(rowN-1,1);
-    double intervalx = arrayTab(1,0)-arrayTab(0,0);
-    int i=1;
-    do i++;
-    while(arrayTab(i,1)-arrayTab(i-1,1)==0&&i<30000);
-    double intervaly = arrayTab(i,1)-arrayTab(i-1,1);
-    int Nintervalsx = (x-xmin)/intervalx;
-    int Nintervalsy = (y-ymin)/intervaly;
-    if(x<xmin||x>xmax||y<ymin||y>ymax){
-//        std::cout<<"warning: the parameter point lies outside the table"<<std::endl;
-        return 0.;
-    }
-    else{
-    double x1=arrayTab(i*Nintervalsy+Nintervalsx,0);
-    double x2=arrayTab(i*Nintervalsy+Nintervalsx+1,0);
-    double y1=arrayTab(i*Nintervalsy+Nintervalsx,1);
-    double y2=arrayTab(i*(Nintervalsy+1)+Nintervalsx,1);
-    return (arrayTab(i*Nintervalsy+Nintervalsx,2) * (x2-x) * (y2-y)
-            +arrayTab(i*Nintervalsy+Nintervalsx+1,2) * (x-x1) * (y2-y)
-            +arrayTab(i*(Nintervalsy+1)+Nintervalsx,2) * (x2-x) * (y-y1)
-            +arrayTab(i*(Nintervalsy+1)+Nintervalsx+1,2) * (x-x1) * (y-y1))
-           /((x2-x1)*(y2-y1));
-    }
+    const size_t lower = interpolationBin(arrayTab, x, rowCount, 1, 0);
+    const double x1 = arrayTab(lower, 0);
+    const double x2 = arrayTab(lower + 1, 0);
+    const double weight = (x - x1) / (x2 - x1);
+    return (1.0 - weight) * arrayTab(lower, 1) + weight * arrayTab(lower + 1, 1);
+}
+
+double THDMcache::interpolate2D(gslpp::matrix<double> arrayTab, double x, double y)
+{
+    const size_t rowCount = arrayTab.size_i();
+    if (rowCount < 4)
+        return 0.0;
+
+    const double xmin = arrayTab(0, 0);
+    const double xmax = arrayTab(rowCount - 1, 0);
+    const double ymin = arrayTab(0, 1);
+    const double ymax = arrayTab(rowCount - 1, 1);
+    if (!(xmin <= x && x <= xmax && ymin <= y && y <= ymax))
+        return 0.0;
+
+    // The table stores all x coordinates at each successive y coordinate.
+    size_t xCount = 1;
+    while (xCount < rowCount && arrayTab(xCount, 1) == ymin)
+        ++xCount;
+    const size_t yCount = rowCount / xCount;
+    if (xCount < 2 || yCount < 2 || rowCount % xCount != 0)
+        return 0.0;
+
+    const size_t xBin = interpolationBin(arrayTab, x, xCount, 1, 0);
+    const size_t yBin = interpolationBin(arrayTab, y, yCount, xCount, 1);
+    const size_t lower = yBin * xCount + xBin;
+    const size_t upper = lower + xCount;
+    const double x1 = arrayTab(lower, 0);
+    const double x2 = arrayTab(lower + 1, 0);
+    const double y1 = arrayTab(lower, 1);
+    const double y2 = arrayTab(upper, 1);
+    const double wx = (x - x1) / (x2 - x1);
+    const double wy = (y - y1) / (y2 - y1);
+    const double atY1 = (1.0 - wx) * arrayTab(lower, 2) + wx * arrayTab(lower + 1, 2);
+    const double atY2 = (1.0 - wx) * arrayTab(upper, 2) + wx * arrayTab(upper + 1, 2);
+    return (1.0 - wy) * atY1 + wy * atY2;
 }
 
 double THDMcache::ghHpHm(const double mHp2, const double tanb, const double m12_2, const double bma, const double mHl2, const double vev) const {
@@ -12111,15 +12126,19 @@ void THDMcache::computeHpquantities()
     }
 
     double GammaHptaunu=HSTheta(mHp-Mtau)*(Mtau2*(mHp2-Mtau2)*(mHp2-Mtau2)*gHptau*gHptau)/(8.0*mHp*mHp2*M_PI*vev2);
-    double GammaHptb=HSTheta(mHp-Mt-Mb)*(Vtb*Vtb/(8.0*mHp*M_PI*vev2))*3.0*(-4.0*gHpb*gHpt*Mb2*Mt2
-                        -gHpb*gHpb*Mb2*(Mb2-mHp2+Mt2)-gHpt*gHpt*Mt2*(Mb2-mHp2+Mt2))
-                      *sqrt((Mb2*Mb2+(mHp2-Mt2)*(mHp2-Mt2)-2.0*Mb2*(mHp2+Mt2))/(mHp2*mHp2));
-    double GammaHpHlW=KaellenFunction(1.0,mHl/mHp,MW/mHp)*KaellenFunction(1.0,mHp/MW,mHl/MW)*KaellenFunction(1.0,mHp/MW,mHl/MW)
-                      *MW2*MW2/mHp*cos(bma)*cos(bma)/(2.0*M_PI*vev2);
-    double GammaHpHhW=KaellenFunction(1.0,mHh/mHp,MW/mHp)*KaellenFunction(1.0,mHp/MW,mHh/MW)*KaellenFunction(1.0,mHp/MW,mHh/MW)
-                      *MW2*MW2/mHp*sin(bma)*sin(bma)/(2.0*M_PI*vev2);
-    double GammaHpAW=KaellenFunction(1.0,mA/mHp,MW/mHp)*KaellenFunction(1.0,mHp/MW,mA/MW)*KaellenFunction(1.0,mHp/MW,mA/MW)
-                      *MW2*MW2/mHp/(2.0*M_PI*vev2);
+    double GammaHptb = 0.0;
+    if (mHp > Mt + Mb) {
+        const double phaseSpace = 2.0 * KaellenFunction(mHp2, Mt2, Mb2) / mHp;
+        GammaHptb = (Vtb*Vtb/(8.0*mHp*M_PI*vev2))*3.0*(-4.0*gHpb*gHpt*Mb2*Mt2
+                     -gHpb*gHpb*Mb2*(Mb2-mHp2+Mt2)-gHpt*gHpt*Mt2*(Mb2-mHp2+Mt2))*phaseSpace;
+    }
+    const double bosonicWidthFactor = 1.0 / (2.0 * M_PI * vev2);
+    const double GammaHpHlW = mHp > mHl + MW
+            ? pow(KaellenFunction(mHp2, mHl2, MW2), 3) * cos(bma)*cos(bma) * bosonicWidthFactor : 0.0;
+    const double GammaHpHhW = mHp > mHh + MW
+            ? pow(KaellenFunction(mHp2, mHh2, MW2), 3) * sin(bma)*sin(bma) * bosonicWidthFactor : 0.0;
+    const double GammaHpAW = mHp > mA + MW
+            ? pow(KaellenFunction(mHp2, mA2, MW2), 3) * bosonicWidthFactor : 0.0;
     GammaHptot= GammaHptaunu + GammaHptb + GammaHpHlW + GammaHpHhW + GammaHpAW;
 
     double Br_Hptotaunu=GammaHptaunu/GammaHptot;

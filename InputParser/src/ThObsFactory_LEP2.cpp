@@ -8,6 +8,7 @@
 #include "ThObsFactory.h"
 #include "ThObsFactoryConstants.h"
 #include "EWObservables.h"
+#include "LEP2Energies.h"
 #include "NP_couplings.h"
 #include <boost/lexical_cast.hpp>
 using namespace ThObsConst;
@@ -16,13 +17,13 @@ void ThObsFactory::registerLEP2Observables()
 {
     //-----  LEP-II two-fermion processes  -----
 
-    for (int i = 0; i < 12; i++) {
-        std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_s[i]);
-        obsThFactory["sigmaqLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2sigmaHadron(SM, sqrt_s_LEP2eeff[i]); };
-        obsThFactory["sigmamuLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2sigmaMu(SM, sqrt_s_LEP2eeff[i]); };
-        obsThFactory["sigmatauLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2sigmaTau(SM, sqrt_s_LEP2eeff[i]); };
-        obsThFactory["AFBmuLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2AFBmu(SM, sqrt_s_LEP2eeff[i]); };
-        obsThFactory["AFBtauLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2AFBtau(SM, sqrt_s_LEP2eeff[i]); };
+    for (const auto& energy : LEP2Energies::inclusive) {
+        const auto sqrt_s_str = std::to_string(energy.label);
+        obsThFactory["sigmaqLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2sigmaHadron(SM, energy.sqrtS); };
+        obsThFactory["sigmamuLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2sigmaMu(SM, energy.sqrtS); };
+        obsThFactory["sigmatauLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2sigmaTau(SM, energy.sqrtS); };
+        obsThFactory["AFBmuLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2AFBmu(SM, energy.sqrtS); };
+        obsThFactory["AFBtauLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2AFBtau(SM, energy.sqrtS); };
     }
 
     for (int i = 0; i < 8; i++) {
@@ -569,12 +570,12 @@ void ThObsFactory::registerLEP2Observables()
 
     /* BEGIN: REMOVE FROM THE PACKAGE */
 
-    for (int i = 0; i < 10; i++) {
-        std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_s_HF[i]);
-        obsThFactory["AFBbottomLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2AFBbottom(SM, sqrt_s_LEP2_HF[i]); };
-        obsThFactory["AFBcharmLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2AFBcharm(SM, sqrt_s_LEP2_HF[i]); };
-        obsThFactory["RbottomLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2Rbottom(SM, sqrt_s_LEP2_HF[i]); };
-        obsThFactory["RcharmLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2Rcharm(SM, sqrt_s_LEP2_HF[i]); };
+    for (const auto& energy : LEP2Energies::heavyFlavour) {
+        const auto sqrt_s_str = std::to_string(energy.label);
+        obsThFactory["AFBbottomLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2AFBbottom(SM, energy.sqrtS); };
+        obsThFactory["AFBcharmLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2AFBcharm(SM, energy.sqrtS); };
+        obsThFactory["RbottomLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2Rbottom(SM, energy.sqrtS); };
+        obsThFactory["RcharmLEP2_" + sqrt_s_str] = [=](const StandardModel& SM) { return new LEP2Rcharm(SM, energy.sqrtS); };
     }
     /* END: REMOVE FROM THE PACKAGE */
 

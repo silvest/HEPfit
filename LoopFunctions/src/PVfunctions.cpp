@@ -148,7 +148,7 @@ gslpp::complex PVfunctions::B1(const double mu2, const double p2,
         } else if ( m02zero && !m12zero )
             B1.real() = 1.0/2.0*log(m12/mu2) - 1.0/4.0;
         else if ( !m02zero && m12zero )
-            B1.real() = 1.0/2.0*log(m02/mu2) - 1.0/4.0;
+            B1.real() = 1.0/2.0*log(m02/mu2) - 3.0/4.0;
         else
             B1 = 0.0;
     } else
@@ -191,7 +191,7 @@ gslpp::complex PVfunctions::B11(const double mu2, const double p2,
         } else if ( m02zero && !m12zero )
             B11.real() = - 1.0/3.0*log(m12/mu2) + 1.0/9.0;
         else if ( !m02zero && m12zero )
-            B11.real() = - 1.0/3.0*log(m02/mu2) + 1.0/9.0;
+            B11.real() = - 1.0/3.0*log(m02/mu2) + 11.0/18.0;
         else
             throw std::runtime_error("PVfunctions::B11(): Undefined!");
     } else {
@@ -289,6 +289,20 @@ gslpp::complex PVfunctions::B0p(const double muIR2, const double p2,
     const bool m12zero = (m12 <= maxM2*Tolerance);
     const bool m02_eq_m12 = (fabs(m02 - m12) <= (m02 + m12)*Tolerance);
 
+    const double m0 = sqrt(m02), m1 = sqrt(m12);
+    const double massDifference = m0 - m1;
+    const double pseudothreshold = massDifference * massDifference;
+    if (!m02zero && !m12zero && p2 == pseudothreshold) {
+        // At the pseudothreshold the Feynman-parameter denominator is a perfect square.
+        const double massSum = m0 + m1;
+        const double r = massDifference / massSum;
+        const double r2 = r * r;
+        // Expand atanh(r)/r - 1 to avoid cancellation when the masses are nearly equal.
+        if (r2 < 1.0e-4)
+            return 2.0 / massSum / massSum * (1.0/3.0 + r2 * (1.0/5.0 + r2 * (1.0/7.0 + r2/9.0)));
+        return 2.0 * (atanh(r)/r - 1.0) / pseudothreshold;
+    }
+
     gslpp::complex B0p(0.0, 0.0, false);        
     if ( p2zero ) {
         if ( !m02zero && !m12zero ) {
@@ -307,10 +321,10 @@ gslpp::complex PVfunctions::B0p(const double muIR2, const double p2,
             throw std::runtime_error("PVfunctions::B0p(): Undefined!");
     } else {
         if ( !m02zero && !m12zero ) {
-            double m0 = sqrt(m02), m1 = sqrt(m12);
-            double Lambda = sqrt( fabs((p2-m02-m12)*(p2-m02-m12) - 4.0*m02*m12) );
+            const double threshold = (m0 + m1) * (m0 + m1);
+            double Lambda = sqrt( fabs((p2 - pseudothreshold) * (p2 - threshold)) );
             double Rprime;
-            if ( p2 > (m0-m1)*(m0-m1) && p2 < (m0+m1)*(m0+m1) ) {
+            if ( p2 > pseudothreshold && p2 < threshold ) {
                  if ( p2-m02-m12 > 0.0 ) {
                     if ( p2-m02-m12 > Lambda*Tolerance )
                         Rprime = ((p2 - m02 - m12)/Lambda + Lambda/p2)
@@ -330,7 +344,7 @@ gslpp::complex PVfunctions::B0p(const double muIR2, const double p2,
                 Rprime = ((p2 - m02 - m12)/Lambda - Lambda/p2)
                           *log( fabs((p2-m02-m12+Lambda)/2.0/m0/m1) );
             B0p = - (m02 - m12)/2.0/p2/p2*log(m12/m02) - (Rprime + 1.0)/p2;
-            if ( p2 > (m0+m1)*(m0+m1) )
+            if ( p2 > threshold )
                 B0p += M_PI/p2*((p2 - m02 - m12)/Lambda - Lambda/p2)
                       *gslpp::complex::i();// imaginary part
         } else if ( (m02zero && !m12zero) || (!m02zero && m12zero) ) {

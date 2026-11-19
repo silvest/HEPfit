@@ -3023,13 +3023,33 @@ bool NPSMEFTd6General::validateWilsonCoefficientInputs(const std::map<std::strin
     return valid;
 }
 
+bool NPSMEFTd6General::validateMatchingScaleInput(const std::map<std::string, double>& DPars,
+        bool allowExistingScale) const
+{
+    const char* alias = matchingScaleInputAlias();
+    auto input = alias ? DPars.find(alias) : DPars.end();
+    if (input == DPars.end()) input = DPars.find("Lambda_NP");
+
+    const double scale = input == DPars.end() ? Lambda_NP : input->second;
+    const double scaleSquared = scale * scale;
+    if ((input != DPars.end() || allowExistingScale) && scale > 0.
+            && std::isfinite(scaleSquared) && scaleSquared > 0. && std::isfinite(1. / scaleSquared))
+        return true;
+
+    std::cerr << "ERROR: " << getModelName() << " requires a finite, positive matching scale from ";
+    if (alias) std::cerr << alias << " or ";
+    std::cerr << "Lambda_NP" << std::endl;
+    return false;
+}
+
 bool NPSMEFTd6General::CheckParameters(const std::map<std::string, double>& DPars)
 {
-    return validateWilsonCoefficientInputs(DPars) && NPbase::CheckParameters(DPars);
+    return validateWilsonCoefficientInputs(DPars)
+            && validateMatchingScaleInput(DPars, false) && NPbase::CheckParameters(DPars);
 }
 
 bool NPSMEFTd6General::Update(const std::map<std::string, double>& DPars) {
-    if (!validateWilsonCoefficientInputs(DPars)) {
+    if (!validateWilsonCoefficientInputs(DPars) || !validateMatchingScaleInput(DPars, true)) {
         setUpdateError(true);
         return false;
     }
@@ -8562,8 +8582,12 @@ bool NPSMEFTd6General::diagonalizeQuarks(const RGESolver& solver, double vevSqua
                 return false;
         }
 
-    upMassMatrix.singularvalue(basis.upRight, basis.upLeft, basis.upMasses);
-    downMassMatrix.singularvalue(basis.downRight, basis.downLeft, basis.downMasses);
+    try {
+        upMassMatrix.singularvalue(basis.upRight, basis.upLeft, basis.upMasses);
+        downMassMatrix.singularvalue(basis.downRight, basis.downLeft, basis.downMasses);
+    } catch (const std::runtime_error&) {
+        return false;
+    }
     for (int i = 0; i < 3; ++i)
         if (!std::isfinite(basis.upMasses(i)) || !std::isfinite(basis.downMasses(i)))
             return false;

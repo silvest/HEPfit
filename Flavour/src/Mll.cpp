@@ -6,6 +6,7 @@
  */
 
 #include "Mll.h"
+#include "Bdmumu.h"
 #include "StandardModel.h"
 #include "HeffDB1.h"
 
@@ -16,6 +17,11 @@ Mll::Mll(const StandardModel& SM_i, int obsFlag, QCD::meson meson_i, QCD::lepton
     lep = lep_i;
     if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
     else throw std::runtime_error("obsFlag in Bsmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
+    if (meson == QCD::B_D) {
+        // Use the matched b -> d Hamiltonian with its own normalization and SMEFT corrections.
+        bdmumu = std::make_shared<Bdmumu>(SM, obs, lep);
+        return;
+    }
     SM.initializeMeson(meson);
     FixedWCbtos = SM.getFlavour().getFlagFixedWCbtos();
     if (FixedWCbtos){
@@ -27,6 +33,8 @@ Mll::Mll(const StandardModel& SM_i, int obsFlag, QCD::meson meson_i, QCD::lepton
 
 double Mll::computeThValue()
 {
+    if (bdmumu) return bdmumu->computeThValue();
+
     computeObs(FULLNLO, FULLNLO_QED);
     double FBs = SM.getMesons(meson).getDecayconst();
     
@@ -72,12 +80,16 @@ void Mll::computeObs(orders order, orders_qed order_qed)
 
 double Mll::computeAmumu(orders order)
 {
+    if (bdmumu) return bdmumu->computeAmumu(order);
+
     computeObs(FULLNLO, FULLNLO_QED);
     return(Amumu);
 }
 
 double Mll::computeSmumu(orders order)
 {
+    if (bdmumu) return bdmumu->computeSmumu(order);
+
     computeObs(FULLNLO, FULLNLO_QED);
     return(Smumu);
 }

@@ -11092,8 +11092,8 @@ double opt_obs_ilc_1000_M20_M80::computeThValue()
     b_min = getBinMin();
     b_max = getBinMax();
     
-    double lumi = SM.getOptionalParameter("lumi_ilc_1000_M20_P80");
-    double eff = SM.getOptionalParameter("eff_ilc_1000_M20_P80");
+    double lumi = SM.getOptionalParameter("lumi_ilc_1000_M20_M80");
+    double eff = SM.getOptionalParameter("eff_ilc_1000_M20_M80");
     
     //bool   flag_LHC_WG_Basis=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_LHC_WG_Basis();
     //bool   flag_Quadratic=myNPSMEFT6dtopquark.getNPSMEFT6dtopquark_flag_Quadratic();

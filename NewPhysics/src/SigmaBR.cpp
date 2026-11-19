@@ -53,7 +53,7 @@ SigmaBR::SigmaBR()
     ModelParamMap.insert(std::make_pair("eettH500", std::cref(eettH500)));
     ModelParamMap.insert(std::make_pair("eettH1000", std::cref(eettH1000)));
     ModelParamMap.insert(std::make_pair("eettH1500", std::cref(eettH1500)));
-    ModelParamMap.insert(std::make_pair("eettH3000", std::cref(eeHee3000)));
+    ModelParamMap.insert(std::make_pair("eettH3000", std::cref(eettH3000)));
     ModelParamMap.insert(std::make_pair("BrHggRatio", std::cref(brhggratio)));
     ModelParamMap.insert(std::make_pair("BrHWWRatio", std::cref(brhwwratio)));
     ModelParamMap.insert(std::make_pair("BrHZZRatio", std::cref(brhzzratio)));

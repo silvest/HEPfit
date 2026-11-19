@@ -50,20 +50,16 @@ std::string InputParser::ReadParameters(const std::string filename_i,
     }
 
     if (filename.find("\\/") == std::string::npos) filepath = filename.substr(0, filename.find_last_of("\\/") + 1);
-    IsEOF = false;
-    boost::char_separator<char> * sep = new boost::char_separator<char>(" \t");
-    do {
-        IsEOF = getline(ifile, line).eof();
-	if (IsEOF)
-	  continue;
+    const boost::char_separator<char> sep(" \t");
+    std::string line;
+    while (std::getline(ifile, line)) {
         lineNo++;
 
-        if (!line.empty() && *line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
-        if (line.empty() || line.find_first_not_of(' ') == std::string::npos || line.at(0) == '#')
+        if (!line.empty() && line.back() == '\r') line.pop_back(); // for CR+LF
+        boost::tokenizer<boost::char_separator<char> > tok(line, sep);
+        auto beg = tok.begin();
+        if (beg == tok.end() || beg->front() == '#')
             continue;
-       
-        boost::tokenizer<boost::char_separator<char> > *tok = new boost::tokenizer<boost::char_separator<char> >(line, *sep);
-        boost::tokenizer<boost::char_separator<char> >::iterator beg = tok->begin();
 
         if (modelset == 0) {
             modname = *beg;
@@ -85,7 +81,7 @@ std::string InputParser::ReadParameters(const std::string filename_i,
         ++beg;
         if (type.compare("ModelParameter") == 0) {
             
-            if (std::distance(tok->begin(), tok->end()) < 5) {
+            if (std::distance(tok.begin(), tok.end()) < 5) {
                 if (rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename + ".\n");
                 else sleep(2);
             } else {
@@ -102,7 +98,7 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             if (tmpMP.getname().compare("lambdaNP") == 0 && (tmpMP.geterrf() > 0. || tmpMP.geterrg() > 0.))
                 if(rank == 0) throw std::runtime_error("\nERROR: ModelParameter " + tmpMP.getname() + " cannot float in the MonteCarlo run ");
             
-            if (beg != tok->end())
+            if (beg != tok.end())
                 if (rank == 0) std::cout << "WARNING: unread information in parameter " << tmpMP.getname() << std::endl;
             checkDuplicateParameter[tmpMP.getname()] = boost::make_tuple(true, filename, lineNo);
                
@@ -113,52 +109,49 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             
             CorrelatedGaussianParameters tmpCGP;
             lineNo = tmpCGP.ParseCGP(ModelPars, filename, ifile, beg, lineNo, rank);
-            IsEOF = tmpCGP.isEOF();
-            CGP.push_back(tmpCGP);
+            if (!tmpCGP.getDiagPars().empty()) CGP.push_back(tmpCGP);
 
         } else if (type.compare("Observable") == 0 || type.compare("BinnedObservable") == 0 || type.compare("FunctionObservable") == 0 || type.compare("AsyGausObservable") == 0) {
             
             Observable * tmpObs = new Observable();
-            beg = tmpObs->ParseObservable(type, tok, beg, filepath, filename, rank);
+            beg = tmpObs->ParseObservable(type, &tok, beg, filepath, filename, rank);
             tmpObs->setTho(myObsFactory.CreateThMethod(tmpObs->getThname(), *myModel));
             Observables.push_back(tmpObs);
 
         } else if (type.compare("Observable2D") == 0) {
             
             Observable2D tmpObs2D;
-            lineNo = tmpObs2D.ParseObservable2D(type, tok, beg, filename, ifile, lineNo, rank);
+            lineNo = tmpObs2D.ParseObservable2D(type, &tok, beg, filename, ifile, lineNo, rank);
             tmpObs2D.setTho1Tho2(myObsFactory.CreateThMethod(tmpObs2D.getThname(), *myModel), myObsFactory.CreateThMethod(tmpObs2D.getThname2(), *myModel));
-            if (!IsEOF) IsEOF = tmpObs2D.isEOF();
             Observables2D.push_back(tmpObs2D);
 
         } else if (type.compare("HiggsObservable") == 0) {
             
             Observable * tmphObs = new Observable();
-            beg = tmphObs->ParseObservable(type, tok, beg, filepath, filename, rank);
+            beg = tmphObs->ParseObservable(type, &tok, beg, filepath, filename, rank);
             tmphObs->setTho(myObsFactory.CreateThMethod(tmphObs->getThname(), *myModel));
             HiggsObservable * tmpho = new HiggsObservable(*tmphObs);
             beg = tmpho->ParseHiggsObservable(beg, myObsFactory, myModel, rank);
             Observables.push_back(tmpho);
             ++beg;
-            if (beg != tok->end() && rank == 0) std::cout << "WARNING: unread information in HiggsObservable " << tmpho->getName() << std::endl;
+            if (beg != tok.end() && rank == 0) std::cout << "WARNING: unread information in HiggsObservable " << tmpho->getName() << std::endl;
 
         } else if (type.compare("CorrelatedHiggsObservables") == 0) {
             
             Observable * tmphObs = new Observable();
-            beg = tmphObs->ParseObservable(type, tok, beg, filepath, filename, rank);
+            beg = tmphObs->ParseObservable(type, &tok, beg, filepath, filename, rank);
             tmphObs->setTho(myObsFactory.CreateThMethod(tmphObs->getThname(), *myModel));
             HiggsObservable * tmpho = new HiggsObservable(*tmphObs);
             tmpho->setIsCorrelated(true);
             beg = tmpho->ParseHiggsObservable(beg, myObsFactory, myModel, rank);
             Observables.push_back(tmpho);
             ++beg;
-            if (beg != tok->end() && rank == 0) std::cout << "WARNING: unread information in HiggsObservable " << tmpho->getName() << std::endl;
+            if (beg != tok.end() && rank == 0) std::cout << "WARNING: unread information in HiggsObservable " << tmpho->getName() << std::endl;
 
         } else if (type.compare("CorrelatedGaussianObservables") == 0) {
             
             CorrelatedGaussianObservables tmpCGO;
             lineNo = tmpCGO.ParseCGO(Observables, ifile, beg, filename, myObsFactory, myModel, lineNo, rank);
-            IsEOF = tmpCGO.isEOF();
             if (tmpCGO.getObs().size() > 1) CGO.push_back(tmpCGO);
             
         } else if (type.compare("ObservablesWithCovarianceInverse") == 0) {
@@ -166,7 +159,6 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             CorrelatedGaussianObservables tmpCGO;
             tmpCGO.setCovarianceFromConfig(true);
             lineNo = tmpCGO.ParseCGO(Observables, ifile, beg, filename, myObsFactory, myModel, lineNo, rank);
-            IsEOF = tmpCGO.isEOF();
             if (tmpCGO.getObs().size() > 1) CGO.push_back(tmpCGO);    
 
         } else if (type.compare("CorrelatedObservables") == 0) {
@@ -174,12 +166,11 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             CorrelatedGaussianObservables tmpCO;
             tmpCO.setIsPrediction(true);
             lineNo = tmpCO.ParseCGO(Observables, ifile, beg, filename, myObsFactory, myModel, lineNo, rank);
-            IsEOF = tmpCO.isEOF();
             CGO.push_back(tmpCO);
 
         } else if (type.compare("CustomObservable") == 0) {
             
-            if (std::distance(tok->begin(), tok->end()) < 2) {
+            if (std::distance(tok.begin(), tok.end()) < 2) {
                 if (rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename + ".\n");
             else sleep(2);
             }
@@ -191,12 +182,12 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             }
             Observable * tmpcustomObs = CreateObservableType(customObsName);
             tmpcustomObs->setObsType(customObsName);
-            beg = tmpcustomObs->ParseObservable(type, tok, beg, filepath, filename, rank);
+            beg = tmpcustomObs->ParseObservable(type, &tok, beg, filepath, filename, rank);
             tmpcustomObs->setTho(myObsFactory.CreateThMethod(tmpcustomObs->getThname(), *myModel));
             Observables.push_back(tmpcustomObs);
 
         } else if (type.compare("ModelFlag") == 0) {
-            if (std::distance(tok->begin(), tok->end()) < 3) {
+            if (std::distance(tok.begin(), tok.end()) < 3) {
                 if(rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename);
                 else sleep (2);
             }
@@ -223,7 +214,7 @@ std::string InputParser::ReadParameters(const std::string filename_i,
                 } else if (rank == 0) std::cout << "set flag " << flagname << "=" << value_str << std::endl;
             }
             ++beg;
-            if (beg != tok->end() && rank == 0) std::cout << "WARNING: unread information in Flag " << flagname << std::endl;
+            if (beg != tok.end() && rank == 0) std::cout << "WARNING: unread information in Flag " << flagname << std::endl;
         } else if (type.compare("IncludeFile") == 0) {
             std::string oldfilepath = filepath;
             std::string oldfilename = filename;
@@ -234,22 +225,17 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             filepath = oldfilepath;
             filename = oldfilename;
             lineNo = oldlineNo;
-            IsEOF = false;
             ++beg;
         } else {
             if (rank == 0) throw std::runtime_error("\nERROR: wrong keyword " + type + " in file " + filename + " line no. " + boost::lexical_cast<std::string>(lineNo) + ". Make sure to specify a valid model configuration file.\n");
             else sleep(2);
         }
-        delete tok;
-        tok = NULL;
-    } while (!IsEOF);
+    }
 
     if (modelset == 0 && rank == 0)
         throw std::runtime_error("ERROR: Incorrect or missing model name in the model configuration file.\n");
-    if (!myModel->CheckFlags() && rank == 0)
+    if (rank == 0 && !myModel->CheckFlags())
         throw std::runtime_error("ERROR: incompatible flag(s)\n");
-    delete sep;
-    sep = NULL;
     return (modname);
 }
 
