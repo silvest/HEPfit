@@ -6,7 +6,10 @@
  */
 
 #include "NPSMEFTd6General.h"
+#include <algorithm>
+#include <cmath>
 #include <limits>
+#include <unordered_map>
 #include <gsl/gsl_sf.h>
 #include <boost/bind/bind.hpp>
 #include "gslpp_function_adapter.h"
@@ -16,34 +19,6 @@
 
 
 using namespace boost::placeholders;
-
-namespace {
-// Complex Wilson coefficient C = CR + i CI of an SMEFT operator, cached by flavour indices.
-struct Coeff2 {
-    gslpp::complex v[9];
-    Coeff2(const NPSMEFTd6General &model, const std::string &n)
-    {
-        for (int i = 0; i < 3; i++)
-            for (int j = 0; j < 3; j++)
-                v[3 * i + j] = gslpp::complex(model.getSMEFTCoeffEW(n + "R", i, j), model.getSMEFTCoeffEW(n + "I", i, j));
-    }
-    const gslpp::complex &operator()(int i, int j) const { return v[3 * i + j]; }
-};
-
-struct Coeff4 {
-    gslpp::complex v[81];
-    Coeff4(const NPSMEFTd6General &model, const std::string &n)
-    {
-        for (int i = 0; i < 3; i++)
-            for (int j = 0; j < 3; j++)
-                for (int k = 0; k < 3; k++)
-                    for (int l = 0; l < 3; l++)
-                        v[27 * i + 9 * j + 3 * k + l] = gslpp::complex(model.getSMEFTCoeffEW(n + "R", i, j, k, l), model.getSMEFTCoeffEW(n + "I", i, j, k, l));
-    }
-    const gslpp::complex &operator()(int i, int j, int k, int l) const { return v[27 * i + 9 * j + 3 * k + l]; }
-};
-}
-
 
 const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
         = {
@@ -358,17 +333,12 @@ const std::string NPSMEFTd6General::NPSMEFTd6GeneralVars[NNPSMEFTd6GeneralVars]
 NPSMEFTd6General::NPSMEFTd6General()
 :
 NPbase(), NPSMEFTd6GM(*this),
-        SMEFTEvolEW(), 
-        SMEFTEvolMH(), SMEFTEvol240(), SMEFTEvol365(), SMEFTEvol550(), 
-        SMEFTEvol1000(), SMEFTEvol1500(), SMEFTEvol3000(), SMEFTEvol5000(), 
-        SMEFTEvolUV(),
         VuL(gslpp::matrix<complex>::Id(3)), VuLd(gslpp::matrix<complex>::Id(3)), 
         VuR(gslpp::matrix<complex>::Id(3)), VuRd(gslpp::matrix<complex>::Id(3)), 
         VdL(gslpp::matrix<complex>::Id(3)), VdLd(gslpp::matrix<complex>::Id(3)), 
         VdR(gslpp::matrix<complex>::Id(3)), VdRd(gslpp::matrix<complex>::Id(3)), 
         VeL(gslpp::matrix<complex>::Id(3)), VeLd(gslpp::matrix<complex>::Id(3)), 
-        VeR(gslpp::matrix<complex>::Id(3)), VeRd(gslpp::matrix<complex>::Id(3)), 
-        MUQ(3, 0.), MDQ(3, 0.) {
+        VeR(gslpp::matrix<complex>::Id(3)), VeRd(gslpp::matrix<complex>::Id(3)) {
     
     setModelName("NPSMEFTd6General");
     
@@ -388,7 +358,6 @@ NPbase(), NPSMEFTd6GM(*this),
     FlagHiggsExch = true;
     FlagQuadraticWC = false;
     SMEFTBasisFlag = "UP";
-    flavBas = 1;
     setModelLinearized();
 
     w_WW = gsl_integration_cquad_workspace_alloc(100);
@@ -3026,16 +2995,7 @@ NPbase(), NPSMEFTd6GM(*this),
 }
 
 bool NPSMEFTd6General::PreUpdate() {
-    SMEFTEvolEW.Reset();    
-    SMEFTEvolMH.Reset();
-    SMEFTEvol240.Reset();
-    SMEFTEvol365.Reset();
-    SMEFTEvol550.Reset();
-    SMEFTEvol1000.Reset();
-    SMEFTEvol1500.Reset();
-    SMEFTEvol3000.Reset();
-    SMEFTEvol5000.Reset();
-    SMEFTEvolUV.Reset();
+    SMEFTEvolEW.Reset();
 
     isSMInitialConditionComputed = false;
 
@@ -8492,186 +8452,258 @@ void NPSMEFTd6General::GenerateSMInitialConditions()  {
     isSMInitialConditionComputed = true;
 }
 
+namespace {
+using FlavourMatrix = gslpp::matrix<gslpp::complex>;
+using CoefficientMatrix = gslpp::complex[3][3];
+using CoefficientTensor = gslpp::complex[3][3][3][3];
+
+FlavourMatrix readSMEFTMatrix(const RGESolver& solver, const std::string& name)
+{
+    const std::string realName = name + "R";
+    const std::string imagName = name + "I";
+    FlavourMatrix matrix(3, 3, 0.);
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j)
+            matrix.assign(i, j, gslpp::complex(solver.GetCoefficient(realName, i, j), solver.GetCoefficient(imagName, i, j)));
+    return matrix;
+}
+
+void copyCoefficientMatrix(const FlavourMatrix& source, CoefficientMatrix& result)
+{
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j)
+            result[i][j] = source(i, j);
+}
+
+void rotateSMEFTTensorAxis(CoefficientTensor& tensor, int axis, const FlavourMatrix& rotation)
+{
+    CoefficientMatrix weights;
+    copyCoefficientMatrix(rotation, weights);
+
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j)
+            for (int k = 0; k < 3; ++k) {
+                int index[4];
+                index[(axis + 1) % 4] = i;
+                index[(axis + 2) % 4] = j;
+                index[(axis + 3) % 4] = k;
+
+                // Save the three source values before overwriting this slice.
+                gslpp::complex source[3];
+                for (int p = 0; p < 3; ++p) {
+                    index[axis] = p;
+                    source[p] = tensor[index[0]][index[1]][index[2]][index[3]];
+                }
+                for (int p = 0; p < 3; ++p) {
+                    index[axis] = p;
+                    gslpp::complex value = 0.;
+                    for (int r = 0; r < 3; ++r)
+                        value += weights[p][r] * source[r];
+                    tensor[index[0]][index[1]][index[2]][index[3]] = value;
+                }
+            }
+}
+}
+
+bool NPSMEFTd6General::diagonalizeQuarks(const RGESolver& solver, double vevSquared, double deltaVev,
+                                      bool includeYukawaCorrections, QuarkMassBasis& basis)
+{
+    if (!std::isfinite(vevSquared) || vevSquared <= 0. || !std::isfinite(deltaVev))
+        return false;
+
+    const double vevOverSqrtTwo = std::sqrt(vevSquared) / std::sqrt(2.);
+    const auto makeMassMatrix = [&](const std::string& yukawaName, const std::string& operatorName) {
+        // The raw Yukawa has a right-handed row and a left-handed column.
+        FlavourMatrix mass = readSMEFTMatrix(solver, yukawaName) * (1. + deltaVev);
+        if (includeYukawaCorrections)
+            mass += readSMEFTMatrix(solver, "d" + yukawaName);
+        mass -= readSMEFTMatrix(solver, operatorName).hconjugate() * (vevSquared / 2.);
+        return mass * vevOverSqrtTwo;
+    };
+
+    const FlavourMatrix upMassMatrix = makeMassMatrix("Yu", "CuH");
+    const FlavourMatrix downMassMatrix = makeMassMatrix("Yd", "CdH");
+
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j) {
+            const gslpp::complex upMassEntry = upMassMatrix(i, j);
+            const gslpp::complex downMassEntry = downMassMatrix(i, j);
+            if (!std::isfinite(upMassEntry.real()) || !std::isfinite(upMassEntry.imag())
+                    || !std::isfinite(downMassEntry.real()) || !std::isfinite(downMassEntry.imag()))
+                return false;
+        }
+
+    upMassMatrix.singularvalue(basis.upRight, basis.upLeft, basis.upMasses);
+    downMassMatrix.singularvalue(basis.downRight, basis.downLeft, basis.downMasses);
+    for (int i = 0; i < 3; ++i)
+        if (!std::isfinite(basis.upMasses(i)) || !std::isfinite(basis.downMasses(i)))
+            return false;
+
+    basis.ckm.convertCKMtoStandard(basis.upLeft.hconjugate() * basis.downLeft);
+    const FlavourMatrix upPhase = basis.ckm.getPhi1();
+    const FlavourMatrix downPhase = basis.ckm.getPhi2dag();
+    basis.upLeft = basis.upLeft * upPhase;
+    basis.upRight = basis.upRight * upPhase;
+    basis.downLeft = basis.downLeft * downPhase;
+    basis.downRight = basis.downRight * downPhase;
+    return true;
+}
+
+void NPSMEFTd6General::rotateWilsonCoefficients(const RGESolver& solver, const QuarkMassBasis& basis,
+                                              WilsonCoefficients& coefficients)
+{
+    coefficients.CG = solver.GetCoefficient("CG");
+    coefficients.CW = solver.GetCoefficient("CW");
+    coefficients.CHG = solver.GetCoefficient("CHG");
+    coefficients.CHW = solver.GetCoefficient("CHW");
+    coefficients.CHB = solver.GetCoefficient("CHB");
+    coefficients.CHWB = solver.GetCoefficient("CHWB");
+    coefficients.CHD = solver.GetCoefficient("CHD");
+    coefficients.CHbox = solver.GetCoefficient("CHbox");
+    coefficients.CH = solver.GetCoefficient("CH");
+    coefficients.CGtilde = solver.GetCoefficient("CGtilde");
+    coefficients.CWtilde = solver.GetCoefficient("CWtilde");
+    coefficients.CHGtilde = solver.GetCoefficient("CHGtilde");
+    coefficients.CHWtilde = solver.GetCoefficient("CHWtilde");
+    coefficients.CHBtilde = solver.GetCoefficient("CHBtilde");
+    coefficients.CHWtildeB = solver.GetCoefficient("CHWtildeB");
+
+    const FlavourMatrix& q = basis.upLeft;
+    const FlavourMatrix& u = basis.upRight;
+    const FlavourMatrix& d = basis.downRight;
+    const FlavourMatrix qDagger = q.hconjugate();
+    const FlavourMatrix uDagger = u.hconjugate();
+    const FlavourMatrix dDagger = d.hconjugate();
+
+    copyCoefficientMatrix(readSMEFTMatrix(solver, "CHl1"), coefficients.CHl1);
+    copyCoefficientMatrix(readSMEFTMatrix(solver, "CHl3"), coefficients.CHl3);
+    copyCoefficientMatrix(readSMEFTMatrix(solver, "CHe"), coefficients.CHe);
+    copyCoefficientMatrix(readSMEFTMatrix(solver, "CeH"), coefficients.CeH);
+    copyCoefficientMatrix(readSMEFTMatrix(solver, "CeW"), coefficients.CeW);
+    copyCoefficientMatrix(readSMEFTMatrix(solver, "CeB"), coefficients.CeB);
+
+    const auto rotateMatrix = [&](const std::string& name, const FlavourMatrix& leftDagger,
+                                  const FlavourMatrix& right, CoefficientMatrix& result) {
+        copyCoefficientMatrix(leftDagger * readSMEFTMatrix(solver, name) * right, result);
+    };
+    rotateMatrix("CHq1", qDagger, q, coefficients.CHq1);
+    rotateMatrix("CHq3", qDagger, q, coefficients.CHq3);
+    rotateMatrix("CHu", uDagger, u, coefficients.CHu);
+    rotateMatrix("CHd", dDagger, d, coefficients.CHd);
+    rotateMatrix("CHud", uDagger, d, coefficients.CHud);
+    rotateMatrix("CuG", qDagger, u, coefficients.CuG);
+    rotateMatrix("CuW", qDagger, u, coefficients.CuW);
+    rotateMatrix("CuB", qDagger, u, coefficients.CuB);
+    rotateMatrix("CuH", qDagger, u, coefficients.CuH);
+    rotateMatrix("CdG", qDagger, d, coefficients.CdG);
+    rotateMatrix("CdW", qDagger, d, coefficients.CdW);
+    rotateMatrix("CdB", qDagger, d, coefficients.CdB);
+    rotateMatrix("CdH", qDagger, d, coefficients.CdH);
+
+    // Each contraction uses weights ordered as (new flavour, old flavour).
+    const FlavourMatrix qTranspose = q.transpose();
+    const FlavourMatrix uTranspose = u.transpose();
+    const FlavourMatrix dTranspose = d.transpose();
+    const auto rotateTensor = [&](const std::string& name, CoefficientTensor& result,
+                                  const FlavourMatrix* first, const FlavourMatrix* second,
+                                  const FlavourMatrix* third, const FlavourMatrix* fourth) {
+        const std::string realName = name + "R";
+        const std::string imagName = name + "I";
+        for (int i = 0; i < 3; ++i)
+            for (int j = 0; j < 3; ++j)
+                for (int k = 0; k < 3; ++k)
+                    for (int l = 0; l < 3; ++l)
+                        result[i][j][k][l] = gslpp::complex(solver.GetCoefficient(realName, i, j, k, l),
+                                                            solver.GetCoefficient(imagName, i, j, k, l));
+
+        const FlavourMatrix* const rotations[] = {first, second, third, fourth};
+        for (int axis = 0; axis < 4; ++axis)
+            if (rotations[axis])
+                rotateSMEFTTensorAxis(result, axis, *rotations[axis]);
+    };
+
+    rotateTensor("Cll", coefficients.Cll, nullptr, nullptr, nullptr, nullptr);
+    rotateTensor("Cee", coefficients.Cee, nullptr, nullptr, nullptr, nullptr);
+    rotateTensor("Cle", coefficients.Cle, nullptr, nullptr, nullptr, nullptr);
+    rotateTensor("Clq1", coefficients.Clq1, nullptr, nullptr, &qDagger, &qTranspose);
+    rotateTensor("Clq3", coefficients.Clq3, nullptr, nullptr, &qDagger, &qTranspose);
+    rotateTensor("Ceu", coefficients.Ceu, nullptr, nullptr, &uDagger, &uTranspose);
+    rotateTensor("Ced", coefficients.Ced, nullptr, nullptr, &dDagger, &dTranspose);
+    rotateTensor("Clu", coefficients.Clu, nullptr, nullptr, &uDagger, &uTranspose);
+    rotateTensor("Cld", coefficients.Cld, nullptr, nullptr, &dDagger, &dTranspose);
+    rotateTensor("Cqe", coefficients.Cqe, &qDagger, &qTranspose, nullptr, nullptr);
+    rotateTensor("Cledq", coefficients.Cledq, nullptr, nullptr, &dDagger, &qTranspose);
+    rotateTensor("Clequ1", coefficients.Clequ1, nullptr, nullptr, &qDagger, &uTranspose);
+    rotateTensor("Clequ3", coefficients.Clequ3, nullptr, nullptr, &qDagger, &uTranspose);
+    rotateTensor("Cqq1", coefficients.Cqq1, &qDagger, &qTranspose, &qDagger, &qTranspose);
+    rotateTensor("Cqq3", coefficients.Cqq3, &qDagger, &qTranspose, &qDagger, &qTranspose);
+    rotateTensor("Cuu", coefficients.Cuu, &uDagger, &uTranspose, &uDagger, &uTranspose);
+    rotateTensor("Cdd", coefficients.Cdd, &dDagger, &dTranspose, &dDagger, &dTranspose);
+    rotateTensor("Cud1", coefficients.Cud1, &uDagger, &uTranspose, &dDagger, &dTranspose);
+    rotateTensor("Cud8", coefficients.Cud8, &uDagger, &uTranspose, &dDagger, &dTranspose);
+    rotateTensor("Cqu1", coefficients.Cqu1, &qDagger, &qTranspose, &uDagger, &uTranspose);
+    rotateTensor("Cqu8", coefficients.Cqu8, &qDagger, &qTranspose, &uDagger, &uTranspose);
+    rotateTensor("Cqd1", coefficients.Cqd1, &qDagger, &qTranspose, &dDagger, &dTranspose);
+    rotateTensor("Cqd8", coefficients.Cqd8, &qDagger, &qTranspose, &dDagger, &dTranspose);
+    rotateTensor("Cquqd1", coefficients.Cquqd1, &qDagger, &uTranspose, &qDagger, &dTranspose);
+    rotateTensor("Cquqd8", coefficients.Cquqd8, &qDagger, &uTranspose, &qDagger, &dTranspose);
+
+    // Project physical left-handed down-quark legs when computing EW vertices.
+    const FlavourMatrix ckm = basis.ckm.getCKM();
+    for (int i = 0; i < 3; ++i) {
+        gslpp::complex chq1Down = 0.;
+        gslpp::complex chq3Down = 0.;
+        gslpp::complex chq3Charged = 0.;
+        gslpp::complex cdhDown = 0.;
+        for (int j = 0; j < 3; ++j) {
+            chq3Charged += coefficients.CHq3[i][j] * ckm(j, i);
+            cdhDown += ckm(j, i).conjugate() * coefficients.CdH[j][i];
+            for (int k = 0; k < 3; ++k) {
+                const gslpp::complex weight = ckm(j, i).conjugate() * ckm(k, i);
+                chq1Down += weight * coefficients.CHq1[j][k];
+                chq3Down += weight * coefficients.CHq3[j][k];
+            }
+        }
+        coefficients.CHq1Down[i] = chq1Down.real();
+        coefficients.CHq3Down[i] = chq3Down.real();
+        coefficients.CHq3Charged[i] = chq3Charged;
+        coefficients.CdHDown[i] = cdhDown;
+    }
+}
+
 bool NPSMEFTd6General::PostUpdate() {
-    
     if (!isSMInitialConditionComputed) GenerateSMInitialConditions();
 
-    if (FlagRGEci) {
-
-        // SMEFT initial conditions for RGEsolver SMEFTEvolEW
-        setSMEFTEvolWC(SMEFTEvolEW);
-        
-        //printNonVanishingSMEFTCoeffEW();
-        //std::cout << Lambda_NP << " " << muw << " " << SMEFTBasisFlag << std::endl;
-        // Do the evolution of the SMEFT Coefficients at linear order first; THIS DOES NOT EVOLVE THE SM PARAMETERS, only computes the corrections to them due to the SMEFT coefficients
+    setSMEFTEvolWC(SMEFTEvolEW);
+    const bool runToEW = FlagRGEci && Lambda_NP != muw;
+    if (runToEW) {
         SMEFTEvolEW.EvolveSMEFTOnly(Lambda_NP, muw);
-        // Evolve the SM parameters with the SM RGEs
         SMEFTEvolEW.EvolveSMOnly("Numeric", Lambda_NP, muw);
-        //Now everything has been evolved
-        //printNonVanishingSMEFTCoeffEW();
-        
-        // Work with the extra instances of RGEsolver: would be better to have a deep copy of SMEFTEvolEW
-
-        // SM initial conditions for RGEsolver        
-        SMEFTEvolMH.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-        
-        SMEFTEvol240.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-        
-        SMEFTEvol365.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-        
-        SMEFTEvol550.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-        
-        SMEFTEvol1000.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-        
-        SMEFTEvol1500.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-        
-        SMEFTEvol3000.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-        
-        SMEFTEvol5000.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-        
-        SMEFTEvolUV.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-
-        // SMEFT initial conditions for RGEsolver
-        setSMEFTEvolWC(SMEFTEvolMH);
-        setSMEFTEvolWC(SMEFTEvol240);
-        setSMEFTEvolWC(SMEFTEvol365);
-        setSMEFTEvolWC(SMEFTEvol550);
-        setSMEFTEvolWC(SMEFTEvol1000);
-        setSMEFTEvolWC(SMEFTEvol1500);
-        setSMEFTEvolWC(SMEFTEvol3000);
-        setSMEFTEvolWC(SMEFTEvol5000);
-        setSMEFTEvolWC(SMEFTEvolUV); // Not evolved. Only for reference to retrieve C(Lambda)
-        
-        if (FlagmultiScaleRGE) {
-        // Perform the evolution for the other RGE instances
-            SMEFTEvolMH.EvolveSMEFTOnly(Lambda_NP, 125.1);
-            SMEFTEvol240.EvolveSMEFTOnly(Lambda_NP, 240.);
-            SMEFTEvol365.EvolveSMEFTOnly(Lambda_NP, 365.);
-            SMEFTEvol550.EvolveSMEFTOnly(Lambda_NP, 550.);
-            SMEFTEvol1000.EvolveSMEFTOnly(Lambda_NP, fmin(1000.,Lambda_NP) );
-            SMEFTEvol1500.EvolveSMEFTOnly(Lambda_NP, fmin(1500.,Lambda_NP) );
-            SMEFTEvol3000.EvolveSMEFTOnly(Lambda_NP, fmin(3000.,Lambda_NP) );
-            SMEFTEvol5000.EvolveSMEFTOnly(Lambda_NP, fmin(5000.,Lambda_NP) );
-        } else {
-            SMEFTEvolMH.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-            SMEFTEvol240.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-            SMEFTEvol365.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-            SMEFTEvol550.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-            SMEFTEvol1000.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-            SMEFTEvol1500.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-            SMEFTEvol3000.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-            SMEFTEvol5000.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-        }
-        
-    } else {
-
-        // SMEFT initial conditions for RGEsolver SMEFTEvolEW
-        setSMEFTEvolWC(SMEFTEvolEW);
-        
-        SMEFTEvolEW.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-        SMEFTEvolEW.EvolveSMOnly("Numeric", muw, muw);
-        
-        // Work with the extra instances of RGEsolver: would be better to have a deep copy of SMEFTEvolEW
-
-        // SM initial conditions for RGEsolver        
-        SMEFTEvolMH.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-        
-        SMEFTEvol240.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-        
-        SMEFTEvol365.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-        
-        SMEFTEvol550.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-        
-        SMEFTEvol1000.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-        
-        SMEFTEvol1500.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-        
-        SMEFTEvol3000.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-        
-        SMEFTEvol5000.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-        
-        SMEFTEvolUV.GenerateSMInitialConditions(muw, muw, SMEFTBasisFlag, "Numeric",
-            g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
-            Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
-
-        // SMEFT initial conditions for RGEsolver        
-        setSMEFTEvolWC(SMEFTEvolMH);
-        setSMEFTEvolWC(SMEFTEvol240);
-        setSMEFTEvolWC(SMEFTEvol365);
-        setSMEFTEvolWC(SMEFTEvol550);
-        setSMEFTEvolWC(SMEFTEvol1000);
-        setSMEFTEvolWC(SMEFTEvol1500);
-        setSMEFTEvolWC(SMEFTEvol3000);
-        setSMEFTEvolWC(SMEFTEvol5000);
-        setSMEFTEvolWC(SMEFTEvolUV); // Not evolved. Only for reference to retrieve C(Lambda)
-        
-        // Skip RGE by setting the two scales at Lambda_NP for the EFT
-        SMEFTEvolMH.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-        SMEFTEvol240.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-        SMEFTEvol365.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-        SMEFTEvol550.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-        SMEFTEvol1000.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-        SMEFTEvol1500.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-        SMEFTEvol3000.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
-        SMEFTEvol5000.EvolveSMEFTOnly(Lambda_NP, Lambda_NP);
     }
-    
-    // Renormalization of gauge fields parameters
-    delta_ZZ = (cW2_tree * getSMEFTCoeffEW("CHW") + sW2_tree * getSMEFTCoeffEW("CHB") + sW_tree * cW_tree * getSMEFTCoeffEW("CHWB")) * v2;
-    delta_AA = (sW2_tree * getSMEFTCoeffEW("CHW") + cW2_tree * getSMEFTCoeffEW("CHB") - sW_tree * cW_tree * getSMEFTCoeffEW("CHWB")) * v2;
-    delta_AZ = 2.0 * sW_tree * cW_tree * (getSMEFTCoeffEW("CHW") - getSMEFTCoeffEW("CHB")) * v2
-            - (cW2_tree - sW2_tree) * getSMEFTCoeffEW("CHWB") * v2;
+    const bool includeYukawaCorrections = runToEW && FlagCorrsInSMRunning;
+
+    delta_ZZ = (cW2_tree * getRawSMEFTCoeffEW("CHW") + sW2_tree * getRawSMEFTCoeffEW("CHB") + sW_tree * cW_tree * getRawSMEFTCoeffEW("CHWB")) * v2;
+    delta_AA = (sW2_tree * getRawSMEFTCoeffEW("CHW") + cW2_tree * getRawSMEFTCoeffEW("CHB") - sW_tree * cW_tree * getRawSMEFTCoeffEW("CHWB")) * v2;
+    delta_AZ = 2.0 * sW_tree * cW_tree * (getRawSMEFTCoeffEW("CHW") - getRawSMEFTCoeffEW("CHB")) * v2
+            - (cW2_tree - sW2_tree) * getRawSMEFTCoeffEW("CHWB") * v2;
 
     // Similar definitions for the EWPO
-    delta_Z = 2.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") * v2;
-    delta_A = -2.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") * v2;
-    delta_ZA = (cW2_tree - sW2_tree) * getSMEFTCoeffEW("CHWB") * v2;
+    delta_Z = 2.0 * sW_tree * cW_tree * getRawSMEFTCoeffEW("CHWB") * v2;
+    delta_A = -2.0 * sW_tree * cW_tree * getRawSMEFTCoeffEW("CHWB") * v2;
+    delta_ZA = (cW2_tree - sW2_tree) * getRawSMEFTCoeffEW("CHWB") * v2;
 
     // Renormalization of Higgs field parameter
-    delta_h = (-getSMEFTCoeffEW("CHD") / 4.0 + getSMEFTCoeffEW("CHbox")) * v2;
+    delta_h = (-getRawSMEFTCoeffEW("CHD") / 4.0 + getRawSMEFTCoeffEW("CHbox")) * v2;
 
     //  Calculation of some quantities repeatedly used in the code
 
     //  NP corrections to Z and W mass Lagrangian parameters
-    delta_MZ = (sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") + 0.25 * getSMEFTCoeffEW("CHD") + (3.0 / 8.0) * getSMEFTCoeffEW("CH") / lambdaH_tree) * v2;
-    delta_MW = (3.0 / 8.0) * (getSMEFTCoeffEW("CH") / lambdaH_tree) * v2;
+    delta_MZ = (sW_tree * cW_tree * getRawSMEFTCoeffEW("CHWB") + 0.25 * getRawSMEFTCoeffEW("CHD") + (3.0 / 8.0) * getRawSMEFTCoeffEW("CH") / lambdaH_tree) * v2;
+    delta_MW = (3.0 / 8.0) * (getRawSMEFTCoeffEW("CH") / lambdaH_tree) * v2;
 
     //  NP correction to Fermi constant, as extracted from muon decay
-    delta_GF = DeltaGF();
+    delta_GF = v2 * (getRawSMEFTCoeffEW("CHl3R", 0, 0) + getRawSMEFTCoeffEW("CHl3R", 1, 1)
+            - 0.5 * (getRawSMEFTCoeffEW("CllR", 0, 1, 1, 0) + getRawSMEFTCoeffEW("CllR", 1, 0, 0, 1)));
 
     //  NP correction to the vev, as extracted from GF
     delta_v = 0.5 * delta_GF;
@@ -8694,9 +8726,9 @@ bool NPSMEFTd6General::PostUpdate() {
     
     ////////////////////////////////////////////////////////////////////////////
     //AG:begin
-    delta_ale = -2.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB") * v2;
+    delta_ale = -2.0 * sW_tree * cW_tree * getRawSMEFTCoeffEW("CHWB") * v2;
 
-    delta_Mz2 = (getSMEFTCoeffEW("CHD") / 2.0 + 2.0 * sW_tree * cW_tree * getSMEFTCoeffEW("CHWB")) * v2;
+    delta_Mz2 = (getRawSMEFTCoeffEW("CHD") / 2.0 + 2.0 * sW_tree * cW_tree * getRawSMEFTCoeffEW("CHWB")) * v2;
 
     delta_g1 = cAsch * (g1_tree * (cW2_tree * delta_ale - sW2_tree * (delta_Mz2 + delta_GF)) / 2.0 / (-1 + 2.0 * sW2_tree))
             + cWsch * (g1_tree * (-delta_Mz2 / 2.0 / sW2_tree - delta_GF / 2.0));
@@ -8707,53 +8739,28 @@ bool NPSMEFTd6General::PostUpdate() {
     delta_Mw2 = cAsch * (2. * delta_g2 + delta_GF);
 
     xWZ_tree = +g2_tree / pow((g1_tree * g1_tree + g2_tree * g2_tree), 0.5); // cbar of Manohar
-    delta_xWZ = g1_tree * (g1_tree * delta_g2 - g2_tree * delta_g1 + g1_tree * g1_tree * getSMEFTCoeffEW("CHWB") * v2) / pow((g1_tree * g1_tree + g2_tree * g2_tree), 1.5);
+    delta_xWZ = g1_tree * (g1_tree * delta_g2 - g2_tree * delta_g1 + g1_tree * g1_tree * getRawSMEFTCoeffEW("CHWB") * v2) / pow((g1_tree * g1_tree + g2_tree * g2_tree), 1.5);
 
     xBZ_tree = -g1_tree / pow((g1_tree * g1_tree + g2_tree * g2_tree), 0.5); // -sbar of Manohar
-    delta_xBZ = g2_tree * (g1_tree * delta_g2 - g2_tree * delta_g1 - g2_tree * g2_tree * getSMEFTCoeffEW("CHWB") * v2) / pow((g1_tree * g1_tree + g2_tree * g2_tree), 1.5);
+    delta_xBZ = g2_tree * (g1_tree * delta_g2 - g2_tree * delta_g1 - g2_tree * g2_tree * getRawSMEFTCoeffEW("CHWB") * v2) / pow((g1_tree * g1_tree + g2_tree * g2_tree), 1.5);
     //AG:end
     ////////////////////////////////////////////////////////////////////////////
 
-    //Go to mass eigenstate basis first; this is done here since we need to reassign quark masses and the CKM matrix
+    QuarkMassBasis ewBasis;
+    if (!diagonalizeQuarks(SMEFTEvolEW, v2, getDelta_v(), includeYukawaCorrections, ewBasis))
+        return false;
 
-    double vT = v(); //this is vtilde in Angelica's notation
-    double delta_vT = getDelta_v();
-    double vTosq2 = vT / sqrt(2.);
-
-    // Let us first define the full mass matrices, including the effect of dimension six operators
-
-    for (int i = 0; i < 3; i++)
-        for (int j = 0; j < 3; j++) {
-            MUQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YuR", i, j) * (1. + delta_vT) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYuR", i, j) - getSMEFTCoeffEW("CuHR", j, i) * v2 / 2.));
-            MUQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YuI", i, j) * (1. + delta_vT) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYuI", i, j) + getSMEFTCoeffEW("CuHI", j, i) * v2 / 2.));
-            MDQ.assignre(i, j, vTosq2 * (getSMEFTCoeffEW("YdR", i, j) * (1. + delta_vT) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYdR", i, j) - getSMEFTCoeffEW("CdHR", j, i) * v2 / 2.));
-            MDQ.assignim(i, j, vTosq2 * (getSMEFTCoeffEW("YdI", i, j) * (1. + delta_vT) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYdI", i, j) + getSMEFTCoeffEW("CdHI", j, i) * v2 / 2.));
-        }
-
-    gslpp::vector<double> mmu(3), mmd(3);
-    
-    //std::cout<<"    |"<<MUQ(0,0)<<","<<MUQ(0,1)<<","<<MUQ(0,2)<<"|"<<std::endl;
-    //std::cout<<"MUQ=|"<<MUQ(1,0)<<","<<MUQ(1,1)<<","<<MUQ(1,2)<<"|"<<std::endl;
-    //std::cout<<"    |"<<MUQ(2,0)<<","<<MUQ(2,1)<<","<<MUQ(2,2)<<"|"<<std::endl;
-    //std::cout<<"  "<<std::endl;
-    //std::cout<<"    |"<<MDQ(0,0)<<","<<MDQ(0,1)<<","<<MDQ(0,2)<<"|"<<std::endl;
-    //std::cout<<"MDQ=|"<<MDQ(1,0)<<","<<MDQ(1,1)<<","<<MDQ(1,2)<<"|"<<std::endl;
-    //std::cout<<"    |"<<MDQ(2,0)<<","<<MDQ(2,1)<<","<<MDQ(2,2)<<"|"<<std::endl;
-    //std::cout<<"  "<<std::endl;
-
-    MUQ.singularvalue(VuR, VuL, mmu);
-    if (!std::isfinite(mmu(2)) || mmu(2) < 3.0) {
+    const auto& mmu = ewBasis.upMasses;
+    const auto& mmd = ewBasis.downMasses;
+    if (mmu(2) < 3.0) {
         std::cout << "Warning: top quark mass out of range, mu(2) = " << mmu(2) << std::endl;
         return false;
     }
-    
-    if (!std::isfinite(mmu(1)) || mmu(1) < 0.15) {
+    if (mmu(1) < 0.15) {
         std::cout << "Warning: charm quark mass out of range, mu(1) = " << mmu(1) << std::endl;
         return false;
     }
-
-    MDQ.singularvalue(VdR, VdL, mmd);
-    if (!std::isfinite(mmd(2)) || mmd(2) < 0.55) {
+    if (mmd(2) < 0.55) {
         std::cout << "Warning: bottom quark mass out of range, md(2) = " << mmd(2) << std::endl;
         return false;
     }
@@ -8774,27 +8781,20 @@ bool NPSMEFTd6General::PostUpdate() {
     quarks[UP].setMass(Mrun(quarks[UP].getMass_scale(), getMuw(), mmu(0), QCD::UP));
     trueSM.setQuarkMass(UP,Mrun(quarks[UP].getMass_scale(), getMuw(), mmu(0), QCD::UP));
 
-    VuLd = VuL.hconjugate();
-
-    // Computing the CKM
-    gslpp::matrix<complex> CKMUnphys = VuLd * VdL;
-
-    // std::cout << "CKM unphys = " << CKMUnphys << std::endl;
-
-    myCKM.convertCKMtoStandard(CKMUnphys);
+    myCKM = ewBasis.ckm;
     trueSM.setCKM(myCKM);
 
-    VuL = VuL * myCKM.getPhi1();
-    VuR = VuR * myCKM.getPhi1();
-    VdL = VdL * myCKM.getPhi2dag();
-    VdR = VdR * myCKM.getPhi2dag();
-
-    // Hermitian conjugates
+    VuL = ewBasis.upLeft;
+    VuR = ewBasis.upRight;
+    VdL = ewBasis.downLeft;
+    VdR = ewBasis.downRight;
     VuLd = VuL.hconjugate();
     VuRd = VuR.hconjugate();
     VdLd = VdL.hconjugate();
     VdRd = VdR.hconjugate();
 
+    rotateWilsonCoefficients(SMEFTEvolEW, ewBasis, ewCoefficients);
+    if (!updateScaleCoefficients()) return false;
 
     // do the NPbase PostUpdate without recomputing the top mass and the CKM matrix
     computemt=false;
@@ -8802,19 +8802,20 @@ bool NPSMEFTd6General::PostUpdate() {
     requireCKM=false;
     trueSM.setRequireCKM(false);
 
-    //Rotate the Yukawas to the SMEFTSIM/Angelica/Manohar basis
-    for (int i = 0; i < 3; i++)
-        for (int j = 0; j < 3; j++) {
-            Yu.assignre(i, j, getSMEFTCoeffEW("YuR", i, j) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYuR", i, j) );
-            Yu.assignim(i, j, getSMEFTCoeffEW("YuI", i, j) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYuI", i, j) );
-            Yd.assignre(i, j, getSMEFTCoeffEW("YdR", i, j) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYdR", i, j) );
-            Yd.assignim(i, j, getSMEFTCoeffEW("YdI", i, j) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYdI", i, j) );
-            Ye.assignre(i, j, getSMEFTCoeffEW("YeR", i, j) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYeR", i, j) );
-            Ye.assignim(i, j, getSMEFTCoeffEW("YeI", i, j) + FlagCorrsInSMRunning * getSMEFTCoeffEW("dYeI", i, j) );
-        }
-
+    // Yukawa matrices in the EW up-quark mass basis, for LEFT matching.
+    Yu = readSMEFTMatrix(SMEFTEvolEW, "Yu");
+    Yd = readSMEFTMatrix(SMEFTEvolEW, "Yd");
+    Ye = readSMEFTMatrix(SMEFTEvolEW, "Ye");
+    if (includeYukawaCorrections) {
+        Yu += readSMEFTMatrix(SMEFTEvolEW, "dYu");
+        Yd += readSMEFTMatrix(SMEFTEvolEW, "dYd");
+        Ye += readSMEFTMatrix(SMEFTEvolEW, "dYe");
+    }
     Yd = VdRd * Yd * VuL;
     Yu = VuRd * Yu * VuL;
+
+    UevL = 1.0; // Neglect PMNS effects in high-pT observables.
+    VudL = 1.0; // Neglect CKM effects in high-pT observables.
 
     if (!NPbase::PostUpdate()) return (false);
     if (!trueSM.PostUpdate()) return (false);
@@ -8843,272 +8844,9 @@ bool NPSMEFTd6General::PostUpdate() {
     // C1 value for the total Higgs width
     C1Htotal = C1Htot();
 
-    //The call to this method should be dropped once we have correctly implemented the matching
-    //getWCFromEvolutor();
-
-
-    UevL = 1.0; // Neglect PMNS effects in high-pT observables 
-    VudL = 1.0; // Neglect CKM effects in high-pT observables 
-
-    //    Yuke = sqrt(2.) * (leptons[ELECTRON].getMass()) / v();
-    //    Yukmu = sqrt(2.) * (leptons[MU].getMass()) / v();
-    //    Yuktau = sqrt(2.) * (leptons[TAU].getMass()) / v();
-    //    Yuku = sqrt(2.) * (quarks[UP].getMass()) / v();
-    //    Yukc = sqrt(2.) * (quarks[CHARM].getMass()) / v();
-    //    Yukt = sqrt(2.) * mtpole / v();
-    //    Yukd = sqrt(2.) * (quarks[DOWN].getMass()) / v();
-    //    Yuks = sqrt(2.) * (quarks[STRANGE].getMass()) / v();
-    //    Yukb = sqrt(2.) * (quarks[BOTTOM].getMass()) / v();
-
-
-    //  Dimension-6 coefficients used in the STXS parameterization: to be discussed with AJL
-    //    aiG = 16.0 * M_PI * M_PI * getSMEFTCoeffEW("CHG") * Mw_tree * Mw_tree / g3_tree / g3_tree / LambdaNP2;
-    //    ai3G = getSMEFTCoeffEW("CG") * Mw_tree * Mw_tree / g3_tree / g3_tree / g3_tree / LambdaNP2;
-    //    ai2G = 0.0; // Add
-    //    aiT = 2.0 * getSMEFTCoeffEW("CHD") * v2;
-    //    aiH = -2.0 * getSMEFTCoeffEW("CHbox") * v2;
-    //    aiWW = 0.0; // Add
-    //    aiB = 0.0; // Add
-    //    aiHW = 0.0;
-    //    aiHB = 0.0;
-    //    aiA =getSMEFTCoeffEW("CHB") * Mw_tree * Mw_tree / g1_tree / g1_tree / LambdaNP2;
-    //    aiHQ = getSMEFTCoeffEW("CHq1R",0,0) * v2; // Valid only for flavour universal NP
-    //    aipHQ = getSMEFTCoeffEW("CHq3R",0,0) * v2; // Valid only for flavour universal NP
-    //    aiHL = getSMEFTCoeffEW("CHl1R",0,0) * v2; // Valid only for flavour universal NP
-    //    aipHL = getSMEFTCoeffEW("CHl3R",0,0) * v2; // Valid only for flavour universal NP. From HEL Lagrangian. Not in original note
-    //    aiHu = getSMEFTCoeffEW("CHuR",0,0) * v2; // Valid only for flavour universal NP
-    //    aiHd = getSMEFTCoeffEW("CHdR",0,0) * v2; // Valid only for flavour universal NP
-    //    aiHe = getSMEFTCoeffEW("CHeR",0,0) * v2; // Valid only for flavour universal NP
-    //    aiu = -getSMEFTCoeffEW("CuHR",2,2) * v2 / Yukt;
-    //    aiuG = getSMEFTCoeffEW("CuGR",2,2) * Mw_tree * Mw_tree / g3_tree / LambdaNP2 / getSMEFTCoeffEW("YuR",2,2) / 4.0; // From HEL.fr Lagrangian. Not in original note. Valid only for flavour universal NP
-
-    // Go to the SMEFTSIM/Angelica/Manohar UP-MASS basis, where the up-quark full mass matrix is diagonal, and the down-quark mass matrix is rotated by the CKM matrix
-
-        // Coefficients are read once here instead of at every use inside the loops below
-        const Coeff2 c_CHd(*this, "CHd");
-        const Coeff2 c_CHq1(*this, "CHq1");
-        const Coeff2 c_CHq3(*this, "CHq3");
-        const Coeff2 c_CHu(*this, "CHu");
-        const Coeff2 c_CHud(*this, "CHud");
-        const Coeff2 c_CdB(*this, "CdB");
-        const Coeff2 c_CdG(*this, "CdG");
-        const Coeff2 c_CdH(*this, "CdH");
-        const Coeff2 c_CdW(*this, "CdW");
-        const Coeff2 c_CuB(*this, "CuB");
-        const Coeff2 c_CuG(*this, "CuG");
-        const Coeff2 c_CuH(*this, "CuH");
-        const Coeff2 c_CuW(*this, "CuW");
-        const Coeff4 c_Cdd(*this, "Cdd");
-        const Coeff4 c_Ced(*this, "Ced");
-        const Coeff4 c_Ceu(*this, "Ceu");
-        const Coeff4 c_Cld(*this, "Cld");
-        const Coeff4 c_Cledq(*this, "Cledq");
-        const Coeff4 c_Clequ1(*this, "Clequ1");
-        const Coeff4 c_Clequ3(*this, "Clequ3");
-        const Coeff4 c_Clq1(*this, "Clq1");
-        const Coeff4 c_Clq3(*this, "Clq3");
-        const Coeff4 c_Clu(*this, "Clu");
-        const Coeff4 c_Cqd1(*this, "Cqd1");
-        const Coeff4 c_Cqd8(*this, "Cqd8");
-        const Coeff4 c_Cqe(*this, "Cqe");
-        const Coeff4 c_Cqq1(*this, "Cqq1");
-        const Coeff4 c_Cqq3(*this, "Cqq3");
-        const Coeff4 c_Cqu1(*this, "Cqu1");
-        const Coeff4 c_Cqu8(*this, "Cqu8");
-        const Coeff4 c_Cquqd1(*this, "Cquqd1");
-        const Coeff4 c_Cquqd8(*this, "Cquqd8");
-        const Coeff4 c_Cud1(*this, "Cud1");
-        const Coeff4 c_Cud8(*this, "Cud8");
-        const Coeff4 c_Cuu(*this, "Cuu");
-
-// Assign here the SMEFT Wilson Coefficients at the EW scale in the SMEFTSIM/Angelica/Manohar UP-MASS basis
-
-    CG_EW = getSMEFTCoeffEW("CG");
-    CW_EW = getSMEFTCoeffEW("CW");
-    CHG_EW = getSMEFTCoeffEW("CHG");
-    CHW_EW = getSMEFTCoeffEW("CHW");
-    CHB_EW = getSMEFTCoeffEW("CHB");
-    CHWB_EW = getSMEFTCoeffEW("CHWB");
-    CHD_EW = getSMEFTCoeffEW("CHD");
-    CHbox_EW = getSMEFTCoeffEW("CHbox");
-    CH_EW = getSMEFTCoeffEW("CH");
-    
-    for (int i = 0; i < 3; i++)
-        for (int j = 0; j < 3; j++) {
-            CHl1_EW[i][j] = gslpp::complex(getSMEFTCoeffEW("CHl1R", i, j), getSMEFTCoeffEW("CHl1I", i, j));
-            CHl3_EW[i][j] = gslpp::complex(getSMEFTCoeffEW("CHl3R", i, j), getSMEFTCoeffEW("CHl3I", i, j));
-            CHe_EW[i][j] = gslpp::complex(getSMEFTCoeffEW("CHeR", i, j), getSMEFTCoeffEW("CHeI", i, j));
-            CeH_EW[i][j] = gslpp::complex(getSMEFTCoeffEW("CeHR", i, j), getSMEFTCoeffEW("CeHI", i, j));
-            CeW_EW[i][j] = gslpp::complex(getSMEFTCoeffEW("CeWR", i, j), getSMEFTCoeffEW("CeWI", i, j));
-            CeB_EW[i][j] = gslpp::complex(getSMEFTCoeffEW("CeBR", i, j), getSMEFTCoeffEW("CeBI", i, j));
-            CHq1_EW[i][j] = 0.0;
-            CHq3_EW[i][j] = 0.0;
-            CHu_EW[i][j] = 0.0;
-            CHd_EW[i][j] = 0.0;
-            CHud_EW[i][j] = 0.0;
-            CuG_EW[i][j] = 0.0;
-            CuW_EW[i][j] = 0.0;
-            CuB_EW[i][j] = 0.0;
-            CdG_EW[i][j] = 0.0;
-            CdW_EW[i][j] = 0.0;
-            CdB_EW[i][j] = 0.0;
-            CuH_EW[i][j] = 0.0;
-            CdH_EW[i][j] = 0.0;
-            for (int p = 0; p < 3; p++) 
-                for (int r = 0; r < 3; r++) {
-                    //In the SMEFTSIM/Angelica/Manohar UP-MASS basis, the qL field is rotated with VuL
-                    CHq1_EW[i][j] += VuLd(i, p) * c_CHq1(p, r) * VuL(r, j);
-                    CHq3_EW[i][j] += VuLd(i, p) * c_CHq3(p, r) * VuL(r, j);
-                    CHu_EW[i][j] += VuRd(i, p) * c_CHu(p, r) * VuR(r, j);
-                    CHd_EW[i][j] += VdRd(i, p) * c_CHd(p, r) * VdR(r, j);
-                    CHud_EW[i][j] += VuRd(i, p) * c_CHud(p, r) * VdR(r, j);
-                    CuG_EW[i][j] += VuLd(i, p) * c_CuG(p, r) * VuR(r, j);
-                    CuW_EW[i][j] += VuLd(i, p) * c_CuW(p, r) * VuR(r, j);
-                    CuB_EW[i][j] += VuLd(i, p) * c_CuB(p, r) * VuR(r, j);
-                    CdG_EW[i][j] += VuLd(i, p) * c_CdG(p, r) * VdR(r, j);
-                    CdW_EW[i][j] += VuLd(i, p) * c_CdW(p, r) * VdR(r, j);
-                    CdB_EW[i][j] += VuLd(i, p) * c_CdB(p, r) * VdR(r, j);
-                    CuH_EW[i][j] += VuLd(i, p) * c_CuH(p, r) * VuR(r, j);
-                    CdH_EW[i][j] += VuLd(i, p) * c_CdH(p, r) * VdR(r, j);
-                }
-            for (int k = 0; k < 3; k++) 
-                for (int l = 0; l < 3; l++) {
-                    Cll_EW[i][j][k][l] = gslpp::complex(getSMEFTCoeffEW("CllR", i, j, k, l), getSMEFTCoeffEW("CllI", i, j, k, l));
-                    Cee_EW[i][j][k][l] = gslpp::complex(getSMEFTCoeffEW("CeeR", i, j, k, l), getSMEFTCoeffEW("CeeI", i, j, k, l));
-                    Cle_EW[i][j][k][l] = gslpp::complex(getSMEFTCoeffEW("CleR", i, j, k, l), getSMEFTCoeffEW("CleI", i, j, k, l));
-                    Clq1_EW[i][j][k][l] = 0.;
-                    Clq3_EW[i][j][k][l] = 0.;
-                    Ceu_EW[i][j][k][l] = 0.;
-                    Ced_EW[i][j][k][l] = 0.;
-                    Clu_EW[i][j][k][l] = 0.;
-                    Cld_EW[i][j][k][l] = 0.;
-                    Cqe_EW[i][j][k][l] = 0.;
-                    Cledq_EW[i][j][k][l] = 0.;
-                    Cqq1_EW[i][j][k][l] = 0.;
-                    Cqq3_EW[i][j][k][l] = 0.;
-                    Cuu_EW[i][j][k][l] = 0.;
-                    Cdd_EW[i][j][k][l] = 0.;
-                    Cud1_EW[i][j][k][l] = 0.;
-                    Cud8_EW[i][j][k][l] = 0.;
-                    Cqu1_EW[i][j][k][l] = 0.;
-                    Cqu8_EW[i][j][k][l] = 0.;
-                    Cqd1_EW[i][j][k][l] = 0.;
-                    Cqd8_EW[i][j][k][l] = 0.;
-                    Cquqd1_EW[i][j][k][l] = 0.;
-                    Cquqd8_EW[i][j][k][l] = 0.;
-                    Clequ1_EW[i][j][k][l] = 0.;
-                    Clequ3_EW[i][j][k][l] = 0.;
-                    for (int p = 0; p < 3; p++) 
-                        for (int r = 0; r < 3; r++) {
-                            Clq1_EW[i][j][k][l] += VuLd(k, p) * c_Clq1(i, j, p, r) * VuL(r, l);
-                            Clq3_EW[i][j][k][l] += VuLd(k, p) * c_Clq3(i, j, p, r) * VuL(r, l);
-                            Ceu_EW[i][j][k][l] += VuRd(k, p) * c_Ceu(i, j, p, r) * VuR(r, l);
-                            Ced_EW[i][j][k][l] += VdRd(k, p) * c_Ced(i, j, p, r) * VdR(r, l);
-                            Clu_EW[i][j][k][l] += VuRd(k, p) * c_Clu(i, j, p, r) * VuR(r, l);
-                            Cld_EW[i][j][k][l] += VdRd(k, p) * c_Cld(i, j, p, r) * VdR(r, l);
-                            Cqe_EW[i][j][k][l] += VuLd(i, p) * c_Cqe(p, r, k, l) * VuL(r, j);
-                            Cledq_EW[i][j][k][l] += VdRd(k, p) * c_Cledq(i, j, p, r) * VuL(r, l);
-                            Clequ1_EW[i][j][k][l] += VuLd(k, p) * c_Clequ1(i, j, p, r) * VuR(r, l);
-                            Clequ3_EW[i][j][k][l] += VuLd(k, p) * c_Clequ3(i, j, p, r) * VuR(r, l);
-                            for (int s = 0; s < 3; s++) 
-                                for (int t = 0; t < 3; t++) {
-                                    Cqq1_EW[i][j][k][l] += VuLd(i, p) * VuLd(k, s) * c_Cqq1(p, r, s, t) * VuL(r, j) * VuL(t, l);
-                                    Cqq3_EW[i][j][k][l] += VuLd(i, p) * VuLd(k, s) * c_Cqq3(p, r, s, t) * VuL(r, j) * VuL(t, l);
-                                    Cuu_EW[i][j][k][l] += VuRd(i, p) * VuRd(k, s) * c_Cuu(p, r, s, t) * VuR(r, j) * VuR(t, l);
-                                    Cdd_EW[i][j][k][l] += VdRd(i, p) * VdRd(k, s) * c_Cdd(p, r, s, t) * VdR(r, j) * VdR(t, l);
-                                    Cud1_EW[i][j][k][l] += VuRd(i, p) * VdRd(k, s) * c_Cud1(p, r, s, t) * VuR(r, j) * VdR(t, l);
-                                    Cud8_EW[i][j][k][l] += VuRd(i, p) * VdRd(k, s) * c_Cud8(p, r, s, t) * VuR(r, j) * VdR(t, l);
-                                    Cqu1_EW[i][j][k][l] += VuLd(i, p) * VuRd(k, s) * c_Cqu1(p, r, s, t) * VuL(r, j) * VuR(t, l);
-                                    Cqu8_EW[i][j][k][l] += VuLd(i, p) * VuRd(k, s) * c_Cqu8(p, r, s, t) * VuL(r, j) * VuR(t, l);
-                                    Cqd1_EW[i][j][k][l] += VuLd(i, p) * VdRd(k, s) * c_Cqd1(p, r, s, t) * VuL(r, j) * VdR(t, l);
-                                    Cqd8_EW[i][j][k][l] += VuLd(i, p) * VdRd(k, s) * c_Cqd8(p, r, s, t) * VuL(r, j) * VdR(t, l);
-                                    Cquqd1_EW[i][j][k][l] += VuLd(i, p) * VuLd(k, s) * c_Cquqd1(p, r, s, t) * VuR(r, j) * VdR(t, l);
-                                    Cquqd8_EW[i][j][k][l] += VuLd(i, p) * VuLd(k, s) * c_Cquqd8(p, r, s, t) * VuR(r, j) * VdR(t, l);
-                                }
-                        }
-                }
-            }
-
-    //  Dim 6 SMEFT-LEFT matching
-
-    // update LEFT Wilson coefficients (time consuming, do only if FlagmatchLEFT=true
     if (FlagmatchLEFT) getMatching().updateLEFTGeneralParameters();
-    
-    
-    //  3) Store some of the operators at the EW scale in the physical basis
-    
-    // Diagonal-elements of neutral-current (NC) combinations are always real
-    
-    // NC up-quark sector
-    CHq1EWuu = CHq1_EW[0][0].real();
-    CHq1EWcc = CHq1_EW[1][1].real();
-    CHq1EWtt = CHq1_EW[2][2].real();
-    
-    CHq3EWuu = CHq3_EW[0][0].real();
-    CHq3EWcc = CHq3_EW[1][1].real();
-    CHq3EWtt = CHq3_EW[2][2].real();
-    
-    CHuEWuu = CHu_EW[0][0].real();
-    CHuEWcc = CHu_EW[1][1].real();
-    CHuEWtt = CHu_EW[2][2].real();
-    
-    // NC down-quark sector
 
-    gslpp::matrix<gslpp::complex> VCKM = myCKM.getCKM();
-    gslpp::matrix<gslpp::complex> VCKMd = VCKM.hconjugate();
-
-    gslpp::complex CHq1EWddc = 0.;
-    gslpp::complex CHq1EWssc = 0.;
-    gslpp::complex CHq1EWbbc = 0.;
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-                CHq1EWddc += CHq1_EW[i][j] * VCKMd(0, i) * VCKM(j, 0);
-                CHq1EWssc += CHq1_EW[i][j] * VCKMd(1, i) * VCKM(j, 1);
-                CHq1EWbbc += CHq1_EW[i][j] * VCKMd(2, i) * VCKM(j, 2);
-        }
-    }
-    CHq1EWdd = CHq1EWddc.real();
-    CHq1EWss = CHq1EWssc.real();
-    CHq1EWbb = CHq1EWbbc.real();
-    
-    gslpp::complex CHdEWddc = 0.;
-    gslpp::complex CHdEWssc = 0.;
-    gslpp::complex CHdEWbbc = 0.;
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-                CHdEWddc += CHd_EW[i][j] * VCKMd(0, i) * VCKM(j, 0);
-                CHdEWssc += CHd_EW[i][j] * VCKMd(1, i) * VCKM(j, 1);
-                CHdEWbbc += CHd_EW[i][j] * VCKMd(2, i) * VCKM(j, 2);
-        }
-    }
-    CHdEWdd = CHdEWddc.real();
-    CHdEWss = CHdEWssc.real();
-    CHdEWbb = CHdEWbbc.real();
-    
-    gslpp::complex CHq3EWddc = 0.;
-    gslpp::complex CHq3EWssc = 0.;
-    gslpp::complex CHq3EWbbc = 0.;
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-                CHq3EWddc += CHq3_EW[i][j] * VCKMd(0, i) * VCKM(j, 0);
-                CHq3EWssc += CHq3_EW[i][j] * VCKMd(1, i) * VCKM(j, 1);
-                CHq3EWbbc += CHq3_EW[i][j] * VCKMd(2, i) * VCKM(j, 2);
-        }
-    }
-    CHq3EWdd = CHq3EWddc.real();
-    CHq3EWss = CHq3EWssc.real();
-    CHq3EWbb = CHq3EWbbc.real();
-
-    CHq3EWud = 0.;
-    CHq3EWcs = 0.;
-    CHq3EWtb = 0.;
-    for (int j = 0; j < 3; j++) {
-                CHq3EWud += CHq3_EW[0][j] * VCKM(j, 0);
-                CHq3EWcs += CHq3_EW[1][j] * VCKM(j, 1);
-                CHq3EWtb += CHq3_EW[2][j] * VCKM(j, 2);
-    }
-
-    return (true);
+    return true;
 }
 
 // void NPSMEFTd6General::computeYukawas() {
@@ -14427,287 +14165,211 @@ bool NPSMEFTd6General::setFlagStr(const std::string name, const std::string valu
     return false;
 }
 
-// Functions to select the SMEFT WC at different energy scales 
-
-double NPSMEFTd6General::getSMEFTCoeff(const std::string& name, const double mu) const {
-    //return SMEFTEvolEW.GetCoefficient(name);
-        
-    if ( (!FlagmultiScaleRGE) || (mu <= 120.0) ) {
-        // This is always returned if FlagmultiScaleRGE=false        
-        return SMEFTEvolEW.GetCoefficient(name);
-        
-    } else if ( mu <= 220.0 ) {
-        
-        return SMEFTEvolMH.GetCoefficient(name);
-        
-    } else if ( mu <= 320.0 ) {
-        
-        return SMEFTEvol240.GetCoefficient(name);
-        
-    } else if ( mu <= 490.0 ) {
-        
-        return SMEFTEvol365.GetCoefficient(name);
-        
-    } else if ( mu <= 980.0 ) {
-        
-        return SMEFTEvol550.GetCoefficient(name);
-        
-    } else if ( mu <= 1400.0 ) {
-        
-        return SMEFTEvol1000.GetCoefficient(name);
-        
-    } else if ( mu <= 2800.0 ) {
-        
-        return SMEFTEvol1500.GetCoefficient(name);
-        
-    } else if ( mu <= 4500.0 ) {
-        
-        return SMEFTEvol3000.GetCoefficient(name);
-        
-    } else if ( mu <= 9000.0 ) {
-        
-        return SMEFTEvol5000.GetCoefficient(name);
-
-    } else {
-        //std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
-        //std::cout << "Returning value at Lambda(NP) = " << muw << std::endl;
-
-        return SMEFTEvolUV.GetCoefficient(name);
-
+namespace {
+template<typename Coefficient>
+std::unordered_map<std::string, std::pair<Coefficient, bool>> componentLookup(
+        std::initializer_list<std::pair<std::string, Coefficient>> coefficients)
+{
+    std::unordered_map<std::string, std::pair<Coefficient, bool>> lookup;
+    lookup.reserve(2 * coefficients.size());
+    for (const auto& coefficient : coefficients) {
+        lookup.emplace(coefficient.first + "R", std::make_pair(coefficient.second, false));
+        lookup.emplace(coefficient.first + "I", std::make_pair(coefficient.second, true));
     }
-    
-    //double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name), SMEFTEvolMH.GetCoefficient(name), SMEFTEvol240.GetCoefficient(name), SMEFTEvol365.GetCoefficient(name), SMEFTEvol550.GetCoefficient(name)};
-    //int imu;
-    //double WCmu;    
-    
-    //if (abs(log(mu/muw)) <= 0.2 ) {
-    //    imu = 0;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/125.1)) <= 0.35 ) {
-    //    imu = 1;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/240.)) <= 0.35 ) {
-    //    imu = 2;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/365.)) <= 0.2 ) {
-    //    imu = 3;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/500.)) <= 0.2 ) {
-    //    imu = 4;
-    //    return Cimu[imu];
-    //} else {
-    //    std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
-    //    std::cout << "Returning value at muW = " << muw << std::endl;
-    //    imu = 0;
-    //    return Cimu[imu];
-    //}
-    
-    // The values of the Wilson coefficients, evaluated at the different scales, from top (Lambda) to bottom (MW)
-    //double Cimu[6] = {SMEFTEvolUV.GetCoefficient(name), SMEFTEvol550.GetCoefficient(name), SMEFTEvol365.GetCoefficient(name), SMEFTEvol240.GetCoefficient(name), SMEFTEvolMH.GetCoefficient(name), SMEFTEvolEW.GetCoefficient(name)};
-    //double t1, t2, t3, t4, t5;
-    //double x1, x2, x3, x4, x5;
-    
-    //t1 = log(mu/Lambda_NP);
-    //t2 = t1*t1;
-    //t3 = t2*t1;
-    //t4 = t3*t1;
-    //t5 = t4*t1;
-    
-    //x1 = xlog1(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    //x2 = xlog2(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    //x3 = xlog3(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    //x4 = xlog4(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    //x5 = xlog5(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-
-    //return (Cimu[0] + x1 * t1 + x2 * t2 + x3 * t3 + x4 * t4 + x5 * t5); 
-}
-    
-double NPSMEFTd6General::getSMEFTCoeff(const std::string& name, int i, int j, const double mu) const {
-    //return SMEFTEvolEW.GetCoefficient(name, i, j);
-    
-    if ( (!FlagmultiScaleRGE) || (mu <= 120.0) ) {
-        // This is always returned if FlagmultiScaleRGE=false        
-        return SMEFTEvolEW.GetCoefficient(name, i, j);
-        
-    } else if ( mu <= 220.0 ) {
-        
-        return SMEFTEvolMH.GetCoefficient(name, i, j);
-        
-    } else if ( mu <= 320.0 ) {
-        
-        return SMEFTEvol240.GetCoefficient(name, i, j);
-        
-    } else if ( mu <= 490.0 ) {
-        
-        return SMEFTEvol365.GetCoefficient(name, i, j);
-        
-    } else if ( mu <= 980.0 ) {
-        
-        return SMEFTEvol550.GetCoefficient(name, i, j);
-        
-    } else if ( mu <= 1400.0 ) {
-        
-        return SMEFTEvol1000.GetCoefficient(name, i, j);
-        
-    } else if ( mu <= 2800.0 ) {
-        
-        return SMEFTEvol1500.GetCoefficient(name, i, j);
-        
-    } else if ( mu <= 4500.0 ) {
-        
-        return SMEFTEvol3000.GetCoefficient(name, i, j);
-        
-    } else if ( mu <= 9000.0 ) {
-        
-        return SMEFTEvol5000.GetCoefficient(name, i, j);
-
-    } else {
-        //std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
-        //std::cout << "Returning value at Lambda(NP) = " << muw << std::endl;
-
-        return SMEFTEvolUV.GetCoefficient(name, i, j);
-
-    }
-    
-    //double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name, i, j), SMEFTEvolMH.GetCoefficient(name, i, j), SMEFTEvol240.GetCoefficient(name, i, j), SMEFTEvol365.GetCoefficient(name, i, j), SMEFTEvol550.GetCoefficient(name, i, j)};
-    //int imu;
-    ////double WCmu;
-    
-    //if (abs(log(mu/muw)) <= 0.2 ) {
-    //    imu = 0;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/125.1)) <= 0.35 ) {
-    //    imu = 1;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/240.)) <= 0.35 ) {
-    //    imu = 2;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/365.)) <= 0.2 ) {
-    //    imu = 3;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/500.)) <= 0.2 ) {
-    //    imu = 4;
-    //    return Cimu[imu];
-    //} else {
-    //    std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
-    //    std::cout << "Returning value at muW = " << muw << std::endl;
-    //    imu = 0;
-    //    return Cimu[imu];
-    //}
-    
-    // The values of the Wilson coefficients, evaluated at the different scales, from top (Lambda) to bottom (MW)
-    //double Cimu[6] = {SMEFTEvolUV.GetCoefficient(name, i, j), SMEFTEvol550.GetCoefficient(name, i, j), SMEFTEvol365.GetCoefficient(name, i, j), SMEFTEvol240.GetCoefficient(name, i, j), SMEFTEvolMH.GetCoefficient(name, i, j), SMEFTEvolEW.GetCoefficient(name, i, j)};
-    //double t1, t2, t3, t4, t5;
-    //double x1, x2, x3, x4, x5;
-    
-    //t1 = log(mu/Lambda_NP);
-    //t2 = t1*t1;
-    //t3 = t2*t1;
-    //t4 = t3*t1;
-    //t5 = t4*t1;
-    
-    //x1 = xlog1(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    //x2 = xlog2(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    //x3 = xlog3(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    //x4 = xlog4(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    //x5 = xlog5(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-
-    //return (Cimu[0] + x1 * t1 + x2 * t2 + x3 * t3 + x4 * t4 + x5 * t5);     
-}
-    
-double NPSMEFTd6General::getSMEFTCoeff(const std::string& name, int i, int j, int k, int l, const double mu) const {
-    //return SMEFTEvolEW.GetCoefficient(name, i, j, k, l);
-    
-    if ( (!FlagmultiScaleRGE) || (mu <= 120.0) ) {
-        // This is always returned if FlagmultiScaleRGE=false        
-        return SMEFTEvolEW.GetCoefficient(name, i, j, k, l);
-        
-    } else if ( mu <= 220.0 ) {
-        
-        return SMEFTEvolMH.GetCoefficient(name, i, j, k, l);
-        
-    } else if ( mu <= 320.0 ) {
-        
-        return SMEFTEvol240.GetCoefficient(name, i, j, k, l);
-        
-    } else if ( mu <= 490.0 ) {
-        
-        return SMEFTEvol365.GetCoefficient(name, i, j, k, l);
-        
-    } else if ( mu <= 980.0 ) {
-        
-        return SMEFTEvol550.GetCoefficient(name, i, j, k, l);
-        
-    } else if ( mu <= 1400.0 ) {
-        
-        return SMEFTEvol1000.GetCoefficient(name, i, j, k, l);
-        
-    } else if ( mu <= 2800.0 ) {
-        
-        return SMEFTEvol1500.GetCoefficient(name, i, j, k, l);
-        
-    } else if ( mu <= 4500.0 ) {
-        
-        return SMEFTEvol3000.GetCoefficient(name, i, j, k, l);
-        
-    } else if ( mu <= 9000.0 ) {
-        
-        return SMEFTEvol5000.GetCoefficient(name, i, j, k, l);
-        
-    } else {
-        //std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
-        //std::cout << "Returning value at Lambda(NP) = " << muw << std::endl;
-
-        return SMEFTEvolUV.GetCoefficient(name, i, j, k, l);
-
-    }
-    
-    //double Cimu[5] = {SMEFTEvolEW.GetCoefficient(name, i, j, k, l), SMEFTEvolMH.GetCoefficient(name, i, j, k, l), SMEFTEvol240.GetCoefficient(name, i, j, k, l), SMEFTEvol365.GetCoefficient(name, i, j, k, l), SMEFTEvol550.GetCoefficient(name, i, j, k, l)};    
-    //int imu;
-    ////double WCmu;
-    
-    //if (abs(log(mu/muw)) <= 0.2 ) {
-    //    imu = 0;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/125.1)) <= 0.35 ) {
-    //    imu = 1;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/240.)) <= 0.35 ) {
-    //    imu = 2;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/365.)) <= 0.2 ) {
-    //    imu = 3;
-    //    return Cimu[imu];
-    //} else if ( abs(log(mu/500.)) <= 0.2 ) {
-    //    imu = 4;
-    //    return Cimu[imu];
-    //} else {
-    //    std::cout << "Warning: RGE scale not defined for operator = " << name << std::endl;
-    //    std::cout << "Returning value at muW = " << muw << std::endl;
-    //    imu = 0;
-    //    return Cimu[imu];
-    //}
-    
-    // The values of the Wilson coefficients, evaluated at the different scales, from top (Lambda) to bottom (MW)
-    //double Cimu[6] = { SMEFTEvolUV.GetCoefficient(name, i, j, k, l), SMEFTEvol550.GetCoefficient(name, i, j, k, l), SMEFTEvol365.GetCoefficient(name, i, j, k, l), SMEFTEvol240.GetCoefficient(name, i, j, k, l), SMEFTEvolMH.GetCoefficient(name, i, j, k, l), SMEFTEvolEW.GetCoefficient(name, i, j, k, l)};    
-    //double t1, t2, t3, t4, t5;
-    //double x1, x2, x3, x4, x5;
-    
-    //t1 = log(mu/Lambda_NP);
-    //t2 = t1*t1;
-    //t3 = t2*t1;
-    //t4 = t3*t1;
-    //t5 = t4*t1;
-    
-    //x1 = xlog1(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    //x2 = xlog2(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    //x3 = xlog3(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    //x4 = xlog4(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-    //x5 = xlog5(Cimu[0], Cimu[1], Cimu[2], Cimu[3], Cimu[4], Cimu[5]);
-
-    //return (Cimu[0] + x1 * t1 + x2 * t2 + x3 * t3 + x4 * t4 + x5 * t5);     
+    return lookup;
 }
 
+bool validFlavourIndex(int index)
+{
+    return index >= 0 && index < 3;
+}
+}
+
+double NPSMEFTd6General::WilsonCoefficients::get(const std::string& name) const
+{
+    static const std::unordered_map<std::string, double WilsonCoefficients::*> lookup = {
+        {"CG", &WilsonCoefficients::CG},
+        {"CW", &WilsonCoefficients::CW},
+        {"CHG", &WilsonCoefficients::CHG},
+        {"CHW", &WilsonCoefficients::CHW},
+        {"CHB", &WilsonCoefficients::CHB},
+        {"CHWB", &WilsonCoefficients::CHWB},
+        {"CHD", &WilsonCoefficients::CHD},
+        {"CHbox", &WilsonCoefficients::CHbox},
+        {"CH", &WilsonCoefficients::CH},
+        {"CGtilde", &WilsonCoefficients::CGtilde},
+        {"CWtilde", &WilsonCoefficients::CWtilde},
+        {"CHGtilde", &WilsonCoefficients::CHGtilde},
+        {"CHWtilde", &WilsonCoefficients::CHWtilde},
+        {"CHBtilde", &WilsonCoefficients::CHBtilde},
+        {"CHWtildeB", &WilsonCoefficients::CHWtildeB},
+    };
+    return this->*lookup.at(name);
+}
+
+double NPSMEFTd6General::WilsonCoefficients::get(const std::string& name, int i, int j) const
+{
+    if (!validFlavourIndex(i) || !validFlavourIndex(j)) {
+        std::cout << "ERROR : INDICES OUT OF RANGE [0:2]" << std::endl;
+        return 0.;
+    }
+
+    static const auto lookup = componentLookup<Tensor2 WilsonCoefficients::*>({
+        {"CHl1", &WilsonCoefficients::CHl1},
+        {"CHl3", &WilsonCoefficients::CHl3},
+        {"CHe", &WilsonCoefficients::CHe},
+        {"CHq1", &WilsonCoefficients::CHq1},
+        {"CHq3", &WilsonCoefficients::CHq3},
+        {"CHu", &WilsonCoefficients::CHu},
+        {"CHd", &WilsonCoefficients::CHd},
+        {"CHud", &WilsonCoefficients::CHud},
+        {"CeH", &WilsonCoefficients::CeH},
+        {"CuH", &WilsonCoefficients::CuH},
+        {"CdH", &WilsonCoefficients::CdH},
+        {"CuG", &WilsonCoefficients::CuG},
+        {"CuW", &WilsonCoefficients::CuW},
+        {"CuB", &WilsonCoefficients::CuB},
+        {"CdG", &WilsonCoefficients::CdG},
+        {"CdW", &WilsonCoefficients::CdW},
+        {"CdB", &WilsonCoefficients::CdB},
+        {"CeW", &WilsonCoefficients::CeW},
+        {"CeB", &WilsonCoefficients::CeB},
+    });
+    const auto& component = lookup.at(name);
+    const auto& value = (this->*component.first)[i][j];
+    return component.second ? value.imag() : value.real();
+}
+
+double NPSMEFTd6General::WilsonCoefficients::get(const std::string& name, int i, int j, int k, int l) const
+{
+    if (!validFlavourIndex(i) || !validFlavourIndex(j) || !validFlavourIndex(k) || !validFlavourIndex(l)) {
+        std::cout << "ERROR : INDICES OUT OF RANGE [0:2]" << std::endl;
+        return 0.;
+    }
+
+    static const auto lookup = componentLookup<Tensor4 WilsonCoefficients::*>({
+        {"Cll", &WilsonCoefficients::Cll},
+        {"Clq1", &WilsonCoefficients::Clq1},
+        {"Clq3", &WilsonCoefficients::Clq3},
+        {"Cee", &WilsonCoefficients::Cee},
+        {"Ceu", &WilsonCoefficients::Ceu},
+        {"Ced", &WilsonCoefficients::Ced},
+        {"Cle", &WilsonCoefficients::Cle},
+        {"Clu", &WilsonCoefficients::Clu},
+        {"Cld", &WilsonCoefficients::Cld},
+        {"Cqe", &WilsonCoefficients::Cqe},
+        {"Cledq", &WilsonCoefficients::Cledq},
+        {"Cqq1", &WilsonCoefficients::Cqq1},
+        {"Cqq3", &WilsonCoefficients::Cqq3},
+        {"Cuu", &WilsonCoefficients::Cuu},
+        {"Cdd", &WilsonCoefficients::Cdd},
+        {"Cud1", &WilsonCoefficients::Cud1},
+        {"Cud8", &WilsonCoefficients::Cud8},
+        {"Cqu1", &WilsonCoefficients::Cqu1},
+        {"Cqu8", &WilsonCoefficients::Cqu8},
+        {"Cqd1", &WilsonCoefficients::Cqd1},
+        {"Cqd8", &WilsonCoefficients::Cqd8},
+        {"Cquqd1", &WilsonCoefficients::Cquqd1},
+        {"Cquqd8", &WilsonCoefficients::Cquqd8},
+        {"Clequ1", &WilsonCoefficients::Clequ1},
+        {"Clequ3", &WilsonCoefficients::Clequ3},
+    });
+    const auto& component = lookup.at(name);
+    const auto& value = (this->*component.first)[i][j][k][l];
+    return component.second ? value.imag() : value.real();
+}
+
+double NPSMEFTd6General::getSMEFTCoeffEW(const std::string& name) const
+{
+    return ewCoefficients.get(name);
+}
+
+double NPSMEFTd6General::getSMEFTCoeffEW(const std::string& name, int i, int j) const
+{
+    return ewCoefficients.get(name, i, j);
+}
+
+double NPSMEFTd6General::getSMEFTCoeffEW(const std::string& name, int i, int j, int k, int l) const
+{
+    return ewCoefficients.get(name, i, j, k, l);
+}
+
+const std::array<NPSMEFTd6General::EvolutionScale, NPSMEFTd6General::numberOfEvolutionScales>
+NPSMEFTd6General::evolutionScales = {{
+    {220., 125.1, false},
+    {320., 240., false},
+    {490., 365., false},
+    {980., 550., false},
+    {1400., 1000., true},
+    {2800., 1500., true},
+    {4500., 3000., true},
+    {9000., 5000., true},
+    {std::numeric_limits<double>::infinity(), 0., false} // UV reference at Lambda_NP.
+}};
+
+double NPSMEFTd6General::evolutionEndpoint(const EvolutionScale& scale) const
+{
+    if (scale.target == 0.) return Lambda_NP;
+    return scale.capAtLambda ? std::min(scale.target, Lambda_NP) : scale.target;
+}
+
+bool NPSMEFTd6General::updateScaleCoefficients()
+{
+    scaleCoefficients.clear();
+    if (!FlagmultiScaleRGE || !FlagRGEci) return true;
+
+    for (std::size_t i = 0; i < evolutionScales.size(); ++i) {
+        const double endpoint = evolutionEndpoint(evolutionScales[i]);
+        if (endpoint == muw || scaleCoefficients.count(endpoint)) continue;
+
+        auto& solver = scaleSolvers[i];
+        solver.Reset();
+        solver.GenerateSMInitialConditions(muw, Lambda_NP, SMEFTBasisFlag, "Numeric",
+                g1_LEW, g2_LEW, g3_LEW, lambdaH_LEW, mH2_LEW,
+                Mu_LEW, Md_LEW, Me_LEW, s12CKM_LEW, s13CKM_LEW, s23CKM_LEW, dCKM_LEW);
+        setSMEFTEvolWC(solver);
+        const bool runToEndpoint = endpoint != Lambda_NP;
+        if (runToEndpoint) {
+            solver.EvolveSMEFTOnly(Lambda_NP, endpoint);
+            solver.EvolveSMOnly("Numeric", Lambda_NP, endpoint);
+        }
+
+        const double vevSquared = solver.GetCoefficient("mh2") / (2. * solver.GetCoefficient("lambda"));
+        QuarkMassBasis basis;
+        // The EW input shift proportional to Y_f drops out of the rotation at dimension-six order.
+        if (!diagonalizeQuarks(solver, vevSquared, 0., runToEndpoint && FlagCorrsInSMRunning, basis)) {
+            std::cout << "Warning: invalid quark mass matrices at " << endpoint << " GeV" << std::endl;
+            return false;
+        }
+        rotateWilsonCoefficients(solver, basis, scaleCoefficients[endpoint]);
+    }
+    return true;
+}
+
+const NPSMEFTd6General::WilsonCoefficients& NPSMEFTd6General::coefficientsAtScale(double mu) const
+{
+    if (!FlagmultiScaleRGE || !FlagRGEci || mu <= 120.) return ewCoefficients;
+
+    const auto bin = std::find_if(evolutionScales.begin(), evolutionScales.end(),
+            [mu](const EvolutionScale& scale) { return mu <= scale.upperEdge; });
+    const double endpoint = evolutionEndpoint(bin == evolutionScales.end() ? evolutionScales.back() : *bin);
+    return endpoint == muw ? ewCoefficients : scaleCoefficients.at(endpoint);
+}
+
+double NPSMEFTd6General::getSMEFTCoeff(const std::string& name, double mu) const
+{
+    return coefficientsAtScale(mu).get(name);
+}
+
+double NPSMEFTd6General::getSMEFTCoeff(const std::string& name, int i, int j, double mu) const
+{
+    return coefficientsAtScale(mu).get(name, i, j);
+}
+
+double NPSMEFTd6General::getSMEFTCoeff(const std::string& name, int i, int j, int k, int l, double mu) const
+{
+    return coefficientsAtScale(mu).get(name, i, j, k, l);
+}
 
 // Functions used by the above to compute the approximation by a polynomial up to log^5 to the RG evolution
 // Coeff of term proportional to log(mu/Lambda)
@@ -15007,57 +14669,6 @@ double NPSMEFTd6General::xlog5(const double C1Lambda, const double C2, const dou
 
 ////////////////////////////////////////////////////////////////////////
 
-// Coefficients of fermionic operators in the mass basis
-    
-// Coefficients are assumed to be complex, "name" is the name without R or I at the end. That is added here 
-inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffMB(const std::string name, int i, int j, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj, const double mu) const
-{
-        std::string nameR, nameI;
-        gslpp::complex Cij;
-        
-        // Add the R and I to the name of the operator, to call the real and imaginary parts of the operator from RGEsolver
-        nameR = name;
-        nameI = name;
-        
-        nameR.push_back('R');
-        nameI.push_back('I');
-
-        Cij = 0.;
-        
-        for (int k = 0; k < 3; k++)
-            for (int l = 0; l < 3; l++) 
-            {
-                Cij +=  Vi(i,k) * ( getSMEFTCoeff(nameR, k, l, mu) + gslpp::complex::i() * getSMEFTCoeff(nameI, k, l, mu) ) * Vj(l,j);
-            }
-        
-        return Cij;
-}
-    
-inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffMB(const std::string name, int i, int j, int k, int l, gslpp::matrix<gslpp::complex> Vi, gslpp::matrix<gslpp::complex>  Vj, gslpp::matrix<gslpp::complex> Vk, gslpp::matrix<gslpp::complex>  Vl, const double mu) const
-{
-        std::string nameR, nameI;
-        gslpp::complex Cijkl;
-        
-        // Add the R and I to the name of the operator, to call the real and imaginary parts of the operator from RGEsolver
-        nameR = name;
-        nameI = name;
-        
-        nameR.push_back('R');
-        nameI.push_back('I');
-
-        Cijkl = 0.;
-        
-        for (int m1 = 0; m1 < 3; m1++)
-            for (int n1 = 0; n1 < 3; n1++) 
-                for (int m2 = 0; m2 < 3; m2++) 
-                    for (int n2 = 0; n2 < 3; n2++)
-                    {
-                        Cijkl +=  Vi(i,m1) * Vk(k,m2) * ( getSMEFTCoeff(nameR, m1, n1, m2, n2, mu) + gslpp::complex::i() * getSMEFTCoeff(nameI, m1, n1, m2, n2, mu) ) * Vj(n1,j) * Vl(n2,l);
-                    }
-        
-        return Cijkl;   
-}
-
 ////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////
@@ -15073,91 +14684,62 @@ inline gslpp::complex NPSMEFTd6General::getSMEFTCoeffMB(const std::string name, 
 //needs to be updated
 
 double NPSMEFTd6General::CHF1_diag(const Particle F) const {
-    //We include only the real part for the moment
-    //if (F.is("NEUTRINO_1") || F.is("ELECTRON"))
-    //    return getSMEFTCoeffEW("CHl1R", 0, 0);
-    //else if (F.is("NEUTRINO_2") || F.is("MU"))
-    //    return getSMEFTCoeffEW("CHl1R", 1, 1);
-    //else if (F.is("NEUTRINO_3") || F.is("TAU"))
-    //    return getSMEFTCoeffEW("CHl1R", 2, 2);
-    //else if (F.is("UP") || F.is("DOWN"))
-    //    return getSMEFTCoeffEW("CHq1R", 0, 0);
-    //else if (F.is("CHARM") || F.is("STRANGE"))
-    //    return getSMEFTCoeffEW("CHq1R", 1, 1);
-    //else if (F.is("TOP") || F.is("BOTTOM"))
-    //    return getSMEFTCoeffEW("CHq1R", 2, 2);
-    //else
-    //    throw std::runtime_error("NPSMEFTd6General::CHF1_diag(): wrong argument");
-    switch(F.getIndex()){
+    switch (F.getIndex()) {
         case 0:
-            return  getSMEFTCoeffEW("CHl1R", 0, 0);
+            return ewCoefficients.CHl1[0][0].real();
         case 1:
-            return getSMEFTCoeffEW("CHl1R", 0, 0);
+            return ewCoefficients.CHl1[0][0].real();
         case 2:
-            return getSMEFTCoeffEW("CHl1R", 1, 1);
+            return ewCoefficients.CHl1[1][1].real();
         case 3:
-            return getSMEFTCoeffEW("CHl1R", 1, 1);
+            return ewCoefficients.CHl1[1][1].real();
         case 4:
-            return getSMEFTCoeffEW("CHl1R", 2, 2);
+            return ewCoefficients.CHl1[2][2].real();
         case 5:
-            return getSMEFTCoeffEW("CHl1R", 2, 2);
+            return ewCoefficients.CHl1[2][2].real();
         case 6:
-            return CHq1EWuu;
+            return ewCoefficients.CHq1[0][0].real();
         case 7:
-            return CHq1EWdd;
+            return ewCoefficients.CHq1Down[0];
         case 8:
-            return CHq1EWcc;
+            return ewCoefficients.CHq1[1][1].real();
         case 9:
-            return CHq1EWss;
+            return ewCoefficients.CHq1Down[1];
         case 10:
-            return CHq1EWtt;
+            return ewCoefficients.CHq1[2][2].real();
         case 11:
-            return CHq1EWbb;
+            return ewCoefficients.CHq1Down[2];
         default:
             throw std::runtime_error("NPSMEFTd6General::CHF1_diag(): wrong argument");
     }
 }
 
 double NPSMEFTd6General::CHF3_diag(const Particle F) const {
-    //if (F.is("NEUTRINO_1") || F.is("ELECTRON"))
-    //    return getSMEFTCoeffEW("CHl3R", 0, 0);
-    //else if (F.is("NEUTRINO_2") || F.is("MU"))
-    //    return getSMEFTCoeffEW("CHl3R", 1, 1);
-    //else if (F.is("NEUTRINO_3") || F.is("TAU"))
-    //    return getSMEFTCoeffEW("CHl3R", 2, 2);
-    //else if (F.is("UP") || F.is("DOWN"))
-    //    return getSMEFTCoeffEW("CHq3R", 0, 0);
-    //else if (F.is("CHARM") || F.is("STRANGE"))
-    //    return getSMEFTCoeffEW("CHq3R", 1, 1);
-    //else if (F.is("TOP") || F.is("BOTTOM"))
-    //    return getSMEFTCoeffEW("CHq3R", 2, 2);
-    //else
-    //    throw std::runtime_error("NPSMEFTd6General::CHF3_diag(): wrong argument");
-    switch(F.getIndex()){
+    switch (F.getIndex()) {
         case 0:
-            return getSMEFTCoeffEW("CHl3R", 0, 0);
+            return ewCoefficients.CHl3[0][0].real();
         case 1:
-            return getSMEFTCoeffEW("CHl3R", 0, 0);
+            return ewCoefficients.CHl3[0][0].real();
         case 2:
-            return getSMEFTCoeffEW("CHl3R", 1, 1);
+            return ewCoefficients.CHl3[1][1].real();
         case 3:
-            return getSMEFTCoeffEW("CHl3R", 1, 1);
+            return ewCoefficients.CHl3[1][1].real();
         case 4:
-            return getSMEFTCoeffEW("CHl3R", 2, 2);
+            return ewCoefficients.CHl3[2][2].real();
         case 5:
-            return getSMEFTCoeffEW("CHl3R", 2, 2);
+            return ewCoefficients.CHl3[2][2].real();
         case 6:
-            return CHq3EWuu;
+            return ewCoefficients.CHq3[0][0].real();
         case 7:
-            return CHq3EWdd;
+            return ewCoefficients.CHq3Down[0];
         case 8:
-            return CHq3EWcc;
+            return ewCoefficients.CHq3[1][1].real();
         case 9:
-            return CHq3EWss;
+            return ewCoefficients.CHq3Down[1];
         case 10:
-            return CHq3EWtt;
+            return ewCoefficients.CHq3[2][2].real();
         case 11:
-            return CHq3EWbb;
+            return ewCoefficients.CHq3Down[2];
         default:
             throw std::runtime_error("NPSMEFTd6General::CHF3_diag(): wrong argument");
     }
@@ -15169,64 +14751,42 @@ gslpp::complex NPSMEFTd6General::CHF3CC_diag(const Particle F) const {
         throw std::runtime_error("NPSMEFTd6General::CHF3CC_diag(): wrong argument");
     switch (index) {
         case 6:
-            return CHq3EWud; // Up
+            return ewCoefficients.CHq3Charged[0]; // Up
         case 8:
-            return CHq3EWcs; // Charm
+            return ewCoefficients.CHq3Charged[1]; // Charm
         case 10:
-            return CHq3EWtb; // Top
+            return ewCoefficients.CHq3Charged[2]; // Top
         default:
             return gslpp::complex(CHF3_diag(F), 0.0, false); // Leptons
     }
 }
 
 double NPSMEFTd6General::CHf_diag(const Particle f) const {
-    //if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
-    //    return 0.0;
-    //else if (f.is("ELECTRON"))
-    //    return getSMEFTCoeffEW("CHeR", 0, 0);
-    //else if (f.is("MU"))
-    //    return getSMEFTCoeffEW("CHeR", 1, 1);
-    //else if (f.is("TAU"))
-    //    return getSMEFTCoeffEW("CHeR", 2, 2);
-    //else if (f.is("UP"))
-    //    return getSMEFTCoeffEW("CHuR", 0, 0);
-    //else if (f.is("CHARM"))
-    //    return getSMEFTCoeffEW("CHuR", 1, 1);
-    //else if (f.is("TOP"))
-    //    return getSMEFTCoeffEW("CHuR", 2, 2);
-    //else if (f.is("DOWN"))
-    //    return getSMEFTCoeffEW("CHdR", 0, 0);
-    //else if (f.is("STRANGE"))
-    //    return getSMEFTCoeffEW("CHdR", 1, 1);
-    //else if (f.is("BOTTOM"))
-    //    return getSMEFTCoeffEW("CHdR", 2, 2);
-    //else
-    //    throw std::runtime_error("NPSMEFTd6General::CHf_diag(): wrong argument");
-    switch(f.getIndex()){
+    switch (f.getIndex()) {
         case 0:
             return 0.;
         case 1:
-            return getSMEFTCoeffEW("CHeR", 0, 0);
+            return ewCoefficients.CHe[0][0].real();
         case 2:
             return 0.;
         case 3:
-            return getSMEFTCoeffEW("CHeR", 1, 1);
+            return ewCoefficients.CHe[1][1].real();
         case 4:
             return 0.;
         case 5:
-            return getSMEFTCoeffEW("CHeR", 2, 2);
+            return ewCoefficients.CHe[2][2].real();
         case 6:
-            return CHuEWuu;
+            return ewCoefficients.CHu[0][0].real();
         case 7:
-            return CHdEWdd;
+            return ewCoefficients.CHd[0][0].real();
         case 8:
-            return CHuEWcc;
+            return ewCoefficients.CHu[1][1].real();
         case 9:
-            return CHdEWss;
+            return ewCoefficients.CHd[1][1].real();
         case 10:
-            return CHuEWtt;
+            return ewCoefficients.CHu[2][2].real();
         case 11:
-            return CHdEWbb;
+            return ewCoefficients.CHd[2][2].real();
         default:
             throw std::runtime_error("NPSMEFTd6General::CHf_diag(): wrong argument");
     }
@@ -15249,31 +14809,31 @@ gslpp::complex NPSMEFTd6General::CHud_diag(const Particle u) const {
 }
 
 gslpp::complex NPSMEFTd6General::CfH_diag(const Particle f) const {
-    switch(f.getIndex()){
+    switch (f.getIndex()) {
         case 0:
             return 0.;
         case 1:
-            return gslpp::complex(getSMEFTCoeffEW("CeHR", 0, 0), getSMEFTCoeffEW("CeHI", 0, 0), false); // electron
+            return ewCoefficients.CeH[0][0]; // electron
         case 2:
             return 0.;
         case 3:
-            return gslpp::complex(getSMEFTCoeffEW("CeHR", 1, 1), getSMEFTCoeffEW("CeHI", 1, 1), false); // muon
+            return ewCoefficients.CeH[1][1]; // muon
         case 4:
             return 0.;
         case 5:
-            return gslpp::complex(getSMEFTCoeffEW("CeHR", 2, 2), getSMEFTCoeffEW("CeHI", 2, 2), false); // tau
+            return ewCoefficients.CeH[2][2]; // tau
         case 6:
-            return gslpp::complex(getSMEFTCoeffEW("CuHR", 0, 0), getSMEFTCoeffEW("CuHI", 0, 0), false); // up
+            return ewCoefficients.CuH[0][0]; // up
         case 7:
-            return gslpp::complex(getSMEFTCoeffEW("CdHR", 0, 0), getSMEFTCoeffEW("CdHI", 0, 0), false); // down
+            return ewCoefficients.CdHDown[0]; // down
         case 8:
-            return gslpp::complex(getSMEFTCoeffEW("CuHR", 1, 1), getSMEFTCoeffEW("CuHI", 1, 1), false); // charm
+            return ewCoefficients.CuH[1][1]; // charm
         case 9:
-            return gslpp::complex(getSMEFTCoeffEW("CdHR", 1, 1), getSMEFTCoeffEW("CdHI", 1, 1), false); // strange
+            return ewCoefficients.CdHDown[1]; // strange
         case 10:
-            return gslpp::complex(getSMEFTCoeffEW("CuHR", 2, 2), getSMEFTCoeffEW("CuHI", 2, 2), false); // top
+            return ewCoefficients.CuH[2][2]; // top
         case 11:
-            return gslpp::complex(getSMEFTCoeffEW("CdHR", 2, 2), getSMEFTCoeffEW("CdHI", 2, 2), false); // bottom
+            return ewCoefficients.CdHDown[2]; // bottom
         default:
             throw std::runtime_error("NPSMEFTd6General::CfH_diag(): wrong argument");
     }
@@ -15335,25 +14895,26 @@ gslpp::complex NPSMEFTd6General::CfH_diag_mu(const Particle f, const double mu) 
     int index = f.getIndex();
     if (index < 0 || index > 11)
         throw std::runtime_error("NPSMEFTd6General::CfH_diag_mu(): wrong argument");
+    const auto& coefficients = coefficientsAtScale(mu);
     switch (index) {
         case 1:
-            return gslpp::complex(getSMEFTCoeff("CeHR", 0, 0, mu), getSMEFTCoeff("CeHI", 0, 0, mu), false); // electron
+            return coefficients.CeH[0][0]; // electron
         case 3:
-            return gslpp::complex(getSMEFTCoeff("CeHR", 1, 1, mu), getSMEFTCoeff("CeHI", 1, 1, mu), false); // muon
+            return coefficients.CeH[1][1]; // muon
         case 5:
-            return gslpp::complex(getSMEFTCoeff("CeHR", 2, 2, mu), getSMEFTCoeff("CeHI", 2, 2, mu), false); // tau 
+            return coefficients.CeH[2][2]; // tau
         case 6:
-            return gslpp::complex(getSMEFTCoeff("CuHR", 0, 0, mu), getSMEFTCoeff("CuHI", 0, 0, mu), false); // up
+            return coefficients.CuH[0][0]; // up
         case 7:
-            return gslpp::complex(getSMEFTCoeff("CdHR", 0, 0, mu), getSMEFTCoeff("CdHI", 0, 0, mu), false); // down
+            return coefficients.CdHDown[0]; // down
         case 8:
-            return gslpp::complex(getSMEFTCoeff("CuHR", 1, 1, mu), getSMEFTCoeff("CuHI", 1, 1, mu), false); // charm
+            return coefficients.CuH[1][1]; // charm
         case 9:
-            return gslpp::complex(getSMEFTCoeff("CdHR", 1, 1, mu), getSMEFTCoeff("CdHI", 1, 1, mu), false); // strange
+            return coefficients.CdHDown[1]; // strange
         case 10:
-            return gslpp::complex(getSMEFTCoeff("CuHR", 2, 2, mu), getSMEFTCoeff("CuHI", 2, 2, mu), false); // top
+            return coefficients.CuH[2][2]; // top
         case 11:
-            return gslpp::complex(getSMEFTCoeff("CdHR", 2, 2, mu), getSMEFTCoeff("CdHI", 2, 2, mu), false); // bottom
+            return coefficients.CdHDown[2]; // bottom
         default:
             return 0.;
     }
@@ -15515,7 +15076,7 @@ const double NPSMEFTd6General::delta2sBRH3(const double C1prod, const double C1H
 ////////////////////////////////////////////////////////////////////////
     
 const double NPSMEFTd6General::DeltaGF() const {
-    return ((getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1) - 0.5 * (getSMEFTCoeffEW("CllR", 0, 1, 1, 0) + getSMEFTCoeffEW("CllR", 1, 0, 0, 1))) * v2);
+    return delta_GF;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -17268,52 +16829,53 @@ const double NPSMEFTd6General::deltaGL_f_mu(const Particle p, const double mu) c
     NPindirect = (I3p - Qp * sW2_tree) * d_UgNC_mu + Qp * d_QgNC_mu;
     
     // Direct contribution  
-    switch(p.getIndex()){
+    const auto& coefficients = coefficientsAtScale(mu);
+    switch (p.getIndex()) {
     //if (p.is("NEUTRINO_1"))
         case 0:
-            CHF = getSMEFTCoeff("CHl1R", 0, 0, mu) - getSMEFTCoeff("CHl3R", 0, 0, mu);
+            CHF = coefficients.CHl1[0][0].real() - coefficients.CHl3[0][0].real();
             break;
     //else if (p.is("ELECTRON"))
         case 1:
-            CHF = getSMEFTCoeff("CHl1R", 0, 0, mu) + getSMEFTCoeff("CHl3R", 0, 0, mu);
+            CHF = coefficients.CHl1[0][0].real() + coefficients.CHl3[0][0].real();
             break;
     //else if (p.is("NEUTRINO_2"))
         case 2:
-            CHF = getSMEFTCoeff("CHl1R", 1, 1, mu) - getSMEFTCoeff("CHl3R", 1, 1, mu);
+            CHF = coefficients.CHl1[1][1].real() - coefficients.CHl3[1][1].real();
             break;
     //else if (p.is("MU"))
         case 3:
-            CHF = getSMEFTCoeff("CHl1R", 1, 1, mu) + getSMEFTCoeff("CHl3R", 1, 1, mu);
+            CHF = coefficients.CHl1[1][1].real() + coefficients.CHl3[1][1].real();
             break;
     //else if (p.is("NEUTRINO_3"))
         case 4:
-            CHF = getSMEFTCoeff("CHl1R", 2, 2, mu) - getSMEFTCoeff("CHl3R", 2, 2, mu);
+            CHF = coefficients.CHl1[2][2].real() - coefficients.CHl3[2][2].real();
             break;
     //else if (p.is("TAU"))
         case 5:
-            CHF = getSMEFTCoeff("CHl1R", 2, 2, mu) + getSMEFTCoeff("CHl3R", 2, 2, mu);
+            CHF = coefficients.CHl1[2][2].real() + coefficients.CHl3[2][2].real();
             break;
     //else if (p.is("UP"))
         case 6:
-            CHF = getSMEFTCoeff("CHq1R", 0, 0, mu) - getSMEFTCoeff("CHq3R", 0, 0, mu);
+            CHF = coefficients.CHq1[0][0].real() - coefficients.CHq3[0][0].real();
             break;
         case 7:
-            CHF = getSMEFTCoeff("CHq1R", 0, 0, mu) + getSMEFTCoeff("CHq3R", 0, 0, mu);
+            CHF = coefficients.CHq1Down[0] + coefficients.CHq3Down[0];
             break;
         case 8:
-            CHF = getSMEFTCoeff("CHq1R", 1, 1, mu) - getSMEFTCoeff("CHq3R", 1, 1, mu);
+            CHF = coefficients.CHq1[1][1].real() - coefficients.CHq3[1][1].real();
             break;
     //else if (p.is("STRANGE"))
         case 9:
-            CHF = getSMEFTCoeff("CHq1R", 1, 1, mu) + getSMEFTCoeff("CHq3R", 1, 1, mu);
+            CHF = coefficients.CHq1Down[1] + coefficients.CHq3Down[1];
             break;
     //else if (p.is("TOP"))
         case 10:
-            CHF = getSMEFTCoeff("CHq1R", 2, 2, mu) - getSMEFTCoeff("CHq3R", 2, 2, mu);
+            CHF = coefficients.CHq1[2][2].real() - coefficients.CHq3[2][2].real();
             break;
     //else if (p.is("BOTTOM"))
         case 11:
-            CHF = getSMEFTCoeff("CHq1R", 2, 2, mu) + getSMEFTCoeff("CHq3R", 2, 2, mu);
+            CHF = coefficients.CHq1Down[2] + coefficients.CHq3Down[2];
             break;
     //else
         default:
@@ -17420,33 +16982,37 @@ gslpp::complex NPSMEFTd6General::deltaGR_Wff(const Particle pbar, const Particle
 
 
 gslpp::complex NPSMEFTd6General::deltaGL_Wff_mu(const Particle pbar, const Particle p, const double mu) const {
-    if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
-        throw std::runtime_error("NPSMEFTd6General::deltaGL_Wff(): Not implemented");
+    const int index = pbar.getIndex();
+    if (index + 1 != p.getIndex() || index % 2 != 0)
+        throw std::runtime_error("NPSMEFTd6General::deltaGL_Wff_mu(): Not implemented");
 
-    double CHF3;
-    double NPindirect;
+    const auto& coefficients = coefficientsAtScale(mu);
+    gslpp::complex CHF3;
+    switch (index) {
+        case 0:
+            CHF3 = coefficients.CHl3[0][0].real();
+            break;
+        case 2:
+            CHF3 = coefficients.CHl3[1][1].real();
+            break;
+        case 4:
+            CHF3 = coefficients.CHl3[2][2].real();
+            break;
+        case 6:
+            CHF3 = coefficients.CHq3Charged[0];
+            break;
+        case 8:
+            CHF3 = coefficients.CHq3Charged[1];
+            break;
+        case 10:
+            CHF3 = coefficients.CHq3Charged[2];
+            break;
+        default:
+            throw std::runtime_error("NPSMEFTd6General::deltaGL_Wff_mu(): wrong argument");
+    }
 
-    //  NP indirect corrections to EW fermion couplings
-    NPindirect = delU_gCC(mu);
-    
-    // Direct contribution
-    if (pbar.is("NEUTRINO_1") || pbar.is("ELECTRON"))
-        CHF3 = getSMEFTCoeff("CHl3R", 0, 0, mu);
-    else if (pbar.is("NEUTRINO_2") || pbar.is("MU"))
-        CHF3 = getSMEFTCoeff("CHl3R", 1, 1, mu);
-    else if (pbar.is("NEUTRINO_3") || pbar.is("TAU"))
-        CHF3 = getSMEFTCoeff("CHl3R", 2, 2, mu);
-    else if (pbar.is("UP") || pbar.is("DOWN"))
-        CHF3 = getSMEFTCoeff("CHq3R", 0, 0, mu);
-    else if (pbar.is("CHARM") || pbar.is("STRANGE"))
-        CHF3 = getSMEFTCoeff("CHq3R", 1, 1, mu);
-    else if (pbar.is("TOP") || pbar.is("BOTTOM"))
-        CHF3 = getSMEFTCoeff("CHq3R", 2, 2, mu);
-    else
-        throw std::runtime_error("NPSMEFTd6General::deltaGL_Wff_mu(): wrong argument");
-
-    double NPdirect = CHF3 * v2;
-    return (NPindirect + NPdirect);
+    const gslpp::complex NPindirect(delU_gCC(mu), 0.0, false);
+    return NPindirect + CHF3 * v2;
 }
 
 gslpp::complex NPSMEFTd6General::deltaGR_Wff_mu(const Particle pbar, const Particle p, const double mu) const {
@@ -43542,98 +43108,116 @@ const double NPSMEFTd6General::CEWll(const double mu) const {
 //-----  The same, in the quark mass basis  ----------
 
 const double NPSMEFTd6General::CEWHQ1uu(const double mu) const {
-    return getSMEFTCoeffMB("CHq1", 0, 0, VuLd, VuL, mu).real() - (1.0 / 12.0) * getSMEFTCoeff("CHD", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHq1[0][0].real() - (1.0 / 12.0) * coefficients.CHD;
 }
 
 const double NPSMEFTd6General::CEWHQ1cc(const double mu) const {
-    return getSMEFTCoeffMB("CHq1", 1, 1, VuLd, VuL, mu).real() - (1.0 / 12.0) * getSMEFTCoeff("CHD", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHq1[1][1].real() - (1.0 / 12.0) * coefficients.CHD;
 }
 
 const double NPSMEFTd6General::CEWHQ1tt(const double mu) const {
-    return getSMEFTCoeffMB("CHq1", 2, 2, VuLd, VuL, mu).real() - (1.0 / 12.0) * getSMEFTCoeff("CHD", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHq1[2][2].real() - (1.0 / 12.0) * coefficients.CHD;
 }
 
 const double NPSMEFTd6General::CEWHQ1dd(const double mu) const {
-    return getSMEFTCoeffMB("CHq1", 0, 0, VdLd, VdL, mu).real() - (1.0 / 12.0) * getSMEFTCoeff("CHD", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHq1Down[0] - (1.0 / 12.0) * coefficients.CHD;
 }
 
 const double NPSMEFTd6General::CEWHQ1ss(const double mu) const {
-    return getSMEFTCoeffMB("CHq1", 1, 1, VdLd, VdL, mu).real() - (1.0 / 12.0) * getSMEFTCoeff("CHD", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHq1Down[1] - (1.0 / 12.0) * coefficients.CHD;
 }
 
 const double NPSMEFTd6General::CEWHQ1bb(const double mu) const {
-    return getSMEFTCoeffMB("CHq1", 2, 2, VdLd, VdL, mu).real() - (1.0 / 12.0) * getSMEFTCoeff("CHD", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHq1Down[2] - (1.0 / 12.0) * coefficients.CHD;
 }
 
 const double NPSMEFTd6General::CEWHQ3uu(const double mu) const {
-    return getSMEFTCoeffMB("CHq3", 0, 0, VuLd, VuL, mu).real() + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHq3[0][0].real() + (1.0 / 4.0) * (cW2_tree / sW2_tree) * coefficients.CHD + (cW_tree / sW_tree) * coefficients.CHWB;
 }
 
 const double NPSMEFTd6General::CEWHQ3cc(const double mu) const {
-    return getSMEFTCoeffMB("CHq3", 1, 1, VuLd, VuL, mu).real() + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHq3[1][1].real() + (1.0 / 4.0) * (cW2_tree / sW2_tree) * coefficients.CHD + (cW_tree / sW_tree) * coefficients.CHWB;
 }
 
 const double NPSMEFTd6General::CEWHQ3tt(const double mu) const {
-    return getSMEFTCoeffMB("CHq3", 2, 2, VuLd, VuL, mu).real() + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHq3[2][2].real() + (1.0 / 4.0) * (cW2_tree / sW2_tree) * coefficients.CHD + (cW_tree / sW_tree) * coefficients.CHWB;
 }
 
 const double NPSMEFTd6General::CEWHQ3dd(const double mu) const {
-    return getSMEFTCoeffMB("CHq3", 0, 0, VdLd, VdL, mu).real() + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHq3Down[0] + (1.0 / 4.0) * (cW2_tree / sW2_tree) * coefficients.CHD + (cW_tree / sW_tree) * coefficients.CHWB;
 }
 
 const double NPSMEFTd6General::CEWHQ3ss(const double mu) const {
-    return getSMEFTCoeffMB("CHq3", 1, 1, VdLd, VdL, mu).real() + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHq3Down[1] + (1.0 / 4.0) * (cW2_tree / sW2_tree) * coefficients.CHD + (cW_tree / sW_tree) * coefficients.CHWB;
 }
 
 const double NPSMEFTd6General::CEWHQ3bb(const double mu) const {
-    return getSMEFTCoeffMB("CHq3", 2, 2, VdLd, VdL, mu).real() + (1.0 / 4.0) * (cW2_tree / sW2_tree) * getSMEFTCoeff("CHD", mu) + (cW_tree / sW_tree) * getSMEFTCoeff("CHWB", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHq3Down[2] + (1.0 / 4.0) * (cW2_tree / sW2_tree) * coefficients.CHD + (cW_tree / sW_tree) * coefficients.CHWB;
 }
 
 
 const double NPSMEFTd6General::CEWHuuu(const double mu) const {
-    return getSMEFTCoeffMB("CHu", 0, 0, VuRd, VuR, mu).real() - (1.0 / 3.0) * getSMEFTCoeff("CHD", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHu[0][0].real() - (1.0 / 3.0) * coefficients.CHD;
 }
 
 const double NPSMEFTd6General::CEWHucc(const double mu) const {
-    return getSMEFTCoeffMB("CHu", 1, 1, VuRd, VuR, mu).real() - (1.0 / 3.0) * getSMEFTCoeff("CHD", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHu[1][1].real() - (1.0 / 3.0) * coefficients.CHD;
 }
 
 const double NPSMEFTd6General::CEWHutt(const double mu) const {
-    return getSMEFTCoeffMB("CHu", 2, 2, VuRd, VuR, mu).real() - (1.0 / 3.0) * getSMEFTCoeff("CHD", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHu[2][2].real() - (1.0 / 3.0) * coefficients.CHD;
 }
 
 
 const double NPSMEFTd6General::CEWHddd(const double mu) const {
-    return getSMEFTCoeffMB("CHd", 0, 0, VdRd, VdR, mu).real() + (1.0 / 6.0) * getSMEFTCoeff("CHD", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHd[0][0].real() + (1.0 / 6.0) * coefficients.CHD;
 }
 
 const double NPSMEFTd6General::CEWHdss(const double mu) const {
-    return getSMEFTCoeffMB("CHd", 1, 1, VdRd, VdR, mu).real() + (1.0 / 6.0) * getSMEFTCoeff("CHD", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHd[1][1].real() + (1.0 / 6.0) * coefficients.CHD;
 }
 
 
 const double NPSMEFTd6General::CEWHdbb(const double mu) const {
-    return getSMEFTCoeffMB("CHd", 2, 2, VdRd, VdR, mu).real() + (1.0 / 6.0) * getSMEFTCoeff("CHD", mu);
+    const auto& coefficients = coefficientsAtScale(mu);
+    return coefficients.CHd[2][2].real() + (1.0 / 6.0) * coefficients.CHD;
 }
 
 
 ///////////Collider observables: LHC dilepton events////////////////////////
 
 const double NPSMEFTd6General::NevLHCppee13(const int i_bin) const {
-    
-    double binscale[47] = {240., 240., 240., 240., 240., 365., 365., 365., 365., 365., 365., 365., 365., 550., 550., 550., 550., 550., 550., 550., 550., 550., 550., 550., 550., 550., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1500., 1500., 1500., 1500., 1500., 1500., 1500., 1500., 1500., 5000. }; 
-  
-    double muRG;  
-    muRG = binscale[i_bin - 1];  
-    
-    // HighPT parameterization: Same operators in the UP and DOWN bases
-    double Civect[49] = {
-        1. , getSMEFTCoeff("Clq1R",0,0,0,0,muRG), getSMEFTCoeff("Clq1R",0,0,1,1,muRG), getSMEFTCoeff("Clq1R",0,0,2,2,muRG), getSMEFTCoeff("Clq3R",0,0,0,0,muRG), getSMEFTCoeff("Clq3R",0,0,1,1,muRG), getSMEFTCoeff("Clq3R",0,0,2,2,muRG), getSMEFTCoeff("CqeR",0,0,0,0,muRG), getSMEFTCoeff("CqeR",1,1,0,0,muRG), getSMEFTCoeff("CqeR",2,2,0,0,muRG), getSMEFTCoeff("CluR",0,0,0,0,muRG), getSMEFTCoeff("CluR",0,0,1,1,muRG), getSMEFTCoeff("CldR",0,0,0,0,muRG), getSMEFTCoeff("CldR",0,0,1,1,muRG), getSMEFTCoeff("CldR",0,0,2,2,muRG), getSMEFTCoeff("CeuR",0,0,0,0,muRG), getSMEFTCoeff("CeuR",0,0,1,1,muRG), getSMEFTCoeff("CedR",0,0,0,0,muRG), getSMEFTCoeff("CedR",0,0,1,1,muRG), getSMEFTCoeff("CedR",0,0,2,2,muRG), getSMEFTCoeff("CHl1R",0,0,muRG), getSMEFTCoeff("CHl3R",0,0,muRG), getSMEFTCoeff("CHeR",0,0,muRG), getSMEFTCoeff("CHq1R",0,0,muRG), getSMEFTCoeff("CHq1R",1,1,muRG), getSMEFTCoeff("CHq1R",2,2,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("CHq3R",2,2,muRG), getSMEFTCoeff("CHuR",0,0,muRG), getSMEFTCoeff("CHuR",1,1,muRG), getSMEFTCoeff("CHdR",0,0,muRG), getSMEFTCoeff("CHdR",1,1,muRG), getSMEFTCoeff("CHdR",2,2,muRG), getSMEFTCoeff("Clq1R",0,0,0,1,muRG), getSMEFTCoeff("Clq1R",0,0,0,2,muRG), getSMEFTCoeff("Clq1R",0,0,1,2,muRG), getSMEFTCoeff("Clq3R",0,0,0,1,muRG), getSMEFTCoeff("Clq3R",0,0,0,2,muRG), getSMEFTCoeff("Clq3R",0,0,1,2,muRG), getSMEFTCoeff("CqeR",0,1,0,0,muRG), getSMEFTCoeff("CqeR",0,2,0,0,muRG), getSMEFTCoeff("CqeR",1,2,0,0,muRG), getSMEFTCoeff("CHq1R",0,1,muRG), getSMEFTCoeff("CHq1R",0,2,muRG), getSMEFTCoeff("CHq1R",1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) 
-    }; 
+    constexpr int nBins = 47;
+    constexpr int nCoefficients = 49;
+    static constexpr double binscale[nBins] = {240., 240., 240., 240., 240., 365., 365., 365., 365., 365., 365., 365., 365., 550., 550., 550., 550., 550., 550., 550., 550., 550., 550., 550., 550., 550., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1500., 1500., 1500., 1500., 1500., 1500., 1500., 1500., 1500., 5000. };
+    if (i_bin < 1 || i_bin > nBins) {
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::NevLHCppee13");
+    }
+    const double muRG = binscale[i_bin - 1];
 
-    // UP Basis
-    // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
-        double NevCiU[47][49] = {
+    // Up-mass basis, with d_i = V d_mass for the down component of the quark doublet.
+    const double Civect[nCoefficients] = {
+        1. , getSMEFTCoeff("Clq1R",0,0,0,0,muRG), getSMEFTCoeff("Clq1R",0,0,1,1,muRG), getSMEFTCoeff("Clq1R",0,0,2,2,muRG), getSMEFTCoeff("Clq3R",0,0,0,0,muRG), getSMEFTCoeff("Clq3R",0,0,1,1,muRG), getSMEFTCoeff("Clq3R",0,0,2,2,muRG), getSMEFTCoeff("CqeR",0,0,0,0,muRG), getSMEFTCoeff("CqeR",1,1,0,0,muRG), getSMEFTCoeff("CqeR",2,2,0,0,muRG), getSMEFTCoeff("CluR",0,0,0,0,muRG), getSMEFTCoeff("CluR",0,0,1,1,muRG), getSMEFTCoeff("CldR",0,0,0,0,muRG), getSMEFTCoeff("CldR",0,0,1,1,muRG), getSMEFTCoeff("CldR",0,0,2,2,muRG), getSMEFTCoeff("CeuR",0,0,0,0,muRG), getSMEFTCoeff("CeuR",0,0,1,1,muRG), getSMEFTCoeff("CedR",0,0,0,0,muRG), getSMEFTCoeff("CedR",0,0,1,1,muRG), getSMEFTCoeff("CedR",0,0,2,2,muRG), getSMEFTCoeff("CHl1R",0,0,muRG), getSMEFTCoeff("CHl3R",0,0,muRG), getSMEFTCoeff("CHeR",0,0,muRG), getSMEFTCoeff("CHq1R",0,0,muRG), getSMEFTCoeff("CHq1R",1,1,muRG), getSMEFTCoeff("CHq1R",2,2,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("CHq3R",2,2,muRG), getSMEFTCoeff("CHuR",0,0,muRG), getSMEFTCoeff("CHuR",1,1,muRG), getSMEFTCoeff("CHdR",0,0,muRG), getSMEFTCoeff("CHdR",1,1,muRG), getSMEFTCoeff("CHdR",2,2,muRG), getSMEFTCoeff("Clq1R",0,0,0,1,muRG), getSMEFTCoeff("Clq1R",0,0,0,2,muRG), getSMEFTCoeff("Clq1R",0,0,1,2,muRG), getSMEFTCoeff("Clq3R",0,0,0,1,muRG), getSMEFTCoeff("Clq3R",0,0,0,2,muRG), getSMEFTCoeff("Clq3R",0,0,1,2,muRG), getSMEFTCoeff("CqeR",0,1,0,0,muRG), getSMEFTCoeff("CqeR",0,2,0,0,muRG), getSMEFTCoeff("CqeR",1,2,0,0,muRG), getSMEFTCoeff("CHq1R",0,1,muRG), getSMEFTCoeff("CHq1R",0,2,muRG), getSMEFTCoeff("CHq1R",1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG)
+    };
+
+    static constexpr double NevCiU[nBins][nCoefficients] = {
             {51384., -1773672408., 935827281., 322616868., 9214700536., 2689094332., 322616868., -1648224837., -636336896., -96300386., -1581273652., -258268033., 648984080., 280968221., 56751944., -3793764076., -612422966., 1559597218., 684481456., 132219112., 1461058961., 1461058961., -492814138., -26709280., 134781829., 37999940., 891683195., 283271948., 37999940., 153288970., 24786137., -63447390., -28009746., -5397106., 930558415., -15574669., 114766296., 930558415., -15574669., 114766296., -288130832., 4787395., -35359871., 108981609., -1769292., 13156097., 108981609., -1769292., 13156097.},
             {36944., -1619517626., 786463255., 276281189., 8399104218., 2289342193., 276281189., -1432551096., -550103221., -82580184., -1473790463., -234226473., 608530445., 248283556., 47770624., -3502904607., -527071397., 1425383247., 586341631., 112378841., 1060950722., 1060950722., -350803782., -23792812., 94714052., 25491152., 659718593., 192295687., 25491152., 113920113., 16007431., -46743544., -18853593., -3567938., 903162071., -12193033., 96268968., 903162071., -12193033., 96268968., -253565094., 3777541., -28859319., 85082625., -1135343., 9000896., 85082625., -1135343., 9000896.},
             {26488., -1455252063., 653831573., 217675777., 7255555181., 1819193551., 217675777., -1298456865., -420469815., -60312999., -1318490741., -175896474., 559858934., 207121597., 40564016., -3052922520., -409822655., 1263996306., 475662042., 90595008., 740645690., 740645690., -230095308., -22786173., 62842787., 16676226., 461457359., 127160571., 16676226., 79982287., 10391157., -31621993., -12334313., -2278417., 811347485., -9137116., 77101631., 811347485., -9137116., 77101631., -234528720., 2765266., -22936350., 60637022., -717460., 5941216., 60637022., -717460., 5941216.},
@@ -43681,83 +43265,12 @@ const double NPSMEFTd6General::NevLHCppee13(const int i_bin) const {
             {9.96809, -84036018., 5781255., 387369., 212854204., 11787461., 387369., -41182526., -2543949., -89372.4, -53814948., -1092426., 14914488., 1240942., 83083.5, -108117199., -2186003., 29994682., 2500136., 167385., 254314., 254314., -59006., -44663.3, 7383.4, 432.127, 187653., 12077.8, 432.127, 36002.6, 732.346, -10067.7, -842.835, -56.0747, 27126791., 101578., 475609., 27126791., 101578., 475609., -6176689., -23175.6, -108050., 30120.9, 113.191, 526.015, 30120.9, 113.191, 526.015},
             {8.67456, -89084137., 5745986., 343183., 223038108., 11803335., 343183., -43577462., -2529851., -77333.9, -56838397., -1093710., 15558907., 1215974., 73377.1, -113566370., -2199881., 31199393., 2441970., 147421., 219829., 219829., -50760.8, -39712.9, 6102.86, 312.812, 162667., 9990.59, 312.812, 31326.8, 600.263, -8665.75, -672.257, -40.4824, 28383807., 111907., 468554., 28383807., 111907., 468554., -6367555., -24801.2, -106691., 26056.5, 102.83, 429.626, 26056.5, 102.83, 429.626},
             {8.69962, -151961550., 7719036., 340626., 346049107., 17176633., 340626., -66129155., -3646354., -75549.1, -89995895., -1723087., 22689517., 1708295., 72147.3, -180972810., -3442295., 45316645., 3416200., 144430., 212695., 212695., -48731., -44575.1, 5372.63, 212.049, 158101., 9130.55, 212.049, 31446.9, 580.859, -7983.89, -595.902, -27.2156, 41255285., 165005., 669107., 41255285., 165005., 669107., -9175334., -36481.6, -149935., 24145.4, 97.3067, 387.768, 24145.4, 97.3067, 387.768}
-        };
+    };
 
-    // DOWN Basis
-    // HighPT parameterization in the basis aligned with diagonal down sector (i.e. u_i = V^dagger u_m to pass to mass eigenstate basis)
-        double NevCiD[47][49] = {  
-            {51384. , -1444807122., 586172241., 317065517., 9090744743., 2812466805., 320944425., -1659309790., -622900214., -95377391., -1581273652., -258268033., 648984080., 280968221., 56751944., -3793764076., -612422966., 1559597218., 684481456., 132219112., 1460402965., 1460402965., -492060810., 4167292., 101819909., 37418424., 884812816., 289751729., 37746044., 153288970., 24786137., -63447390., -28009746., -5397106., 2026103928., -67855436., 91111034., -2026103928., 67855436., -91111034., 184767341., -6184540., 8392822., 168909194., -5652826., 7694784., -168909194., 5652826., -7694784.},  
-            {36944. , -1310936770., 459464828., 271546891., 8289972320., 2398189691., 274915808., -1442769911., -538022367., -81859455., -1473790463., -234226473., 608530445., 248283556., 47770624., -3502904607., -527071397., 1425383247., 586341631., 112378841., 1060509678., 1060509678., -350277895., -21808.5, 69457979., 25096648., 654740283., 197011038., 25317811., 113920113., 16007431., -46743544., -18853593., -3567938., 1868323605., -62769189., 79162139., -1868323605., 62769189., -79162139., 159054164., -5249789., 9041600., 128553041., -4329064., 5198495., -128553041., 4329064., -5198495.},  
-            {26488. , -1180299246., 363490588., 213905659., 7160150679., 1914547518., 216587077., -1304904441., -412564769., -59740972., -1318490741., -175896474., 559858934., 207121597., 40564016., -3052922520., -409822655., 1263996306., 475662042., 90595008., 740369344., 740369344., -229745231., -5774031., 44816209., 16415246., 457857276., 130597442., 16563492., 79982287., 10391157., -31621993., -12334313., -2278417., 1655504856., -55908337., 63054236., -1655504856., 55908337., -63054236., 174250788., -5896896., 6336543., 92133808., -3112402., 3486217., -92133808., 3112402., -3486217.},  
-            {19618.8 , -1082835999., 307039725., 176374517., 6150110323., 1636024007., 178670203., -1158158978., -343124776., -46421694., -1214891759., -162051798., 513789147., 182354662., 35072677., -2669387344., -354202395., 1100288250., 405050511., 75793857., 528506564., 528506564., -158395247., -1795841., 28111652., 10885201., 330145941., 88108043., 10988725., 56346217., 7241392., -22833219., -8079246., -1523800., 1439604076., -48651417., 53989831., -1439604076., 48651417., -53989831., 190612146., -6443009., 7117380., 66310334., -2243070., 2435059., -66310334., 2243070., -2435059.},  
-            {14662.8 , -937431229., 226139222., 145000384., 5376195597., 1330738959., 146902127., -1014569963., -275074735., -41143592., -1070746846., -129151843., 449406322., 154604094., 28085301., -2333966645., -288157502., 960347677., 334000104., 62188930., 385433006., 385433006., -112914732., -4374157., 21484927., 7927966., 240346506., 63370592., 7999967., 41665323., 4809842., -16352488., -5844295., -1111956., 1270153260., -43042594., 44746666., -1270153260., 43042594., -44746666., 176836716., -6020778., 5538595., 49458667., -1677994., 1694518., -49458667., 1677994., -1694518.},  
-            {11160.6 , -902491867., 185966559., 118581190., 4784184788., 1141645456., 120221832., -941510470., -236166847., -29224771., -1015515023., -114659400., 385669514., 135521314., 23994227., -2135396134., -244837205., 831002486., 286288177., 50953686., 290471393., 290471393., -80847086., -6365641., 14673159., 5370163., 181733366., 45827056., 5423589., 31543511., 3539643., -12072779., -4134609., -749755., 1153592047., -39175010., 38619212., -1153592047., 39175010., -38619212., 177822598., -6047482., 5737779., 38269017., -1300536., 1257787., -38269017., 1300536., -1257787.},  
-            {8716.2 , -837036295., 158706908., 98789954., 4190884994., 963412046., 100166382., -806242836., -202282898., -24396908., -880221968., -94540599., 329295619., 108950186., 20139071., -1887900887., -202423895., 717374946., 237260953., 42622441., 222739082., 222739082., -62005880., -6132570., 10777425., 3919064., 140920298., 33897198., 3958556., 24623343., 2553366., -9265724., -3048657., -538269., 1029776131., -35054204., 32417078., -1029776131., 35054204., -32417078., 144507467., -4916683., 4608880., 30219467., -1029547., 930269., -30219467., 1029547., -930269.},  
-            {6782. , -761914570., 118252377., 83316271., 3798969682., 813031150., 84500056., -715896882., -171455076., -21489141., -815296013., -80853738., 310296833., 96071914., 16601718., -1709729518., -170692380., 651193189., 202485518., 35743777., 170858224., 170858224., -47129255., -4817835., 7665621., 2892547., 108820495., 25193064., 2922440., 19048252., 1910155., -7080868., -2264319., -397175., 942699355., -32162639., 27895876., -942699355., 32162640., -27895876., 147734328., -5044945., 4258770., 23435385., -799117., 704340., -23435385., 799117., -704340.},  
-            {5385.6 , -733170167., 101949639., 70324804., 3402631171., 708687842., 71355372., -637023624., -144180971., -17917175., -739102718., -69681040., 278155973., 85432321., 14482847., -1559873468., -146396486., 580792464., 177078138., 30625113., 135859627., 135859627., -36464276., -4286121., 6057871., 2162044., 86958127., 19329518., 2184570., 14929499., 1405212., -5703389., -1753617., -300017., 860515979., -29406347., 24296388., -860515979., 29406347., -24296388., 128326701., -4382462., 3692818., 19012601., -649948., 531124., -19012601., 649948., -531124.},  
-            {4250.2 , -692892577., 85935522., 58720550., 3043964636., 606364470., 59600541., -603855116., -129594976., -14088866., -683198362., -58031801., 238178047., 70803357., 12534794., -1411299958., -122069952., 506493941., 150107624., 25847661., 104946107., 104946107., -27522833., -2641963., 4228903., 1642155., 67172014., 14593568., 1659778., 11464777., 1108239., -4366188., -1286472., -224236., 784284047., -26857705., 20760170., -784284047., 26857705., -20760170., 129055212., -4427321., 3223800., 14495939., -495119., 415399., -14495939., 495119., -415399.},  
-            {3399.8 , -585634597., 66446773., 50709527., 2706064986., 526714024., 51488067., -492213057., -104267104., -11626544., -585263490., -52661058., 221246210., 64613269., 10509064., -1242584623., -108977239., 459944576., 131147066., 21861896., 85303107., 85303107., -22478269., -2821308., 3430126., 1226278., 55080319., 11582899., 1240077., 9505702., 843397., -3579905., -1022180., -167920., 690407814., -23639231., 18365858., -690407814., 23639231., -18365858., 99452465., -3397274., 2840074., 12130609., -415232., 325488., -12130609., 415232., -325488.},  
-            {2743.8 , -529568896., 58115575., 42563051., 2438119769., 464072494., 43248373., -496254644., -95606410., -10366057., -551257686., -46512638., 196725305., 55264855., 9029796., -1120982812., -94376804., 413760026., 113637629., 18711856., 68512531., 68512531., -18647662., -2794367., 2480126., 967351., 44924501., 8975227., 978311., 7913318., 655720., -2890595., -785358., -132826., 624644847., -21405681., 16171521., -624644847., 21405681., -16171521., 108700803., -3724783., 2819983., 10051877., -344529., 258636., -10051877., 344529., -258636.},  
-            {2204. , -514075924., 53268666., 36927875., 2228870050., 406338385., 37520514., -430025768., -85719289., -8507012., -488682251., -37900141., 176588928., 46050567., 8038124., -1027512496., -78625739., 372321140., 98330135., 16343230., 56310738., 56310738., -14230917., -2371555., 2043254., 748741., 36628318., 7185224., 757391., 6288045., 503270., -2339872., -627835., -102052., 582740129., -20014124., 13996322., -582740129., 20014124., -13996322., 90223876., -3096630., 2218407., 8255808., -283302., 204237., -8255807., 283302., -204237.},  
-            {1833.9 , -478221079., 31169764., 30857142., 2017808604., 348969039., 31390009., -383629998., -75310375., -7955896., -453292864., -34196940., 163387454., 41558271., 6475595., -941455988., -70140964., 336808312., 85332112., 13592522., 46005425., 46005425., -11847112., -2571846., 1554187., 581260., 30189482., 5751919., 588302., 5423451., 403121., -1850887., -495257., -79823.4, 531133051., -18248624., 12586689., -531133051., 18248624., -12586689., 84941547., -2915510., 2084147., 6964860., -239245., 166342., -6964860., 239245., -166342.},  
-            {1598.3 , -430598853., 29235475., 26984059., 1817046052., 311715866., 27457096., -342764003., -60671246., -6575030., -406409331., -29811490., 149859834., 36883968., 5632850., -848642696., -61453952., 306625803., 74685715., 11768133., 38969063., 38969063., -9429479., -1771505., 1206771., 471540., 25558271., 4603853., 477222., 4387775., 320384., -1614866., -390380., -63715.2, 479179714., -16470952., 11175596., -479179715., 16470952., -11175596., 74631503., -2561934., 1823744., 5835675., -200666., 134270., -5835675., 200666., -134270.},  
-            {1268.16 , -399405752., 27918666., 23390798., 1664352408., 281245757., 23814005., -312019070., -58888702., -5808148., -379182647., -27256351., 139390407., 32749775., 4996022., -782605135., -54798664., 280781261., 67636280., 10347309., 32069180., 32069180., -8240228., -1723626., 972109., 369696., 21297322., 3796028., 374414., 3774921., 262237., -1332735., -321806., -50588.2, 441449984., -15186036., 10001905., -441449984., 15186037., -10001905., 71255748., -2446498., 1730319., 4924782., -169418., 111488., -4924782., 169418., -111488.},  
-            {1067.72 , -356866951., 24957752., 20626344., 1514758426., 248073233., 20997946., -276483271., -50071699., -4940240., -340024207., -22586727., 127079243., 28758040., 4496975., -707919155., -46900273., 255730024., 59464943., 9181597., 27097733., 27097733., -6900083., -1529001., 787746., 299192., 18071517., 3115650., 303068., 3219798., 210640., -1114698., -265515., -40962.7, 401967619., -13840921., 8786270., -401967619., 13840921., -8786270., 63449097., -2184338., 1396694., 4211701., -145038., 91642., -4211701., 145038., -91642.},  
-            {893.48 , -331478889., 15370287., 17855701., 1395013186., 219217833., 18194866., -255836231., -42920758., -4268047., -312238589., -19838237., 114926051., 26105128., 3914484., -651301829., -42061777., 233294121., 52465023., 7970687., 22811965., 22811965., -5997903., -1091690., 626269., 238662., 15374737., 2557433., 241873., 2743191., 175572., -970275., -213758., -32280.2, 371276993., -12788023., 8020529., -371276993., 12788023., -8020529., 58791081., -2026601., 1229846., 3544234., -122101., 75936.4, -3544234., 122101., -75936.4},  
-            {741.54 , -328036836., 12799940., 15958084., 1285036491., 196111045., 16261808., -261402473., -41147482., -3770551., -301994222., -18141205., 100265391., 21927106., 3458697., -611507092., -37067325., 209234477., 45545261., 7070422., 19346234., 19346234., -4742431., -1066147., 527053., 195619., 12910580., 2146417., 198307., 2258727., 142877., -802110., -180526., -26503.7, 348628854., -12021985., 7186935., -348628854., 12021985., -7186935., 61508805., -2122219., 1239240., 3013182., -103845., 63604.5, -3013182., 103845., -63604.5},  
-            {640.8 , -295598037., 11479901., 13678606., 1180562584., 176251577., 13951062., -229936979., -34534860., -3112120., -275624150., -15810955., 95575139., 21034525., 3054769., -560329457., -32689956., 194716130., 41891654., 6130635., 16758709., 16758709., -4165646., -1001045., 434456., 160534., 11271329., 1812565., 162814., 1996038., 118164., -700319., -152764., -21559.2, 319765076., -11032485., 6448991., -319765076., 11032485., -6448991., 55458825., -1915070., 1078317., 2656424., -91635.5, 53969., -2656424., 91635.5, -53969.},  
-            {779.76 , -399611853., 13538583., 17606452., 1574662198., 232789236., 17968780., -297630339., -47677101., -4207452., -364275576., -21269265., 129254075., 26152013., 3797305., -747364569., -43546858., 260181740., 53900336., 7793341., 20356232., 20356232., -4930988., -1209307., 485794., 189505., 13686136., 2141684., 192242., 2430815., 141287., -837735., -175213., -26026., 427939546., -14766892., 8576997., -427939546., 14766892., -8576997., 71770264., -2476657., 1436406., 3228292., -111395., 64784.2, -3228292., 111395., -64784.2},  
-            {629.76 , -367143739., 9510296., 14861297., 1396790896., 199753419., 15174620., -271357066., -39160849., -3464909., -326937027., -18360546., 110031057., 23307904., 3215877., -669373758., -36765054., 226173487., 46405939., 6570100., 16346447., 16346447., -3873066., -1181358., 352112., 143388., 11023188., 1667578., 145554., 1970177., 109091., -660718., -135417., -19569.2, 383724133., -13252164., 7420740., -383724133., 13252164., -7420740., 64211769., -2214921., 1307357., 2655160., -91699.3, 51308.7, -2655160., 91699.3, -51308.7},  
-            {513.69 , -328677973., 5406153., 12321602., 1283080628., 173045207., 12596491., -234642477., -34059469., -3044781., -299066898., -15040824., 106909959., 19526522., 2642482., -609296171., -30944634., 210621654., 39337631., 5461922., 13194448., 13194448., -3341345., -869321., 260431., 109186., 9056865., 1300255., 110893., 1628064., 83416.9, -556749., -105317., -14714.7, 352129701., -12173057., 6514772., -352129701., 12173057., -6514772., 61082120., -2112480., 1108428., 2166824., -74892.4, 40439.6, -2166824., 74892.4, -40439.6},  
-            {412.77 , -301278024., 3049147., 10383303., 1129273020., 149832182., 10623587., -225244275., -30951418., -2379826., -266041229., -13552534., 87716514., 16558653., 2329574., -541905488., -27144024., 181724622., 33769112., 4670883., 10685821., 10685821., -2803247., -759380., 195036., 84278.6, 7409129., 1032016., 85648.5, 1365277., 65260.5, -449183., -82953.9, -11372.4, 313030071., -10825276., 5696107., -313030071., 10825276., -5696107., 53884303., -1862485., 1003915., 1787698., -61824.8, 32475.3, -1787698., 61824.8, -32475.3},  
-            {330.15 , -277658536., 2334125., 8692060., 1003712357., 130743615., 8901638., -200959553., -25722858., -2135516., -244449443., -11337632., 79725320., 14910340., 1895523., -489876054., -22966242., 161500371., 29613174., 3884616., 8864093., 8864093., -2169211., -631606., 148253., 64440.1, 6109962., 821310., 65538., 1100176., 50968.8, -371678., -64657.5, -8715.83, 281134588., -9728181., 4970468., -281134588., 9728181., -4970468., 50735447., -1756268., 880948., 1479727., -51208.3, 26042., -1479727., 51208.3, -26042.},  
-            {266.91 , -250073535., -469366., 7342447., 909157249., 113374442., 7527766., -177635987., -23203827., -1679048., -219132316., -9935568., 71912219., 12088775., 1647811., -440038693., -19905577., 144917744., 24683628., 3303391., 7248036., 7248036., -1746413., -560028., 116833., 50640., 4994929., 664501., 51531.9, 899760., 41032.5, -298730., -53368.6, -6889.89, 254903968., -8824995., 4396853., -254903968., 8824995., -4396853., 46288085., -1602509., 799014., 1220962., -42266.7, 21161.1, -1220962., 42266.7, -21161.1},  
-            {243.474 , -217259565., -83584.9, 6310359., 807902082., 98852143., 6471037., -148924243., -19210270., -1478894., -192394902., -8223420., 67157391., 11102041., 1369404., -391457324., -16912718., 132056407., 22082483., 2797444., 6016786., 6016786., -1443596., -463788., 87574.5, 40234.6, 4162232., 534736., 40961., 748824., 33008.1, -250146., -41749.1, -5452.02, 225848100., -7822403., 3813582., -225848100., 7822403., -3813582., 38494260., -1333768., 637911., 1018960., -35291., 17239.5, -1018960., 35291., -17239.5},  
-            {186.687 , -195182856., -1451953., 5292579., 726693769., 87243191., 5436567., -134562111., -17875207., -1214812., -169794792., -7502215., 58625232., 9012214., 1199132., -349849934., -15131832., 117667649., 18699410., 2395116., 5003101., 5003101., -1200894., -409307., 65248.9, 31873.5, 3471467., 436134., 32475., 633222., 26939.4, -205248., -33600.9, -4365.23, 203160428., -7037123., 3417653., -203160428., 7037123., -3417653., 33219613., -1149691., 582840., 855841., -29649.6, 14280.2, -855841., 29649.6, -14280.2},  
-            {159.942 , -191468843., -2519316., 4616784., 665693482., 77659402., 4746446., -140557011., -15697543., -1052618., -168669082., -6630308., 49851943., 8554217., 1018871., -329262935., -13227302., 103152806., 16851381., 2058560., 4209119., 4209119., -997192., -343531., 47684.1, 24852.7, 2929965., 353857., 25347.8, 530843., 21519.2, -173282., -26917.7, -3380.4, 189457310., -6566862., 3079435., -189457310., 6566863., -3079435., 37462959., -1299407., 587179., 723543., -25079.1, 11759.1, -723543., 25079.1, -11759.1},  
-            {134.403 , -172139309., -2889986., 3966307., 606012265., 68018316., 4080554., -119796749., -13919287., -933106., -152052968., -5612937., 47958254., 7095858., 872150., -300291133., -11304274., 95917325., 14375317., 1771938., 3529819., 3529819., -873219., -292777., 39151.3, 20238.5, 2479447., 294125., 20649.8, 453520., 17365.5, -148677., -22456.5, -2752.53, 172452040., -5981029., 2714892., -172452040., 5981029., -2714892., 32337467., -1122132., 494480., 613798., -21283.4, 9773.22, -613798., 21283.4, -9773.22},  
-            {180.095 , -247992875., -4799362., 5416522., 879898414., 97409781., 5581071., -174164800., -19994514., -1174260., -218052205., -7910220., 70050982., 10119945., 1223877., -431490093., -16055642., 139710837., 20489473., 2432770., 4753108., 4753108., -1110959., -404255., 44968.3, 24870.7, 3323623., 381647., 25412.5, 601624., 22598.9, -196584., -28669.4, -3357.78, 250099203., -8675094., 3910681., -250099203., 8675094., -3910681., 47428366., -1646350., 711690., 826900., -28684.5, 12876.5, -826900., 28684.5, -12876.5},  
-            {136.905 , -221089747., -5809800., 4216699., 749060790., 79427308., 4353303., -146423872., -16237347., -1028247., -183732571., -6425079., 58517213., 8079518., 930456., -370249720., -12819415., 117621557., 16344460., 1896394., 3605432., 3605432., -867290., -355721., 27066.6, 17749.1, 2544592., 281481., 18156.7, 474102., 16290.9, -147178., -20730., -2405.2, 215774589., -7489592., 3248819., -215774589., 7489592., -3248819., 38188895., -1325067., 586755., 645168., -22394.7, 9695.07, -645168., 22394.7, -9695.07},  
-            {105.805 , -187834363., -5784648., 3312802., 638368042., 66840833., 3429203., -122371501., -13659457., -763599., -154289936., -5609635., 49001847., 6643784., 751433., -314275517., -11043220., 99390285., 13510921., 1502250., 2777731., 2777731., -677383., -261041., 18387.7, 12700., 1969716., 212735., 13011., 365742., 12352.4, -115273., -15546.2, -1741.85, 183749896., -6377939., 2768297., -183749896., 6377939., -2768297., 31321845., -1086135., 497452., 496552., -17238.6, 7399.63, -496552., 17238.6, -7399.63},  
-            {79.795 , -171141860., -5607567., 2661358., 553463325., 55873779., 2759369., -111002071., -11057734., -631514., -136782391., -4331793., 40828381., 5576207., 583275., -276224446., -8770853., 84283135., 11185580., 1189421., 2170454., 2170454., -499374., -212532., 11465.6, 9189.74, 1531196., 159917., 9426.52, 283507., 8994.15, -87743.8, -11440., -1244.56, 161694092., -5616590., 2332870., -161694092., 5616590., -2332870., 28522621., -990894., 408206., 388987., -13510.9, 5635.39, -388987., 13510.9, -5635.39},  
-            {64.215 , -143747065., -5303105., 2122415., 478130562., 46623984., 2204987., -90914459., -9152102., -464397., -116250558., -3654531., 36720921., 4595998., 492353., -236982849., -7202013., 74079827., 9176974., 968985., 1724048., 1724048., -398403., -174233., 5654.51, 6847.67, 1224496., 121177., 7031.05, 225484., 6714.79, -70963., -8436.81, -927.805, 138974999., -4829009., 1966166., -138974999., 4829009., -1966166., 23522880., -816560., 352331., 312893., -10874.6, 4367.72, -312893., 10874.6, -4367.72},  
-            {52.115 , -125263654., -5317033., 1733759., 413776336., 38910448., 1803891., -77331305., -8041050., -424285., -102410507., -3009457., 32806578., 3647361., 380132., -205956927., -5943106., 64309129., 7437690., 778243., 1336435., 1336435., -328466., -136573., 3955.47, 5074.41, 959054., 94188.6, 5217.58, 179727., 5169.06, -55745.6, -6670.57, -689.603, 120653571., -4193868., 1670668., -120653571., 4193868., -1670668., 21471040., -745957., 306324., 245152., -8520.75, 3410.25, -245152., 8520.75, -3410.25},  
-            {41.3115 , -113640720., -4942568., 1402061., 359524282., 33821995., 1463516., -67983438., -6723780., -332721., -87624709., -2664297., 27111029., 3196612., 315178., -179508493., -5224231., 54621840., 6424898., 635620., 1068584., 1068584., -253419., -116612., 2043.67, 3682.77, 764160., 73887.6, 3796.58, 144233., 4008.12, -43230.6, -5081.29, -508.712, 105922877., -3681945., 1464011., -105922877., 3681945., -1464011., 17762390., -616783., 261401., 197246., -6857., 2711.69, -197246., 6857., -2711.69},  
-            {39.357 , -119702523., -5458809., 1335701., 371468798., 34016753., 1398087., -74492683., -6743600., -312082., -93938123., -2499325., 27211945., 3135594., 300148., -187568224., -5063758., 55480835., 6308531., 604514., 1008510., 1008510., -243510., -114221., 513.127, 3237.23, 725726., 67955.7, 3343.8, 137882., 3716.7, -41053., -4598.29, -440.58, 110140115., -3829981., 1486921., -110140115., 3829981., -1486921., 20245443., -704206., 268488., 188365., -6550.27, 2540.01, -188365., 6550.27, -2540.01},  
-            {30.5148 , -101653767., -4959015., 1056910., 317021080., 27860850., 1108561., -63019092., -5446178., -252839., -80055726., -1995277., 24289941., 2594417., 236784., -160248917., -4028057., 48538493., 5135761., 479051., 784092., 784092., -181282., -90268.2, -460.946, 2349.75, 562252., 50924.7, 2430.69, 106372., 2741.48, -31500.5, -3364.26, -321.332, 94085701., -3273272., 1231862., -94085700., 3273272., -1231862., 17041550., -592990., 220465., 146579., -5099.08, 1929.98, -146579., 5099.08, -1929.98},  
-            {23.7774 , -92696059., -4684656., 824936., 273764842., 23756895., 869620., -57436702., -4859175., -194653., -71980495., -1714974., 19992132., 2136448., 186252., -140809063., -3417432., 40443544., 4259834., 375024., 614799., 614799., -136936., -76570.3, -1118.28, 1665.32, 439782., 38879.7, 1728.14, 83452.4, 2035.34, -24220.1, -2522.16, -226.799, 82421606., -2868011., 1065989., -82421606., 2868011., -1065989., 16167792., -562779., 204430., 116153., -4041.9, 1498.7, -116153., 4041.9, -1498.7},  
-            {19.1136 , -75476507., -4014257., 660275., 232642352., 19922432., 697887., -44149658., -3775335., -147125., -57625736., -1400864., 17385201., 1729524., 156174., -117478311., -2866670., 34975434., 3491618., 305999., 488609., 488609., -112727., -57615.7, -1320.98, 1227., 352105., 30313.7, 1276.65, 66561.4, 1577.29, -19753.3, -1929.47, -167.388, 69294113., -2411172., 897273., -69294113., 2411172., -897273., 11772206., -409651., 151866., 92191.3, -3208.27, 1184.77, -92191.3, 3208.27, -1184.77},  
-            {15.0264 , -66094643., -3764787., 534001., 200713931., 16664023., 566021., -37806679., -3244639., -132547., -50136665., -1210209., 14951908., 1450888., 118274., -101702637., -2392869., 29856844., 2885302., 242015., 380192., 380192., -89691.4, -46679.5, -1359.12, 899.854, 275549., 23257.8, 938.423, 52342.1, 1218.38, -15436.6, -1476.06, -122.87, 60076489., -2090995., 764155., -60076489., 2090995., -764155., 10396156., -361672., 136441., 72568.8, -2525.9, 920.507, -72568.8, 2525.9, -920.507},  
-            {23.3364 , -115910872., -6877338., 813105., 348948807., 28015089., 867602., -68248989., -5558238., -193603., -89296533., -1935067., 26152829., 2409983., 187866., -177818639., -3877794., 51942538., 4765849., 375269., 584980., 584980., -135340., -75494.5, -2631.96, 1253.09, 423616., 34969.8, 1311.85, 81232.8, 1791.19, -23339., -2162.91, -172.639, 104841902., -3650395., 1301310., -104841902., 3650395., -1301310., 19400876., -675581., 238865., 112533., -3917.92, 1403.13, -112533., 3917.92, -1403.13},  
-            {15.3507 , -92773121., -5755966., 551614., 270657219., 21218166., 593659., -52706775., -4156104., -129706., -69332431., -1454114., 19768330., 1694017., 127722., -139151276., -2912582., 39640608., 3414927., 254813., 389506., 389506., -87813.5, -50130.7, -2116.65, 718.913, 281863., 22458.5, 757.2, 53712.8, 1120.9, -15495.5, -1366.37, -98.4376, 82040455., -2857063., 1004281., -82040455., 2857063., -1004281., 14688135., -511482., 180615., 74960.1, -2610.61, 914.591, -74960.1, 2610.61, -914.591},  
-            {9.96809 , -73825551., -4744643., 359736., 208731004., 16015780., 392036., -40595717., -3144411., -89659.6, -53814948., -1092426., 14914488., 1240942., 83083.5, -108117199., -2186003., 29994682., 2500136., 167385., 254413., 254413., -58919., -35675.5, -1885.58, 406.781, 185424., 14354.2, 432.046, 36002.6, 732.346, -10067.7, -842.835, -56.0747, 63835569., -2223472., 771734., -63835569., 2223472., -771734., 11399731., -397035., 138606., 49952.4, -1739.92, 603.657, -49952.4, 1739.92, -603.657},  
-            {8.67456 , -78357876., -5309066., 315260., 218682268., 16271730., 348766., -42912674., -3210608., -77835.2, -56838397., -1093710., 15558907., 1215974., 73377.1, -113566370., -2199881., 31199393., 2441970., 147421., 219920., 219920., -50685.7, -31898.2, -1954.04, 291.749, 160700., 12001., 313.404, 31326.8, 600.263, -8665.75, -672.257, -40.4824, 67167166., -2339972., 800828., -67167166., 2339972., -800828., 12285326., -428039., 145444., 43559.8, -1517.61, 517.627, -43559.8, 1517.61, -517.627},  
-            {8.69962 , -135294037., -9455802., 298667., 338641660., 24780323., 351765., -65007011., -4796819., -76879.5, -89995895., -1723087., 22689517., 1708295., 72147.3, -180972810., -3442295., 45316645., 3416200., 144430., 212797., 212797., -48659.8, -36964., -2472.37, 192.341, 155909., 11374., 213.791, 31446.9, 580.859, -7983.89, -595.902, -27.2156, 107215001., -3735527., 1269303., -107215001., 3735527., -1269303., 19166383., -667718., 228538., 43653.4, -1521.11, 512.849, -43653.4, 1521.11, -512.849}  
-        };
-
-    double Nev;
-    int NCi = 49;
-
-    Nev = 0.;
-
-    if (i_bin < 48) {
-        switch(flavBas){ 
-            case 1:    // UP Basis
-                for (int iCi = 0; iCi < NCi; ++iCi) {
-
-                    Nev = Nev + NevCiU[i_bin - 1][iCi] * Civect[iCi];
-                }
-            break;
-            case 2:    // DOWN Basis
-                for (int iCi = 0; iCi < NCi; ++iCi) {
-
-                    Nev = Nev + NevCiD[i_bin - 1][iCi] * Civect[iCi];
-                }
-            break;                
-        }
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::NevLHCppee13");
+    double Nev = 0.;
+    for (int iCi = 0; iCi < nCoefficients; ++iCi) {
+        Nev += NevCiU[i_bin - 1][iCi] * Civect[iCi];
+    }
 
     if (Nev < 0) return std::numeric_limits<double>::quiet_NaN();
 
@@ -43765,20 +43278,20 @@ const double NPSMEFTd6General::NevLHCppee13(const int i_bin) const {
 }
 
 const double NPSMEFTd6General::NevLHCppmumu13(const int i_bin) const {
-    
-    double binscale[30] = {240., 240., 240., 240., 240., 365., 365., 365., 365., 365., 550., 550., 550., 550., 550., 550., 1000., 1000., 1000., 1000., 1000., 1000., 1500., 1500., 1500., 1500., 1500., 1500., 1500., 5000. }; 
-  
-    double muRG;  
-    muRG = binscale[i_bin - 1];  
-    
-    // HighPT parameterization: Same operators in the UP and DOWN bases
-    double Civect[49] = {
-        1. , getSMEFTCoeff("Clq1R",1,1,0,0,muRG), getSMEFTCoeff("Clq1R",1,1,1,1,muRG), getSMEFTCoeff("Clq1R",1,1,2,2,muRG), getSMEFTCoeff("Clq3R",1,1,0,0,muRG), getSMEFTCoeff("Clq3R",1,1,1,1,muRG), getSMEFTCoeff("Clq3R",1,1,2,2,muRG), getSMEFTCoeff("CqeR",0,0,1,1,muRG), getSMEFTCoeff("CqeR",1,1,1,1,muRG), getSMEFTCoeff("CqeR",2,2,1,1,muRG), getSMEFTCoeff("CluR",1,1,0,0,muRG), getSMEFTCoeff("CluR",1,1,1,1,muRG), getSMEFTCoeff("CldR",1,1,0,0,muRG), getSMEFTCoeff("CldR",1,1,1,1,muRG), getSMEFTCoeff("CldR",1,1,2,2,muRG), getSMEFTCoeff("CeuR",1,1,0,0,muRG), getSMEFTCoeff("CeuR",1,1,1,1,muRG), getSMEFTCoeff("CedR",1,1,0,0,muRG), getSMEFTCoeff("CedR",1,1,1,1,muRG), getSMEFTCoeff("CedR",1,1,2,2,muRG), getSMEFTCoeff("CHl1R",1,1,muRG), getSMEFTCoeff("CHl3R",1,1,muRG), getSMEFTCoeff("CHeR",1,1,muRG), getSMEFTCoeff("CHq1R",0,0,muRG), getSMEFTCoeff("CHq1R",1,1,muRG), getSMEFTCoeff("CHq1R",2,2,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("CHq3R",2,2,muRG), getSMEFTCoeff("CHuR",0,0,muRG), getSMEFTCoeff("CHuR",1,1,muRG), getSMEFTCoeff("CHdR",0,0,muRG), getSMEFTCoeff("CHdR",1,1,muRG), getSMEFTCoeff("CHdR",2,2,muRG), getSMEFTCoeff("Clq1R",1,1,0,1,muRG), getSMEFTCoeff("Clq1R",1,1,0,2,muRG), getSMEFTCoeff("Clq1R",1,1,1,2,muRG), getSMEFTCoeff("Clq3R",1,1,0,1,muRG), getSMEFTCoeff("Clq3R",1,1,0,2,muRG), getSMEFTCoeff("Clq3R",1,1,1,2,muRG), getSMEFTCoeff("CqeR",0,1,1,1,muRG), getSMEFTCoeff("CqeR",0,2,1,1,muRG), getSMEFTCoeff("CqeR",1,2,1,1,muRG), getSMEFTCoeff("CHq1R",0,1,muRG), getSMEFTCoeff("CHq1R",0,2,muRG), getSMEFTCoeff("CHq1R",1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) 
-    }; 
+    constexpr int nBins = 30;
+    constexpr int nCoefficients = 49;
+    static constexpr double binscale[nBins] = {240., 240., 240., 240., 240., 365., 365., 365., 365., 365., 550., 550., 550., 550., 550., 550., 1000., 1000., 1000., 1000., 1000., 1000., 1500., 1500., 1500., 1500., 1500., 1500., 1500., 5000. };
+    if (i_bin < 1 || i_bin > nBins) {
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::NevLHCppmumu13");
+    }
+    const double muRG = binscale[i_bin - 1];
 
-    // UP Basis
-    // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
-        double NevCiU[30][49] = {
+    // Up-mass basis, with d_i = V d_mass for the down component of the quark doublet.
+    const double Civect[nCoefficients] = {
+        1. , getSMEFTCoeff("Clq1R",1,1,0,0,muRG), getSMEFTCoeff("Clq1R",1,1,1,1,muRG), getSMEFTCoeff("Clq1R",1,1,2,2,muRG), getSMEFTCoeff("Clq3R",1,1,0,0,muRG), getSMEFTCoeff("Clq3R",1,1,1,1,muRG), getSMEFTCoeff("Clq3R",1,1,2,2,muRG), getSMEFTCoeff("CqeR",0,0,1,1,muRG), getSMEFTCoeff("CqeR",1,1,1,1,muRG), getSMEFTCoeff("CqeR",2,2,1,1,muRG), getSMEFTCoeff("CluR",1,1,0,0,muRG), getSMEFTCoeff("CluR",1,1,1,1,muRG), getSMEFTCoeff("CldR",1,1,0,0,muRG), getSMEFTCoeff("CldR",1,1,1,1,muRG), getSMEFTCoeff("CldR",1,1,2,2,muRG), getSMEFTCoeff("CeuR",1,1,0,0,muRG), getSMEFTCoeff("CeuR",1,1,1,1,muRG), getSMEFTCoeff("CedR",1,1,0,0,muRG), getSMEFTCoeff("CedR",1,1,1,1,muRG), getSMEFTCoeff("CedR",1,1,2,2,muRG), getSMEFTCoeff("CHl1R",1,1,muRG), getSMEFTCoeff("CHl3R",1,1,muRG), getSMEFTCoeff("CHeR",1,1,muRG), getSMEFTCoeff("CHq1R",0,0,muRG), getSMEFTCoeff("CHq1R",1,1,muRG), getSMEFTCoeff("CHq1R",2,2,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("CHq3R",2,2,muRG), getSMEFTCoeff("CHuR",0,0,muRG), getSMEFTCoeff("CHuR",1,1,muRG), getSMEFTCoeff("CHdR",0,0,muRG), getSMEFTCoeff("CHdR",1,1,muRG), getSMEFTCoeff("CHdR",2,2,muRG), getSMEFTCoeff("Clq1R",1,1,0,1,muRG), getSMEFTCoeff("Clq1R",1,1,0,2,muRG), getSMEFTCoeff("Clq1R",1,1,1,2,muRG), getSMEFTCoeff("Clq3R",1,1,0,1,muRG), getSMEFTCoeff("Clq3R",1,1,0,2,muRG), getSMEFTCoeff("Clq3R",1,1,1,2,muRG), getSMEFTCoeff("CqeR",0,1,1,1,muRG), getSMEFTCoeff("CqeR",0,2,1,1,muRG), getSMEFTCoeff("CqeR",1,2,1,1,muRG), getSMEFTCoeff("CHq1R",0,1,muRG), getSMEFTCoeff("CHq1R",0,2,muRG), getSMEFTCoeff("CHq1R",1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG)
+    };
+
+    static constexpr double NevCiU[nBins][nCoefficients] = {
             {50469.3, -2455705527., 1210268016., 408999570., 12532565881., 3428126579., 408999570., -2355726982., -779882822., -125076470., -2331496127., -329089366., 875403726., 381196134., 68890561., -5287724141., -773151841., 2099010106., 886558617., 165038982., 1773556055., 1773556055., -579579512., -31101077., 158839620., 43298718., 1091247718., 328803778., 43298718., 184941916., 28170064., -77688709., -32243103., -6093025., 1326163100., -18817876., 146100006., 1326163100., -18817876., 146100006., -406443742., 5134465., -41489810., 139604241., -1972053., 15333215., 139604241., -1972053., 15333215.},
             {41839.9, -2499665073., 1046971289., 362292138., 11998117967., 3046700998., 362292138., -2053204215., -723928069., -104410465., -2177688563., -317450815., 904803379., 342007056., 64096972., -5075352889., -703787731., 2042051782., 786722511., 148041709., 1387251557., 1387251557., -446575596., -43028855., 116451786., 31681459., 869986196., 240657374., 31681459., 150498363., 20275618., -60535332., -23083331., -4447683., 1317942088., -15311055., 127662726., 1317942088., -15311055., 127662726., -353235645., 4730156., -37457489., 114571321., -1337882., 11133282., 114571321., -1337882., 11133282.},
             {32989., -2504921416., 991353877., 327128902., 11281382228., 2724043660., 327128902., -2097270479., -606405673., -84511401., -2182561814., -272993235., 863585825., 329212069., 62263449., -4853072138., -614395332., 1918416343., 724909760., 136170912., 1075876696., 1075876696., -321205871., -43510519., 85851254., 22924718., 674073674., 176474005., 22924718., 116601487., 14751409., -45351431., -16847751., -3199168., 1234125580., -13594439., 115706536., 1234125580., -13594439., 115706536., -350424961., 3650952., -31783092., 89793604., -939558., 8162815., 89793604., -939558., 8162815.},
@@ -43809,66 +43322,12 @@ const double NPSMEFTd6General::NevLHCppmumu13(const int i_bin) const {
             {16.5921, -152404098., 10627309., 729589., 389993743., 21590076., 729589., -76964242., -4656232., -167893., -98978377., -1988038., 27313580., 2310943., 154629., -197505488., -3984772., 55154621., 4612297., 313303., 489622., 489622., -112405., -88824.7, 14184.3, 859.342, 360896., 23068.4, 859.342, 69808.5, 1372.86, -19020.6, -1603.9, -111.915, 50077457., 189453., 867922., 50077457., 189453., 867922., -11484443., -43936.1, -196507., 57257.7, 213.719, 1007.38, 57257.7, 213.719, 1007.38},
             {16.0609, -210124472., 13270015., 791791., 515221197., 27012665., 791791., -99604520., -5768892., -174373., -131707121., -2516296., 35318922., 2795967., 170652., -263867882., -5005153., 70858136., 5611586., 340692., 516545., 516545., -118065., -96246.9, 14271.9, 756.436, 381808., 23354.7, 756.436, 73998.4, 1404.53, -20040.6, -1577.23, -98.2598, 64571570., 251913., 1079779., 64571570., 251913., 1079779., -14367746., -55836.9, -241386., 60455.8, 236.796, 1006.05, 60455.8, 236.796, 1006.05},
             {10.0817, -201515559., 10134870., 454012., 454529971., 22334801., 454012., -89049921., -4742780., -100469., -119988578., -2220782., 29431993., 2228793., 96725.8, -238952666., -4438111., 58989029., 4453216., 193151., 291846., 291846., -65861.6, -61803.5, 7334.6, 294.229, 216579., 12402.6, 294.229, 43068.2, 783.315, -10864.9, -811.299, -37.5894, 53777025., 215105., 872084., 53777025., 215105., 872084., -12104002., -48803.3, -194274., 32927.4, 133.104, 526.693, 32927.4, 133.104, 526.693}
-        };
+    };
 
-    // DOWN Basis
-    // HighPT parameterization in the basis aligned with diagonal down sector (i.e. u_i = V^dagger u_m to pass to mass eigenstate basis)
-        double NevCiD[30][49] = {  
-            {50469.3 , -1996121564., 723166577., 401914764., 12365686064., 3594524397., 406901325., -2364183289., -768795505., -123994515., -2331496127., -329089366., 875403726., 381196134., 68890561., -5287724141., -773151841., 2099010106., 886558617., 165038982., 1772810831., 1772810831., -578675221., 7662461., 117585148., 42625381., 1083297762., 336299047., 43005597., 184941916., 28170064., -77688709., -32243103., -6093025., 2801796195., -94193041., 117183321., -2801796195., 94193042., -117183321., 325798153., -11021214., 11952015., 208949098., -7016687., 8933699., -208949098., 7016687., -8933699.},  
-            {41839.9 , -2047212132., 568943556., 355978649., 11837221972., 3207731704., 360546909., -2062571118., -712320319., -103513976., -2177688563., -317450815., 904803379., 342007056., 64096972., -5075352889., -703787731., 2042051782., 786722511., 148041709., 1386756126., 1386756126., -445899930., -10999766., 82506989., 31187422., 863301130., 247040573., 31472081., 150498363., 20275618., -60535332., -23083331., -4447683., 2742103971., -92483292., 107402057., -2742103971., 92483292., -107402057., 265445892., -8842451., 13101447., 173067494., -5840558., 6693102., -173067494., 5840558., -6693102.},  
-            {32989. , -2072427712., 535257537., 321457449., 11122055974., 2883703042., 325505472., -2098145018., -603822972., -83768895., -2182561814., -272993235., 863585825., 329212069., 62263449., -4853072138., -614395332., 1918416343., 724909760., 136170912., 1075542137., 1075542137., -320702079., -18176444., 59065904., 22562228., 668625308., 181718284., 22773693., 116601487., 14751409., -45351431., -16847751., -3199168., 2644664831., -89537619., 95230733., -2644664831., 89537618., -95230733., 338918299., -11511113., 11303546., 137560460., -4656373., 4974595., -137560460., 4656373., -4974595.},  
-            {26921.1 , -1931988442., 439302445., 275605005., 10254001128., 2561777897., 279258039., -2000990976., -545466712., -75153702., -2106597074., -249438816., 799671823., 283226535., 54324162., -4562158209., -550401443., 1773473342., 630187877., 118520093., 830709306., 830709306., -232960684., -4312930., 44733172., 16425356., 515306549., 134491803., 16579751., 87394116., 10300201., -35011563., -12464649., -2303773., 2453856553., -83175598., 85957193., -2453856553., 83175599., -85957193., 334665927., -11366851., 11157652., 104815957., -3554392., 3633287., -104815957., 3554392., -3633287.},  
-            {21531.6 , -1928173561., 359465168., 243640929., 9678640487., 2289202617., 246951160., -1780414532., -486543999., -62649537., -1968613492., -234343459., 789323916., 267264144., 48871640., -4309001780., -494481908., 1680099167., 571558557., 104821023., 628320138., 628320138., -179250921., -13717169., 31605448., 11928331., 395040142., 99265136., 12044355., 68455264., 7772493., -26333080., -9100387., -1672645., 2359628808., -80174440., 77928712., -2359628808., 80174440., -77928712., 306613641., -10364300., 11442791., 83172203., -2826612., 2731543., -83172203., 2826612., -2731543.},  
-            {16912.7 , -1824809291., 328912396., 205967489., 8960699301., 2020606679., 208856562., -1758115536., -419598795., -55646862., -1929282528., -195165791., 711326448., 236458134., 40294615., -4069561208., -419940692., 1535310526., 504367542., 88136700., 486003919., 486003919., -137735110., -10928487., 22496369., 8419630., 309971996., 72812893., 8505558., 53866253., 5577618., -20679844., -6540145., -1156583., 2217407913., -75553087., 68057836., -2217407913., 75553087., -68057836., 333597682., -11385983., 9762999., 65978366., -2248095., 2024219., -65978366., 2248095., -2024219.},  
-            {13098.5 , -1737675508., 252418932., 178258732., 8349988448., 1772965479., 180847258., -1531344103., -375857156., -43648175., -1787689310., -178006097., 682639496., 202255429., 36487017., -3797818035., -371874164., 1428030126., 433626895., 76985027., 370582757., 370582757., -105646883., -10742650., 16596487., 6186538., 238497807., 54069907., 6250318., 42020725., 4032645., -15673826., -4852332., -851572., 2088979749., -71303993., 61006257., -2088979749., 71303993., -61006257., 302054202., -10286805., 9393405., 51636627., -1762729., 1503214., -51636628., 1762729., -1503214.},  
-            {10333.8 , -1689589174., 197143913., 150689683., 7766604190., 1530703806., 152947096., -1462059290., -305501689., -34528400., -1666106621., -147235511., 624227484., 185780898., 32380881., -3543060866., -313829381., 1316738869., 381220756., 66192912., 287086863., 287086863., -75082360., -10650826., 11311908., 4393400., 184580689., 39137590., 4440546., 32413165., 2908594., -11746554., -3419242., -603894., 1980598143., -67791894., 53246749., -1980598143., 67791894., -53246749., 292707673., -10023907., 7743854., 40819727., -1396586., 1111910., -40819727., 1396586., -1111910.},  
-            {7769.34 , -1522138705., 170418366., 124199103., 7015383576., 1337895503., 126169935., -1327280371., -277620779., -29987963., -1535896253., -130396196., 567832205., 158026778., 26506048., -3222480412., -270753476., 1189858592., 329218058., 54712430., 218864865., 218864865., -59266196., -8347610., 8379494., 3063143., 143015331., 28945441., 3097840., 25187570., 2093580., -9191804., -2575008., -420629., 1797089303., -61584451., 46505899., -1797089303., 61584451., -46505899., 274424750., -9395020., 7328327., 31893140., -1093212., 818826., -31893140., 1093212., -818826.},  
-            {6219.57 , -1547208762., 130190814., 103993757., 6547956229., 1165990721., 105731368., -1271810721., -233572885., -24895954., -1499102608., -110485201., 517137601., 137146294., 22159029., -3064021776., -229793530., 1076982651., 281940249., 45730028., 166880959., 166880959., -43615146., -8483625., 5715258., 2150867., 109743326., 20904089., 2176357., 19522788., 1452307., -6883274., -1808801., -293487., 1721334026., -59131303., 41040618., -1721334026., 59131303., -41040618., 294145290., -10118233., 6675954., 25124501., -862955., 602017., -25124501., 862955., -602017.},  
-            {4759.3 , -1473140807., 87560190., 86016342., 5934174551., 994369376., 87530837., -1153496155., -208038219., -21286848., -1382478781., -96352178., 487443780., 115056961., 18519460., -2811122057., -195202789., 987217008., 237028587., 38189558., 127817472., 127817472., -32959447., -7354668., 3905453., 1512019., 84804812., 15208462., 1530900., 15256992., 1054427., -5231650., -1286319., -205291., 1585063575., -54531574., 35794394., -1585063575., 54531574., -35794394., 273146343., -9394437., 6235129., 19715795., -678249., 446234., -19715795., 678249., -446234.},  
-            {3379.58 , -1293314239., 68665412., 70215840., 5315726254., 851452885., 71518690., -1001206684., -171177983., -16768848., -1205696411., -79525298., 431554448., 101276669., 14955762., -2496722620., -163759240., 881990673., 204633368., 30868611., 97005372., 97005372., -24487645., -5288659., 2830976., 1041217., 64695060., 11061899., 1054906., 11470680., 738990., -4016809., -944640., -141385., 1420655746., -48927315., 30808127., -1420655746., 48927315., -30808127., 229997962., -7918633., 5048657., 15057613., -518698., 323737., -15057613., 518698., -323737.},  
-            {2662.33 , -1236459733., 49710328., 57531987., 4807482288., 727452170., 58653242., -930705386., -147951664., -13623079., -1112566994., -66361741., 379125023., 82181651., 12554076., -2289660411., -135517158., 782812172., 169391026., 25589840., 73600772., 73600772., -18212255., -4496460., 1844578., 724349., 49458881., 7934741., 734432., 8809191., 531660., -3039754., -660000., -98399.3, 1308477866., -45138842., 26537868., -1308477865., 45138842., -26537868., 215855173., -7443152., 4457563., 11671299., -402550., 238618., -11671299., 402550., -238618.},  
-            {1926.39 , -1130691474., 30529346., 46127647., 4304530931., 619700677., 47098567., -826147186., -124403194., -10929232., -1015244041., -55825454., 337942656., 69938432., 10051794., -2066920704., -114021994., 691740995., 142509172., 20508015., 55380827., 55380827., -13368991., -3944441., 1213295., 494037., 37432959., 5675502., 501386., 6706149., 370432., -2262785., -462890., -67123.3, 1181646296., -40803152., 22993232., -1181646296., 40803152., -22993232., 202323072., -6986923., 3923375., 9001288., -310866., 174054., -9001288., 310866., -174054.},  
-            {1417.98 , -1038096784., 12856090., 37005918., 3842417844., 516775184., 37831479., -732551900., -102241582., -8701678., -905018888., -45573758., 303407993., 58319928., 8189937., -1854726912., -92974677., 617712015., 117385021., 16575209., 41692683., 41692683., -10247538., -3154384., 768451., 336422., 28552559., 4035739., 341773., 5200163., 260201., -1704683., -323252., -45668.2, 1067175691., -36899225., 19568208., -1067175691., 36899225., -19568208., 178060074., -6155138., 3303245., 6934639., -239788., 126849., -6934639., 239788., -126849.},  
-            {1048.48 , -957548873., 2407602., 29149495., 3425937217., 434623078., 29853438., -662968199., -87654915., -6831198., -818946065., -37095895., 269404519., 47287889., 6418066., -1663384475., -75532706., 545299307., 96169094., 13018350., 30993109., 30993109., -7489331., -2361095., 501877., 228341., 21326798., 2862355., 232190., 3862992., 179178., -1276190., -225672., -31100.1, 963465761., -33352692., 16700382., -963465761., 33352692., -16700382., 167547109., -5800469., 2893871., 5200412., -179977., 91313., -5200412., 179977., -91313.},  
-            {781.922 , -849317294., -5050851., 22985324., 2997676109., 362464214., 23581377., -586082801., -72024802., -5336404., -732115538., -30716573., 234983401., 39351188., 5101764., -1468479765., -62192569., 473780883., 79001638., 10299931., 22895976., 22895976., -5445310., -1893631., 317367., 150766., 15828623., 2022752., 153535., 2887678., 124130., -932496., -157245., -20416.2, 848425373., -29392981., 14149842., -848425373., 29392981., -14149842., 153167292., -5308271., 2507407., 3905505., -135279., 65714.2, -3905504., 135279., -65714.2},  
-            {553.886 , -758568602., -12475081., 17819967., 2606588189., 299595222., 18324027., -496390833., -60216507., -4102473., -628322821., -25325673., 203389630., 31628364., 3988444., -1281438357., -50732743., 409982235., 63767022., 8015439., 16971516., 16971516., -4057729., -1566712., 186133., 100605., 11842615., 1422018., 102599., 2188175., 85180.6, -689399., -108128., -13722., 744455287., -25809062., 11973503., -744455287., 25809062., -11973503., 125997723., -4365030., 2102716., 2968335., -102922., 47383.6, -2968335., 102922., -47383.6},  
-            {403.303 , -685954937., -15164013., 13511331., 2268763475., 247915546., 13933785., -446385170., -49761781., -3218549., -561161610., -20188682., 173738056., 25485903., 3001607., -1127845630., -40475932., 350979304., 51405915., 6080007., 12397143., 12397143., -2935431., -1206177., 109885., 65178.1, 8695143., 993488., 66597.5, 1610038., 58132.8, -502465., -73910.1, -8801.24, 656320999., -22774464., 10044029., -656320999., 22774464., -10044029., 117447657., -4075174., 1804293., 2198853., -76296.8, 33744.4, -2198852., 76296.8, -33744.4},  
-            {292.15 , -584319578., -17169823., 10335816., 1945782266., 202721614., 10687649., -378400453., -41030162., -2348155., -480275483., -16132398., 150943206., 20151820., 2344500., -966268932., -32508679., 302727258., 40943225., 4678670., 8985371., 8985371., -2135347., -919846., 58031.7, 42568.2, 6344877., 688669., 43577.1, 1184296., 39853.1, -364271., -50232.3, -5792.58, 563314651., -19557363., 8369623., -563314651., 19557363., -8369623., 100343242., -3483784., 1490119., 1617635., -56163.1, 24000., -1617635., 56163.1, -24000.},  
-            {206.536 , -512556048., -17523558., 7714671., 1649110412., 163981795., 8003547., -316683870., -32222982., -1791187., -408664346., -12597480., 127263965., 16366566., 1738453., -823619673., -25391213., 253293606., 32622293., 3490150., 6503422., 6503422., -1540794., -691725., 29621.7, 27181.1, 4618845., 475020., 27889.9, 865537., 26493., -263934., -33936., -3696.12, 482836438., -16775373., 6877602., -482836438., 16775373., -6877602., 85916598., -2985147., 1221019., 1186309., -41217.3, 16874.5, -1186309., 41217.3, -16874.5},  
-            {148.227 , -440097214., -18093174., 5711383., 1394580425., 131379203., 5948131., -279437210., -26190955., -1368840., -353236216., -9814888., 104860498., 12486971., 1275574., -701451368., -19792995., 211342932., 25053874., 2582488., 4646836., 4646836., -1083899., -518498., 10670.6, 17082.1, 3311572., 323782., 17578.4, 621436., 17794.2, -187762., -22442.9, -2325.22, 410915306., -14285249., 5640773., -410915306., 14285249., -5640773., 76957884., -2676398., 1031944., 857564., -29810.7, 11821.7, -857564., 29810.7, -11821.7},  
-            {105.5 , -371519906., -17295548., 4155729., 1162535425., 105234549., 4349172., -221234718., -20326309., -1018637., -291262785., -7772432., 87961943., 9933760., 927071., -586185837., -15585864., 175236757., 19631184., 1884370., 3298452., 3298452., -776615., -376549., 774.432, 10780.8, 2366166., 219475., 11125.9, 447960., 11882.4, -133452., -14714.1, -1471.11, 344182003., -11969925., 4611318., -344182003., 11969925., -4611318., 61172678., -2127188., 826168., 615448., -21404.7, 8228.65, -615448., 21404.7, -8228.65},  
-            {71.9138 , -317700841., -16342542., 3013621., 963815382., 83229790., 3170087., -190451053., -16940580., -691879., -246895792., -5946223., 73188977., 7391747., 691080., -490446003., -11981525., 144957730., 14911744., 1376858., 2300753., 2300753., -522860., -282548., -2172.16, 6555.67, 1647698., 148461., 6792.54, 312836., 7737.54, -90987.4, -9832.2, -898.831, 288201589., -10028292., 3732579., -288201589., 10028292., -3732579., 53801228., -1872622., 683327., 433935., -15098., 5650.21, -433935., 15098., -5650.21},  
-            {49.5856 , -258840576., -13936204., 2163574., 777369997., 65672302., 2288425., -144407037., -12617051., -509391., -192330402., -4657315., 57994158., 5685571., 492086., -393572978., -9336496., 115527019., 11434576., 987873., 1589607., 1589607., -367025., -192479., -4307.67, 4029.53, 1145916., 98462.2, 4190.69, 217694., 5137.36, -63910., -6274.69, -552.853, 233254927., -8118061., 2979297., -233254927., 8118061., -2979297., 39313992., -1367709., 515662., 301291., -10486., 3845.8, -301291., 10486., -3845.8},  
-            {35.7306 , -210449454., -12290742., 1488191., 625201060., 50586486., 1586440., -123533607., -9940232., -341849., -160761644., -3467242., 45269845., 4240997., 346685., -320388705., -7016091., 91513847., 8497942., 686993., 1086741., 1086741., -255142., -144775., -4977.64, 2371.61, 788723., 65362.3, 2481.54, 152047., 3366.49, -43411.9, -4074.59, -324.299, 188430678., -6560509., 2345863., -188430678., 6560509., -2345863., 34610958., -1205334., 423547., 210470., -7327.65, 2624.85, -210470., 7327.65, -2624.85},  
-            {22.9439 , -169733168., -10451855., 1011559., 492918117., 38833748., 1088410., -94167379., -7628607., -242827., -125675071., -2704391., 36220003., 3153655., 232505., -253182155., -5362577., 72070894., 6317534., 466552., 732753., 732753., -169549., -98432.5, -4213.22, 1399.76, 532278., 42577.4, 1472.69, 102598., 2150.75, -29164.7, -2568.28, -191.334, 149561215., -5208284., 1835551., -149561215., 5208284., -1835551., 26482738., -921959., 331629., 142381., -4958.48, 1741.95, -142381., 4958.48, -1741.95},  
-            {16.5921 , -133691688., -8662928., 679058., 382519021., 29255254., 738049., -75850209., -5796406., -168508., -98978377., -1988038., 27313580., 2310943., 154629., -197505488., -3984772., 55154621., 4612297., 313303., 489816., 489816., -112240., -71538.9, -3642.03, 810.603, 356459., 27601.5, 859.155, 69808.5, 1372.86, -19020.6, -1603.9, -111.915, 116625389., -4062226., 1409490., -116625389., 4062226., -1409490., 21400533., -745458., 257478., 96743.4, -3370.07, 1160.26, -96743.4, 3370.07, -1160.26},  
-            {16.0609 , -185345289., -12268245., 727404., 504933898., 37565525., 804684., -98044610., -7366681., -175676., -131707121., -2516296., 35318922., 2795967., 170652., -263867882., -5005153., 70858136., 5611586., 340692., 516762., 516762., -117890., -77907.7, -4635.84, 706.891, 377037., 28232.4, 757.869, 73998.4, 1404.53, -20040.6, -1577.23, -98.2598, 156164255., -5441048., 1847407., -156164255., 5441048., -1847406., 28254215., -984316., 336993., 102918., -3585.81, 1218.61, -102918., 3585.81, -1218.61},  
-            {10.0817 , -179616307., -12430213., 399143., 444701364., 32423625., 468637., -87476898., -6355780., -102387., -119988578., -2220782., 29431993., 2228793., 96725.8, -238952666., -4438111., 58989029., 4453216., 193151., 291988., 291988., -65763.1, -51373.6, -3415.48, 267.356, 213540., 15513.9, 296.654, 43068.2, 783.315, -10864.9, -811.299, -37.5894, 141294692., -4923372., 1661518., -141294692., 4923372., -1661518., 26109500., -909821., 305978., 59980.2, -2090.18, 700.592, -59980.2, 2090.18, -700.592}  
-        };
-
-    double Nev;
-    int NCi = 49;
-
-    Nev = 0.;
-
-    if (i_bin < 31) {
-        switch(flavBas){ 
-            case 1:    // UP Basis
-                for (int iCi = 0; iCi < NCi; ++iCi) {
-
-                    Nev = Nev + NevCiU[i_bin - 1][iCi] * Civect[iCi];
-                }
-            break;
-            case 2:    // DOWN Basis
-                for (int iCi = 0; iCi < NCi; ++iCi) {
-
-                    Nev = Nev + NevCiD[i_bin - 1][iCi] * Civect[iCi];
-                }
-            break;                
-        }
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::NevLHCppmumu13");
+    double Nev = 0.;
+    for (int iCi = 0; iCi < nCoefficients; ++iCi) {
+        Nev += NevCiU[i_bin - 1][iCi] * Civect[iCi];
+    }
 
     if (Nev < 0) return std::numeric_limits<double>::quiet_NaN();
 
@@ -43876,21 +43335,20 @@ const double NPSMEFTd6General::NevLHCppmumu13(const int i_bin) const {
 }
 
 const double NPSMEFTd6General::NevLHCpptautau13(const int i_bin) const {
-    
-    double binscale[14] = {125.1, 240., 240., 365., 365., 365., 550., 550., 550., 550., 1000., 1000., 1000., 1500. }; 
-  
-    double muRG;  
-    muRG = binscale[i_bin - 1];  
-    
-    // HighPT parameterization: Same operators in the UP and DOWN bases
-    double Civect[49] = {
-        1. , getSMEFTCoeff("Clq1R",2,2,0,0,muRG), getSMEFTCoeff("Clq1R",2,2,1,1,muRG), getSMEFTCoeff("Clq1R",2,2,2,2,muRG), getSMEFTCoeff("Clq3R",2,2,0,0,muRG), getSMEFTCoeff("Clq3R",2,2,1,1,muRG), getSMEFTCoeff("Clq3R",2,2,2,2,muRG), getSMEFTCoeff("CqeR",0,0,2,2,muRG), getSMEFTCoeff("CqeR",1,1,2,2,muRG), getSMEFTCoeff("CqeR",2,2,2,2,muRG), getSMEFTCoeff("CluR",2,2,0,0,muRG), getSMEFTCoeff("CluR",2,2,1,1,muRG), getSMEFTCoeff("CldR",2,2,0,0,muRG), getSMEFTCoeff("CldR",2,2,1,1,muRG), getSMEFTCoeff("CldR",2,2,2,2,muRG), getSMEFTCoeff("CeuR",2,2,0,0,muRG), getSMEFTCoeff("CeuR",2,2,1,1,muRG), getSMEFTCoeff("CedR",2,2,0,0,muRG), getSMEFTCoeff("CedR",2,2,1,1,muRG), getSMEFTCoeff("CedR",2,2,2,2,muRG), getSMEFTCoeff("CHl1R",2,2,muRG), getSMEFTCoeff("CHl3R",2,2,muRG), getSMEFTCoeff("CHeR",2,2,muRG), getSMEFTCoeff("CHq1R",0,0,muRG), getSMEFTCoeff("CHq1R",1,1,muRG), getSMEFTCoeff("CHq1R",2,2,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("CHq3R",2,2,muRG), getSMEFTCoeff("CHuR",0,0,muRG), getSMEFTCoeff("CHuR",1,1,muRG), getSMEFTCoeff("CHdR",0,0,muRG), getSMEFTCoeff("CHdR",1,1,muRG), getSMEFTCoeff("CHdR",2,2,muRG), getSMEFTCoeff("Clq1R",2,2,0,1,muRG), getSMEFTCoeff("Clq1R",2,2,0,2,muRG), getSMEFTCoeff("Clq1R",2,2,1,2,muRG), getSMEFTCoeff("Clq3R",2,2,0,1,muRG), getSMEFTCoeff("Clq3R",2,2,0,2,muRG), getSMEFTCoeff("Clq3R",2,2,1,2,muRG), getSMEFTCoeff("CqeR",0,1,2,2,muRG), getSMEFTCoeff("CqeR",0,2,2,2,muRG), getSMEFTCoeff("CqeR",1,2,2,2,muRG), getSMEFTCoeff("CHq1R",0,1,muRG), getSMEFTCoeff("CHq1R",0,2,muRG), getSMEFTCoeff("CHq1R",1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) 
-    }; 
+    constexpr int nBins = 14;
+    constexpr int nCoefficients = 49;
+    static constexpr double binscale[nBins] = {125.1, 240., 240., 365., 365., 365., 550., 550., 550., 550., 1000., 1000., 1000., 1500. };
+    if (i_bin < 1 || i_bin > nBins) {
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::NevLHCpptautau13");
+    }
+    const double muRG = binscale[i_bin - 1];
 
-    // UP Basis
-    // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
+    // Up-mass basis, with d_i = V d_mass for the down component of the quark doublet.
+    const double Civect[nCoefficients] = {
+        1. , getSMEFTCoeff("Clq1R",2,2,0,0,muRG), getSMEFTCoeff("Clq1R",2,2,1,1,muRG), getSMEFTCoeff("Clq1R",2,2,2,2,muRG), getSMEFTCoeff("Clq3R",2,2,0,0,muRG), getSMEFTCoeff("Clq3R",2,2,1,1,muRG), getSMEFTCoeff("Clq3R",2,2,2,2,muRG), getSMEFTCoeff("CqeR",0,0,2,2,muRG), getSMEFTCoeff("CqeR",1,1,2,2,muRG), getSMEFTCoeff("CqeR",2,2,2,2,muRG), getSMEFTCoeff("CluR",2,2,0,0,muRG), getSMEFTCoeff("CluR",2,2,1,1,muRG), getSMEFTCoeff("CldR",2,2,0,0,muRG), getSMEFTCoeff("CldR",2,2,1,1,muRG), getSMEFTCoeff("CldR",2,2,2,2,muRG), getSMEFTCoeff("CeuR",2,2,0,0,muRG), getSMEFTCoeff("CeuR",2,2,1,1,muRG), getSMEFTCoeff("CedR",2,2,0,0,muRG), getSMEFTCoeff("CedR",2,2,1,1,muRG), getSMEFTCoeff("CedR",2,2,2,2,muRG), getSMEFTCoeff("CHl1R",2,2,muRG), getSMEFTCoeff("CHl3R",2,2,muRG), getSMEFTCoeff("CHeR",2,2,muRG), getSMEFTCoeff("CHq1R",0,0,muRG), getSMEFTCoeff("CHq1R",1,1,muRG), getSMEFTCoeff("CHq1R",2,2,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("CHq3R",2,2,muRG), getSMEFTCoeff("CHuR",0,0,muRG), getSMEFTCoeff("CHuR",1,1,muRG), getSMEFTCoeff("CHdR",0,0,muRG), getSMEFTCoeff("CHdR",1,1,muRG), getSMEFTCoeff("CHdR",2,2,muRG), getSMEFTCoeff("Clq1R",2,2,0,1,muRG), getSMEFTCoeff("Clq1R",2,2,0,2,muRG), getSMEFTCoeff("Clq1R",2,2,1,2,muRG), getSMEFTCoeff("Clq3R",2,2,0,1,muRG), getSMEFTCoeff("Clq3R",2,2,0,2,muRG), getSMEFTCoeff("Clq3R",2,2,1,2,muRG), getSMEFTCoeff("CqeR",0,1,2,2,muRG), getSMEFTCoeff("CqeR",0,2,2,2,muRG), getSMEFTCoeff("CqeR",1,2,2,2,muRG), getSMEFTCoeff("CHq1R",0,1,muRG), getSMEFTCoeff("CHq1R",0,2,muRG), getSMEFTCoeff("CHq1R",1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG)
+    };
 
-        double NevCiU[14][49] = {
+    static constexpr double NevCiU[nBins][nCoefficients] = {
             {1125.2, -589725., 39124.3, 32481.8, 1549379., 248588., 32481.8, 430190., -58249.1, 3495.36, -49918., -14487.8, 132927., 37499.8, 7432.79, -717796., -67128.3, 204513., 77383.6, 12166.4, 93859.2, 93859.2, -82897.4, -28712.7, 40072., 935.545, 52892.1, 49708.4, 935.545, 19149.5, 2698.16, -1421.78, -8108.76, -198.096, 163849., -349.289, 7820.12, 163849., -349.289, 7820.12, 64670.6, 1740.63, -6654.99, -15995.8, -834.79, 3742.85, -15995.8, -834.79, 3742.85},
             {1498.3, -55671282., 17252023., 3816440., 209037018., 45265331., 3816440., -33315414., -8470826., -682249., -42592090., -4164577., 20204223., 5597203., 892377., -93294867., -9822211., 37595581., 11978128., 1694617., 12339567., 12339567., -3586627., -766285., 1071646., 219117., 7629398., 2147678., 219117., 1286451., 185539., -507713., -210440., -30447.1, 22152789., -243392., 2077382., 22152789., -243392., 2077382., -4020266., 67897.3, -500276., 888525., -14358.6, 107080., 888525., -14358.6, 107080.},
             {1434.54, -451638528., 116826141., 23333812., 1693299459., 297855080., 23333812., -326941463., -68747259., -6255862., -362558980., -30877074., 130383527., 36476632., 4578364., -765696527., -64998418., 278396536., 78775395., 9887489., 73134117., 73134117., -20434999., -4018471., 5324281., 925210., 47898979., 9912767., 925210., 8389152., 739169., -3079316., -931216., -129605., 201651853., -1172464., 13511929., 201651853., -1172464., 13511929., -52606276., 316372., -3579208., 6984478., -45686.8, 494166., 6984478., -45686.8, 494166.},
@@ -43905,50 +43363,12 @@ const double NPSMEFTd6General::NevLHCpptautau13(const int i_bin) const {
             {17.43, -58482736., 5875513., 473243., 162113782., 12026512., 473243., -33883147., -2494236., -115548., -40665146., -1095321., 10584136., 1490190., 94953.7, -80563464., -2226866., 22934027., 2914822., 199193., 596252., 596252., -143146., -95652.3, 22565.3, 1643.1, 432064., 36972.1, 1643.1, 83500.9, 2271.2, -23288.8, -2921.21, -214.412, 20903976., 46468., 531427., 20903976., 46468., 531427., -5486925., -18183.9, -108405., 67512.5, 138.259, 1777.5, 67512.5, 138.259, 1777.5},
             {11.97, -45465112., 4806910., 352602., 134077235., 9787476., 352602., -24596228., -2075529., -76424.6, -31012786., -935270., 9230964., 1106770., 77983.4, -64434599., -1811480., 19518288., 2242645., 153827., 400933., 400933., -90043.7, -62138.8, 14429.1, 943.179, 288566., 23870.2, 943.179, 54480., 1470.48, -15549.2, -1839.54, -121.841, 18048314., 46065.3, 428046., 18048314., 46065.3, 428046., -4156463., -12370.1, -89436., 45872.8, 108.277, 1133.61, 45872.8, 108.277, 1133.61},
             {10.65, -81713440., 6151352., 339634., 206691696., 11427748., 339634., -37562016., -2309820., -82281.2, -50867921., -942106., 14377053., 1312748., 74363.2, -104251949., -1913026., 28790859., 2576756., 149005., 365427., 365427., -89244.7, -61017.5, 11954.1, 616.592, 270514., 18500.6, 616.592, 52131.2, 995.032, -14668.1, -1383.45, -81.0821, 26187934., 92621.6, 487473., 26187934., 92621.6, 487473., -5608532., -20446.4, -101213., 43657.2, 146.1, 855.717, 43657.2, 146.1, 855.717}
-        };
+    };
 
-    // DOWN Basis
-    // HighPT parameterization in the basis aligned with diagonal down sector (i.e. u_i = V^dagger u_m to pass to mass eigenstate basis)
-        double NevCiD[14][49] = {  
-            {1125.2 , -524038., -29411.2, 31936.1, 1520225., 278427., 32460.2, 420039., -47418.2, 3674.6, -49918., -14487.8, 132927., 37499.8, 7432.79, -717796., -67128.3, 204513., 77383.6, 12166.4, 93664.4, 93664.4, -82807.7, -28805., 39938.3, 840.747, 49265.3, 53249., 863.621, 19149.5, 2698.16, -1421.78, -8108.76, -198.096, 423404., -14452.8, 12350., -423404., 14452.8, -12350., -156172., 5420.61, -2355.45, 15790.8, -535.844, 538.369, -15790.8, 535.844, -538.369},  
-            {1498.3 , -47401816., 8564620., 3724112., 205676348., 48651717., 3792625., -32942268., -8830233., -672726., -42592090., -4164577., 20204223., 5597203., 892377., -93294867., -9822211., 37595581., 11978128., 1694617., 12336526., 12336526., -3579941., -488626., 777145., 214791., 7547705., 2227171., 217293., 1286451., 185539., -507713., -210440., -30447.1, 51935092., -1768763., 1613783., -51935092., 1768763., -1613783., 7285611., -250402., 170611., 1605985., -54330.7, 58846., -1605985., 54330.7, -58846.},  
-            {1434.54 , -380910974., 42939325., 22724321., 1667455270., 323995598., 23198921., -325402923., -70172842., -6193271., -362558980., -30877074., 130383527., 36476632., 4578364., -765696527., -64998418., 278396536., 78775395., 9887489., 73118701., 73118701., -20404901., -2078243., 3290241., 905413., 47512215., 10289988., 917263., 8389152., 739169., -3079316., -931216., -129605., 430935467., -14765821., 11198677., -430935467., 14765821., -11198677., 65970599., -2260561., 1711762., 10385189., -355452., 279507., -10385189., 355452., -279507.},  
-            {1495.3 , -402345966., 38476681., 20112886., 1749406161., 307641633., 20563414., -349348982., -64136893., -4616778., -394579306., -28365226., 136304230., 35992075., 4387055., -813288423., -58746677., 290218723., 75163445., 8914806., 53865118., 53865118., -16335222., -3085931., 2080512., 583443., 36228698., 7176940., 592004., 6838229., 505737., -2286826., -646920., -81679.4, 459044308., -15781338., 10644557., -459044308., 15781338., -10644557., 75818481., -2607648., 1730924., 8343662., -286490., 202149., -8343662., 286490., -202149.},  
-            {1276.9 , -334663475., 18768667., 12710141., 1333557461., 210681864., 13028550., -246438309., -41152588., -2699561., -302255519., -19211118., 106422411., 24478113., 2893914., -630726875., -39419827., 218252707., 49966681., 5716350., 29414118., 29414118., -7758732., -1099558., 916391., 248769., 19777880., 3420591., 252942., 3418344., 222116., -1295612., -293079., -34099.5, 359978371., -12408792., 7532874., -359978371., 12408792., -7532874., 56212165., -1936031., 1216887., 4480074., -154232., 98669.8, -4480074., 154232., -98669.8},  
-            {656.11 , -265972346., 10917214., 8106800., 1004349455., 147162119., 8331042., -189566537., -29446624., -1873755., -233414446., -12444398., 78972710., 16798222., 1838521., -480406311., -25923258., 161339391., 34502898., 3673947., 16901889., 16901889., -4305510., -864627., 485565., 145041., 11384944., 1878269., 147349., 1985325., 122339., -724692., -157912., -20660.1, 276529847., -9551618., 5311470., -276529847., 9551618., -5311470., 46012094., -1590152., 862980., 2647305., -91287.4, 54605.1, -2647305., 91287.4, -54605.1},  
-            {353.42 , -216120328., 3706872., 5255681., 769496048., 104784471., 5421135., -150080184., -20142493., -1381052., -183356039., -9161795., 59791459., 11933059., 1089897., -375629717., -18478809., 122732064., 23848371., 2311339., 10354599., 10354599., -2381407., -786731., 275877., 78803.2, 6917937., 1092140., 80144.6, 1247718., 66614.1, -407600., -91142.6, -10667.7, 215683235., -7458907., 3922232., -215683235., 7458907., -3922232., 35686945., -1232951., 678383., 1679648., -58036.3, 31782.1, -1679648., 58036.3, -31782.1},  
-            {327.85 , -310152978., -530987., 6041885., 1075167452., 131906921., 6256699., -206309899., -26403664., -1505631., -261539655., -11058320., 83394044., 14905896., 1325378., -525475158., -22369164., 167342190., 29526210., 2717348., 10639752., 10639752., -2594403., -847865., 186521., 57763., 7340969., 1000462., 59090., 1328154., 61007.1, -443297., -79988.4, -7888.79, 305499048., -10583577., 5099460., -305499048., 10583577., -5099460., 55549378., -1925071., 911477., 1798272., -62239., 31477.8, -1798272., 62239., -31477.8},  
-            {123.3 , -197945331., -1506158., 2939967., 646684771., 74244138., 3061736., -128480356., -15138389., -646551., -164458929., -5774965., 51356958., 7984421., 659882., -323842018., -11744302., 100836172., 16089741., 1319674., 4744421., 4744421., -1076642., -472637., 56768.9, 20498.7, 3286479., 401458., 21054.5, 606793., 23991.1, -187216., -30965., -2811.82, 187481304., -6504597., 2894642., -187481304., 6504597., -2894642., 36085667., -1253147., 528507., 832563., -28871.1, 13207.2, -832563., 28871.1, -13207.2},  
-            {61.49 , -126403442., -3058065., 1514668., 408662398., 42641265., 1587594., -77751068., -8687967., -373652., -100849643., -3172652., 31431725., 4372489., 330371., -203490631., -6522863., 62558804., 8845314., 679482., 2219790., 2219790., -527327., -239532., 22040.5, 8015.95, 1561578., 178745., 8266.72, 293658., 9941.59, -88749.4, -13454.9, -1099.74, 119325636., -4144316., 1735526., -119325636., 4144316., -1735526., 21259105., -738706., 300545., 400967., -13920.6, 5965.41, -400967., 13920.6, -5965.41},  
-            {33.42 , -82709498., -2906739., 805539., 249810807., 25041911., 850028., -53193864., -5306592., -205812., -64805815., -1958859., 17808068., 2483536., 173807., -127647352., -3909109., 36982690., 4994150., 361206., 1121102., 1121102., -269484., -122803., 6927.59, 3382.86, 796168., 85151.4, 3507.63, 150762., 4950.11, -45112.8, -6163.42, -451.903, 74265822., -2580192., 1059174., -74265822., 2580192., -1059174., 14212399., -493901., 199645., 205005., -7120.57, 2969.4, -205005., 7120.57, -2969.4},  
-            {17.43 , -50857833., -1998948., 446763., 159174099., 15034232., 473721., -33506395., -2878468., -115277., -40665146., -1095321., 10584136., 1490190., 94953.7, -80563464., -2226866., 22934027., 2914822., 199193., 596408., 596408., -142957., -75443.4, 1679.92, 1567.41, 426985., 42134., 1631.36, 83500.9, 2271.2, -23288.8, -2921.21, -214.412, 47060227., -1636171., 642390., -47060227., 1636171., -642390., 8838514., -307455., 116698., 112646., -3916.99, 1524.17, -112646., 3916.99, -1524.17},  
-            {11.97 , -39142083., -1721726., 331288., 131800500., 12117016., 353184., -24372868., -2303013., -76209.3, -31012786., -935270., 9230964., 1106770., 77983.4, -64434599., -1811480., 19518288., 2242645., 153827., 401047., 401047., -89910.1, -48591.1, 432.482, 894.554, 285301., 27190.3, 936.821, 54480., 1470.48, -15549.2, -1839.54, -121.841, 38307721., -1331913., 521788., -38307721., 1331913., -521788., 6143525., -213215., 93193.9, 74890.8, -2604.38, 1007.48, -74890.8, 2604.38, -1007.48},  
-            {10.65 , -71799379., -4068916., 312868., 202653421., 15566654., 343266., -37020806., -2863314., -82412.8, -50867921., -942106., 14377053., 1312748., 74363.2, -104251949., -1913026., 28790859., 2576756., 149005., 365551., 365551., -89122.5, -48113.4, -1358.44, 578.314, 267404., 21671.4, 614.101, 52131.2, 995.032, -14668.1, -1383.45, -81.0821, 62133855., -2165190., 726875., -62133855., 2165190., -726875., 10424797., -363227., 123129., 71319.3, -2484.43, 855.222, -71319.3, 2484.43, -855.222}  
-        };
-
-    double Nev;
-    int NCi = 49;
-
-    Nev = 0.;
-
-    if (i_bin < 15) {
-        switch(flavBas){ 
-            case 1:    // UP Basis
-                for (int iCi = 0; iCi < NCi; ++iCi) {
-
-                    Nev = Nev + NevCiU[i_bin - 1][iCi] * Civect[iCi];
-                }
-            break;
-            case 2:    // DOWN Basis
-                for (int iCi = 0; iCi < NCi; ++iCi) {
-
-                    Nev = Nev + NevCiD[i_bin - 1][iCi] * Civect[iCi];
-                }
-            break;                
-        }
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::NevLHCpptautau13");
+    double Nev = 0.;
+    for (int iCi = 0; iCi < nCoefficients; ++iCi) {
+        Nev += NevCiU[i_bin - 1][iCi] * Civect[iCi];
+    }
 
     if (Nev < 0) return std::numeric_limits<double>::quiet_NaN();
 
@@ -43958,19 +43378,20 @@ const double NPSMEFTd6General::NevLHCpptautau13(const int i_bin) const {
 ///////////Collider observables: LHC mono-lepton events////////////////////////
 
 const double NPSMEFTd6General::NevLHCppenu13(const int i_bin) const {
-    
-    double binscale[24] = {365., 365., 550., 550., 550., 550., 550., 550., 550., 550., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1500., 1500., 1500., 1500., 1500., 1500., 5000. };
-  
-    double muRG;  
-    muRG = binscale[i_bin - 1];
-    
-    // UP Basis
-    // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
-        double CivectU[12] = {  
-            1. , getSMEFTCoeff("Clq3R",0,0,0,0,muRG), getSMEFTCoeff("Clq3R",0,0,1,1,muRG), getSMEFTCoeff("CHl3R",0,0,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("Clq3R",0,0,0,1,muRG), getSMEFTCoeff("Clq3R",0,0,0,2,muRG), getSMEFTCoeff("Clq3R",0,0,1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) 
-        }; 
+    constexpr int nBins = 24;
+    constexpr int nCoefficients = 12;
+    static constexpr double binscale[nBins] = {365., 365., 550., 550., 550., 550., 550., 550., 550., 550., 1000., 1000., 1000., 1000., 1000., 1000., 1000., 1500., 1500., 1500., 1500., 1500., 1500., 5000. };
+    if (i_bin < 1 || i_bin > nBins) {
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::NevLHCppenu13");
+    }
+    const double muRG = binscale[i_bin - 1];
 
-        double NevCiU[24][12] = {
+    // Up-mass basis, with d_i = V d_mass for the down component of the quark doublet.
+    const double Civect[nCoefficients] = {
+            1. , getSMEFTCoeff("Clq3R",0,0,0,0,muRG), getSMEFTCoeff("Clq3R",0,0,1,1,muRG), getSMEFTCoeff("CHl3R",0,0,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("Clq3R",0,0,0,1,muRG), getSMEFTCoeff("Clq3R",0,0,0,2,muRG), getSMEFTCoeff("Clq3R",0,0,1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG)
+    };
+
+    static constexpr double NevCiU[nBins][nCoefficients] = {
             {9931.68, 15815028888., 1910124774., 505246116., 447917862., 57328254., 1857694407., -33812057., 44929051., 52387836., -970482., 1346390.},
             {7583.35, 16567720994., 1932085859., 464253341., 413494731., 50758610., 1929437499., -34359364., 44906017., 49548944., -806704., 1174188.},
             {5800.02, 15523921817., 1752254293., 376898762., 336973129., 39925633., 1797356805., -32081956., 41431116., 39082953., -730123., 932933.},
@@ -43995,65 +43416,12 @@ const double NPSMEFTd6General::NevLHCppenu13(const int i_bin) const {
             {20.9425, 944808741., 39891834., 1813546., 1739746., 73799.8, 138689443., -1379836., 1032094., 253107., -2642.3, 1887.38},
             {24.4031, 1361179026., 54067101., 2160074., 2075835., 84238.4, 205814193., -1862048., 1410461., 304422., -3143.6, 2193.47},
             {18.6359, 1768316587., 68704168., 1772744., 1706878., 65865.9, 269574506., -2751113., 1867446., 261456., -2485.17, 1768.29}
-        };
+    };
 
-        int NCiU = 12;
-
-    // DOWN Basis
-    // HighPT parameterization in the basis aligned with diagonal down sector (i.e. u_i = V^dagger u_m to pass to mass eigenstate basis)
-        double CivectD[14] = {
-            1. , getSMEFTCoeff("Clq3R",0,0,0,0,muRG), getSMEFTCoeff("Clq3R",0,0,1,1,muRG), getSMEFTCoeff("Clq3R",0,0,2,2,muRG), getSMEFTCoeff("CHl3R",0,0,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("CHq3R",2,2,muRG), getSMEFTCoeff("Clq3R",0,0,0,1,muRG), getSMEFTCoeff("Clq3R",0,0,0,2,muRG), getSMEFTCoeff("Clq3R",0,0,1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) }; 
-  
-        double NevCiD[24][14] = {  
-            {9931.68 , 15518684615., 2204903365., 1565682., 505246116., 439638474., 65560832., 46810.8, -4423998758., 113227850., -127365148., -124084976., 3158772., -3796623.},  
-            {7583.35 , 16250131627., 2248046488., 1628738., 464253341., 406002350., 58208272., 42718.8, -4679667361., 121081020., -130485398., -114429396., 2982751., -3397207.},  
-            {5800.02 , 15221095930., 2053622503., 1457677., 376898762., 330510338., 46355261., 33163.4, -4419753117., 114913787., -118412979., -95049713., 2430984., -2681307.},  
-            {4428.07 , 13801240800., 1745535619., 1234159., 299906041., 265116274., 34764491., 25275.4, -4043050686., 104785609., -100353791., -76987112., 1980089., -2016940.},  
-            {3421.25 , 12677784685., 1495953090., 1098176., 235220311., 209446972., 25754629., 18709.9, -3729997821., 97420125., -86823702., -60747482., 1601110., -1492621.},  
-            {2550.01 , 11619663946., 1282182912., 909579., 182877411., 163439759., 19423910., 13741.7, -3421026872., 90157277., -73580052., -48070215., 1254210., -1115161.},  
-            {1923.29 , 10105617332., 1118368746., 767066., 140869755., 126297057., 14562238., 10459.4, -2980536126., 78349065., -63565490., -36795773., 964419., -839611.},  
-            {1519.35 , 8883332908., 940818969., 646253., 111756780., 100792291., 10956897., 7592.68, -2606947232., 68915663., -53448118., -29489296., 777102., -624474.},  
-            {1136.43 , 7973464675., 774629099., 537846., 84498890., 76405920., 8087418., 5551.52, -2344558102., 62375958., -44046333., -22780053., 591050., -458673.},  
-            {870.566 , 6848179344., 660056954., 442918., 66528774., 60572964., 5951859., 3950.02, -2037321649., 53906896., -37134207., -17875583., 473957., -334232.},  
-            {679.211 , 6078856030., 560262667., 367508., 50862492., 46543058., 4316524., 2910.2, -1803556300., 47573219., -31292013., -13674025., 363908., -243166.},  
-            {492.385 , 5313910856., 464080042., 304273., 37837415., 34656400., 3178913., 2101.3, -1573373763., 41917806., -25888141., -10258320., 272779., -177931.},  
-            {369.398 , 4550444621., 380873127., 246332., 29384640., 27090637., 2292508., 1494.85, -1347861975., 36190101., -21142893., -8026871., 214906., -127584.},  
-            {273.215 , 3944809497., 315831821., 198718., 21738274., 20081322., 1655874., 1077.76, -1171881558., 31245271., -17373585., -5969347., 159290., -91988.},  
-            {203.491 , 3399860158., 259712492., 162047., 16358627., 15163351., 1194519., 756.985, -1004873713., 27040812., -14246035., -4476659., 119947., -65849.1},  
-            {150.006 , 2846319999., 209079178., 128741., 12175150., 11322998., 851622., 529.547, -844944078., 22695788., -11405461., -3356929., 89638.7, -46608.1},  
-            {110.416 , 2407258206., 171215939., 102738., 9083899., 8473436., 610094., 368.729, -710531501., 19142052., -9274724., -2487533., 67354.6, -33144.5},  
-            {80.4744 , 2051801664., 138367345., 81890.1, 6636922., 6203408., 433257., 257.38, -603807270., 16360308., -7458233., -1838556., 49404.1, -23379.4},  
-            {57.7052 , 1683170544., 109441871., 63668.2, 4876459., 4574383., 301897., 179.266, -495966871., 13375075., -5863489., -1345026., 36318., -16270.6},  
-            {41.6386 , 1394404210., 87328557., 50073.9, 3526560., 3314077., 212360., 123.568, -408166065., 11046594., -4658560., -972396., 26363., -11378.8},  
-            {29.6198 , 1154734067., 69423423., 38401.2, 2529655., 2382732., 146840., 82.5648, -337160561., 9145083., -3666572., -698723., 18898.1, -7790.25},  
-            {20.9425 , 929422712., 55247659., 30204.1, 1813546., 1710934., 102555., 56.6908, -271942552., 7346296., -2906669., -502639., 13505.8, -5408.27},  
-            {24.4031 , 1340156362., 75050040., 39725.6, 2160074., 2041794., 118217., 62.67, -387885416., 10523405., -3914305., -599244., 16089.8, -6163.37},  
-            {18.6359 , 1741410385., 95566541., 43829.4, 1772744., 1681157., 91542.7, 43.9867, -502607857., 13296742., -4814702., -484220., 12954.8, -4661.81}  
-        }; 
-
-        int NCiD = 14;
-
-    double Nev;
-    Nev = 0.;
-
-    if (i_bin < 25) {
-        switch(flavBas){ 
-            case 1:    // UP Basis
-                for (int iCi = 0; iCi < NCiU; ++iCi) {
-
-                    Nev = Nev + NevCiU[i_bin - 1][iCi] * CivectU[iCi];
-                }
-            break;
-            case 2:    // DOWN Basis
-                for (int iCi = 0; iCi < NCiD; ++iCi) {
-
-                    Nev = Nev + NevCiD[i_bin - 1][iCi] * CivectD[iCi];
-                }
-            break;                
-        }
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::NevLHCppenu13");
+    double Nev = 0.;
+    for (int iCi = 0; iCi < nCoefficients; ++iCi) {
+        Nev += NevCiU[i_bin - 1][iCi] * Civect[iCi];
+    }
 
     if (Nev < 0) return std::numeric_limits<double>::quiet_NaN();
 
@@ -44061,19 +43429,20 @@ const double NPSMEFTd6General::NevLHCppenu13(const int i_bin) const {
 }
 
 const double NPSMEFTd6General::NevLHCppmunu13(const int i_bin) const {
-    
-    double binscale[20] = {365., 550., 550., 550., 550., 550., 550., 1000., 1000., 1000., 1000., 1000., 1000., 1500., 1500., 1500., 1500., 1500., 1500., 5000. }; 
-  
-    double muRG;  
-    muRG = binscale[i_bin - 1];  
-    
-    // UP Basis
-    // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
-        double CivectU[12] = {
-            1. , getSMEFTCoeff("Clq3R",1,1,0,0,muRG), getSMEFTCoeff("Clq3R",1,1,1,1,muRG), getSMEFTCoeff("CHl3R",1,1,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("Clq3R",1,1,0,1,muRG), getSMEFTCoeff("Clq3R",1,1,0,2,muRG), getSMEFTCoeff("Clq3R",1,1,1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) 
-        }; 
+    constexpr int nBins = 20;
+    constexpr int nCoefficients = 12;
+    static constexpr double binscale[nBins] = {365., 550., 550., 550., 550., 550., 550., 1000., 1000., 1000., 1000., 1000., 1000., 1500., 1500., 1500., 1500., 1500., 1500., 5000. };
+    if (i_bin < 1 || i_bin > nBins) {
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::NevLHCppmunu13");
+    }
+    const double muRG = binscale[i_bin - 1];
 
-        double NevCiU[20][12] = {
+    // Up-mass basis, with d_i = V d_mass for the down component of the quark doublet.
+    const double Civect[nCoefficients] = {
+            1. , getSMEFTCoeff("Clq3R",1,1,0,0,muRG), getSMEFTCoeff("Clq3R",1,1,1,1,muRG), getSMEFTCoeff("CHl3R",1,1,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("Clq3R",1,1,0,1,muRG), getSMEFTCoeff("Clq3R",1,1,0,2,muRG), getSMEFTCoeff("Clq3R",1,1,1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG)
+    };
+
+    static constexpr double NevCiU[nBins][nCoefficients] = {
             {7748.92, 20588332522., 2366182989., 584995531., 521127530., 63868001., 2460246281., -41130627., 55918835., 61859868., -1099543., 1490609.},
             {5576.07, 20034218371., 2145203082., 497543083., 447472101., 50070982., 2439871511., -38684591., 50193483., 53846285., -915549., 1164230.},
             {3924.96, 17877044017., 1803372645., 367711952., 332164195., 35547757., 2193810085., -34642595., 42211080., 39849081., -662184., 824546.},
@@ -44094,61 +43463,12 @@ const double NPSMEFTd6General::NevLHCppmunu13(const int i_bin) const {
             {15.2696, 918746377., 38329436., 1668815., 1599260., 69555.1, 138971044., -1273597., 994369., 236030., -2230.3, 1804.09},
             {17.0517, 1161444399., 47159662., 1740935., 1672146., 68788.9, 177372650., -1635743., 1241533., 252730., -2239.59, 1782.64},
             {13.3855, 1041576190., 41524298., 1022645., 983728., 38916.9, 160859541., -1604139., 1139929., 152630., -1359.78, 1049.79}
-        };
-        
-        int NCiU = 12;
+    };
 
-    // DOWN Basis
-    // HighPT parameterization in the basis aligned with diagonal down sector (i.e. u_i = V^dagger u_m to pass to mass eigenstate basis)
-        double CivectD[14] = {  
-            1. , getSMEFTCoeff("Clq3R",1,1,0,0,muRG), getSMEFTCoeff("Clq3R",1,1,1,1,muRG), getSMEFTCoeff("Clq3R",1,1,2,2,muRG), getSMEFTCoeff("CHl3R",1,1,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("CHq3R",2,2,muRG), getSMEFTCoeff("Clq3R",1,1,0,1,muRG), getSMEFTCoeff("Clq3R",1,1,0,2,muRG), getSMEFTCoeff("Clq3R",1,1,1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) }; 
-  
-        double NevCiD[20][14] = {  
-            {7748.92 , 20205626996., 2746938517., 1949998., 584995531., 511551087., 73391730., 52714.4, -5774347252., 150276202., -158531533., -144788489., 3704583., -4253855.},  
-            {5576.07 , 19663902341., 2513719700., 1799412., 497543083., 439167779., 58333422., 41881.7, -5646662491., 147758527., -145206027., -125759193., 3244089., -3374577.},  
-            {3924.96 , 17544643212., 2134257880., 1515571., 367711952., 325891148., 41790636., 30169.1, -5072298702., 132580518., -122829546., -94171341., 2451111., -2418856.},  
-            {2830.93 , 15275028792., 1759863705., 1231948., 274326598., 245459188., 28846572., 20838.7, -4459607846., 115231068., -100668340., -72046138., 1866763., -1665209.},  
-            {2013.49 , 13464824605., 1453439786., 1020785., 201521130., 181193351., 20313199., 14579.8, -3958772098., 104041147., -83089769., -52625301., 1384753., -1170263.},  
-            {1427.01 , 11482764418., 1191786098., 808114., 143919218., 129970676., 13938852., 9689.97, -3363252608., 88234841., -67403859., -37935971., 996347., -794575.},  
-            {1039.97 , 9645751246., 945201679., 651033., 104167100., 94362029., 9798420., 6651.62, -2857399924., 75024199., -53571970., -27915521., 735287., -554060.},  
-            {734.462 , 8226949143., 765488439., 505745., 75258437., 68738985., 6514983., 4469.06, -2422360441., 64116487., -42852264., -20147720., 535415., -368830.},  
-            {513.706 , 6975415891., 609614442., 401531., 54826144., 50372786., 4450380., 2977.6, -2053021132., 54423476., -34043467., -14750441., 392564., -249806.},  
-            {332.277 , 5860982178., 479227333., 308090., 38435285., 35419846., 3013468., 1971.58, -1721535571., 45895579., -26545882., -10494702., 279183., -167756.},  
-            {229.247 , 4793008214., 378523853., 237780., 26582378., 24568062., 2013023., 1292.94, -1414671879., 37576237., -20803396., -7267671., 193527., -111401.},  
-            {156.863 , 3930715535., 293783341., 183071., 18851981., 17517472., 1333658., 851.116, -1147978870., 30922568., -16104781., -5143080., 138096., -73562.4},  
-            {107.248 , 3165131572., 226626167., 137778., 12960201., 12087748., 871915., 538.337, -929490110., 25050517., -12320226., -3561577., 94926., -47565.5},  
-            {73.1981 , 2556096148., 173554377., 102530., 8768292., 8188084., 579860., 347.909, -748577292., 20127364., -9350206., -2421259., 64775.8, -31370.9},  
-            {49.7791 , 2029082533., 130624731., 75946.2, 5909140., 5538328., 370596., 216.656, -591625736., 16019575., -7000916., -1624293., 43740.2, -19901.6},  
-            {33.7055 , 1549214486., 97564912., 55289.4, 3936616., 3700099., 236380., 136.722, -452252333., 12213772., -5189693., -1074428., 29159.5, -12651.3},  
-            {22.7254 , 1194812914., 72053187., 39723., 2587311., 2436720., 150507., 84.356, -347583402., 9386059., -3801758., -705292., 18963.6, -7979.94},  
-            {15.2696 , 904661565., 52386153., 28095.6, 1668815., 1573598., 95163.9, 52.8871, -260953672., 7058677., -2743930., -458270., 12461.3, -5029.85},  
-            {17.0517 , 1143943932., 64627044., 33084.7, 1740935., 1646418., 94465.4, 51.4782, -328938425., 8854000., -3345029., -475544., 12941.9, -4962.75},  
-            {13.3855 , 1026235932., 56839151., 25404.6, 1022645., 969379., 53240.2, 25.7363, -293719255., 7756756., -2850605., -276901., 7450.2, -2717.13}  
-        }; 
-
-        int NCiD = 14;
-
-    double Nev;
-    Nev = 0.;
-
-    if (i_bin < 21) {
-        switch(flavBas){ 
-            case 1:    // UP Basis
-                for (int iCi = 0; iCi < NCiU; ++iCi) {
-
-                    Nev = Nev + NevCiU[i_bin - 1][iCi] * CivectU[iCi];
-                }
-            break;
-            case 2:    // DOWN Basis
-                for (int iCi = 0; iCi < NCiD; ++iCi) {
-
-                    Nev = Nev + NevCiD[i_bin - 1][iCi] * CivectD[iCi];
-                }
-            break;                
-        }
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::NevLHCppmunu13");
+    double Nev = 0.;
+    for (int iCi = 0; iCi < nCoefficients; ++iCi) {
+        Nev += NevCiU[i_bin - 1][iCi] * Civect[iCi];
+    }
 
     if (Nev < 0) return std::numeric_limits<double>::quiet_NaN();
 
@@ -44156,19 +43476,20 @@ const double NPSMEFTd6General::NevLHCppmunu13(const int i_bin) const {
 }
 
 const double NPSMEFTd6General::NevLHCpptaunu13(const int i_bin) const {
-    
-    double binscale[10] = {365., 550., 550., 550., 1000., 1000., 1000., 1000., 1000., 5000. }; 
-  
-    double muRG;  
-    muRG = binscale[i_bin - 1];  
-    
-    // UP Basis
-    // HighPT parameterization in the basis aligned with diagonal up sector (i.e. d_i = V d_m to pass to mass eigenstate basis)
-        double CivectU[12] = {
-            1. , getSMEFTCoeff("Clq3R",2,2,0,0,muRG), getSMEFTCoeff("Clq3R",2,2,1,1,muRG), getSMEFTCoeff("CHl3R",2,2,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("Clq3R",2,2,0,1,muRG), getSMEFTCoeff("Clq3R",2,2,0,2,muRG), getSMEFTCoeff("Clq3R",2,2,1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) 
-        }; 
+    constexpr int nBins = 10;
+    constexpr int nCoefficients = 12;
+    static constexpr double binscale[nBins] = {365., 550., 550., 550., 1000., 1000., 1000., 1000., 1000., 5000. };
+    if (i_bin < 1 || i_bin > nBins) {
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::NevLHCpptaunu13");
+    }
+    const double muRG = binscale[i_bin - 1];
 
-        double NevCiU[10][12] = {
+    // Up-mass basis, with d_i = V d_mass for the down component of the quark doublet.
+    const double Civect[nCoefficients] = {
+            1. , getSMEFTCoeff("Clq3R",2,2,0,0,muRG), getSMEFTCoeff("Clq3R",2,2,1,1,muRG), getSMEFTCoeff("CHl3R",2,2,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("Clq3R",2,2,0,1,muRG), getSMEFTCoeff("Clq3R",2,2,0,2,muRG), getSMEFTCoeff("Clq3R",2,2,1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG)
+    };
+
+    static constexpr double NevCiU[nBins][nCoefficients] = {
             {3018.15, 9905184949., 908069072., 178721805., 162451504., 16270302., 1242657236., -19403426., 21667249., 21583813., -269839., 385219.},
             {1007.49, 5597695960., 443986407., 67186978., 61715815., 5471163., 734922492., -10307332., 10781785., 8170223., -107454., 132702.},
             {403.793, 3249515112., 225946533., 28075243., 26093547., 1981696., 442032213., -5657386., 5469358., 3392312., -47936.6, 47878.7},
@@ -44179,51 +43500,12 @@ const double NPSMEFTd6General::NevLHCpptaunu13(const int i_bin) const {
             {14.632, 354813334., 16546887., 1099775., 1048005., 51770.3, 50305533., -579087., 417797., 151191., -1599.12, 1274.97},
             {8.236, 249497492., 11224212., 611624., 582750., 28873.7, 37767811., -333736., 288527., 76816.1, -1236.83, 739.17},
             {14.844, 599549145., 24999894., 1007639., 966122., 41516.6, 90694238., -855662., 654650., 143709., -1389.05, 1065.56}
-        };
+    };
 
-        int NCiU = 12;
-    
-    // DOWN Basis
-    // HighPT parameterization in the basis aligned with diagonal down sector (i.e. u_i = V^dagger u_m to pass to mass eigenstate basis)
-        double CivectD[14] = {
-            1. , getSMEFTCoeff("Clq3R",2,2,0,0,muRG), getSMEFTCoeff("Clq3R",2,2,1,1,muRG), getSMEFTCoeff("Clq3R",2,2,2,2,muRG), getSMEFTCoeff("CHl3R",2,2,muRG), getSMEFTCoeff("CHq3R",0,0,muRG), getSMEFTCoeff("CHq3R",1,1,muRG), getSMEFTCoeff("CHq3R",2,2,muRG), getSMEFTCoeff("Clq3R",2,2,0,1,muRG), getSMEFTCoeff("Clq3R",2,2,0,2,muRG), getSMEFTCoeff("Clq3R",2,2,1,2,muRG), getSMEFTCoeff("CHq3R",0,1,muRG), getSMEFTCoeff("CHq3R",0,2,muRG), getSMEFTCoeff("CHq3R",1,2,muRG) }; 
-  
-        double NevCiD[10][14] = {  
-            {3018.15 , 9722345573., 1090165779., 742669., 178721805., 159786245., 18922262., 13299., -2826031094., 73536081., -61876909., -44663256., 1188015., -1087359.},  
-            {1007.49 , 5498026483., 543300516., 355368., 67186978., 60660888., 6521723., 4367.74, -1598066576., 41916424., -30408640., -17305508., 457843., -368499.},  
-            {403.793 , 3193423426., 281856440., 181780., 28075243., 25617146., 2456478., 1618.51, -927794640., 24478426., -15669698., -7517966., 197891., -137564.},  
-            {184.418 , 1951441322., 156782119., 99623.1, 12807340., 11800580., 1006100., 659.644, -569274025., 15251550., -8659328., -3468089., 89462.5, -56023.2},  
-            {93.503 , 1220522251., 93769678., 56756.5, 6587836., 6107109., 480414., 311.855, -358744660., 9509228., -5101836., -1785984., 47921.2, -26673.2},  
-            {48.663 , 811918247., 56493310., 33837.9, 3366703., 3125492., 241069., 141.673, -235141360., 6327193., -3061179., -917926., 24516.2, -13019.4},  
-            {25.996 , 517104794., 35754619., 20401.8, 1838326., 1715130., 123123., 73.5309, -152488848., 4057522., -1908976., -506670., 13410., -6655.9},  
-            {14.632 , 348724839., 22622486., 12896.3, 1099775., 1030739., 68995.2, 41.3184, -103036162., 2744847., -1204777., -300729., 8072.53, -3733.55},  
-            {8.236 , 245720056., 14993291., 8356.61, 611624., 571563., 40038.7, 21.5097, -70482160., 1916568., -795170., -173703., 4431.22, -2097.79},  
-            {14.844 , 590358323., 34172863., 17852.8, 1007639., 950840., 56767.3, 31.2578, -170292643., 4583584., -1778353., -276060., 7448.82, -2993.5}  
-        }; 
-
-        int NCiD = 14;
-
-    double Nev;
-    Nev = 0.;
-
-    if (i_bin < 11) {
-        switch(flavBas){ 
-            case 1:    // UP Basis
-                for (int iCi = 0; iCi < NCiU; ++iCi) {
-
-                    Nev = Nev + NevCiU[i_bin - 1][iCi] * CivectU[iCi];
-                }
-            break;
-            case 2:    // DOWN Basis
-                for (int iCi = 0; iCi < NCiD; ++iCi) {
-
-                    Nev = Nev + NevCiD[i_bin - 1][iCi] * CivectD[iCi];
-                }
-            break;                
-        }
-
-    } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::NevLHCpptaunu13");
+    double Nev = 0.;
+    for (int iCi = 0; iCi < nCoefficients; ++iCi) {
+        Nev += NevCiU[i_bin - 1][iCi] * Civect[iCi];
+    }
 
     if (Nev < 0) return std::numeric_limits<double>::quiet_NaN();
 

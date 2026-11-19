@@ -591,9 +591,9 @@ void NPSMEFTd6CHRU::setNPSMEFTd6MFVParameters() {
     eps_d2 = eps_d*eps_d;
     eps_d4 = eps_d*eps_d*eps_d*eps_d;
 
-    g1 = getSMEFTCoeffEW("g1");
-    g2 = getSMEFTCoeffEW("g2");
-    g3 = getSMEFTCoeffEW("g3");
+    g1 = getRawSMEFTCoeffEW("g1");
+    g2 = getRawSMEFTCoeffEW("g2");
+    g3 = getRawSMEFTCoeffEW("g3");
 
     g1_2 = g1*g1;
     g1_3 = g1*g1*g1;
