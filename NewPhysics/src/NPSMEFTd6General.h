@@ -620,7 +620,7 @@ public:
      * before the model is successfully updated.
      * @return a boolean that is true if the execution is successful
      */
-    virtual bool PreUpdate();
+    virtual bool PreUpdate() override;
 
     /**
      * @brief The update method for %NPSMEFTd6General.
@@ -632,7 +632,7 @@ public:
      * @param[in] DPars a map of the parameters that are being updated
      * @return a boolean that is true if the execution is successful
      */
-    virtual bool Update(const std::map<std::string, double>& DPars);
+    virtual bool Update(const std::map<std::string, double>& DPars) override;
 
     /** @brief Checks the matching scale, Wilson coefficient inputs, and mandatory Standard Model parameters. */
     bool CheckParameters(const std::map<std::string, double>& DPars) override;
@@ -650,7 +650,7 @@ public:
      * after the model is successfully updated.
      * @return a boolean that is true if the execution is successful
      */
-    virtual bool PostUpdate();
+    virtual bool PostUpdate() override;
     
     /**
      * @brief A method to set a flag of %NPSMEFTd6General.
@@ -658,7 +658,7 @@ public:
      * @param[in] value the boolean to be assigned to the flag specified by name
      * @return a boolean that is true if the execution is successful
      */
-    virtual bool setFlag(const std::string name, const bool value);
+    virtual bool setFlag(const std::string name, const bool value) override;
 
     /**
      * @brief A method to set a flag of %NPSMEFTd6General.
@@ -666,13 +666,13 @@ public:
      * @param[in] value the value to be assigned to the flag specified by name
      * @return a boolean that is true if the execution is successful
      */
-    virtual bool setFlagStr(const std::string name, const std::string value);
+    virtual bool setFlagStr(const std::string name, const std::string value) override;
 
     /**
      * @brief A method to get the Matching object for this model.
      * @return The matching object for this model
      */
-    virtual NPSMEFTd6GeneralMatching& getMatching() const {
+    virtual NPSMEFTd6GeneralMatching& getMatching() const override {
         return NPSMEFTd6GM.getObj();
     }
 
@@ -756,13 +756,13 @@ public:
      * @brief Quadratic contribution from the Higgs self-couplings modifications to the signal strength for an observable @f$\sigma@f$ in the current model.
      * @return @f$\delta^{(2)}_{h^3}@f$
      */
-    virtual const double delta2sH3(const double C1) const;
+    virtual const double delta2sH3(const double C1) const override;
     
     /**
      * @brief Quadratic contribution from the Higgs self-couplings modifications to the signal strength for @f$\sigma \times BR(H\to xx)@f$ in the current model.
      * @return @f$\delta^{(2)}_{h^3}@f$
      */
-    virtual const double delta2sBRH3(const double C1prod, const double C1Hxx) const;
+    virtual const double delta2sBRH3(const double C1prod, const double C1Hxx) const override;
     
     ////////////////////////////////////////////////////////////////////////    
     
@@ -776,7 +776,7 @@ public:
      * and @f$G_{\mu,\mathrm{SM}}@f$ is the Fermi constant in the SM.
      * @return @f$\Delta G@f$
      */
-    virtual const double  DeltaGF() const;
+    virtual const double  DeltaGF() const override;
     
     ////////////////////////////////////////////////////////////////////////
     // Functions to compute quantities involved in indirect corrections, depending on RG scale
@@ -853,34 +853,34 @@ public:
      * (Simplified implementation. Contribution only from @f$O_{HWB}@f$.)
      * @return the value of @f$S@f$
      */
-    virtual const double  obliqueS() const;
+    virtual const double  obliqueS() const override;
 
     /**
      * @brief The oblique parameter \f$T\f$.
      * (Simplified implementation. Contribution only from @f$O_{HD}@f$.)
      * @return the value of @f$T@f$
      */
-    virtual const double  obliqueT() const;
+    virtual const double  obliqueT() const override;
 
     /**
      * @brief The oblique parameter \f$U\f$.
      * @return the value of @f$U@f$
      */
-    virtual const double  obliqueU() const;
+    virtual const double  obliqueU() const override;
 
     /**
      * @brief The oblique parameter \f$W\f$.
      * (Simplified implementation. Contribution only from @f$O_{2W}@f$.)
      * @return the value of @f$W@f$
      */
-    virtual const double  obliqueW() const;
+    virtual const double  obliqueW() const override;
 
     /**
      * @brief The oblique parameter \f$Y\f$.
      * (Simplified implementation. Contribution only from @f$O_{2B}@f$.)
      * @return the value of @f$Y@f$
      */
-    virtual const double  obliqueY() const;
+    virtual const double  obliqueY() const override;
 
 
     /////////////////////////////// Deviations in the experimental values of the SM input parameters /////////////////////////////////////////
@@ -1023,14 +1023,14 @@ public:
      * @brief The electromagnetic coupling at the @f$Z@f$-mass scale.
      * @return @f$\alpha(M_Z^2)@f$
      */
-    virtual const double  alphaMz() const;
+    virtual const double  alphaMz() const override;
     
     /**
      * @brief The 5-quark contribution to the running of the em constant to the @f$Z@f$ pole.
      * @f$\Delta\alpha_{had}^{(5)}(M_Z)@f$.
      * @return @f$\Delta\alpha_{had}^{(5)}(M_Z)@f$
      */
-    virtual const double Dalpha5hMz() const;
+    virtual const double Dalpha5hMz() const override;
     
     
     /////////////////////// EWPO: W mass and widths /////////////////////////
@@ -1039,7 +1039,7 @@ public:
      * @brief The mass of the @f$W@f$ boson, @f$M_W@f$.
      * @return @f$M_W@f$ in GeV
      */
-    virtual const double  Mw() const;
+    virtual const double  Mw() const override;
 
     /**
      * @brief The relative NP corrections to the mass of the @f$W@f$ boson, @f$\delta M_W/M_W@f$.
@@ -1077,7 +1077,7 @@ public:
      * @param[in] fj a lepton or quark
      * @return @f$\delta \Gamma_W^{ff}@f$ in GeV
      */
-    virtual const double deltaGamma_Wff(const Particle fi, const Particle fj) const;
+    virtual const double deltaGamma_Wff(const Particle fi, const Particle fj) const override;
 
     /**
      * @brief A partial decay width of the @f$W@f$ boson decay into a SM fermion pair.
@@ -1085,19 +1085,19 @@ public:
      * @param[in] fj a lepton or quark
      * @return @f$\Gamma^W_{ij}@f$
      */
-    virtual const double  GammaW(const Particle fi, const Particle fj) const;
+    virtual const double  GammaW(const Particle fi, const Particle fj) const override;
 
     /**
      * @brief The new physics contribution to the total decay width of the @f$W@f$ boson, @f$\delta \Gamma_W@f$.
      * @return @f$\delta \Gamma_W@f$ in GeV
      */
-    virtual const double deltaGamma_W() const;
+    virtual const double deltaGamma_W() const override;
 
     /**
      * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
      * @return @f$\Gamma_W@f$ in GeV
      */
-    virtual const double  GammaW() const;
+    virtual const double  GammaW() const override;
 
     /**
      * @brief The relative NP corrections to the width of the @f$W@f$ boson, @f$\delta \Gamma_W/\Gamma_W@f$.
@@ -1119,7 +1119,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$\delta \Gamma_Z^{f}@f$ in GeV
      */
-    virtual const double deltaGamma_Zf(const Particle f) const;
+    virtual const double deltaGamma_Zf(const Particle f) const override;
     
     /**
      * @brief The decay width of the @f$Z@f$ boson into a given fermion pair, @f$\Gamma_Z^{f}@f$.
@@ -1133,13 +1133,13 @@ public:
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual const double Gamma_Zf(const Particle f) const;
+    virtual const double Gamma_Zf(const Particle f) const override;
     
     /**
      * @brief The new physics contribution to the total decay width of the @f$Z@f$ boson, @f$\delta \Gamma_Z@f$.
      * @return @f$\delta \Gamma_Z@f$ in GeV
      */
-    virtual const double deltaGamma_Z() const;
+    virtual const double deltaGamma_Z() const override;
 
     /**
      * @brief The total decay width of the @f$Z@f$ boson, @f$\Gamma_Z@f$.
@@ -1152,7 +1152,7 @@ public:
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual const double Gamma_Z() const; 
+    virtual const double Gamma_Z() const override;
 
     /**
      * @brief The relative NP corrections to the width of the @f$Z@f$ boson, @f$\delta \Gamma_Z/\Gamma_Z@f$.
@@ -1170,32 +1170,32 @@ public:
      * @brief The branching ratio of the @f$W@f$ boson decaying into a SM fermion pair, @f$Br(W\to f_i f_j)@f$.
      * @return @f$Br(W\to f_i f_j)@f$ in GeV
      */
-    virtual const double  BrW(const Particle fi, const Particle fj) const;
+    virtual const double  BrW(const Particle fi, const Particle fj) const override;
 
     /**
      * @brief The lepton universality ratio @f$R_{W,l_i/l_j)=\Gamma(W\to l_i \nu_i)/\Gamma(W\to l_j \nu_j)@f$.
      * @return @f$R_{W,l_i/l_j)@f$ in GeV
      */
-    virtual const double  RWlilj(const Particle li, const Particle lj) const;
+    virtual const double  RWlilj(const Particle li, const Particle lj) const override;
 
     /**
      * @brief The ratio @f$R_{W,c)=\Gamma(W\to c + X)/\Gamma(W\to had)@f$.
      * @return @f$R_{W,c)@f$ in GeV
      */
-    virtual const double  RWc() const;
+    virtual const double  RWc() const override;
 
     /**
      * @brief The lepton universality ratio @f$R_{Z,l_i/l_j)=\Gamma(Z\to l_i^+ l_i^-)/\Gamma(Z\to l_j^+ l_j^-)@f$.
      * @return @f$R_{Z,l_i/l_j)@f$ in GeV
      */
-    virtual const double  RZlilj(const Particle li, const Particle lj) const;
+    virtual const double  RZlilj(const Particle li, const Particle lj) const override;
     
     /**
      * @brief The new physics contribution to the cross section for the process @f$e^+ e^-\to Z\to \mathrm{hadrons}@f$
      * at the @f$Z@f$ pole, @f$\delta \sigma_h^0@f$.
      * @return @f$\delta \sigma_h^0@f$ in GeV@f$^{-2}@f$
      */
-    virtual const double deltaSigmaHadron() const;
+    virtual const double deltaSigmaHadron() const override;
     
     
     /**
@@ -1207,7 +1207,7 @@ public:
      * \f]
      * @return @f$\sigma_h^0@f$ in GeV@f$^{-2}@f$, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
      */
-    virtual const double sigma0_had() const;
+    virtual const double sigma0_had() const override;
 
     /**
      * @brief The new physics contribution to the left-right asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
@@ -1215,7 +1215,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$\delta \mathcal{A}_f@f$
      */
-    virtual const double deltaA_f(const Particle f) const;
+    virtual const double deltaA_f(const Particle f) const override;
     
     /**
      * @brief The left-right asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
@@ -1230,7 +1230,7 @@ public:
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual const double A_f(const Particle f) const;
+    virtual const double A_f(const Particle f) const override;
     
     /**
      * @brief The new physics contribution to the forward-backward asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
@@ -1238,7 +1238,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$\delta A^f_{FB}@f$
      */
-    virtual const double deltaAFB(const Particle f) const;
+    virtual const double deltaAFB(const Particle f) const override;
     
     /**
      * @brief The forward-backward asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
@@ -1250,7 +1250,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$A^f_{FB}@f$, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
      */
-    virtual const double AFB(const Particle f) const;
+    virtual const double AFB(const Particle f) const override;
     
     /**
      * @brief The new physics contribution to the ratio @f$R_\ell^0=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$,
@@ -1259,7 +1259,7 @@ public:
      * @param f a lepton or quark
      * @return @f$\delta R_f^0@f$
      */
-    virtual const double deltaR0_f(const Particle f) const;  
+    virtual const double deltaR0_f(const Particle f) const override;
     
     /**
      * @brief The ratio @f$R_\ell^0=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$,
@@ -1272,7 +1272,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$R_f^0@f$, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
      */
-    virtual const double R0_f(const Particle f) const; 
+    virtual const double R0_f(const Particle f) const override;
     
     ////////////////////////////////////////////////////////////////////////
     
@@ -1340,19 +1340,19 @@ public:
     const double uovers2(const double cosmin, const double cosmax) const;
 
 //  Absolute corrections to the differential cross section        
-    virtual const double delta_Dsigma_f(const Particle f, const double pol_e, const double pol_p, const double s, const double cos) const;
+    virtual const double delta_Dsigma_f(const Particle f, const double pol_e, const double pol_p, const double s, const double cos) const override;
     
 //  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
 //  Valid for f=/=e
-    virtual const double delta_sigma_f(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
+    virtual const double delta_sigma_f(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const override;
     
-    virtual const double delta_sigma_had(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
+    virtual const double delta_sigma_had(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const override;
     
 //  Total cross sections  (full acceptance)
-    virtual const double delta_sigmaTot_f(const Particle f, const double pol_e, const double pol_p, const double s) const;
+    virtual const double delta_sigmaTot_f(const Particle f, const double pol_e, const double pol_p, const double s) const override;
     
 //  Forward-Backward asymmetry (full acceptance). Valid for f!=e
-    virtual const double delta_AFB_f(const Particle f, const double pol_e, const double pol_p, const double s) const;
+    virtual const double delta_AFB_f(const Particle f, const double pol_e, const double pol_p, const double s) const override;
     
 //  Expressions for f=e   
     
@@ -1369,95 +1369,95 @@ public:
     virtual const double intDMRL2etildest2(const double s, const double t0, const double t1) const;
 
 //  Absolute corrections to the differential cross section integrated in [cos \theta_{min},cos \theta_{max}] 
-    virtual const double delta_sigma_ee(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;
+    virtual const double delta_sigma_ee(const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const override;
 //  Absolute corrections to the total cross section 
-    virtual const double delta_sigmaTot_ee(const double pol_e, const double pol_p, const double s) const;
+    virtual const double delta_sigmaTot_ee(const double pol_e, const double pol_p, const double s) const override;
 //  Absolute corrections to the FB asymmetry 
-    virtual const double delta_AFB_ee(const double pol_e, const double pol_p, const double s) const;
+    virtual const double delta_AFB_ee(const double pol_e, const double pol_p, const double s) const override;
  
     //////////////////////////////////////////////////////////////////////// 
     // Top Wilson coefficients in the notation of LHC Top WG arXiv: 1802.07237
     // In units of TeV^-2 
     
-    virtual const double cQQ1_TWG(const double mu) const;
+    virtual const double cQQ1_TWG(const double mu) const override;
     
-    virtual const double cQQ8_TWG(const double mu) const;
+    virtual const double cQQ8_TWG(const double mu) const override;
 
-    virtual const double ctt1_TWG(const double mu) const;
+    virtual const double ctt1_TWG(const double mu) const override;
 
-    virtual const double cQt1_TWG(const double mu) const;
+    virtual const double cQt1_TWG(const double mu) const override;
 
-    virtual const double cQt8_TWG(const double mu) const;
+    virtual const double cQt8_TWG(const double mu) const override;
         
-    virtual const double cQq31_TWG(const double mu) const;
+    virtual const double cQq31_TWG(const double mu) const override;
     
-    virtual const double cQq38_TWG(const double mu) const;
+    virtual const double cQq38_TWG(const double mu) const override;
     
-    virtual const double cQq11_TWG(const double mu) const;
+    virtual const double cQq11_TWG(const double mu) const override;
     
-    virtual const double cQq18_TWG(const double mu) const;
+    virtual const double cQq18_TWG(const double mu) const override;
     
-    virtual const double cQu1_TWG(const double mu) const;
+    virtual const double cQu1_TWG(const double mu) const override;
     
-    virtual const double cQu8_TWG(const double mu) const;
+    virtual const double cQu8_TWG(const double mu) const override;
     
-    virtual const double cQd1_TWG(const double mu) const;
+    virtual const double cQd1_TWG(const double mu) const override;
     
-    virtual const double cQd8_TWG(const double mu) const;
+    virtual const double cQd8_TWG(const double mu) const override;
     
-    virtual const double ctq1_TWG(const double mu) const;
+    virtual const double ctq1_TWG(const double mu) const override;
     
-    virtual const double ctq8_TWG(const double mu) const;    
+    virtual const double ctq8_TWG(const double mu) const override;
     
-    virtual const double ctu1_TWG(const double mu) const;
+    virtual const double ctu1_TWG(const double mu) const override;
     
-    virtual const double ctu8_TWG(const double mu) const;
+    virtual const double ctu8_TWG(const double mu) const override;
     
-    virtual const double ctd1_TWG(const double mu) const;
+    virtual const double ctd1_TWG(const double mu) const override;
     
-    virtual const double ctd8_TWG(const double mu) const;
+    virtual const double ctd8_TWG(const double mu) const override;
        
-    virtual const double ctH_TWG(const double mu) const;
+    virtual const double ctH_TWG(const double mu) const override;
     
-    virtual const double cHQm_TWG(const double mu) const;
+    virtual const double cHQm_TWG(const double mu) const override;
     
-    virtual const double cHQp_TWG(const double mu) const;
+    virtual const double cHQp_TWG(const double mu) const override;
     
-    virtual const double cHQ3_TWG(const double mu) const;
+    virtual const double cHQ3_TWG(const double mu) const override;
     
-    virtual const double cHt_TWG(const double mu) const;
+    virtual const double cHt_TWG(const double mu) const override;
     
-    virtual const double cHb_TWG(const double mu) const;
+    virtual const double cHb_TWG(const double mu) const override;
     
-    virtual const double cHtb_TWG(const double mu) const;
+    virtual const double cHtb_TWG(const double mu) const override;
     
-    virtual const double ctW_TWG(const double mu) const;
+    virtual const double ctW_TWG(const double mu) const override;
     
-    virtual const double IctW_TWG(const double mu) const;
+    virtual const double IctW_TWG(const double mu) const override;
     
-    virtual const double ctZ_TWG(const double mu) const;
+    virtual const double ctZ_TWG(const double mu) const override;
     
-    virtual const double IctZ_TWG(const double mu) const;
+    virtual const double IctZ_TWG(const double mu) const override;
     
-    virtual const double ctG_TWG(const double mu) const;
+    virtual const double ctG_TWG(const double mu) const override;
     
-    virtual const double cbW_TWG(const double mu) const;
+    virtual const double cbW_TWG(const double mu) const override;
 
-    virtual const double cQlM_TWG(const double mu) const;
+    virtual const double cQlM_TWG(const double mu) const override;
     
-    virtual const double cQlP_TWG(const double mu) const;
+    virtual const double cQlP_TWG(const double mu) const override;
     
-    virtual const double cQl3_TWG(const double mu) const;
+    virtual const double cQl3_TWG(const double mu) const override;
     
-    virtual const double cQe_TWG(const double mu) const;
+    virtual const double cQe_TWG(const double mu) const override;
     
-    virtual const double ctl_TWG(const double mu) const;
+    virtual const double ctl_TWG(const double mu) const override;
     
-    virtual const double cte_TWG(const double mu) const;
+    virtual const double cte_TWG(const double mu) const override;
     
-    virtual const double ctlS_TWG(const double mu) const;
+    virtual const double ctlS_TWG(const double mu) const override;
 
-    virtual const double ctlT_TWG(const double mu) const;
+    virtual const double ctlT_TWG(const double mu) const override;
     
     ////////////////////////////////////////////////////////////////////////     
     // EW low-energy observables: Muon g-2
@@ -1466,7 +1466,7 @@ public:
      * @brief The computation of the anomalous magnetic moment of the muon @f$a_\mu=(g_\mu-2)/2@f$
      * @return @f$a_\mu=(g_\mu-2)/2@f$
      */
-      virtual const double delta_amuon() const;
+      virtual const double delta_amuon() const override;
       
     // EW low-energy observables: Parity violation
 
@@ -1476,7 +1476,7 @@ public:
      * @param[in] y
      * @return @f$Q_{w}(e)@f$
      */
-      virtual const double delta_Qwemoller(const double q2, const double y) const;
+      virtual const double delta_Qwemoller(const double q2, const double y) const override;
 
 
     /**
@@ -1485,21 +1485,21 @@ public:
      * @param[in] y
      * @return @f$A_{LR}@f$
      */
-      virtual const double delta_alrmoller(const double q2, const double y) const;
+      virtual const double delta_alrmoller(const double q2, const double y) const override;
 
 
     /**
      * @brief The computation of the proton weak charge: Qwp
      * @return @f$Q_{W}(p)@f$
      */
-      virtual const double delta_Qwp() const;
+      virtual const double delta_Qwp() const override;
 
       
     /**
      * @brief The computation of the neutron weak charge: Qwn
      * @return @f$Q_{W}(n)@f$
      */
-      virtual const double delta_Qwn() const;
+      virtual const double delta_Qwn() const override;
       
     // EW low-energy observables: neutrino scattering
       
@@ -1507,27 +1507,27 @@ public:
      * @brief The computation of the correction to the effective neutrino nucleon LH coupling: delta_gLnuN2
      * @return @f$\Delta g_L^2(\nu N)@f$
      */
-      virtual const double delta_gLnuN2() const;
+      virtual const double delta_gLnuN2() const override;
       
     /**
      * @brief The computation of the correction to the effective neutrino nucleon RH coupling: delta_gRnuN2
      * @return @f$\Delta g_R^2(\nu N)@f$
      */
-      virtual const double delta_gRnuN2() const;
+      virtual const double delta_gRnuN2() const override;
       
     /**
      * @brief The computation of the correction to the effective (muon) neutrino-electron vector coupling: delta_gVnue
      * @details
      * @return @f$\Delta g_V^{\nu_\mu e}@f$
      */
-      virtual const double delta_gVnue() const;
+      virtual const double delta_gVnue() const override;
       
     /**
      * @brief The computation of the correction to the effective (muon) neutrino-electron vector coupling: delta_gAnue
      * @details
      * @return @f$\Delta g_A^{\nu_\mu e}@f$
      */
-      virtual const double delta_gAnue() const;
+      virtual const double delta_gAnue() const override;
       
     ////////////////////////////////////////////////////////////////////////     
     // Lepton decays
@@ -1539,7 +1539,7 @@ public:
      * @details
      * @return @f$\delta g_\mu/ g_e @f$
      */
-      virtual const double delta_TauLFU_gmuge() const;
+      virtual const double delta_TauLFU_gmuge() const override;
 
 
     /**
@@ -1547,7 +1547,7 @@ public:
      * @details
      * @return @f$\delta g_\tau/ g_\mu @f$
      */
-      virtual const double delta_TauLFU_gtaugmu() const;
+      virtual const double delta_TauLFU_gtaugmu() const override;
 
 
     /**
@@ -1555,7 +1555,7 @@ public:
      * @details
      * @return @f$\delta g_\tau/ g_e @f$
      */
-      virtual const double delta_TauLFU_gtauge() const;
+      virtual const double delta_TauLFU_gtauge() const override;
       
            
     /**
@@ -1563,14 +1563,14 @@ public:
      * @details
      * @return @f$\delta \left(g_\tau/ g_\mu\right)_\pi @f$
      */
-      virtual const double delta_TauLFU_gtaugmuPi() const;
+      virtual const double delta_TauLFU_gtaugmuPi() const override;
       
     /**
      * @brief The computation of the correction to the LFU ratio @f$\left(g_\tau/ g_\mu\right)_K @f$
      * @details
      * @return @f$\delta\left(g_\tau/ g_\mu\right)_K @f$
      */
-      virtual const double delta_TauLFU_gtaugmuK() const;
+      virtual const double delta_TauLFU_gtaugmuK() const override;
       
     ////////////////////////////////////////////////////////////////////////
     // Modifications of EW/Higgs couplings
@@ -1582,14 +1582,14 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$\delta g_V^f@f$
      */
-    virtual const double deltaGV_f(const Particle p) const;
+    virtual const double deltaGV_f(const Particle p) const override;
 
     /**
      * @brief New physics contribution to the neutral-current axial-vector coupling @f$g_A^f@f$.
      * @param[in] f a lepton or quark
      * @return @f$\delta g_A^f@f$
      */
-    virtual const double deltaGA_f(const Particle p) const;
+    virtual const double deltaGA_f(const Particle p) const override;
 
     /**
      * @brief New physics contribution to the neutral-current left-handed coupling @f$g_L^f@f$.
@@ -1634,7 +1634,7 @@ public:
      * @return @f$\delta g_{Wff}^{L}@f$
      */
     // no generation mixing
-    virtual gslpp::complex deltaGL_Wff(const Particle pbar, const Particle p) const;
+    virtual gslpp::complex deltaGL_Wff(const Particle pbar, const Particle p) const override;
     /**
      * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_R}\gamma^mu f_R@f$.
      * @param[in] pbar a lepton or quark
@@ -1642,7 +1642,7 @@ public:
      * @return @f$\delta g_{Wff}^{R}@f$
      */
     // no generation mixing
-    virtual gslpp::complex deltaGR_Wff(const Particle pbar, const Particle p) const;
+    virtual gslpp::complex deltaGR_Wff(const Particle pbar, const Particle p) const override;
     
     /**
      * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_L}\gamma^mu f_L@f$.
@@ -1652,7 +1652,7 @@ public:
      * @return @f$\delta g_{Wff}^{L}@f$
      */
     // no generation mixing
-    virtual gslpp::complex deltaGL_Wff_mu(const Particle pbar, const Particle p, const double mu) const;
+    virtual gslpp::complex deltaGL_Wff_mu(const Particle pbar, const Particle p, const double mu) const override;
     /**
      * @brief New physics contribution to the charged current coupling @f$W_\mu \bar{f_R}\gamma^mu f_R@f$.
      * @param[in] pbar a lepton or quark
@@ -1661,7 +1661,7 @@ public:
      * @return @f$\delta g_{Wff}^{R}@f$
      */
     // no generation mixing
-    virtual gslpp::complex deltaGR_Wff_mu(const Particle pbar, const Particle p, const double mu) const;
+    virtual gslpp::complex deltaGR_Wff_mu(const Particle pbar, const Particle p, const double mu) const override;
     
     // Modifications of Higgs couplings
 
@@ -1669,83 +1669,83 @@ public:
      * @brief The new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$.
      * @return @f$\delta g_{HGG}@f$
      */
-    virtual const double deltaG_hgg() const;
+    virtual const double deltaG_hgg() const override;
     /**
      * @brief The full new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$,
      * including new local terms and modifications on the SM-loops. Normalized to the SM value.
      * @return @f$\delta g_{HGG}/g_{HGG}^SM}@f$
      */
-    virtual const double deltaG_hggRatio() const;
+    virtual const double deltaG_hggRatio() const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu\nu}^\dagger W^{\mu\nu}@f$.
      * @return @f$\delta g_{HWW}^{(1)}@f$
      */
-    virtual const double deltaG1_hWW() const;
+    virtual const double deltaG1_hWW() const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\nu}^\dagger \partial^\mu W^{\mu\nu}@f$.
      * @return @f$\delta g_{HWW}^{(2)}@f$
      */
-    virtual const double deltaG2_hWW() const;
+    virtual const double deltaG2_hWW() const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu}^\dagger W^{\mu}@f$.
      * @return @f$\delta g_{HWW}^{(3)}@f$
      */
-    virtual const double deltaG3_hWW() const;
+    virtual const double deltaG3_hWW() const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} Z^{\mu\nu}@f$.
      * @return @f$\delta g_{HZZ}^{(1)}@f$
      */
-    virtual const double deltaG1_hZZ() const;
+    virtual const double deltaG1_hZZ() const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu Z^{\mu\nu}@f$.
      * @return @f$\delta g_{HZZ}^{(2)}@f$
      */
-    virtual const double deltaG2_hZZ() const;
+    virtual const double deltaG2_hZZ() const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu} Z^{\mu}@f$.
      * @return @f$\delta g_{HZZ}^{(3)}@f$
      */
-    virtual const double deltaG3_hZZ() const;
+    virtual const double deltaG3_hZZ() const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{\mu\nu}@f$.
      * @return @f$\delta g_{HZA}^{(1)}@f$
      */
-    virtual const double deltaG1_hZA() const;
+    virtual const double deltaG1_hZA() const override;
     /**
      * @brief The full new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{A \mu\nu}@f$,
      * including new local terms and modifications on the SM-loops. Normalized to the SM value.
      * @return @f$\delta g_{HZA}^{(1)}/g_{HZA}^{(1),SM}@f$
      */
-    virtual const double deltaG1_hZARatio() const;
+    virtual const double deltaG1_hZARatio() const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu F^{\mu\nu}@f$.
      * @return @f$\delta g_{HZA}^{(2)}@f$
      */
-    virtual const double deltaG2_hZA() const;
+    virtual const double deltaG2_hZA() const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$.
      * @return @f$\delta g_{HAA}@f$
      */
-    virtual const double deltaG_hAA() const;
+    virtual const double deltaG_hAA() const override;
     /**
      * @brief The full new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$,
      * including new local terms and modifications on the SM-loops. Normalized to the SM value.
      * @return @f$\delta g_{HAA}/g_{HAA}^SM}@f$
      */
-    virtual const double deltaG_hAARatio() const;
+    virtual const double deltaG_hAARatio() const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H f\bar{f}@f$.
      * @param[in] p a lepton or quark
      * @return @f$\delta g_{Hff}@f$
      */
     // no generation mixing
-    virtual gslpp::complex deltaG_hff(const Particle p) const;
+    virtual gslpp::complex deltaG_hff(const Particle p) const override;
 
     /**
      * @brief The new physics contribution to the Higgs self-coupling @f$ H H H@f$. Normalized to the SM value.
      * @return @f$\delta g_{HHH}/g_{HHH}^SM}@f$
      */
-    virtual const double deltaG_hhhRatio() const;
+    virtual const double deltaG_hhhRatio() const override;
     
  
     //////////////////////// Corrections to Higgs couplings  (scale dependent) /////////////////////////////////
@@ -1755,82 +1755,82 @@ public:
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta g_{HGG}(\mu)@f$
      */
-    virtual const double deltaG_hgg_mu(const double mu) const;
+    virtual const double deltaG_hgg_mu(const double mu) const override;
     /**
      * @brief The full new physics contribution to the coupling of the effective interaction @f$H G_{\mu\nu}^AG^{A \mu\nu}@f$,
      * including new local terms and modifications on the SM-loops. Normalized to the SM value.
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta g_{HGG}(\mu)/g_{HGG}^SM}(\mu)@f$
      */
-    virtual const double deltaG_hggRatio_mu(const double mu) const;
+    virtual const double deltaG_hggRatio_mu(const double mu) const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu\nu}^\dagger W^{\mu\nu}@f$.
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta g_{HWW}^{(1)}(\mu)@f$
      */
-    virtual const double deltaG1_hWW_mu(const double mu) const;
+    virtual const double deltaG1_hWW_mu(const double mu) const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\nu}^\dagger \partial^\mu W^{\mu\nu}@f$.
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta g_{HWW}^{(2)}(\mu)@f$
      */
-    virtual const double deltaG2_hWW_mu(const double mu) const;
+    virtual const double deltaG2_hWW_mu(const double mu) const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H W_{\mu}^\dagger W^{\mu}@f$.
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta g_{HWW}^{(3)}(\mu)@f$
      */
-    virtual const double deltaG3_hWW_mu(const double mu) const;
+    virtual const double deltaG3_hWW_mu(const double mu) const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} Z^{\mu\nu}@f$.
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta g_{HZZ}^{(1)}(\mu)@f$
      */
-    virtual const double deltaG1_hZZ_mu(const double mu) const;
+    virtual const double deltaG1_hZZ_mu(const double mu) const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu Z^{\mu\nu}@f$.
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta g_{HZZ}^{(2)}(\mu)@f$
      */
-    virtual const double deltaG2_hZZ_mu(const double mu) const;
+    virtual const double deltaG2_hZZ_mu(const double mu) const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu} Z^{\mu}@f$.
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta g_{HZZ}^{(3)}(\mu)@f$
      */
-    virtual const double deltaG3_hZZ_mu(const double mu) const;
+    virtual const double deltaG3_hZZ_mu(const double mu) const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{\mu\nu}@f$.
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta g_{HZA}^{(1)}(\mu)@f$
      */
-    virtual const double deltaG1_hZA_mu(const double mu) const;
+    virtual const double deltaG1_hZA_mu(const double mu) const override;
     /**
      * @brief The full new physics contribution to the coupling of the effective interaction @f$H Z_{\mu\nu} F^{A \mu\nu}@f$,
      * including new local terms and modifications on the SM-loops. Normalized to the SM value.
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta g_{HZA}^{(1)}(\mu)/g_{HZA}^{(1),SM}(\mu)@f$
      */
-    virtual const double deltaG1_hZARatio_mu(const double mu) const;
+    virtual const double deltaG1_hZARatio_mu(const double mu) const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H Z_{\nu} \partial^\mu F^{\mu\nu}@f$.
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta g_{HZA}^{(2)}(\mu)@f$
      */
-    virtual const double deltaG2_hZA_mu(const double mu) const;
+    virtual const double deltaG2_hZA_mu(const double mu) const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$.
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta g_{HAA}(\mu)@f$
      */
-    virtual const double deltaG_hAA_mu(const double mu) const;
+    virtual const double deltaG_hAA_mu(const double mu) const override;
     /**
      * @brief The full new physics contribution to the coupling of the effective interaction @f$H F_{\mu\nu} F^{\mu\nu}@f$,
      * including new local terms and modifications on the SM-loops. Normalized to the SM value.
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta g_{HAA}(\mu)/g_{HAA}^SM(\mu)}@f$
      */
-    virtual const double deltaG_hAARatio_mu(const double mu) const;
+    virtual const double deltaG_hAARatio_mu(const double mu) const override;
     /**
      * @brief The new physics contribution to the coupling of the effective interaction @f$H f\bar{f}@f$.
      * @param[in] p a lepton or quark
@@ -1838,13 +1838,13 @@ public:
      * @return @f$\delta g_{Hff}(\mu)@f$
      */
     // no generation mixing
-    virtual gslpp::complex deltaG_hff_mu(const Particle p, const double mu) const;
+    virtual gslpp::complex deltaG_hff_mu(const Particle p, const double mu) const override;
     /**
      * @brief The new physics contribution to the Higgs self-coupling @f$ H H H@f$. Normalized to the SM value.
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta g_{HHH}/g_{HHH}^SM}(\mu)@f$
      */
-    virtual const double deltaG_hhhRatio_mu(const double mu) const;
+    virtual const double deltaG_hhhRatio_mu(const double mu) const override;
     
     /////////////////// hVff interactions     ///////////////////
 
@@ -1949,7 +1949,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH}@f$
      */
-    virtual const double muggH(const double sqrt_s) const;
+    virtual const double muggH(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ggHH}@f$ between the gluon-gluon fusion di-Higgs
      * production cross-section in the current model and in the Standard Model.
@@ -1957,14 +1957,14 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggHH}@f$
      */
-    virtual const double muggHH(const double sqrt_s) const;
+    virtual const double muggHH(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF}@f$ between the vector-boson fusion Higgs
      * production cross-section in the current model and in the Standard Model. 
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF}@f$
      */
-    virtual const double muVBF(const double sqrt_s) const;
+    virtual const double muVBF(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF+\gamma}@f$ between the vector-boson fusion Higgs
      * production cross-section in association with a hard photon in the current model
@@ -1972,7 +1972,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF+\gamma}@f$
      */
-    virtual const double muVBFgamma(const double sqrt_s) const;
+    virtual const double muVBFgamma(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{eeWBF}@f$ between the 
      * @f$ e^{+}e^{-}\to \nu\bar{\nu} H @f$ production
@@ -1981,7 +1981,7 @@ public:
      * are the polarization of electrons and positrons, respectively
      * @return @f$\mu_{eeWBF}@f$
      */
-    virtual const double mueeWBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    virtual const double mueeWBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const override;
     /**
      * @brief The ratio @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$ between the 
      * @f$ e^+e^- \to H\nu\bar{\nu} @f$ associated production
@@ -1990,7 +1990,7 @@ public:
      * are the polarization of electrons and positrons, respectively
      * @return @f$\mu_{e^+e^- \to H\nu\bar{\nu}}@f$
      */
-    virtual const double mueeHvv(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    virtual const double mueeHvv(const double sqrt_s, const double Pol_em, const double Pol_ep) const override;
     /**
      * @brief The ratio @f$\mu_{eeZBF}@f$ between the 
      * @f$ e^{+}e^{-}\to e^{+}e^{-} H @f$ production
@@ -1999,7 +1999,7 @@ public:
      * are the polarization of electrons and positrons, respectively
      * @return @f$\mu_{eeZBF}@f$
      */
-    virtual const double mueeZBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    virtual const double mueeZBF(const double sqrt_s, const double Pol_em, const double Pol_ep) const override;
     /**
      * @brief The ratio @f$\mu_{e^+e^- \to He^+e^-}@f$ between the 
      * @f$ e^+e^- \to H e^+e^- @f$ associated production
@@ -2008,7 +2008,7 @@ public:
      * are the polarization of electrons and positrons, respectively
      * @return @f$\mu_{e^+e^- \to H e^+e^-}@f$
      */
-    virtual const double mueeHee(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    virtual const double mueeHee(const double sqrt_s, const double Pol_em, const double Pol_ep) const override;
     /**
      * @brief The ratio @f$\mu_{epWBF}@f$ between the 
      * @f$ e^{-} p\to \nu j H @f$ production
@@ -2016,7 +2016,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{epWBF}@f$
      */
-    virtual const double muepWBF(const double sqrt_s) const;
+    virtual const double muepWBF(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{epZBF}@f$ between the 
      * @f$ e^{-} p\to e^{-} j H @f$ production
@@ -2024,35 +2024,35 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{epZBF}@f$
      */
-    virtual const double muepZBF(const double sqrt_s) const;
+    virtual const double muepZBF(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH}@f$ between the W-Higgs associated production
      * cross-section in the current model and in the Standard Model. 
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH}@f$
      */
-    virtual const double muWH(const double sqrt_s) const;
+    virtual const double muWH(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH}@f$ between the W-Higgs associated production
      * cross-section in the current model and in the Standard Model, with @f$p_{T,H}>250@f$ GeV.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH}@f$
      */
-    virtual const double muWHpT250(const double sqrt_s) const;
+    virtual const double muWHpT250(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH}@f$ between the Z-Higgs associated production
      * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH}@f$
      */
-    virtual const double muZH(const double sqrt_s) const;
+    virtual const double muZH(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH}@f$ between the Z-Higgs associated production
      * cross-section in the current model and in the Standard Model, with @f$p_{T,H}>250@f$ GeV.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH}@f$
      */
-    virtual const double muZHpT250(const double sqrt_s) const;
+    virtual const double muZHpT250(const double sqrt_s) const override;
     
     /**
      * @brief The ratio @f$\mu_{eeZH}@f$ between the 
@@ -2062,7 +2062,7 @@ public:
      * are the polarization of electrons and positrons, respectively 
      * @return @f$\mu_{eeZH}@f$
      */
-    virtual const double mueeZHGen(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    virtual const double mueeZHGen(const double sqrt_s, const double Pol_em, const double Pol_ep) const override;
     /**
      * @brief The ratio @f$\mu_{eeZH}@f$ between the 
      * @f$e^{+}e^{-}\to ZH@f$ associated production
@@ -2071,7 +2071,7 @@ public:
      * are the polarization of electrons and positrons, respectively 
      * @return @f$\mu_{eeZH}@f$
      */
-    virtual const double mueeZH(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    virtual const double mueeZH(const double sqrt_s, const double Pol_em, const double Pol_ep) const override;
     /**
      * @brief The ratio @f$\mu_{eeZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$ between the 
      * @f$ e^{+}e^{-}\to ZH, Z \to e^+ e^-, \mu^+ \mu^- @f$ associated production
@@ -2080,7 +2080,7 @@ public:
      * are the polarization of electrons and positrons, respectively
      * @return @f$\mu_{eeZH, Z \to e^+ e^-, \mu^+ \mu^-}@f$
      */
-    virtual const double mueeZllH(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    virtual const double mueeZllH(const double sqrt_s, const double Pol_em, const double Pol_ep) const override;
     /**
      * @brief The ratio @f$\mu_{eeZH, Z \to q \bar{q}}@f$ between the 
      * @f$ e^{+}e^{-}\to ZH, Z \to q \bar{q} @f$ associated production
@@ -2089,7 +2089,7 @@ public:
      * are the polarization of electrons and positrons, respectively
      * @return @f$\mu_{eeZH, Z \to q \bar{q}}@f$
      */
-    virtual const double mueeZqqH(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    virtual const double mueeZqqH(const double sqrt_s, const double Pol_em, const double Pol_ep) const override;
     /**
      * @brief The ratio @f$\mu_{eeZH}@f$ between the 
      * @f$ e^{+}e^{-}\to ZH @f$ associated production
@@ -2124,7 +2124,7 @@ public:
      * are the polarization of electrons and positrons, respectively 
      * @return @f$a_{eeZH}@f$
      */
-    virtual const double aPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    virtual const double aPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const override;
     /**
      * @brief the angular parameter @f$b@f$ from 
      * @f$\mu_{e^+e^- \to ZH}@f$ (arXiv:1708.09079 [hep-ph]).
@@ -2132,49 +2132,49 @@ public:
      * are the polarization of electrons and positrons, respectively 
      * @return @f$b_{eeZH}@f$
      */
-    virtual const double bPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    virtual const double bPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const override;
     /**
      * @brief The ratio @f$\mu_{VH}@f$ between the WH+ZH associated production
      * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH}@f$
      */
-    virtual const double muVH(const double sqrt_s) const;
+    virtual const double muVH(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH}@f$ between the WH+ZH associated production
      * cross-section in the current model and in the Standard Model, with @f$p_{T,H}>250@f$ GeV.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH}@f$
      */
-    virtual const double muVHpT250(const double sqrt_s) const;
+    virtual const double muVHpT250(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF+VH}@f$ between the sum of VBF and WH+ZH associated production
      * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF+VH}@f$
      */
-    virtual const double muVBFpVH(const double sqrt_s) const;
+    virtual const double muVBFpVH(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH}@f$ between the t-tbar-Higgs associated 
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH}@f$
      */
-    virtual const double muttH(const double sqrt_s) const;
+    virtual const double muttH(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{tH}@f$ between the t-Higgs associated 
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{tH}@f$
      */
-    virtual const double mutH(const double sqrt_s) const;                             //AG:added
+    virtual const double mutH(const double sqrt_s) const override;                             //AG:added
     /**
      * @brief The ratio @f$\mu_{bbH}@f$ between the bbH
      *  production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{bbH}@f$
      */
-    virtual const double mubbH(const double sqrt_s) const
+    virtual const double mubbH(const double sqrt_s) const override
     {
         return 1.0;
     };                             //AG:added
@@ -2185,7 +2185,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{tHq}@f$
      */
-    virtual const double mutHq(const double sqrt_s) const;
+    virtual const double mutHq(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ggH+ttH}@f$ between the sum of gluon-gluon fusion
      * and t-tbar-Higgs associated 
@@ -2193,7 +2193,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH+ttH}@f$
      */
-    virtual const double muggHpttH(const double sqrt_s) const;
+    virtual const double muggHpttH(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{eettH}@f$ between the 
      * @f$ e^{+}e^{-}\to t\bar{t} H @f$ production
@@ -2202,14 +2202,14 @@ public:
      * are the polarization of electrons and positrons, respectively
      * @return @f$\mu_{eettH}@f$
      */
-    virtual const double mueettH(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    virtual const double mueettH(const double sqrt_s, const double Pol_em, const double Pol_ep) const override;
     /**
      * @brief The ratio @f$\mu_{\mu\mu H}@f$ between the @f$\sigma(\mu \mu \to H)}@f$
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{\mu\mu H}@f$
      */
-    virtual const double mummH(const double sqrt_s) const;
+    virtual const double mummH(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{\mu\mu H}@f$ between the @f$\sigma(\mu \mu \to H)}@f$
      * production cross-section in the current model and in the Standard Model, 
@@ -2217,63 +2217,63 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{\mu\mu H}@f$
      */
-    virtual const double mummHNWA(const double sqrt_s) const;
+    virtual const double mummHNWA(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{\mu\mu ZH}@f$ between the @f$\sigma(\mu \mu \to Z H)}@f$
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{\mu\mu ZH}@f$
      */
-    virtual const double mummZH(const double sqrt_s) const;
+    virtual const double mummZH(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{\mu\mu H\nu\nu}@f$ between the @f$\sigma(\mu \mu \to H \nu \nu)}@f$
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{\mu\mu H\nu\nu}@f$
      */
-    virtual const double mummHvv(const double sqrt_s) const;
+    virtual const double mummHvv(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{\mu\mu H\mu\mu}@f$ between the @f$\sigma(\mu \mu \to H \mu \mu)}@f$
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{\mu\mu H\mu\mu}@f$
      */
-    virtual const double mummHmm(const double sqrt_s) const;
+    virtual const double mummHmm(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{\mu\mu ttH}@f$ between the @f$\sigma(\mu \mu \to t\bar{t} H )}@f$
      * production cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{\mu\mu ttH}@f$
      */
-    virtual const double mummttH(const double sqrt_s) const;
+    virtual const double mummttH(const double sqrt_s) const override;
     
     //AG:added, begin
-    virtual const double delta_muggH_1(const double sqrt_s) const;    ///<The SMEFT linear correction to the ratio @f$\mu_{ggH}@f$ between the gluon-gluon fusion Higgs production cross-section in the current model and in the Standard Model.
-    virtual const double delta_muggH_2(const double sqrt_s) const;    ///<The SMEFT quadratic correction to the ratio @f$\mu_{ggH}@f$ between the gluon-gluon fusion Higgs production cross-section in the current model and in the Standard Model.
+    virtual const double delta_muggH_1(const double sqrt_s) const override;    ///<The SMEFT linear correction to the ratio @f$\mu_{ggH}@f$ between the gluon-gluon fusion Higgs production cross-section in the current model and in the Standard Model.
+    virtual const double delta_muggH_2(const double sqrt_s) const override;    ///<The SMEFT quadratic correction to the ratio @f$\mu_{ggH}@f$ between the gluon-gluon fusion Higgs production cross-section in the current model and in the Standard Model.
     
-    virtual const double delta_muVBF_1(const double sqrt_s) const;	///<The SMEFT linear correction to the ratio @f$\mu_{VBF}@f$ between the vector-boson fusion Higgs production cross-section in the current model and in the Standard Model.
-    virtual const double delta_muVBF_2(const double sqrt_s) const;	///<The SMEFT quadratic correction to the ratio @f$\mu_{VBF}@f$ between the vector-boson fusion Higgs production cross-section in the current model and in the Standard Model.
+    virtual const double delta_muVBF_1(const double sqrt_s) const override;	///<The SMEFT linear correction to the ratio @f$\mu_{VBF}@f$ between the vector-boson fusion Higgs production cross-section in the current model and in the Standard Model.
+    virtual const double delta_muVBF_2(const double sqrt_s) const override;	///<The SMEFT quadratic correction to the ratio @f$\mu_{VBF}@f$ between the vector-boson fusion Higgs production cross-section in the current model and in the Standard Model.
     
-    virtual const double delta_muWH_1(const double sqrt_s) const;	///<The SMEFT linear correction to the ratio @f$\mu_{WH}@f$ between the W-Higgs associated production cross-section in the current model and in the Standard Model.
-    virtual const double delta_muWH_2(const double sqrt_s) const;	///<The SMEFT quadratic correction to the ratio @f$\mu_{WH}@f$ between the W-Higgs associated production cross-section in the current model and in the Standard Model.
+    virtual const double delta_muWH_1(const double sqrt_s) const override;	///<The SMEFT linear correction to the ratio @f$\mu_{WH}@f$ between the W-Higgs associated production cross-section in the current model and in the Standard Model.
+    virtual const double delta_muWH_2(const double sqrt_s) const override;	///<The SMEFT quadratic correction to the ratio @f$\mu_{WH}@f$ between the W-Higgs associated production cross-section in the current model and in the Standard Model.
     
-    virtual const double delta_muZH_1(const double sqrt_s) const;	///<The SMEFT linear correction to the ratio @f$\mu_{ZH}@f$ between the Z-Higgs associated production cross-section in the current model and in the Standard Model.
-    virtual const double delta_muZH_2(const double sqrt_s) const;	///<The SMEFT quadratic correction to the ratio @f$\mu_{ZH}@f$ between the Z-Higgs associated production cross-section in the current model and in the Standard Model.
+    virtual const double delta_muZH_1(const double sqrt_s) const override;	///<The SMEFT linear correction to the ratio @f$\mu_{ZH}@f$ between the Z-Higgs associated production cross-section in the current model and in the Standard Model.
+    virtual const double delta_muZH_2(const double sqrt_s) const override;	///<The SMEFT quadratic correction to the ratio @f$\mu_{ZH}@f$ between the Z-Higgs associated production cross-section in the current model and in the Standard Model.
     
-    virtual const double delta_muVH_1(const double sqrt_s) const;	///<The SMEFT linear correction to the ratio @f$\mu_{VH}@f$ between the Z-Higgs and W-Higgs associated production cross-section in the current model and in the Standard Model.
-    virtual const double delta_muVH_2(const double sqrt_s) const;	///<The SMEFT quadratic correction to the ratio @f$\mu_{VH}@f$ between the Z-Higgs and W-Higgs associated production cross-section in the current model and in the Standard Model.
+    virtual const double delta_muVH_1(const double sqrt_s) const override;	///<The SMEFT linear correction to the ratio @f$\mu_{VH}@f$ between the Z-Higgs and W-Higgs associated production cross-section in the current model and in the Standard Model.
+    virtual const double delta_muVH_2(const double sqrt_s) const override;	///<The SMEFT quadratic correction to the ratio @f$\mu_{VH}@f$ between the Z-Higgs and W-Higgs associated production cross-section in the current model and in the Standard Model.
     
-    virtual const double delta_muttH_1(const double sqrt_s) const;	///<The SMEFT linear correction to the ratio @f$\mu_{ttH}@f$ between the t-tbar-Higgs associated production cross-section in the current model and in the Standard Model.
-    virtual const double delta_muttH_2(const double sqrt_s) const;	///<The SMEFT quadratic correction to the ratio @f$\mu_{ttH}@f$ between the t-tbar-Higgs associated production cross-section in the current model and in the Standard Model.
+    virtual const double delta_muttH_1(const double sqrt_s) const override;	///<The SMEFT linear correction to the ratio @f$\mu_{ttH}@f$ between the t-tbar-Higgs associated production cross-section in the current model and in the Standard Model.
+    virtual const double delta_muttH_2(const double sqrt_s) const override;	///<The SMEFT quadratic correction to the ratio @f$\mu_{ttH}@f$ between the t-tbar-Higgs associated production cross-section in the current model and in the Standard Model.
     
-    virtual const double delta_mutH_1(const double sqrt_s) const;	///<The SMEFT linear correction to the ratio @f$\mu_{tH}@f$ between the t-Higgs associated production cross-section in the current model and in the Standard Model.
-    virtual const double delta_mutH_2(const double sqrt_s) const;	///<The SMEFT quadratic correction to the ratio @f$\mu_{tH}@f$ between the t-Higgs associated production cross-section in the current model and in the Standard Model.
+    virtual const double delta_mutH_1(const double sqrt_s) const override;	///<The SMEFT linear correction to the ratio @f$\mu_{tH}@f$ between the t-Higgs associated production cross-section in the current model and in the Standard Model.
+    virtual const double delta_mutH_2(const double sqrt_s) const override;	///<The SMEFT quadratic correction to the ratio @f$\mu_{tH}@f$ between the t-Higgs associated production cross-section in the current model and in the Standard Model.
     
-    virtual const double delta_mubbH_1(const double sqrt_s) const
+    virtual const double delta_mubbH_1(const double sqrt_s) const override
     {
         return 0.0;
     }	///<The SMEFT linear correction to the ratio @f$\mu_{bbH}@f$ between the bbH production cross-section in the current model and in the Standard Model.
-    virtual const double delta_mubbH_2(const double sqrt_s) const
+    virtual const double delta_mubbH_2(const double sqrt_s) const override
     {
         return 0.0;
     }	///<The SMEFT quadratic correction to the ratio @f$\mu_{bbH}@f$ between the bbH production cross-section in the current model and in the Standard Model.
@@ -2285,14 +2285,14 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
      */
-    virtual const double computeGammaTotalRatio() const;
+    virtual const double computeGammaTotalRatio() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H)@f$ 
      * in the current model and in the Standard Model. Only terms that are
      * linear in the effective Lagrangian coefficients.
      * @return @f$\delta \Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
      */
-    virtual const double deltaGammaTotalRatio1() const;
+    virtual const double deltaGammaTotalRatio1() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H)@f$ 
      * in the current model and in the Standard Model. Only terms that are
@@ -2306,61 +2306,61 @@ public:
      * quadratic in the effective Lagrangian coefficients.
      * @return @f$\delta \Gamma(H)@f$/@f$\Gamma(H)_{\mathrm{SM}}@f$
      */
-    virtual const double deltaGammaTotalRatio2() const;
+    virtual const double deltaGammaTotalRatio2() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to gg)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to gg)@f$/@f$\Gamma(H\to gg)_{\mathrm{SM}}@f$
      */
-    const double GammaHggRatio() const;
+    const double GammaHggRatio() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to gg)@f$
      * in the current model and in the Standard Model. Only terms that are
      * linear in the effective Lagrangian coefficients.
      * @return @f$\delta \Gamma(H\to gg)@f$/@f$\Gamma(H\to gg)_{\mathrm{SM}}@f$
      */
-    const double   deltaGammaHggRatio1() const;
+    const double   deltaGammaHggRatio1() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to gg)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to gg)@f$/@f$\Gamma(H\to gg)_{\mathrm{SM}}@f$
      */
-    const double   deltaGammaHggRatio2() const;
+    const double   deltaGammaHggRatio2() const override;
     /**
      * @brief The ratio of the Br@f$(H\to gg)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to gg)@f$/Br@f$(H\to gg)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHggRatio() const;
+    virtual const double BrHggRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to WW)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to WW)@f$/@f$\Gamma(H\to WW)_{\mathrm{SM}}@f$
      */
-    const double  GammaHWWRatio() const;
+    const double  GammaHWWRatio() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to WW)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to WW)@f$/@f$\Gamma(H\to WW)_{\mathrm{SM}}@f$
      */
-    const double   deltaGammaHWWRatio1() const;
+    const double   deltaGammaHWWRatio1() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to WW)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to WW)@f$/@f$\Gamma(H\to WW)_{\mathrm{SM}}@f$
      */
-    const double   deltaGammaHWWRatio2() const;
+    const double   deltaGammaHWWRatio2() const override;
     /**
      * @brief The ratio of the Br@f$(H\to WW)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to WW)@f$/Br@f$(H\to WW)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHWWRatio() const;
+    virtual const double BrHWWRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to W l\nu)@f$ (@f$l=e,\mu @f$) in the current model
@@ -2530,27 +2530,27 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to ZZ)@f$/@f$\Gamma(H\to ZZ)_{\mathrm{SM}}@f$
      */
-    const double  GammaHZZRatio() const;
+    const double  GammaHZZRatio() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ)@f$/@f$\Gamma(H\to ZZ)_{\mathrm{SM}}@f$
      */
-    const double deltaGammaHZZRatio1() const;
+    const double deltaGammaHZZRatio1() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ZZ)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to ZZ)@f$/@f$\Gamma(H\to ZZ)_{\mathrm{SM}}@f$
      */
-    const double deltaGammaHZZRatio2() const;
+    const double deltaGammaHZZRatio2() const override;
     /**
      * @brief The ratio of the Br@f$(H\to ZZ)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to ZZ)@f$/Br@f$(H\to ZZ)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHZZRatio() const;
+    virtual const double BrHZZRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to Zll)@f$ (@f$l=e,\mu @f$) in the current model
@@ -2966,79 +2966,79 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to VV)@f$/Br@f$(H\to VV)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHVVRatio() const;
+    virtual const double BrHVVRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to Z\gamma)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to Z\gamma)@f$/@f$\Gamma(H\to Z\gamma)_{\mathrm{SM}}@f$
      */
-    const double  GammaHZgaRatio() const;
+    const double  GammaHZgaRatio() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z\gamma)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Z\gamma)@f$/@f$\Gamma(H\to Z\gamma)_{\mathrm{SM}}@f$
      */
-    const double deltaGammaHZgaRatio1() const;
+    const double deltaGammaHZgaRatio1() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to Z\gamma)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to Z\gamma)@f$/@f$\Gamma(H\to Z\gamma)_{\mathrm{SM}}@f$
      */
-    const double deltaGammaHZgaRatio2() const;
+    const double deltaGammaHZgaRatio2() const override;
     /**
      * @brief The ratio of the Br@f$(H\to Z\gamma)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to Z\gamma)@f$/Br@f$(H\to Z\gamma)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHZgaRatio() const;
+    virtual const double BrHZgaRatio() const override;
     /**
      * @brief The ratio of the Br@f$(H\to Z\gamma\to ll\gamma)@f$ (@f$l=e,\mu @f$) in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to Z\gamma\to ll\gamma)@f$/Br@f$(H\to Z\gamma\to ll\gamma)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHZgallRatio() const;
+    virtual const double BrHZgallRatio() const override;
     /**
      * @brief The ratio of the Br@f$(H\to Z\gamma\to ee\gamma)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to Z\gamma\to ee\gamma)@f$/Br@f$(H\to Z\gamma\to ee\gamma)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHZgaeeRatio() const;
+    virtual const double BrHZgaeeRatio() const override;
     /**
      * @brief The ratio of the Br@f$(H\to Z\gamma\to \mu\mu\gamma)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to Z\gamma\to \mu\mu\gamma)@f$/Br@f$(H\to Z\gamma\to \mu\mu\gamma)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHZgamumuRatio() const;
+    virtual const double BrHZgamumuRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to \gamma\gamma)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to \gamma\gamma)@f$/@f$\Gamma(H\to \gamma\gamma)_{\mathrm{SM}}@f$
      */
-    const double  GammaHgagaRatio() const;
+    const double  GammaHgagaRatio() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \gamma\gamma)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to \gamma\gamma)@f$/@f$\Gamma(H\to \gamma\gamma)_{\mathrm{SM}}@f$
      */
-    const double deltaGammaHgagaRatio1() const;
+    const double deltaGammaHgagaRatio1() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \gamma\gamma)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to \gamma\gamma)@f$/@f$\Gamma(H\to \gamma\gamma)_{\mathrm{SM}}@f$
      */
-    const double deltaGammaHgagaRatio2() const;
+    const double deltaGammaHgagaRatio2() const override;
     /**
      * @brief The ratio of the Br@f$(H\to \gamma\gamma)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to \gamma\gamma)@f$/Br@f$(H\to \gamma\gamma)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHgagaRatio() const;
+    virtual const double BrHgagaRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to ff)@f$ in the current model
@@ -3059,87 +3059,87 @@ public:
      * and in the Standard Model.
      * @return @f$\Gamma(H\to \mu\mu)@f$/@f$\Gamma(H\to \mu\mu)_{\mathrm{SM}}@f$
      */
-    const double  GammaHmumuRatio() const;
+    const double  GammaHmumuRatio() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \mu\mu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to \mu\mu)@f$/@f$\Gamma(H\to \mu\mu)_{\mathrm{SM}}@f$
      */
-    const double deltaGammaHmumuRatio1() const;
+    const double deltaGammaHmumuRatio1() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \mu\mu)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to \mu\mu)@f$/@f$\Gamma(H\to \mu\mu)_{\mathrm{SM}}@f$
      */
-    const double deltaGammaHmumuRatio2() const;
+    const double deltaGammaHmumuRatio2() const override;
     /**
      * @brief The ratio of the Br@f$(H\to \mu^+\mu^-)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to \mu^+\mu^-)@f$/Br@f$(H\to \mu^+\mu^-)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHmumuRatio() const;
+    virtual const double BrHmumuRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to \tau\tau)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to \tau\tau)@f$/@f$\Gamma(H\to \tau\tau)_{\mathrm{SM}}@f$
      */
-    const double  GammaHtautauRatio() const;
+    const double  GammaHtautauRatio() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \tau\tau)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to \tau\tau)@f$/@f$\Gamma(H\to \tau\tau)_{\mathrm{SM}}@f$
      */
-    const double deltaGammaHtautauRatio1() const;
+    const double deltaGammaHtautauRatio1() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to \tau\tau)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to \tau\tau)@f$/@f$\Gamma(H\to \tau\tau)_{\mathrm{SM}}@f$
      */
-    const double deltaGammaHtautauRatio2() const;
+    const double deltaGammaHtautauRatio2() const override;
     /**
      * @brief The ratio of the Br@f$(H\to \tau^+\tau^-)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to \tau^+\tau^-)@f$/Br@f$(H\to \tau^+\tau^-)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHtautauRatio() const;
+    virtual const double BrHtautauRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to cc)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to cc)@f$/@f$\Gamma(H\to cc)_{\mathrm{SM}}@f$
      */
-    const double  GammaHccRatio() const;
+    const double  GammaHccRatio() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to cc)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to cc)@f$/@f$\Gamma(H\to cc)_{\mathrm{SM}}@f$
      */
-    const double deltaGammaHccRatio1() const;
+    const double deltaGammaHccRatio1() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to cc)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to cc)@f$/@f$\Gamma(H\to cc)_{\mathrm{SM}}@f$
      */
-    const double deltaGammaHccRatio2() const;
+    const double deltaGammaHccRatio2() const override;
     /**
      * @brief The ratio of the Br@f$(H\to c\bar{c})@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to c\bar{c})@f$/Br@f$(H\to c\bar{c})_{\mathrm{SM}}@f$
      */
-    virtual const double BrHccRatio() const;    
+    virtual const double BrHccRatio() const override;
     /**
      * @brief The ratio of the @f$\Gamma(H\to ss)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to ss)@f$/@f$\Gamma(H\to ss)_{\mathrm{SM}}@f$
      */
-    const double  GammaHssRatio() const;
+    const double  GammaHssRatio() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to ss)@f$
      * in the current model and in the Standard Model. (Only terms that are
@@ -3159,33 +3159,33 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to s\bar{s})@f$/Br@f$(H\to s\bar{s})_{\mathrm{SM}}@f$
      */
-    virtual const double BrHssRatio() const;
+    virtual const double BrHssRatio() const override;
     /**
      * @brief The ratio of the @f$\Gamma(H\to bb)@f$ in the current model
      * and in the Standard Model.
      * @return @f$\Gamma(H\to bb)@f$/@f$\Gamma(H\to bb)_{\mathrm{SM}}@f$
      */
-    const double  GammaHbbRatio() const;
+    const double  GammaHbbRatio() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to bb)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * linear in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to bb)@f$/@f$\Gamma(H\to bb)_{\mathrm{SM}}@f$
      */
-    const double deltaGammaHbbRatio1() const;
+    const double deltaGammaHbbRatio1() const override;
     /**
      * @brief The new physics contribution to the ratio of the @f$\Gamma(H\to bb)@f$
      * in the current model and in the Standard Model. (Only terms that are
      * quadratic in the effective Lagrangian coefficients.)
      * @return @f$\delta \Gamma(H\to bb)@f$/@f$\Gamma(H\to bb)_{\mathrm{SM}}@f$
      */
-    const double deltaGammaHbbRatio2() const;
+    const double deltaGammaHbbRatio2() const override;
     /**
      * @brief The ratio of the Br@f$(H\to b\bar{b})@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to b\bar{b})@f$/Br@f$(H\to b\bar{b})_{\mathrm{SM}}@f$
      */
-    virtual const double BrHbbRatio() const;
+    virtual const double BrHbbRatio() const override;
 
     // General 4 fermion final states
 
@@ -3214,7 +3214,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2L2L')@f$/Br@f$(H\to 2L2L')_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2L2LRatio() const;
+    virtual const double BrH2L2LRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2e 2\mu)@f$ in the current model
@@ -3241,7 +3241,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2L2L)@f$/Br@f$(H\to 2e 2\mu)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2e2muRatio() const;
+    virtual const double BrH2e2muRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2v2v)@f$ in the current model
@@ -3268,7 +3268,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2v2v)@f$/Br@f$(H\to 2v2v)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2v2vRatio() const;
+    virtual const double BrH2v2vRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2L2v)@f$ (@f$L=e,\mu,\tau@f$) in the current model
@@ -3295,7 +3295,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2L2v)@f$/Br@f$(H\to 2L2v)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2L2vRatio() const;
+    virtual const double BrH2L2vRatio() const override;
 
 
     /**
@@ -3323,7 +3323,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2L2v)@f$/Br@f$(H\to 2L2v)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2L2v2Ratio() const;
+    virtual const double BrH2L2v2Ratio() const override;
 
 
     /**
@@ -3351,7 +3351,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2e2v)@f$/Br@f$(H\to 2e2v)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2e2vRatio() const;
+    virtual const double BrH2e2vRatio() const override;
 
 
     /**
@@ -3379,7 +3379,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2\mu 2v)@f$/Br@f$(H\to 2\mu 2v)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2mu2vRatio() const;
+    virtual const double BrH2mu2vRatio() const override;
 
 
     /**
@@ -3407,7 +3407,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2u2u)@f$/Br@f$(H\to 2u2u)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2u2uRatio() const;
+    virtual const double BrH2u2uRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2d2d)@f$ in the current model
@@ -3434,7 +3434,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2d2d)@f$/Br@f$(H\to 2d2d)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2d2dRatio() const;
+    virtual const double BrH2d2dRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2u2d)@f$ in the current model
@@ -3461,7 +3461,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2u2d)@f$/Br@f$(H\to 2u2d)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2u2dRatio() const;
+    virtual const double BrH2u2dRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2L2u)@f$ (@f$L=e,\mu,\tau@f$) in the current model
@@ -3488,7 +3488,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2L2u)@f$/Br@f$(H\to 2L2u)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2L2uRatio() const;
+    virtual const double BrH2L2uRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2L2d)@f$ (@f$L=e,\mu,\tau@f$) in the current model
@@ -3515,7 +3515,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2L2d)@f$/Br@f$(H\to 2L2d)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2L2dRatio() const;
+    virtual const double BrH2L2dRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2v2u)@f$ in the current model
@@ -3542,7 +3542,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2v2u)@f$/Br@f$(H\to 2v2u)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2v2uRatio() const;
+    virtual const double BrH2v2uRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2v2d)@f$ in the current model
@@ -3569,7 +3569,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2v2d)@f$/Br@f$(H\to 2v2d)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2v2dRatio() const;
+    virtual const double BrH2v2dRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 4L)@f$ (@f$L=e,\mu,\tau@f$) in the current model
@@ -3596,7 +3596,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 4L)@f$/Br@f$(H\to 4L)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH4LRatio() const;
+    virtual const double BrH4LRatio() const override;
 
 
     /**
@@ -3624,7 +3624,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 4L)@f$/Br@f$(H\to 4L)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH4L2Ratio() const;
+    virtual const double BrH4L2Ratio() const override;
 
 
     /**
@@ -3652,7 +3652,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 4e)@f$/Br@f$(H\to 4e)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH4eRatio() const;
+    virtual const double BrH4eRatio() const override;
 
 
     /**
@@ -3680,7 +3680,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 4\mu)@f$/Br@f$(H\to 4\mu)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH4muRatio() const;
+    virtual const double BrH4muRatio() const override;
 
 
     /**
@@ -3708,7 +3708,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 4v)@f$/Br@f$(H\to 4v)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH4vRatio() const;
+    virtual const double BrH4vRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 4u)@f$ in the current model
@@ -3735,7 +3735,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 4u)@f$/Br@f$(H\to 4u)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH4uRatio() const;
+    virtual const double BrH4uRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 4d)@f$ in the current model
@@ -3762,7 +3762,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 4d)@f$/Br@f$(H\to 4d)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH4dRatio() const;
+    virtual const double BrH4dRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to LvvL)@f$ (@f$L=e,\mu,\tau@f$) in the current model
@@ -3789,7 +3789,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to LvvL)@f$/Br@f$(H\to LvvL)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHLvvLRatio() const;
+    virtual const double BrHLvvLRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to e\nu \mu\nu)@f$ in the current model
@@ -3816,7 +3816,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to e\nu \mu\nu)@f$/Br@f$(H\to e\nu \mu\nu)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHevmuvRatio() const;
+    virtual const double BrHevmuvRatio() const override;
 
 
     /**
@@ -3844,7 +3844,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to uddu)@f$/Br@f$(H\to uddu)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHudduRatio() const;
+    virtual const double BrHudduRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to Lvud)@f$ (@f$L=e,\mu,\tau@f$) in the current model
@@ -3871,7 +3871,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to Lvud)@f$/Br@f$(H\to Lvud)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHLvudRatio() const;
+    virtual const double BrHLvudRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2ud)@f$ in the current model
@@ -3898,7 +3898,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2ud)@f$/Br@f$(H\to 2ud)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2udRatio() const;
+    virtual const double BrH2udRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2Lv)@f$ (@f$L=e,\mu,\tau@f$) in the current model
@@ -3925,7 +3925,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2Lv)@f$/Br@f$(H\to 2Lv)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2LvRatio() const;
+    virtual const double BrH2LvRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2Lv)@f$ (@f$L=e,\mu@f$) in the current model
@@ -3952,7 +3952,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2Lv)@f$/Br@f$(H\to 2Lv)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2Lv2Ratio() const;
+    virtual const double BrH2Lv2Ratio() const override;
 
 
     /**
@@ -3980,7 +3980,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2ev)@f$/Br@f$(H\to 2ev)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2evRatio() const;
+    virtual const double BrH2evRatio() const override;
 
 
     /**
@@ -4008,7 +4008,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2\mu v)@f$/Br@f$(H\to 2\mu v)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2muvRatio() const;
+    virtual const double BrH2muvRatio() const override;
 
 
     /**
@@ -4036,7 +4036,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 4f)@f$/Br@f$(H\to 4f)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH4fRatio() const;
+    virtual const double BrH4fRatio() const override;
     
     
     /**
@@ -4121,7 +4121,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 4l)@f$/Br@f$(H\to 4l)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH4lRatio() const;
+    virtual const double BrH4lRatio() const override;
 
     /**
      * @brief The ratio of the @f$\Gamma(H\to 2l2v)@f$ (@f$l=e,\mu@f$) in the current model
@@ -4148,7 +4148,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to 2l2v)@f$/Br@f$(H\to 2l2v)_{\mathrm{SM}}@f$
      */
-    virtual const double BrH2l2vRatio() const;
+    virtual const double BrH2l2vRatio() const override;
 
     ///////////////////////OTHER DEDICATED (SEMI-)LEPTONIC 4 FERMION DECAYS/////////////////////////
 
@@ -4177,7 +4177,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to l l j j)@f$/Br@f$(H\to l l j j)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHlljjRatio() const;
+    virtual const double BrHlljjRatio() const override;
 
 
     /**
@@ -4205,7 +4205,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to l \nu j j)@f$/Br@f$(H\to l \nu j j)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHlvjjRatio() const;
+    virtual const double BrHlvjjRatio() const override;
 
 
     /**
@@ -4233,7 +4233,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to l \nu l \nu, l \nu j j)@f$/Br@f$(H\to l \nu l \nu, l \nu j j)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHlv_lvorjjRatio() const;
+    virtual const double BrHlv_lvorjjRatio() const override;
 
 
     /**
@@ -4261,7 +4261,7 @@ public:
      * and in the Standard Model.
      * @return Br@f$(H\to l l \nu\nu, l l j j)@f$/Br@f$(H\to l l \nu\nu, l l j j)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHll_vvorjjRatio() const;
+    virtual const double BrHll_vvorjjRatio() const override;
 
     ///////////////////////OTHER HIGGS BRANCHING RATIOS/////////////////////////    
 
@@ -4269,30 +4269,30 @@ public:
      * @brief The branching ratio of the of the Higgs into exotic particles.
      * @return Br@f$(H\to exotic)@f$
      */
-    virtual const double Br_H_exo() const;
+    virtual const double Br_H_exo() const override;
     /**
      * @brief The branching ratio of the of the Higgs into invisible particles.
      * @return Br@f$(H\to invisible)@f$
      */
-    virtual const double Br_H_inv() const;
+    virtual const double Br_H_inv() const override;
     /**
      * @brief The branching ratio of the of the Higgs into invisible particles 
      * (only invisible new particles).
      * @return Br@f$(H\to invisible,NP)@f$
      */
-    virtual const double Br_H_inv_NP() const;
+    virtual const double Br_H_inv_NP() const override;
     /**
      * @brief The ratio of the Br@f$(H\to visible)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to visible)@f$/Br@f$(H\to visible)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHvisRatio() const;
+    virtual const double BrHvisRatio() const override;
     /**
      * @brief The ratio of the Br@f$(H\to invisible)@f$ in the current model
      * and in the Standard Model.
      * @return Br@f$(H\to invisible)@f$/Br@f$(H\to ZZ \to invisible)_{\mathrm{SM}}@f$
      */
-    virtual const double BrHtoinvRatio() const;
+    virtual const double BrHtoinvRatio() const override;
 
     ///////////////////////SPECIAL OBSERVABLES/////////////////////////
 
@@ -4302,7 +4302,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\sigma(ttH)/\sigma(ttZ)@f$ normalized to the SM
      */
-    virtual const double muttHZbbboost(const double sqrt_s) const;
+    virtual const double muttHZbbboost(const double sqrt_s) const override;
     
     /**
      * @brief The ratio @f$\sigma(ttH)/\sigma(ttZ)@f$ 
@@ -4310,7 +4310,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\sigma(ttH)/\sigma(ttZ)@f$ normalized to the SM
      */
-    virtual const double muttHgagaZeeboost(const double sqrt_s) const;
+    virtual const double muttHgagaZeeboost(const double sqrt_s) const override;
 
     /**
      * @brief The ratio @f$\mu_{ggH,\gamma\gamma}@f$ between the gluon-gluon fusion Higgs
@@ -4319,7 +4319,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,\gamma\gamma}@f$
      */
-    virtual const double muggHgaga(const double sqrt_s) const;
+    virtual const double muggHgaga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,\gamma\gamma}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into 2 photons in the
@@ -4327,7 +4327,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,\gamma\gamma}@f$
      */
-    virtual const double muVBFHgaga(const double sqrt_s) const;
+    virtual const double muVBFHgaga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,\gamma\gamma}@f$ between the ZH
      * production cross-section with subsequent decay into 2 photons in the
@@ -4335,7 +4335,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,\gamma\gamma}@f$
      */
-    virtual const double muZHgaga(const double sqrt_s) const;
+    virtual const double muZHgaga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,\gamma\gamma}@f$ between the WH
      * production cross-section with subsequent decay into 2 photons in the
@@ -4343,7 +4343,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,\gamma\gamma}@f$
      */
-    virtual const double muWHgaga(const double sqrt_s) const;
+    virtual const double muWHgaga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,\gamma\gamma}@f$ between the VH
      * production cross-section with subsequent decay into 2 photons in the
@@ -4351,7 +4351,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,\gamma\gamma}@f$
      */
-    virtual const double muVHgaga(const double sqrt_s) const;
+    virtual const double muVHgaga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,\gamma\gamma}@f$ between the ttH
      * production cross-section with subsequent decay into 2 photons in the
@@ -4359,7 +4359,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,\gamma\gamma}@f$
      */
-    virtual const double muttHgaga(const double sqrt_s) const;
+    virtual const double muttHgaga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ggH,Z\gamma}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4367,7 +4367,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,Z\gamma}@f$
      */
-    virtual const double muggHZga(const double sqrt_s) const;
+    virtual const double muggHZga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,Z\gamma}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4375,7 +4375,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,Z\gamma}@f$
      */
-    virtual const double muVBFHZga(const double sqrt_s) const;
+    virtual const double muVBFHZga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,Z\gamma}@f$ between the ZH
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4383,7 +4383,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,Z\gamma}@f$
      */
-    virtual const double muZHZga(const double sqrt_s) const;
+    virtual const double muZHZga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,Z\gamma}@f$ between the WH
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4391,7 +4391,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,Z\gamma}@f$
      */
-    virtual const double muWHZga(const double sqrt_s) const;
+    virtual const double muWHZga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,Z\gamma}@f$ between the VH
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4399,7 +4399,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,Z\gamma}@f$
      */
-    virtual const double muVHZga(const double sqrt_s) const;
+    virtual const double muVHZga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,Z\gamma}@f$ between the ttH
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4407,7 +4407,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,Z\gamma}@f$
      */
-    virtual const double muttHZga(const double sqrt_s) const;
+    virtual const double muttHZga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ggH,ZZ}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4415,7 +4415,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,ZZ}@f$
      */
-    virtual const double muggHZZ(const double sqrt_s) const;
+    virtual const double muggHZZ(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,ZZ}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4423,7 +4423,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,ZZ}@f$
      */
-    virtual const double muVBFHZZ(const double sqrt_s) const;
+    virtual const double muVBFHZZ(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,ZZ}@f$ between the ZH
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4431,7 +4431,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,ZZ}@f$
      */
-    virtual const double muZHZZ(const double sqrt_s) const;
+    virtual const double muZHZZ(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,ZZ}@f$ between the WH
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4439,7 +4439,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,ZZ}@f$
      */
-    virtual const double muWHZZ(const double sqrt_s) const;
+    virtual const double muWHZZ(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,ZZ}@f$ between the VH
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4447,7 +4447,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,ZZ}@f$
      */
-    virtual const double muVHZZ(const double sqrt_s) const;
+    virtual const double muVHZZ(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,ZZ}@f$ between the ttH
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4455,7 +4455,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,ZZ}@f$
      */
-    virtual const double muttHZZ(const double sqrt_s) const;
+    virtual const double muttHZZ(const double sqrt_s) const override;
 
     /**
      * @brief The ratio @f$\mu_{ggH,ZZ\to 4l}@f$ between the gluon-gluon fusion Higgs
@@ -4464,7 +4464,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,ZZ\to 4l}@f$
      */
-    virtual const double muggHZZ4l(const double sqrt_s) const;
+    virtual const double muggHZZ4l(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,ZZ\to 4l}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4472,7 +4472,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,ZZ\to 4l}@f$
      */
-    virtual const double muVBFHZZ4l(const double sqrt_s) const;
+    virtual const double muVBFHZZ4l(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,ZZ\to 4l}@f$ between the ZH
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4480,7 +4480,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,ZZ\to 4l}@f$
      */
-    virtual const double muZHZZ4l(const double sqrt_s) const;
+    virtual const double muZHZZ4l(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,ZZ\to 4l}@f$ between the WH
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4488,7 +4488,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,ZZ\to 4l}@f$
      */
-    virtual const double muWHZZ4l(const double sqrt_s) const;
+    virtual const double muWHZZ4l(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,ZZ\to 4l}@f$ between the VH
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4496,7 +4496,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,ZZ\to 4l}@f$
      */
-    virtual const double muVHZZ4l(const double sqrt_s) const;
+    virtual const double muVHZZ4l(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,ZZ\to 4l}@f$ between the ttH
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4504,7 +4504,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,ZZ\to 4l}@f$
      */
-    virtual const double muttHZZ4l(const double sqrt_s) const;
+    virtual const double muttHZZ4l(const double sqrt_s) const override;
 
     /**
      * @brief The ratio @f$\mu_{ggH,WW}@f$ between the gluon-gluon fusion Higgs
@@ -4513,7 +4513,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,WW}@f$
      */
-    virtual const double muggHWW(const double sqrt_s) const;
+    virtual const double muggHWW(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,WW}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4521,7 +4521,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,WW}@f$
      */
-    virtual const double muVBFHWW(const double sqrt_s) const;
+    virtual const double muVBFHWW(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,WW}@f$ between the ZH
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4529,7 +4529,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,WW}@f$
      */
-    virtual const double muZHWW(const double sqrt_s) const;
+    virtual const double muZHWW(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,WW}@f$ between the WH
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4537,7 +4537,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,WW}@f$
      */
-    virtual const double muWHWW(const double sqrt_s) const;
+    virtual const double muWHWW(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,WW}@f$ between the VH
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4545,7 +4545,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,WW}@f$
      */
-    virtual const double muVHWW(const double sqrt_s) const;
+    virtual const double muVHWW(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,WW}@f$ between the ttH
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4553,7 +4553,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,WW}@f$
      */
-    virtual const double muttHWW(const double sqrt_s) const;
+    virtual const double muttHWW(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ggH,WW\to 2l2\nu}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4561,7 +4561,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,WW\to 2l2\nu}@f$
      */
-    virtual const double muggHWW2l2v(const double sqrt_s) const;
+    virtual const double muggHWW2l2v(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,WW\to 2l2\nu}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4569,7 +4569,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,WW\to 2l2\nu}@f$
      */
-    virtual const double muVBFHWW2l2v(const double sqrt_s) const;
+    virtual const double muVBFHWW2l2v(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,WW\to 2l2\nu}@f$ between the ZH
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4577,7 +4577,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,WW\to 2l2\nu}@f$
      */
-    virtual const double muZHWW2l2v(const double sqrt_s) const;
+    virtual const double muZHWW2l2v(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,WW\to 2l2\nu}@f$ between the WH
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4585,7 +4585,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,WW\to 2l2\nu}@f$
      */
-    virtual const double muWHWW2l2v(const double sqrt_s) const;
+    virtual const double muWHWW2l2v(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,WW\to 2l2\nu}@f$ between the VH
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4593,7 +4593,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,WW\to 2l2\nu}@f$
      */
-    virtual const double muVHWW2l2v(const double sqrt_s) const;
+    virtual const double muVHWW2l2v(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,WW\to 2l2\nu}@f$ between the ttH
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -4601,7 +4601,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,WW\to 2l2\nu}@f$
      */
-    virtual const double muttHWW2l2v(const double sqrt_s) const;
+    virtual const double muttHWW2l2v(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ggH,\mu\mu}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4609,7 +4609,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,\mu\mu}@f$
      */
-    virtual const double muggHmumu(const double sqrt_s) const;
+    virtual const double muggHmumu(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,\mu\mu}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4617,7 +4617,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,\mu\mu}@f$
      */
-    virtual const double muVBFHmumu(const double sqrt_s) const;
+    virtual const double muVBFHmumu(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,\mu\mu}@f$ between the ZH
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4625,7 +4625,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,\mu\mu}@f$
      */
-    virtual const double muZHmumu(const double sqrt_s) const;
+    virtual const double muZHmumu(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,\mu\mu}@f$ between the WH
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4633,7 +4633,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,\mu\mu}@f$
      */
-    virtual const double muWHmumu(const double sqrt_s) const;
+    virtual const double muWHmumu(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,\mu\mu}@f$ between the VH
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4641,7 +4641,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,\mu\mu}@f$
      */
-    virtual const double muVHmumu(const double sqrt_s) const;
+    virtual const double muVHmumu(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,\mu\mu}@f$ between the ttH
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -4649,7 +4649,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,\mu\mu}@f$
      */
-    virtual const double muttHmumu(const double sqrt_s) const;
+    virtual const double muttHmumu(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ggH,\tau\tau}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4657,7 +4657,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,\tau\tau}@f$
      */
-    virtual const double muggHtautau(const double sqrt_s) const;
+    virtual const double muggHtautau(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,\tau\tau}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4665,7 +4665,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,\tau\tau}@f$
      */
-    virtual const double muVBFHtautau(const double sqrt_s) const;
+    virtual const double muVBFHtautau(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,\tau\tau}@f$ between the ZH
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4673,7 +4673,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,\tau\tau}@f$
      */
-    virtual const double muZHtautau(const double sqrt_s) const;
+    virtual const double muZHtautau(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,\tau\tau}@f$ between the WH
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4681,7 +4681,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,\tau\tau}@f$
      */
-    virtual const double muWHtautau(const double sqrt_s) const;
+    virtual const double muWHtautau(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,\tau\tau}@f$ between the VH
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4689,7 +4689,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,\tau\tau}@f$
      */
-    virtual const double muVHtautau(const double sqrt_s) const;
+    virtual const double muVHtautau(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,\tau\tau}@f$ between the ttH
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -4697,7 +4697,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,\tau\tau}@f$
      */
-    virtual const double muttHtautau(const double sqrt_s) const;
+    virtual const double muttHtautau(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ggH,bb}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4705,7 +4705,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,bb}@f$
      */
-    virtual const double muggHbb(const double sqrt_s) const;
+    virtual const double muggHbb(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,bb}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4713,7 +4713,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,bb}@f$
      */
-    virtual const double muVBFHbb(const double sqrt_s) const;
+    virtual const double muVBFHbb(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,bb}@f$ between the ZH
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4721,7 +4721,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,bb}@f$
      */
-    virtual const double muZHbb(const double sqrt_s) const;
+    virtual const double muZHbb(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,bb}@f$ between the WH
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4729,7 +4729,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,bb}@f$
      */
-    virtual const double muWHbb(const double sqrt_s) const;
+    virtual const double muWHbb(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,bb}@f$ between the VH
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4737,7 +4737,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,bb}@f$
      */
-    virtual const double muVHbb(const double sqrt_s) const;
+    virtual const double muVHbb(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,bb}@f$ between the ttH
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -4745,7 +4745,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,bb}@f$
      */
-    virtual const double muttHbb(const double sqrt_s) const;
+    virtual const double muttHbb(const double sqrt_s) const override;
 
     ////////////////////////////////////////////////////////////////////////////////////////////
     //-----------------------------------------------------------------------------------------
@@ -4760,7 +4760,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,\gamma\gamma}@f$
      */
-    virtual const double muTHUggHgaga(const double sqrt_s) const;
+    virtual const double muTHUggHgaga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,\gamma\gamma}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into 2 photons in the
@@ -4768,7 +4768,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,\gamma\gamma}@f$
      */
-    virtual const double muTHUVBFHgaga(const double sqrt_s) const;
+    virtual const double muTHUVBFHgaga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,\gamma\gamma}@f$ between the ZH
      * production cross-section with subsequent decay into 2 photons in the
@@ -4776,7 +4776,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,\gamma\gamma}@f$
      */
-    virtual const double muTHUZHgaga(const double sqrt_s) const;
+    virtual const double muTHUZHgaga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,\gamma\gamma}@f$ between the WH
      * production cross-section with subsequent decay into 2 photons in the
@@ -4784,7 +4784,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,\gamma\gamma}@f$
      */
-    virtual const double muTHUWHgaga(const double sqrt_s) const;
+    virtual const double muTHUWHgaga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,\gamma\gamma}@f$ between the VH
      * production cross-section with subsequent decay into 2 photons in the
@@ -4792,7 +4792,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,\gamma\gamma}@f$
      */
-    virtual const double muTHUVHgaga(const double sqrt_s) const;
+    virtual const double muTHUVHgaga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,\gamma\gamma}@f$ between the ttH
      * production cross-section with subsequent decay into 2 photons in the
@@ -4800,7 +4800,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,\gamma\gamma}@f$
      */
-    virtual const double muTHUttHgaga(const double sqrt_s) const;
+    virtual const double muTHUttHgaga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ggH,Z\gamma}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4808,7 +4808,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,Z\gamma}@f$
      */
-    virtual const double muTHUggHZga(const double sqrt_s) const;
+    virtual const double muTHUggHZga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,Z\gamma}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4816,7 +4816,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,Z\gamma}@f$
      */
-    virtual const double muTHUVBFHZga(const double sqrt_s) const;
+    virtual const double muTHUVBFHZga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,Z\gamma}@f$ between the ZH
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4824,7 +4824,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,Z\gamma}@f$
      */
-    virtual const double muTHUZHZga(const double sqrt_s) const;
+    virtual const double muTHUZHZga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,Z\gamma}@f$ between the WH
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4832,7 +4832,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,Z\gamma}@f$
      */
-    virtual const double muTHUWHZga(const double sqrt_s) const;
+    virtual const double muTHUWHZga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,Z\gamma}@f$ between the VH
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4840,7 +4840,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,Z\gamma}@f$
      */
-    virtual const double muTHUVHZga(const double sqrt_s) const;
+    virtual const double muTHUVHZga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,Z\gamma}@f$ between the ttH
      * production cross-section with subsequent decay into @f$Z \gamma@f$ in the
@@ -4848,7 +4848,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,Z\gamma}@f$
      */
-    virtual const double muTHUttHZga(const double sqrt_s) const;
+    virtual const double muTHUttHZga(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ggH,ZZ}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4856,7 +4856,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,ZZ}@f$
      */
-    virtual const double muTHUggHZZ(const double sqrt_s) const;
+    virtual const double muTHUggHZZ(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,ZZ}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4864,7 +4864,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,ZZ}@f$
      */
-    virtual const double muTHUVBFHZZ(const double sqrt_s) const;
+    virtual const double muTHUVBFHZZ(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,ZZ}@f$ between the ZH
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4872,7 +4872,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,ZZ}@f$
      */
-    virtual const double muTHUZHZZ(const double sqrt_s) const;
+    virtual const double muTHUZHZZ(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,ZZ}@f$ between the WH
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4880,7 +4880,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,ZZ}@f$
      */
-    virtual const double muTHUWHZZ(const double sqrt_s) const;
+    virtual const double muTHUWHZZ(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,ZZ}@f$ between the VH
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4888,7 +4888,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,ZZ}@f$
      */
-    virtual const double muTHUVHZZ(const double sqrt_s) const;
+    virtual const double muTHUVHZZ(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,ZZ}@f$ between the ttH
      * production cross-section with subsequent decay into @f$Z Z^*@f$ in the
@@ -4896,7 +4896,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,ZZ}@f$
      */
-    virtual const double muTHUttHZZ(const double sqrt_s) const;
+    virtual const double muTHUttHZZ(const double sqrt_s) const override;
 
     /**
      * @brief The ratio @f$\mu_{ggH,ZZ\to 4l}@f$ between the gluon-gluon fusion Higgs
@@ -4905,7 +4905,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,ZZ\to 4l}@f$
      */
-    virtual const double muTHUggHZZ4l(const double sqrt_s) const;
+    virtual const double muTHUggHZZ4l(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,ZZ\to 4l}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4913,7 +4913,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,ZZ\to 4l}@f$
      */
-    virtual const double muTHUVBFHZZ4l(const double sqrt_s) const;
+    virtual const double muTHUVBFHZZ4l(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,ZZ\to 4l}@f$ between the ZH
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4921,7 +4921,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,ZZ\to 4l}@f$
      */
-    virtual const double muTHUZHZZ4l(const double sqrt_s) const;
+    virtual const double muTHUZHZZ4l(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,ZZ\to 4l}@f$ between the WH
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4929,7 +4929,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,ZZ\to 4l}@f$
      */
-    virtual const double muTHUWHZZ4l(const double sqrt_s) const;
+    virtual const double muTHUWHZZ4l(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,ZZ\to 4l}@f$ between the VH
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4937,7 +4937,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,ZZ\to 4l}@f$
      */
-    virtual const double muTHUVHZZ4l(const double sqrt_s) const;
+    virtual const double muTHUVHZZ4l(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,ZZ\to 4l}@f$ between the ttH
      * production cross-section with subsequent decay into @f$Z Z^*\to 4l@f$ in the
@@ -4945,7 +4945,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,ZZ\to 4l}@f$
      */
-    virtual const double muTHUttHZZ4l(const double sqrt_s) const;
+    virtual const double muTHUttHZZ4l(const double sqrt_s) const override;
 
     /**
      * @brief The ratio @f$\mu_{ggH,WW}@f$ between the gluon-gluon fusion Higgs
@@ -4954,7 +4954,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,WW}@f$
      */
-    virtual const double muTHUggHWW(const double sqrt_s) const;
+    virtual const double muTHUggHWW(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,WW}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4962,7 +4962,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,WW}@f$
      */
-    virtual const double muTHUVBFHWW(const double sqrt_s) const;
+    virtual const double muTHUVBFHWW(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,WW}@f$ between the ZH
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4970,7 +4970,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,WW}@f$
      */
-    virtual const double muTHUZHWW(const double sqrt_s) const;
+    virtual const double muTHUZHWW(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,WW}@f$ between the WH
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4978,7 +4978,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,WW}@f$
      */
-    virtual const double muTHUWHWW(const double sqrt_s) const;
+    virtual const double muTHUWHWW(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,WW}@f$ between the VH
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4986,7 +4986,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,WW}@f$
      */
-    virtual const double muTHUVHWW(const double sqrt_s) const;
+    virtual const double muTHUVHWW(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,WW}@f$ between the ttH
      * production cross-section with subsequent decay into @f$W W^*@f$ in the
@@ -4994,7 +4994,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,WW}@f$
      */
-    virtual const double muTHUttHWW(const double sqrt_s) const;
+    virtual const double muTHUttHWW(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ggH,WW\to 2l2\nu}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -5002,7 +5002,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,WW\to 2l2\nu}@f$
      */
-    virtual const double muTHUggHWW2l2v(const double sqrt_s) const;
+    virtual const double muTHUggHWW2l2v(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,WW\to 2l2\nu}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -5010,7 +5010,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,WW\to 2l2\nu}@f$
      */
-    virtual const double muTHUVBFHWW2l2v(const double sqrt_s) const;
+    virtual const double muTHUVBFHWW2l2v(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,WW\to 2l2\nu}@f$ between the ZH
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -5018,7 +5018,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,WW\to 2l2\nu}@f$
      */
-    virtual const double muTHUZHWW2l2v(const double sqrt_s) const;
+    virtual const double muTHUZHWW2l2v(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,WW\to 2l2\nu}@f$ between the WH
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -5026,7 +5026,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,WW\to 2l2\nu}@f$
      */
-    virtual const double muTHUWHWW2l2v(const double sqrt_s) const;
+    virtual const double muTHUWHWW2l2v(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,WW\to 2l2\nu}@f$ between the VH
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -5034,7 +5034,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,WW\to 2l2\nu}@f$
      */
-    virtual const double muTHUVHWW2l2v(const double sqrt_s) const;
+    virtual const double muTHUVHWW2l2v(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,WW\to 2l2\nu}@f$ between the ttH
      * production cross-section with subsequent decay into @f$W W^*\to 2l2\nu@f$ in the
@@ -5042,7 +5042,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,WW\to 2l2\nu}@f$
      */
-    virtual const double muTHUttHWW2l2v(const double sqrt_s) const;
+    virtual const double muTHUttHWW2l2v(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ggH,\mu\mu}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -5050,7 +5050,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,\mu\mu}@f$
      */
-    virtual const double muTHUggHmumu(const double sqrt_s) const;
+    virtual const double muTHUggHmumu(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,\mu\mu}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -5058,7 +5058,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,\mu\mu}@f$
      */
-    virtual const double muTHUVBFHmumu(const double sqrt_s) const;
+    virtual const double muTHUVBFHmumu(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,\mu\mu}@f$ between the ZH
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -5066,7 +5066,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,\mu\mu}@f$
      */
-    virtual const double muTHUZHmumu(const double sqrt_s) const;
+    virtual const double muTHUZHmumu(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,\mu\mu}@f$ between the WH
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -5074,7 +5074,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,\mu\mu}@f$
      */
-    virtual const double muTHUWHmumu(const double sqrt_s) const;
+    virtual const double muTHUWHmumu(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,\mu\mu}@f$ between the VH
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -5082,7 +5082,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,\mu\mu}@f$
      */
-    virtual const double muTHUVHmumu(const double sqrt_s) const;
+    virtual const double muTHUVHmumu(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,\mu\mu}@f$ between the ttH
      * production cross-section with subsequent decay into @f$\mu\mu@f$ in the
@@ -5090,7 +5090,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,\mu\mu}@f$
      */
-    virtual const double muTHUttHmumu(const double sqrt_s) const;
+    virtual const double muTHUttHmumu(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ggH,\tau\tau}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -5098,7 +5098,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,\tau\tau}@f$
      */
-    virtual const double muTHUggHtautau(const double sqrt_s) const;
+    virtual const double muTHUggHtautau(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,\tau\tau}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -5106,7 +5106,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,\tau\tau}@f$
      */
-    virtual const double muTHUVBFHtautau(const double sqrt_s) const;
+    virtual const double muTHUVBFHtautau(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,\tau\tau}@f$ between the ZH
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -5114,7 +5114,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,\tau\tau}@f$
      */
-    virtual const double muTHUZHtautau(const double sqrt_s) const;
+    virtual const double muTHUZHtautau(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,\tau\tau}@f$ between the WH
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -5122,7 +5122,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,\tau\tau}@f$
      */
-    virtual const double muTHUWHtautau(const double sqrt_s) const;
+    virtual const double muTHUWHtautau(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,\tau\tau}@f$ between the VH
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -5130,7 +5130,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,\tau\tau}@f$
      */
-    virtual const double muTHUVHtautau(const double sqrt_s) const;
+    virtual const double muTHUVHtautau(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,\tau\tau}@f$ between the ttH
      * production cross-section with subsequent decay into @f$\tau\tau@f$ in the
@@ -5138,7 +5138,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,\tau\tau}@f$
      */
-    virtual const double muTHUttHtautau(const double sqrt_s) const;
+    virtual const double muTHUttHtautau(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ggH,bb}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -5146,7 +5146,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,bb}@f$
      */
-    virtual const double muTHUggHbb(const double sqrt_s) const;
+    virtual const double muTHUggHbb(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,bb}@f$ between the VBF Higgs
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -5154,7 +5154,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,bb}@f$
      */
-    virtual const double muTHUVBFHbb(const double sqrt_s) const;
+    virtual const double muTHUVBFHbb(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ZH,bb}@f$ between the ZH
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -5162,7 +5162,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ZH,bb}@f$
      */
-    virtual const double muTHUZHbb(const double sqrt_s) const;
+    virtual const double muTHUZHbb(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{WH,bb}@f$ between the WH
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -5170,7 +5170,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{WH,bb}@f$
      */
-    virtual const double muTHUWHbb(const double sqrt_s) const;
+    virtual const double muTHUWHbb(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,bb}@f$ between the VH
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -5178,7 +5178,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,bb}@f$
      */
-    virtual const double muTHUVHbb(const double sqrt_s) const;
+    virtual const double muTHUVHbb(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ttH,bb}@f$ between the ttH
      * production cross-section with subsequent decay into @f$bb@f$ in the
@@ -5186,7 +5186,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ttH,bb}@f$
      */
-    virtual const double muTHUttHbb(const double sqrt_s) const;
+    virtual const double muTHUttHbb(const double sqrt_s) const override;
 
     /**
      * @brief The ratio @f$\mu_{VBF}@f$ between the VBF
@@ -5196,7 +5196,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF}BR_{inv}@f$
      */
-    virtual const double muTHUVBFBRinv(const double sqrt_s) const;
+    virtual const double muTHUVBFBRinv(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VBF,inv}@f$ between the VBF
      * production cross-section with subsequent decay into invisible states in the
@@ -5204,7 +5204,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VBF,inv}@f$
      */
-    virtual const double muTHUVBFHinv(const double sqrt_s) const;
+    virtual const double muTHUVBFHinv(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH}@f$ between the VH
      * production cross-section in the
@@ -5213,7 +5213,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH}BR_{inv}@f$
      */
-    virtual const double muTHUVHBRinv(const double sqrt_s) const;
+    virtual const double muTHUVHBRinv(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{VH,inv}@f$ between the VH
      * production cross-section with subsequent decay into invisible states in the
@@ -5221,7 +5221,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH,inv}@f$
      */
-    virtual const double muTHUVHinv(const double sqrt_s) const;
+    virtual const double muTHUVHinv(const double sqrt_s) const override;
 
     /**
      * @brief The ratio @f$\mu_{ggH,ZZ\to 4\mu}@f$ between the gluon-gluon fusion Higgs
@@ -5230,7 +5230,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,ZZ\to 4\mu}@f$
      */
-    virtual const double muTHUggHZZ4mu(const double sqrt_s) const;
+    virtual const double muTHUggHZZ4mu(const double sqrt_s) const override;
     /**
      * @brief The ratio @f$\mu_{ggH,Z\gamma\to \gamma 2\mu}@f$ between the gluon-gluon fusion Higgs
      * production cross-section with subsequent decay into @f$Z \gamma\to \gamma 2\mu@f$ in the
@@ -5238,7 +5238,7 @@ public:
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{ggH,Z\gamma\to \gamma 2\mu}@f$
      */
-    virtual const double muTHUggHZgamumu(const double sqrt_s) const;
+    virtual const double muTHUggHZgamumu(const double sqrt_s) const override;
     
     ////////////////////////////////////////////////////////////////////////
     
@@ -5246,7 +5246,7 @@ public:
      * @brief The new physics relative contribution to the EW coupling constant @f$e@f$.
      * @return @f$\delta e@f$
      */
-    virtual const double deltaeNP(const double mu) const;
+    virtual const double deltaeNP(const double mu) const override;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -5255,7 +5255,7 @@ public:
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$g_{1,Z}@f$.
      * @return @f$\delta g_{1,Z}@f$
      */
-    virtual const double deltag1ZNP(const double mu) const;
+    virtual const double deltag1ZNP(const double mu) const override;
 
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$\kappa_{Z}@f$.
@@ -5267,19 +5267,19 @@ public:
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$g_{1,\gamma}@f$.
      * @return @f$\delta g_{1,\gamma}@f$
      */
-    virtual const double deltag1gaNP(const double mu) const;
+    virtual const double deltag1gaNP(const double mu) const override;
 
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$\kappa_{\gamma}@f$.
      * @return @f$\delta \kappa_{\gamma}@f$
      */
-    virtual const double deltaKgammaNP(const double mu) const;
+    virtual const double deltaKgammaNP(const double mu) const override;
 
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$\lambda_{Z}@f$.
      * @return @f$\lambda_{Z}@f$
      */
-    virtual const double lambdaZNP(const double mu) const;
+    virtual const double lambdaZNP(const double mu) const override;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -5288,14 +5288,14 @@ public:
      * gauge coupling @f$g_{1,Z}^{Eff}@f$ from arXiv: 1708.09079 [hep-ph].
      * @return @f$\delta g_{1,Z}@f$
      */
-    virtual const double deltag1ZNPEff() const;
+    virtual const double deltag1ZNPEff() const override;
 
     /**
      * @brief The new physics contribution to the effective anomalous triple 
      * gauge coupling @f$\kappa_{\gamma}^{Eff}@f$ from arXiv: 1708.09079 [hep-ph].
      * @return @f$\delta \kappa_{\gamma}@f$
      */
-    virtual const double deltaKgammaNPEff() const;
+    virtual const double deltaKgammaNPEff() const override;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -5308,7 +5308,7 @@ public:
      * From arXiv: 1606.06693 [hep-ph].
      * @return @f$\delta sigma@f$ [pb]
      */
-    virtual const double deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const;
+    virtual const double deltaxseeWW4fLEP2(const double sqrt_s, const int fstate) const override;
 
     /**
      * @brief The cross section in pb for @f$e^+ e^- \to W^+ W^- \to 4f @f$, 
@@ -5319,7 +5319,7 @@ public:
      * From arXiv: 1606.06693 [hep-ph].
      * @return @f$sigma@f$ [pb]
      */
-    virtual const double xseeWW4fLEP2(const double sqrt_s, const int fstate) const;
+    virtual const double xseeWW4fLEP2(const double sqrt_s, const int fstate) const override;
 
     /**
      * @brief The new physics contribution to the total cross section in pb for @f$e^+ e^- \to W^+ W^-@f$, 
@@ -5327,7 +5327,7 @@ public:
      * From arXiv: 1606.06693 [hep-ph].
      * @return @f$\delta sigma@f$ [pb]
      */
-    virtual const double deltaxseeWWtotLEP2(const double sqrt_s) const;
+    virtual const double deltaxseeWWtotLEP2(const double sqrt_s) const override;
 
 
     /**
@@ -5336,7 +5336,7 @@ public:
      * From arXiv: 1606.06693 [hep-ph].
      * @return @f$sigma@f$ [pb]
      */
-    virtual const double xseeWWtotLEP2(const double sqrt_s) const;
+    virtual const double xseeWWtotLEP2(const double sqrt_s) const override;
 
     /**
      * @brief The new physics contribution to the differential cross section in pb for @f$e^+ e^- \to W^+ W^- \to lv jj @f$, 
@@ -5345,7 +5345,7 @@ public:
      * From arXiv: 1606.06693 [hep-ph].
      * @return @f$\delta d\sigma/d\cos{\theta}@f$ [pb]
      */
-    virtual const double deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const;
+    virtual const double deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const override;
 
     /**
      * @brief The differential cross section in pb for @f$e^+ e^- \to W^+ W^- \to lv jj @f$, 
@@ -5354,28 +5354,28 @@ public:
      * From arXiv: 1606.06693 [hep-ph].
      * @return @f$d\sigma/d\cos{\theta}@f$ [pb]
      */
-    virtual const double dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const;
+    virtual const double dxsdcoseeWWlvjjLEP2(const double sqrt_s, const int bin) const override;
 
     /**
      * @brief The differential distribution for @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$, 
      * with @f$\ell= e, \mu@f$, as a function of the @f$W@f$ polar angle.
      * @return @f$d\sigma/d\cos{\theta}@f$
      */
-    virtual const double dxseeWWdcos(const double sqrt_s, const double cos) const;
+    virtual const double dxseeWWdcos(const double sqrt_s, const double cos) const override;
 
     /**
      * @brief The integral of differential distribution for @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$, 
      * with @f$\ell= e, \mu@f$ in a given bin of the @f$W@f$ polar angle.
      * @return @f$\int_{\cos{\theta_1}}^{\cos{\theta_2}} d\sigma/d\cos{\theta}@f$
      */
-    virtual const double dxseeWWdcosBin(const double sqrt_s, const double cos1, const double cos2) const;
+    virtual const double dxseeWWdcosBin(const double sqrt_s, const double cos1, const double cos2) const override;
 
     /**
      * @brief Total @f$e^+ e^- \to W^+ W^- \to jj \ell \nu@f$ cross section in pb, 
      * with @f$\ell= e, \mu@f$.
      * @return @f$\sigma(e^+ e^- \to W^+ W^- \to jj \ell \nu) @f$
      */
-    virtual const double xseeWW(const double sqrt_s) const;
+    virtual const double xseeWW(const double sqrt_s) const override;
 
     /**
      * @brief The ratio @f$\mu_{eeWW}@f$ between the 
@@ -5385,7 +5385,7 @@ public:
      * are the polarization of electrons and positrons, respectively 
      * @return @f$\mu_{eeWW}@f$
      */
-    virtual const double mueeWW(const double sqrt_s, const double Pol_em, const double Pol_ep) const;
+    virtual const double mueeWW(const double sqrt_s, const double Pol_em, const double Pol_ep) const override;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -5396,7 +5396,7 @@ public:
      * From arXiv:1807.01796 and the contribution to FCC CDR Vol 1. Implemented only in NPSMEFTd6General class.
      * @return @f$g_p^Z@f$
      */
-    virtual const double ppZHprobe(const double sqrt_s) const;
+    virtual const double ppZHprobe(const double sqrt_s) const override;
 
     /**
      * @brief The number of events in  @f$ p p \to WZ@f$
@@ -5405,7 +5405,7 @@ public:
      * Implemented only in NPSMEFTd6General class.
      * @return @f$N_{ev}^{p_{TV}}/N_{ev,SM}^{p_{TV}}@f$
      */
-    virtual const double mupTVppWZ(const double sqrt_s, const double pTV1, const double pTV2) const;
+    virtual const double mupTVppWZ(const double sqrt_s, const double pTV1, const double pTV2) const override;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -5418,7 +5418,7 @@ public:
      * @brief The STXS0 bin @f$pp \to H qq@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS0_qqH(const double sqrt_s) const;
+    virtual const double STXS0_qqH(const double sqrt_s) const override;
 
 
     //----- Stage 1
@@ -5427,254 +5427,254 @@ public:
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_ggH_VBFtopo_j3v(const double sqrt_s) const;
+    virtual const double STXS_ggH_VBFtopo_j3v(const double sqrt_s) const override;
 
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_ggH_VBFtopo_j3(const double sqrt_s) const;
+    virtual const double STXS_ggH_VBFtopo_j3(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_ggH0j(const double sqrt_s) const;
+    virtual const double STXS_ggH0j(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_ggH1j_pTH_0_60(const double sqrt_s) const;
+    virtual const double STXS_ggH1j_pTH_0_60(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_ggH1j_pTH_60_120(const double sqrt_s) const;
+    virtual const double STXS_ggH1j_pTH_60_120(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_ggH1j_pTH_120_200(const double sqrt_s) const;
+    virtual const double STXS_ggH1j_pTH_120_200(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_ggH1j_pTH_200(const double sqrt_s) const;
+    virtual const double STXS_ggH1j_pTH_200(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_ggH2j_pTH_0_200(const double sqrt_s) const;
+    virtual const double STXS_ggH2j_pTH_0_200(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_ggH2j_pTH_0_60(const double sqrt_s) const;
-
-
-    /**
-     * @brief The STXS bin @f$gg \to H@f$.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     */
-    virtual const double STXS_ggH2j_pTH_60_120(const double sqrt_s) const;
+    virtual const double STXS_ggH2j_pTH_0_60(const double sqrt_s) const override;
 
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_ggH2j_pTH_120_200(const double sqrt_s) const;
+    virtual const double STXS_ggH2j_pTH_60_120(const double sqrt_s) const override;
 
 
     /**
      * @brief The STXS bin @f$gg \to H@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_ggH2j_pTH_200(const double sqrt_s) const;
+    virtual const double STXS_ggH2j_pTH_120_200(const double sqrt_s) const override;
+
+
+    /**
+     * @brief The STXS bin @f$gg \to H@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual const double STXS_ggH2j_pTH_200(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to H qq@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_qqHqq_VBFtopo_Rest(const double sqrt_s) const;
-
-
-    /**
-     * @brief The STXS bin @f$qq \to H qq@f$.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     */
-    virtual const double STXS_qqHqq_VBFtopo_j3v(const double sqrt_s) const;
+    virtual const double STXS_qqHqq_VBFtopo_Rest(const double sqrt_s) const override;
 
 
     /**
      * @brief The STXS bin @f$qq \to H qq@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_qqHqq_VBFtopo_j3(const double sqrt_s) const;
+    virtual const double STXS_qqHqq_VBFtopo_j3v(const double sqrt_s) const override;
+
 
     /**
      * @brief The STXS bin @f$qq \to H qq@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_qqHqq_nonVHtopo(const double sqrt_s) const;
+    virtual const double STXS_qqHqq_VBFtopo_j3(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to H qq@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_qqHqq_VHtopo(const double sqrt_s) const;
+    virtual const double STXS_qqHqq_nonVHtopo(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to H qq@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_qqHqq_Rest(const double sqrt_s) const;
+    virtual const double STXS_qqHqq_VHtopo(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to H qq@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_qqHqq_pTj_200(const double sqrt_s) const;
+    virtual const double STXS_qqHqq_Rest(const double sqrt_s) const override;
+
+    /**
+     * @brief The STXS bin @f$qq \to H qq@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual const double STXS_qqHqq_pTj_200(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to H \ell \nu@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_qqHlv_pTV_0_250(const double sqrt_s) const;
-
-
-    /**
-     * @brief The STXS bin @f$qq \to H \ell \nu@f$.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     */
-    virtual const double STXS_qqHlv_pTV_0_150(const double sqrt_s) const;
+    virtual const double STXS_qqHlv_pTV_0_250(const double sqrt_s) const override;
 
 
     /**
      * @brief The STXS bin @f$qq \to H \ell \nu@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_qqHlv_pTV_150_250_0j(const double sqrt_s) const;
+    virtual const double STXS_qqHlv_pTV_0_150(const double sqrt_s) const override;
 
 
     /**
      * @brief The STXS bin @f$qq \to H \ell \nu@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_qqHlv_pTV_150_250_1j(const double sqrt_s) const;
+    virtual const double STXS_qqHlv_pTV_150_250_0j(const double sqrt_s) const override;
 
 
     /**
      * @brief The STXS bin @f$qq \to H \ell \nu@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_qqHlv_pTV_250(const double sqrt_s) const;
+    virtual const double STXS_qqHlv_pTV_150_250_1j(const double sqrt_s) const override;
+
+
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \nu@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual const double STXS_qqHlv_pTV_250(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to H \ell \ell@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_qqHll_pTV_0_150(const double sqrt_s) const;
+    virtual const double STXS_qqHll_pTV_0_150(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to H \ell \ell@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_qqHll_pTV_150_250(const double sqrt_s) const;
-
-
-    /**
-     * @brief The STXS bin @f$qq \to H \ell \ell@f$.
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     */
-    virtual const double STXS_qqHll_pTV_150_250_0j(const double sqrt_s) const;
+    virtual const double STXS_qqHll_pTV_150_250(const double sqrt_s) const override;
 
 
     /**
      * @brief The STXS bin @f$qq \to H \ell \ell@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_qqHll_pTV_150_250_1j(const double sqrt_s) const;
+    virtual const double STXS_qqHll_pTV_150_250_0j(const double sqrt_s) const override;
+
 
     /**
      * @brief The STXS bin @f$qq \to H \ell \ell@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_qqHll_pTV_250(const double sqrt_s) const;
+    virtual const double STXS_qqHll_pTV_150_250_1j(const double sqrt_s) const override;
+
+    /**
+     * @brief The STXS bin @f$qq \to H \ell \ell@f$.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     */
+    virtual const double STXS_qqHll_pTV_250(const double sqrt_s) const override;
 
 
     /**
      * @brief The STXS bin @f$ ttH + tH @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_ttHtH(const double sqrt_s) const;
+    virtual const double STXS_ttHtH(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$ qq \to WH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_WHqqHqq_VBFtopo_j3v(const double sqrt_s) const;
+    virtual const double STXS_WHqqHqq_VBFtopo_j3v(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$ qq \to WH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_WHqqHqq_VBFtopo_j3(const double sqrt_s) const;
+    virtual const double STXS_WHqqHqq_VBFtopo_j3(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$ qq \to WH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_WHqqHqq_VH2j(const double sqrt_s) const;
+    virtual const double STXS_WHqqHqq_VH2j(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$ qq \to WH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_WHqqHqq_Rest(const double sqrt_s) const;
+    virtual const double STXS_WHqqHqq_Rest(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$ qq \to WH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_WHqqHqq_pTj1_200(const double sqrt_s) const;
+    virtual const double STXS_WHqqHqq_pTj1_200(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$ qq \to ZH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_ZHqqHqq_VBFtopo_j3v(const double sqrt_s) const;
+    virtual const double STXS_ZHqqHqq_VBFtopo_j3v(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$ qq \to ZH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_ZHqqHqq_VBFtopo_j3(const double sqrt_s) const;
+    virtual const double STXS_ZHqqHqq_VBFtopo_j3(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$ qq \to ZH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_ZHqqHqq_VH2j(const double sqrt_s) const;
+    virtual const double STXS_ZHqqHqq_VH2j(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$ qq \to ZH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_ZHqqHqq_Rest(const double sqrt_s) const;
+    virtual const double STXS_ZHqqHqq_Rest(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$ qq \to ZH \to H qq @f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS_ZHqqHqq_pTj1_200(const double sqrt_s) const;
+    virtual const double STXS_ZHqqHqq_pTj1_200(const double sqrt_s) const override;
 
 
     //----- Stage 1.2 
@@ -5684,210 +5684,210 @@ public:
     /**
      * @brief The STXS BR @f$ H \to 4l @f$, @f$l=e,\mu@f$.
      */
-    virtual const double STXS12_BrH4lRatio() const;
+    virtual const double STXS12_BrH4lRatio() const override;
 
     /**
      * @brief The STXS BR @f$ H \to e\nu \mu\nu @f$.
      */
-    virtual const double STXS12_BrHevmuvRatio() const;
+    virtual const double STXS12_BrHevmuvRatio() const override;
 
     /**
      * @brief The STXS BR @f$ H \to \gamma \gamma @f$.
      */
-    virtual const double STXS12_BrHgagaRatio() const;
+    virtual const double STXS12_BrHgagaRatio() const override;
 
     /**
      * @brief The STXS BR @f$ H \to bb @f$.
      */
-    virtual const double STXS12_BrHbbRatio() const;
+    virtual const double STXS12_BrHbbRatio() const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j\leq 1,~200<p_{TH} [GeV]<300@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_pTH200_300_Nj01(const double sqrt_s) const;
+    virtual const double STXS12_ggH_pTH200_300_Nj01(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j\leq 1,~300<p_{TH} [GeV]<450@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_pTH300_450_Nj01(const double sqrt_s) const;
+    virtual const double STXS12_ggH_pTH300_450_Nj01(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j\leq 1,~450<p_{TH} [GeV]<650@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_pTH450_650_Nj01(const double sqrt_s) const;
+    virtual const double STXS12_ggH_pTH450_650_Nj01(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j\leq 1,650<p_{TH} [GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_pTH650_Inf_Nj01(const double sqrt_s) const;
+    virtual const double STXS12_ggH_pTH650_Inf_Nj01(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j=0,~p_{TH} [GeV]<10@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_pTH0_10_Nj0(const double sqrt_s) const;
+    virtual const double STXS12_ggH_pTH0_10_Nj0(const double sqrt_s) const override;
     
     
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j=0,~p_{TH} [GeV]<10@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_pTH10_200_Nj0(const double sqrt_s) const;
+    virtual const double STXS12_ggH_pTH10_200_Nj0(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j=0,~10<p_{TH} [GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_pTH10_Inf_Nj0(const double sqrt_s) const;
+    virtual const double STXS12_ggH_pTH10_Inf_Nj0(const double sqrt_s) const override;
     
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j = 1,~p_{TH} [GeV]<60@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_pTH0_60_Nj1(const double sqrt_s) const;
+    virtual const double STXS12_ggH_pTH0_60_Nj1(const double sqrt_s) const override;
     
     
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 1,~m_{jj}[GeV]<350,~p_{TH} [GeV]<60@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_mjj0_350_pTH0_60_Nj1(const double sqrt_s) const;
+    virtual const double STXS12_ggH_mjj0_350_pTH0_60_Nj1(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j = 1,~60<p_{TH} [GeV]<120@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_pTH60_120_Nj1(const double sqrt_s) const;
+    virtual const double STXS12_ggH_pTH60_120_Nj1(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j = 1,~120<p_{TH} [GeV]<200@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_pTH120_200_Nj1(const double sqrt_s) const;
+    virtual const double STXS12_ggH_pTH120_200_Nj1(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~m_{jj}[GeV]<350,~p_{TH} [GeV]<60@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_mjj0_350_pTH0_60_Nj2(const double sqrt_s) const;
+    virtual const double STXS12_ggH_mjj0_350_pTH0_60_Nj2(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~m_{jj}[GeV]<350,~60<p_{TH} [GeV]<120@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_mjj0_350_pTH60_120_Nj2(const double sqrt_s) const;
+    virtual const double STXS12_ggH_mjj0_350_pTH60_120_Nj2(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~m_{jj}[GeV]<350,~120<p_{TH} [GeV]<200@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_mjj0_350_pTH120_200_Nj2(const double sqrt_s) const;
+    virtual const double STXS12_ggH_mjj0_350_pTH120_200_Nj2(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~350<m_{jj}[GeV]<700,~p_{TH} [GeV]<200,~p_{THjj}[GeV]<25@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2(const double sqrt_s) const;
+    virtual const double STXS12_ggH_mjj350_700_pTH0_200_ptHjj0_25_Nj2(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~350<m_{jj}[GeV]<700,~p_{TH} [GeV]<200,~25<p_{THjj}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2(const double sqrt_s) const;
+    virtual const double STXS12_ggH_mjj350_700_pTH0_200_ptHjj25_Inf_Nj2(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~700<m_{jj}[GeV],~p_{TH} [GeV]<200,~p_{THjj}[GeV]<25@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2(const double sqrt_s) const;
+    virtual const double STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj0_25_Nj2(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~700<m_{jj}[GeV],~p_{TH} [GeV]<200,~25<p_{THjj}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2(const double sqrt_s) const;
+    virtual const double STXS12_ggH_mjj700_Inf_pTH0_200_ptHjj25_Inf_Nj2(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~350<m_{jj}[GeV]<700,~<p_{TH} [GeV]<200@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_mjj350_700_pTH0_200_Nj2(const double sqrt_s) const;           //AG:added
+    virtual const double STXS12_ggH_mjj350_700_pTH0_200_Nj2(const double sqrt_s) const override;           //AG:added
     
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$N_j \geq 2,~700<m_{jj}[GeV],~p_{TH} [GeV]<200@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_mjj700_Inf_pTH0_200_Nj2(const double sqrt_s) const;           //AG:added
+    virtual const double STXS12_ggH_mjj700_Inf_pTH0_200_Nj2(const double sqrt_s) const override;           //AG:added
     
     
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$,200<~p_{TH} [GeV]<300@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_pTH200_300(const double sqrt_s) const;
+    virtual const double STXS12_ggH_pTH200_300(const double sqrt_s) const override;
     
     
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$,300<~p_{TH} [GeV]<450@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_pTH300_450(const double sqrt_s) const;
+    virtual const double STXS12_ggH_pTH300_450(const double sqrt_s) const override;
     
     
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$,450<~p_{TH} [GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_pTH450_Inf(const double sqrt_s) const;
+    virtual const double STXS12_ggH_pTH450_Inf(const double sqrt_s) const override;
     
     
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$450<~p_{TH} [GeV]<650@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_pTH450_650(const double sqrt_s) const;
+    virtual const double STXS12_ggH_pTH450_650(const double sqrt_s) const override;
     
     
     /**
      * @brief The STXS bin @f$gg \to H@f$, @f$~p_{TH} [GeV]>650@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggH_pTH650_Inf(const double sqrt_s) const;
+    virtual const double STXS12_ggH_pTH650_Inf(const double sqrt_s) const override;
     
     
     /**
      * @brief The STXS bin @f$gg \to H\ell\ell@f$, @f$p_{TV}[GeV]<75@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggHll_pTV0_75(const double sqrt_s) const;
+    virtual const double STXS12_ggHll_pTV0_75(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H\ell\ell@f$, @f$75<p_{TV}[GeV]<150@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggHll_pTV75_150(const double sqrt_s) const;
+    virtual const double STXS12_ggHll_pTV75_150(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H\ell\ell@f$, @f$N_j = 0,~150<p_{TV}[GeV]<250@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggHll_pTV150_250_Nj0(const double sqrt_s) const;
+    virtual const double STXS12_ggHll_pTV150_250_Nj0(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H\ell\ell@f$, @f$N_j = 1,~150<p_{TV}[GeV]<250@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggHll_pTV150_250_Nj1(const double sqrt_s) const;
+    virtual const double STXS12_ggHll_pTV150_250_Nj1(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$gg \to H\ell\ell@f$, @f$250 < p_{TV}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ggHll_pTV250_Inf(const double sqrt_s) const;
+    virtual const double STXS12_ggHll_pTV250_Inf(const double sqrt_s) const override;
 
 
     
@@ -5895,7 +5895,7 @@ public:
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j = 0,1@f$ VH-veto Ref. 2402.05742.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHqq_VH_veto_Nj01(const double sqrt_s) const;
+    virtual const double STXS12_qqHqq_VH_veto_Nj01(const double sqrt_s) const override;
 
     
     
@@ -5904,37 +5904,37 @@ public:
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j = 0@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHqq_Nj0(const double sqrt_s) const;
+    virtual const double STXS12_qqHqq_Nj0(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j = 1@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHqq_Nj1(const double sqrt_s) const;
+    virtual const double STXS12_qqHqq_Nj1(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~m_{jj}[GeV]<60@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHqq_mjj0_60_Nj2(const double sqrt_s) const;
+    virtual const double STXS12_qqHqq_mjj0_60_Nj2(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~60<m_{jj}[GeV]<120@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHqq_mjj60_120_Nj2(const double sqrt_s) const;
+    virtual const double STXS12_qqHqq_mjj60_120_Nj2(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~120<m_{jj}[GeV]<350@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHqq_mjj120_350_Nj2(const double sqrt_s) const;
+    virtual const double STXS12_qqHqq_mjj120_350_Nj2(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~350<m_{jj}[GeV],~200<p_{TH}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(const double sqrt_s) const;
+    virtual const double STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(const double sqrt_s) const override;
 
     
     
@@ -5942,205 +5942,205 @@ public:
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~350<m_{jj}[GeV]<700,~p_{TH}[GeV]<200,~p_{THjj}[GeV]<25@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(const double sqrt_s) const;
+    virtual const double STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj0_25_Nj2(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~350<m_{jj}[GeV]<700,~p_{TH}[GeV]<200,~25<p_{THjj}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(const double sqrt_s) const;
+    virtual const double STXS12_qqHqq_mjj350_700_pTH0_200_pTHjj25_Inf_Nj2(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~700<m_{jj}[GeV],~p_{TH}[GeV]<200,~p_{THjj}[GeV]<25@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2(const double sqrt_s) const;
+    virtual const double STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj0_25_Nj2(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~700<m_{jj}[GeV],~p_{TH}[GeV]<200,~25<p_{THjj}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(const double sqrt_s) const;
+    virtual const double STXS12_qqHqq_mjj700_Inf_pTH0_200_pTHjj25_Inf_Nj2(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~350<m_{jj}[GeV]<700,~p_{TH}[GeV]<200@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHqq_mjj350_700_pTH0_200_Nj2(const double sqrt_s) const;     //AG:added
+    virtual const double STXS12_qqHqq_mjj350_700_pTH0_200_Nj2(const double sqrt_s) const override;     //AG:added
     
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~700<m_{jj}[GeV]<1000,~p_{TH}[GeV]<200@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHqq_mjj700_1000_pTH0_200_Nj2(const double sqrt_s) const;    //AG:added
+    virtual const double STXS12_qqHqq_mjj700_1000_pTH0_200_Nj2(const double sqrt_s) const override;    //AG:added
     
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~1000<m_{jj}[GeV]<1500,~p_{TH}[GeV]<200@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHqq_mjj1000_1500_pTH0_200_Nj2(const double sqrt_s) const;   //AG:added
+    virtual const double STXS12_qqHqq_mjj1000_1500_pTH0_200_Nj2(const double sqrt_s) const override;   //AG:added
     
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~1500<m_{jj}[GeV],~p_{TH}[GeV]<200@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2(const double sqrt_s) const;    //AG:added
+    virtual const double STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2(const double sqrt_s) const override;    //AG:added
     
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~350<m_{jj}[GeV]<1000,~p_{TH}[GeV]>200@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHqq_mjj350_1000_pTH200_Inf_Nj2(const double sqrt_s) const;    //AG:added
+    virtual const double STXS12_qqHqq_mjj350_1000_pTH200_Inf_Nj2(const double sqrt_s) const override;    //AG:added
     
     /**
      * @brief The STXS bin @f$qq \to Hqq@f$, @f$N_j \geq 2,~1000<m_{jj}[GeV],~p_{TH}[GeV]>200@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHqq_mjj1000_Inf_pTH200_Inf_Nj2(const double sqrt_s) const;    //AG:added
+    virtual const double STXS12_qqHqq_mjj1000_Inf_pTH200_Inf_Nj2(const double sqrt_s) const override;    //AG:added
     
     /**
      * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$p_{TV}[GeV]<75@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHlv_pTV0_75(const double sqrt_s) const;
+    virtual const double STXS12_qqHlv_pTV0_75(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$75<p_{TV}[GeV]<150@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHlv_pTV75_150(const double sqrt_s) const;
+    virtual const double STXS12_qqHlv_pTV75_150(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$N_j = 0,~150<p_{TV}[GeV]<250@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHlv_pTV150_250_Nj0(const double sqrt_s) const;
+    virtual const double STXS12_qqHlv_pTV150_250_Nj0(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$N_j \geq 1,~150<p_{TV}[GeV]<250@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHlv_pTV150_250_Nj1(const double sqrt_s) const;
+    virtual const double STXS12_qqHlv_pTV150_250_Nj1(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$250<p_{TV}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHlv_pTV250_Inf(const double sqrt_s) const;
+    virtual const double STXS12_qqHlv_pTV250_Inf(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$0<p_{TV}<150[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHlv_pTV0_150(const double sqrt_s) const;            //AG:added
+    virtual const double STXS12_qqHlv_pTV0_150(const double sqrt_s) const override;            //AG:added
     
     /**
      * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$250<p_{TV}<400[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHlv_pTV250_400(const double sqrt_s) const;          //AG:added
+    virtual const double STXS12_qqHlv_pTV250_400(const double sqrt_s) const override;          //AG:added
     
     /**
      * @brief The STXS bin @f$qq \to H\ell\nu@f$, @f$400<p_{TV}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHlv_pTV400_Inf(const double sqrt_s) const;          //AG:added    
+    virtual const double STXS12_qqHlv_pTV400_Inf(const double sqrt_s) const override;          //AG:added
     
     /**
      * @brief The STXS bin @f$qq \to H\ell\ell@f$, @f$p_{TV}[GeV]<75@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHll_pTV0_75(const double sqrt_s) const;
+    virtual const double STXS12_qqHll_pTV0_75(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\ell@f$, @f$75<p_{TV}[GeV]<150@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHll_pTV75_150(const double sqrt_s) const;
+    virtual const double STXS12_qqHll_pTV75_150(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\ell@f$, @f$N_j = 0,~150<p_{TV}[GeV]<250@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHll_pTV150_250_Nj0(const double sqrt_s) const;
+    virtual const double STXS12_qqHll_pTV150_250_Nj0(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\ell@f$, @f$N_j \geq 1,~150<p_{TV}[GeV]<250@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHll_pTV150_250_Nj1(const double sqrt_s) const;
+    virtual const double STXS12_qqHll_pTV150_250_Nj1(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\ell@f$, @f$250<p_{TV}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHll_pTV250_Inf(const double sqrt_s) const;
+    virtual const double STXS12_qqHll_pTV250_Inf(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$qq \to H\ell\ell@f$, @f$0<p_{TV}<150[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHll_pTV0_150(const double sqrt_s) const;            //AG:added
+    virtual const double STXS12_qqHll_pTV0_150(const double sqrt_s) const override;            //AG:added
     
     /**
      * @brief The STXS bin @f$qq \to H\ell\ell@f$, @f$250<p_{TV}<400[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHll_pTV250_400(const double sqrt_s) const;          //AG:added
+    virtual const double STXS12_qqHll_pTV250_400(const double sqrt_s) const override;          //AG:added
     
     /**
      * @brief The STXS bin @f$qq \to H\ell\ell@f$, @f$400<p_{TV}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_qqHll_pTV400_Inf(const double sqrt_s) const;          //AG:added
+    virtual const double STXS12_qqHll_pTV400_Inf(const double sqrt_s) const override;          //AG:added
     
     /**
      * @brief The STXS bin @f$pp \to ttH@f$, @f$p_{TH}[GeV]<60@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ttH_pTH0_60(const double sqrt_s) const;
+    virtual const double STXS12_ttH_pTH0_60(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$pp \to ttH@f$, @f$60<p_{TH}[GeV]<120@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ttH_pTH60_120(const double sqrt_s) const;
+    virtual const double STXS12_ttH_pTH60_120(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$pp \to ttH@f$, @f$120<p_{TH}[GeV]<200@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ttH_pTH120_200(const double sqrt_s) const;
+    virtual const double STXS12_ttH_pTH120_200(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$pp \to ttH@f$, @f$200<p_{TH}[GeV]<300@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ttH_pTH200_300(const double sqrt_s) const;
+    virtual const double STXS12_ttH_pTH200_300(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$pp \to ttH@f$, @f$300<p_{TH}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ttH_pTH300_Inf(const double sqrt_s) const;
+    virtual const double STXS12_ttH_pTH300_Inf(const double sqrt_s) const override;
 
     /**
      * @brief The STXS bin @f$pp \to ttH@f$, @f$300<p_{TH}[GeV]<450@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ttH_pTH300_450(const double sqrt_s) const;            //AG:added
+    virtual const double STXS12_ttH_pTH300_450(const double sqrt_s) const override;            //AG:added
     
     /**
      * @brief The STXS bin @f$pp \to ttH@f$, @f$450<p_{TH}[GeV]@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_ttH_pTH450_Inf(const double sqrt_s) const;            //AG:added   
+    virtual const double STXS12_ttH_pTH450_Inf(const double sqrt_s) const override;            //AG:added
     
     /**
      * @brief The STXS bin @f$pp \to tH@f$.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      */
-    virtual const double STXS12_tH(const double sqrt_s) const;
+    virtual const double STXS12_tH(const double sqrt_s) const override;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -6148,19 +6148,19 @@ public:
      * @brief The effective coupling @f$\kappa_{\mu,eff}=\sqrt{\Gamma_{H\mu\mu}/\Gamma_{H\mu\mu}^{SM}}@f$.
      * @return @f$\kappa_{\mu,eff}@f$
      */
-    virtual const double kappamueff() const;
+    virtual const double kappamueff() const override;
 
     /**
      * @brief The effective coupling @f$\kappa_{\tau,eff}=\sqrt{\Gamma_{H\tau\tau}/\Gamma_{H\tau\tau}^{SM}}@f$.
      * @return @f$\kappa_{\tau,eff}@f$
      */
-    virtual const double kappataueff() const;
+    virtual const double kappataueff() const override;
 
     /**
      * @brief The effective coupling @f$\kappa_{c,eff}=\sqrt{\Gamma_{Hcc}/\Gamma_{Hcc}^{SM}}@f$.
      * @return @f$\kappa_{c,eff}@f$
      */
-    virtual const double kappaceff() const;
+    virtual const double kappaceff() const override;
     
     /**
      * @brief The effective coupling @f$\kappa_{s,eff}=\sqrt{\Gamma_{Hss}/\Gamma_{Hss}^{SM}}@f$.
@@ -6172,49 +6172,49 @@ public:
      * @brief The effective coupling @f$\kappa_{b,eff}=\sqrt{\Gamma_{Hbb}/\Gamma_{Hbb}^{SM}}@f$.
      * @return @f$\kappa_{b,eff}@f$
      */
-    virtual const double kappabeff() const;
+    virtual const double kappabeff() const override;
 
     /**
      * @brief The effective coupling @f$\kappa_{G,eff}=\sqrt{\Gamma_{HGG}/\Gamma_{HGG}^{SM}}@f$.
      * @return @f$\kappa_{G,eff}@f$
      */
-    virtual const double kappaGeff() const;
+    virtual const double kappaGeff() const override;
 
     /**
      * @brief The effective coupling @f$\kappa_{Z,eff}=\sqrt{\Gamma_{HZZ}/\Gamma_{HZZ}^{SM}}@f$.
      * @return @f$\kappa_{Z,eff}@f$
      */
-    virtual const double kappaZeff() const;
+    virtual const double kappaZeff() const override;
 
     /**
      * @brief The effective coupling @f$\kappa_{W,eff}=\sqrt{\Gamma_{HWW}/\Gamma_{HWW}^{SM}}@f$.
      * @return @f$\kappa_{W,eff}@f$
      */
-    virtual const double kappaWeff() const;
+    virtual const double kappaWeff() const override;
     
     /**
      * @brief The effective coupling @f$\kappa_{Z4f,eff}=\sqrt{\Gamma_{H4f, NC}/\Gamma_{H4f, NC}^{SM}}@f$.
      * @return @f$\kappa_{Z4f,eff}@f$
      */
-    virtual const double kappaZ4feff() const;
+    virtual const double kappaZ4feff() const override;
     
     /**
      * @brief The effective coupling @f$\kappa_{W4f,eff}=\sqrt{\Gamma_{H4f, CC}/\Gamma_{H4f, CC}^{SM}}@f$.
      * @return @f$\kappa_{W4f,eff}@f$
      */
-    virtual const double kappaW4feff() const;
+    virtual const double kappaW4feff() const override;
     
     /**
      * @brief The effective coupling @f$\kappa_{A,eff}=\sqrt{\Gamma_{HAA}/\Gamma_{HAA}^{SM}}@f$.
      * @return @f$\kappa_{A,eff}@f$
      */
-    virtual const double kappaAeff() const;
+    virtual const double kappaAeff() const override;
 
     /**
      * @brief The effective coupling @f$\kappa_{ZA,eff}=\sqrt{\Gamma_{HZA}/\Gamma_{HZA}^{SM}}@f$.
      * @return @f$\kappa_{ZA,eff}@f$
      */
-    virtual const double kappaZAeff() const;
+    virtual const double kappaZAeff() const override;
 
     /////////////Basic interactions of the so-called Higgs basis////////////////
 
@@ -6229,7 +6229,7 @@ public:
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_t@f$
      */
-    virtual const double deltayt_HB(const double mu) const;
+    virtual const double deltayt_HB(const double mu) const override;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta y_b@f$.
@@ -6242,7 +6242,7 @@ public:
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_b@f$
      */
-    virtual const double deltayb_HB(const double mu) const;
+    virtual const double deltayb_HB(const double mu) const override;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta y_\tau@f$.
@@ -6255,7 +6255,7 @@ public:
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_\tau@f$
      */
-    virtual const double deltaytau_HB(const double mu) const;
+    virtual const double deltaytau_HB(const double mu) const override;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta y_c@f$.
@@ -6268,7 +6268,7 @@ public:
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_c@f$
      */
-    virtual const double deltayc_HB(const double mu) const;
+    virtual const double deltayc_HB(const double mu) const override;
     
 
     /**
@@ -6282,7 +6282,7 @@ public:
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_s@f$
      */
-    virtual const double deltays_HB(const double mu) const;
+    virtual const double deltays_HB(const double mu) const override;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta y_\mu@f$.
@@ -6295,7 +6295,7 @@ public:
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta y_\mu@f$
      */
-    virtual const double deltaymu_HB(const double mu) const;
+    virtual const double deltaymu_HB(const double mu) const override;
 
     /**
      * @brief The Higgs-basis coupling @f$\delta c_z@f$.
@@ -6308,7 +6308,7 @@ public:
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\delta c_z@f$
      */
-    virtual const double deltacZ_HB(const double mu) const;
+    virtual const double deltacZ_HB(const double mu) const override;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{z\Box}@f$.
@@ -6321,7 +6321,7 @@ public:
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{z\Box}@f$
      */
-    virtual const double cZBox_HB(const double mu) const;
+    virtual const double cZBox_HB(const double mu) const override;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{zz}@f$.
@@ -6334,7 +6334,7 @@ public:
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{zz}@f$
      */
-    virtual const double cZZ_HB(const double mu) const;
+    virtual const double cZZ_HB(const double mu) const override;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{z\gamma}@f$.
@@ -6347,7 +6347,7 @@ public:
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{z\gamma}@f$
      */
-    virtual const double cZga_HB(const double mu) const;
+    virtual const double cZga_HB(const double mu) const override;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{\gamma\gamma}@f$.
@@ -6360,7 +6360,7 @@ public:
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{\gamma\gamma}@f$
      */
-    virtual const double cgaga_HB(const double mu) const;
+    virtual const double cgaga_HB(const double mu) const override;
 
     /**
      * @brief The Higgs-basis coupling @f$c_{gg}@f$.
@@ -6373,7 +6373,7 @@ public:
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{gg}@f$
      */
-    virtual const double cgg_HB(const double mu) const;
+    virtual const double cgg_HB(const double mu) const override;
 
     /**
      * @brief The effective Higgs-basis coupling @f$c_{gg}^{Eff}@f$. (Similar to cgg_HB but including modifications of SM loops.)
@@ -6386,7 +6386,7 @@ public:
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$c_{gg}^{Eff}@f$
      */
-    virtual const double cggEff_HB(const double mu) const;
+    virtual const double cggEff_HB(const double mu) const override;
 
     /**
      * @brief The Higgs-basis coupling @f$\lambda_{z}@f$.
@@ -6399,7 +6399,7 @@ public:
      * @param[in] mu the RG scale to be used in the evaluation
      * @return @f$\lambda_{z}@f$
      */
-    virtual const double lambz_HB(const double mu) const;
+    virtual const double lambz_HB(const double mu) const override;
 
     /////////////Combinations of Warsaw basis coefficients constrained by EWPO////////////////
 
@@ -6408,84 +6408,84 @@ public:
      * @f$(\hat{C}_{HL}^{(1)})_{11}@f$.
      * @return @f$(\hat{C}_{HL}^{(1)})_{11}@f$
      */
-    virtual const double CEWHL111(const double mu) const;
+    virtual const double CEWHL111(const double mu) const override;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HL}^{(1)})_{22}@f$.
      * @return @f$(\hat{C}_{HL}^{(1)})_{22}@f$
      */
-    virtual const double CEWHL122(const double mu) const;
+    virtual const double CEWHL122(const double mu) const override;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HL}^{(1)})_{33}@f$.
      * @return @f$(\hat{C}_{HL}^{(1)})_{33}@f$
      */
-    virtual const double CEWHL133(const double mu) const;
+    virtual const double CEWHL133(const double mu) const override;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HL}^{(3)})_{11}@f$.
      * @return @f$(\hat{C}_{HL}^{(3)})_{11}@f$
      */
-    virtual const double CEWHL311(const double mu) const;
+    virtual const double CEWHL311(const double mu) const override;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HL}^{(3)})_{22}@f$.
      * @return @f$(\hat{C}_{HL}^{(3)})_{22}@f$
      */
-    virtual const double CEWHL322(const double mu) const;
+    virtual const double CEWHL322(const double mu) const override;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HL}^{(3)})_{33}@f$.
      * @return @f$(\hat{C}_{HL}^{(3)})_{33}@f$
      */
-    virtual const double CEWHL333(const double mu) const;
+    virtual const double CEWHL333(const double mu) const override;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(1)})_{11}@f$.
      * @return @f$(\hat{C}_{HQ}^{(1)})_{11}@f$
      */
-    virtual const double CEWHQ111(const double mu) const;
+    virtual const double CEWHQ111(const double mu) const override;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(1)})_{22}@f$.
      * @return @f$(\hat{C}_{HQ}^{(1)})_{22}@f$
      */
-    virtual const double CEWHQ122(const double mu) const;
+    virtual const double CEWHQ122(const double mu) const override;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(1)})_{33}@f$.
      * @return @f$(\hat{C}_{HQ}^{(1)})_{33}@f$
      */
-    virtual const double CEWHQ133(const double mu) const;
+    virtual const double CEWHQ133(const double mu) const override;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(3)})_{11}@f$.
      * @return @f$(\hat{C}_{HQ}^{(3)})_{11}@f$
      */
-    virtual const double CEWHQ311(const double mu) const;
+    virtual const double CEWHQ311(const double mu) const override;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(3)})_{22}@f$.
      * @return @f$(\hat{C}_{HQ}^{(3)})_{22}@f$
      */
-    virtual const double CEWHQ322(const double mu) const;
+    virtual const double CEWHQ322(const double mu) const override;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(3)})_{33}@f$.
      * @return @f$(\hat{C}_{HQ}^{(3)})_{33}@f$
      */
-    virtual const double CEWHQ333(const double mu) const;
+    virtual const double CEWHQ333(const double mu) const override;
 
 
     /**
@@ -6493,14 +6493,14 @@ public:
      * @f$(\hat{C}_{HQ}^{(d)})_{33}@f$.
      * @return @f$(\hat{C}_{HQ}^{(d)})_{33}@f$
      */
-    virtual const double CEWHQd33(const double mu) const;
+    virtual const double CEWHQd33(const double mu) const override;
     
     /**
      * @brief Combination of coefficients of the Warsaw basis not constrained by EWPO (at LO)
      * @f$(\hat{C}_{HQ}^{(u)})_{33}@f$.
      * @return @f$(\hat{C}_{HQ}^{(u)})_{33}@f$
      */
-    virtual const double CEWHQu33(const double mu) const;
+    virtual const double CEWHQu33(const double mu) const override;
 
 
     /**
@@ -6508,21 +6508,21 @@ public:
      * @f$(\hat{C}_{He})_{11}@f$.
      * @return @f$(\hat{C}_{He})_{11}@f$
      */
-    virtual const double CEWHe11(const double mu) const;
+    virtual const double CEWHe11(const double mu) const override;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{He})_{22}@f$.
      * @return @f$(\hat{C}_{He})_{22}@f$
      */
-    virtual const double CEWHe22(const double mu) const;
+    virtual const double CEWHe22(const double mu) const override;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{He})_{33}@f$.
      * @return @f$(\hat{C}_{He})_{33}@f$
      */
-    virtual const double CEWHe33(const double mu) const;
+    virtual const double CEWHe33(const double mu) const override;
 
 
     /**
@@ -6530,21 +6530,21 @@ public:
      * @f$(\hat{C}_{Hu})_{11}@f$.
      * @return @f$(\hat{C}_{Hu})_{11}@f$
      */
-    virtual const double CEWHu11(const double mu) const;
+    virtual const double CEWHu11(const double mu) const override;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{Hu})_{22}@f$.
      * @return @f$(\hat{C}_{Hu})_{22}@f$
      */
-    virtual const double CEWHu22(const double mu) const;
+    virtual const double CEWHu22(const double mu) const override;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{Hu})_{33}@f$.
      * @return @f$(\hat{C}_{Hu})_{33}@f$
      */
-    virtual const double CEWHu33(const double mu) const;
+    virtual const double CEWHu33(const double mu) const override;
 
 
     /**
@@ -6552,28 +6552,28 @@ public:
      * @f$(\hat{C}_{Hd})_{11}@f$.
      * @return @f$(\hat{C}_{Hd})_{11}@f$
      */
-    virtual const double CEWHd11(const double mu) const;
+    virtual const double CEWHd11(const double mu) const override;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{Hd})_{22}@f$.
      * @return @f$(\hat{C}_{Hd})_{22}@f$
      */
-    virtual const double CEWHd22(const double mu) const;
+    virtual const double CEWHd22(const double mu) const override;
 
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{Hd})_{33}@f$.
      * @return @f$(\hat{C}_{Hd})_{33}@f$
      */
-    virtual const double CEWHd33(const double mu) const;
+    virtual const double CEWHd33(const double mu) const override;
     
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{ll})_{1221}@f$.
      * @return @@f$(\hat{C}_{ll})_{1221}@f$
      */
-    virtual const double CEWll(const double mu) const;
+    virtual const double CEWll(const double mu) const override;
     
     
     //-----  The same, in the quark mass basis  ----------    
@@ -6583,42 +6583,42 @@ public:
      * @f$(\hat{C}_{HQ}^{(1)})_{uu}@f$.
      * @return @f$(\hat{C}_{HQ}^{(1)})_{uu}@f$
      */
-    virtual const double CEWHQ1uu(const double mu) const;
+    virtual const double CEWHQ1uu(const double mu) const override;
     
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(1)})_{cc}@f$.
      * @return @f$(\hat{C}_{HQ}^{(1)})_{cc}@f$
      */
-    virtual const double CEWHQ1cc(const double mu) const;
+    virtual const double CEWHQ1cc(const double mu) const override;
     
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(1)})_{tt}@f$.
      * @return @f$(\hat{C}_{HQ}^{(1)})_{tt}@f$
      */
-    virtual const double CEWHQ1tt(const double mu) const;
+    virtual const double CEWHQ1tt(const double mu) const override;
     
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(1)})_{dd}@f$.
      * @return @f$(\hat{C}_{HQ}^{(1)})_{dd}@f$
      */
-    virtual const double CEWHQ1dd(const double mu) const;
+    virtual const double CEWHQ1dd(const double mu) const override;
     
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(1)})_{ss}@f$.
      * @return @f$(\hat{C}_{HQ}^{(1)})_{ss}@f$
      */
-    virtual const double CEWHQ1ss(const double mu) const;
+    virtual const double CEWHQ1ss(const double mu) const override;
     
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(1)})_{bb}@f$.
      * @return @f$(\hat{C}_{HQ}^{(1)})_{bb}@f$
      */
-    virtual const double CEWHQ1bb(const double mu) const;
+    virtual const double CEWHQ1bb(const double mu) const override;
     
     
     /**
@@ -6626,42 +6626,42 @@ public:
      * @f$(\hat{C}_{HQ}^{(3)})_{uu}@f$.
      * @return @f$(\hat{C}_{HQ}^{(3)})_{uu}@f$
      */
-    virtual const double CEWHQ3uu(const double mu) const;
+    virtual const double CEWHQ3uu(const double mu) const override;
     
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(3)})_{cc}@f$.
      * @return @f$(\hat{C}_{HQ}^{(3)})_{cc}@f$
      */
-    virtual const double CEWHQ3cc(const double mu) const;
+    virtual const double CEWHQ3cc(const double mu) const override;
     
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(3)})_{tt}@f$.
      * @return @f$(\hat{C}_{HQ}^{(3)})_{tt}@f$
      */
-    virtual const double CEWHQ3tt(const double mu) const;
+    virtual const double CEWHQ3tt(const double mu) const override;
     
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(3)})_{dd}@f$.
      * @return @f$(\hat{C}_{HQ}^{(3)})_{dd}@f$
      */
-    virtual const double CEWHQ3dd(const double mu) const;
+    virtual const double CEWHQ3dd(const double mu) const override;
     
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(3)})_{ss}@f$.
      * @return @f$(\hat{C}_{HQ}^{(3)})_{ss}@f$
      */
-    virtual const double CEWHQ3ss(const double mu) const;
+    virtual const double CEWHQ3ss(const double mu) const override;
     
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{HQ}^{(3)})_{bb}@f$.
      * @return @f$(\hat{C}_{HQ}^{(3)})_{bb}@f$
      */
-    virtual const double CEWHQ3bb(const double mu) const;
+    virtual const double CEWHQ3bb(const double mu) const override;
     
     
     
@@ -6670,21 +6670,21 @@ public:
      * @f$(\hat{C}_{Hu})_{uu}@f$.
      * @return @f$(\hat{C}_{Hu})_{uu}@f$
      */
-    virtual const double CEWHuuu(const double mu) const;
+    virtual const double CEWHuuu(const double mu) const override;
     
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{Hu})_{cc}@f$.
      * @return @f$(\hat{C}_{Hu})_{cc}@f$
      */
-    virtual const double CEWHucc(const double mu) const;
+    virtual const double CEWHucc(const double mu) const override;
     
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{Hu})_{tt}@f$.
      * @return @f$(\hat{C}_{Hu})_{tt}@f$
      */
-    virtual const double CEWHutt(const double mu) const;
+    virtual const double CEWHutt(const double mu) const override;
     
  
     /**
@@ -6692,21 +6692,21 @@ public:
      * @f$(\hat{C}_{Hd})_{dd}@f$.
      * @return @f$(\hat{C}_{Hd})_{dd}@f$
      */
-    virtual const double CEWHddd(const double mu) const;
+    virtual const double CEWHddd(const double mu) const override;
     
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{Hd})_{ss}@f$.
      * @return @f$(\hat{C}_{Hd})_{ss}@f$
      */
-    virtual const double CEWHdss(const double mu) const;
+    virtual const double CEWHdss(const double mu) const override;
     
     /**
      * @brief Combination of coefficients of the Warsaw basis constrained by EWPO
      * @f$(\hat{C}_{Hd})_{bb}@f$.
      * @return @f$(\hat{C}_{Hd})_{bb}@f$
      */
-    virtual const double CEWHdbb(const double mu) const;
+    virtual const double CEWHdbb(const double mu) const override;
 
 
     ///////////Collider observables: LHC dilepton events////////////////////////
@@ -6715,19 +6715,19 @@ public:
      * @brief Number of di-electron events at the LHC at 13 TeV
      * @return NevLHCppee13
      */
-    virtual const double NevLHCppee13(const int i_bin) const;
+    virtual const double NevLHCppee13(const int i_bin) const override;
     
     /**
      * @brief Number of di-muon events at the LHC at 13 TeV
      * @return NevLHCppmumu13
      */
-    virtual const double NevLHCppmumu13(const int i_bin) const;
+    virtual const double NevLHCppmumu13(const int i_bin) const override;
     
     /**
      * @brief Number of di-tau events at the LHC at 13 TeV
      * @return NevLHCpptautau13
      */
-    virtual const double NevLHCpptautau13(const int i_bin) const;
+    virtual const double NevLHCpptautau13(const int i_bin) const override;
     
     ///////////Collider observables: LHC mono-lepton events////////////////////////
     
@@ -6735,19 +6735,19 @@ public:
      * @brief Number of mono-electron events at the LHC at 13 TeV
      * @return NevLHCppenu13
      */
-    virtual const double NevLHCppenu13(const int i_bin) const;
+    virtual const double NevLHCppenu13(const int i_bin) const override;
     
     /**
      * @brief Number of mono-muon events at the LHC at 13 TeV
      * @return NevLHCppmunu13
      */
-    virtual const double NevLHCppmunu13(const int i_bin) const;
+    virtual const double NevLHCppmunu13(const int i_bin) const override;
     
     /**
      * @brief Number of mono-tau events at the LHC at 13 TeV
      * @return NevLHCpptaunu13
      */
-    virtual const double NevLHCpptaunu13(const int i_bin) const;
+    virtual const double NevLHCpptaunu13(const int i_bin) const override;
     
     /////////////Auxiliary observables////////////////
 
@@ -6756,194 +6756,194 @@ public:
      * (See code for details.)
      * @return AuxObs_NP1
      */
-    virtual const double AuxObs_NP1() const;
+    virtual const double AuxObs_NP1() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP2
      * (See code for details.)
      * @return AuxObs_NP2
      */
-    virtual const double AuxObs_NP2() const;
+    virtual const double AuxObs_NP2() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP3
      * (See code for details.)
      * @return AuxObs_NP3
      */
-    virtual const double AuxObs_NP3() const;
+    virtual const double AuxObs_NP3() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP4
      * (See code for details.)
      * @return AuxObs_NP4
      */
-    virtual const double AuxObs_NP4() const;
+    virtual const double AuxObs_NP4() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP5
      * (See code for details.)
      * @return AuxObs_NP5
      */
-    virtual const double AuxObs_NP5() const;
+    virtual const double AuxObs_NP5() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP6
      * (See code for details.)
      * @return AuxObs_NP6
      */
-    virtual const double AuxObs_NP6() const;
+    virtual const double AuxObs_NP6() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP7
      * (See code for details.)
      * @return AuxObs_NP7
      */
-    virtual const double AuxObs_NP7() const;
+    virtual const double AuxObs_NP7() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP8
      * (See code for details.)
      * @return AuxObs_NP8
      */
-    virtual const double AuxObs_NP8() const;
+    virtual const double AuxObs_NP8() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP9
      * (See code for details.)
      * @return AuxObs_NP9
      */
-    virtual const double AuxObs_NP9() const;
+    virtual const double AuxObs_NP9() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP10
      * (See code for details.)
      * @return AuxObs_NP10
      */
-    virtual const double AuxObs_NP10() const;
+    virtual const double AuxObs_NP10() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP11
      * (See code for details.)
      * @return AuxObs_NP11
      */
-    virtual const double AuxObs_NP11() const;
+    virtual const double AuxObs_NP11() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP12
      * (See code for details.)
      * @return AuxObs_NP12
      */
-    virtual const double AuxObs_NP12() const;
+    virtual const double AuxObs_NP12() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP13
      * @return AuxObs_NP13
      */
-    virtual const double AuxObs_NP13() const;
+    virtual const double AuxObs_NP13() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP14
      * @return AuxObs_NP14
      */
-    virtual const double AuxObs_NP14() const;
+    virtual const double AuxObs_NP14() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP15
      * @return AuxObs_NP15
      */
-    virtual const double AuxObs_NP15() const;
+    virtual const double AuxObs_NP15() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP16
      * @return AuxObs_NP16
      */
-    virtual const double AuxObs_NP16() const;
+    virtual const double AuxObs_NP16() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP17
      * @return AuxObs_NP17
      */
-    virtual const double AuxObs_NP17() const;
+    virtual const double AuxObs_NP17() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP18
      * @return AuxObs_NP18
      */
-    virtual const double AuxObs_NP18() const;
+    virtual const double AuxObs_NP18() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP19
      * @return AuxObs_NP19
      */
-    virtual const double AuxObs_NP19() const;
+    virtual const double AuxObs_NP19() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP20
      * @return AuxObs_NP20
      */
-    virtual const double AuxObs_NP20() const;
+    virtual const double AuxObs_NP20() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP21
      * (See code for details.)
      * @return AuxObs_NP21
      */
-    virtual const double AuxObs_NP21() const;
+    virtual const double AuxObs_NP21() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP22
      * (See code for details.)
      * @return AuxObs_NP22
      */
-    virtual const double AuxObs_NP22() const;
+    virtual const double AuxObs_NP22() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP23
      * @return AuxObs_NP23
      */
-    virtual const double AuxObs_NP23() const;
+    virtual const double AuxObs_NP23() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP24
      * @return AuxObs_NP24
      */
-    virtual const double AuxObs_NP24() const;
+    virtual const double AuxObs_NP24() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP25
      * @return AuxObs_NP25
      */
-    virtual const double AuxObs_NP25() const;
+    virtual const double AuxObs_NP25() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP26
      * @return AuxObs_NP26
      */
-    virtual const double AuxObs_NP26() const;
+    virtual const double AuxObs_NP26() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP27
      * @return AuxObs_NP27
      */
-    virtual const double AuxObs_NP27() const;
+    virtual const double AuxObs_NP27() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP28
      * @return AuxObs_NP28
      */
-    virtual const double AuxObs_NP28() const;
+    virtual const double AuxObs_NP28() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP29
      * @return AuxObs_NP29
      */
-    virtual const double AuxObs_NP29() const;
+    virtual const double AuxObs_NP29() const override;
 
     /**
      * @brief Auxiliary observable AuxObs_NP30
      * @return AuxObs_NP20
      */
-    virtual const double AuxObs_NP30() const;
+    virtual const double AuxObs_NP30() const override;
     
     // FCC-hh 84 TeV likelihoods (chi2FCChhXX)
 
@@ -7672,7 +7672,7 @@ protected:
      * @brief @copybrief Model::setParameter()
      * @copydetails Model::setParameter()
      */
-    virtual void setParameter(const std::string name, const double& value);
+    virtual void setParameter(const std::string name, const double& value) override;
     
     
     /**

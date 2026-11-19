@@ -75,7 +75,7 @@ public:
      * @brief The update method for %NPbase.
      * @return a boolean that is true if the execution is successful
      */
-    virtual bool Update(const std::map<std::string, double>& DPars);
+    virtual bool Update(const std::map<std::string, double>& DPars) override;
     
     ////////////////////////////////////////////////////////////////////////
 
@@ -83,7 +83,7 @@ public:
      * @brief A method to return a StandardModel object from %NPbase.
      * @return an StandardModel object
      */
-    virtual const StandardModel& getTrueSM() const
+    virtual const StandardModel& getTrueSM() const override
     {
         return trueSM;
     }
@@ -94,7 +94,7 @@ public:
      * @param[in] value the boolean to be assigned to the flag specified by name
      * @return a boolean that is true if the execution is successful
      */
-    virtual bool setFlag(const std::string name, const bool value)
+    virtual bool setFlag(const std::string name, const bool value) override
     {
         bool result = false;
         result = trueSM.setFlag(name, value) && StandardModel::setFlag(name, value);
@@ -171,7 +171,7 @@ public:
      * @f$\alpha(M_Z^2)=\alpha/(1-\Delta\alpha(M_Z^2))@f$.
      * @return @f$\alpha(M_Z^2)@f$
      */
-    virtual const double alphaMz() const;
+    virtual const double alphaMz() const override;
     
     /**
      * @brief The 5-quark contribution to the running of the em constant to the @f$Z@f$ pole.
@@ -181,7 +181,7 @@ public:
      * or it is computed from Mw (MWinput=true)
      * @return @f$\Delta\alpha_{had}^{(5)}(M_Z)@f$
      */
-    virtual const double Dalpha5hMz() const;
+    virtual const double Dalpha5hMz() const override;
         
     /////////////////////// Corrections to V and A Zff couplings /////////////////////////
 
@@ -221,7 +221,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$g_V^f@f$, including SM plus NP contributions
      */
-    virtual const gslpp::complex gV_f(const Particle f) const;
+    virtual const gslpp::complex gV_f(const Particle f) const override;
 
     /**
      * @brief 
@@ -252,21 +252,21 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$g_A^f@f$, including SM plus NP contributions
      */
-    virtual const gslpp::complex gA_f(const Particle f) const;
+    virtual const gslpp::complex gA_f(const Particle f) const override;
 
     /**
      * @brief The effective neutral-current coupling @f$\rho_Z^f@f$ including SM plus NP contributions.
      * @param[in] f a lepton or quark
      * @return @f$\rho_Z^f@f$, including SM plus NP contributions
      */
-    virtual const gslpp::complex rhoZ_f(const Particle f) const;
+    virtual const gslpp::complex rhoZ_f(const Particle f) const override;
 
     /**
      * @brief The effective neutral-current coupling @f$\kappa_Z^f@f$ including SM plus NP contributions.
      * @param[in] f a lepton or quark
      * @return @f$\kappa_Z^f@f$, including SM plus NP contributions
      */
-    virtual const gslpp::complex kappaZ_f(const Particle f) const;
+    virtual const gslpp::complex kappaZ_f(const Particle f) const override;
     
     /////////////////////// Corrections to LH and RH Zff couplings (scale dependent) /////////////////////////    
     
@@ -352,7 +352,7 @@ public:
      * See @cite Ciuchini:2013pca and references therein.
      * @return @f$M_W@f$ in GeV
      */
-    virtual const double Mw() const;
+    virtual const double Mw() const override;
     
     /**
      * @brief The new physics contribution to the decay width of the @f$W@f$ boson into a given fermion pair, @f$\delta \Gamma_Z^{f}@f$.
@@ -385,7 +385,7 @@ public:
      *
      * @attention Fermion masses are neglected.
      */
-    virtual const double GammaW(const Particle fi, const Particle fj) const;
+    virtual const double GammaW(const Particle fi, const Particle fj) const override;
     
     /**
      * @brief The new physics contribution to the total decay width of the @f$W@f$ boson, @f$\delta \Gamma_W@f$.
@@ -414,25 +414,25 @@ public:
      * See @cite Ciuchini:2013pca and references therein.
      * @return @f$\Gamma_W@f$ in GeV
      */
-    virtual const double GammaW() const;
+    virtual const double GammaW() const override;
     
     /**
      * @brief The branching ratio of the @f$W@f$ boson decaying into a SM fermion pair, @f$Br(W\to f_i f_j)@f$.
      * @return @f$Br(W\to f_i f_j)@f$ in GeV
      */
-    virtual const double BrW(const Particle fi, const Particle fj) const;
+    virtual const double BrW(const Particle fi, const Particle fj) const override;
     
     /**
      * @brief The lepton universality ratio @f$R_{W,l_i/l_j)=\Gamma(W\to l_i \nu_i)/\Gamma(W\to l_j \nu_j)@f$.
      * @return @f$R_{W,l_i/l_j)@f$ in GeV
      */
-    virtual const double RWlilj(const Particle li, const Particle lj) const;
+    virtual const double RWlilj(const Particle li, const Particle lj) const override;
     
     /**
      * @brief The ratio @f$R_{W,c)=\Gamma(W\to c + X)/\Gamma(W\to had)@f$.
      * @return @f$R_{W,c)@f$ in GeV
      */
-    virtual const double RWc() const;
+    virtual const double RWc() const override;
     
     /////////////////////// EWPO: Z-pole /////////////////////////     
     
@@ -502,7 +502,7 @@ public:
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual const double Gamma_Z() const;                                //AG:modified
+    virtual const double Gamma_Z() const override;                                //AG:modified
     
     /**
      * @brief The @f$\mathcal{O}(\Lambda^{-4})@f$ new physics contribution to the hadronic decay width of the @f$Z@f$ boson, @f$\Delta \Gamma_{Z,had}^{(2)}@f$.
@@ -531,7 +531,7 @@ public:
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual const double Gamma_had() const;                              //AG:modified
+    virtual const double Gamma_had() const override;                              //AG:modified
     
     /**
      * @brief The new physics contribution to the ratio of the @f$Z\to u\bar{u} + Z\to c\bar{c}@f$ width to the @f$Z@f$-boson hadronic width:
@@ -557,13 +557,13 @@ public:
      * @brief The ratio of the @f$Z\to u\bar{u} + Z\to c\bar{c}@f$ width to the @f$Z@f$-boson hadronic width.
      * @return @f$\Delta R_{uc}^{0 (2)}@f$, including SM plus NP contributions
      */
-    virtual const double Ruc() const;                                    //AG:added
+    virtual const double Ruc() const override;                                    //AG:added
     
     /**
      * @brief The lepton universality ratio @f$R_{Z,l_i/l_j)=\Gamma(Z\to l_i^+ l_i^-)/\Gamma(Z\to l_j^+ l_j^-)@f$.
      * @return @f$R_{Z,l_i/l_j)@f$ in GeV
      */
-    virtual const double RZlilj(const Particle li, const Particle lj) const;
+    virtual const double RZlilj(const Particle li, const Particle lj) const override;
 
     /**
      * @brief The Branching ratio of the @f$Z@f$ boson into a given fermion pair, @f$BR_Z^{f}@f$.
@@ -614,7 +614,7 @@ public:
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual const double sigma0_had() const;                             //AG:modified
+    virtual const double sigma0_had() const override;                             //AG:modified
 
     /**
      * @brief The @f$\mathcal{O}(\Lambda^{-4})@f$ new physics contribution to the effective electron weak angle @f$\Delta \sin^2\theta_{eff,e}^{(2)}@f$
@@ -676,7 +676,7 @@ public:
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual const double sin2thetaEff(const Particle f) const;           //AG:modified
+    virtual const double sin2thetaEff(const Particle f) const override;           //AG:modified
 
     /**
      * @brief The @f$\mathcal{O}(\Lambda^{-4})@f$ new physics contribution to the left-right asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
@@ -722,7 +722,7 @@ public:
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual const double A_f(const Particle f) const;                    //AG:modified
+    virtual const double A_f(const Particle f) const override;                    //AG:modified
 
     /**
      * @brief The @f$\mathcal{O}(\Lambda^{-4})@f$ new physics to the forward-backward asymmetry in @f$e^+e^-\to Z\to f \bar{f}@f$ at the
@@ -754,7 +754,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$A^f_{FB}@f$, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
      */
-    virtual const double AFB(const Particle f) const;                    //AG:modified
+    virtual const double AFB(const Particle f) const override;                    //AG:modified
 
     /**
      * @brief The @f$\mathcal{O}(\Lambda^{-4})@f$ new physics contribution to the ratio @f$R_\ell^0=\Gamma_{\mathrm{had}}/\Gamma_\ell@f$,
@@ -801,7 +801,7 @@ public:
      * @param[in] f a lepton or quark
      * @return @f$R_f^0@f$, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
      */
-    virtual const double R0_f(const Particle f) const;                   //AG:modified
+    virtual const double R0_f(const Particle f) const override;                   //AG:modified
     
     /**
      * @brief The new physics contribution to the ratio of invisible and leptonic (electron) decay widths of the @f$Z@f$ boson, @f$\delta R_{inv}@f$.
@@ -816,7 +816,7 @@ public:
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual const double R_inv() const;
+    virtual const double R_inv() const override;
     
     /**
      * @brief The new physics contribution to the number of neutrinos dervied from the @f$Z@f$ pole measurements.
@@ -831,7 +831,7 @@ public:
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    virtual const double N_nu() const;
+    virtual const double N_nu() const override;
     
     //////////////////////// Corrections to Higgs couplings /////////////////////////////////
 
@@ -5214,60 +5214,60 @@ public:
     virtual const double delta_AFB_ee(const double pol_e, const double pol_p, const double s) const;
       
 //   Extension of SM observable definitions
-    virtual const double eeffsigma(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const;    
-    virtual const double eeffsigmaE(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffsigmaEtsub(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffsigmaMu(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffsigmaTau(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffsigmaHadron(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffsigmaStrange(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffsigmaCharm(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffsigmaBottom(const double pol_e, const double pol_p, const double s) const;
-    
-    virtual const double eeffRelectron(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffRelectrontsub(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffRmuon(const double pol_e, const double pol_p, const double s) const;     
-    virtual const double eeffRtau(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffRstrange(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffRcharm(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffRbottom(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffsigma(const Particle f, const double pol_e, const double pol_p, const double s, const double cosmin, const double cosmax) const override;
+    virtual const double eeffsigmaE(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffsigmaEtsub(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffsigmaMu(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffsigmaTau(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffsigmaHadron(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffsigmaStrange(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffsigmaCharm(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffsigmaBottom(const double pol_e, const double pol_p, const double s) const override;
 
-    virtual const double eeffAFBe(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffAFBetsub(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffAFBmu(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffAFBtau(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffAFBstrange(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffAFBcharm(const double pol_e, const double pol_p, const double s) const;
-    virtual const double eeffAFBbottom(const double pol_e, const double pol_p, const double s) const;
+    virtual const double eeffRelectron(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffRelectrontsub(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffRmuon(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffRtau(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffRstrange(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffRcharm(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffRbottom(const double pol_e, const double pol_p, const double s) const override;
+
+    virtual const double eeffAFBe(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffAFBetsub(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffAFBmu(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffAFBtau(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffAFBstrange(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffAFBcharm(const double pol_e, const double pol_p, const double s) const override;
+    virtual const double eeffAFBbottom(const double pol_e, const double pol_p, const double s) const override;
     
     // LEP2 specific
     bool LEP2UsesExactInclusiveCrossSections() const override
     {
         return trueSM.LEP2UsesExactInclusiveCrossSections();
     }
-    virtual const double LEP2sigmaE(const double s) const;
-    virtual const double LEP2sigmaMu(const double s) const;
-    virtual const double LEP2sigmaTau(const double s) const;
-    virtual const double LEP2sigmaHadron(const double s) const;
-    virtual const double LEP2sigmaCharm(const double s) const;
-    virtual const double LEP2sigmaBottom(const double s) const;
+    virtual const double LEP2sigmaE(const double s) const override;
+    virtual const double LEP2sigmaMu(const double s) const override;
+    virtual const double LEP2sigmaTau(const double s) const override;
+    virtual const double LEP2sigmaHadron(const double s) const override;
+    virtual const double LEP2sigmaCharm(const double s) const override;
+    virtual const double LEP2sigmaBottom(const double s) const override;
 
-    virtual const double LEP2AFBe(const double s) const;
-    virtual const double LEP2AFBmu(const double s) const;
-    virtual const double LEP2AFBtau(const double s) const;
-    virtual const double LEP2AFBcharm(const double s) const;
-    virtual const double LEP2AFBbottom(const double s) const;
-    virtual const double LEP2Rcharm(const double s) const;
-    virtual const double LEP2Rbottom(const double s) const;
+    virtual const double LEP2AFBe(const double s) const override;
+    virtual const double LEP2AFBmu(const double s) const override;
+    virtual const double LEP2AFBtau(const double s) const override;
+    virtual const double LEP2AFBcharm(const double s) const override;
+    virtual const double LEP2AFBbottom(const double s) const override;
+    virtual const double LEP2Rcharm(const double s) const override;
+    virtual const double LEP2Rbottom(const double s) const override;
     
     //LEP2 Differential Observables
-    virtual const double LEP2dsigmadcosE(const double s, const double cos) const;
-    virtual const double LEP2dsigmadcosMu(const double s, const double cos) const;
-    virtual const double LEP2dsigmadcosTau(const double s, const double cos) const;
+    virtual const double LEP2dsigmadcosE(const double s, const double cos) const override;
+    virtual const double LEP2dsigmadcosMu(const double s, const double cos) const override;
+    virtual const double LEP2dsigmadcosTau(const double s, const double cos) const override;
     //LEP2 Differential Observables: exp. definition from finite bins    
-    virtual const double LEP2dsigmadcosBinE(const double s, const double cos, const double cosmin, const double cosmax) const;
-    virtual const double LEP2dsigmadcosBinMu(const double s, const double cos, const double cosmin, const double cosmax) const;
-    virtual const double LEP2dsigmadcosBinTau(const double s, const double cos, const double cosmin, const double cosmax) const;
+    virtual const double LEP2dsigmadcosBinE(const double s, const double cos, const double cosmin, const double cosmax) const override;
+    virtual const double LEP2dsigmadcosBinMu(const double s, const double cos, const double cosmin, const double cosmax) const override;
+    virtual const double LEP2dsigmadcosBinTau(const double s, const double cos, const double cosmin, const double cosmax) const override;
     
     //////////////////////////////////////////////////////////////////////// 
     // Top Wilson coefficients in the notation of LHC Top WG arXiv: 1802.07237
@@ -5546,15 +5546,15 @@ public:
       
       
 //   Extension of SM observable definitions
-      virtual const double amuon() const;
-      virtual const double Qwemoller(const double q2, const double y) const;
-      virtual const double alrmoller(const double q2, const double y) const;
-      virtual const double Qwp() const;
-      virtual const double Qwn() const;
-      virtual const double gLnuN2() const;
-      virtual const double gRnuN2() const;
-      virtual const double gVnue() const;
-      virtual const double gAnue() const;
+      virtual const double amuon() const override;
+      virtual const double Qwemoller(const double q2, const double y) const override;
+      virtual const double alrmoller(const double q2, const double y) const override;
+      virtual const double Qwp() const override;
+      virtual const double Qwn() const override;
+      virtual const double gLnuN2() const override;
+      virtual const double gRnuN2() const override;
+      virtual const double gVnue() const override;
+      virtual const double gAnue() const override;
       
     ////////////////////////////////////////////////////////////////////////     
     // Lepton decays
@@ -5600,11 +5600,11 @@ public:
       virtual const double delta_TauLFU_gtaugmuK() const;
       
 //   Extension of SM observable definitions
-      virtual const double TauLFU_gmuge() const;
-      virtual const double TauLFU_gtaugmu() const;
-      virtual const double TauLFU_gtauge() const;      
-      virtual const double TauLFU_gtaugmuPi() const;
-      virtual const double TauLFU_gtaugmuK() const;
+      virtual const double TauLFU_gmuge() const override;
+      virtual const double TauLFU_gtaugmu() const override;
+      virtual const double TauLFU_gtauge() const override;
+      virtual const double TauLFU_gtaugmuPi() const override;
+      virtual const double TauLFU_gtaugmuK() const override;
 
     ///////////Collider observables: LHC dilepton events////////////////////////
     

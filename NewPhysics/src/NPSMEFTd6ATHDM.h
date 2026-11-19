@@ -33,7 +33,7 @@ public:
      * after the model is successfully updated.
      * @return a boolean that is true if the execution is successful
      */
-    virtual bool PostUpdate();
+    virtual bool PostUpdate() override;
     
     
 protected:
@@ -77,7 +77,7 @@ protected:
     double etae = 0.; ///< The Yukawa proprtionality parameter of the new doublet
     
     
-    virtual void setParameter(const std::string name, const double& value);
+    virtual void setParameter(const std::string name, const double& value) override;
     
     
     /**
