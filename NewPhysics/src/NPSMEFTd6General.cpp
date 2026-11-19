@@ -3004,7 +3004,36 @@ bool NPSMEFTd6General::PreUpdate() {
     return (true);
 }
 
+bool NPSMEFTd6General::validateWilsonCoefficientInputs(const std::map<std::string, double>& DPars) const
+{
+    if (allowedWilsonCoefficientInputs.empty()) return true;
+
+    const std::string suffix = "_LNP";
+    bool valid = true;
+    for (const auto& parameter : DPars) {
+        const std::string& name = parameter.first;
+        if (name.size() >= suffix.size()
+                && name.compare(name.size() - suffix.size(), suffix.size(), suffix) == 0
+                && allowedWilsonCoefficientInputs.count(name) == 0) {
+            std::cerr << "ERROR: " << getModelName()
+                      << " does not accept the Wilson coefficient input " << name << std::endl;
+            valid = false;
+        }
+    }
+    return valid;
+}
+
+bool NPSMEFTd6General::CheckParameters(const std::map<std::string, double>& DPars)
+{
+    return validateWilsonCoefficientInputs(DPars) && NPbase::CheckParameters(DPars);
+}
+
 bool NPSMEFTd6General::Update(const std::map<std::string, double>& DPars) {
+    if (!validateWilsonCoefficientInputs(DPars)) {
+        setUpdateError(true);
+        return false;
+    }
+
     // PostUpdate() replaces the quark masses with those derived from the mass matrices, so a quark
     // mass that is not passed, as a fixed parameter in a Monte Carlo run, is set again to its last input.
     // A lepton mass is set again only if it has changed, in case the lepton masses are also replaced in
@@ -14027,23 +14056,6 @@ void NPSMEFTd6General::setParameter(const std::string name, const double& value)
     } else
         NPbase::setParameter(name, value);
 }
-
-//I think that for this model, with so many parameters, it's better to include only those we're really interested in
-//Since all the parameters are initialized to zero we can just skip the CheckParameters for this model
-
-/*bool NPSMEFTd6General::CheckParameters(const std::map<std::string, double>& DPars)
-{
-    for (int i = 0; i < NNPSMEFTd6GeneralVars; i++) {
-        if (DPars.find(NPSMEFTd6GeneralVars[i]) == DPars.end()) {
-            std::cout << "ERROR: Missing mandatory NPSMEFTd6General parameter "
-                    << NPSMEFTd6GeneralVars << std::endl;
-            raiseMissingModelParameterCount();
-            addMissingModelParameter(NPSMEFTd6GeneralVars[i]);
-        }
-    }
-    return (NPbase::CheckParameters(DPars));
-}
- */
 
 bool NPSMEFTd6General::setFlag(const std::string name, const bool value) {
     bool res = false;

@@ -17,6 +17,7 @@ std::string NPd6SILH::NPd6SILHVars[NNPd6SILHVars] = {
 NPd6SILH::NPd6SILH()
 : NPSMEFTd6General(), YuUV(3,3,0.), YuUVhc(3,3,0.), YdUV(3,3,0.), YdUVhc(3,3,0.), YeUV(3,3,0.), YeUVhc(3,3,0.) {
     setModelName("NPd6SILH");
+    restrictWilsonCoefficientInputs(NPd6SILHVars);
 
     FlagRGEci = true;
 

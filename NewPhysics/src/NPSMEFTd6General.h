@@ -16,6 +16,7 @@
 #include <map>
 #include <string.h>
 #include <stdexcept>
+#include <unordered_set>
 #include <gsl/gsl_integration.h>
 #include <RGESolver.h>
 
@@ -632,6 +633,8 @@ public:
      * @return a boolean that is true if the execution is successful
      */
     virtual bool Update(const std::map<std::string, double>& DPars);
+
+    bool CheckParameters(const std::map<std::string, double>& DPars) override;
 
     /**
      * @brief Generates the initial condition for the Standard Model parameters.
@@ -7662,6 +7665,13 @@ public:
     ////////////////////////////////////////////////////////////////////////
 protected:
 
+    // Derived models declare their independent UV coefficient inputs here.
+    template <std::size_t N>
+    void restrictWilsonCoefficientInputs(const std::string (&parameters)[N])
+    {
+        allowedWilsonCoefficientInputs = std::unordered_set<std::string>(parameters, parameters + N);
+    }
+
     //Old definition we won't use it
     //virtual void ComputeQuarkMassFromMCParameters(quark q);
 
@@ -8519,6 +8529,9 @@ protected:
     double tmu2 = 0., tmu3 = 0., tmu4 = 0., tmu5 = 0., tmuw = 0.;
         
 private:
+
+    bool validateWilsonCoefficientInputs(const std::map<std::string, double>& DPars) const;
+    std::unordered_set<std::string> allowedWilsonCoefficientInputs;
     
     struct WilsonCoefficients {
         using Tensor2 = gslpp::complex[3][3];
