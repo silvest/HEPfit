@@ -48,17 +48,11 @@ HeffDB1::HeffDB1(const StandardModel & SM)
     }
     BMllprime_mu_cache = 0.;
     
-    for (unsigned int i = 0; i < 6; i++) {
-        Bsgamma_WC_cache.push_back(coeffsgamma);
-        Bsgamma_Mu_cache.push_back(0.);
-    }
-    Bsgamma_mu_cache = 0.;
+    Bsgamma_mu_cache = -1.;
     Bsgamma_order_ini_cache = 0;
-    
-    for (unsigned int i = 0; i < 6; i++) {
-        Bpsgamma_WC_cache.push_back(coeffsgamma);
-        Bpsgamma_Mu_cache.push_back(0.);
-    }
+    Bsgamma_scheme_cache = NDR;
+    Bpsgamma_mu_cache = -1.;
+    Bpsgamma_scheme_cache = NDR;
     
     for (unsigned int i = 0; i < 6; i++) {
         Bsmumu_WC_cache.push_back(coeffsmumu);
@@ -936,9 +930,27 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdnunu()
     return coeffdnunu.getCoeff(); 
 }
 
+namespace {
+
+bool sameRadiativeMatching(const std::vector<WilsonCoefficient>& coefficients,
+        const std::vector<WilsonCoefficient>& cached, unsigned int first, orders order)
+{
+    if (coefficients.size() != cached.size()) return false;
+    for (unsigned int i = first; i < coefficients.size(); ++i) {
+        if (coefficients[i].getMu() != cached[i].getMu()
+                || coefficients[i].getScheme() != cached[i].getScheme()
+                || coefficients[i].getSize() != cached[i].getSize()) return false;
+        for (int j = LO; j <= order; ++j) {
+            if (*coefficients[i].getCoeff(orders(j)) != *cached[i].getCoeff(orders(j))) return false;
+        }
+    }
+    return true;
+}
+
+}
+
 gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, bool noSM, schemes scheme)
 {
-    coeffsgamma.setScheme(scheme);
     orders ordDF1 = coeffsgamma.getOrder();
 
     unsigned int order_ini;
@@ -947,32 +959,15 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, bool noSM
 
     const std::vector<WilsonCoefficient>& mcbsg = model.getMatching().CMbsg();
 
-    if (mu == Bsgamma_mu_cache && scheme == Bsgamma_scheme_cache && order_ini == Bsgamma_order_ini_cache) {
-        int check = 1;
-        for (unsigned int i = order_ini; i < mcbsg.size(); i++) {
-            if (mcbsg[i].getMu() == Bsgamma_Mu_cache[i]) {
-                for (int j = LO; j <= ordDF1; j++) {
-                    for (int k = LO; k <= j; k++) {
-                        for (int l = 0; l < 8; l++) {
-                            check *= ((*(mcbsg[i].getCoeff(orders(j - k))))(l) == (*(Bsgamma_WC_cache[i].getCoeff(orders(j - k))))(l));
-                        }
-                    }
-                }
-            } else check = 0;
-        }
-        if (check == 1) return coeffsgamma.getCoeff();
-    }
+    if (mu == Bsgamma_mu_cache && scheme == Bsgamma_scheme_cache && order_ini == Bsgamma_order_ini_cache
+            && sameRadiativeMatching(mcbsg, Bsgamma_WC_cache, order_ini, ordDF1))
+        return coeffsgamma.getCoeff();
 
-    Bsgamma_mu_cache = mu;
-    Bsgamma_order_ini_cache = order_ini;
-    Bsgamma_scheme_cache = scheme;
     Bsgamma_WC_cache.clear();
-    Bsgamma_WC_cache = mcbsg;
-
+    coeffsgamma.setScheme(scheme);
     coeffsgamma.setMu(mu);
 
     for (unsigned int i = order_ini; i < mcbsg.size(); i++) {
-        Bsgamma_Mu_cache[i] = mcbsg[i].getMu();
         for (int j = LO; j <= ordDF1; j++) {
             for (int k = LO; k <= j; k++) {
                 coeffsgamma.setCoeff(*coeffsgamma.getCoeff(orders(j)) +
@@ -982,6 +977,10 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma(double mu, bool noSM
         }
     }
 
+    Bsgamma_WC_cache = mcbsg;
+    Bsgamma_mu_cache = mu;
+    Bsgamma_order_ini_cache = order_ini;
+    Bsgamma_scheme_cache = scheme;
     return coeffsgamma.getCoeff();
 }
 
@@ -1034,37 +1033,18 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffsgamma_Buras(double mu, boo
 
 gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffprimesgamma(double mu, schemes scheme) 
 {
-    
-    coeffprimesgamma.setScheme(scheme);
-    orders ordDF1 = coeffprimesgamma.getOrder();   
-    
+    orders ordDF1 = coeffprimesgamma.getOrder();
     const std::vector<WilsonCoefficient>& mcbsgp = model.getMatching().CMprimebsg();
 
-    if (mu == Bsgamma_mu_cache && scheme == Bsgamma_scheme_cache) {
-        int check = 1;
-        for (unsigned int i = 0; i < mcbsgp.size(); i++) {
-            if (mcbsgp[i].getMu() == Bpsgamma_Mu_cache[i]) {
-                for (int j = LO; j <= ordDF1; j++) {
-                    for (int k = LO; k <= j; k++) {
-                        for (int l = 0; l < 8; l++) {
-                            check *= ((*(mcbsgp[i].getCoeff(orders(j - k))))(l) == (*(Bpsgamma_WC_cache[i].getCoeff(orders(j - k))))(l));
-                        }
-                    }
-                }
-            } else check = 0;
-        }
-        if (check == 1) return coeffprimesgamma.getCoeff();
-    } 
-    
-    Bsgamma_mu_cache = mu;
-    Bsgamma_scheme_cache = scheme;
+    if (mu == Bpsgamma_mu_cache && scheme == Bpsgamma_scheme_cache
+            && sameRadiativeMatching(mcbsgp, Bpsgamma_WC_cache, LO, ordDF1))
+        return coeffprimesgamma.getCoeff();
+
     Bpsgamma_WC_cache.clear();
-    Bpsgamma_WC_cache = mcbsgp;
-    
-    coeffprimesgamma.setMu(mu); 
-    
+    coeffprimesgamma.setScheme(scheme);
+    coeffprimesgamma.setMu(mu);
+
     for (unsigned int i = 0; i < mcbsgp.size(); i++){
-        Bpsgamma_Mu_cache[i] = mcbsgp[i].getMu();
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
                 coeffprimesgamma.setCoeff(*coeffprimesgamma.getCoeff(orders(j)) +
@@ -1073,8 +1053,11 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffprimesgamma(double mu, sche
             }
         }
     }
-    
-    return coeffprimesgamma.getCoeff(); 
+
+    Bpsgamma_WC_cache = mcbsgp;
+    Bpsgamma_mu_cache = mu;
+    Bpsgamma_scheme_cache = scheme;
+    return coeffprimesgamma.getCoeff();
 }
 
 gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffBMll(double mu, QCD::lepton lepton, bool noSM, schemes scheme) 

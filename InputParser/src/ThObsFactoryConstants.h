@@ -96,12 +96,6 @@ namespace ThObsConst {
     const double pol_80 = 0.80;
     // Lists with values of energies/angles for energy/angle dependent definitions
     //
-    // Parameters for LEP 2 inclusive observables
-    const double sqrt_s[12] = {130., 136., 161., 172., 183., 189.,
-        192., 196., 200., 202., 205., 207.};
-    const double sqrt_s_LEP2eeff[12] = {130.2, 136.2, 161.3, 172.1, 182.7, 188.6,
-        191.6, 195.5, 199.5, 201.6, 204.9, 206.7};
-    //
     // Parameters for LEP2 differential observables
     const double sqrt_sDiffll[8] = {183., 189., 192., 196., 200., 202., 205., 207.};
     const double cos_Diffll[10] = {-0.9, -0.7, -0.5, -0.3, -0.1, 0.1, 0.3, 0.5, 0.7, 0.9};
@@ -119,12 +113,6 @@ namespace ThObsConst {
     // Approximate electroweak scale, taken as the Z mass, and Higgs mass, taken as 125 GeV
     const double muEW = 91.188;
     const double muMH = 125.;
-    //
-    // Parameters for LEP 2 heavy flavour observables
-    const double sqrt_s_HF[10] = {133., 167., 183., 189., 192.,
-        196., 200., 202., 205., 207.};
-    const double sqrt_s_LEP2_HF[10] = {133.2, 166.6, 182.7, 188.6, 191.6,
-        195.5, 199.5, 201.6, 204.9, 206.7};
 
 } // namespace ThObsConst
 

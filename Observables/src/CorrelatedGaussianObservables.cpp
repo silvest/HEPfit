@@ -103,20 +103,32 @@ double CorrelatedGaussianObservables::computeWeight() {
 }
 
 std::vector<double> CorrelatedGaussianObservables::computeLeaveOneOutWeights() {
+    std::vector<double> predictions;
+    predictions.reserve(Obs.size());
+    for (Observable& observable : Obs)
+        predictions.push_back(observable.computeTheoryValue());
+    return computeLeaveOneOutWeights(predictions);
+}
+
+std::vector<double> CorrelatedGaussianObservables::computeLeaveOneOutWeights(
+        const std::vector<double>& predictions) const {
+    if (predictions.size() != Obs.size())
+        throw std::invalid_argument("Wrong number of predictions for correlated observables in " + name);
+
+    TVectorD residuals(Obs.size());
+    for (unsigned int i = 0; i < Obs.size(); i++)
+        residuals(i) = predictions[i] - Obs[i].getAve();
+    const TVectorD precisionResiduals = InvCov * residuals;
+
     std::vector<double> weights;
-
-    for (unsigned int i = 0; i < Obs.size(); i++) 
-        x(i) = Obs.at(i).computeTheoryValue() - Obs.at(i).getAve();
-    
-    weights.push_back(-0.5 * x * (InvCov * x));
-    
+    weights.reserve(Obs.size() + 1);
+    weights.push_back(-0.5 * (residuals * precisionResiduals));
     for (unsigned int i = 0; i < Obs.size(); i++) {
-        double xi_backup = x(i);
-        x(i) = 0.0;
-        weights.push_back(0.5 * x * (InvCov * x)+weights.at(0)); // The weight is computed as the difference between the full weight and the weight with one observable left out, which is equivalent to 0.5 * x * (InvCov * x) with the corresponding xi set to zero.
-        x(i) = xi_backup;
+        // Marginalizing over i uses the Schur complement of its precision entry.
+        const double diagonal = InvCov(i, i);
+        const double projected = precisionResiduals(i);
+        weights.push_back(diagonal == 0.0 ? 0.0 : -0.5 * projected * (projected / diagonal));
     }
-
     return weights;
 }
 

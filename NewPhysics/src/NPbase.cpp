@@ -1380,27 +1380,30 @@ const double NPbase::LEP2sigmaE(const double s) const
 
 const double NPbase::LEP2sigmaMu(const double s) const
 {
-    return (trueSM.LEP2sigmaMu(s) + delta_sigmaTot_f(leptons[MU], 0., 0., s));
+    const double pbPerUnit = LEP2UsesExactInclusiveCrossSections() ? GeVminus2_to_nb * 1000. : 1.;
+    return trueSM.LEP2sigmaMu(s) + delta_sigmaTot_f(leptons[MU], 0., 0., s) / pbPerUnit;
 }
 
 const double NPbase::LEP2sigmaTau(const double s) const
 {
-    return (trueSM.LEP2sigmaTau(s) + delta_sigmaTot_f(leptons[TAU], 0., 0., s));
+    const double pbPerUnit = LEP2UsesExactInclusiveCrossSections() ? GeVminus2_to_nb * 1000. : 1.;
+    return trueSM.LEP2sigmaTau(s) + delta_sigmaTot_f(leptons[TAU], 0., 0., s) / pbPerUnit;
 }
 
 const double NPbase::LEP2sigmaHadron(const double s) const
 {
-    return (trueSM.LEP2sigmaHadron(s) + delta_sigma_had(0., 0., s, -1.0, 1.0));
+    const double pbPerUnit = LEP2UsesExactInclusiveCrossSections() ? GeVminus2_to_nb * 1000. : 1.;
+    return trueSM.LEP2sigmaHadron(s) + delta_sigma_had(0., 0., s, -1.0, 1.0) / pbPerUnit;
 }
 
 const double NPbase::LEP2sigmaCharm(const double s) const
 {
-    return (trueSM.LEP2sigmaCharm(s) + delta_sigmaTot_f(quarks[CHARM], 0., 0., s));
+    return trueSM.LEP2sigmaCharm(s) + delta_sigmaTot_f(quarks[CHARM], 0., 0., s) / (GeVminus2_to_nb * 1000.);
 }
 
 const double NPbase::LEP2sigmaBottom(const double s) const
 {
-    return (trueSM.LEP2sigmaBottom(s) + delta_sigmaTot_f(quarks[BOTTOM], 0., 0., s));
+    return trueSM.LEP2sigmaBottom(s) + delta_sigmaTot_f(quarks[BOTTOM], 0., 0., s) / (GeVminus2_to_nb * 1000.);
 }
 
 const double NPbase::LEP2AFBe(const double s) const

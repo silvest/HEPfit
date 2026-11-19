@@ -11,7 +11,9 @@
 #include <BAT/BCMath.h>
 #include <BAT/BCGaussianPrior.h>
 #include <BAT/BCTF1Prior.h>
+#if __has_include(<BAT/BCCombinedPrior.h>)
 #include <BAT/BCCombinedPrior.h>
+#endif
 #include <BAT/BCLog.h>
 #ifdef _MPI
 #include <mpi.h>
@@ -32,6 +34,53 @@
 #include <gsl/gsl_eigen.h>
 #include <memory>
 #include <sstream>
+
+namespace {
+
+template<class Parameter>
+auto setPrior(Parameter& parameter, std::unique_ptr<BCPrior> prior, int)
+    -> decltype(parameter.SetPrior(std::move(prior)), void())
+{
+    parameter.SetPrior(std::move(prior));
+}
+
+template<class Parameter>
+void setPrior(Parameter& parameter, std::unique_ptr<BCPrior> prior, long)
+{
+    parameter.SetPrior(prior.release()); // BAT 1.0 takes ownership of the pointer.
+}
+
+#if !__has_include(<BAT/BCCombinedPrior.h>)
+class LegacyCombinedPrior : public BCTF1Prior {
+public:
+    explicit LegacyCombinedPrior(TF1& convolution) : BCTF1Prior(convolution) {}
+
+    LegacyCombinedPrior(const LegacyCombinedPrior& original) : BCTF1Prior(original)
+    {
+        // BAT 1.0 resets the base TF1 when copying a prior.
+        fPriorFunction = original.fPriorFunction;
+    }
+
+    BCPrior* Clone() const override { return new LegacyCombinedPrior(*this); }
+};
+#endif
+
+std::unique_ptr<BCPrior> makeCombinedPrior(const ModelParameter& parameter)
+{
+#if __has_include(<BAT/BCCombinedPrior.h>)
+    return std::make_unique<BCCombinedPrior>(parameter.getave(), parameter.geterrg(), parameter.geterrf());
+#else
+    TF1 convolution((parameter.getname() + "_prior").c_str(),
+                    "(TMath::Erf((x-[0]+[2])/sqrt(2.)/[1])-TMath::Erf((x-[0]-[2])/sqrt(2.)/[1]))/4./[2]",
+                    parameter.getmin(), parameter.getmax());
+    convolution.SetParameters(parameter.getave(), parameter.geterrg(), parameter.geterrf());
+    auto prior = std::make_unique<LegacyCombinedPrior>(convolution);
+    prior->CalculateAndStoreIntegral(parameter.getmin(), parameter.getmax());
+    return prior;
+#endif
+}
+
+}
 
 MonteCarloEngine::MonteCarloEngine(
         const std::vector<ModelParameter>& ModPars_i,
@@ -95,7 +144,7 @@ void MonteCarloEngine::Initialize(StandardModel* Mod_i)
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
         if (!it->isTMCMC()) {
             k++;
-            if (it->getDistr().compare("noweight") != 0) kweight++;
+            if (collectObservableWeight(*it)) kweight++;
             if (it->isWriteChain()) kchainedObs++;
         } else {
             kmcmcweight++;
@@ -104,11 +153,8 @@ void MonteCarloEngine::Initialize(StandardModel* Mod_i)
         thMax[it->getName()] = -std::numeric_limits<double>::max();
     }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end(); it++) {
-        if ((it->getDistr()).compare("file") == 0) {
-            if (!it->isTMCMC())
-                throw std::runtime_error("ERROR: cannot handle noMCMC for Observable2D file yet!");
-        } else if (it->getDistr().compare("weight") == 0)
-            throw std::runtime_error("ERROR: do not use Observable2D for analytic 2D weights!");
+        if (!it->isTMCMC() && (it->getDistr() == "file" || it->getDistr() == "weight"))
+            throw std::runtime_error("ERROR: cannot handle noMCMC for weighted Observable2D yet!");
     }
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 != CGO.end(); ++it1) {
         std::vector<Observable> ObsV(it1->getObs());
@@ -274,11 +320,13 @@ void MonteCarloEngine::DefineParameters() {
                 }
             } else
                 DPars[it->getname()] = 0.;
-            if (it->geterrf() == 0.) GetParameter(k).SetPrior(std::make_shared<BCGaussianPrior>(it->getave(), it->geterrg())); //SetPriorGauss(k, it->getave(), it->geterrg());
-            else if (it->geterrg() == 0.) GetParameter(k).SetPriorConstant(); //SetPriorConstant(k);
-            else {
-	      GetParameter(k).SetPrior(std::make_shared<BCCombinedPrior>(it->getave(), it->geterrg(), it->geterrf())); //SetPrior(k, combined);
-            }
+            BCParameter& parameter = GetParameter(k);
+            if (it->geterrf() == 0.)
+                setPrior(parameter, std::make_unique<BCGaussianPrior>(it->getave(), it->geterrg()), 0);
+            else if (it->geterrg() == 0.)
+                parameter.SetPriorConstant();
+            else
+                setPrior(parameter, makeCombinedPrior(*it), 0);
             k++;
         }
 
@@ -388,6 +436,43 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
     return logprob;
 }
 
+bool MonteCarloEngine::collectObservableWeight(const Observable& observable) const
+{
+    if (observable.isTMCMC()) return WriteMCMCweights;
+    const std::string distribution = observable.getDistr();
+    return distribution != "noweight" && distribution != "writeChain";
+}
+
+#ifdef _MPI
+int MonteCarloEngine::getObservableBufferSize() const
+{
+    int size = Obs_ALL.size() + 2 * Obs2D_ALL.size();
+    for (const Observable& observable : Obs_ALL)
+        if (collectObservableWeight(observable)) ++size;
+    for (const auto& group : CGO)
+        size += group.getObs().size();
+    return size;
+}
+
+void MonteCarloEngine::fillObservableBuffer(const std::vector<double>& parameters, double* buffer)
+{
+    setDParsFromParameters(parameters, DPars);
+    Mod->Update(DPars);
+
+    for (Observable& observable : Obs_ALL) {
+        *buffer++ = observable.computeTheoryValue();
+        if (collectObservableWeight(observable)) *buffer++ = observable.computeWeight();
+    }
+    for (auto& observable : Obs2D_ALL) {
+        *buffer++ = observable.computeTheoryValue();
+        *buffer++ = observable.computeTheoryValue2();
+    }
+    for (const auto& group : CGO)
+        for (Observable& observable : group.getObs())
+            *buffer++ = observable.computeTheoryValue();
+}
+#endif
+
 void MonteCarloEngine::MCMCUserIterationInterface() {  
 #ifdef _MPI
     unsigned mychain = 0;
@@ -400,9 +485,8 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
     double **buff;
 
     buff = new double*[procnum];
-    int obsbuffsize = Obs_ALL.size() + 2 * Obs2D_ALL.size();
-    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++)
-        obsbuffsize += it1->getObs().size();
+    const int obsbuffsize = getObservableBufferSize();
+    std::vector<double> observableBuffer(obsbuffsize);
     buff[0] = new double[procnum * obsbuffsize];
     for (int i = 1; i < procnum; i++) {
         buff[i] = buff[i - 1] + obsbuffsize;
@@ -449,31 +533,11 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                 recvbuff, buffsize, MPI_DOUBLE,
                 0, MPI_COMM_WORLD);
 
-        if (recvbuff[0] == 2.) { // compute observables
-            double sbuff[obsbuffsize];
+        if (recvbuff[0] == 2.) {
             pars.assign(recvbuff + 1, recvbuff + buffsize);
-            setDParsFromParameters(pars,DPars);
-            Mod->Update(DPars);
-                
-            int k = 0;
-            for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
-                sbuff[k++] = it->computeTheoryValue();
-            }
-            for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end(); it++) {
-                sbuff[k++] = it->computeTheoryValue();
-                sbuff[k++] = it->computeTheoryValue2();
-            }
-
-            for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
-                std::vector<Observable> ObsV(it1->getObs());
-                for (std::vector<Observable>::iterator it = ObsV.begin(); it != ObsV.end(); ++it)
-                    sbuff[k++] = it->computeTheoryValue();
-            }
-            MPI_Gather(sbuff, obsbuffsize, MPI_DOUBLE, buff[0], obsbuffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-        } else if (recvbuff[0] == 3.) { // do not compute observables, but gather the buffer
-            double sbuff[obsbuffsize];
-            MPI_Gather(sbuff, obsbuffsize, MPI_DOUBLE, buff[0], obsbuffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+            fillObservableBuffer(pars, observableBuffer.data());
         }
+        MPI_Gather(observableBuffer.data(), obsbuffsize, MPI_DOUBLE, buff[0], obsbuffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
         for (int il = 0; il < procnum; il++) {
             if (index_chain[il] >= 0) {
@@ -489,18 +553,10 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                     Histo1D[it->getName()].GetHistogram()->Fill(th);
                     if (fMCMCFlagWriteChainToFile) hMCMCObservables[index_chain[il]][k_all++] = th;
                     else if (getchainedObsSize() > 0 && it->isWriteChain()) hMCMCObservables[index_chain[il]][k_cObs++] = th;
-                    if (!it->isTMCMC()) {
-                        obval[index_chain[il] * kmax + ko] = th;
-                        ko++;
-                        if (it->getDistr().compare("noweight") != 0 && it->getDistr().compare("writeChain") != 0) {
-                            double weight = it->computeWeight(th);
-                            obweight[index_chain[il] * kwmax + kweight_ob] = weight;
-                            kweight_ob++;
-                            if (fMCMCFlagWriteChainToFile) hMCMCObservables_weight[index_chain[il]][kweight] = weight;
-                            kweight++;
-                        }
-                    } else if (WriteMCMCweights) {
-                        double weight = it->computeWeight(th);
+                    if (!it->isTMCMC()) obval[index_chain[il] * kmax + ko++] = th;
+                    if (collectObservableWeight(*it)) {
+                        double weight = buff[il][k++];
+                        if (!it->isTMCMC()) obweight[index_chain[il] * kwmax + kweight_ob++] = weight;
                         if (fMCMCFlagWriteChainToFile) hMCMCObservables_weight[index_chain[il]][kweight] = weight;
                         kweight++;
                     }
@@ -521,8 +577,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                 // fill the histograms for correlated observables
                 for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
                     std::vector<Observable> ObsV(it1->getObs());
-                    Double_t * COdata = new Double_t[ObsV.size()];
-                    int nObs = 0;
+                    const std::vector<double> predictions(buff[il] + k, buff[il] + k + ObsV.size());
                     for (std::vector<Observable>::iterator it = ObsV.begin(); it != ObsV.end(); ++it) {
                         double th = buff[il][k++];
                         /* set the min and max of theory values */
@@ -530,12 +585,10 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
                         if (th > thMax[it->getName()]) thMax[it->getName()] = th;
                         Histo1D[it->getName()].GetHistogram()->Fill(th);
                         if (fMCMCFlagWriteChainToFile) hMCMCObservables[index_chain[il]][k_all++] = th;                        
-                        if (it1->isPrediction()) COdata[nObs++] = th;
                     }
-                    if (it1->isPrediction()) CorrelationMap[it1->getName()]->AddRow(COdata);
-                    delete [] COdata;
+                    if (it1->isPrediction()) CorrelationMap[it1->getName()]->AddRow(predictions.data());
                     if (WriteMCMCweights && !it1->isPrediction()) {
-                        std::vector<double> weights = it1->computeLeaveOneOutWeights();
+                        std::vector<double> weights = it1->computeLeaveOneOutWeights(predictions);
                         for (unsigned int iw = 0; iw < weights.size(); iw++) {
                             if (fMCMCFlagWriteChainToFile) hMCMCObservables_weight[index_chain[il]][kweight] = weights[iw];
                             kweight++;
@@ -578,18 +631,10 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
             Histo1D[it->getName()].GetHistogram()->Fill(th);
             if (fMCMCFlagWriteChainToFile) hMCMCObservables[i][k_all++] = th;
             else if (getchainedObsSize() > 0 && it->isWriteChain()) hMCMCObservables[i][k_cObs++] = th;
-            if (!it->isTMCMC()) {
-                obval[i * kmax + k] = th;
-                k++;
-                if (it->getDistr().compare("noweight") != 0 && it->getDistr().compare("writeChain") != 0) {
-                    double weight = it->computeWeight(th);
-                    obweight[i * kwmax + kweight_ob] = weight;
-                    kweight_ob++;
-                    if (fMCMCFlagWriteChainToFile) hMCMCObservables_weight[i][kweight] = weight;
-                    kweight++;
-                }
-            } else if (WriteMCMCweights) {
-                double weight = it->computeWeight(th);
+            if (!it->isTMCMC()) obval[i * kmax + k++] = th;
+            if (collectObservableWeight(*it)) {
+                double weight = it->computeWeight();
+                if (!it->isTMCMC()) obweight[i * kwmax + kweight_ob++] = weight;
                 if (fMCMCFlagWriteChainToFile) hMCMCObservables_weight[i][kweight] = weight;
                 kweight++;
             }
@@ -980,11 +1025,7 @@ void MonteCarloEngine::AddChains() {
             hMCMCObservableTree->Branch(it->getName().data(), &hMCMCTree_Observables[k], (it->getName() + "/D").data());
             hMCMCObservableTree->SetAlias(TString::Format("HEPfit_Observables%i", k), it->getName().data());
             k++;
-            if (!it->isTMCMC() && it->getDistr().compare("weight") == 0) {
-                hMCMCObservableTree->Branch((it->getName() + "_weight").data(), &hMCMCTree_Observables_weight[kweight], (it->getName() + "_weight/D").data());
-                hMCMCObservableTree->SetAlias(TString::Format("HEPfit_Observables_weight%i", kweight), (it->getName() + "_weight").data());
-                kweight++;
-            } else if (WriteMCMCweights && it->isTMCMC()) {
+            if (collectObservableWeight(*it)) {
                 hMCMCObservableTree->Branch((it->getName() + "_weight").data(), &hMCMCTree_Observables_weight[kweight], (it->getName() + "_weight/D").data());
                 hMCMCObservableTree->SetAlias(TString::Format("HEPfit_Observables_weight%i", kweight), (it->getName() + "_weight").data());
                 kweight++;

@@ -9,7 +9,9 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+#ifndef HEPFIT_NOMCMC
 #include <MonteCarlo.h>
+#endif
 #include <GenerateEvent.h>
 #include <InputParser.h>
 #include <Observable.h>
@@ -131,21 +133,29 @@ int main(int argc, char** argv)
         const string desc =
                 "\nAllowed (positional) options\n"
                 "  modconf            MANDATORY model config filename (1st)\n"
+#ifndef HEPFIT_NOMCMC
                 "  mcconf             MANDATORY Monte Carlo config filename (2nd) for MCMC run\n"
                 "  --test             run in test mode to generate a single event\n"
+#endif
                 "  --noMC             run in generate event mode\n"
                 "  --it <n>           no. of iterations in generate event mode\n"
+#ifndef HEPFIT_NOMCMC
                 "  --rootfile <name>  output root filename (without extension)\n"
+#endif
                 "  --output_folder <name>\n"
                 "                     output folder for Generate Event mode\n"
                 "  --job_tag <tag>    job tag\n"
                 "  --weight           run in generate event mode with weights\n"
+#ifndef HEPFIT_NOMCMC
                 "  --loadRun          load previous run data from file\n"
                 "  --inFile <name>    input root filename (without extension)\n"
+#endif
                 "  --help             help message\n";
         string coderun = "\n *** HEPfit Routines ***\n"
+#ifndef HEPFIT_NOMCMC
                          "\nMonte Carlo mode: analysis Model.conf MonteCarlo.conf [--rootfile <name>] [--job_tag <tag>] [--thRange] [--loadRun --inFile <name>]"
                          "\nSingle Event mode: analysis Model.conf MonteCarlo.conf --test"
+#endif
                          "\nGenerate Event mode: analysis Model.conf --noMC [--it #] [--weight] [--output_folder <name> [--job_tag <tag>]]\n";
         ParsedOptions opts;
 
@@ -203,6 +213,9 @@ int main(int argc, char** argv)
             }
             else if (!opts.noMC && opts.hasMcconf)
             {
+#ifdef HEPFIT_NOMCMC
+                throw runtime_error("This build supports event generation only. Use --noMC.");
+#else
                 if (rank == 0)
                     cout << "\n *** HEPfit Markov Chain Monte Carlo ***\n" << endl;
 //                noMC = false;
@@ -226,12 +239,16 @@ int main(int argc, char** argv)
                 } else {
                     MC.Run(rank);
                 }
-                
+#endif
             } else {
                 if (rank == 0){
                     cout << coderun << endl;
                     cout << desc << endl;
+#ifdef HEPFIT_NOMCMC
+                    throw runtime_error("Specify --noMC for event generation.");
+#else
                 throw runtime_error("\nERROR:  Please specify mandatory Monte Carlo config filename (required even with --test)\n\tOR specify --noMC for Generate Event Mode (no Monte Carlo run)\n");
+#endif
                 }
             }
             

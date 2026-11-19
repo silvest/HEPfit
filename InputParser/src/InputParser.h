@@ -143,8 +143,6 @@ private:
     std::string filename;
     int rank;
     std::string filepath;
-    std::string line;
-    bool IsEOF;
 };
 
 /** 

@@ -81,6 +81,7 @@ Observable2D::Observable2D(const Observable2D& orig)
     filename = orig.filename;
     histoname = orig.histoname;
     ave = orig.ave;
+    ave2 = orig.ave2;
     errg = orig.errg;
     errg2 = orig.errg2;
     errf = orig.errf;
@@ -89,6 +90,8 @@ Observable2D::Observable2D(const Observable2D& orig)
     errgl2 = orig.errgl2;
     errgr = orig.errgr;
     errgr2 = orig.errgr2;
+    obsType = orig.obsType;
+    obsType2 = orig.obsType2;
 
     thname2 = orig.thname2;
     label2 = orig.label2;
@@ -96,7 +99,7 @@ Observable2D::Observable2D(const Observable2D& orig)
     max2 = orig.max2;
     tho2 = orig.tho2;
     filepath = orig.filepath;
-    iterationNo2 = orig.iterationNo2;
+    iterationNo2 = std::numeric_limits<int>::max();
     IsEOF = orig.IsEOF;
     inhisto2d = orig.inhisto2d;
 }
@@ -148,7 +151,7 @@ double Observable2D::computeWeight(double th1, double th2)
         //logprob = log(h->GetBinContent(h->GetXaxis()->FindBin(th1),h->GetYaxis()->FindBin(th2)));
     } else if (distr.compare("weight") == 0) {
         double wt2;
-        if (obsType2.compare("AsyGausObservable") == 0) wt2 = Observable::LogSplitGaussian(th2, ave2, errgl, errgr);
+        if (obsType2.compare("AsyGausObservable") == 0) wt2 = Observable::LogSplitGaussian(th2, ave2, errgl2, errgr2);
         else wt2 = Observable::computeWeight(th2, ave2, errg2, errf2);
         logprob = Observable::computeWeight(th1) + wt2;
     } else
@@ -232,19 +235,20 @@ int Observable2D::ParseObservable2D(std::string& type,
             ++beg;
             max[i] = atof((*beg).c_str());
             if (distr.compare("weight") == 0) {
+                const bool asymmetric = type2D[i] == "AsyGausObservable";
                 ++beg;
                 ave[i] = atof((*beg).c_str());
                 ++beg;
-                if (type.compare("AsyGausObservable") == 0) errgl[i] = atof((*beg).c_str());
+                if (asymmetric) errgl[i] = atof((*beg).c_str());
                 else errg[i] = atof((*beg).c_str());
                 ++beg;
-                if (type.compare("AsyGausObservable") == 0) errgr[i] = atof((*beg).c_str());
+                if (asymmetric) errgr[i] = atof((*beg).c_str());
                 else errf[i] = atof((*beg).c_str());
-                if (type.compare("AsyGausObservable") != 0 && errg[i] == 0. && errf[i] == 0.) {
+                if (!asymmetric && errg[i] == 0. && errf[i] == 0.) {
                     if (rank == 0) throw std::runtime_error("ERROR: The Gaussian and flat error in weight for " + name + " cannot both be 0. in the " + infilename + " file, line number:" + boost::lexical_cast<std::string>(lineNo) + ".\n");
                     else sleep(2);
                 }
-                if (type.compare("AsyGausObservable") == 0 && errgl[i] == 0. && errgr[i] == 0.) {
+                if (asymmetric && errgl[i] == 0. && errgr[i] == 0.) {
                     if (rank == 0) throw std::runtime_error("ERROR: The left Gaussian and right Gaussian error in weight for " + name + " cannot both be 0. in the " + infilename + " file, line number:" + boost::lexical_cast<std::string>(lineNo) + ".\n");
                     else sleep(2);
                 }

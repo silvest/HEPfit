@@ -87,6 +87,7 @@ protected:
     
 private:
 
+    const char* matchingScaleInputAlias() const override { return "sqY2"; }
 };
 
 

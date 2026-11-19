@@ -9,15 +9,18 @@
 #include "ThObsFactoryConstants.h"
 #include "SUSYObservables.h"
 #include "LoopMediators.h"
+#include "THDM.h"
 #include "THDMObservables.h"
 #include "LRSMObservables.h"
 /* BEGIN: REMOVE FROM THE PACKAGE */
+#include "GeneralTHDM.h"
 #include "GeneralTHDMObservables.h"
 #include "THDMWObservables.h"
 /* END: REMOVE FROM THE PACKAGE */
 #include "GeorgiMachacekObservables.h"
 #include "FlavourWilsonCoefficient_DF2_Observables.h"
 #include "NPSMEFTd6CHRU.h"
+#include <stdexcept>
 using namespace ThObsConst;
 
 void ThObsFactory::registerBSMObservables()
@@ -1034,12 +1037,23 @@ void ThObsFactory::registerBSMObservables()
     obsThFactory["Hobs_gg_phi3_phi2Z_WWZ_ATLAS13"] = [](const StandardModel& SM) { return new Hobs_gg_phi3_phi2Z_WWZ_ATLAS13(SM); };
     obsThFactory["Hobs_gg_phi2_phi3Z_WWZ_ATLAS13"] = [](const StandardModel& SM) { return new Hobs_gg_phi2_phi3Z_WWZ_ATLAS13(SM); };
 
-    obsThFactory["Hobs_pp_Hpm_taunu_ATLAS8"] = [](const StandardModel& SM) { return new Hobs_pp_Hpm_taunu_ATLAS8_GTHDM(SM); };
-    obsThFactory["Hobs_pp_Hp_taunu_CMS8"] = [](const StandardModel& SM) { return new Hobs_pp_Hp_taunu_CMS8_GTHDM(SM); };
-    obsThFactory["Hobs_pp_Hpm_taunu_ATLAS13"] = [](const StandardModel& SM) { return new Hobs_pp_Hpm_taunu_ATLAS13_GTHDM(SM); };
-    obsThFactory["Hobs_pp_Hpm_taunu_CMS13"] = [](const StandardModel& SM) { return new Hobs_pp_Hpm_taunu_CMS13_GTHDM(SM); };
-    obsThFactory["Hobs_pp_Hpm_tb_ATLAS8"] = [](const StandardModel& SM) { return new Hobs_pp_Hpm_tb_ATLAS8_GTHDM(SM); };
-    obsThFactory["Hobs_pp_Hp_tb_CMS8"] = [](const StandardModel& SM) { return new Hobs_pp_Hp_tb_CMS8_GTHDM(SM); };
+    const auto registerGeneralTHDMChargedHiggs = [this](const std::string& name,
+            const std::function<ThObservable*(const StandardModel&)>& createGeneralTHDM) {
+        const auto createTHDM = obsThFactory.at(name);
+        obsThFactory[name] = [name, createTHDM, createGeneralTHDM](const StandardModel& SM) -> ThObservable* {
+            if (dynamic_cast<const GeneralTHDM*>(&SM))
+                return createGeneralTHDM(SM);
+            if (dynamic_cast<const THDM*>(&SM))
+                return createTHDM(SM);
+            throw std::runtime_error(name + " requires a THDM or GeneralTHDM model");
+        };
+    };
+    registerGeneralTHDMChargedHiggs("Hobs_pp_Hpm_taunu_ATLAS8", [](const StandardModel& SM) { return new Hobs_pp_Hpm_taunu_ATLAS8_GTHDM(SM); });
+    registerGeneralTHDMChargedHiggs("Hobs_pp_Hp_taunu_CMS8", [](const StandardModel& SM) { return new Hobs_pp_Hp_taunu_CMS8_GTHDM(SM); });
+    registerGeneralTHDMChargedHiggs("Hobs_pp_Hpm_taunu_ATLAS13", [](const StandardModel& SM) { return new Hobs_pp_Hpm_taunu_ATLAS13_GTHDM(SM); });
+    registerGeneralTHDMChargedHiggs("Hobs_pp_Hpm_taunu_CMS13", [](const StandardModel& SM) { return new Hobs_pp_Hpm_taunu_CMS13_GTHDM(SM); });
+    registerGeneralTHDMChargedHiggs("Hobs_pp_Hpm_tb_ATLAS8", [](const StandardModel& SM) { return new Hobs_pp_Hpm_tb_ATLAS8_GTHDM(SM); });
+    registerGeneralTHDMChargedHiggs("Hobs_pp_Hp_tb_CMS8", [](const StandardModel& SM) { return new Hobs_pp_Hp_tb_CMS8_GTHDM(SM); });
     obsThFactory["Hobs_pp_Hpm_tb_ATLAS13"] = [](const StandardModel& SM) { return new Hobs_pp_Hpm_tb_ATLAS13(SM); };
     obsThFactory["Hobs_pp_Hpm_tb_CMS13"] = [](const StandardModel& SM) { return new Hobs_pp_Hpm_tb_CMS13(SM); };
 

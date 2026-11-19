@@ -63,7 +63,7 @@ QCD::QCD()
     zeta3 = gslpp_special_functions::zeta(3);
     for (int i = 0; i < CacheSize; i++)
     {
-        for (int j = 0; j < 9; j++)
+        for (int j = 0; j < AlsCacheRows; j++)
             als_cache[j][i] = 0.;
         for (int j = 0; j < 4; j++)
             logLambda5_cache[j][i] = 0.;
@@ -120,23 +120,22 @@ const std::string QCD::orderToString(const orders order) const
 
 bool QCD::Init(const std::map<std::string, double> &DPars)
 {
-    bool check = CheckParameters(DPars);
-    if (!check)
-        return (check);
-    check *= Update(DPars) * QCDsuccess;
+    if (!CheckParameters(DPars))
+        return (false);
+    const bool updated = Update(DPars);
     unknownParameterWarning = false;
-    return (check);
+    return (updated && QCDsuccess);
 }
 
 bool QCD::PreUpdate()
 {
+    QCDsuccess = true;
     computemt = false;
     return (true);
 }
 
 bool QCD::Update(const std::map<std::string, double> &DPars)
 {
-    QCDsuccess = true;
     if (!PreUpdate())
         return (false);
 
@@ -591,7 +590,7 @@ void QCD::ClearCaches() const
 {
     const double nan = std::numeric_limits<double>::quiet_NaN();
     for (int i = 0; i < CacheSize; i++) {
-        for (int j = 0; j < 9; j++) als_cache[j][i] = nan;
+        for (int j = 0; j < AlsCacheRows; j++) als_cache[j][i] = nan;
         for (int j = 0; j < 4; j++) logLambda5_cache[j][i] = nan;
         for (int j = 0; j < 9; j++) logLambdaNLO_cache[j][i] = nan;
         for (int j = 0; j < 11; j++) mrun_cache[j][i] = nan;
@@ -825,12 +824,17 @@ const double QCD::AlsByOrder(const double mu, const orders order, const bool Nf_
     int i, nfAls = (int)Nf(MAls), nfmu = Nf_thr ? (int)Nf(mu) : nfAls;
     double als, alstmp, mutmp;
     orders fullord;
+    // Threshold evolution uses the full requested order, even for a single term.
+    const orders thresholdOrder = nfAls == nfmu ? LO : realorder;
+    // The legacy and explicit-flavour methods use -1 and Nf in this field.
+    const int flavourKey = 100 + static_cast<int>(Nf_thr);
 
     for (i = 0; i < CacheSize; ++i)
         if ((mu == als_cache[0][i]) && ((double)order == als_cache[1][i]) &&
             (AlsM == als_cache[2][i]) && (MAls == als_cache[3][i]) &&
             (mut == als_cache[4][i]) && (mub == als_cache[5][i]) &&
-            (muc == als_cache[6][i]) && (100 + (int)Nf_thr == (int)als_cache[7][i])) // disjoint from AlsOLD (-1) and AlsByOrder(mu, Nf, order) (Nf)
+            (muc == als_cache[6][i]) && (flavourKey == (int)als_cache[7][i]) &&
+            (static_cast<double>(thresholdOrder) == als_cache[AlsThresholdOrderIndex][i]))
             return als_cache[8][i];
 
     switch (order)
@@ -845,12 +849,12 @@ const double QCD::AlsByOrder(const double mu, const orders order, const bool Nf_
         if (nfAls > nfmu)
         {
             mutmp = BelowTh(MAls);
-            alstmp = AlsWithInit(mutmp, AlsM, MAls, nfAls, realorder);
+            alstmp = AlsWithInit(mutmp, AlsM, MAls, nfAls, thresholdOrder);
             alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(nfAls), alstmp, nfAls, fullord));
             for (i = nfAls - 1; i > nfmu; i--)
             {
                 mutmp = BelowTh(mutmp - MEPS);
-                alstmp = AlsWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, i, realorder);
+                alstmp = AlsWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, i, thresholdOrder);
                 alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(i), alstmp, i, fullord));
             }
             als = AlsWithInit(mu, alstmp, AboveTh(mu) - MEPS, nfmu, order);
@@ -859,18 +863,18 @@ const double QCD::AlsByOrder(const double mu, const orders order, const bool Nf_
         if (nfAls < nfmu)
         {
             mutmp = AboveTh(MAls) - MEPS;
-            alstmp = AlsWithInit(mutmp, AlsM, MAls, nfAls, realorder);
+            alstmp = AlsWithInit(mutmp, AlsM, MAls, nfAls, thresholdOrder);
             alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(nfAls + 1), alstmp, nfAls + 1, fullord));
             for (i = nfAls + 1; i < nfmu; i++)
             {
                 mutmp = AboveTh(mutmp) - MEPS;
-                alstmp = AlsWithInit(mutmp, alstmp, BelowTh(mutmp) + MEPS, i, realorder);
+                alstmp = AlsWithInit(mutmp, alstmp, BelowTh(mutmp) + MEPS, i, thresholdOrder);
                 alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(i + 1), alstmp, i + 1, fullord));
             }
             als = AlsWithInit(mu, alstmp, BelowTh(mu) + MEPS, nfmu, order);
         }
 
-        CacheShift(als_cache, 9);
+        CacheShift(als_cache, AlsCacheRows);
         als_cache[0][0] = mu;
         als_cache[1][0] = (double)order;
         als_cache[2][0] = AlsM;
@@ -878,8 +882,9 @@ const double QCD::AlsByOrder(const double mu, const orders order, const bool Nf_
         als_cache[4][0] = mut;
         als_cache[5][0] = mub;
         als_cache[6][0] = muc;
-        als_cache[7][0] = 100 + (int)Nf_thr; // see the lookup above
+        als_cache[7][0] = flavourKey;
         als_cache[8][0] = als;
+        als_cache[AlsThresholdOrderIndex][0] = thresholdOrder;
 
         return als;
     default:
@@ -981,7 +986,7 @@ const double QCD::AlsOLD(const double mu, const orders order) const
         throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Als(mu,order).");
     }
 
-    CacheShift(als_cache, 9);
+    CacheShift(als_cache, AlsCacheRows);
     als_cache[0][0] = mu;
     als_cache[1][0] = (double)order;
     als_cache[2][0] = AlsM;
@@ -991,6 +996,7 @@ const double QCD::AlsOLD(const double mu, const orders order) const
     als_cache[6][0] = muc;
     als_cache[7][0] = -1;
     als_cache[8][0] = als;
+    als_cache[AlsThresholdOrderIndex][0] = LO;
 
     return als;
 }
@@ -1000,12 +1006,14 @@ const double QCD::AlsByOrder(const double mu, const int Nf_in, const orders orde
     int i, nfAls = (int)Nf(MAls), nfmu = Nf_in;
     double als, alstmp, mutmp;
     orders fullord;
+    const orders thresholdOrder = nfAls == nfmu ? LO : realorder;
 
     for (i = 0; i < CacheSize; ++i)
         if ((mu == als_cache[0][i]) && ((double)order == als_cache[1][i]) &&
             (AlsM == als_cache[2][i]) && (MAls == als_cache[3][i]) &&
             (mut == als_cache[4][i]) && (mub == als_cache[5][i]) &&
-            (muc == als_cache[6][i]) && (Nf_in == (int)als_cache[7][i]))
+            (muc == als_cache[6][i]) && (Nf_in == (int)als_cache[7][i]) &&
+            (static_cast<double>(thresholdOrder) == als_cache[AlsThresholdOrderIndex][i]))
             return als_cache[8][i];
 
     switch (order)
@@ -1020,12 +1028,12 @@ const double QCD::AlsByOrder(const double mu, const int Nf_in, const orders orde
         if (nfAls > nfmu)
         {
             mutmp = BelowTh(MAls);
-            alstmp = AlsWithInit(mutmp, AlsM, MAls, nfAls, realorder);
+            alstmp = AlsWithInit(mutmp, AlsM, MAls, nfAls, thresholdOrder);
             alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(nfAls), alstmp, nfAls, fullord));
             for (i = nfAls - 1; i > nfmu; i--)
             {
                 mutmp = BelowTh(mutmp - MEPS);
-                alstmp = AlsWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, i, realorder);
+                alstmp = AlsWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, i, thresholdOrder);
                 alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(i), alstmp, i, fullord));
             }
             als = AlsWithInit(mu, alstmp, mutmp, nfmu, order);
@@ -1034,19 +1042,19 @@ const double QCD::AlsByOrder(const double mu, const int Nf_in, const orders orde
         if (nfAls < nfmu)
         {
             mutmp = AboveTh(MAls) - MEPS;
-            alstmp = AlsWithInit(mutmp, AlsM, MAls, nfAls, realorder);
+            alstmp = AlsWithInit(mutmp, AlsM, MAls, nfAls, thresholdOrder);
             alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(nfAls + 1), alstmp, nfAls + 1, fullord));
             for (i = nfAls + 1; i < nfmu; i++)
             {
                 double oldmu = mutmp;
                 mutmp = AboveTh(mutmp + 2. * MEPS) - MEPS;
-                alstmp = AlsWithInit(mutmp, alstmp, oldmu, i, realorder);
+                alstmp = AlsWithInit(mutmp, alstmp, oldmu, i, thresholdOrder);
                 alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(i + 1), alstmp, i + 1, fullord));
             }
             als = AlsWithInit(mu, alstmp, mutmp + 2. * MEPS, nfmu, order);
         }
 
-        CacheShift(als_cache, 9);
+        CacheShift(als_cache, AlsCacheRows);
         als_cache[0][0] = mu;
         als_cache[1][0] = (double)order;
         als_cache[2][0] = AlsM;
@@ -1056,6 +1064,7 @@ const double QCD::AlsByOrder(const double mu, const int Nf_in, const orders orde
         als_cache[6][0] = muc;
         als_cache[7][0] = Nf_in;
         als_cache[8][0] = als;
+        als_cache[AlsThresholdOrderIndex][0] = thresholdOrder;
 
         return als;
     default:

@@ -30,6 +30,8 @@ Flavour::Flavour(const StandardModel& SM_i)
     DMflag = false;
     FixedWCbtosflag = false;
     MPll_FNALMILC_flag = false;
+    MPll_DM_flag = false;
+    MVll_DM_flag = false;
     BXsnunu_LFUNP_flag = false;
     MPll_GRvDV_flag = false;
     NeutrinoTree_flag = false;

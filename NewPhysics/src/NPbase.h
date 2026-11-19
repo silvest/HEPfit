@@ -5241,6 +5241,10 @@ public:
     virtual const double eeffAFBbottom(const double pol_e, const double pol_p, const double s) const;
     
     // LEP2 specific
+    bool LEP2UsesExactInclusiveCrossSections() const override
+    {
+        return trueSM.LEP2UsesExactInclusiveCrossSections();
+    }
     virtual const double LEP2sigmaE(const double s) const;
     virtual const double LEP2sigmaMu(const double s) const;
     virtual const double LEP2sigmaTau(const double s) const;

@@ -634,6 +634,7 @@ public:
      */
     virtual bool Update(const std::map<std::string, double>& DPars);
 
+    /** @brief Checks the matching scale, Wilson coefficient inputs, and mandatory Standard Model parameters. */
     bool CheckParameters(const std::map<std::string, double>& DPars) override;
 
     /**
@@ -651,17 +652,6 @@ public:
      */
     virtual bool PostUpdate();
     
-    //I think that for this model, with so many parameters, it's better to include only those we're really interested in
-    //Since all the parameters are initialized to zero we can just skip the CheckParameters for this model
-    /**
-     * @brief A method to check if all the mandatory parameters for %NPSMEFTd6General
-     * have been provided in model initialization.
-     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
-     * (including parameters that are varied and those that are held constant)
-     * @return a boolean that is true if the execution is successful
-     */
-    //virtual bool CheckParameters(const std::map<std::string, double>& DPars);
-
     /**
      * @brief A method to set a flag of %NPSMEFTd6General.
      * @param[in] name name of a model flag
@@ -7665,6 +7655,9 @@ public:
     ////////////////////////////////////////////////////////////////////////
 protected:
 
+    /** @brief An alternative input that takes precedence over Lambda_NP in a derived model. */
+    virtual const char* matchingScaleInputAlias() const { return nullptr; }
+
     // Derived models declare their independent UV coefficient inputs here.
     template <std::size_t N>
     void restrictWilsonCoefficientInputs(const std::string (&parameters)[N])
@@ -8070,7 +8063,7 @@ protected:
             Clequ3_3211i_LNP = 0., Clequ3_3212i_LNP = 0., Clequ3_3213i_LNP = 0., Clequ3_3221i_LNP = 0., Clequ3_3222i_LNP = 0., Clequ3_3223i_LNP = 0., Clequ3_3231i_LNP = 0., Clequ3_3232i_LNP = 0., Clequ3_3233i_LNP = 0.,
             Clequ3_3311i_LNP = 0., Clequ3_3312i_LNP = 0., Clequ3_3313i_LNP = 0., Clequ3_3321i_LNP = 0., Clequ3_3322i_LNP = 0., Clequ3_3323i_LNP = 0., Clequ3_3331i_LNP = 0., Clequ3_3332i_LNP = 0., Clequ3_3333i_LNP = 0.; ///< The dimension-6 operator coefficient \f$(C_{lequ}^{(3)})_{ijkm}\f$ (Imaginary part).
 
-    double Lambda_NP; ///< The new physics scale [GeV].
+    double Lambda_NP = 0.; ///< The new physics scale [GeV].
     // The intrinsic and parametric theory relative errors in the Higgs observables.
     double eggFint = 0.; ///< Intrinsic relative theoretical error in ggF production. (Assumed to be constant in energy.)
     double eggFpar = 0.; ///< Parametric relative theoretical error in ggF production. (Assumed to be constant in energy.)
@@ -8530,6 +8523,7 @@ protected:
         
 private:
 
+    bool validateMatchingScaleInput(const std::map<std::string, double>& DPars, bool allowExistingScale) const;
     bool validateWilsonCoefficientInputs(const std::map<std::string, double>& DPars) const;
     std::unordered_set<std::string> allowedWilsonCoefficientInputs;
     

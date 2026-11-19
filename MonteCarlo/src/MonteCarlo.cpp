@@ -25,6 +25,36 @@
 #include <iostream>
 #include <iomanip>
 
+namespace {
+
+template<class Engine>
+auto setFactorizedPreRun(Engine& engine, unsigned int iterations, int)
+    -> decltype(engine.SetNIterationsPreRunFactorized(iterations), void())
+{
+    engine.SetNIterationsPreRunFactorized(iterations);
+}
+
+template<class Engine>
+void setFactorizedPreRun(Engine&, unsigned int iterations, long)
+{
+    if (iterations != 0)
+        throw std::runtime_error("NIterationsPreRunFactorized requires a BAT build with factorized prerun support.");
+}
+
+template<class Engine>
+auto getFactorizedPreRun(const Engine& engine, int)
+    -> decltype(engine.GetNIterationsPreRunFactorized())
+{
+    return engine.GetNIterationsPreRunFactorized();
+}
+
+template<class Engine>
+unsigned int getFactorizedPreRun(const Engine&, long)
+{
+    return 0;
+}
+
+}
 
 MonteCarlo::MonteCarlo(
         ModelFactory& ModelF, ThObsFactory& ThObsF,
@@ -226,9 +256,15 @@ void MonteCarlo::Run(const int rank) {
         MCEngine.Initialize(myInputParser.getModel());
         MCEngine.SetInitialPositionAttemptLimit(10000);   
 
+        if (rank == 0) ParseMCMCConfig(MCMCConf);
 #ifdef _MPI
+        // Every rank must use the same observable and weight layout for the gather.
+        int collectWeights = writeMCMCweights;
+        MPI_Bcast(&collectWeights, 1, MPI_INT, 0, MPI_COMM_WORLD);
+        writeMCMCweights = collectWeights != 0;
         double *recvbuff = new double[buffsize];
 #endif
+        MCEngine.setWriteMCMCweights(writeMCMCweights);
 
         if (rank != 0) {
 #ifdef _MPI
@@ -236,9 +272,8 @@ void MonteCarlo::Run(const int rank) {
             sendbuff[0] = new double[1];
 
             std::vector<double> pars;
-            int obsbuffsize = Obs.size() + 2 * Obs2D.size();
-            for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++)
-                obsbuffsize += it1->getObs().size();
+            const int obsbuffsize = MCEngine.getObservableBufferSize();
+            std::vector<double> observableBuffer(obsbuffsize);
 
             while (true) {
                 MPI_Scatter(sendbuff[0], buffsize, MPI_DOUBLE, recvbuff, buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
@@ -254,31 +289,12 @@ void MonteCarlo::Run(const int rank) {
                     pars.assign(recvbuff + 1, recvbuff + buffsize);
                     double fh = MCEngine.Function_h(pars);
                     MPI_Gather(&fh, 1, MPI_DOUBLE, sendbuff[0], 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-                } else if (recvbuff[0] == 2.) { // compute observables
-                    double sbuff[obsbuffsize];
-                    std::map<std::string, double> DPars;
-                    pars.assign(recvbuff + 1, recvbuff + buffsize);
-                    MCEngine.setDParsFromParameters(pars,DPars);
-                    myInputParser.getModel()->Update(DPars);
-
-                    int k = 0;
-                    for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
-                        sbuff[k++] = it->computeTheoryValue();
+                } else if (recvbuff[0] == 2. || recvbuff[0] == 3.) {
+                    if (recvbuff[0] == 2.) {
+                        pars.assign(recvbuff + 1, recvbuff + buffsize);
+                        MCEngine.fillObservableBuffer(pars, observableBuffer.data());
                     }
-                    for (std::vector<Observable2D>::iterator it = Obs2D.begin(); it < Obs2D.end(); it++) {
-                        sbuff[k++] = it->computeTheoryValue();
-                        sbuff[k++] = it->computeTheoryValue2();
-                    }
-
-                    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
-                        std::vector<Observable> pino(it1->getObs());
-                        for (std::vector<Observable>::iterator it = pino.begin(); it != pino.end(); ++it)
-                            sbuff[k++] = it->computeTheoryValue();
-                    }
-                    MPI_Gather(sbuff, obsbuffsize, MPI_DOUBLE, sendbuff[0], obsbuffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-                } else if (recvbuff[0] == 3.) { // do not compute observables, but gather the buffer
-                    double sbuff[obsbuffsize];
-                    MPI_Gather(sbuff, obsbuffsize, MPI_DOUBLE, sendbuff[0], obsbuffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+                    MPI_Gather(observableBuffer.data(), obsbuffsize, MPI_DOUBLE, sendbuff[0], obsbuffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
                 } else if (recvbuff[0] == -1.)
                     break;
                 else {
@@ -290,8 +306,6 @@ void MonteCarlo::Run(const int rank) {
             delete [] sendbuff;
 #endif
         } else {
-            ParseMCMCConfig(MCMCConf);
-            MCEngine.setWriteMCMCweights(writeMCMCweights);
             if (!RunMinuitOnly && !ComputeHessianOnly) std::cout << std::endl << "\nRunning in MonteCarlo mode...\n" << std::endl;
             else if (RunMinuitOnly) std::cout << std::endl << "\nRunning Minuit Minimizer..." << std::endl;
             else std::cout << std::endl << "\nComputing the Hessian for central values of the input parameters..." << std::endl;
@@ -699,7 +713,7 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
                 throw std::runtime_error("\nERROR: NIterationsUpdateMax in the MonteCarlo configuration file: " + MCMCConf + " can only be an integer > 0.\n");
         } else if (beg->compare("NIterationsPreRunFactorized") == 0) {
             ++beg;
-            if (isdigit(beg->at(0)) && atoi((*beg).c_str()) >= 0) MCEngine.SetNIterationsPreRunFactorized(atoi((*beg).c_str()));
+            if (isdigit(beg->at(0)) && atoi((*beg).c_str()) >= 0) setFactorizedPreRun(MCEngine, atoi((*beg).c_str()), 0);
             else
                 throw std::runtime_error("\nERROR: NIterationsPrerunFactorized in the MonteCarlo configuration file: " + MCMCConf + " can only be a non-negative integer.\n");
         } else if (beg->compare("Seed") == 0) {
@@ -951,7 +965,8 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
     if (proposal.Enabled())
         throw std::runtime_error("SaveProposal/LoadProposal require an updated bat_MPI installation; rebuild HEPfit against it with BAT_INSTALL=OFF.");
 #endif
-    warmup.ValidateRun(MCEngine.GetNIterationsPreRunMax(), MCEngine.GetNIterationsPreRunFactorized(),
+    const unsigned int factorizedPreRun = getFactorizedPreRun(MCEngine, 0);
+    warmup.ValidateRun(MCEngine.GetNIterationsPreRunMax(), factorizedPreRun,
                        MCEngine.GetProposeMultivariate(), !FileIn.empty(), !preRunData.empty(),
                        RunMinuitOnly || ComputeHessianOnly);
 #ifndef HEPFIT_BAT_HAS_STAGED_WARMUP
@@ -971,7 +986,7 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
 #endif
     pt.Validate();
     pt.ValidateAdaptation(warmup.staged, !proposal.load.empty(), warmup.settlingSweeps,
-                         MCEngine.GetNIterationsPreRunMax(), MCEngine.GetNIterationsPreRunFactorized(),
+                         MCEngine.GetNIterationsPreRunMax(), factorizedPreRun,
                          MCEngine.GetNIterationsPreRunCheck(), MCEngine.GetProposeMultivariate());
 #ifndef HEPFIT_BAT_HAS_PT_TEMPERATURE_ADAPTATION
     if (pt.adaptTemperatures)

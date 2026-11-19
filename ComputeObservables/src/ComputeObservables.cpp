@@ -17,13 +17,14 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
   rank(rank_i)
 {
 
-    std::string ModelName = myInputParser.ReadParameters(ModelConf_i, rank, ModPars, Obs, Obs2D, CGO, CGP);
-    std::map<std::string, double> DP;
-    for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
-        DP[it->getname()] = it->getave();
-        paraNames.push_back(it->getname());
-    }
-    DPars = DP;
+    ModelName = myInputParser.ReadParameters(ModelConf_i, rank, ModPars, Obs, Obs2D, CGO, CGP);
+    for (const auto& parameter : ModPars)
+        if (!parameter.IsCorrelated()) DPars[parameter.getname()] = parameter.getave();
+    for (const auto& group : CGP)
+        for (const auto& parameter : group.getPars())
+            DPars[parameter.getname()] = parameter.getave();
+    for (const auto& parameter : DPars)
+        paraNames.push_back(parameter.first);
     
     for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
         DObs.insert(std::pair<std::string, double> (it->getThname() , 0.));
@@ -38,7 +39,7 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
     }
     
     Mod = myInputParser.getModel();
-    if (!Mod->Init(DP)) {
+    if (!Mod->Init(DPars)) {
         if (myInputParser.getModel()->getmissingModelParameters().size() > 0) {
             std::cout << "\nPlease set the following parameters in the model configuration files:\n" << std::endl;
             std::vector<std::string> missingParameters = myInputParser.getModel()->getmissingModelParameters(); // Store the result in a variable to avoid dangling pointer warning
@@ -79,17 +80,16 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
     }
     setFlags(DFlags_i);
     if (!Mod->Init(DPars_i)) {
-        if (myInputParser.getModel()->getmissingModelParameters().size() > 0) {
+        const auto missingParameters = Mod->getmissingModelParameters();
+        if (!missingParameters.empty()) {
             std::cout << "\nPlease set the following parameters in the model configuration files:\n" << std::endl;
-            std::vector<std::string> missingParameters = myInputParser.getModel()->getmissingModelParameters(); // Store the result in a variable to avoid dangling pointer warning
-             for (std::vector<std::string>::iterator it = missingParameters.begin(); it != missingParameters.end(); it++) {
-                std::cout << "ModelParameter\t" << *it << std::endl;
-            }
+            for (const auto& parameter : missingParameters)
+                std::cout << "ModelParameter\t" << parameter << std::endl;
             std::cout << std::endl;
-            myInputParser.getModel()->getmissingModelParameters().clear();
         }
         throw std::runtime_error("\nERROR: " + ModelName + " cannot be initialized.\n");
     }
+    DPars = DPars_i;
    
     unknownParameters = Mod->getUnknownParameters();
     if (unknownParameters.size() > 0 && rank == 0) {
@@ -128,8 +128,13 @@ std::map<std::string, double> ComputeObservables::compute(std::map<std::string, 
             if(!(std::find(paraNames.begin(), paraNames.end(), it->first) != paraNames.end()))
                 throw std::runtime_error("\nERROR: Incorrect parameter name " + it->first + " passed to ComputeObservable");
         }
-    DPars = DP;
-    Mod->Update(DPars);
+    if (!Mod->Update(DP)) {
+        if (!Mod->Update(DPars))
+            throw std::runtime_error("ERROR: Model update failed and the previous parameters could not be restored.");
+        throw std::runtime_error("ERROR: Model update failed for " + ModelName + ".");
+    }
+    for (const auto& parameter : DP)
+        DPars[parameter.first] = parameter.second;
     for (std::map<std::string, double>::iterator it = DObs.begin(); it != DObs.end(); it++) {
         DObs[it->first] = DThObs[it->first]->computeThValue();
     }

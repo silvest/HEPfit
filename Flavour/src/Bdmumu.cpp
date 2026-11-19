@@ -12,8 +12,7 @@
 #include "NPSMEFTd6GeneralMatching.h"
 
 Bdmumu::Bdmumu(const StandardModel& SM_i, int obsFlag, QCD::lepton lep_i)
-: ThObservable(SM_i),
-  evolbdmm(new EvolBsmm(8, NDR, NNLO, NLO_QED22, SM))
+: ThObservable(SM_i)
 {
     lep = lep_i;
     if(lep == QCD::MU) leptonindex = 1;
@@ -28,11 +27,6 @@ Bdmumu::Bdmumu(const StandardModel& SM_i, int obsFlag, QCD::lepton lep_i)
 double Bdmumu::computeThValue()
 {
     double FBd = SM.getMesons(QCD::B_D).getDecayconst();
-    
-    double Mw = SM.Mw();
-    double GF = SM.getGF();
-    coupling = GF * GF * Mw * Mw /M_PI /M_PI ; 
-    //convertFromSingletoDoubleGF = 2. * M_SQRT2 / GF * SM.getAle() / 4. * M_PI / Mw / Mw; /* Single GF for excluding EW corrections*/
 
     computeObs(FULLNLO, FULLNLO_QED);
 
@@ -56,6 +50,8 @@ void Bdmumu::computeObs(orders order, orders_qed order_qed)
     mlep = SM.getLeptons(lep).getMass();
     mBd = SM.getMesons(QCD::B_D).getMass();
     mW = SM.Mw();
+    const double GF = SM.getGF();
+    coupling = GF * GF * mW * mW / M_PI / M_PI;
     mb = SM.Mrun(mu, SM.getQuarks(QCD::BOTTOM).getMass_scale(),
             SM.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
     md = SM.Mrun(mu, SM.getQuarks(QCD::DOWN).getMass_scale(),
@@ -89,8 +85,9 @@ void Bdmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
     }
     allcoeff = SM.getFlavour().ComputeCoeffdmumu(mu, NDR);
 
-    double alsmu = evolbdmm->alphatilde_s(mu);
-    double alemu = evolbdmm->alphatilde_e(mu);
+    EvolBsmm& evolbdmm = SM.getFlavour().getHDB1().getUBdmm();
+    double alsmu = evolbdmm.alphatilde_s(mu);
+    double alemu = evolbdmm.alphatilde_e(mu);
 //    double alemu = SM.ale_OS(mu)/4./M_PI; // to be checked
     gslpp::matrix<gslpp::complex> Vckm = SM.getVCKM();
 //    double sw2 =  (M_PI * SM.getAle() ) / ( sqrt(2.) * SM.getGF() * SM.Mw() * SM.Mw()) ;
@@ -129,7 +126,7 @@ void Bdmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
                  * implemented with the exact HEPfit mass-running machinery.
                  */
                 const double muEW = SM.getMuw();
-                const double qedLog = evolbdmm->alphatilde_e(muEW) * log(muEW / mu);
+                const double qedLog = evolbdmm.alphatilde_e(muEW) * log(muEW / mu);
                 const double vectorQEDMix = 4. * qedLog;
 
                 const double mbEW = SM.Mrun(muEW, SM.getQuarks(QCD::BOTTOM).getMass_scale(),

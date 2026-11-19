@@ -61,15 +61,16 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
         ss << "\nERROR: " << filename << " should contain at least 1 measurement.\n";
         throw std::runtime_error(ss.str());
     }
-    int implicit_tth = (isnew ? 0 : -1);
-    channels.ResizeTo(nrows, thObsV.size() + 3 + implicit_tth);
+    const unsigned int meanColumn = thObsV.size() - (isnew ? 0 : 1);
+    const unsigned int errorColumn = meanColumn + 2;
+    channels.ResizeTo(nrows, meanColumn + 3);
     ifile.clear();
     ifile.seekg(0, ifile.beg);
     int lineNo = 0;
     do {
         IsEOF = getline(ifile, line).eof();
         lineNo++;
-        if (*line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
+        if (!line.empty() && line.back() == '\r') line.pop_back(); // for CR+LF
         if (line.compare(0, 11, "MEASUREMENT") != 0 && !readCorrelations) {
             continue;
         } else {
@@ -87,7 +88,7 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
             beg++; // skip label
             for (int j = 0; j < channels.GetNcols(); j++)
                 channels(i, j) = atof((*(++beg)).c_str());
-            if (isCorrelated && (std::fabs(channels(i, thObsV.size() + 1)) != std::fabs(channels(i, thObsV.size() + 2)))) {
+            if (isCorrelated && (std::fabs(channels(i, meanColumn + 1)) != std::fabs(channels(i, errorColumn)))) {
                 if (rank == 0) throw std::runtime_error("ERROR: Gaussian errors must be symmetric for CorrelatedHiggsObservables in " + filename + " at line number:" + boost::lexical_cast<std::string>(lineNo) + ".\n");
                 else sleep(2);
             }
@@ -133,7 +134,7 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
                 } else {
                     for (unsigned int i = 0; i < nrows; i++)
                         for (unsigned int j = 0; j < nrows; j++)
-                            (*InvCov)(i, j) = channels(i, thObsV.size() + 2) * myCorr(i, j) * channels(i, thObsV.size() + 2); // left = right imposed above
+                            (*InvCov)(i, j) = std::fabs(channels(i, errorColumn)) * myCorr(i, j) * std::fabs(channels(j, errorColumn));
                     *InvCov = InvCov->inverse();
                 }
                 readCorrelations = false;
@@ -154,6 +155,7 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
 double HiggsObservable::computeWeight()
 {
     double logprob = 0;
+    const unsigned int meanColumn = thobsvsize - (isnew ? 0 : 1);
 
     if (isnew) {
         for (int i = 0; i < channels.GetNrows(); i++) {
@@ -167,14 +169,6 @@ double HiggsObservable::computeWeight()
                 theoryValues.at(thobsvsize + i + 1) = -1. + mu + theoryValues.at(thobsvsize);
             else
                 theoryValues.at(thobsvsize + i + 1) = mu * theoryValues.at(thobsvsize);
-            if (!isCorrelated) logprob += LogSplitGaussian(theoryValues.at(thobsvsize + i + 1), channels(i, thobsvsize), channels(i, thobsvsize + 1), channels(i, thobsvsize + 2));
-        }
-        if (isCorrelated) {
-            gslpp::vector<double> theObsVal(channels.GetNrows(), 0.);
-            for (int i = 0; i < channels.GetNrows(); i++) {
-                theObsVal(i) = theoryValues.at(thobsvsize + i + 1);
-            }
-            logprob =  (-0.5 * theObsVal * ((*InvCov) * theObsVal));
         }
     } else {
         for (int i = 0; i < channels.GetNrows(); i++) {
@@ -187,10 +181,18 @@ double HiggsObservable::computeWeight()
             mu += (1. - sum) * thObsV.at(thobsvsize - 1)->computeThValue();
             theoryValues.at(thobsvsize) = tho->computeThValue();
             theoryValues.at(thobsvsize + i + 1) = mu * theoryValues.at(thobsvsize);
-            logprob += LogSplitGaussian(theoryValues.at(thobsvsize + i + 1), channels(i, 3), channels(i, 4), channels(i, 5));
         }
     }
 
+    if (isCorrelated) {
+        gslpp::vector<double> residuals(channels.GetNrows(), 0.);
+        for (int i = 0; i < channels.GetNrows(); i++)
+            residuals(i) = theoryValues.at(thobsvsize + i + 1) - channels(i, meanColumn);
+        return -0.5 * residuals * ((*InvCov) * residuals);
+    }
+    for (int i = 0; i < channels.GetNrows(); i++)
+        logprob += LogSplitGaussian(theoryValues.at(thobsvsize + i + 1), channels(i, meanColumn),
+                                    channels(i, meanColumn + 1), channels(i, meanColumn + 2));
     return (logprob);
 }
 
