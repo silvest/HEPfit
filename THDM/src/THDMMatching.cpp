@@ -174,7 +174,7 @@ std::vector<WilsonCoefficient>& THDMMatching::CMbsg()
 
 double THDMMatching::setWCbsg(int i, double tan, double mt, double mhp, double mu, orders order)
 {  
-    if ( tanbsg == tan && mtbsg == mt  && mhpbsg == mhp && mubsg == mu){
+    if (cachedBsgOrder == order && tanbsg == tan && mtbsg == mt  && mhpbsg == mhp && mubsg == mu){
         switch (order){
         case NNLO:
             return ( CWbsgArrayNNLO[i] );
@@ -191,6 +191,7 @@ double THDMMatching::setWCbsg(int i, double tan, double mt, double mhp, double m
         }
     }
     
+    cachedBsgOrder = order;
     tanbsg = tan; mtbsg = mt; mhpbsg = mhp; mubsg = mu;
     
     double x = mt*mt/mhp/mhp;
