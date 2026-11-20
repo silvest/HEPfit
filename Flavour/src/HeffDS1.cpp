@@ -239,6 +239,7 @@ gslpp::vector<gslpp::complex>** HeffDS1::ComputeCoeffDS1mumu()
 
     const std::vector<WilsonCoefficient>& mcb = model.getMatching().CMkmm();
 
+    coeffds1mumu.resetCoefficient();
     orders ordDF1 = coeffds1mumu.getOrder();
 
     for (unsigned int i = 0; i < mcb.size(); i++) {

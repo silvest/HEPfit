@@ -51,12 +51,17 @@ double CPenguinBoxMu::B_NL()
             - -log(muc * muc / mc / mc) - 329. / 12. + 15212. / 625. * K3 + 30581. / 7500. * K * K3));
 }
 
+double CPenguinBoxMu::charmAmplitude()
+{
+    return model.getCKM().computelamc().real() / model.getCKM().getLambda()*(C_NL() - B_NL());
+}
+
 double CPenguinBoxMu::X_ch()
 {
 
     double x = pow(model.Mrun(model.getMuw(), model.getQuarks(QCD::TOP).getMass_scale(),
             model.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO) / model.Mw_tree(), 2.);
-    double a = model.getCKM().computelamc().real() / model.getCKM().getLambda()*(C_NL() - B_NL());
+    double a = charmAmplitude();
     double b = model.getCKM().computelamt().real() / model.getCKM().getLambda()*
             (modelmatching.Y0(x) + model.Als(model.getMuw()) / 4. / M_PI * modelmatching.Y1(x, model.getMuw()));
 
