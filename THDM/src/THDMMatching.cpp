@@ -59,38 +59,36 @@ std::vector<WilsonCoefficient>& THDMMatching::CMdbs2() {
 
 std::vector<WilsonCoefficient>& THDMMatching::CMdiujleptonknu(int i, int j, int k) {
 
-    double Muw = myTHDM.getMuw();
-    double GF = myTHDM.getGF();
-    myCKM = myTHDM.getVCKM();
-    double mB;
-    double tanb = myTHDM.gettanb();
-    double mHp2=myTHDM.getmHp2();
+    if (i < 0 || i > 2 || j < 0 || j > 2 || k < 0 || k > 2)
+        throw std::runtime_error("THDMMatching::CMdiujleptonknu: invalid generation");
 
-    vmculeptonnu = StandardModelMatching::CMdiujleptonknu(i,j,k);
-    mcbtaunu.setMu(Muw);
- 
-    switch (mcbtaunu.getOrder()) {
-        case NNLO:
-        case NLO:
-        case LO:
-            if (i == 2 && j == 0 && k == 2) {
-                mB = myTHDM.getMesons(QCD::B_P).getMass();
-                mcbtaunu.setCoeff(0, -4.*GF * myCKM(0,2) / sqrt(2.) * mB*mB*tanb*tanb/mHp2, LO);
-            }
-            else if (i == 2 && j == 1 && k == 2) {
-                mB = myTHDM.getMesons(QCD::B_C).getMass();
-                mcbtaunu.setCoeff(0, -4.*GF * myCKM(1,2) / sqrt(2.) * mB*mB*tanb*tanb/mHp2, LO);
-            }
-            else std::runtime_error("THDMMatching::CMbtaunu(): flavour indices not implemented");
-            break;
-        default:
-            std::stringstream out;
-            out << mcbtaunu.getOrder();
-            throw std::runtime_error("THDMMatching::CMbtaunu(): order " + out.str() + "not implemented");
-    }
+    const QCD::quark down[] = {QCD::DOWN, QCD::STRANGE, QCD::BOTTOM};
+    const QCD::quark up[] = {QCD::UP, QCD::CHARM, QCD::TOP};
+    const QCD::lepton lepton[] = {QCD::ELECTRON, QCD::MU, QCD::TAU};
+    const std::string type = myTHDM.getModelTypeflag();
+    if (type != "type1" && type != "type2" && type != "typeX" && type != "typeY")
+        throw std::runtime_error("THDMMatching::CMdiujleptonknu: unknown Yukawa type");
 
+    const double scale = myTHDM.getMuw();
+    const double tanBeta = myTHDM.gettanb();
+    const double zetaU = 1. / tanBeta;
+    const double zetaD = (type == "type2" || type == "typeY") ? -tanBeta : zetaU;
+    const double zetaL = (type == "type2" || type == "typeX") ? -tanBeta : zetaU;
+    const double md = myTHDM.Mrun(scale, myTHDM.getQuarks(down[i]).getMass_scale(),
+                                  myTHDM.getQuarks(down[i]).getMass(), down[i], FULLNNLO);
+    const double mu = myTHDM.Mrun(scale, myTHDM.getQuarks(up[j]).getMass_scale(),
+                                  myTHDM.getQuarks(up[j]).getMass(), up[j], FULLNNLO);
+    const double ml = myTHDM.getLeptons(lepton[k]).getMass();
+    const gslpp::complex prefactor = 4. * myTHDM.getGF() / sqrt(2.) * myTHDM.getVCKM()(j, i)
+                                    * zetaL * ml / myTHDM.getmHp2();
+
+    vmculeptonnu = StandardModelMatching::CMdiujleptonknu(i, j, k);
+    mcbtaunu.setMu(scale);
+    // LEFT scalar slots correspond to (ubar P_L d) and (ubar P_R d).
+    mcbtaunu.setCoeff(2, prefactor * zetaU * mu, LO);
+    mcbtaunu.setCoeff(3, -prefactor * zetaD * md, LO);
     vmculeptonnu.push_back(mcbtaunu);
-    return(vmculeptonnu);
+    return vmculeptonnu;
 
 }
 

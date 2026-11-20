@@ -39,7 +39,7 @@ RGEvolutor(dim_i, scheme, order),
     }
 
     gslpp::matrix<double> h(dim, dim, 0.);
-    for (int l = 0; l < 2; l++) {
+    for (int l = 0; l < 3; l++) {
         gslpp::matrix<double> gg = vi * (AnomalousDimension(NLO, 5 - l).transpose()) * v;
         double b0 = model.Beta0(5 - l);
         for (unsigned int i = 0; i < dim; i++)
