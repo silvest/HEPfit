@@ -9,6 +9,16 @@
 #define ASL_H
 #include "ThObservable.h"
 
+/**
+ * @file Asl.h
+ * @brief Semileptonic CP asymmetries @f$a_\mathrm{sl}^{d,s} = \mathrm{Im}(\Gamma_{12}/M_{12})@f$.
+ * @details New physics in @f$\Delta B=2@f$ (StandardModel::getCBd(), getPhiBd(), getCBs(), getPhiBs())
+ * enters by dividing @f$\Gamma_{21}/M_{21}@f$ by @f$C_{B_d}e^{-2i\phi_{B_d}}@f$ in the Asl_d_* classes and by
+ * @f$C_{B_s}e^{+2i\phi_{B_s}}@f$ in the Asl_s_* classes, i.e. @f$(M_{12}^{bd})_\mathrm{full} =
+ * C_{B_d}e^{+2i\phi_{B_d}}(M_{12}^{bd})_\mathrm{SM}@f$ but @f$(M_{12}^{bs})_\mathrm{full} =
+ * C_{B_s}e^{-2i\phi_{B_s}}(M_{12}^{bs})_\mathrm{SM}@f$: the sign convention for @f$\phi_{B_s}@f$ is opposite
+ * to the one for @f$\phi_{B_d}@f$ (see StandardModel::getPhiBs()).
+ */
 
 class Asl_d_pole : public ThObservable{
 public:
