@@ -505,7 +505,6 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
         if (PrintLoglikelihoodPlots || WriteParametersChain) {
             std::map<std::string, double> tmpDPars;
             setDParsFromParameters(pars, tmpDPars);
-            if (PrintLoglikelihoodPlots) DPars_allChains.push_back(tmpDPars);
             if (WriteParametersChain) {
                 int k = 0;
                 for (std::map<std::string, double>::iterator it = tmpDPars.begin(); it != tmpDPars.end(); it++) hMCMCParameters[mychain][k++] = it->second;
@@ -613,7 +612,6 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
         std::vector<double>::const_iterator last = first + GetNParameters();
         std::vector<double> currvec(first, last);
         setDParsFromParameters(currvec,DPars);
-        if (PrintLoglikelihoodPlots) DPars_allChains.push_back(DPars);
         if (WriteParametersChain) {
             int k = 0;
             for (std::map<std::string, double>::iterator it = DPars.begin(); it != DPars.end(); it++) hMCMCParameters[i][k++] = it->second;
@@ -691,15 +689,12 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
         }
         Histo1D["LogLikelihood"].GetHistogram()->Fill(LogLikelihood);
         if (PrintLoglikelihoodPlots) {
-            for (std::vector<ModelParameter>::const_iterator it = ModPars.begin(); it != ModPars.end(); it++) {
-                if (it->IsFixed()) continue;
-                if (std::find(unknownParameters.begin(), unknownParameters.end(), it->getname()) != unknownParameters.end()) continue;
-                std::string HistName = it->getname() + "_vs_LogLikelihood";
-                Histo2D[HistName].GetHistogram()->Fill(DPars_allChains.at(i).at(it->getname()), LogLikelihood);
+            for (unsigned int k = 0; k < GetNParameters(); ++k) {
+                const std::string histName = GetParameter(k).GetName() + "_vs_LogLikelihood";
+                Histo2D.at(histName).GetHistogram()->Fill(fMCMCStates.at(i).parameters.at(k), LogLikelihood);
             }
         }
     }
-    if (PrintLoglikelihoodPlots) DPars_allChains.clear();
 }
 
 void MonteCarloEngine::CheckHistogram(TH1& hist, const std::string name) {
