@@ -149,15 +149,15 @@ void Mll::computeAmpSq(orders order, orders_qed order_qed, double mu)
                 gslpp::complex CC_P = CKM_factor * (C_10 - C_10p + mBs * mBs / (2. * mlep * (mb + ms)) * (C_P - C_Pp)); /* Single GF for excluding EW corrections*/
 
                 absP = CC_P.abs(); //contains only SM contributions (P, P', S, S' not added)
-                argP = CC_P.arg();
+                argP = CC_P.arg() - CKM_factor.arg();
 
                 //            gslpp::complex CC_S = CKM_factor * sw * sw * ( beta * mBs*mBs / ( 2.*mlep*(mb+ms) ) * (C_S - C_Sp) ); /* Spurious sw */
                 gslpp::complex CC_S = CKM_factor * (beta * mBs * mBs / (2. * mlep * (mb + ms)) * (C_S - C_Sp)); /* Single GF for excluding EW corrections*/
 
                 absS = CC_S.abs();
-                argS = CC_S.arg();
+                argS = CC_S.arg() - CKM_factor.arg();
 
-                phiNP = 0.;
+                phiNP = meson == QCD::B_S ? 2. * SM.getPhiBs() : -2. * SM.getPhiBd();
 
                 ampSq = absP * absP + absS * absS;
 

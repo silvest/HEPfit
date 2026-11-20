@@ -178,14 +178,14 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
 
                 
             absP = CC_P.abs(); 
-            argP = CC_P.arg();
+            argP = CC_P.arg() - SM.getCKM().computelamt_s().arg();
             
             gslpp::complex CC_S = ( beta * mBs * mBs / ( 2. * mlep * (mb + ms)) * (C_S - C_Sp) );
 
             absS = CC_S.abs();
-            argS = CC_S.arg();
+            argS = CC_S.arg() - SM.getCKM().computelamt_s().arg();
     
-            phiNP = 0.;
+            phiNP = 2. * SM.getPhiBs();
             
             ampSq = absP * absP + absS * absS;
                   
