@@ -1161,11 +1161,13 @@ gslpp::complex MPll::deltaTpar(double q2)
 
     if (deltaTparpCached[q2] == 0) {
 
-        DTPPR = convertToGslFunction(bind(&MPll::Integrand_ReTpar_pm, &(*this), _1));
+        auto Integrand_ReTpar_pmCallback = bind(&MPll::Integrand_ReTpar_pm, this, _1);
+        DTPPR = convertToGslFunction(Integrand_ReTpar_pmCallback);
         if (gsl_integration_cquad(&DTPPR, 0., 1., 1.e-2, 1.e-1, w_DTPPR, &avaDTPPR, &errDTPPR, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
         double ReTppint = avaDTPPR;
 
-        DTPPR = convertToGslFunction(bind(&MPll::Integrand_ImTpar_pm, &(*this), _1));
+        auto Integrand_ImTpar_pmCallback = bind(&MPll::Integrand_ImTpar_pm, this, _1);
+        DTPPR = convertToGslFunction(Integrand_ImTpar_pmCallback);
         if (gsl_integration_cquad(&DTPPR, 0., 1., 1.e-2, 1.e-1, w_DTPPR, &avaDTPPR, &errDTPPR, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
         double ImTppint = avaDTPPR;
 
@@ -1474,7 +1476,8 @@ double MPll::integrateSigma(int i, double q_min, double q_max)
     switch (i) {
         case 0:
             if (sigma0Cached[qbin] == 0) {
-                FS = convertToGslFunction(bind(&MPll::getSigma1c, &(*this), _1));
+                auto getSigma1cCallback = bind(&MPll::getSigma1c, this, _1);
+                FS = convertToGslFunction(getSigma1cCallback);
                 if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
                 cacheSigma0[qbin] = NN*avaSigma;
                 sigma0Cached[qbin] = 1;
@@ -1483,7 +1486,8 @@ double MPll::integrateSigma(int i, double q_min, double q_max)
             break;
         case 2:
             if (sigma2Cached[qbin] == 0) {
-                FS = convertToGslFunction(bind(&MPll::getSigma2c, &(*this), _1));
+                auto getSigma2cCallback = bind(&MPll::getSigma2c, this, _1);
+                FS = convertToGslFunction(getSigma2cCallback);
                 if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
                 cacheSigma2[qbin] = NN*avaSigma;
                 sigma2Cached[qbin] = 1;
@@ -1492,7 +1496,8 @@ double MPll::integrateSigma(int i, double q_min, double q_max)
             break;
         case 8:
             if (sigma8Cached[qbin] == 0) {
-                FS = convertToGslFunction(bind(&MPll::getSigma6c, &(*this), _1));
+                auto getSigma6cCallback = bind(&MPll::getSigma6c, this, _1);
+                FS = convertToGslFunction(getSigma6cCallback);
                 if (gsl_integration_cquad(&FS, q_min, q_max, 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
                 cacheSigma8[qbin] = NN*avaSigma;
                 sigma8Cached[qbin] = 1;
@@ -1541,7 +1546,8 @@ double MPll::integrateDelta(int i, double q_min, double q_max)
     switch (i) {
         case 0:
             if (delta0Cached[qbin] == 0) {
-                FD = convertToGslFunction(bind(&MPll::getDelta1c, &(*this), _1));
+                auto getDelta1cCallback = bind(&MPll::getDelta1c, this, _1);
+                FD = convertToGslFunction(getDelta1cCallback);
                 if (gsl_integration_cquad(&FD, q_min, q_max, 1.e-2, 1.e-1, w_delta, &avaDelta, &errDelta, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
                 cacheDelta0[qbin] = NN*avaDelta;
                 delta0Cached[qbin] = 1;
@@ -1550,7 +1556,8 @@ double MPll::integrateDelta(int i, double q_min, double q_max)
             break;
         case 2:
             if (delta2Cached[qbin] == 0) {
-                FD = convertToGslFunction(bind(&MPll::getDelta2c, &(*this), _1));
+                auto getDelta2cCallback = bind(&MPll::getDelta2c, this, _1);
+                FD = convertToGslFunction(getDelta2cCallback);
                 if (gsl_integration_cquad(&FD, q_min, q_max, 1.e-2, 1.e-1, w_delta, &avaDelta, &errDelta, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
                 cacheDelta2[qbin] = NN*avaDelta;
                 delta2Cached[qbin] = 1;
@@ -1587,7 +1594,8 @@ double MPll::integrateSigmaTree(double q_min, double q_max)
     old_handler = gsl_set_error_handler_off();
 
     if (sigmaTreeCached[qbin] == 0) {
-        FD = convertToGslFunction(bind(&MPll::SigmaTree, &(*this), _1));
+        auto SigmaTreeCallback = bind(&MPll::SigmaTree, this, _1);
+        FD = convertToGslFunction(SigmaTreeCallback);
         if (gsl_integration_cquad(&FD, q_min, q_max, 1.e-2, 1.e-1, w_sigmaTree, &avaSigmaTree, &errSigmaTree, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
         cacheSigmaTree[qbin] = avaSigmaTree;
         sigmaTreeCached[qbin] = 1;
