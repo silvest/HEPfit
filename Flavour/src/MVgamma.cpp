@@ -829,12 +829,12 @@ gslpp::complex MVgamma::H_V_p()
 
 gslpp::complex MVgamma::H_V_m_bar()
 {
-    return lambda_t.conjugate() * (((C_7 + DC7_QCDF_bar) * T_1() + MM2/(MM2 - MV*MV) * T_QCDF_minus(true)) * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
+    return lambda_t.conjugate() * (((C_7.conjugate() + DC7_QCDF_bar) * T_1() + MM2/(MM2 - MV*MV) * T_QCDF_minus(true)) * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
 }
 
 gslpp::complex MVgamma::H_V_p_bar()
 {
-    return lambda_t.conjugate() * (-C_7p * T_1() * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[0]);
+    return lambda_t.conjugate() * (-C_7p.conjugate() * T_1() * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[0]);
 }
 
 /*******************************************************************************
