@@ -91,8 +91,6 @@ MonteCarloEngine::MonteCarloEngine(
 : BCModel(""), ModPars(ModPars_i), CGP(CGP_i), Obs_ALL(Obs_i), Obs2D_ALL(Obs2D_i),
   CGO(CGO_i), NumOfUsedEvents(0), NumOfDiscardedEvents(0) {
     SetMultivariateCovarianceUpdateLambda(0.5);
-    obval = NULL;
-    obweight = NULL;
     Mod = NULL;
     hessianNoise = 0.;
     cindex = 0;
@@ -242,10 +240,6 @@ void MonteCarloEngine::CreateHistogramMaps()
 
 void MonteCarloEngine::setNChains(unsigned int i) {
     SetNChains(i);
-    delete [] obval;
-    delete [] obweight;
-    obval = new double[fMCMCNChains * kmax];
-    obweight = new double[fMCMCNChains * kwmax];
 }
 
 unsigned int MonteCarloEngine::GetNPosteriorChains() const
@@ -270,8 +264,6 @@ unsigned int MonteCarloEngine::GetPosteriorReplica(unsigned int chain) const
 MonteCarloEngine::~MonteCarloEngine()
 {
     if (rank == 0) { // These are created only by the master
-        delete [] obval;
-        delete [] obweight;
         delete HEPfit_red;
         delete HEPfit_green;
         HEPfit_red = NULL;
@@ -474,6 +466,8 @@ void MonteCarloEngine::fillObservableBuffer(const std::vector<double>& parameter
 #endif
 
 void MonteCarloEngine::MCMCUserIterationInterface() {  
+    obval.resize(static_cast<size_t>(GetNPosteriorChains()) * kmax);
+    obweight.resize(static_cast<size_t>(GetNPosteriorChains()) * kwmax);
 #ifdef _MPI
     unsigned mychain = 0;
     int iproc = 0;
