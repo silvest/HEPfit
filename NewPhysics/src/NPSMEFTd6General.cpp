@@ -17096,7 +17096,7 @@ const double NPSMEFTd6General::deltaG_hggRatio() const {
     
     double deltaloc = deltaG_hgg();
 
-    gSM = aSPiv * (AH_f(tau_t) + AH_f(tau_b) + AH_f(tau_c));
+    gSM = aSPiv * (AH_f(tau_t) + AH_f(tau_b) + AH_f(tau_c) + AH_f(tau_s));
 
     dg = deltaloc / gSM + (aSPiv / gSM) * (dKappa_t * AH_f(tau_t) + dKappa_b * AH_f(tau_b) + dKappa_c * AH_f(tau_c) + dKappa_s * AH_f(tau_s));
 
@@ -17345,7 +17345,7 @@ const double NPSMEFTd6General::deltaG_hggRatio_mu(const double mu) const {
     
     double deltaloc = deltaG_hgg_mu(mu);
 
-    gSM = aSPiv * (AH_f(tau_t) + AH_f(tau_b) + AH_f(tau_c));
+    gSM = aSPiv * (AH_f(tau_t) + AH_f(tau_b) + AH_f(tau_c) + AH_f(tau_s));
 
     dg = deltaloc / gSM + (aSPiv / gSM) * (dKappa_t * AH_f(tau_t) + dKappa_b * AH_f(tau_b) + dKappa_c * AH_f(tau_c) + dKappa_s * AH_f(tau_s));
 
