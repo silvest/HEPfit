@@ -64,8 +64,7 @@ void BXqll::updateParameters()
     kappa = ale / alsmu;
     Mtau = mySM.getLeptons(QCD::TAU).getMass(); // pole mass?
     Mb_pole = mySM.Mbar2Mp(Mb, QCD::BOTTOM, FULLNNLO);
-    //Mc_pole = mySM.Mbar2Mp(Mc, FULLNNLO); //*** Mbar2Mp does not receive Mc ***/
-    Mc_pole = Mc*(1.+4.*alsmuc/3./M_PI+alsmuc*alsmuc/M_PI/M_PI*(-1.0414*(1.-4.*Ms/3.*Mc)+13.4434));
+    Mc_pole = mySM.Mbar2Mp(Mc, QCD::CHARM, FULLNNLO);
     muh = mu_b/Mb_pole; // log(muh) uses the pole mass as stated in hep-ph/9910220
     z = Mc_pole*Mc_pole/Mb_pole/Mb_pole; //****** Must be pole masses ****/
     Lbl = 2. *  log(Mb_pole / Mlep); // Mb,pole ?
