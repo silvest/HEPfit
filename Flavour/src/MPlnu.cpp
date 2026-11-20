@@ -361,6 +361,18 @@ void MPlnu::updateParameters()
         checkcache_int_mu = false;
         checkcache_int_el = false;
     }
+    if (BGLflag) {
+        /* f+(q2=0) = f0(q2=0) */
+        z0 = (sqrt(w0+1.)-sqrt(2.))/(sqrt(w0+1.)+sqrt(2.));
+        af0_0 = fplus(0.);
+#if NBGL == 3
+        af0_0 -= (af0_1 * z0 + af0_2 * z0 * z0 + af0_3 * z0 * z0 *z0) / phi_f0(z0) / ((z0 - z0p_1) / (1. - z0 * z0p_1)*(z0 - z0p_2) / (1. - z0 * z0p_2));
+#else
+        af0_0 -= (af0_1 * z0 + af0_2 * z0 * z0) / phi_f0(z0) / ((z0 - z0p_1) / (1. - z0 * z0p_1)*(z0 - z0p_2) / (1. - z0 * z0p_2));
+#endif
+        af0_0 *= phi_f0(z0)*((z0 - z0p_1) / (1. - z0 * z0p_1)*(z0 - z0p_2) / (1. - z0 * z0p_2));
+    }
+
 
     if (!checkcache_int_tau || !checkcache_int_mu || !checkcache_int_el) {
         if (lep == StandardModel::TAU) {
@@ -407,15 +419,6 @@ void MPlnu::updateParameters()
         af0_3_cache = af0_3;
         afplus_3_cache = afplus_3;
 #endif    
-        /* f+(q2=0) = f0(q2=0) */
-        z0 = (sqrt(w0+1.)-sqrt(2.))/(sqrt(w0+1.)+sqrt(2.));
-        af0_0 = fplus(0.);
-#if NBGL == 3
-        af0_0 -= (af0_1 * z0 + af0_2 * z0 * z0 + af0_3 * z0 * z0 *z0) / phi_f0(z0) / ((z0 - z0p_1) / (1. - z0 * z0p_1)*(z0 - z0p_2) / (1. - z0 * z0p_2));
-#else        
-        af0_0 -= (af0_1 * z0 + af0_2 * z0 * z0) / phi_f0(z0) / ((z0 - z0p_1) / (1. - z0 * z0p_1)*(z0 - z0p_2) / (1. - z0 * z0p_2));
-#endif        
-        af0_0 *= phi_f0(z0)*((z0 - z0p_1) / (1. - z0 * z0p_1)*(z0 - z0p_2) / (1. - z0 * z0p_2));
     }
     else if (DMflag) { 
           afplus1_cache = afplus1;
