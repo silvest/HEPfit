@@ -497,7 +497,7 @@ gslpp::matrix<double> EvolDF1nlep::Df1threshold_deltarsT(double nf) const
     delta_rsT(2, 3) = 5. / 27.;
     delta_rsT(2, 5) = 5. / 27.;
     delta_rsT(3, 3) = -5. / 9.;
-    delta_rsT(4, 5) = -5. / 9.;
+    delta_rsT(3, 5) = -5. / 9.;
     delta_rsT(4, 3) = 5. / 27.;
     delta_rsT(4, 5) = 5. / 27.;
     delta_rsT(5, 3) = -5. / 9.;
@@ -542,7 +542,7 @@ gslpp::matrix<double> EvolDF1nlep::Df1threshold_deltareT(double nf) const
     if (nf == 3. || nf == 5.) {
 
         delta_reT(6, 2) = 20. / 27.;
-        delta_reT(6, 4) = 20. / 81.;
+        delta_reT(6, 3) = 20. / 81.;
         delta_reT(6, 4) = 20. / 27.;
         delta_reT(6, 5) = 20. / 81.;
         delta_reT(6, 6) = -10. / 27.;
@@ -565,10 +565,10 @@ gslpp::matrix<double> EvolDF1nlep::Df1threshold_deltareT(double nf) const
         delta_reT(6, 3) = -40. / 81.;
         delta_reT(6, 4) = -40. / 27.;
         delta_reT(6, 5) = -40. / 81.;
-        delta_reT(6, 5) = -40. / 27.;
-        delta_reT(6, 6) = -40. / 81.;
-        delta_reT(6, 7) = -40. / 27.;
-        delta_reT(6, 8) = -40. / 81.;
+        delta_reT(6, 6) = -40. / 27.;
+        delta_reT(6, 7) = -40. / 81.;
+        delta_reT(6, 8) = -40. / 27.;
+        delta_reT(6, 9) = -40. / 81.;
         delta_reT(8, 2) = -40. / 27.;
         delta_reT(8, 3) = -40. / 81.;
         delta_reT(8, 4) = -40. / 27.;
