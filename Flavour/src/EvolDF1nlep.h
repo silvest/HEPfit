@@ -125,7 +125,9 @@ class EvolDF1nlep : public RGEvolutor {
                                     K11sing, K11singV, JsK0singV;
     gslpp::vector<gslpp::complex> e;
     unsigned int dim;
-    double alsMZ_cache;
+    gslpp::matrix<double> threeFlavourGenerator;
+    bool fixedThreeFlavours = false;
+    double alsMZ_cache = -1.;
     double Mz_cache;
     double Ale_cache;
 
