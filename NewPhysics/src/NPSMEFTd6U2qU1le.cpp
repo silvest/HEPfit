@@ -958,8 +958,8 @@ void NPSMEFTd6U2qU1le::setNPSMEFTd6GeneralParameters()
     //Clq1_1133r_LNP = Clq1_1133r_LNP;
     //Clq1_2233r_LNP = Clq1_2233r_LNP;
     
-    //Clq1_3311r_LNP = Clq1_3311r_LNP;
-    //Clq1_3322r_LNP = Clq1_3322r_LNP;
+    Clq1_3311r_LNP = Clq1_33aar_LNP;
+    Clq1_3322r_LNP = Clq1_33aar_LNP;
     
     Clq3_1111r_LNP = Clq3_11aar_LNP;
     Clq3_1122r_LNP = Clq3_11aar_LNP;
@@ -969,8 +969,8 @@ void NPSMEFTd6U2qU1le::setNPSMEFTd6GeneralParameters()
     //Clq3_1133r_LNP = Clq3_1133r_LNP;
     //Clq3_2233r_LNP = Clq3_2233r_LNP;
     
-    //Clq3_3311r_LNP = Clq3_3311r_LNP;
-    //Clq3_3322r_LNP = Clq3_3322r_LNP;
+    Clq3_3311r_LNP = Clq3_33aar_LNP;
+    Clq3_3322r_LNP = Clq3_33aar_LNP;
     
     //Cee_1111r_LNP = Cee_1111r_LNP;
     //Cee_1122r_LNP = Cee_1122r_LNP;
@@ -988,8 +988,8 @@ void NPSMEFTd6U2qU1le::setNPSMEFTd6GeneralParameters()
     //Ceu_1133r_LNP = Ceu_1133r_LNP;
     //Ceu_2233r_LNP = Ceu_2233r_LNP;
     
-    //Ceu_3311r_LNP = Ceu_3311r_LNP;
-    //Ceu_3322r_LNP = Ceu_3322r_LNP;
+    Ceu_3311r_LNP = Ceu_33aar_LNP;
+    Ceu_3322r_LNP = Ceu_33aar_LNP;
     
     Ced_1111r_LNP = Ced_11aar_LNP;
     Ced_1122r_LNP = Ced_11aar_LNP;
