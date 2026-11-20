@@ -158,20 +158,21 @@ double Bsgamma::P0_4body(double E0, double t)
     double C15re = (C1_0.real()*C5_0.real() + C1_0.imag()*C5_0.imag());
     double C16re = (C1_0.real()*C6_0.real() + C1_0.imag()*C6_0.imag());
     
-    double C13im = (C1_0.real()*C3_0.imag() + C1_0.imag()*C3_0.real());
-    double C14im = (C1_0.real()*C4_0.imag() + C1_0.imag()*C4_0.real());
-    double C15im = (C1_0.real()*C5_0.imag() + C1_0.imag()*C5_0.real());
-    double C16im = (C1_0.real()*C6_0.imag() + C1_0.imag()*C6_0.real());
+    /* Im(Ci Cj^*), so that Cij = Cijre*Re(la_u) - Cijim*Im(la_u) = Re(Ci Cj^* la_u) */
+    double C13im = (C1_0.imag()*C3_0.real() - C1_0.real()*C3_0.imag());
+    double C14im = (C1_0.imag()*C4_0.real() - C1_0.real()*C4_0.imag());
+    double C15im = (C1_0.imag()*C5_0.real() - C1_0.real()*C5_0.imag());
+    double C16im = (C1_0.imag()*C6_0.real() - C1_0.real()*C6_0.imag());
     
     double C23re = (C2_0.real()*C3_0.real() + C2_0.imag()*C3_0.imag());
     double C24re = (C2_0.real()*C4_0.real() + C2_0.imag()*C4_0.imag());
     double C25re = (C2_0.real()*C5_0.real() + C2_0.imag()*C5_0.imag());
     double C26re = (C2_0.real()*C6_0.real() + C2_0.imag()*C6_0.imag());
     
-    double C23im = (C2_0.real()*C3_0.imag() + C2_0.imag()*C3_0.real());
-    double C24im = (C2_0.real()*C4_0.imag() + C2_0.imag()*C4_0.real());
-    double C25im = (C2_0.real()*C5_0.imag() + C2_0.imag()*C5_0.real());
-    double C26im = (C2_0.real()*C6_0.imag() + C2_0.imag()*C6_0.real());
+    double C23im = (C2_0.imag()*C3_0.real() - C2_0.real()*C3_0.imag());
+    double C24im = (C2_0.imag()*C4_0.real() - C2_0.real()*C4_0.imag());
+    double C25im = (C2_0.imag()*C5_0.real() - C2_0.real()*C5_0.imag());
+    double C26im = (C2_0.imag()*C6_0.real() - C2_0.real()*C6_0.imag());
     
     double C13 = (C13re*la_u.real() - C13im*la_u.imag());
     double C14 = (C14re*la_u.real() - C14im*la_u.imag());
@@ -2006,8 +2007,12 @@ void Bsgamma::computeCoeff(double mu)
 
     C7_2 = (*(allcoeff[NNLO]))(6)/Alstilde/Alstilde;
 
-    C7p_0 = (*(allcoeffprime[LO]))(6) + Ms/Mb*((*(allcoeff[LO]))(6)) + C_7p_NP;
-    C7p_1 = ((*(allcoeffprime[NLO]))(6) + Ms/Mb*((*(allcoeff[NLO]))(6)))/Alstilde; /*Implement the other WCs*/
+    /* SM C7' = (m_s/m_b) C7 with both MSbar masses at the common scale mu (the ratio is RG invariant in QCD);
+     * Ms and Mb are m_s(2 GeV) and m_b(m_b) and must not be combined directly. */
+    double MsoMb = SM.Mrun(mu, SM.getQuarks(QCD::STRANGE).getMass_scale(), SM.getQuarks(QCD::STRANGE).getMass(), QCD::STRANGE, FULLNNLO)
+            / SM.Mrun(mu, SM.getQuarks(QCD::BOTTOM).getMass_scale(), SM.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
+    C7p_0 = (*(allcoeffprime[LO]))(6) + MsoMb*((*(allcoeff[LO]))(6)) + C_7p_NP;
+    C7p_1 = ((*(allcoeffprime[NLO]))(6) + MsoMb*((*(allcoeff[NLO]))(6)))/Alstilde; /*Implement the other WCs*/
 
     /*std::cout << "C_0(mu): (" << C1_0.real() << "," << C2_0.real() << "," 
             << C3_0.real() << "," << C4_0.real() << "," << C5_0.real() << "," 
