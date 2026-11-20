@@ -65,7 +65,7 @@ Observable::Observable(const Observable& orig)
     errgr = orig.errgr;
     obsType = orig.obsType;
     bin_min = orig.bin_min;
-    bin_min = orig.bin_max;
+    bin_max = orig.bin_max;
     iterationNo = orig.iterationNo;
     inhisto = orig.inhisto;
     writeChain = orig.writeChain;
@@ -206,7 +206,7 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
                                                                                        std::string& infilename,
                                                                                        int rank) 
 {
-    if ((type.compare("Observable") == 0 || type.compare("HiggsObservable")) && std::distance(tok->begin(), tok->end()) < 8) {
+    if ((type.compare("Observable") == 0 || type.compare("HiggsObservable") == 0) && std::distance(tok->begin(), tok->end()) < 8) {
         if(rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename);
         else sleep (2);
     } else if (type.compare("BinnedObservable") == 0 && std::distance(tok->begin(), tok->end()) < 12) {
