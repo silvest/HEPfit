@@ -7,6 +7,7 @@
 
 #include "StandardModel.h"
 #include "MVll.h"
+#include "ScopedGslErrorHandlerOff.h"
 #include "std_make_vector.h"
 #include "gslpp_function_adapter.h"
 #include "F_1.h"
@@ -2911,7 +2912,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
 
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
 
-    old_handler = gsl_set_error_handler_off();
+    ScopedGslErrorHandlerOff handlerGuard;
 
     switch (i) {
         case 0:
@@ -3028,7 +3029,6 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
             throw std::runtime_error("MVll::integrateSigma: index " + out.str() + " not implemented");
     }
 
-    gsl_set_error_handler(old_handler);
 
 }
 
@@ -3086,7 +3086,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
 
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
 
-    old_handler = gsl_set_error_handler_off();
+    ScopedGslErrorHandlerOff handlerGuard;
 
     switch (i) {
         case 0:
@@ -3176,7 +3176,6 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
             throw std::runtime_error("MVll::integrateDelta: index " + out.str() + " not implemented");
     }
 
-    gsl_set_error_handler(old_handler);
 
 }
 double MVll::integrateSigmaTree(double q_min, double q_max)
@@ -3196,7 +3195,7 @@ double MVll::integrateSigmaTree(double q_min, double q_max)
     
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
 
-    old_handler = gsl_set_error_handler_off();
+    ScopedGslErrorHandlerOff handlerGuard;
 
     if (sigmaTreeCached[qbin] == 0) {
         FD = convertToGslFunction(bind(&MVll::SigmaTree, &(*this), _1));
@@ -3206,7 +3205,6 @@ double MVll::integrateSigmaTree(double q_min, double q_max)
     }
     return prefactor * cacheSigmaTree[qbin];
 
-    gsl_set_error_handler(old_handler);
 }
 
 double MVll::SigmaTree(double q2)

@@ -7,6 +7,7 @@
 
 #include "StandardModel.h"
 #include "MPll.h"
+#include "ScopedGslErrorHandlerOff.h"
 #include "std_make_vector.h"
 #include "gslpp_function_adapter.h"
 #include "F_1.h"
@@ -1157,7 +1158,6 @@ gslpp::complex MPll::deltaTpar(double q2)
 {
     tmpq2 = q2;
 
-    //old_handler = gsl_set_error_handler_off();
 
     if (deltaTparpCached[q2] == 0) {
 
@@ -1173,7 +1173,6 @@ gslpp::complex MPll::deltaTpar(double q2)
         deltaTparpCached[q2] = 1;
     }
 
-    //gsl_set_error_handler(old_handler);
 
     return deltaT_0 * Cpar(q2) + deltaT_1par * cacheDeltaTparp[q2] / f_plus(q2);
 }
@@ -1469,7 +1468,7 @@ double MPll::integrateSigma(int i, double q_min, double q_max)
     
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
 
-    old_handler = gsl_set_error_handler_off();
+    ScopedGslErrorHandlerOff handlerGuard;
 
     switch (i) {
         case 0:
@@ -1505,7 +1504,6 @@ double MPll::integrateSigma(int i, double q_min, double q_max)
             throw std::runtime_error("MPll::integrateSigma: index " + out.str() + " not implemented");
     }
 
-    gsl_set_error_handler(old_handler);
 
 }
 
@@ -1536,7 +1534,7 @@ double MPll::integrateDelta(int i, double q_min, double q_max)
 
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
 
-    old_handler = gsl_set_error_handler_off();
+    ScopedGslErrorHandlerOff handlerGuard;
 
     switch (i) {
         case 0:
@@ -1563,7 +1561,6 @@ double MPll::integrateDelta(int i, double q_min, double q_max)
             throw std::runtime_error("MPll::integrateDelta: index " + out.str() + " not implemented");
     }
 
-    gsl_set_error_handler(old_handler);
 
 }
 
@@ -1584,7 +1581,7 @@ double MPll::integrateSigmaTree(double q_min, double q_max)
     
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
 
-    old_handler = gsl_set_error_handler_off();
+    ScopedGslErrorHandlerOff handlerGuard;
 
     if (sigmaTreeCached[qbin] == 0) {
         FD = convertToGslFunction(bind(&MPll::SigmaTree, &(*this), _1));
@@ -1594,7 +1591,6 @@ double MPll::integrateSigmaTree(double q_min, double q_max)
     }
     return prefactor * cacheSigmaTree[qbin];
 
-    gsl_set_error_handler(old_handler);
 }
 
 double MPll::SigmaTree(double q2)

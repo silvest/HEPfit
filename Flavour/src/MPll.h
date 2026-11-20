@@ -743,7 +743,6 @@ private:
     gsl_integration_cquad_workspace * w_sigmaTree;/**< Gsl integral variable */
     gsl_integration_cquad_workspace * w_DTPPR;/**< Gsl integral variable */
 
-    gsl_error_handler_t * old_handler; /**< GSL error handler store */
 
     std::map<std::pair<double, double>, gslpp::complex > cacheI1;/**< Cache variable */
 

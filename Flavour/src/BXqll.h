@@ -109,7 +109,6 @@ private:
     double errH;/**< Gsl integral variable */
     gsl_function FH;/**< Gsl integral variable */
     gsl_integration_cquad_workspace * w_H;/**< Gsl integral variable */
-    gsl_error_handler_t * old_handler; /**< GSL error handler store */
 
     /**
      * @brief The update parameter method for BXqll.
