@@ -1134,8 +1134,9 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbd2()
                 mcbd.setCoeff(l, 0., NLO);
         case LO:
                 mcbd.setCoeff(0, -CddVLL.at(2).at(0).at(2).at(0), LO);
-                mcbd.setCoeff(1, -(CddS1RR.at(2).at(0).at(2).at(0) - CddS8RR.at(2).at(0).at(2).at(0) / 6.), LO);
-                mcbd.setCoeff(2, -CddS8RR.at(2).at(0).at(2).at(0) / 2., LO);
+                // O2 = (bbar P_L d)^2 is the h.c. of the LEFT operator (dbar_L b_R)^2: use conj(C(d b d b)), as in CMdk2()
+                mcbd.setCoeff(1, -(CddS1RR.at(0).at(2).at(0).at(2).conjugate() - CddS8RR.at(0).at(2).at(0).at(2).conjugate() / 6.), LO);
+                mcbd.setCoeff(2, -CddS8RR.at(0).at(2).at(0).at(2).conjugate() / 2., LO);
                 mcbd.setCoeff(3, CddV8LR.at(2).at(0).at(2).at(0), LO);
                 mcbd.setCoeff(4, 2. * CddV1LR.at(2).at(0).at(2).at(0) - CddV8LR.at(2).at(0).at(2).at(0) / 3., LO);
                 break;
@@ -1201,8 +1202,9 @@ std::vector<WilsonCoefficient> &NPSMEFTd6GeneralMatching::CMdbs2()
                 mcbs.setCoeff(l, 0., NLO);
         case LO:
                 mcbs.setCoeff(0, -CddVLL.at(2).at(1).at(2).at(1), LO);
-                mcbs.setCoeff(1, -(CddS1RR.at(2).at(1).at(2).at(1) - CddS8RR.at(2).at(1).at(2).at(1) / 6.), LO);
-                mcbs.setCoeff(2, -CddS8RR.at(2).at(1).at(2).at(1) / 2., LO);
+                // O2 = (bbar P_L s)^2 is the h.c. of the LEFT operator (sbar_L b_R)^2: use conj(C(s b s b)), as in CMdk2()
+                mcbs.setCoeff(1, -(CddS1RR.at(1).at(2).at(1).at(2).conjugate() - CddS8RR.at(1).at(2).at(1).at(2).conjugate() / 6.), LO);
+                mcbs.setCoeff(2, -CddS8RR.at(1).at(2).at(1).at(2).conjugate() / 2., LO);
                 mcbs.setCoeff(3, CddV8LR.at(2).at(1).at(2).at(1), LO);
                 mcbs.setCoeff(4, 2. * CddV1LR.at(2).at(1).at(2).at(1) - CddV8LR.at(2).at(1).at(2).at(1) / 3., LO);
                 break;
