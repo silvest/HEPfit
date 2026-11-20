@@ -384,6 +384,7 @@ void StandardModel::computeCKM()
     if (requireCKM) {
         if (FlagWolfenstein) {
             myCKM.computeCKMwithWolfenstein(lambda, A, rhob, etab);
+            Vud = myCKM.getV_ud().abs();
             Vus = myCKM.getV_us().abs();
             Vcb = myCKM.getV_cb().abs();
             Vub = myCKM.getV_ub().abs();
