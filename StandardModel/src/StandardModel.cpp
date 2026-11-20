@@ -3484,7 +3484,13 @@ const double StandardModel::GammaHtoZga() const
             vSMmu * Qmu * AHZga_f(tau_mu, lambda_mu)) +
             AHZga_W(tau_W, lambda_W)/sqrt(sW2()));
 
-    gamma = (4.0*sqrt(2)*GF) * (MSM.abs2()) * pow(mHl*(1.0-Mz*Mz/mHl/mHl),3.0)/32.0/M_PI;
+    // Djouadi, hep-ph/0503172, eq. (2.53):
+    // Gamma = G_mu^2 M_W^2 alpha M_H^3/(64 pi^4) (1-M_Z^2/M_H^2)^3 |X|^2, with X = 4 pi s_W MSM/alpha,
+    // i.e. the Z coupling is normalised with G_mu M_W^2 and the photon coupling with alpha(0).
+    // The last factor converts from the tree-level form G_mu M_W^2 = pi alpha/(sqrt(2) s_W^2),
+    // which would use alpha(0) also for the Z coupling.
+    gamma = (4.0*sqrt(2)*GF) * (MSM.abs2()) * pow(mHl*(1.0-Mz*Mz/mHl/mHl),3.0)/32.0/M_PI
+            * sqrt(2.0)*GF*M_w_2*sW2()/(M_PI*ale);
 
     return gamma;
 }
