@@ -108,6 +108,8 @@ StandardModelMatching::~StandardModelMatching() {
 }
 
 void StandardModelMatching::updateSMParameters() {
+    bdQcdOrder = nlepQcdOrder = -1;
+    nlepEwValid = false;
     Mut = SM.getMut();
     Muw = SM.getMuw();
     Ale = SM.getAle();
@@ -2288,7 +2290,7 @@ double StandardModelMatching::setWCBdmm(int i, double x, orders order) {
 
     sw2 = (M_PI * Ale) / (sqrt(2.) * GF * Mw * Mw);
 
-    if (sw2b == sw2 && xcacheb == x) {
+    if (bdQcdOrder == order && sw2b == sw2 && xcacheb == x) {
         switch (order) {
             case NNLO:
                 return (CWBdmmArrayNNLOqcd[i]);
@@ -2308,6 +2310,7 @@ double StandardModelMatching::setWCBdmm(int i, double x, orders order) {
 
     sw2b = sw2;
     xcacheb = x;
+    bdQcdOrder = order;
 
     switch (order) {
         case NNLO:
@@ -2422,7 +2425,7 @@ double StandardModelMatching::setWCBdmmEW(int i, double x, orders_qed order_qed)
  * Wilson coefficients calculus, Buras base for nonlep. b decays               *  
  * ****************************************************************************/
 double StandardModelMatching::setWCbnlep(int i, double x, orders order) {
-    if (xcacheb == x) {
+    if (nlepQcdOrder == order && nlepQcdX == x) {
         switch (order) {
             case NNLO:
             case NLO:
@@ -2438,7 +2441,8 @@ double StandardModelMatching::setWCbnlep(int i, double x, orders order) {
         }
     }
 
-    xcacheb = x;
+    nlepQcdX = x;
+    nlepQcdOrder = order;
 
     switch (order) {
         case NNLO:
@@ -2476,12 +2480,13 @@ double StandardModelMatching::setWCbnlep(int i, double x, orders order) {
 double StandardModelMatching::setWCbnlepEW(int i, double x) {
     sw2 = (M_PI * Ale) / (sqrt(2) * GF * Mw * Mw);
 
-    if (sw2b == sw2 && xcacheb == x) {
+    if (nlepEwValid && nlepEwSw2 == sw2 && nlepEwX == x) {
         return (CWbnlepArrayNLOew[i]);
     }
 
-    sw2b = sw2;
-    xcacheb = x;
+    nlepEwSw2 = sw2;
+    nlepEwX = x;
+    nlepEwValid = true;
 
     CWbnlepArrayNLOew[1] = -35. / 18.;
     CWbnlepArrayNLOew[2] = 2. / (3. * sw2) * (2. * B0b(x) + C0b(x));
