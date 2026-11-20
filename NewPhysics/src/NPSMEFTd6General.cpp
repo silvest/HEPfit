@@ -17856,6 +17856,13 @@ const double NPSMEFTd6General::muggH(const double sqrt_s) const //AG:modified
     return mu;
 }
 
+double NPSMEFTd6General::mwInputFitWeight(const char* prediction) const
+{
+    if (!FlagMWinput)
+        throw std::runtime_error(std::string("NPSMEFTd6General::") + prediction + " requires MWinput for this fit");
+    return 1.0;
+}
+
 const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
     double mu = 0.0;
     double C1 = 0.0;
@@ -17963,7 +17970,7 @@ const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
                 - 3.003 * delta_GF)
                 ;*/
         //AG:begin
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 ((0.1212) * getSMEFTCoeffEW("CHbox")
                 + (0.09705) * getSMEFTCoeffEW("CHW")
                 + (0.005368) * getSMEFTCoeffEW("CHB")
@@ -18011,7 +18018,7 @@ const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
                 - 2.999 * delta_GF)
                 ;*/
         //AG:begin
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 ((0.1213) * getSMEFTCoeffEW("CHbox")
                 + (-0.05852) * getSMEFTCoeffEW("CHW")
                 + (-0.0034826) * getSMEFTCoeffEW("CHB")
@@ -18046,7 +18053,7 @@ const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
         C1 = 0.0064;
 
         mu +=
-                cWsch * (
+                mwInputFitWeight(__func__) * (
                 -149.911 * CHB 
                 -82290.4 * CHW 
                 +21589.7 * CHWB 
@@ -18094,7 +18101,7 @@ const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
         C1 = 0.0; // N.A.
 
         mu +=
-                cWsch * (
+                mwInputFitWeight(__func__) * (
                 +63.2251 * CHB 
                 -84681.3 * CHW 
                 +20726.1 * CHWB 
@@ -18121,7 +18128,7 @@ const double NPSMEFTd6General::delta_muVBF_1(const double sqrt_s) const {
         C1 = 0.0; // N.A.
 
         mu +=
-                cWsch * (
+                mwInputFitWeight(__func__) * (
                 +49.3432 * CHB 
                 -88355. * CHW 
                 +20554. * CHWB 
@@ -18179,7 +18186,7 @@ const double NPSMEFTd6General::delta_muVBF_2(const double sqrt_s) const {
         if (sqrt_s == 8.0) {
             mu += 0.0;
         } else if (sqrt_s == 13.0) {
-            mu += cWsch * (
+            mu += mwInputFitWeight(__func__) * (
                     +(0.014669) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                     + (0.03814) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                     + (0.0001606) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -18394,7 +18401,7 @@ const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
                 ;*/
 
         //AG:begin
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 ((0.121211) * getSMEFTCoeffEW("CHbox")
                 + (-0.030304941) * getSMEFTCoeffEW("CHD")
                 + (0.87535) * getSMEFTCoeffEW("CHW")
@@ -18423,7 +18430,7 @@ const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
                 - 1.999 * delta_GF)
                 ;*/
         // AG:begin
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 ((0.121283) * getSMEFTCoeffEW("CHbox")
                 + (-0.0303129) * getSMEFTCoeffEW("CHD")
                 + (0.88562) * getSMEFTCoeffEW("CHW")
@@ -18433,7 +18440,7 @@ const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
                 + (-0.121234) * getSMEFTCoeffEW("CHl3R", 1, 1)
                 + (0.121283) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * 1000000
                 );
-        mu += cWsch * ((0.0016) * deltaGwd6());
+        mu += mwInputFitWeight(__func__) * ((0.0016) * deltaGwd6());
         //AG:end
     } else if (sqrt_s == 14.0) {
 
@@ -18442,7 +18449,7 @@ const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
         C1 = 0.0103;
 
         mu +=
-                cWsch * (
+                mwInputFitWeight(__func__) * (
                 +884638. * CHW 
                 -12.8388 * CHWB 
                 -30014.6 * CHD 
@@ -18473,7 +18480,7 @@ const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
         C1 = 0.0; // N.A. 
 
         mu +=
-                cWsch * (
+                mwInputFitWeight(__func__) * (
                 +894965. * CHW 
                 -5.20074 * CHWB 
                 -30691.6 * CHD 
@@ -18489,7 +18496,7 @@ const double NPSMEFTd6General::delta_muWH_1(const double sqrt_s) const {
         C1 = 0.0; // N.A. 
 
         mu +=
-                cWsch * (
+                mwInputFitWeight(__func__) * (
                 +897281. * CHW 
                 -43.9532 * CHWB 
                 -30887.3 * CHD 
@@ -18530,7 +18537,7 @@ const double NPSMEFTd6General::delta_muWH_2(const double sqrt_s) const {
         if (sqrt_s == 8.0) {
             mu += 0.0;
         } else if (sqrt_s == 13.0) {
-            mu += cWsch * (
+            mu += mwInputFitWeight(__func__) * (
                     (+(0.014703) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                     + (0.0009196) * pow(getSMEFTCoeffEW("CHD"), 2.0)
                     + (0.46) * pow(getSMEFTCoeffEW("CHW"), 2.0)
@@ -18568,9 +18575,9 @@ const double NPSMEFTd6General::delta_muWH_2(const double sqrt_s) const {
                     + (-0.00735169) * getSMEFTCoeffEW("CHl3R", 1, 1) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                     ) * pow(1000000.0, 2.0)
                     );
-            mu += cWsch * ((-0.0007) * pow(deltaGwd6(), 2.0));
+            mu += mwInputFitWeight(__func__) * ((-0.0007) * pow(deltaGwd6(), 2.0));
 
-            mu += cWsch * (
+            mu += mwInputFitWeight(__func__) * (
                     +(-0.00019) * deltaGwd6() * getSMEFTCoeffEW("CHbox")
                     + (-0.000155) * deltaGwd6() * getSMEFTCoeffEW("CHD")
                     + (-0.0007) * deltaGwd6() * getSMEFTCoeffEW("CHW")
@@ -18706,7 +18713,7 @@ const double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const {
                 ;*/
 
         // AG: begin
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 ((0.121219) * getSMEFTCoeffEW("CHbox")
                 + (0.036781) * getSMEFTCoeffEW("CHD")
                 + (0.72711) * getSMEFTCoeffEW("CHW")
@@ -18749,7 +18756,7 @@ const double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const {
                 - 1.999 * delta_GF)
                 ;*/
         // AG: begin
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 ((0.121184) * getSMEFTCoeffEW("CHbox")
                 + (0.036574) * getSMEFTCoeffEW("CHD")
                 + (0.73619) * getSMEFTCoeffEW("CHW")
@@ -18775,7 +18782,7 @@ const double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const {
         C1 = 0.0118;
 
         mu +=
-                cWsch * (
+                mwInputFitWeight(__func__) * (
                 +82708.7 * CHB 
                 +736201. * CHW 
                 +313759. * CHWB 
@@ -18816,7 +18823,7 @@ const double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const {
         C1 = 0.0; // N.A.
 
         mu +=
-                cWsch * (
+                mwInputFitWeight(__func__) * (
                 +84651.9 * CHB 
                 +745844. * CHW 
                 +317941. * CHWB 
@@ -18839,7 +18846,7 @@ const double NPSMEFTd6General::delta_muZH_1(const double sqrt_s) const {
         C1 = 0.0; // N.A.
 
         mu +=
-                cWsch * (
+                mwInputFitWeight(__func__) * (
                 +85156.7 * CHB 
                 +748204. * CHW 
                 +318992. * CHWB 
@@ -18890,7 +18897,7 @@ const double NPSMEFTd6General::delta_muZH_2(const double sqrt_s) const {
         if (sqrt_s == 8.0) {
             mu += 0.0;
         } else if (sqrt_s == 13.0) {
-            mu += cWsch * (
+            mu += mwInputFitWeight(__func__) * (
                     (+(0.014709) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                     + (0.0001828) * pow(getSMEFTCoeffEW("CHD"), 2.0)
                     + (0.33883) * pow(getSMEFTCoeffEW("CHW"), 2.0)
@@ -19003,9 +19010,9 @@ const double NPSMEFTd6General::delta_muZH_2(const double sqrt_s) const {
                     ) * pow(1000000.0, 2.0)
                     );
 
-            mu += cWsch * ((0.008) * pow(deltaGzd6(), 2.0));
+            mu += mwInputFitWeight(__func__) * ((0.008) * pow(deltaGzd6(), 2.0));
 
-            mu += cWsch * (
+            mu += mwInputFitWeight(__func__) * (
                     +(0.00021) * deltaGzd6() * getSMEFTCoeffEW("CHD")
                     + (-0.0015) * deltaGzd6() * getSMEFTCoeffEW("CHW")
                     + (0.0007) * deltaGzd6() * getSMEFTCoeffEW("CHB")
@@ -19178,7 +19185,7 @@ const double NPSMEFTd6General::delta_muttH_1(const double sqrt_s) const {
                 ;*/
 
         //AG:begin
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 ((0.1213) * getSMEFTCoeffEW("CHbox")
                 + (-0.03042977) * getSMEFTCoeffEW("CHD")
                 + (0.0013429) * getSMEFTCoeffEW("CHW")
@@ -19502,7 +19509,7 @@ const double NPSMEFTd6General::delta_muttH_2(const double sqrt_s) const {
         if (sqrt_s == 8.0) {
             mu += 0.0;
         } else if (sqrt_s == 13.0) {
-            mu += cWsch * (
+            mu += mwInputFitWeight(__func__) * (
                     +(0.014702) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                     + (0.0009337) * pow(getSMEFTCoeffEW("CHD"), 2.0)
                     + (0.04044) * pow(getSMEFTCoeffEW("CHq1R", 0, 0), 2.0)
@@ -19905,7 +19912,7 @@ const double NPSMEFTd6General::delta_mutH_1(const double sqrt_s) const {
     // Obtained with MG5 in the 5Flavor-scheme (p p > h t j)
     if (sqrt_s == 8.0) {
         C1 = 0; // to be added
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 ((0.12122) * getSMEFTCoeffEW("CHbox")
                 + (-0.03034483) * getSMEFTCoeffEW("CHD")
                 + (0.2149) * getSMEFTCoeffEW("CHW")
@@ -19924,7 +19931,7 @@ const double NPSMEFTd6General::delta_mutH_1(const double sqrt_s) const {
                 );
     } else if (sqrt_s == 13.0) {
         C1 = 0.0091;
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 ((0.12116) * getSMEFTCoeffEW("CHbox")
                 + (-0.03031732) * getSMEFTCoeffEW("CHD")
                 + (0.14294) * getSMEFTCoeffEW("CHW")
@@ -19959,7 +19966,7 @@ const double NPSMEFTd6General::delta_mutH_2(const double sqrt_s) const {
         if (sqrt_s == 8.0) {
             mu += 0.0;
         } else if (sqrt_s == 13.0) {
-            mu += cWsch * (
+            mu += mwInputFitWeight(__func__) * (
                     +(0.014714) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                     + (0.0009197) * pow(getSMEFTCoeffEW("CHD"), 2.0)
                     + (0.10664) * pow(getSMEFTCoeffEW("CHW"), 2.0)
@@ -20273,7 +20280,7 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em,
 
         C1 = 0.00639683;
 
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -22678.4 * CHW 
                 -403.784 * CHWB 
                 -30227.6 * CHD 
@@ -20288,7 +20295,7 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em,
 
         C1 = 0.00639683;
 
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -24480.4 * CHW 
                 -420.775 * CHWB 
                 -30228.3 * CHD 
@@ -20303,7 +20310,7 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em,
 
         C1 = 0.0064;
 
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -26656.2 * CHW 
                 -536.424 * CHWB 
                 -30398.4 * CHD 
@@ -20318,7 +20325,7 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em,
 
         C1 = 0.0062;
 
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -39530.3 * CHW 
                 -646.027 * CHWB 
                 -30240.6 * CHD 
@@ -20333,7 +20340,7 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em,
 
         C1 = 0.00618352;
 
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -40796.6 * CHW 
                 -626.864 * CHWB 
                 -30507.4 * CHD 
@@ -20348,7 +20355,7 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em,
 
         C1 = 0.0062; // Use the same as 350 GeV
 
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -41677.4 * CHW 
                 -456.017 * CHWB 
                 -30347.6 * CHD 
@@ -20362,7 +20369,7 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em,
 
         C1 = 0.0061;
 
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -47053.9 * CHW 
                 -244.306 * CHWB 
                 -30283.9 * CHD 
@@ -20377,7 +20384,7 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em,
 
         C1 = 0.0061;
 
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -48186.2 * CHW 
                 -331.282 * CHWB 
                 -30408.3 * CHD 
@@ -20392,7 +20399,7 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em,
 
         C1 = 0.0059;
 
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -49488.8 * CHW 
                 -166.83 * CHWB 
                 -30446.4 * CHD 
@@ -20407,7 +20414,7 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em,
 
         C1 = 0.0058;
 
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -46762. * CHW 
                 -145.836 * CHWB 
                 -30411.2 * CHD 
@@ -20420,7 +20427,7 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em,
 
     } else if (sqrt_s == 1.5) {
 
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -46321.6 * CHW 
                 -315.498 * CHWB 
                 -30490.1 * CHD 
@@ -20434,7 +20441,7 @@ const double NPSMEFTd6General::mueeWBF(const double sqrt_s, const double Pol_em,
 
         C1 = 0.0057;
 
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -38546. * CHW 
                 -674.92 * CHWB 
                 -30159.9 * CHD 
@@ -20521,7 +20528,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.059149; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -6703.9 * CHB 
                 +28405.8 * CHW 
                 +8204.2 * CHWB 
@@ -20536,7 +20543,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLHa1 = 0.029738; 
  
-        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+        sigmaeLHa1 = mwInputFitWeight(__func__) * (sigmaSMeLHa1
                 -5698. * CHB 
                 +24313. * CHW 
                 +6634. * CHWB 
@@ -20552,7 +20559,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.021932; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +11963.9 * CHB 
                 +1660.64 * CHW 
                 +6640.6 * CHWB 
@@ -20567,7 +20574,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRHa1 = 0.019411; 
  
-        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+        sigmaeRHa1 = mwInputFitWeight(__func__) * (sigmaSMeRHa1
                 +10684.6 * CHB 
                 +1491.6 * CHW 
                 +5968.6 * CHWB 
@@ -20588,7 +20595,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.064179; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -7582.01 * CHB 
                 +31652.3 * CHW 
                 +8473.6 * CHWB 
@@ -20603,7 +20610,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLHa1 = 0.032478; 
  
-        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+        sigmaeLHa1 = mwInputFitWeight(__func__) * (sigmaSMeLHa1
                 -6747. * CHB 
                 +28236. * CHW 
                 +7213. * CHWB 
@@ -20619,7 +20626,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.024227; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +14216.9 * CHB 
                 +1819.5 * CHW 
                 +8263.49 * CHWB 
@@ -20634,7 +20641,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRHa1 = 0.021198; 
  
-        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+        sigmaeRHa1 = mwInputFitWeight(__func__) * (sigmaSMeRHa1
                 +12477. * CHB 
                 +1581. * CHW 
                 +7265. * CHWB 
@@ -20655,7 +20662,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.067697; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -7842.55 * CHB 
                 +32195.3 * CHW 
                 +7995.72 * CHWB 
@@ -20670,7 +20677,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLHa1 = 0.032502; 
  
-        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+        sigmaeLHa1 = mwInputFitWeight(__func__) * (sigmaSMeLHa1
                 -7262. * CHB 
                 +29887. * CHW 
                 +7183. * CHWB 
@@ -20686,7 +20693,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.024424; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +15200.9 * CHB 
                 +1794.68 * CHW 
                 +9134.34 * CHWB 
@@ -20701,7 +20708,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRHa1 = 0.021221; 
  
-        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+        sigmaeRHa1 = mwInputFitWeight(__func__) * (sigmaSMeRHa1
                 +13253. * CHB 
                 +1527. * CHW 
                 +7972. * CHWB 
@@ -20722,7 +20729,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.134698; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -4610.61 * CHB 
                 +13131.4 * CHW 
                 +3271.33 * CHWB 
@@ -20737,7 +20744,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLHa1 = 0.017502; 
  
-        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+        sigmaeLHa1 = mwInputFitWeight(__func__) * (sigmaSMeLHa1
                 -6067.4 * CHB 
                 +22837.2 * CHW 
                 +3670.2 * CHWB 
@@ -20753,7 +20760,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.013416; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +12262.3 * CHB 
                 +674.27 * CHW 
                 +8562.69 * CHWB 
@@ -20768,7 +20775,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRHa1 = 0.011428; 
  
-        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+        sigmaeRHa1 = mwInputFitWeight(__func__) * (sigmaSMeRHa1
                 +10380.3 * CHB 
                 +578.1 * CHW 
                 +7249.4 * CHWB 
@@ -20789,7 +20796,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.149505; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -4089.28 * CHB 
                 +10219.8 * CHW 
                 +2978.04 * CHWB 
@@ -20804,7 +20811,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLHa1 = 0.015907; 
  
-        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+        sigmaeLHa1 = mwInputFitWeight(__func__) * (sigmaSMeLHa1
                 -5736.2 * CHB 
                 +21442.2 * CHW 
                 +3310.6 * CHWB 
@@ -20820,7 +20827,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.012207; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +11547.6 * CHB 
                 +589.54 * CHW 
                 +8177.48 * CHWB 
@@ -20835,7 +20842,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRHa1 = 0.010386; 
  
-        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+        sigmaeRHa1 = mwInputFitWeight(__func__) * (sigmaSMeRHa1
                 +9767.4 * CHB 
                 +498.7 * CHW 
                 +6888.4 * CHWB 
@@ -20856,7 +20863,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.165164; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -3620.09 * CHB 
                 +7262.01 * CHW 
                 +2533.79 * CHWB 
@@ -20871,7 +20878,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLHa1 = 0.014504; 
  
-        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+        sigmaeLHa1 = mwInputFitWeight(__func__) * (sigmaSMeLHa1
                 -5414.8 * CHB 
                 +20137. * CHW 
                 +3002.5 * CHWB 
@@ -20887,7 +20894,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.011137; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +10870.8 * CHB 
                 +511.27 * CHW 
                 +7767.56 * CHWB 
@@ -20902,7 +20909,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRHa1 = 0.009472; 
  
-        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+        sigmaeRHa1 = mwInputFitWeight(__func__) * (sigmaSMeRHa1
                 +9181.6 * CHB 
                 +430.1 * CHW 
                 +6529.6 * CHWB 
@@ -20923,7 +20930,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.302866; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -401.42 * CHB 
                 -11755. * CHW 
                 +877.96 * CHWB 
@@ -20938,7 +20945,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLHa1 = 0.00776; 
  
-        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+        sigmaeLHa1 = mwInputFitWeight(__func__) * (sigmaSMeLHa1
                 -3477.5 * CHB 
                 +12550.9 * CHW 
                 +1542.9 * CHWB 
@@ -20954,7 +20961,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.005968; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +6902.97 * CHB 
                 +180.91 * CHW 
                 +5139.82 * CHWB 
@@ -20969,7 +20976,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRHa1 = 0.005067; 
  
-        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+        sigmaeRHa1 = mwInputFitWeight(__func__) * (sigmaSMeRHa1
                 +5773.6 * CHB 
                 +153.1 * CHW 
                 +4277.7 * CHWB 
@@ -20990,7 +20997,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.362269; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 +373.85 * CHB 
                 -17839.8 * CHW 
                 +734.48 * CHWB 
@@ -21005,7 +21012,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLHa1 = 0.006271; 
  
-        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+        sigmaeLHa1 = mwInputFitWeight(__func__) * (sigmaSMeLHa1
                 -2939. * CHB 
                 +10537.5 * CHW 
                 +1232.7 * CHWB 
@@ -21021,7 +21028,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.004825; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +5824.16 * CHB 
                 +125.188 * CHW 
                 +4375.17 * CHWB 
@@ -21036,7 +21043,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRHa1 = 0.004095; 
  
-        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+        sigmaeRHa1 = mwInputFitWeight(__func__) * (sigmaSMeRHa1
                 +4857.9 * CHB 
                 +105.3 * CHW 
                 +3628.7 * CHWB 
@@ -21057,7 +21064,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.840445; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 +1799.69 * CHB 
                 -46969.5 * CHW 
                 +104.525 * CHWB 
@@ -21072,7 +21079,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLHa1 = 0.001741; 
  
-        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+        sigmaeLHa1 = mwInputFitWeight(__func__) * (sigmaSMeLHa1
                 -952.62 * CHB 
                 +3344.46 * CHW 
                 +325.76 * CHWB 
@@ -21088,7 +21095,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.001338; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +1883.78 * CHB 
                 +12.31 * CHW 
                 +1460.68 * CHWB 
@@ -21103,7 +21110,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRHa1 = 0.001137; 
  
-        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+        sigmaeRHa1 = mwInputFitWeight(__func__) * (sigmaSMeRHa1
                 +1552.24 * CHB 
                 +9.77 * CHW 
                 +1192.24 * CHWB 
@@ -21124,7 +21131,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 1.16664; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 +1515.52 * CHB 
                 -60139.2 * CHW 
                 -313.042 * CHWB 
@@ -21139,7 +21146,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLHa1 = 0.00087; 
  
-        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+        sigmaeLHa1 = mwInputFitWeight(__func__) * (sigmaSMeLHa1
                 -493.41 * CHB 
                 +1722.63 * CHW 
                 +160.89 * CHWB 
@@ -21155,7 +21162,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.000668; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +978.328 * CHB 
                 +2.9797 * CHW 
                 +762.181 * CHWB 
@@ -21170,7 +21177,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRHa1 = 0.000568; 
  
-        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+        sigmaeRHa1 = mwInputFitWeight(__func__) * (sigmaSMeRHa1
                 +800.12 * CHB 
                 +2.56 * CHW 
                 +617.74 * CHWB 
@@ -21191,7 +21198,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 1.23716; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 +1360.69 * CHB 
                 -62523.7 * CHW 
                 -725.756 * CHWB 
@@ -21206,7 +21213,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLHa1 = 0.000756; 
  
-        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+        sigmaeLHa1 = mwInputFitWeight(__func__) * (sigmaSMeLHa1
                 -430.8 * CHB 
                 +1501.77 * CHW 
                 +139.53 * CHWB 
@@ -21222,7 +21229,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.000581; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +854.12 * CHB 
                 +2.2845 * CHW 
                 +666.124 * CHWB 
@@ -21237,7 +21244,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRHa1 = 0.000494; 
  
-        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+        sigmaeRHa1 = mwInputFitWeight(__func__) * (sigmaSMeRHa1
                 +698.25 * CHB 
                 +1.85 * CHW 
                 +539.85 * CHWB 
@@ -21258,7 +21265,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 1.98635; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 +167.781 * CHB 
                 -80364. * CHW 
                 -1108.24 * CHWB 
@@ -21273,7 +21280,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLHa1 = 0.000186; 
  
-        sigmaeLHa1 = cWsch * (sigmaSMeLHa1
+        sigmaeLHa1 = mwInputFitWeight(__func__) * (sigmaSMeLHa1
                 -108.342 * CHB 
                 +378.008 * CHW 
                 +34.078 * CHWB 
@@ -21289,7 +21296,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.000143; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +217.438 * CHB 
                 +0.099697 * CHW 
                 +171.124 * CHWB 
@@ -21304,7 +21311,7 @@ const double NPSMEFTd6General::mueeHvv(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRHa1 = 0.000122; 
  
-        sigmaeRHa1 = cWsch * (sigmaSMeRHa1
+        sigmaeRHa1 = mwInputFitWeight(__func__) * (sigmaSMeRHa1
                 +175.68 * CHB 
                 +0.114 * CHW 
                 +136.74 * CHWB 
@@ -21403,7 +21410,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // LR -------------------------------
         sigmaSMeLRa0 = 0.010339; 
  
-        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+        sigmaeLRa0 = mwInputFitWeight(__func__) * (sigmaSMeLRa0
                 -2455.7 * CHB 
                 -2622.7 * CHW 
                 +6297. * CHWB 
@@ -21420,7 +21427,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // RL -------------------------------
         sigmaSMeRLa0 = 0.004408; 
  
-        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+        sigmaeRLa0 = mwInputFitWeight(__func__) * (sigmaSMeRLa0
                 -3017.2 * CHB 
                 -185. * CHW 
                 -1260.4 * CHWB 
@@ -21436,7 +21443,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // LL -------------------------------
         sigmaSMeLLa0 = 0.006964; 
  
-        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+        sigmaeLLa0 = mwInputFitWeight(__func__) * (sigmaSMeLLa0
                 +4723.4 * CHB 
                 +1092.9 * CHW 
                 -3439.1 * CHWB 
@@ -21453,7 +21460,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // RR -------------------------------
         sigmaSMeRRa0 = 0.006964; 
  
-        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+        sigmaeRRa0 = mwInputFitWeight(__func__) * (sigmaSMeRRa0
                 +4723.4 * CHB 
                 +1096.3 * CHW 
                 -3435.1 * CHWB 
@@ -21474,7 +21481,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // LR -------------------------------
         sigmaSMeLRa0 = 0.012531; 
  
-        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+        sigmaeLRa0 = mwInputFitWeight(__func__) * (sigmaSMeLRa0
                 -2846.7 * CHB 
                 -3153.5 * CHW 
                 +7554. * CHWB 
@@ -21491,7 +21498,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // RL -------------------------------
         sigmaSMeRLa0 = 0.005342; 
  
-        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+        sigmaeRLa0 = mwInputFitWeight(__func__) * (sigmaSMeRLa0
                 -3571.2 * CHB 
                 -205.3 * CHW 
                 -1576.1 * CHWB 
@@ -21507,7 +21514,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // LL -------------------------------
         sigmaSMeLLa0 = 0.008384; 
  
-        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+        sigmaeLLa0 = mwInputFitWeight(__func__) * (sigmaSMeLLa0
                 +5195.9 * CHB 
                 +1184.5 * CHW 
                 -3839.5 * CHWB 
@@ -21524,7 +21531,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // RR -------------------------------
         sigmaSMeRRa0 = 0.008384; 
  
-        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+        sigmaeRRa0 = mwInputFitWeight(__func__) * (sigmaSMeRRa0
                 +5197.9 * CHB 
                 +1188.1 * CHW 
                 -3835.5 * CHWB 
@@ -21545,7 +21552,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // LR -------------------------------
         sigmaSMeLRa0 = 0.030357; 
  
-        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+        sigmaeLRa0 = mwInputFitWeight(__func__) * (sigmaSMeLRa0
                 -5227. * CHB 
                 -6830. * CHW 
                 +17024. * CHWB 
@@ -21562,7 +21569,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // RL -------------------------------
         sigmaSMeRLa0 = 0.012942; 
  
-        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+        sigmaeRLa0 = mwInputFitWeight(__func__) * (sigmaSMeRLa0
                 -7216. * CHB 
                 -304. * CHW 
                 -4417.7 * CHWB 
@@ -21578,7 +21585,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // LL -------------------------------
         sigmaSMeLLa0 = 0.019928; 
  
-        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+        sigmaeLLa0 = mwInputFitWeight(__func__) * (sigmaSMeLLa0
                 +7750. * CHB 
                 +1636. * CHW 
                 -6201. * CHWB 
@@ -21595,7 +21602,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // RR -------------------------------
         sigmaSMeRRa0 = 0.019928; 
  
-        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+        sigmaeRRa0 = mwInputFitWeight(__func__) * (sigmaSMeRRa0
                 +7753. * CHB 
                 +1648. * CHW 
                 -6189. * CHWB 
@@ -21616,7 +21623,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // LR -------------------------------
         sigmaSMeLRa0 = 0.042715; 
  
-        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+        sigmaeLRa0 = mwInputFitWeight(__func__) * (sigmaSMeLRa0
                 -6315. * CHB 
                 -8759. * CHW 
                 +22966. * CHWB 
@@ -21633,7 +21640,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // RL -------------------------------
         sigmaSMeRLa0 = 0.01821; 
  
-        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+        sigmaeRLa0 = mwInputFitWeight(__func__) * (sigmaSMeRLa0
                  -9021.3 * CHB 
                 -343. * CHW 
                 -6557. * CHWB 
@@ -21649,7 +21656,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // LL -------------------------------
         sigmaSMeLLa0 = 0.027954; 
  
-        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+        sigmaeLLa0 = mwInputFitWeight(__func__) * (sigmaSMeLLa0
                 +8794. * CHB 
                 +1796. * CHW 
                 -7333. * CHWB 
@@ -21666,7 +21673,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // RR -------------------------------
         sigmaSMeRRa0 = 0.027954; 
  
-        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+        sigmaeRRa0 = mwInputFitWeight(__func__) * (sigmaSMeRRa0
                 +8802. * CHB 
                 +1812. * CHW 
                 -7315. * CHWB 
@@ -21687,7 +21694,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // LR -------------------------------
         sigmaSMeLRa0 = 0.045391; 
  
-        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+        sigmaeLRa0 = mwInputFitWeight(__func__) * (sigmaSMeLRa0
                 -6499. * CHB 
                 -9111. * CHW 
                 +24208. * CHWB 
@@ -21704,7 +21711,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // RL -------------------------------
         sigmaSMeRLa0 = 0.019352; 
  
-        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+        sigmaeRLa0 = mwInputFitWeight(__func__) * (sigmaSMeRLa0
                 -9353.7 * CHB 
                 -348. * CHW 
                 -7033. * CHWB 
@@ -21720,7 +21727,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // LL -------------------------------
         sigmaSMeLLa0 = 0.029695; 
  
-        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+        sigmaeLLa0 = mwInputFitWeight(__func__) * (sigmaSMeLLa0
                 +8978. * CHB 
                 +1827. * CHW 
                 -7544. * CHWB 
@@ -21737,7 +21744,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // RR -------------------------------
         sigmaSMeRRa0 = 0.029695; 
  
-        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+        sigmaeRRa0 = mwInputFitWeight(__func__) * (sigmaSMeRRa0
                 +8983. * CHB 
                 +1841. * CHW 
                 -7521. * CHWB 
@@ -21758,7 +21765,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // LR -------------------------------
         sigmaSMeLRa0 = 0.074102; 
  
-        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+        sigmaeLRa0 = mwInputFitWeight(__func__) * (sigmaSMeLRa0
                 -7921. * CHB 
                 -11849. * CHW 
                 +36688. * CHWB 
@@ -21775,7 +21782,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // RL -------------------------------
         sigmaSMeRLa0 = 0.031592; 
  
-        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+        sigmaeRLa0 = mwInputFitWeight(__func__) * (sigmaSMeRLa0
                 -11864. * CHB 
                 -380. * CHW 
                 -12283. * CHWB 
@@ -21791,7 +21798,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // LL -------------------------------
         sigmaSMeLLa0 = 0.048401; 
  
-        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+        sigmaeLLa0 = mwInputFitWeight(__func__) * (sigmaSMeLLa0
                 +10290. * CHB 
                 +1982. * CHW 
                 -9308. * CHWB 
@@ -21808,7 +21815,7 @@ const double NPSMEFTd6General::mueeZBF(const double sqrt_s, const double Pol_em,
         // RR -------------------------------
         sigmaSMeRRa0 = 0.048401; 
  
-        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+        sigmaeRRa0 = mwInputFitWeight(__func__) * (sigmaSMeRRa0
                 +10301. * CHB 
                 +2016. * CHW 
                 -9292. * CHWB 
@@ -21909,7 +21916,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // LR -------------------------------
         sigmaSMeLRa0 = 0.015502; 
  
-        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+        sigmaeLRa0 = mwInputFitWeight(__func__) * (sigmaSMeLRa0
                 -4098.92 * CHB 
                 +7192.41 * CHW 
                 +6438.5 * CHWB 
@@ -21924,7 +21931,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLRa1 = 0.003925; 
  
-        sigmaeLRa1 = cWsch * (sigmaSMeLRa1
+        sigmaeLRa1 = mwInputFitWeight(__func__) * (sigmaSMeLRa1
                 -1760.76 * CHB 
                 +6343.83 * CHW 
                 +862.93 * CHWB 
@@ -21940,7 +21947,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // RL -------------------------------
         sigmaSMeRLa0 = 0.007657; 
  
-        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+        sigmaeRLa0 = mwInputFitWeight(__func__) * (sigmaSMeRLa0
                 +1971.91 * CHB 
                 -91.342 * CHW 
                 +1373.22 * CHWB 
@@ -21955,7 +21962,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRLa1 = 0.002563; 
  
-        sigmaeRLa1 = cWsch * (sigmaSMeRLa1
+        sigmaeRLa1 = mwInputFitWeight(__func__) * (sigmaSMeRLa1
                 +2917.26 * CHB 
                 +76.18 * CHW 
                 +2218.96 * CHWB 
@@ -21971,7 +21978,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // LL -------------------------------
         sigmaSMeLLa0 = 0.006966; 
  
-        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+        sigmaeLLa0 = mwInputFitWeight(__func__) * (sigmaSMeLLa0
                 +4733.36 * CHB 
                 +1093.5 * CHW 
                 -3452.57 * CHWB 
@@ -21991,7 +21998,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // RR -------------------------------
         sigmaSMeRRa0 = 0.006966; 
  
-        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+        sigmaeRRa0 = mwInputFitWeight(__func__) * (sigmaSMeRRa0
                 +4735.97 * CHB 
                 +1092.78 * CHW 
                 -3453.81 * CHWB 
@@ -22016,7 +22023,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // LR -------------------------------
         sigmaSMeLRa0 = 0.016705; 
  
-        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+        sigmaeLRa0 = mwInputFitWeight(__func__) * (sigmaSMeLRa0
                 -4112.54 * CHB 
                 +5601.16 * CHW 
                 +7336.04 * CHWB 
@@ -22031,7 +22038,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLRa1 = 0.003172; 
  
-        sigmaeLRa1 = cWsch * (sigmaSMeLRa1
+        sigmaeLRa1 = mwInputFitWeight(__func__) * (sigmaSMeLRa1
                 -1488.24 * CHB 
                 +5327.07 * CHW 
                 +689.75 * CHWB 
@@ -22047,7 +22054,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // RL -------------------------------
         sigmaSMeRLa0 = 0.007966; 
  
-        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+        sigmaeRLa0 = mwInputFitWeight(__func__) * (sigmaSMeRLa0
                 +984.448 * CHB 
                 -142.658 * CHW 
                 +677.26 * CHWB 
@@ -22062,7 +22069,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRLa1 = 0.00207; 
  
-        sigmaeRLa1 = cWsch * (sigmaSMeRLa1
+        sigmaeRLa1 = mwInputFitWeight(__func__) * (sigmaSMeRLa1
                 +2454.5 * CHB 
                 +53.84 * CHW 
                 +1880.89 * CHWB 
@@ -22078,7 +22085,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // LL -------------------------------
         sigmaSMeLLa0 = 0.008388; 
  
-        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+        sigmaeLLa0 = mwInputFitWeight(__func__) * (sigmaSMeLLa0
                 +5210.05 * CHB 
                 +1184.39 * CHW 
                 -3856.1 * CHWB 
@@ -22098,7 +22105,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // RR -------------------------------
         sigmaSMeRRa0 = 0.008388; 
  
-        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+        sigmaeRRa0 = mwInputFitWeight(__func__) * (sigmaSMeRRa0
                 +5210.49 * CHB 
                 +1183.86 * CHW 
                 -3856.65 * CHWB 
@@ -22123,7 +22130,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // LR -------------------------------
         sigmaSMeLRa0 = 0.031515; 
  
-        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+        sigmaeLRa0 = mwInputFitWeight(__func__) * (sigmaSMeLRa0
                 -5273.48 * CHB 
                 -2563.62 * CHW 
                 +16070.3 * CHWB 
@@ -22138,7 +22145,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLRa1 = 0.00088; 
  
-        sigmaeLRa1 = cWsch * (sigmaSMeLRa1
+        sigmaeLRa1 = mwInputFitWeight(__func__) * (sigmaSMeLRa1
                 -482.328 * CHB 
                 +1692.36 * CHW 
                 +183.29 * CHWB 
@@ -22154,7 +22161,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // RL -------------------------------
         sigmaSMeRLa0 = 0.013671; 
  
-        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+        sigmaeRLa0 = mwInputFitWeight(__func__) * (sigmaSMeRLa0
                 -4714.26 * CHB 
                 -308.604 * CHW 
                 -3682.04 * CHWB 
@@ -22169,7 +22176,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRLa1 = 0.000575; 
  
-        sigmaeRLa1 = cWsch * (sigmaSMeRLa1
+        sigmaeRLa1 = mwInputFitWeight(__func__) * (sigmaSMeRLa1
                 +783.67 * CHB 
                 +4.93 * CHW 
                 +615.38 * CHWB 
@@ -22185,7 +22192,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // LL -------------------------------
         sigmaSMeLLa0 = 0.019938; 
  
-        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+        sigmaeLLa0 = mwInputFitWeight(__func__) * (sigmaSMeLLa0
                 +7757.24 * CHB 
                 +1628.67 * CHW 
                 -6241.45 * CHWB 
@@ -22205,7 +22212,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // RR -------------------------------
         sigmaSMeRRa0 = 0.019938; 
  
-        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+        sigmaeRRa0 = mwInputFitWeight(__func__) * (sigmaSMeRRa0
                 +7760.88 * CHB 
                 +1629.58 * CHW 
                 -6241.85 * CHWB 
@@ -22230,7 +22237,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // LR -------------------------------
         sigmaSMeLRa0 = 0.043295; 
  
-        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+        sigmaeLRa0 = mwInputFitWeight(__func__) * (sigmaSMeLRa0
                 -6192.44 * CHB 
                 -5876.33 * CHW 
                 +22064.3 * CHWB 
@@ -22245,7 +22252,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLRa1 = 0.00044; 
  
-        sigmaeLRa1 = cWsch * (sigmaSMeLRa1
+        sigmaeLRa1 = mwInputFitWeight(__func__) * (sigmaSMeLRa1
                 -249.516 * CHB 
                 +871.46 * CHW 
                 +91. * CHWB 
@@ -22261,7 +22268,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // RL -------------------------------
         sigmaSMeRLa0 = 0.018575; 
  
-        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+        sigmaeRLa0 = mwInputFitWeight(__func__) * (sigmaSMeRLa0
                 -7253.38 * CHB 
                 -354.216 * CHW 
                 -6168.17 * CHWB 
@@ -22276,7 +22283,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRLa1 = 0.000287; 
  
-        sigmaeRLa1 = cWsch * (sigmaSMeRLa1
+        sigmaeRLa1 = mwInputFitWeight(__func__) * (sigmaSMeRLa1
                 +404.369 * CHB 
                 +1.262 * CHW 
                 +318.379 * CHWB 
@@ -22292,7 +22299,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // LL -------------------------------
         sigmaSMeLLa0 = 0.027967; 
  
-        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+        sigmaeLLa0 = mwInputFitWeight(__func__) * (sigmaSMeLLa0
                 +8797.53 * CHB 
                 +1783.21 * CHW 
                 -7389.69 * CHWB 
@@ -22312,7 +22319,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // RR -------------------------------
         sigmaSMeRRa0 = 0.027967; 
  
-        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+        sigmaeRRa0 = mwInputFitWeight(__func__) * (sigmaSMeRRa0
                 +8799.81 * CHB 
                 +1789.18 * CHW 
                 -7386.69 * CHWB 
@@ -22337,7 +22344,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // LR -------------------------------
         sigmaSMeLRa0 = 0.045902; 
  
-        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+        sigmaeLRa0 = mwInputFitWeight(__func__) * (sigmaSMeLRa0
                 -6375.19 * CHB 
                 -6460.92 * CHW 
                 +23318.4 * CHWB 
@@ -22352,7 +22359,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLRa1 = 0.000382; 
  
-        sigmaeLRa1 = cWsch * (sigmaSMeLRa1
+        sigmaeLRa1 = mwInputFitWeight(__func__) * (sigmaSMeLRa1
                 -217.463 * CHB 
                 +760.524 * CHW 
                 +78.744 * CHWB 
@@ -22368,7 +22375,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // RL -------------------------------
         sigmaSMeRLa0 = 0.019672; 
  
-        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+        sigmaeRLa0 = mwInputFitWeight(__func__) * (sigmaSMeRLa0
                 -7723.03 * CHB 
                 -363.499 * CHW 
                 -6714.28 * CHWB 
@@ -22383,7 +22390,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRLa1 = 0.00025; 
  
-        sigmaeRLa1 = cWsch * (sigmaSMeRLa1
+        sigmaeRLa1 = mwInputFitWeight(__func__) * (sigmaSMeRLa1
                 +353.423 * CHB 
                 +0.877 * CHW 
                 +278.093 * CHWB 
@@ -22399,7 +22406,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // LL -------------------------------
         sigmaSMeLLa0 = 0.029711; 
  
-        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+        sigmaeLLa0 = mwInputFitWeight(__func__) * (sigmaSMeLLa0
                 +8980.14 * CHB 
                 +1806.17 * CHW 
                 -7606.24 * CHWB 
@@ -22419,7 +22426,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // RR -------------------------------
         sigmaSMeRRa0 = 0.029711; 
  
-        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+        sigmaeRRa0 = mwInputFitWeight(__func__) * (sigmaSMeRRa0
                 +8985.08 * CHB 
                 +1815.25 * CHW 
                 -7606.1 * CHWB 
@@ -22444,7 +22451,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // LR -------------------------------
         sigmaSMeLRa0 = 0.074258; 
  
-        sigmaeLRa0 = cWsch * (sigmaSMeLRa0
+        sigmaeLRa0 = mwInputFitWeight(__func__) * (sigmaSMeLRa0
                 -7890.8 * CHB 
                 -10712. * CHW 
                 +36102.9 * CHWB 
@@ -22459,7 +22466,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         
         sigmaSMeLRa1 = 0.000094; 
  
-        sigmaeLRa1 = cWsch * (sigmaSMeLRa1
+        sigmaeLRa1 = mwInputFitWeight(__func__) * (sigmaSMeLRa1
                 -54.8938 * CHB 
                 +191.442 * CHW 
                 +19.136 * CHWB 
@@ -22475,7 +22482,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // RL -------------------------------
         sigmaSMeRLa0 = 0.031683; 
  
-        sigmaeRLa0 = cWsch * (sigmaSMeRLa0
+        sigmaeRLa0 = mwInputFitWeight(__func__) * (sigmaSMeRLa0
                 -11227.5 * CHB 
                 -410.83 * CHW 
                 -12206.1 * CHWB 
@@ -22490,7 +22497,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         
         sigmaSMeRLa1 = 0.000061; 
  
-        sigmaeRLa1 = cWsch * (sigmaSMeRLa1
+        sigmaeRLa1 = mwInputFitWeight(__func__) * (sigmaSMeRLa1
                 +89.174 * CHB 
                 -0.004 * CHW 
                 +70.224 * CHWB 
@@ -22506,7 +22513,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // LL -------------------------------
         sigmaSMeLLa0 = 0.048427; 
  
-        sigmaeLLa0 = cWsch * (sigmaSMeLLa0
+        sigmaeLLa0 = mwInputFitWeight(__func__) * (sigmaSMeLLa0
                 +10268.1 * CHB 
                 +1941.01 * CHW 
                 -9431.02 * CHWB 
@@ -22526,7 +22533,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
         // RR -------------------------------
         sigmaSMeRRa0 = 0.048427; 
  
-        sigmaeRRa0 = cWsch * (sigmaSMeRRa0
+        sigmaeRRa0 = mwInputFitWeight(__func__) * (sigmaSMeRRa0
                 +10279.1 * CHB 
                 +1965.01 * CHW 
                 -9436.92 * CHWB 
@@ -22543,7 +22550,7 @@ const double NPSMEFTd6General::mueeHee(const double sqrt_s, const double Pol_em,
  
         sigmaeRRa1 = sigmaSMeRRa1;  
  
-        sigmaeRRa1 = cWsch * (sigmaSMeRRa1
+        sigmaeRRa1 = mwInputFitWeight(__func__) * (sigmaSMeRRa1
                
                 ); 
         
@@ -22597,7 +22604,7 @@ const double NPSMEFTd6General::muepWBF(const double sqrt_s) const {
 
         //C1 = 0.0;
         
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -89863.9 * CHW 
                 +1384.83 * CHWB 
                 -29993.1 * CHD 
@@ -22613,7 +22620,7 @@ const double NPSMEFTd6General::muepWBF(const double sqrt_s) const {
         
         //C1 = 0.0;
         
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -84713.5 * CHW 
                 +2452.67 * CHWB 
                 -29561.7 * CHD 
@@ -22730,7 +22737,7 @@ const double NPSMEFTd6General::muepZBF(const double sqrt_s) const {
 
         //C1 = 0.0;
         
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -45626.8 * CHB 
                 -233105. * CHW 
                 +322530. * CHWB 
@@ -22755,7 +22762,7 @@ const double NPSMEFTd6General::muepZBF(const double sqrt_s) const {
         
         //C1 = 0.0;
         
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -40452.1 * CHB 
                 -222889. * CHW 
                 +314229. * CHWB 
@@ -24981,7 +24988,7 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.000784; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0 
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -94.6115 * CuHR33 
                 -1581.75 * CuWR33 
                 -790.825 * CuBR33 
@@ -25003,7 +25010,7 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.000306;
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0 
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 -37.8182 * CuHR33 
                 +27.0195 * CuWR33 
                 -1035.38 * CuBR33 
@@ -25028,7 +25035,7 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.00312;
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0 
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -375.082 * CuHR33 
                 -6978.68 * CuWR33 
                 -3521.69 * CuBR33 
@@ -25050,7 +25057,7 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.001237; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0 
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 -151.896 * CuHR33 
                 +104.147 * CuWR33 
                 -4593.11 * CuBR33 
@@ -25075,7 +25082,7 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.005628; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0 
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -652.48 * CuHR33 
                 -22912.9 * CuWR33 
                 -12009.3 * CuBR33 
@@ -25097,7 +25104,7 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.002438; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0 
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 -280.708 * CuHR33 
                 +133.165 * CuWR33 
                 -15458.3 * CuBR33 
@@ -25122,7 +25129,7 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.003663; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0 
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -413. * CuHR33 
                 -20698.3 * CuWR33 
                 -10960.3 * CuBR33 
@@ -25144,7 +25151,7 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.001649; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0 
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 -181.837 * CuHR33 
                 +67.2705 * CuWR33 
                 -14087.6 * CuBR33 
@@ -25169,7 +25176,7 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.003313; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0 
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -371.685 * CuHR33 
                 -20045. * CuWR33 
                 -10630.9 * CuBR33 
@@ -25191,7 +25198,7 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.001501; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0 
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 -163.958 * CuHR33 
                 +57.7855 * CuWR33 
                 -13659.5 * CuBR33 
@@ -25216,7 +25223,7 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // LH -------------------------------
         sigmaSMeLHa0 = 0.001106; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0 
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -117.72 * CuHR33 
                 -14308.7 * CuWR33 
                 -7652.82 * CuBR33 
@@ -25238,7 +25245,7 @@ const double NPSMEFTd6General::mueettH(const double sqrt_s, const double Pol_em,
         // RH -------------------------------
         sigmaSMeRHa0 = 0.000527; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0 
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 -53.268 * CuHR33 
                 +11.318 * CuWR33 
                 -9862.85 * CuBR33 
@@ -25443,7 +25450,7 @@ const double NPSMEFTd6General::mummHvv(const double sqrt_s) const {
 
         C1 = 0.0057; // Use the same as CLIC
 
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -189.453 * CHB 
                 -40354.5 * CHW 
                 -498.257 * CHWB 
@@ -25460,7 +25467,7 @@ const double NPSMEFTd6General::mummHvv(const double sqrt_s) const {
 
         C1 = 0.0; // NA
 
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -578.66 * CHB 
                 -27152.7 * CHW 
                 -101.506 * CHWB 
@@ -25531,7 +25538,7 @@ const double NPSMEFTd6General::mummHmm(const double sqrt_s) const {
 
         C1 = 0.0063; // Use the same as CLIC
 
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 +8523.28 * CHB 
                 -36317.7 * CHW 
                 +24490.5 * CHWB 
@@ -25548,7 +25555,7 @@ const double NPSMEFTd6General::mummHmm(const double sqrt_s) const {
 
         C1 = 0.0; //NA
 
-        mu += cWsch * (
+        mu += mwInputFitWeight(__func__) * (
                 -562.405 * CHB 
                 -27961.5 * CHW 
                 +35431.1 * CHWB 
@@ -38637,7 +38644,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // LH -------------------------------
         sigmaSMeLHa0 = 12.9284; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -70. * CW 
                 +38. * CHWB 
                 -80. * CHD 
@@ -38651,7 +38658,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // RH -------------------------------
         sigmaSMeRHa0 = 0.00232; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +122.385 * CW 
                 +235.258 * CHWB 
                 -488.691 * CHD 
@@ -38667,7 +38674,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // LH -------------------------------
         sigmaSMeLHa0 = 70.5564; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -402730. * CW 
                 +23840. * CHWB 
                 -226360. * CHD 
@@ -38681,7 +38688,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // RH -------------------------------
         sigmaSMeRHa0 = 0.684821; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +32771. * CW 
                 +275222. * CHWB 
                 -144266. * CHD 
@@ -38698,7 +38705,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // LH -------------------------------
         sigmaSMeLHa0 = 67.9294; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -439450. * CW 
                 +40210. * CHWB 
                 -228100. * CHD 
@@ -38712,7 +38719,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // RH -------------------------------
         sigmaSMeRHa0 = 0.639986; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +29994. * CW 
                 +284436. * CHWB 
                 -134835. * CHD 
@@ -38729,7 +38736,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // LH -------------------------------
         sigmaSMeLHa0 = 65.3108; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -449120. * CW 
                 +71270. * CHWB 
                 -205800. * CHD 
@@ -38743,7 +38750,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // RH -------------------------------
         sigmaSMeRHa0 = 0.593472; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +27185. * CW 
                 +288498. * CHWB 
                 -125062. * CHD 
@@ -38760,7 +38767,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // LH -------------------------------
         sigmaSMeLHa0 = 44.8939; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -439960. * CW 
                 +155590. * CHWB 
                 -118280. * CHD 
@@ -38774,7 +38781,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // RH -------------------------------
         sigmaSMeRHa0 = 0.267037; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +9564. * CW 
                 +230676. * CHWB 
                 -56256. * CHD 
@@ -38791,7 +38798,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // LH -------------------------------
         sigmaSMeLHa0 = 42.6742; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -426720. * CW 
                 +156580. * CHWB 
                 -109180. * CHD 
@@ -38805,7 +38812,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // RH -------------------------------
         sigmaSMeRHa0 = 0.239761; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +8244. * CW 
                 +218802. * CHWB 
                 -50510. * CHD 
@@ -38822,7 +38829,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // LH -------------------------------
         sigmaSMeLHa0 = 40.6204; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -409440. * CW 
                 +156620. * CHWB 
                 -100050. * CHD 
@@ -38836,7 +38843,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // RH -------------------------------
         sigmaSMeRHa0 = 0.216166; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +7126. * CW 
                 +207337. * CHWB 
                 -45542. * CHD 
@@ -38853,7 +38860,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // LH -------------------------------
         sigmaSMeLHa0 = 28.5996; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -294100. * CW 
                 +129650. * CHWB 
                 -55880. * CHD 
@@ -38867,7 +38874,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // RH -------------------------------
         sigmaSMeRHa0 = 0.107613; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +2564.6 * CW 
                 +135799. * CHWB 
                 -22683.7 * CHD 
@@ -38884,7 +38891,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // LH -------------------------------
         sigmaSMeLHa0 = 25.1749; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -256296. * CW 
                 +118140. * CHWB 
                 -44500. * CHD 
@@ -38898,7 +38905,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // RH -------------------------------
         sigmaSMeRHa0 = 0.08506; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +1776.7 * CW 
                 +115390. * CHWB 
                 -17929.8 * CHD 
@@ -38915,7 +38922,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // LH -------------------------------
         sigmaSMeLHa0 = 10.6999; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -92382. * CW 
                 +49273. * CHWB 
                 -10274. * CHD 
@@ -38929,7 +38936,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // RH -------------------------------
         sigmaSMeRHa0 = 0.021453; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +165.5 * CW 
                 +38090.4 * CHWB 
                 -4524.6 * CHD 
@@ -38946,7 +38953,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // LH -------------------------------
         sigmaSMeLHa0 = 6.38565; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -48428. * CW 
                 +26846. * CHWB 
                 -5517. * CHD 
@@ -38960,7 +38967,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // RH -------------------------------
         sigmaSMeRHa0 = 0.010445; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +41.49 * CW 
                 +19779.7 * CHWB 
                 -2202.72 * CHD 
@@ -38977,7 +38984,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // LH -------------------------------
         sigmaSMeLHa0 = 5.73018; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -42573. * CW 
                 +23444. * CHWB 
                 -5270. * CHD 
@@ -38991,7 +38998,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // RH -------------------------------
         sigmaSMeRHa0 = 0.009039; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +31.06 * CW 
                 +17271.3 * CHWB 
                 -1905.96 * CHD 
@@ -39008,7 +39015,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // LH -------------------------------
         sigmaSMeLHa0 = 1.85913; 
  
-        sigmaeLHa0 = cWsch * (sigmaSMeLHa0
+        sigmaeLHa0 = mwInputFitWeight(__func__) * (sigmaSMeLHa0
                 -11055.6 * CW 
                 +6174.7 * CHWB 
                 -1334.5 * CHD 
@@ -39022,7 +39029,7 @@ const double NPSMEFTd6General::mueeWW(const double sqrt_s, const double Pol_em, 
         // RH -------------------------------
         sigmaSMeRHa0 = 0.002184; 
  
-        sigmaeRHa0 = cWsch * (sigmaSMeRHa0
+        sigmaeRHa0 = mwInputFitWeight(__func__) * (sigmaSMeRHa0
                 +1.26 * CW 
                 +4369.21 * CHWB 
                 -460.56 * CHD 

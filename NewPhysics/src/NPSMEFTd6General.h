@@ -8633,6 +8633,7 @@ private:
 
     gslpp::matrix<gslpp::complex> VuL, VuLd, VuR, VuRd, VdL, VdLd, VdR, VdRd, VeL, VeLd, VeR, VeRd;
 
+    double mwInputFitWeight(const char* prediction) const;
     bool FlagMWinput; ///< A boolean for the model flag %MWinput. 
     bool FlagQuadraticTerms; ///< A boolean flag that is true if the quadratic terms in cross sections and widths are switched on.
     bool FlagHiggsSM; ///< A boolean flag that is true if including dependence on small variations of the SM parameters (dependence is linearized). Available only in selected Higgs observables. 
