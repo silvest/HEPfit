@@ -13,7 +13,24 @@
 #include <TMath.h>
 #include <TH1D.h>
 #include <limits>
+#include <cmath>
+#include <gsl/gsl_sf_erf.h>
 
+
+namespace {
+double logGaussianFlat(double residual, double sigma, double halfWidth)
+{
+    const double center = std::abs(residual) / (std::sqrt(2.) * sigma);
+    const double width = halfWidth / (std::sqrt(2.) * sigma);
+    const double low = center - width, high = center + width;
+    if (low <= 0.) return std::log(std::erf(high) - std::erf(low));
+    // erf(high)-erf(low) = erfc(low)-erfc(high); retain tiny tail probabilities.
+    const double left = gsl_sf_log_erfc(low), right = gsl_sf_log_erfc(high);
+    if (left == right)
+        return std::log(4. / std::sqrt(M_PI)) + std::log(width) - center * center;
+    return left + std::log(-std::expm1(right - left));
+}
+}
 
 Observable::Observable (const std::string name_i,
                         const std::string thname_i,
@@ -163,8 +180,7 @@ double Observable::computeWeight(double th)
                 else
                     logprob = log(0.);
             } else
-                logprob = log(TMath::Erf((th - ave + errf) / sqrt(2.) / errg)
-                    - TMath::Erf((th - ave - errf) / sqrt(2.) / errg));
+                logprob = logGaussianFlat(th - ave, errg, errf);
         }
     } else if (distr.compare("file") == 0) {
         int i = inhisto->FindBin(th);
@@ -191,8 +207,7 @@ double Observable::computeWeight(double th, double ave_i, double errg_i, double 
             else
                 logprob = log(0.);
         } else
-            logprob = log(TMath::Erf((th - ave_i + errf_i) / sqrt(2.) / errg_i)
-                - TMath::Erf((th - ave_i - errf_i) / sqrt(2.) / errg_i));
+            logprob = logGaussianFlat(th - ave_i, errg_i, errf_i);
     } else
         throw std::runtime_error("ERROR: MonteCarloEngine::Weight() called without weight for "
             + name);
