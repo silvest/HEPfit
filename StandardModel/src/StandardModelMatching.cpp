@@ -1955,7 +1955,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC(const int a) {
         case NNLO:
         case NLO:
             for (int j = 0; j < 2; j++) {
-                mcbnlepCC.setCoeff(j, co * lambda1 * setWCbnlep(j, xt, NLO), NLO);
+                mcbnlepCC.setCoeff(j, co * lambda1 * SM.Als(Muw, FULLNLO) / (4. * M_PI) * setWCbnlep(j, xt, NLO), NLO);
             }
             for (int j = 2; j < 10; j++) {
                 mcbnlepCC.setCoeff(j, 0., NLO);
@@ -2405,7 +2405,7 @@ double StandardModelMatching::setWCBdmmEW(int i, double x, orders_qed order_qed)
         case NLO_QED22:
             return (CWBdmmArrayNLOewt4[i]);
             break;
-        case NLO_QED02:
+        case NLO_QED21:
             return (CWBdmmArrayNLOewt2[i]);
             break;
         case NLO_QED11:
