@@ -91,7 +91,6 @@ BClnu::BClnu(const StandardModel& SM_i, QCD::meson meson_i)
      alphas_updated = 0;
      mcMS_updated = 0;
      r_updated = 0;
-     amplsq_factor_updated = 0;
 
      Aew = 1.01435;
      beta0 = 9.;
@@ -707,9 +706,7 @@ void BClnu::updateParameters()
         for (it = fitMXNNLOnonBLM3Cached.begin(); it != fitMXNNLOnonBLM3Cached.end(); ++it) it->second = 0;
     }
 
-    if (amplsq_factor_updated == 1) {
-        amplsq_factor = (Aew * pow(GF, 2) * pow(mbkin, 5) / (192. * pow(M_PI, 3)));
-    }
+    amplsq_factor = Aew * pow(GF, 2) * pow(mbkin, 5) / (192. * pow(M_PI, 3));
 
 
     /**
@@ -876,7 +873,6 @@ void BClnu::checkCache()
     alphas_updated = mbkin_updated;
     // mcMS_updated = scale_mcMS_updated*mcmc_updated;
     r_updated = mcMS_updated*mbkin_updated;
-    amplsq_factor_updated = GF_updated*mbkin_updated;
 }
 
 void BClnu::initializeQ2AuxiliaryFunctions(double q2cut)

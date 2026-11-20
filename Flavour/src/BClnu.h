@@ -1413,7 +1413,6 @@ private:
      unsigned int alphas_updated; /**< Cache flag for alphas */
      unsigned int mcMS_updated; /**< Cache flag for mcMS */
      unsigned int r_updated; /**< Cache flag for r */
-     unsigned int amplsq_factor_updated; /**< Cache flag for amplsq_factor */
 
     std::vector<std::vector<std::vector<std::vector<double>>>> grid_np_Q2moments;
     std::vector<std::vector<std::vector<double>>> grid_DerQ2_Q2moments;
