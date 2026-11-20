@@ -890,11 +890,15 @@ void MVll::updateParameters()
     if (I10_updated == 0) for (it = sigma10Cached.begin(); it != sigma10Cached.end(); ++it) it->second = 0;
     if (I11_updated == 0) for (it = sigma11Cached.begin(); it != sigma11Cached.end(); ++it) it->second = 0;
 
-    if (I0_updated == 0) for (it = delta0Cached.begin(); it != delta0Cached.end(); ++it) it->second = 0;
-    if (I1_updated == 0) for (it = delta1Cached.begin(); it != delta1Cached.end(); ++it) it->second = 0;
-    if (I2_updated == 0) for (it = delta2Cached.begin(); it != delta2Cached.end(); ++it) it->second = 0;
-    if (I3_updated == 0) for (it = delta3Cached.begin(); it != delta3Cached.end(); ++it) it->second = 0;
-    if (I11_updated == 0) for (it = delta11Cached.begin(); it != delta11Cached.end(); ++it) it->second = 0;
+    if (I0_updated == 0 || vectorM == QCD::PHI) for (it = delta0Cached.begin(); it != delta0Cached.end(); ++it) it->second = 0;
+    if (I1_updated == 0 || vectorM == QCD::PHI) for (it = delta1Cached.begin(); it != delta1Cached.end(); ++it) it->second = 0;
+    if (I2_updated == 0 || vectorM == QCD::PHI) for (it = delta2Cached.begin(); it != delta2Cached.end(); ++it) it->second = 0;
+    if (I3_updated == 0 || vectorM == QCD::PHI) for (it = delta3Cached.begin(); it != delta3Cached.end(); ++it) it->second = 0;
+    if (I6_updated == 0 || vectorM == QCD::PHI) for (it = delta6Cached.begin(); it != delta6Cached.end(); ++it) it->second = 0;
+    if (I7_updated == 0 || vectorM == QCD::PHI) for (it = delta7Cached.begin(); it != delta7Cached.end(); ++it) it->second = 0;
+    if (I8_updated == 0 || vectorM == QCD::PHI) for (it = delta8Cached.begin(); it != delta8Cached.end(); ++it) it->second = 0;
+    if (I10_updated == 0 || vectorM == QCD::PHI) for (it = delta10Cached.begin(); it != delta10Cached.end(); ++it) it->second = 0;
+    if (I11_updated == 0 || vectorM == QCD::PHI) for (it = delta11Cached.begin(); it != delta11Cached.end(); ++it) it->second = 0;
 
     if (Itree_updated) for (it = sigmaTreeCached.begin(); it != sigmaTreeCached.end(); ++it) it->second = 0;
 
