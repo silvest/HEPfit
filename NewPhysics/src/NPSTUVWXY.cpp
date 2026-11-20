@@ -103,7 +103,7 @@ const double NPSTUVWXY::obliqueS() const
 {
     double sW2_SM = trueSM.sW2();
     double sW_SM = sqrt(sW2_SM);
-    double cW_SM = trueSM.cW2();
+    double cW_SM = sqrt(trueSM.cW2());
     return ( (myObliqueShat - myObliqueW + myObliqueX / (sW_SM * cW_SM) - myObliqueY)
             * 4.0 * sW2_SM / alphaMz());
 }
