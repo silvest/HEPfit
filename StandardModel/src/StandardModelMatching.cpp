@@ -739,7 +739,7 @@ const double StandardModelMatching::X1t(double x) const {
             - logx * (x + 9. * x2 - x3 - x4) / xm3
             + logx * logx * (8. * x + 4. * x2 + x3 - x4) / (2. * xm3)
             - gslpp_special_functions::dilog(1. - x) * (4. * x - x3) / ((1. - x) * (1. - x))
-            - 8. * x * log(Mut * Mut / Muw / Muw) * (8. - 9. * x + x3 + 6. * logx) / (8. * xm3));
+            - 8. * x * log(Mut * Mut / Mw / Mw) * (8. - 9. * x + x3 + 6. * logx) / (8. * xm3));
 }
 
 const double StandardModelMatching::Xewt(double x, double a, double mu) const {
@@ -2025,7 +2025,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMkmm() {
 
     vmckmm.clear();
 
-    mckmm.setMu(Mut);
+    mckmm.setMu(Muw);
 
     switch (mckmm.getOrder()) {
         case NNLO:
