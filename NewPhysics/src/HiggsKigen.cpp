@@ -193,32 +193,9 @@ bool HiggsKigen::PostUpdate()
         //  Compute BrHexo from KH
         BrHexo = 1.0 - BrHinv - GammaHTotSMR/GammaHTotR;     
         
-        //  BRHinv is positive by definition and the bound is controlled by the corresponding parameter. 
-        //  The exotic must be in [0,1]. Demand that 0<BrHexo<1.
-        //  Otherwise, exclude the point from likelihood by assigning a nan to all parameters
-        if ( (BrHexo > 1.0) || (BrHexo < 0.0) ) {
-
-            GammaHTotR = std::numeric_limits<double>::quiet_NaN();
-
-            Kw = std::numeric_limits<double>::quiet_NaN();            
-            Kz = std::numeric_limits<double>::quiet_NaN();
-            Kg = std::numeric_limits<double>::quiet_NaN();
-            Kga = std::numeric_limits<double>::quiet_NaN();
-            Kzga = std::numeric_limits<double>::quiet_NaN();        
-            Ku = std::numeric_limits<double>::quiet_NaN();
-            Kc = std::numeric_limits<double>::quiet_NaN();
-            Kt = std::numeric_limits<double>::quiet_NaN();
-            Kd = std::numeric_limits<double>::quiet_NaN();
-            Ks = std::numeric_limits<double>::quiet_NaN();
-            Kb = std::numeric_limits<double>::quiet_NaN();
-            Ke = std::numeric_limits<double>::quiet_NaN();
-            Kmu = std::numeric_limits<double>::quiet_NaN();
-            Ktau = std::numeric_limits<double>::quiet_NaN();  
-            KH = std::numeric_limits<double>::quiet_NaN();
-            
-            BrHinv = std::numeric_limits<double>::quiet_NaN();
-            BrHexo = std::numeric_limits<double>::quiet_NaN();
-        }        
+        if (!(BrHexo >= 0.0 && BrHexo <= 1.0)) {
+            return false;
+        }
         
     } else {
         GammaHTotR = computeGammaTotalRatio();
