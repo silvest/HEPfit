@@ -35,8 +35,8 @@ public:
     R_BXqll(const StandardModel& SM_i, QCD::quark quark_i, QCD::lepton lep_i);
     
     /**
-    * @brief The binned observable @f$<BR>@f$ in @f$M \to P l^+l^-@f$.
-    * @return @f$<BR>@f$
+    * @brief @f$R_{quark}(\hat s)@f$ in @f$B \to X_q l^+l^-@f$, evaluated at the fixed point @f$\hat s = 0.15@f$.
+    * @return @f$R_{quark}(0.15)@f$, see BXqll::getR_LOWQ2()
     */
     double computeThValue ();
     
@@ -190,12 +190,15 @@ private:
  * @brief A class for the binned observable @f$A_{\rm FB}(B \to X_q l^+l^-)@f$. 
  * @author HEPfit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the integral of @f$\frac{3}{4} H_A(q^2)@f$
- * in bins of @f$q^2@f$ for @f$B \to X_q l^+l^-@f$ :
+ * @details This class is used to compute the normalised forward-backward asymmetry
+ * in bins of @f$q^2@f$ for @f$B \to X_q l^+l^-@f$, i.e. the integral of @f$\frac{3}{4} H_A(q^2)@f$
+ * divided by the integral of @f$H_T(q^2) + H_L(q^2)@f$ (Huber, Hurth, Lunghi, arXiv:1503.04849):
  * @f[
- * A_{\rm FB}(B \to X_q l^+l^-) = \int{q_m^2}{q_M^2} dq^2 \int{-1}{+1} dz \frac{d^2\Gamma}{dq^2 dz^2}
- * {\rm sign}(z) \,.
+ * A_{\rm FB}(B \to X_q l^+l^-) = \frac{\int_{q_m^2}^{q_M^2} dq^2 \int_{-1}^{+1} dz \frac{d^2\Gamma}{dq^2 dz}
+ * {\rm sign}(z)}{\int_{q_m^2}^{q_M^2} dq^2 \frac{d\Gamma}{dq^2}}
+ * = \frac{3}{4}\frac{\int H_A}{\int (H_T + H_L)} \,.
  * @f]
+ * (Before this normalisation was introduced the unnormalised @f$\frac{3}{4}\int H_A@f$ was returned.)
  */
 class AFB_BXqll : public ThObservable{
 public:
@@ -210,7 +213,7 @@ public:
     
     /**
     * @brief The binned observable @f$A_{\rm FB}(B \to X_q l^+l^-)@f$.
-    * @return @f$\frac{3}{4} H_A@f$
+    * @return @f$\frac{3}{4} \int H_A / \int (H_T + H_L)@f$
     */
     double computeThValue ();
     

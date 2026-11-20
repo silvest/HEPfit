@@ -55,9 +55,13 @@ public:
     std::vector<std::string> initializeBXqllParameters();
     
     /**
-     * @brief dGamma/ds for @f$B \to X_q l^+ l^-@f$ in the low dilepton invariant mass region.
+     * @brief @f$R(\hat s) = \frac{1}{\Gamma(B\to X_c e\nu)}\frac{d\Gamma(B \to X_q l^+ l^-)}{d\hat s}@f$
+     * in the low dilepton invariant mass region.
+     * @details Computed as @f$(H_T + H_L)(\hat s)/BR(B\to X_c e\nu)@f$, where @f$H_T + H_L@f$ (including the
+     * collinear-photon term, as in BR_BXqll) is @f$dBR/d\hat s@f$ and @f$BR(B\to X_c e\nu)@f$ is the
+     * parameter BR_BXcenu.
      * @param[in] sh normalized dilepton invariant mass @f$q^2/m_b^2@f$
-      */    
+     */    
     double getR_LOWQ2(double sh);
     
     /**

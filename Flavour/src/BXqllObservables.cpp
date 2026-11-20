@@ -119,5 +119,7 @@ double AFB_BXqll::computeThValue()
 {
     double q_min = getBinMin();
     double q_max = getBinMax();
-    return (3. * myBXqll.integrateH("A", q_min, q_max) / 4.);
+    // normalised forward-backward asymmetry, Huber, Hurth, Lunghi, arXiv:1503.04849:
+    // A_FB = 3/4 int H_A / int (H_T + H_L), with the same integrand as BR_BXqll in the denominator
+    return (3. * myBXqll.integrateH("A", q_min, q_max) / 4. / myBXqll.integrateH("TL", q_min, q_max));
 }
