@@ -333,21 +333,21 @@ void ThObsFactory::registerHiggsObservables()
     obsThFactory["eeZqqH3000_m80_0"] = [=](const StandardModel& SM) { return new mueeZqqH(SM, sqrt_s_leptcoll_3000, -pol_80, pol_0); };
     //
     obsThFactory["aPsk250_p80_m30"] = [=](const StandardModel& SM) { return new aPsk(SM, sqrt_s_leptcoll_250, pol_80, -pol_30); };
-    obsThFactory["aPsk250_m80_p30"] = [=](const StandardModel& SM) { return new bPsk(SM, sqrt_s_leptcoll_250, -pol_80, pol_30); };
+    obsThFactory["aPsk250_m80_p30"] = [=](const StandardModel& SM) { return new aPsk(SM, sqrt_s_leptcoll_250, -pol_80, pol_30); };
     //
     obsThFactory["aPsk350_p80_m30"] = [=](const StandardModel& SM) { return new aPsk(SM, sqrt_s_leptcoll_350, pol_80, -pol_30); };
-    obsThFactory["aPsk350_m80_p30"] = [=](const StandardModel& SM) { return new bPsk(SM, sqrt_s_leptcoll_350, -pol_80, pol_30); };
+    obsThFactory["aPsk350_m80_p30"] = [=](const StandardModel& SM) { return new aPsk(SM, sqrt_s_leptcoll_350, -pol_80, pol_30); };
     //
     obsThFactory["aPsk500_p80_m30"] = [=](const StandardModel& SM) { return new aPsk(SM, sqrt_s_leptcoll_500, pol_80, -pol_30); };
-    obsThFactory["aPsk500_m80_p30"] = [=](const StandardModel& SM) { return new bPsk(SM, sqrt_s_leptcoll_500, -pol_80, pol_30); };
+    obsThFactory["aPsk500_m80_p30"] = [=](const StandardModel& SM) { return new aPsk(SM, sqrt_s_leptcoll_500, -pol_80, pol_30); };
     //
-    obsThFactory["bPsk250_p80_m30"] = [=](const StandardModel& SM) { return new aPsk(SM, sqrt_s_leptcoll_250, pol_80, -pol_30); };
+    obsThFactory["bPsk250_p80_m30"] = [=](const StandardModel& SM) { return new bPsk(SM, sqrt_s_leptcoll_250, pol_80, -pol_30); };
     obsThFactory["bPsk250_m80_p30"] = [=](const StandardModel& SM) { return new bPsk(SM, sqrt_s_leptcoll_250, -pol_80, pol_30); };
     //
-    obsThFactory["bPsk350_p80_m30"] = [=](const StandardModel& SM) { return new aPsk(SM, sqrt_s_leptcoll_350, pol_80, -pol_30); };
+    obsThFactory["bPsk350_p80_m30"] = [=](const StandardModel& SM) { return new bPsk(SM, sqrt_s_leptcoll_350, pol_80, -pol_30); };
     obsThFactory["bPsk350_m80_p30"] = [=](const StandardModel& SM) { return new bPsk(SM, sqrt_s_leptcoll_350, -pol_80, pol_30); };
     //
-    obsThFactory["bPsk500_p80_m30"] = [=](const StandardModel& SM) { return new aPsk(SM, sqrt_s_leptcoll_500, pol_80, -pol_30); };
+    obsThFactory["bPsk500_p80_m30"] = [=](const StandardModel& SM) { return new bPsk(SM, sqrt_s_leptcoll_500, pol_80, -pol_30); };
     obsThFactory["bPsk500_m80_p30"] = [=](const StandardModel& SM) { return new bPsk(SM, sqrt_s_leptcoll_500, -pol_80, pol_30); };
     //
     obsThFactory["eeWBF230"] = [=](const StandardModel& SM) { return new mueeWBF(SM, sqrt_s_leptcoll_230, 0., 0.); };
@@ -558,8 +558,8 @@ void ThObsFactory::registerHiggsObservables()
     obsThFactory["eettH1500"] = [=](const StandardModel& SM) { return new mueettH(SM, sqrt_s_leptcoll_1500, 0., 0.); };
     obsThFactory["eettH3000"] = [=](const StandardModel& SM) { return new mueettH(SM, sqrt_s_leptcoll_3000, 0., 0.); };
     //
-    obsThFactory["mumuttH1500"] = [=](const StandardModel& SM) { return new mummttH(SM, sqrt_s_leptcoll_3000); };
-    obsThFactory["mumuttH3000"] = [=](const StandardModel& SM) { return new mummttH(SM, sqrt_s_leptcoll_10000); };
+    obsThFactory["mumuttH1500"] = [=](const StandardModel& SM) { return new mummttH(SM, sqrt_s_leptcoll_1500); };
+    obsThFactory["mumuttH3000"] = [=](const StandardModel& SM) { return new mummttH(SM, sqrt_s_leptcoll_3000); };
     //
     obsThFactory["eettH500_p80_m30"] = [=](const StandardModel& SM) { return new mueettH(SM, sqrt_s_leptcoll_500, pol_80, -pol_30); };
     obsThFactory["eettH500_m80_p30"] = [=](const StandardModel& SM) { return new mueettH(SM, sqrt_s_leptcoll_500, -pol_80, pol_30); };
