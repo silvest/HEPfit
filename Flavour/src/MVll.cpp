@@ -388,6 +388,7 @@ void MVll::updateParameters()
     mb_pole = mySM.Mbar2Mp(Mb, QCD::BOTTOM); /* Conversion to pole mass*/
     mc_pole = mySM.Mbar2Mp(Mc, QCD::CHARM); /* Conversion to pole mass*/
     Ms = mySM.getQuarks(QCD::STRANGE).getMass();
+    MsoMb = Ms / Mb;
     MW = mySM.Mw();
     lambda_t = mySM.getCKM().computelamt_s();
     lambda_u = mySM.getCKM().computelamu_s();
@@ -767,7 +768,7 @@ void MVll::updateParameters()
             C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
         }
         C_7p = MsoMb * ((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6));
-        C_7p -= MsoMb * (C_7 + 1. / 3. * C_3 + 4 / 9 * C_4 + 20. / 3. * C_5 + 80. / 9. * C_6);
+        C_7p -= MsoMb * (C_7 + 1. / 3. * C_3 + 4. / 9. * C_4 + 20. / 3. * C_5 + 80. / 9. * C_6);
 
         allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
 
@@ -832,7 +833,6 @@ void MVll::updateParameters()
     Mlep2 = Mlep*Mlep;
     twoMlepMb = 2. * Mlep*Mb;
     MboMW = Mb / MW;
-    MsoMb = Ms / Mb;
     ninetysixM_PI3MM3 = 96. * M_PI * M_PI * M_PI * MM * MM*MM;
     sixteenM_PI2 = 16. * M_PI2;
     sixteenM_PI2MM2 = sixteenM_PI2 * MM*MM;
