@@ -680,26 +680,40 @@ NPSMEFTd6::NPSMEFTd6(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniv
         ModelParamMap.insert(std::make_pair("CeB_33i", std::cref(CeB_33i)));
         ModelParamMap.insert(std::make_pair("CQQ1_1133", std::cref(CQQ1_1133)));
         ModelParamMap.insert(std::make_pair("CQQ1_1331", std::cref(CQQ1_1331)));
+        ModelParamMap.insert(std::make_pair("CQQ1_2233", std::cref(CQQ1_2233)));
+        ModelParamMap.insert(std::make_pair("CQQ1_2332", std::cref(CQQ1_2332)));
         ModelParamMap.insert(std::make_pair("CQQ1_3333", std::cref(CQQ1_3333)));
         ModelParamMap.insert(std::make_pair("CQQ3_1133", std::cref(CQQ3_1133)));
         ModelParamMap.insert(std::make_pair("CQQ3_1331", std::cref(CQQ3_1331)));
+        ModelParamMap.insert(std::make_pair("CQQ3_2233", std::cref(CQQ3_2233)));
+        ModelParamMap.insert(std::make_pair("CQQ3_2332", std::cref(CQQ3_2332)));
         ModelParamMap.insert(std::make_pair("CQQ3_3333", std::cref(CQQ3_3333)));
         ModelParamMap.insert(std::make_pair("Cuu_1133", std::cref(Cuu_1133)));
         ModelParamMap.insert(std::make_pair("Cuu_1331", std::cref(Cuu_1331)));
+        ModelParamMap.insert(std::make_pair("Cuu_2233", std::cref(Cuu_2233)));
+        ModelParamMap.insert(std::make_pair("Cuu_2332", std::cref(Cuu_2332)));
         ModelParamMap.insert(std::make_pair("Cuu_3333", std::cref(Cuu_3333)));
         ModelParamMap.insert(std::make_pair("Cud1_3311", std::cref(Cud1_3311)));
+        ModelParamMap.insert(std::make_pair("Cud1_3322", std::cref(Cud1_3322)));
         ModelParamMap.insert(std::make_pair("Cud1_3333", std::cref(Cud1_3333)));
         ModelParamMap.insert(std::make_pair("Cud8_3311", std::cref(Cud8_3311)));
+        ModelParamMap.insert(std::make_pair("Cud8_3322", std::cref(Cud8_3322)));
         ModelParamMap.insert(std::make_pair("Cud8_3333", std::cref(Cud8_3333)));
         ModelParamMap.insert(std::make_pair("CQu1_1133", std::cref(CQu1_1133)));
         ModelParamMap.insert(std::make_pair("CQu1_3311", std::cref(CQu1_3311)));
+        ModelParamMap.insert(std::make_pair("CQu1_2233", std::cref(CQu1_2233)));
+        ModelParamMap.insert(std::make_pair("CQu1_3322", std::cref(CQu1_3322)));
         ModelParamMap.insert(std::make_pair("CQu1_3333", std::cref(CQu1_3333)));
         ModelParamMap.insert(std::make_pair("CQu8_1133", std::cref(CQu8_1133)));
         ModelParamMap.insert(std::make_pair("CQu8_3311", std::cref(CQu8_3311)));
+        ModelParamMap.insert(std::make_pair("CQu8_2233", std::cref(CQu8_2233)));
+        ModelParamMap.insert(std::make_pair("CQu8_3322", std::cref(CQu8_3322)));
         ModelParamMap.insert(std::make_pair("CQu8_3333", std::cref(CQu8_3333)));
         ModelParamMap.insert(std::make_pair("CQd1_3311", std::cref(CQd1_3311)));
+        ModelParamMap.insert(std::make_pair("CQd1_3322", std::cref(CQd1_3322)));
         ModelParamMap.insert(std::make_pair("CQd1_3333", std::cref(CQd1_3333)));
         ModelParamMap.insert(std::make_pair("CQd8_3311", std::cref(CQd8_3311)));
+        ModelParamMap.insert(std::make_pair("CQd8_3322", std::cref(CQd8_3322)));
         ModelParamMap.insert(std::make_pair("CQd8_3333", std::cref(CQd8_3333)));
         ModelParamMap.insert(std::make_pair("CQuQd1_3333", std::cref(CQuQd1_3333)));
         ModelParamMap.insert(std::make_pair("CQuQd8_3333", std::cref(CQuQd8_3333)));
@@ -2547,6 +2561,10 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CQQ1_1133 = value;
     } else if (name.compare("CQQ1_1331") == 0) {
         CQQ1_1331 = value;
+    } else if (name.compare("CQQ1_2233") == 0) {
+        CQQ1_2233 = value;
+    } else if (name.compare("CQQ1_2332") == 0) {
+        CQQ1_2332 = value;
     } else if (name.compare("CQQ1_3333") == 0) {
         CQQ1_3333 = value;
     } else if (name.compare("CQQ1") == 0) {
@@ -2557,6 +2575,10 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CQQ3_1133 = value;
     } else if (name.compare("CQQ3_1331") == 0) {
         CQQ3_1331 = value;
+    } else if (name.compare("CQQ3_2233") == 0) {
+        CQQ3_2233 = value;
+    } else if (name.compare("CQQ3_2332") == 0) {
+        CQQ3_2332 = value;
     } else if (name.compare("CQQ3_3333") == 0) {
         CQQ3_3333 = value;
     } else if (name.compare("CQQ3") == 0) {
@@ -2567,6 +2589,10 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         Cuu_1133 = value;
     } else if (name.compare("Cuu_1331") == 0) {
         Cuu_1331 = value;
+    } else if (name.compare("Cuu_2233") == 0) {
+        Cuu_2233 = value;
+    } else if (name.compare("Cuu_2332") == 0) {
+        Cuu_2332 = value;
     } else if (name.compare("Cuu_3333") == 0) {
         Cuu_3333 = value;
     } else if (name.compare("Cuu") == 0) {
@@ -2575,6 +2601,8 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         Cuu_1331 = 0.;
     } else if (name.compare("Cud1_3311") == 0) {
         Cud1_3311 = value;
+    } else if (name.compare("Cud1_3322") == 0) {
+        Cud1_3322 = value;
     } else if (name.compare("Cud1_3333") == 0) {
         Cud1_3333 = value;
     } else if (name.compare("Cud1") == 0) {
@@ -2582,6 +2610,8 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         Cud1_3333 = value;
     } else if (name.compare("Cud8_3311") == 0) {
         Cud8_3311 = value;
+    } else if (name.compare("Cud8_3322") == 0) {
+        Cud8_3322 = value;
     } else if (name.compare("Cud8_3333") == 0) {
         Cud8_3333 = value;
     } else if (name.compare("Cud8") == 0) {
@@ -2591,6 +2621,10 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CQu1_1133 = value;
     } else if (name.compare("CQu1_3311") == 0) {
         CQu1_3311 = value;
+    } else if (name.compare("CQu1_2233") == 0) {
+        CQu1_2233 = value;
+    } else if (name.compare("CQu1_3322") == 0) {
+        CQu1_3322 = value;
     } else if (name.compare("CQu1_3333") == 0) {
         CQu1_3333 = value;
     } else if (name.compare("CQu1") == 0) {
@@ -2601,6 +2635,10 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CQu8_1133 = value;
     } else if (name.compare("CQu8_3311") == 0) {
         CQu8_3311 = value;
+    } else if (name.compare("CQu8_2233") == 0) {
+        CQu8_2233 = value;
+    } else if (name.compare("CQu8_3322") == 0) {
+        CQu8_3322 = value;
     } else if (name.compare("CQu8_3333") == 0) {
         CQu8_3333 = value;
     } else if (name.compare("CQu8") == 0) {
@@ -2609,6 +2647,8 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CQu8_3333 = value;
     } else if (name.compare("CQd1_3311") == 0) {
         CQd1_3311 = value;
+    } else if (name.compare("CQd1_3322") == 0) {
+        CQd1_3322 = value;
     } else if (name.compare("CQd1_3333") == 0) {
         CQd1_3333 = value;
     } else if (name.compare("CQd1") == 0) {
@@ -2616,6 +2656,8 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CQd1_3333 = value;
     } else if (name.compare("CQd8_3311") == 0) {
         CQd8_3311 = value;
+    } else if (name.compare("CQd8_3322") == 0) {
+        CQd8_3322 = value;
     } else if (name.compare("CQd8_3333") == 0) {
         CQd8_3333 = value;
     } else if (name.compare("CQd8") == 0) {
@@ -3196,28 +3238,28 @@ bool NPSMEFTd6::RGd6SMEFTlogs()
 
     double Ced_2222 = 0.0, Ced_2233 = 0.0, Ced_3322 = 0.0, Ced_3333 = 0.0;
 
-    double CQQ1_3113 = CQQ1_1331, CQQ1_2332 = 0.0, CQQ1_3223 = CQQ1_2332,
-            CQQ1_3311 = CQQ1_1133, CQQ1_3322 = 0.0, CQQ1_2233 = CQQ1_3322,
+    double CQQ1_3113 = CQQ1_1331, CQQ1_3223 = CQQ1_2332,
+            CQQ1_3311 = CQQ1_1133, CQQ1_3322 = CQQ1_2233,
             CQQ1_1111 = 0.0, CQQ1_1122 = 0.0, CQQ1_2211 = CQQ1_1122, CQQ1_1221 = 0.0, CQQ1_2112 = CQQ1_1221, CQQ1_2222 = 0.0;
 
-    double CQQ3_3113 = CQQ3_1331, CQQ3_2332 = 0.0, CQQ3_3223 = CQQ3_2332,
-            CQQ3_3311 = CQQ3_1133, CQQ3_3322 = 0.0, CQQ3_2233 = CQQ3_3322,
+    double CQQ3_3113 = CQQ3_1331, CQQ3_3223 = CQQ3_2332,
+            CQQ3_3311 = CQQ3_1133, CQQ3_3322 = CQQ3_2233,
             CQQ3_1111 = 0.0, CQQ3_1221 = 0.0, CQQ3_2112 = CQQ3_1221, CQQ3_1122 = 0.0, CQQ3_2211 = CQQ3_1122, CQQ3_2222 = 0.0;
 
-    double CQd1_3322 = 0.0, CQd1_1111 = 0.0, CQd1_1122 = 0.0, CQd1_2211 = 0.0, CQd1_2222 = 0.0,
+    double CQd1_1111 = 0.0, CQd1_1122 = 0.0, CQd1_2211 = 0.0, CQd1_2222 = 0.0,
             CQd1_1133 = 0.0, CQd1_2233 = 0.0;
 
-    double CQu1_3322 = 0.0, CQu1_2233 = CQu1_3322, CQu1_1331 = 0.0,
+    double CQu1_1331 = 0.0,
             CQu1_2332 = 0.0, CQu1_1111 = 0.0, CQu1_1122 = 0.0, CQu1_2211 = 0.0, CQu1_2222 = 0.0;
 
     double CQu8_1331 = 0.0, CQu8_2332 = 0.0;
 
     double Cud1_1111 = 0.0, Cud1_1122 = 0.0, Cud1_2211 = 0.0, Cud1_2222 = 0.0,
-            Cud1_1133 = 0.0, Cud1_2233 = 0.0, Cud1_3322 = 0.0;
+            Cud1_1133 = 0.0, Cud1_2233 = 0.0;
 
     double Cuu_1111 = 0.0, Cuu_1221 = 0.0, Cuu_2112 = Cuu_1221, Cuu_1122 = 0.0, Cuu_2211 = Cuu_1122,
-            Cuu_2222 = 0.0, Cuu_3113 = Cuu_1331, Cuu_3311 = Cuu_1133, Cuu_2233 = 0.0,
-            Cuu_3322 = Cuu_2233, Cuu_2332 = 0.0, Cuu_3223 = Cuu_2332;
+            Cuu_2222 = 0.0, Cuu_3113 = Cuu_1331, Cuu_3311 = Cuu_1133,
+            Cuu_3322 = Cuu_2233, Cuu_3223 = Cuu_2332;
 
     double CQuQd1_1331 = 0.0, CQuQd1_3311 = 0.0, CQuQd1_2332 = 0.0, CQuQd1_3322 = 0.0;
     double CQuQd8_1331 = 0.0, CQuQd8_2332 = 0.0;
