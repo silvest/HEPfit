@@ -12,6 +12,12 @@
 #include "gslpp_function_adapter.h"
 using namespace boost::placeholders;
 
+namespace {
+// SM partial widths (GeV) used in the four-fermion fits.
+constexpr double wH2v2vSM = 0.28126e-05;
+constexpr double wH4vSM = 0.16884e-05;
+}
+
 const std::string NPSMEFTd6::NPSMEFTd6Vars[NNPSMEFTd6Vars]
         = {"CG", "CW", "C2B", "C2W", "C2BS", "C2WS", "CHG", "CHW", "CHB", "CDHB", "CDHW", "CDB", "CDW", "CHWB", "CHD", "CT", "CHbox", "CH",
     "CHL1_11", "CHL1_12r", "CHL1_13r", "CHL1_22", "CHL1_23r", "CHL1_33",
@@ -16602,10 +16608,10 @@ const double NPSMEFTd6::deltaGammaH4fRatio1() const
     double dwidth = 0.0;
 
     // SM decay widths (from MG simulations)
-    double wH2L2LSM = 0.65682e-06, wH2v2vSM = 0.28126e-05, wH2L2vSM = 0.27224e-05;
+    double wH2L2LSM = 0.65682e-06, wH2L2vSM = 0.27224e-05;
     double wH2u2uSM = 0.22500e-05, wH2d2dSM = 0.11906e-04, wH2u2dSM = 0.12361e-04;
     double wH2L2uSM = 0.45029e-05, wH2L2dSM = 0.85830e-05, wH2v2uSM = 0.93233e-05;
-    double wH2v2dSM = 0.17794e-04, wH4LSM = 0.33973e-06, wH4vSM = 0.16884e-05;
+    double wH2v2dSM = 0.17794e-04, wH4LSM = 0.33973e-06;
     double wH4uSM = 0.23669e-05, wH4dSM = 0.60254e-05;
     double wHLvvLSM = 0.58098e-04, wHudduSM = 0.13384e-03, wHLvudSM = 0.34149e-03;
     double wH2udSM = 0.13711e-03, wH2LvSM = 0.27557e-04;
@@ -16618,7 +16624,7 @@ const double NPSMEFTd6::deltaGammaH4fRatio1() const
     dwidth = (wH2L2LSM * deltaGammaH2L2LRatio1() + wH2v2vSM * deltaGammaH2v2vRatio1() + wH2L2vSM * deltaGammaH2L2vRatio1() +
             wH2u2uSM * deltaGammaH2u2uRatio1() + wH2d2dSM * deltaGammaH2d2dRatio1() + wH2u2dSM * deltaGammaH2u2dRatio1() +
             wH2L2uSM * deltaGammaH2L2uRatio1() + wH2L2dSM * deltaGammaH2L2dRatio1() + wH2v2uSM * deltaGammaH2v2uRatio1() +
-            wH2v2dSM * deltaGammaH2v2dRatio1() + wH4LSM * deltaGammaH4LRatio1() + wH4LSM * deltaGammaH4LRatio1() +
+            wH2v2dSM * deltaGammaH2v2dRatio1() + wH4LSM * deltaGammaH4LRatio1() + wH4vSM * deltaGammaH4vRatio1() +
             wH4uSM * deltaGammaH4uRatio1() + wH4dSM * deltaGammaH4dRatio1() +
             wHLvvLSM * deltaGammaHLvvLRatio1() + wHudduSM * deltaGammaHudduRatio1() + wHLvudSM * deltaGammaHLvudRatio1() +
             wH2udSM * deltaGammaH2udRatio1() + wH2LvSM * deltaGammaH2LvRatio1()) / wH4fSM;
@@ -16631,10 +16637,10 @@ const double NPSMEFTd6::deltaGammaH4fRatio2() const
     double dwidth = 0.0;
 
     // SM decay widths (from MG simulations)
-    double wH2L2LSM = 0.65682e-06, wH2v2vSM = 0.28126e-05, wH2L2vSM = 0.27224e-05;
+    double wH2L2LSM = 0.65682e-06, wH2L2vSM = 0.27224e-05;
     double wH2u2uSM = 0.22500e-05, wH2d2dSM = 0.11906e-04, wH2u2dSM = 0.12361e-04;
     double wH2L2uSM = 0.45029e-05, wH2L2dSM = 0.85830e-05, wH2v2uSM = 0.93233e-05;
-    double wH2v2dSM = 0.17794e-04, wH4LSM = 0.33973e-06, wH4vSM = 0.16884e-05;
+    double wH2v2dSM = 0.17794e-04, wH4LSM = 0.33973e-06;
     double wH4uSM = 0.23669e-05, wH4dSM = 0.60254e-05;
     double wHLvvLSM = 0.58098e-04, wHudduSM = 0.13384e-03, wHLvudSM = 0.39063e-03;
     double wH2udSM = 0.13711e-03, wH2LvSM = 0.27557e-04;
@@ -16648,7 +16654,7 @@ const double NPSMEFTd6::deltaGammaH4fRatio2() const
     dwidth = (wH2L2LSM * deltaGammaH2L2LRatio2() + wH2v2vSM * deltaGammaH2v2vRatio2() + wH2L2vSM * deltaGammaH2L2vRatio2() +
             wH2u2uSM * deltaGammaH2u2uRatio2() + wH2d2dSM * deltaGammaH2d2dRatio2() + wH2u2dSM * deltaGammaH2u2dRatio2() +
             wH2L2uSM * deltaGammaH2L2uRatio2() + wH2L2dSM * deltaGammaH2L2dRatio2() + wH2v2uSM * deltaGammaH2v2uRatio2() +
-            wH2v2dSM * deltaGammaH2v2dRatio2() + wH4LSM * deltaGammaH4LRatio2() + wH4LSM * deltaGammaH4LRatio2() +
+            wH2v2dSM * deltaGammaH2v2dRatio2() + wH4LSM * deltaGammaH4LRatio2() + wH4vSM * deltaGammaH4vRatio2() +
             wH4uSM * deltaGammaH4uRatio2() + wH4dSM * deltaGammaH4dRatio2() +
             wHLvvLSM * deltaGammaHLvvLRatio2() + wHudduSM * deltaGammaHudduRatio2() + wHLvudSM * deltaGammaHLvudRatio2() +
             wH2udSM * deltaGammaH2udRatio2() + wH2LvSM * deltaGammaH2LvRatio2()) / wH4fSM;
@@ -17162,7 +17168,8 @@ const double NPSMEFTd6::Br_H_inv() const
     //  Contributions from both modifications in H->4v and the extra invisible decays
     double BR4v;
 
-    BR4v = (BrH2v2vRatio() + BrH4vRatio())*(trueSM.computeBrHto4v());
+    BR4v = trueSM.computeBrHto4v() * (wH2v2vSM * BrH2v2vRatio() + wH4vSM * BrH4vRatio())
+            / (wH2v2vSM + wH4vSM);
 
     //  BR4v positivity is already checked inside BrH2v2vRatio() and BrH4vRatio()
     //  and will be nan if negative. Check here BrHinv, to make sure both are positive
