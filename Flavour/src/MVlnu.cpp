@@ -787,7 +787,7 @@ double MVlnu::F2_BGL(double q2)
     double PfacF2z0 = (z0 - zP1) / (1. - z0 * zP1)*(z0 - zP2) / (1. - z0 * zP2)*(z0 - zP3) / (1. - z0 * zP3);
     double phiF2 = phi_F2(z);
     double phiF2z0 = phi_F2(z0);
-    double aF20 = PfacF2z0 * phiF2z0 * 2. * F1_BGL(0.) / (MM * MM - MV * MV) - aF21 * z0 - aF22 * z0*z0; // F2(q2=0) = 2.*F1(q2=0)/(MM*MM-MV*MV)
+    double aF20 = PfacF2z0 * phiF2z0 * 2. * F1_BGL(0.) / (MM * MM - MV * MV) - aF21 * z0 - aF22 * z0*z0 - aF23 * z0*z0*z0; // F2(q2=0) = 2.*F1(q2=0)/(MM*MM-MV*MV)
     return (aF20 + aF21 * z + aF22 * z * z + aF23 * z * z * z) / phiF2 / PfacF2;
 }
 
