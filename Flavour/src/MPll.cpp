@@ -131,9 +131,9 @@ std::vector<std::string> MPll::initializeMPllParameters()
     return mpllParameters;
 }
 
-void MPll::updateParameters()
+bool MPll::updateParameters()
 {
-    if (!mySM.getFlavour().getUpdateFlag(meson, pseudoscalar, lep)) return;
+    if (!mySM.getFlavour().getUpdateFlag(meson, pseudoscalar, lep)) return true;
 
     ScopedGslErrorHandlerOff handlerGuard;
     GF = mySM.getGF();
@@ -451,9 +451,9 @@ void MPll::updateParameters()
     if (deltaTparpupdated * deltaTparmupdated == 0) for (it = I1Cached.begin(); it != I1Cached.end(); ++it) it->second = 0;
 
 #if SPLINE
-    if (mySM.getFlavour().getUpdateFlag(meson, pseudoscalar, lep)) spline_QCDF_func();
+    if (lep != QCD::NEUTRINO_1 && !spline_QCDF_func()) return false;
 #else
-    if (lep != QCD::NEUTRINO_1 && !fit_DeltaC9_mumu()) return;
+    if (lep != QCD::NEUTRINO_1 && !fit_DeltaC9_mumu()) return false;
 #endif
 
     mySM.getFlavour().setUpdateFlag(meson, pseudoscalar, lep, false);
@@ -462,7 +462,7 @@ void MPll::updateParameters()
     //std::cout << "f0_DM(4)= " << f_0(4) << std::endl;
     //std::cout << "fT_DM(4)= " << f_T(4) << std::endl;
 
-    return;
+    return true;
 
 }
 
@@ -1209,8 +1209,11 @@ bool MPll::fit_DeltaC9_mumu()
     reffit = TF1("reffit", this, &MPll::reDC9fit, 0, 8.1, 7);
     imffit = TF1("imffit", this, &MPll::imDC9fit, 0, 8.1, 8);
 
-    refres = gr1.Fit(&reffit, "SQN0+rob=0.99");
-    imfres = gr2.Fit(&imffit, "SQN0+rob=0.99");
+    auto realFit = gr1.Fit(&reffit, "SQN0+rob=0.99");
+    auto imagFit = gr2.Fit(&imffit, "SQN0+rob=0.99");
+    if (!realFit.Get() || !imagFit.Get() || !realFit->IsValid() || !imagFit->IsValid()) return false;
+    refres = realFit;
+    imfres = imagFit;
 
     return true;
 }
@@ -1279,7 +1282,7 @@ gslpp::complex MPll::deltaC9_QCDF(double q2, bool spline)
     return -alpha_s_mub / (4. * M_PI) * (delta_t /*- lambda_u / lambda_t * delta_u*/);
 }
 
-void MPll::spline_QCDF_func()
+bool MPll::spline_QCDF_func()
 {
     int dim_DC = GSL_INTERP_DIM_DC;
     double min = 0.001;
@@ -1289,19 +1292,20 @@ void MPll::spline_QCDF_func()
 
     for (int i = 0; i < dim_DC; i++) {
         q2_spline_DC[i] = min + (double) i*interval_DC;
-        fq2_Re_deltaC7_QCDF[i] = deltaC7_QCDF(q2_spline_DC[i], false).real();
-        fq2_Im_deltaC7_QCDF[i] = deltaC7_QCDF(q2_spline_DC[i], false).imag();
-        fq2_Re_deltaC9_QCDF[i] = deltaC9_QCDF(q2_spline_DC[i], false).real();
-        fq2_Im_deltaC9_QCDF[i] = deltaC9_QCDF(q2_spline_DC[i], false).imag();
-
+        const auto c7 = deltaC7_QCDF(q2_spline_DC[i], false);
+        const auto c9 = deltaC9_QCDF(q2_spline_DC[i], false);
+        if (!std::isfinite(c7.real()) || !std::isfinite(c7.imag())
+                || !std::isfinite(c9.real()) || !std::isfinite(c9.imag())) return false;
+        fq2_Re_deltaC7_QCDF[i] = c7.real();
+        fq2_Im_deltaC7_QCDF[i] = c7.imag();
+        fq2_Re_deltaC9_QCDF[i] = c9.real();
+        fq2_Im_deltaC9_QCDF[i] = c9.imag();
     }
 
-    gsl_spline_init(spline_Re_deltaC7_QCDF, q2_spline_DC, fq2_Re_deltaC7_QCDF, dim_DC);
-    gsl_spline_init(spline_Im_deltaC7_QCDF, q2_spline_DC, fq2_Im_deltaC7_QCDF, dim_DC);
-    gsl_spline_init(spline_Re_deltaC9_QCDF, q2_spline_DC, fq2_Re_deltaC9_QCDF, dim_DC);
-    gsl_spline_init(spline_Im_deltaC9_QCDF, q2_spline_DC, fq2_Im_deltaC9_QCDF, dim_DC);
-
-
+    return gsl_spline_init(spline_Re_deltaC7_QCDF, q2_spline_DC, fq2_Re_deltaC7_QCDF, dim_DC) == GSL_SUCCESS
+            && gsl_spline_init(spline_Im_deltaC7_QCDF, q2_spline_DC, fq2_Im_deltaC7_QCDF, dim_DC) == GSL_SUCCESS
+            && gsl_spline_init(spline_Re_deltaC9_QCDF, q2_spline_DC, fq2_Re_deltaC9_QCDF, dim_DC) == GSL_SUCCESS
+            && gsl_spline_init(spline_Im_deltaC9_QCDF, q2_spline_DC, fq2_Im_deltaC9_QCDF, dim_DC) == GSL_SUCCESS;
 }
 
 /*******************************************************************************
@@ -1458,7 +1462,7 @@ double MPll::Delta(int i, double q2)
 
 double MPll::integrateSigma(int i, double q_min, double q_max)
 {
-    updateParameters();
+    if (!updateParameters()) return std::numeric_limits<double>::quiet_NaN();
     
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
 
@@ -1506,7 +1510,7 @@ double MPll::integrateSigma(int i, double q_min, double q_max)
 
 double MPll::getSigma(int i, double q_2)
 {
-    updateParameters();
+    if (!updateParameters()) return std::numeric_limits<double>::quiet_NaN();
 
     switch (i) {
         case 0:
@@ -1527,7 +1531,7 @@ double MPll::getSigma(int i, double q_2)
 
 double MPll::integrateDelta(int i, double q_min, double q_max)
 {
-    updateParameters();
+    if (!updateParameters()) return std::numeric_limits<double>::quiet_NaN();
 
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
 
@@ -1567,7 +1571,7 @@ double MPll::integrateSigmaTree(double q_min, double q_max)
 {
     if (lep != QCD::NEUTRINO_1 or meson != QCD::B_P or !NeutrinoTree_flag) return 0.;
 
-    updateParameters();
+    if (!updateParameters()) return std::numeric_limits<double>::quiet_NaN();
     
     //phase space limit where tree-level contribution is relevant (0908.1174)
     double q_cut = (mtau2 - MP2) * (MM2 - mtau2) / mtau2;

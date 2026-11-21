@@ -2,7 +2,8 @@
 // -Dgsl_integration_qags=testLEP2Qags, MVgamma.cpp with
 // -Dgsl_integration_cquad=testMVgammaCquad, and MVll.cpp with
 // -Dgsl_integration_cquad=testMVllCquad. Compile MPll.cpp with
-// -Dgsl_integration_cquad=testMPllCquad. Test both settings of SPLINE.
+// -Dgsl_integration_cquad=testMPllCquad and -Dgsl_spline_init=testMPllSplineInit.
+// Test both settings of SPLINE.
 #include "ScopedGslErrorHandlerOff.h"
 #include "StandardModel.h"
 #include "MVgamma.h"
@@ -14,12 +15,15 @@
 #include <memory>
 #include <sstream>
 #include <stdexcept>
+#include <utility>
+#include <vector>
 
 namespace {
 unsigned errors = 0, probes = 0;
 bool failNextQCDFIntegral = false;
 int qcdfFailure = GSL_SUCCESS;
-bool failNextMPllIntegral = false;
+bool failMPllPreparation = false;
+unsigned mpllBinCalls = 0;
 int mpllFailure = GSL_SUCCESS;
 std::unique_ptr<ScopedGslErrorHandlerOff> firstScope;
 
@@ -112,19 +116,28 @@ void checkMPllUpdates(StandardModel& model, MPll& decay)
         throw std::runtime_error("Invalid initial MPll bin or handler");
     const double mb = model.getQuarks(QCD::BOTTOM).getMass();
     if (!model.Update({{"mbottom", mb + 0.05}})) throw std::runtime_error("Model update failed");
-#if !SPLINE
-    failNextMPllIntegral = true;
-#endif
-    decay.getSigma(0, 1.5);
-    if (gsl_set_error_handler(countError) != countError || errors != 0)
-        throw std::runtime_error("MPll preparation invoked or lost the caller's handler");
-#if !SPLINE
-    if (mpllFailure == GSL_SUCCESS || !model.getFlavour().getUpdateFlag(QCD::B_P, QCD::K_P, QCD::MU))
-        throw std::runtime_error("MPll accepted a failed fit sample");
-    const double retry = decay.getSigma(0, 1.5);
-    if (!(std::isfinite(retry) && retry > 0.) || model.getFlavour().getUpdateFlag(QCD::B_P, QCD::K_P, QCD::MU))
-        throw std::runtime_error("MPll failed to prepare the fit on retry");
-#endif
+    failMPllPreparation = true;
+    const unsigned binCalls = mpllBinCalls;
+    auto checkFailure = [&](double value) {
+        if (!std::isnan(value) || mpllFailure == GSL_SUCCESS
+                || !model.getFlavour().getUpdateFlag(QCD::B_P, QCD::K_P, QCD::MU))
+            throw std::runtime_error("MPll returned an observable after a failed update");
+        if (mpllBinCalls != binCalls) throw std::runtime_error("MPll integrated a bin after a failed update");
+        if (gsl_set_error_handler(countError) != countError || errors != 0)
+            throw std::runtime_error("MPll preparation invoked or lost the caller's handler");
+        mpllFailure = GSL_SUCCESS;
+    };
+    checkFailure(decay.getSigma(0, 1.5));
+    checkFailure(decay.integrateSigma(0, 1., 2.));
+    checkFailure(decay.integrateDelta(0, 1., 2.));
+    checkFailure(decay.getwidth());
+    failMPllPreparation = false;
+    const double retry = decay.integrateSigma(0, 1., 2.);
+    if (!(std::isfinite(retry) && retry > 0.) || mpllBinCalls != binCalls + 1
+            || model.getFlavour().getUpdateFlag(QCD::B_P, QCD::K_P, QCD::MU))
+        throw std::runtime_error("MPll failed to recompute the bin on retry");
+    if (decay.integrateSigma(0, 1., 2.) != retry || mpllBinCalls != binCalls + 1)
+        throw std::runtime_error("MPll did not reuse the successful bin");
     const double lambdaB = model.getMesons(QCD::B_P).getLambdaM();
     if (!model.Update({{"lambdaB", 0.001}, {"mbottom", mb + 0.02}})) throw std::runtime_error("Model update failed");
     const double stress = decay.getSigma(0, 1.5);
@@ -212,12 +225,24 @@ extern "C" int testMVllCquad(const gsl_function* f, double a, double b, double e
 extern "C" int testMPllCquad(const gsl_function* f, double a, double b, double epsabs, double epsrel,
                              gsl_integration_cquad_workspace* w, double* result, double* err, size_t* nevals)
 {
-    if (failNextMPllIntegral && a == 0. && b == 1.) {
-        failNextMPllIntegral = false;
+    if (a == 1. && b == 2.) ++mpllBinCalls;
+    if (failMPllPreparation && a == 0. && b == 1.) {
         mpllFailure = gsl_integration_cquad(f, a, b, -1., 0., w, result, err, nevals);
         return mpllFailure;
     }
     return gsl_integration_cquad(f, a, b, epsabs, epsrel, w, result, err, nevals);
+}
+
+extern "C" int testMPllSplineInit(gsl_spline* spline, const double* x, const double* y, size_t size)
+{
+    if (failMPllPreparation) {
+        // Reverse two knots so GSL returns a real interpolation error.
+        std::vector<double> knots(x, x + size);
+        std::swap(knots[0], knots[1]);
+        mpllFailure = gsl_spline_init(spline, knots.data(), y, size);
+        return mpllFailure;
+    }
+    return gsl_spline_init(spline, x, y, size);
 }
 
 int main()

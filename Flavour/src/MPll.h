@@ -17,6 +17,7 @@ class F_2;
 #include <TFitResultPtr.h>
 #include <gsl/gsl_spline.h>
 #include <memory>
+#include <limits>
 
 #define MPllSWITCH 8.2
 #define LATTICE true
@@ -300,7 +301,7 @@ public:
     * @return \f$ \Gamma_M \f$
     */
     double getwidth(){
-        updateParameters();
+        if (!updateParameters()) return std::numeric_limits<double>::quiet_NaN();
         return width;
     }
     
@@ -310,7 +311,7 @@ public:
     */
     double get_unitarity_bound_fp()
     {
-        updateParameters();
+        if (!updateParameters()) return std::numeric_limits<double>::quiet_NaN();
         return unitarity_bound_fp;
     };
     
@@ -320,7 +321,7 @@ public:
     */
     double get_unitarity_bound_fT()
     {
-        updateParameters();
+        if (!updateParameters()) return std::numeric_limits<double>::quiet_NaN();
         return unitarity_bound_fT;
     };
     
@@ -330,7 +331,7 @@ public:
     */
     double get_unitarity_bound_f0()
     {
-        updateParameters();
+        if (!updateParameters()) return std::numeric_limits<double>::quiet_NaN();
         return unitarity_bound_f0;
     };
 
@@ -767,9 +768,9 @@ private:
 
 
     /**
-     * @brief The update parameter method for MPll.
+     * @return True when parameters and QCDF inputs are ready for this model point.
      */
-    void updateParameters();
+    bool updateParameters();
 
     /**
      * @brief The caching method for MPll.
@@ -1252,7 +1253,7 @@ private:
      */
     gslpp::complex deltaC9_QCDF(double q2, bool spline = false);
 
-    void spline_QCDF_func();
+    bool spline_QCDF_func();
 
 };
 
