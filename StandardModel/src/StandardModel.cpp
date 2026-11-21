@@ -384,6 +384,7 @@ void StandardModel::computeCKM()
     if (requireCKM) {
         if (FlagWolfenstein) {
             myCKM.computeCKMwithWolfenstein(lambda, A, rhob, etab);
+            Vud = myCKM.getV_ud().abs();
             Vus = myCKM.getV_us().abs();
             Vcb = myCKM.getV_cb().abs();
             Vub = myCKM.getV_ub().abs();
@@ -3534,7 +3535,7 @@ const double StandardModel::GammaHtogaga() const
 const double StandardModel::GammaHtomumu() const
 {   
     double mf=leptons[MU].getMass();
-    double beta=1.0-4.0*mf*mf/mHl/mHl;
+    double beta = sqrt(std::max(0.0, 1.0 - 4.0*mf*mf/mHl/mHl));
     double Nc=1.0;
     double gamma;
     
@@ -3546,7 +3547,7 @@ const double StandardModel::GammaHtomumu() const
 const double StandardModel::GammaHtotautau() const
 {   
     double mf=leptons[TAU].getMass();
-    double beta=1.0-4.0*mf*mf/mHl/mHl;
+    double beta = sqrt(std::max(0.0, 1.0 - 4.0*mf*mf/mHl/mHl));
     double Nc=1.0;
     double gamma;
     
@@ -3568,13 +3569,13 @@ const double StandardModel::GammaHtocc() const
     
     mf = Mrun(mHl, mf0, mf0, CHARM, FULLNLO);
     
-    beta=1.0-4.0*mf*mf/mHl/mHl;
+    beta = sqrt(std::max(0.0, 1.0 - 4.0*mf*mf/mHl/mHl));
     
     NF=5;
     
     DeltaQCD = 1 + (asMH/M_PI) * ( 17.0/3.0 + (asMH/M_PI) * ( (35.94 - 1.36*NF) + (164.14 - 25.77*NF + 0.26*NF*NF)*(asMH/M_PI) ) );
     
-    Deltamt = (asMH/M_PI) * (asMH/M_PI) * ( 1.57 + (4.0/3.0)*log(mHl/mtpole) + (4.0/9.0) * log(mf/mHl) * log(mf/mHl) );
+    Deltamt = (asMH/M_PI) * (asMH/M_PI) * ( 1.57 - (4.0/3.0)*log(mHl/mtpole) + (4.0/9.0) * log(mf/mHl) * log(mf/mHl) );
     
     gamma = Nc * (4.0*GF/sqrt(2.0)) * (mf*mf/16.0/M_PI) * mHl * beta*beta*beta * (DeltaQCD + Deltamt);
     
@@ -3594,13 +3595,13 @@ const double StandardModel::GammaHtoss() const
     
     mf = Mrun(mHl, 2.0, mf0, STRANGE, FULLNLO);
     
-    beta=1.0-4.0*mf*mf/mHl/mHl;
+    beta = sqrt(std::max(0.0, 1.0 - 4.0*mf*mf/mHl/mHl));
     
     NF=5;
     
     DeltaQCD = 1 + (asMH/M_PI) * ( 17.0/3.0 + (asMH/M_PI) * ( (35.94 - 1.36*NF) + (164.14 - 25.77*NF + 0.26*NF*NF)*(asMH/M_PI) ) );
     
-    Deltamt = (asMH/M_PI) * (asMH/M_PI) * ( 1.57 + (4.0/3.0)*log(mHl/mtpole) + (4.0/9.0) * log(mf/mHl) * log(mf/mHl) );
+    Deltamt = (asMH/M_PI) * (asMH/M_PI) * ( 1.57 - (4.0/3.0)*log(mHl/mtpole) + (4.0/9.0) * log(mf/mHl) * log(mf/mHl) );
     
     gamma = Nc * (4.0*GF/sqrt(2.0)) * (mf*mf/16.0/M_PI) * mHl * beta*beta*beta * (DeltaQCD + Deltamt);
     
@@ -3620,13 +3621,13 @@ const double StandardModel::GammaHtobb() const
     
     mf = Mrun(mHl, mf0, mf0, BOTTOM, FULLNLO);
     
-    beta=1.0-4.0*mf*mf/mHl/mHl;
+    beta = sqrt(std::max(0.0, 1.0 - 4.0*mf*mf/mHl/mHl));
     
     NF=5;
     
     DeltaQCD = 1 + (asMH/M_PI) * ( 17.0/3.0 + (asMH/M_PI) * ( (35.94 - 1.36*NF) + (164.14 - 25.77*NF + 0.26*NF*NF)*(asMH/M_PI) ) );
     
-    Deltamt = (asMH/M_PI) * (asMH/M_PI) * ( 1.57 + (4.0/3.0)*log(mHl/mtpole) + (4.0/9.0) * log(mf/mHl) * log(mf/mHl) );
+    Deltamt = (asMH/M_PI) * (asMH/M_PI) * ( 1.57 - (4.0/3.0)*log(mHl/mtpole) + (4.0/9.0) * log(mf/mHl) * log(mf/mHl) );
     
     gamma = Nc * (4.0*GF/sqrt(2.0)) * (mf*mf/16.0/M_PI) * mHl * beta*beta*beta * (DeltaQCD + Deltamt);
     

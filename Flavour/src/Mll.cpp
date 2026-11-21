@@ -8,6 +8,8 @@
 #include "Mll.h"
 #include "Bdmumu.h"
 #include "StandardModel.h"
+#include "AmpDB2.h"
+#include <limits>
 #include "HeffDB1.h"
 
 Mll::Mll(const StandardModel& SM_i, int obsFlag, QCD::meson meson_i, QCD::lepton lep_i)
@@ -35,7 +37,8 @@ double Mll::computeThValue()
 {
     if (bdmumu) return bdmumu->computeThValue();
 
-    computeObs(FULLNLO, FULLNLO_QED);
+    const double ys = SM.getMesons(meson).getDgamma_gamma() / 2.;
+    computeObs(FULLNLO, FULLNLO_QED, obs >= 3 || (obs == 2 && ys != 0.));
     double FBs = SM.getMesons(meson).getDecayconst();
     
 //    double coupling = SM.getGF() * SM.getGF() * SM.Mw() * SM.Mw() /M_PI /M_PI ; /* Double GF for including EW corrections*/
@@ -43,10 +46,8 @@ double Mll::computeThValue()
  
 //    double PRF = pow(coupling, 2.) / M_PI /8. / SM.getMesons(meson).computeWidth() * pow(FBs, 2.) * pow(mlep, 2.) * mBs * beta; /* Double GF for including EW corrections*/
     double PRF = pow(coupling, 2.) / M_PI / SM.getMesons(meson).computeWidth() * pow(FBs, 2.) * pow(mlep, 2.) * mBs * beta; /* Single GF for excluding EW corrections*/
-    timeInt = (1. + Amumu * ys) / (1. - ys * ys); // Note modification in form due to algorithm
-     
-    if (obs == 1) return( PRF * ampSq);
-    if (obs == 2) return( PRF * ampSq * timeInt);
+    if (obs == 1 || (obs == 2 && (ys == 0. || ampSq == 0.))) return PRF * ampSq;
+    if (obs == 2) return PRF * ampSq * (1. + Amumu * ys) / (1. - ys * ys);
     if (obs == 3) return( Amumu );
     if (obs == 4) return( Smumu );
     
@@ -54,7 +55,7 @@ double Mll::computeThValue()
     return (EXIT_FAILURE);
 }
 
-void Mll::computeObs(orders order, orders_qed order_qed)
+void Mll::computeObs(orders order, orders_qed order_qed, bool withMixing)
 {   
     double mu = SM.getMub();  
     
@@ -65,17 +66,21 @@ void Mll::computeObs(orders order, orders_qed order_qed)
     if (meson == QCD::B_S) {
         ms = SM.getQuarks(QCD::STRANGE).getMass();
         CKM_factor = SM.getCKM().computelamt_s();
-        ys = SM.getMesons(QCD::B_S).getDgamma_gamma()/2.;
     } else if (meson == QCD::B_D) {
         ms = SM.getQuarks(QCD::DOWN).getMass();
         CKM_factor = SM.getCKM().computelamt_d();
-        ys = 0.;
     }
     chiral = pow(mBs, 2.) / 2. / mlep * mb / (mb + ms);
     beta = sqrt(1. - pow(2. * mlep / mBs, 2.));
     computeAmpSq(order, order_qed, mu);
-    Amumu = (absP * absP * cos(2. * argP - phiNP) -  absS * absS * cos(2. * argS - phiNP)) / (absP * absP + absS * absS);
-    Smumu = (absP * absP * sin(2. * argP - phiNP) -  absS * absS * sin(2. * argS - phiNP)) / (absP * absP + absS * absS);
+    if (!withMixing) return;
+    if (ampSq == 0.) {
+        Amumu = Smumu = std::numeric_limits<double>::quiet_NaN();
+        return;
+    }
+    const double mixingPhase = AmpDB2::mixingPhase(SM, meson);
+    Amumu = (absP * absP * cos(2. * argP - mixingPhase) -  absS * absS * cos(2. * argS - mixingPhase)) / (absP * absP + absS * absS);
+    Smumu = (absP * absP * sin(2. * argP - mixingPhase) -  absS * absS * sin(2. * argS - mixingPhase)) / (absP * absP + absS * absS);
 }
 
 double Mll::computeAmumu(orders order)
@@ -156,8 +161,6 @@ void Mll::computeAmpSq(orders order, orders_qed order_qed, double mu)
 
                 absS = CC_S.abs();
                 argS = CC_S.arg();
-
-                phiNP = 0.;
 
                 ampSq = absP * absP + absS * absS;
 

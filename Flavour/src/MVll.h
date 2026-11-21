@@ -1279,6 +1279,7 @@ private:
     unsigned int beta_updated;/**< Cache variable */
     double beta_cache;/**< Cache variable */
     
+    std::vector<double> angularInputsCache;
     unsigned int F_updated;/**< Cache variable */
     
     unsigned int VL1_updated;/**< Cache variable */

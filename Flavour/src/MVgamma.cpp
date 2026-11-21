@@ -481,7 +481,7 @@ void MVgamma::updateParameters()
     C_7p = ms_over_mb * ((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6));
 //    C_7p -= ms_over_mb * C_7;
     /* Done in the dirty way to remove from the effective basis since the effective C7p does not involve the non-primed C_1 to C_6.*/
-    C_7p += ms_over_mb * (-C_7 - 1. / 3. * C_3 - 4 / 9 * C_4 - 20. / 3. * C_5 - 80. / 9. * C_6);
+    C_7p += ms_over_mb * (-C_7 - 1. / 3. * C_3 - 4. / 9. * C_4 - 20. / 3. * C_5 - 80. / 9. * C_6);
 
     if (!zExpansion && !dispersion) {
         C_7 += Delta_C7_U;
@@ -506,7 +506,7 @@ void MVgamma::updateParameters()
     else C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6)););
     C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
     /* Done in the dirty way to remove from the effective basis since the effective C7p does not involve the non-primed C_1 to C_6.*/
-    C_7p += -ms_over_mb * C_7 - 1. / 3. * C_3 - 4 / 9 * C_4 - 20. / 3. * C_5 - 80. / 9. * C_6;
+    C_7p -= ms_over_mb * (C_7 + 1. / 3. * C_3 + 4. / 9. * C_4 + 20. / 3. * C_5 + 80. / 9. * C_6);
 #endif    
     if (zExpansion) {
         DC7_QCDF = 0.;
@@ -521,19 +521,23 @@ void MVgamma::updateParameters()
         
         ScopedGslErrorHandlerOff handlerGuard;
         
-        f_GSL = convertToGslFunction(bind(&MVgamma::getT_perp_integrand_real, &(*this), _1));
+        auto getT_perp_integrand_realCallback = bind(&MVgamma::getT_perp_integrand_real, this, _1);
+        f_GSL = convertToGslFunction(getT_perp_integrand_realCallback);
         if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_real = std::numeric_limits<double>::quiet_NaN();
         T_perp_real = average;
         
-        f_GSL = convertToGslFunction(bind(&MVgamma::getT_perp_integrand_imag, &(*this), _1));
+        auto getT_perp_integrand_imagCallback = bind(&MVgamma::getT_perp_integrand_imag, this, _1);
+        f_GSL = convertToGslFunction(getT_perp_integrand_imagCallback);
         if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_imag = std::numeric_limits<double>::quiet_NaN();
         T_perp_imag = average;
         
-        f_GSL = convertToGslFunction(bind(&MVgamma::getT_perp_bar_integrand_real, &(*this), _1));
+        auto getT_perp_bar_integrand_realCallback = bind(&MVgamma::getT_perp_bar_integrand_real, this, _1);
+        f_GSL = convertToGslFunction(getT_perp_bar_integrand_realCallback);
         if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_bar_real = std::numeric_limits<double>::quiet_NaN();
         T_perp_bar_real = average;
         
-        f_GSL = convertToGslFunction(bind(&MVgamma::getT_perp_bar_integrand_imag, &(*this), _1));
+        auto getT_perp_bar_integrand_imagCallback = bind(&MVgamma::getT_perp_bar_integrand_imag, this, _1);
+        f_GSL = convertToGslFunction(getT_perp_bar_integrand_imagCallback);
         if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_bar_imag = std::numeric_limits<double>::quiet_NaN();
         T_perp_bar_imag = average;
     }
@@ -828,12 +832,12 @@ gslpp::complex MVgamma::H_V_p()
 
 gslpp::complex MVgamma::H_V_m_bar()
 {
-    return lambda_t.conjugate() * (((C_7 + DC7_QCDF_bar) * T_1() + MM2/(MM2 - MV*MV) * T_QCDF_minus(true)) * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
+    return lambda_t.conjugate() * (((C_7.conjugate() + DC7_QCDF_bar) * T_1() + MM2/(MM2 - MV*MV) * T_QCDF_minus(true)) * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[1]);
 }
 
 gslpp::complex MVgamma::H_V_p_bar()
 {
-    return lambda_t.conjugate() * (-C_7p * T_1() * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[0]);
+    return lambda_t.conjugate() * (-C_7p.conjugate() * T_1() * lambda / MM2 - MM / (2. * Mb)*16. * M_PI * M_PI * h[0]);
 }
 
 /*******************************************************************************

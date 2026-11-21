@@ -65,8 +65,7 @@ void BXqll::updateParameters()
     kappa = ale / alsmu;
     Mtau = mySM.getLeptons(QCD::TAU).getMass(); // pole mass?
     Mb_pole = mySM.Mbar2Mp(Mb, QCD::BOTTOM, FULLNNLO);
-    //Mc_pole = mySM.Mbar2Mp(Mc, FULLNNLO); //*** Mbar2Mp does not receive Mc ***/
-    Mc_pole = Mc*(1.+4.*alsmuc/3./M_PI+alsmuc*alsmuc/M_PI/M_PI*(-1.0414*(1.-4.*Ms/3.*Mc)+13.4434));
+    Mc_pole = mySM.Mbar2Mp(Mc, QCD::CHARM, FULLNNLO);
     muh = mu_b/Mb_pole; // log(muh) uses the pole mass as stated in hep-ph/9910220
     z = Mc_pole*Mc_pole/Mb_pole/Mb_pole; //****** Must be pole masses ****/
     Lbl = 2. *  log(Mb_pole / Mlep); // Mb,pole ?
@@ -266,7 +265,8 @@ double BXqll::integrateH(std::string obs, double q_min, double q_max)
     
     double sh_min = q_min/Mb_pole/Mb_pole, sh_max = q_max/Mb_pole/Mb_pole; // pole mass as explicitly stated in hep-ph/051206
     
-    FH = convertToGslFunction(bind(&BXqll::getH, &(*this), obs, _1));
+    auto getHCallback = bind(&BXqll::getH, this, obs, _1);
+    FH = convertToGslFunction(getHCallback);
     
     if (gsl_integration_cquad(&FH, sh_min, sh_max, 1.e-5, 1.e-4, w_H, &aveH, &errH, NULL) != 0)
         return std::numeric_limits<double>::quiet_NaN();

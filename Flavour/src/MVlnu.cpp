@@ -251,7 +251,14 @@ void MVlnu::updateParameters()
     
     /* SM + NP Wilson coefficients */
     gslpp::complex norm = 4./sqrt(2.);
-    gslpp::vector<gslpp::complex> ** allcoeff_bclnu = mySM.getFlavour().ComputeCoeffdiujlknu(2,1,0,mu_b);
+    int k;
+    switch (lep) {
+        case QCD::ELECTRON: k = 0; break;
+        case QCD::MU:       k = 1; break;
+        case QCD::TAU:      k = 2; break;
+        default: throw std::runtime_error("Expected a charged lepton in b to c matching");
+    }
+    gslpp::vector<gslpp::complex> ** allcoeff_bclnu = mySM.getFlavour().ComputeCoeffdiujlknu(2,1,k,mu_b);
     CV = (*(allcoeff_bclnu[LO]))(0)/norm*(1.+ale_mub/M_PI*log(mySM.getMz()/mu_b))/2.;
     CA = -CV;
     CVp = (*(allcoeff_bclnu[LO]))(1)/norm/2.;
@@ -780,7 +787,7 @@ double MVlnu::F2_BGL(double q2)
     double PfacF2z0 = (z0 - zP1) / (1. - z0 * zP1)*(z0 - zP2) / (1. - z0 * zP2)*(z0 - zP3) / (1. - z0 * zP3);
     double phiF2 = phi_F2(z);
     double phiF2z0 = phi_F2(z0);
-    double aF20 = PfacF2z0 * phiF2z0 * 2. * F1_BGL(0.) / (MM * MM - MV * MV) - aF21 * z0 - aF22 * z0*z0; // F2(q2=0) = 2.*F1(q2=0)/(MM*MM-MV*MV)
+    double aF20 = PfacF2z0 * phiF2z0 * 2. * F1_BGL(0.) / (MM * MM - MV * MV) - aF21 * z0 - aF22 * z0*z0 - aF23 * z0*z0*z0; // F2(q2=0) = 2.*F1(q2=0)/(MM*MM-MV*MV)
     return (aF20 + aF21 * z + aF22 * z * z + aF23 * z * z * z) / phiF2 / PfacF2;
 }
 

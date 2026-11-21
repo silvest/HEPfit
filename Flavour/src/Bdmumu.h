@@ -42,7 +42,7 @@ protected:
      * |\f$ BR(B_s \rightarrow \mu \bar{\mu}) \f$|
      */
     void computeAmpSq(orders order, orders_qed order_qed, double mu);
-    void computeObs(orders order, orders_qed order_qed);
+    void computeObs(orders order, orders_qed order_qed, bool withMixing = true);
     
 private:
     
@@ -61,9 +61,6 @@ private:
     double ampSq;
     double Amumu;
     double Smumu;
-    double phiNP;
-    double timeInt;
-    double yd;
     double coupling;
     int obs;
     int leptonindex;
