@@ -3798,7 +3798,7 @@ gslpp::complex NPSMEFTd6::CHud_diag(const Particle u) const
     else if (u.is("CHARM"))
         return gslpp::complex(CHud_22r, CHud_22i, false);
     else if (u.is("TOP"))
-        return gslpp::complex(CHud_22r, CHud_33i, false);
+        return gslpp::complex(CHud_33r, CHud_33i, false);
     else
         throw std::runtime_error("NPSMEFTd6::CHud_diag(): wrong argument");
 }
