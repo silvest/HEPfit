@@ -7,6 +7,7 @@
 
 #include "Flavour.h"
 #include "MVgamma.h"
+#include "ScopedGslErrorHandlerOff.h"
 #include "StandardModel.h"
 #include "std_make_vector.h"
 #include "gslpp_function_adapter.h"
@@ -518,7 +519,7 @@ void MVgamma::updateParameters()
         DC7_QCDF = deltaC7_QCDF(false);
         DC7_QCDF_bar = deltaC7_QCDF(true);
         
-        gsl_error_handler_t * old_handler = gsl_set_error_handler_off();
+        ScopedGslErrorHandlerOff handlerGuard;
         
         f_GSL = convertToGslFunction(bind(&MVgamma::getT_perp_integrand_real, &(*this), _1));
         if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_real = std::numeric_limits<double>::quiet_NaN();
@@ -535,8 +536,6 @@ void MVgamma::updateParameters()
         f_GSL = convertToGslFunction(bind(&MVgamma::getT_perp_bar_integrand_imag, &(*this), _1));
         if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_bar_imag = std::numeric_limits<double>::quiet_NaN();
         T_perp_bar_imag = average;
-        
-        gsl_set_error_handler(old_handler);
     }
 
     s_p = 4. * mD2;

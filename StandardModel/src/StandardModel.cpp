@@ -24,7 +24,7 @@
 /* BEGIN: REMOVE FROM THE PACKAGE */
 #include "EWSMTwoFermionsLEP2.h"
 #include "LEP2Energies.h"
-#include <gsl/gsl_errno.h>
+#include "ScopedGslErrorHandlerOff.h"
 /* END: REMOVE FROM THE PACKAGE */
   
 const std::string StandardModel::SMvars[NSMvars] = {
@@ -4098,15 +4098,6 @@ const double StandardModel::LEP2sigmaE(const double s) const
 
 namespace {
 
-class ScopedGSLErrorHandler {
-public:
-    ScopedGSLErrorHandler() : previous(gsl_set_error_handler_off()) {}
-    ~ScopedGSLErrorHandler() { gsl_set_error_handler(previous); }
-
-private:
-    gsl_error_handler_t* previous;
-};
-
 template<std::size_t N>
 int lookupLEP2EnergyLabel(double s, const LEP2Energies::Energy (&energies)[N])
 {
@@ -4126,7 +4117,7 @@ double integrateLEP2(const Integrand& integrand, double lower, double upper,
     // The GSL adapter borrows integrand. Keep it alive through the integration.
     gsl_function function = convertToGslFunction(integrand);
     double result, error;
-    const ScopedGSLErrorHandler errorHandler;
+    const ScopedGslErrorHandlerOff errorHandler;
     const int status = gsl_integration_qags(&function, lower, upper, abserr, relerr,
                                            limit, workspace, &result, &error);
     if (status != GSL_SUCCESS)
