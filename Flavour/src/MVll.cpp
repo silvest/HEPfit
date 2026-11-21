@@ -21,6 +21,7 @@ using namespace boost::placeholders;
 
 MVll::MVll(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
 : mySM(SM_i), myF_1(new F_1()), myF_2(new F_2()),
+ys(0.), xs(0.),
 N_cache(3, 0.),
 V_cache(3, 0.),
 A0_cache(3, 0.),
@@ -607,9 +608,6 @@ void MVll::updateParameters()
 
             spectator_charge = mySM.getQuarks(QCD::STRANGE).getCharge();
 
-            ys = mySM.getMesons(QCD::B_S).getDgamma_gamma() / 2.;
-            xs = mySM.getOptionalParameter("xs_phi");
-
             etaV = -1;
             angmomV = 1.;
 
@@ -875,18 +873,30 @@ void MVll::updateParameters()
     NN = -(4. * GF * MM * ale * lambda_t) / (sqrt(2.)*4. * M_PI);
     NN_conjugate = -(4. * GF * MM * ale * lambda_t.conjugate()) / (sqrt(2.)*4. * M_PI);
 
+    bool sigmaMixingChanged = false;
+    bool deltaMixingChanged = false;
+    if (vectorM == QCD::PHI) {
+        const double newYs = mySM.getMesons(QCD::B_S).getDgamma_gamma() / 2.;
+        const double newXs = mySM.getOptionalParameter("xs_phi");
+        // The mixing terms in Sigma use ys, while those in Delta use xs and ys squared.
+        sigmaMixingChanged = newYs != ys;
+        deltaMixingChanged = newXs != xs || newYs * newYs != ys * ys;
+        ys = newYs;
+        xs = newXs;
+    }
+
     std::map<std::pair<double, double>, unsigned int >::iterator it;
 
-    if (I0_updated == 0) for (it = sigma0Cached.begin(); it != sigma0Cached.end(); ++it) it->second = 0;
-    if (I1_updated == 0) for (it = sigma1Cached.begin(); it != sigma1Cached.end(); ++it) it->second = 0;
-    if (I2_updated == 0) for (it = sigma2Cached.begin(); it != sigma2Cached.end(); ++it) it->second = 0;
-    if (I3_updated == 0) for (it = sigma3Cached.begin(); it != sigma3Cached.end(); ++it) it->second = 0;
-    if (I4_updated == 0) for (it = sigma4Cached.begin(); it != sigma4Cached.end(); ++it) it->second = 0;
-    if (I5_updated == 0) for (it = sigma5Cached.begin(); it != sigma5Cached.end(); ++it) it->second = 0;
+    if (I0_updated == 0 || sigmaMixingChanged) for (it = sigma0Cached.begin(); it != sigma0Cached.end(); ++it) it->second = 0;
+    if (I1_updated == 0 || sigmaMixingChanged) for (it = sigma1Cached.begin(); it != sigma1Cached.end(); ++it) it->second = 0;
+    if (I2_updated == 0 || sigmaMixingChanged) for (it = sigma2Cached.begin(); it != sigma2Cached.end(); ++it) it->second = 0;
+    if (I3_updated == 0 || sigmaMixingChanged) for (it = sigma3Cached.begin(); it != sigma3Cached.end(); ++it) it->second = 0;
+    if (I4_updated == 0 || sigmaMixingChanged) for (it = sigma4Cached.begin(); it != sigma4Cached.end(); ++it) it->second = 0;
+    if (I5_updated == 0 || sigmaMixingChanged) for (it = sigma5Cached.begin(); it != sigma5Cached.end(); ++it) it->second = 0;
     if (I6_updated == 0) for (it = sigma6Cached.begin(); it != sigma6Cached.end(); ++it) it->second = 0;
     if (I7_updated == 0) for (it = sigma7Cached.begin(); it != sigma7Cached.end(); ++it) it->second = 0;
     if (I8_updated == 0) for (it = sigma8Cached.begin(); it != sigma8Cached.end(); ++it) it->second = 0;
-    if (I9_updated == 0) for (it = sigma9Cached.begin(); it != sigma9Cached.end(); ++it) it->second = 0;
+    if (I9_updated == 0 || sigmaMixingChanged) for (it = sigma9Cached.begin(); it != sigma9Cached.end(); ++it) it->second = 0;
     if (I10_updated == 0) for (it = sigma10Cached.begin(); it != sigma10Cached.end(); ++it) it->second = 0;
     if (I11_updated == 0) for (it = sigma11Cached.begin(); it != sigma11Cached.end(); ++it) it->second = 0;
 
@@ -894,7 +904,11 @@ void MVll::updateParameters()
     if (I1_updated == 0) for (it = delta1Cached.begin(); it != delta1Cached.end(); ++it) it->second = 0;
     if (I2_updated == 0) for (it = delta2Cached.begin(); it != delta2Cached.end(); ++it) it->second = 0;
     if (I3_updated == 0) for (it = delta3Cached.begin(); it != delta3Cached.end(); ++it) it->second = 0;
-    if (I11_updated == 0) for (it = delta11Cached.begin(); it != delta11Cached.end(); ++it) it->second = 0;
+    if (I6_updated == 0 || deltaMixingChanged) for (it = delta6Cached.begin(); it != delta6Cached.end(); ++it) it->second = 0;
+    if (I7_updated == 0 || deltaMixingChanged) for (it = delta7Cached.begin(); it != delta7Cached.end(); ++it) it->second = 0;
+    if (I8_updated == 0 || deltaMixingChanged) for (it = delta8Cached.begin(); it != delta8Cached.end(); ++it) it->second = 0;
+    if (I10_updated == 0 || deltaMixingChanged) for (it = delta10Cached.begin(); it != delta10Cached.end(); ++it) it->second = 0;
+    if (I11_updated == 0 || deltaMixingChanged) for (it = delta11Cached.begin(); it != delta11Cached.end(); ++it) it->second = 0;
 
     if (Itree_updated) for (it = sigmaTreeCached.begin(); it != sigmaTreeCached.end(); ++it) it->second = 0;
 
@@ -995,7 +1009,23 @@ void MVll::checkCache()
     }
 
     lambda_updated = k2_updated;
-    F_updated = lambda_updated * beta_updated;
+    // The angular amplitudes also use channel-specific hadronic inputs (including
+    // pole masses and dispersion phases) and short-distance inputs shared by helicities.
+    std::vector<double> sharedInputs = {mu_b, Mb, Ms, Mc, MW, mb_pole, mc_pole,
+        alpha_s_mub, fB, fpara, fperp, mySM.getMesons(meson).getLambdaM(),
+        lambda_u.real(), lambda_u.imag(), double(dispersion), double(zExpansion), double(MVll_DM_flag)};
+    if (lep != QCD::NEUTRINO_1) {
+        for (const auto& c : {C_8, C_8L, C_1L_bar, C_2L_bar, C_1Lh_bar, C_2Lh_bar, C_8Lh}) {
+            sharedInputs.push_back(c.real());
+            sharedInputs.push_back(c.imag());
+        }
+    }
+    for (const auto& name : mvllParameters) {
+        if (name != "xs_phi")
+            sharedInputs.push_back(mySM.getOptionalParameter(name));
+    }
+    F_updated = lambda_updated && beta_updated && !mvllParameters.empty() && sharedInputs == angularInputsCache;
+    angularInputsCache.swap(sharedInputs);
 
     if (GF == N_cache(0) && ale == N_cache(1) && MM == N_cache(2) && lambda_t == Nc_cache) {
         N_updated = 1;
@@ -1008,7 +1038,7 @@ void MVll::checkCache()
     }
     if (MVll_DM_flag) {
         if (a_0g == V_cache(0) && a_1g == V_cache(1) && a_2g == V_cache(2)) {
-            V_updated = V_updated * z_updated;
+            V_updated = z_updated;
         } else {
             V_updated = 0;
             V_cache(0) = a_0g;
@@ -1017,7 +1047,7 @@ void MVll::checkCache()
         }
 
         if (a_0F2 == A0_cache(0) && a_1F2 == A0_cache(1) && a_2F2 == A0_cache(2)) {
-            A0_updated = A0_updated * z_updated;
+            A0_updated = z_updated;
         } else {
             A0_updated = 0;
             A0_cache(0) = a_0F2;
@@ -1026,7 +1056,7 @@ void MVll::checkCache()
         }
 
         if (a_0f == A1_cache(0) && a_1f == A1_cache(1) && a_2f == A1_cache(2)) {
-            A1_updated = A1_updated * z_updated;
+            A1_updated = z_updated;
         } else {
             A1_updated = 0;
             A1_cache(0) = a_0f;
@@ -1035,7 +1065,7 @@ void MVll::checkCache()
         }
 
         if (a_0T1 == T1_cache(0) && a_1T1 == T1_cache(1) && a_2T1 == T1_cache(2)) {
-            T1_updated = T1_updated * z_updated;
+            T1_updated = z_updated;
         } else {
             T1_updated = 0;
             T1_cache(0) = a_0T1;
@@ -1044,7 +1074,7 @@ void MVll::checkCache()
         }
 
         if (a_0T2 == T2_cache(0) && a_1T2 == T2_cache(1) && a_2T2 == T2_cache(2)) {
-            T2_updated = T2_updated * z_updated;
+            T2_updated = z_updated;
         } else {
             T2_updated = 0;
             T2_cache(0) = a_0T2;
@@ -1053,7 +1083,7 @@ void MVll::checkCache()
         }
     } else {
         if (a_0V == V_cache(0) && a_1V == V_cache(1) && a_2V == V_cache(2)) {
-            V_updated = V_updated * z_updated;
+            V_updated = z_updated;
         } else {
             V_updated = 0;
             V_cache(0) = a_0V;
@@ -1062,7 +1092,7 @@ void MVll::checkCache()
         }
 
         if (a_0A0 == A0_cache(0) && a_1A0 == A0_cache(1) && a_2A0 == A0_cache(2)) {
-            A0_updated = A0_updated * z_updated;
+            A0_updated = z_updated;
         } else {
             A0_updated = 0;
             A0_cache(0) = a_0A0;
@@ -1071,7 +1101,7 @@ void MVll::checkCache()
         }
 
         if (a_0A1 == A1_cache(0) && a_1A1 == A1_cache(1) && a_2A1 == A1_cache(2)) {
-            A1_updated = A1_updated * z_updated;
+            A1_updated = z_updated;
         } else {
             A1_updated = 0;
             A1_cache(0) = a_0A1;
@@ -1080,7 +1110,7 @@ void MVll::checkCache()
         }
 
         if (a_0T1 == T1_cache(0) && a_1T1 == T1_cache(1) && a_2T1 == T1_cache(2)) {
-            T1_updated = T1_updated * z_updated;
+            T1_updated = z_updated;
         } else {
             T1_updated = 0;
             T1_cache(0) = a_0T1;
@@ -1089,7 +1119,7 @@ void MVll::checkCache()
         }
 
         if (a_0T2 == T2_cache(0) && a_1T2 == T2_cache(1) && a_2T2 == T2_cache(2)) {
-            T2_updated = T2_updated * z_updated;
+            T2_updated = z_updated;
         } else {
             T2_updated = 0;
             T2_cache(0) = a_0T2;
@@ -1124,7 +1154,7 @@ void MVll::checkCache()
 
     if (MVll_DM_flag) {
         if (a_0F1 == VL0_cache(0) && a_1F1 == VL0_cache(1) && a_2F1 == VL0_cache(2)) {
-            VL0_updated = VL0_updated * z_updated;
+            VL0_updated = z_updated;
             VR0_updated = VL0_updated;
         } else {
             VL0_updated = 0;
@@ -1135,7 +1165,7 @@ void MVll::checkCache()
         }
 
         if (a_0T0 == TL0_cache(0) && a_1T0 == TL0_cache(1) && a_2T0 == TL0_cache(2)) {
-            TL0_updated = TL0_updated * z_updated;
+            TL0_updated = z_updated;
             TR0_updated = TL0_updated;
         } else {
             TL0_updated = 0;
@@ -1146,7 +1176,7 @@ void MVll::checkCache()
         }
     } else {
         if (a_0A12 == VL0_cache(0) && a_1A12 == VL0_cache(1) && a_2A12 == VL0_cache(2)) {
-            VL0_updated = VL0_updated * z_updated;
+            VL0_updated = z_updated;
             VR0_updated = VL0_updated;
         } else {
             VL0_updated = 0;
@@ -1157,7 +1187,7 @@ void MVll::checkCache()
         }
 
         if (a_0T23 == TL0_cache(0) && a_1T23 == TL0_cache(1) && a_2T23 == TL0_cache(2)) {
-            TL0_updated = TL0_updated * z_updated;
+            TL0_updated = z_updated;
             TR0_updated = TL0_updated;
         } else {
             TL0_updated = 0;
