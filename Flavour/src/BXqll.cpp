@@ -11,6 +11,7 @@
 #include "std_make_vector.h"
 //#include <limits>
 #include "BXqll.h"
+#include "ScopedGslErrorHandlerOff.h"
 #include "StandardModel.h"
 #include "gslpp_function_adapter.h"
 
@@ -260,7 +261,7 @@ double BXqll::integrateH(std::string obs, double q_min, double q_max)
 {
     updateParameters();
 
-    old_handler = gsl_set_error_handler_off();
+    ScopedGslErrorHandlerOff handlerGuard;
     
     double sh_min = q_min/Mb_pole/Mb_pole, sh_max = q_max/Mb_pole/Mb_pole; // pole mass as explicitly stated in hep-ph/051206
     
@@ -271,7 +272,6 @@ double BXqll::integrateH(std::string obs, double q_min, double q_max)
         return std::numeric_limits<double>::quiet_NaN();
     return aveH;
         
-    gsl_set_error_handler(old_handler);
 }
 
 double BXqll::getH(std::string obs, double sh)

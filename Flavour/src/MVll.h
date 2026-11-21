@@ -1135,10 +1135,6 @@ private:
     gslpp::complex C_L_nunu_tau;/**<Wilson coeffients @f$C_L^{\nu_3\nu_3}'@f$*/
     gslpp::complex C_R_nunu_tau;/**<Wilson coeffients @f$C_R^{\nu_3\nu_3}'@f$*/
     
-    std::vector<double> Re_T_perp;/**<Vector that samples the QCDF @f$Re(T_{perp})@f$ */
-    std::vector<double> Im_T_perp;/**<Vector that samples the QCDF @f$Im(T_{perp})@f$ */
-    std::vector<double> Re_T_para;/**<Vector that samples the QCDF @f$Re(T_{para})@f$ */
-    std::vector<double> Im_T_para;/**<Vector that samples the QCDF @f$Im(T_{para})@f$ */
     
     gsl_interp_accel *acc_Re_T_perp;
     gsl_interp_accel *acc_Im_T_perp;
@@ -1161,10 +1157,6 @@ private:
     gsl_spline *spline_Im_deltaC9_QCDF;
     
 #if COMPUTECP  
-    std::vector<double> Re_T_perp_conj;/**<Vector that samples the QCDF @f$Re(T_{perp})@f$ */
-    std::vector<double> Im_T_perp_conj;/**<Vector that samples the QCDF @f$Im(T_{perp})@f$ */
-    std::vector<double> Re_T_para_conj;/**<Vector that samples the QCDF @f$Re(T_{para})@f$ */
-    std::vector<double> Im_T_para_conj;/**<Vector that samples the QCDF @f$Im(T_{para})@f$ */
     
     gsl_interp_accel *acc_Re_T_perp_conj;
     gsl_interp_accel *acc_Im_T_perp_conj;
@@ -1186,8 +1178,6 @@ private:
     gsl_spline *spline_Re_deltaC9_QCDF_conj;
     gsl_spline *spline_Im_deltaC9_QCDF_conj;
 #endif
-    
-    std::vector<double> myq2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     
     TFitResultPtr Re_T_perp_res;/**<Vector that contains the fitted QCDF @f$Re(T_{perp})@f$ */
     TFitResultPtr Im_T_perp_res;/**<Vector that contains the fitted QCDF @f$Im(T_{perp})@f$ */
@@ -1222,7 +1212,6 @@ private:
     gsl_integration_cquad_workspace * w_delta;/**< GSL integral variable */
     gsl_integration_cquad_workspace * w_sigmaTree;/**< Gsl integral variable */
 
-    gsl_error_handler_t * old_handler; /**< GSL error handler store */
     
     std::map<std::pair<double, double>, gslpp::complex > cacheI1;/**< Cache variable */
     
@@ -2741,6 +2730,9 @@ private:
      */
     double T_para_imag(double q2, double u, bool conjugate);
     
+    bool qcdfReady = false;
+    double integrateQCDF(const gsl_function& f);
+
     /**
      * @brief QCDF Correction from various BFS papers (hep-ph/0106067, hep-ph/0412400). Total.
      * @param q2 @f$ q^2 @f$: momentum of the lepton pair 

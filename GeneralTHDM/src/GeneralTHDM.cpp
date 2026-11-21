@@ -6,6 +6,7 @@
  */
 
 #include "GeneralTHDM.h"
+#include "ScopedGslErrorHandlerOff.h"
 #include "GeneralTHDMcache.h"
 #include "GeneralTHDMSTU.h"
 #include <algorithm>
@@ -185,7 +186,7 @@ bool GeneralTHDM::PostUpdate()
     }
     
     
-    gsl_set_error_handler(custom_gsl_error_handler);
+    ScopedGslErrorHandlerOff::setDefaultHandler(custom_gsl_error_handler);
     myGTHDMcache->updateCache();
 
     return (true);

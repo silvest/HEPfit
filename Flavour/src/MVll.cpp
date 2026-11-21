@@ -7,12 +7,15 @@
 
 #include "StandardModel.h"
 #include "MVll.h"
+#include "ScopedGslErrorHandlerOff.h"
 #include "std_make_vector.h"
 #include "gslpp_function_adapter.h"
 #include "F_1.h"
 #include "F_2.h"
 #include <gsl/gsl_sf_zeta.h>
 #include <boost/bind/bind.hpp>
+#include <algorithm>
+#include <cmath>
 #include <limits>
 #include <TFitResult.h>
 #include <gsl/gsl_sf_gegenbauer.h>
@@ -370,7 +373,7 @@ void MVll::updateParameters()
 {
     if (!mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) return;
 
-    
+    ScopedGslErrorHandlerOff handlerGuard;
     GF = mySM.getGF();
     ale = mySM.getAle();
     if (lep == QCD::NEUTRINO_1){
@@ -919,13 +922,21 @@ void MVll::updateParameters()
 
     if (deltaTparpupdated * deltaTparmupdated == 0) for (it = I1Cached.begin(); it != I1Cached.end(); ++it) it->second = 0;
 
-#if SPLINE    
-    if (mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) spline_QCDF_func();
+    // Only charged-lepton amplitudes outside the z expansion use the QCDF tables.
+    qcdfReady = true;
+    if (!zExpansion && lep != QCD::NEUTRINO_1) {
+        const double lambdaB = mySM.getMesons(meson).getLambdaM();
+        qcdfReady = std::isfinite(lambdaB) && lambdaB > 0.;
+        if (qcdfReady) {
+#if SPLINE
+            spline_QCDF_func();
 #else
-    if (mySM.getFlavour().getUpdateFlag(meson, vectorM, lep)) fit_QCDF_func();
+            fit_QCDF_func();
 #endif
+        }
+    }
 
-    mySM.getFlavour().setUpdateFlag(meson, vectorM, lep, false);
+    if (qcdfReady) mySM.getFlavour().setUpdateFlag(meson, vectorM, lep, false);
 
     /*
     std::cout << "MVll: meson type: " << vectorM << std::endl;
@@ -2117,8 +2128,10 @@ double MVll::phi_V(double u)
 
 gslpp::complex MVll::lambda_B_minus(double q2)
 {
-    double w0 = mySM.getMesons(meson).getLambdaM();
-    return 1. / (exp(-q2 / MM / w0) / w0 * (-gsl_sf_expint_Ei(q2 / MM / w0) + gslpp::complex::i() * M_PI));
+    const double w0 = mySM.getMesons(meson).getLambdaM();
+    const double x = q2 / MM / w0;
+    // Evaluate exp(-x) Ei(x) directly, including when Ei(x) alone overflows.
+    return w0 / gslpp::complex(-gsl_sf_expint_Ei_scaled(x), M_PI * exp(-x));
 }
 
 double MVll::T_perp_real(double q2, double u, bool conjugate)
@@ -2171,40 +2184,41 @@ double MVll::T_para_imag(double q2, double u, bool conjugate)
     return sqrt(q2) * T_amp.imag();
 }
 
+double MVll::integrateQCDF(const gsl_function& f)
+{
+    if (!qcdfReady) return std::numeric_limits<double>::quiet_NaN();
+    double result, error;
+    const int status = gsl_integration_cquad(&f, 0., 1., 1.e-2, 1.e-1, w_sigma, &result, &error, NULL);
+    qcdfReady = status == GSL_SUCCESS && std::isfinite(result);
+    return qcdfReady ? result : std::numeric_limits<double>::quiet_NaN();
+}
+
 double MVll::T_perp_real(double q2, bool conjugate)
 {
     auto T_perp_realCallback = bind(&MVll::T_perp_real, this, q2, _1, conjugate);
     FS = convertToGslFunction(T_perp_realCallback);
-    gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
-
-    return avaSigma;
+    return integrateQCDF(FS);
 }
 
 double MVll::T_perp_imag(double q2, bool conjugate)
 {
     auto T_perp_imagCallback = bind(&MVll::T_perp_imag, this, q2, _1, conjugate);
     FS = convertToGslFunction(T_perp_imagCallback);
-    gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
-
-    return avaSigma;
+    return integrateQCDF(FS);
 }
 
 double MVll::T_para_real(double q2, bool conjugate)
 {
     auto T_para_realCallback = bind(&MVll::T_para_real, this, q2, _1, conjugate);
     FS = convertToGslFunction(T_para_realCallback);
-    gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
-
-    return avaSigma;
+    return integrateQCDF(FS);
 }
 
 double MVll::T_para_imag(double q2, bool conjugate)
 {
     auto T_para_imagCallback = bind(&MVll::T_para_imag, this, q2, _1, conjugate);
     FS = convertToGslFunction(T_para_imagCallback);
-    gsl_integration_cquad(&FS, 0., 1., 1.e-2, 1.e-1, w_sigma, &avaSigma, &errSigma, NULL);
-
-    return avaSigma;
+    return integrateQCDF(FS);
 }
 
 double MVll::QCDF_fit_func(double* x, double* p)
@@ -2214,6 +2228,10 @@ double MVll::QCDF_fit_func(double* x, double* p)
 
 void MVll::fit_QCDF_func()
 {
+    std::vector<double> myq2, Re_T_perp, Im_T_perp, Re_T_para, Im_T_para;
+#if COMPUTECP
+    std::vector<double> Re_T_perp_conj, Im_T_perp_conj, Re_T_para_conj, Im_T_para_conj;
+#endif
     int dim = 0;
     for (double i = 0.001; i < 8.6; i += 0.5) {
         myq2.push_back(i);
@@ -2228,52 +2246,44 @@ void MVll::fit_QCDF_func()
         Re_T_para_conj.push_back(T_para_real(i, true));
         Im_T_para_conj.push_back(T_para_imag(i, true));
 #endif
+        if (!qcdfReady) return;
         dim++;
     }
 
     gr1 = TGraph(dim, myq2.data(), Re_T_perp.data());
     QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7);
     Re_T_perp_res = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
-    Re_T_perp.clear();
 
     gr1 = TGraph(dim, myq2.data(), Im_T_perp.data());
     QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7);
     Im_T_perp_res = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
-    Im_T_perp.clear();
 
     gr1 = TGraph(dim, myq2.data(), Re_T_para.data());
     QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7);
     Re_T_para_res = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
-    Re_T_para.clear();
 
     gr1 = TGraph(dim, myq2.data(), Im_T_para.data());
     QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7);
     Im_T_para_res = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
-    Im_T_para.clear();
 
 #if COMPUTECP  
     gr1 = TGraph(dim, myq2.data(), Re_T_perp_conj.data());
     QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7);
     Re_T_perp_res_conj = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
-    Re_T_perp_conj.clear();
 
     gr1 = TGraph(dim, myq2.data(), Im_T_perp_conj.data());
     QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7);
     Im_T_perp_res_conj = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
-    Im_T_perp_conj.clear();
 
     gr1 = TGraph(dim, myq2.data(), Re_T_para_conj.data());
     QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7);
     Re_T_para_res_conj = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
-    Re_T_para_conj.clear();
 
     gr1 = TGraph(dim, myq2.data(), Im_T_para_conj.data());
     QCDFfit = TF1("QCDFfit", this, &MVll::QCDF_fit_func, 0.001, 8.51, 7);
     Im_T_para_res_conj = gr1.Fit(&QCDFfit, "SQN0+rob=0.99");
-    Im_T_para_conj.clear();
 #endif
 
-    myq2.clear();
 }
 
 void MVll::spline_QCDF_func()
@@ -2305,6 +2315,7 @@ void MVll::spline_QCDF_func()
         fq2_Re_T_para_conj[i] = T_para_real(q2_spline[i], true);
         fq2_Im_T_para_conj[i] = T_para_imag(q2_spline[i], true);
 #endif
+        if (!qcdfReady) return;
     }
     for (int i = 0; i < dim_DC; i++) {
         q2_spline_DC[i] = min + (double) i*interval_DC;
@@ -2321,26 +2332,32 @@ void MVll::spline_QCDF_func()
 #endif
     }
 
-    gsl_spline_init(spline_Re_T_perp, q2_spline, fq2_Re_T_perp, dim);
-    gsl_spline_init(spline_Im_T_perp, q2_spline, fq2_Im_T_perp, dim);
-    gsl_spline_init(spline_Re_T_para, q2_spline, fq2_Re_T_para, dim);
-    gsl_spline_init(spline_Im_T_para, q2_spline, fq2_Im_T_para, dim);
+    auto initSpline = [this](gsl_spline* spline, const double* x, const double* y, size_t n) {
+        if (qcdfReady) {
+            qcdfReady = std::all_of(y, y + n, [](double v) { return std::isfinite(v); })
+                    && gsl_spline_init(spline, x, y, n) == GSL_SUCCESS;
+        }
+    };
+    initSpline(spline_Re_T_perp, q2_spline, fq2_Re_T_perp, dim);
+    initSpline(spline_Im_T_perp, q2_spline, fq2_Im_T_perp, dim);
+    initSpline(spline_Re_T_para, q2_spline, fq2_Re_T_para, dim);
+    initSpline(spline_Im_T_para, q2_spline, fq2_Im_T_para, dim);
 
-    gsl_spline_init(spline_Re_deltaC7_QCDF, q2_spline_DC, fq2_Re_deltaC7_QCDF, dim_DC);
-    gsl_spline_init(spline_Im_deltaC7_QCDF, q2_spline_DC, fq2_Im_deltaC7_QCDF, dim_DC);
-    gsl_spline_init(spline_Re_deltaC9_QCDF, q2_spline_DC, fq2_Re_deltaC9_QCDF, dim_DC);
-    gsl_spline_init(spline_Im_deltaC9_QCDF, q2_spline_DC, fq2_Im_deltaC9_QCDF, dim_DC);
+    initSpline(spline_Re_deltaC7_QCDF, q2_spline_DC, fq2_Re_deltaC7_QCDF, dim_DC);
+    initSpline(spline_Im_deltaC7_QCDF, q2_spline_DC, fq2_Im_deltaC7_QCDF, dim_DC);
+    initSpline(spline_Re_deltaC9_QCDF, q2_spline_DC, fq2_Re_deltaC9_QCDF, dim_DC);
+    initSpline(spline_Im_deltaC9_QCDF, q2_spline_DC, fq2_Im_deltaC9_QCDF, dim_DC);
 
 #if COMPUTECP
-    gsl_spline_init(spline_Re_T_perp_conj, q2_spline, fq2_Re_T_perp_conj, dim);
-    gsl_spline_init(spline_Im_T_perp_conj, q2_spline, fq2_Im_T_perp_conj, dim);
-    gsl_spline_init(spline_Re_T_para_conj, q2_spline, fq2_Re_T_para_conj, dim);
-    gsl_spline_init(spline_Im_T_para_conj, q2_spline, fq2_Im_T_para_conj, dim);
+    initSpline(spline_Re_T_perp_conj, q2_spline, fq2_Re_T_perp_conj, dim);
+    initSpline(spline_Im_T_perp_conj, q2_spline, fq2_Im_T_perp_conj, dim);
+    initSpline(spline_Re_T_para_conj, q2_spline, fq2_Re_T_para_conj, dim);
+    initSpline(spline_Im_T_para_conj, q2_spline, fq2_Im_T_para_conj, dim);
 
-    gsl_spline_init(spline_Re_deltaC7_QCDF_conj, q2_spline_DC, fq2_Re_deltaC7_QCDF_conj, dim_DC);
-    gsl_spline_init(spline_Im_deltaC7_QCDF_conj, q2_spline_DC, fq2_Im_deltaC7_QCDF_conj, dim_DC);
-    gsl_spline_init(spline_Re_deltaC9_QCDF_conj, q2_spline_DC, fq2_Re_deltaC9_QCDF_conj, dim_DC);
-    gsl_spline_init(spline_Im_deltaC9_QCDF_conj, q2_spline_DC, fq2_Im_deltaC9_QCDF_conj, dim_DC);
+    initSpline(spline_Re_deltaC7_QCDF_conj, q2_spline_DC, fq2_Re_deltaC7_QCDF_conj, dim_DC);
+    initSpline(spline_Im_deltaC7_QCDF_conj, q2_spline_DC, fq2_Im_deltaC7_QCDF_conj, dim_DC);
+    initSpline(spline_Re_deltaC9_QCDF_conj, q2_spline_DC, fq2_Re_deltaC9_QCDF_conj, dim_DC);
+    initSpline(spline_Im_deltaC9_QCDF_conj, q2_spline_DC, fq2_Im_deltaC9_QCDF_conj, dim_DC);
 #endif
 
 }
@@ -2642,18 +2659,24 @@ double MVll::Delta_C9_zExp(int hel)
 
 gslpp::complex MVll::H_V_0(double q2, bool bar)
 {
+    updateParameters();
+    if (!qcdfReady) return std::numeric_limits<double>::quiet_NaN();
     if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar, SPLINE) /*+ fDeltaC9_0(q2)*/ + Y(q2)) - etaV * pow(-1, angmomV) * C_9p) * V_0t(q2) + T_0(q2, !bar) + MM2 / q2 * (twoMboMM * (C_7 + deltaC7_QCDF(q2, !bar, SPLINE) - etaV * pow(-1, angmomV) * C_7p) * T_0t(q2) - sixteenM_PI2 * h_lambda(0, q2)));
     return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_0(q2)*/ + Y(q2)) - etaV * pow(-1, angmomV) * C_9p.conjugate()) * V_0t(q2) + T_0(q2, bar) + MM2 / q2 * (twoMboMM * (C_7.conjugate() + deltaC7_QCDF(q2, bar, SPLINE) - etaV * pow(-1, angmomV) * C_7p.conjugate()) * T_0t(q2) - sixteenM_PI2 * h_lambda(0, q2)));
 }
 
 gslpp::complex MVll::H_V_p(double q2, bool bar)
 {
+    updateParameters();
+    if (!qcdfReady) return std::numeric_limits<double>::quiet_NaN();
     if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar, SPLINE) /*+ fDeltaC9_p(q2)*/ + Y(q2)) * V_p(q2) - etaV * pow(-1, angmomV) * C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * ((C_7 + deltaC7_QCDF(q2, !bar, SPLINE)) * T_p(q2) - etaV * pow(-1, angmomV) * C_7p * T_m(q2)) - sixteenM_PI2 * h_lambda(1, q2)));
     return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_p(q2)*/ + Y(q2)) * V_p(q2) - etaV * pow(-1, angmomV) * C_9p.conjugate() * V_m(q2)) + MM2 / q2 * (twoMboMM * ((C_7.conjugate() + deltaC7_QCDF(q2, bar, SPLINE)) * T_p(q2) - etaV * pow(-1, angmomV) * C_7p.conjugate() * T_m(q2)) - sixteenM_PI2 * h_lambda(1, q2)));
 }
 
 gslpp::complex MVll::H_V_m(double q2, bool bar)
 {
+    updateParameters();
+    if (!qcdfReady) return std::numeric_limits<double>::quiet_NaN();
     if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar, SPLINE) /*+ fDeltaC9_m(q2)*/ + Y(q2)) * V_m(q2) - etaV * pow(-1, angmomV) * C_9p * V_p(q2)) + T_minus(q2, !bar) + MM2 / q2 * (twoMboMM * ((C_7 + deltaC7_QCDF(q2, !bar, SPLINE)) * T_m(q2) - etaV * pow(-1, angmomV) * C_7p * T_p(q2)) - sixteenM_PI2 * h_lambda(2, q2)));
     return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_m(q2)*/ + Y(q2)) * V_m(q2) - etaV * pow(-1, angmomV) * C_9p.conjugate() * V_p(q2)) + T_minus(q2, bar) + MM2 / q2 * (twoMboMM * ((C_7.conjugate() + deltaC7_QCDF(q2, bar, SPLINE)) * T_m(q2) - etaV * pow(-1, angmomV) * C_7p.conjugate() * T_p(q2)) - sixteenM_PI2 * h_lambda(2, q2)));
 }
@@ -2942,10 +2965,11 @@ double MVll::s_9(double q2, bool bar)
 double MVll::integrateSigma(int i, double q_min, double q_max)
 {
     updateParameters();
+    if (!qcdfReady) return std::numeric_limits<double>::quiet_NaN();
 
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
 
-    old_handler = gsl_set_error_handler_off();
+    ScopedGslErrorHandlerOff handlerGuard;
 
     switch (i) {
         case 0:
@@ -3074,13 +3098,13 @@ double MVll::integrateSigma(int i, double q_min, double q_max)
             throw std::runtime_error("MVll::integrateSigma: index " + out.str() + " not implemented");
     }
 
-    gsl_set_error_handler(old_handler);
 
 }
 
 double MVll::getSigma(int i, double q_2)
 {
     updateParameters();
+    if (!qcdfReady) return std::numeric_limits<double>::quiet_NaN();
 
     switch (i) {
         case 0:
@@ -3129,10 +3153,11 @@ double MVll::getSigma(int i, double q_2)
 double MVll::integrateDelta(int i, double q_min, double q_max)
 {
     updateParameters();
+    if (!qcdfReady) return std::numeric_limits<double>::quiet_NaN();
 
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
 
-    old_handler = gsl_set_error_handler_off();
+    ScopedGslErrorHandlerOff handlerGuard;
 
     switch (i) {
         case 0:
@@ -3231,7 +3256,6 @@ double MVll::integrateDelta(int i, double q_min, double q_max)
             throw std::runtime_error("MVll::integrateDelta: index " + out.str() + " not implemented");
     }
 
-    gsl_set_error_handler(old_handler);
 
 }
 double MVll::integrateSigmaTree(double q_min, double q_max)
@@ -3251,7 +3275,7 @@ double MVll::integrateSigmaTree(double q_min, double q_max)
     
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
 
-    old_handler = gsl_set_error_handler_off();
+    ScopedGslErrorHandlerOff handlerGuard;
 
     if (sigmaTreeCached[qbin] == 0) {
         auto SigmaTreeCallback = bind(&MVll::SigmaTree, this, _1);
@@ -3262,7 +3286,6 @@ double MVll::integrateSigmaTree(double q_min, double q_max)
     }
     return prefactor * cacheSigmaTree[qbin];
 
-    gsl_set_error_handler(old_handler);
 }
 
 double MVll::SigmaTree(double q2)
