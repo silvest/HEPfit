@@ -774,6 +774,9 @@ private:
     double CWBdmmArrayNLOewt4[8], CWBdmmArrayNLOewt2[8], CWBdmmArrayNLOew[8];
     
     double sw2, swa, sw2a, swb, sw2b, swc, sw2c, swd, sw2d, swe, sw2e, swf, sw2f; //sen(theta_W) tree level
+    int bdQcdOrder = -1, nlepQcdOrder = -1;
+    double nlepQcdX = 0., nlepEwX = 0., nlepEwSw2 = 0.;
+    bool nlepEwValid = false;
     double xcachea, xcacheb, xcachec, xcached, xcachee, xcachef; // caching
 
     
