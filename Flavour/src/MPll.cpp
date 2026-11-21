@@ -152,6 +152,7 @@ void MPll::updateParameters()
     mb_pole = mySM.Mbar2Mp(Mb,QCD::BOTTOM); /* Conversion to pole mass*/
     mc_pole = mySM.Mbar2Mp(Mc,QCD::CHARM); /* Conversion to pole mass*/
     Ms = mySM.getQuarks(QCD::STRANGE).getMass();
+    MsoMb = Ms / Mb;
     MW = mySM.Mw();
     lambda_t = mySM.getCKM().computelamt_s();
     mu_b = mySM.getMub();
@@ -343,7 +344,7 @@ void MPll::updateParameters()
             C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
         }
         C_7p = MsoMb * ((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6));
-        C_7p -= MsoMb * (C_7 + 1. / 3. * C_3 + 4 / 9 * C_4 + 20. / 3. * C_5 + 80. / 9. * C_6);
+        C_7p -= MsoMb * (C_7 + 1. / 3. * C_3 + 4. / 9. * C_4 + 20. / 3. * C_5 + 80. / 9. * C_6);
 
         allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
 
@@ -393,7 +394,6 @@ void MPll::updateParameters()
     ninetysixM_PI3MM3 = 96. * M_PI * M_PI * M_PI * MM * MM*MM;
     MboMW = Mb / MW;
     MboMM = Mb / MM;
-    MsoMb = Ms / Mb;
     twoMlepMb = 2. * Mlep*Mb;
     threeGegen0 = mySM.getMesons(pseudoscalar).getGegenalpha(0)*3.;
     threeGegen1otwo = mySM.getMesons(pseudoscalar).getGegenalpha(1)*3. / 2.;

@@ -480,7 +480,7 @@ void MVgamma::updateParameters()
     C_7p = ms_over_mb * ((*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6));
 //    C_7p -= ms_over_mb * C_7;
     /* Done in the dirty way to remove from the effective basis since the effective C7p does not involve the non-primed C_1 to C_6.*/
-    C_7p += ms_over_mb * (-C_7 - 1. / 3. * C_3 - 4 / 9 * C_4 - 20. / 3. * C_5 - 80. / 9. * C_6);
+    C_7p += ms_over_mb * (-C_7 - 1. / 3. * C_3 - 4. / 9. * C_4 - 20. / 3. * C_5 - 80. / 9. * C_6);
 
     if (!zExpansion && !dispersion) {
         C_7 += Delta_C7_U;
@@ -505,7 +505,7 @@ void MVgamma::updateParameters()
     else C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6)););
     C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
     /* Done in the dirty way to remove from the effective basis since the effective C7p does not involve the non-primed C_1 to C_6.*/
-    C_7p += -ms_over_mb * C_7 - 1. / 3. * C_3 - 4 / 9 * C_4 - 20. / 3. * C_5 - 80. / 9. * C_6;
+    C_7p -= ms_over_mb * (C_7 + 1. / 3. * C_3 + 4. / 9. * C_4 + 20. / 3. * C_5 + 80. / 9. * C_6);
 #endif    
     if (zExpansion) {
         DC7_QCDF = 0.;
