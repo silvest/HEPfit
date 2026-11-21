@@ -690,6 +690,7 @@ private:
     std::string goodFormat(double value, double rms, int rmsPrecision = 2);
 
     bool collectObservableWeight(const Observable& observable) const;
+    void fillLogLikelihoodPlots(const std::map<std::string, double>& physicalParameters, double logLikelihood);
 
     const std::vector<ModelParameter>& ModPars; ///< A vector of model parameters.
     const std::vector<CorrelatedGaussianParameters>& CGP; ///< A vector of correlated Gaussian parameters.

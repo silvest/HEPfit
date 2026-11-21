@@ -225,13 +225,12 @@ void MonteCarloEngine::CreateHistogramMaps()
     }
 
     if (PrintLoglikelihoodPlots) {
-        for (std::vector<ModelParameter>::const_iterator it = ModPars.begin(); it != ModPars.end(); it++) {
-            if (it->IsFixed()) continue;
-            if (std::find(unknownParameters.begin(), unknownParameters.end(), it->getname()) != unknownParameters.end()) continue;
-            std::string HistName = it->getname() + "_vs_LogLikelihood";
+        for (const auto& parameter : DPars) {
+            const std::string& name = parameter.first;
+            const std::string HistName = name + "_vs_LogLikelihood";
             if (Histo2D.find(HistName) == Histo2D.end()) {
-                TH2D * histo2 = new TH2D(HistName.c_str(), (it->getname() + " vs. LogLikelihood").c_str(), nBins2D, 1., -1., nBins2D, 1., -1.);
-                histo2->GetXaxis()->SetTitle(it->getname().c_str());
+                TH2D * histo2 = new TH2D(HistName.c_str(), (name + " vs. LogLikelihood").c_str(), nBins2D, 1., -1., nBins2D, 1., -1.);
+                histo2->GetXaxis()->SetTitle(name.c_str());
                 histo2->GetYaxis()->SetTitle("LogLikelihood");
                 BCH2D bchisto2 = BCH2D(histo2);
                 Histo2D[HistName] = bchisto2;
@@ -473,6 +472,14 @@ void MonteCarloEngine::fillObservableBuffer(const std::vector<double>& parameter
 }
 #endif
 
+void MonteCarloEngine::fillLogLikelihoodPlots(const std::map<std::string, double>& physicalParameters, double logLikelihood)
+{
+    for (const auto& parameter : physicalParameters) {
+        const std::string histName = parameter.first + "_vs_LogLikelihood";
+        Histo2D.at(histName).GetHistogram()->Fill(parameter.second, logLikelihood);
+    }
+}
+
 void MonteCarloEngine::MCMCUserIterationInterface() {  
 #ifdef _MPI
     unsigned mychain = 0;
@@ -505,6 +512,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
         if (PrintLoglikelihoodPlots || WriteParametersChain) {
             std::map<std::string, double> tmpDPars;
             setDParsFromParameters(pars, tmpDPars);
+            if (PrintLoglikelihoodPlots) fillLogLikelihoodPlots(tmpDPars, fMCMCStates.at(mychain).log_likelihood);
             if (WriteParametersChain) {
                 int k = 0;
                 for (std::map<std::string, double>::iterator it = tmpDPars.begin(); it != tmpDPars.end(); it++) hMCMCParameters[mychain][k++] = it->second;
@@ -612,6 +620,7 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
         std::vector<double>::const_iterator last = first + GetNParameters();
         std::vector<double> currvec(first, last);
         setDParsFromParameters(currvec,DPars);
+        if (PrintLoglikelihoodPlots) fillLogLikelihoodPlots(DPars, fMCMCStates.at(i).log_likelihood);
         if (WriteParametersChain) {
             int k = 0;
             for (std::map<std::string, double>::iterator it = DPars.begin(); it != DPars.end(); it++) hMCMCParameters[i][k++] = it->second;
@@ -688,12 +697,6 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
             par_at_LL_max = Getx(i); // NOTE: Unrotated, to be rotated later.
         }
         Histo1D["LogLikelihood"].GetHistogram()->Fill(LogLikelihood);
-        if (PrintLoglikelihoodPlots) {
-            for (unsigned int k = 0; k < GetNParameters(); ++k) {
-                const std::string histName = GetParameter(k).GetName() + "_vs_LogLikelihood";
-                Histo2D.at(histName).GetHistogram()->Fill(fMCMCStates.at(i).parameters.at(k), LogLikelihood);
-            }
-        }
     }
 }
 
@@ -967,10 +970,9 @@ void MonteCarloEngine::PrintHistogram(std::string& OutFile, const std::string Ou
     
     if (PrintLoglikelihoodPlots) {
         std::cout << "\nPrinting LogLikelihood vs. parameter 2D histograms in the Observables directory: " << std::endl;
-        for (std::vector<ModelParameter>::const_iterator it = ModPars.begin(); it != ModPars.end(); it++) {
-            if (it->IsFixed()) continue;
-            if (std::find(unknownParameters.begin(), unknownParameters.end(), it->getname()) != unknownParameters.end()) continue;
-            std::string HistName = it->getname() + "_vs_LogLikelihood";
+        for (const auto& parameter : DPars) {
+            const std::string& name = parameter.first;
+            const std::string HistName = name + "_vs_LogLikelihood";
             if (Histo2D[HistName].GetHistogram()->Integral() > 0.0) {
                 std::string fname = OutputDir + "/LogLikelihoodPlots/" + HistName + ".pdf";
                 Print2D(Histo2D[HistName], fname.c_str());
