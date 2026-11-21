@@ -301,7 +301,7 @@ public:
      * @return gslpp::complex \f$\Delta C'_9\f$
      */
     gslpp::complex getDC9p() const {
-        return DC9;
+        return DC9p;
     }
     
     /**

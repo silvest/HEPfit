@@ -128,7 +128,7 @@ Abslam_us::Abslam_us(const StandardModel& SM_i)
 
 double Abslam_us::computeThValue()
 {   
-    return (SM.getCKM().computelamt_s()).abs();
+    return (SM.getCKM().computelamu_s()).abs();
 }
 
 Imlam_t::Imlam_t(const StandardModel& SM_i)
@@ -209,7 +209,7 @@ Imlam_us::Imlam_us(const StandardModel& SM_i)
 
 double Imlam_us::computeThValue()
 {   
-    return (SM.getCKM().computelamt_s()).imag();
+    return (SM.getCKM().computelamu_s()).imag();
 }
 
 Relam_t::Relam_t(const StandardModel& SM_i)
@@ -290,7 +290,7 @@ Relam_us::Relam_us(const StandardModel& SM_i)
 
 double Relam_us::computeThValue()
 {   
-    return (SM.getCKM().computelamt_s()).real();
+    return (SM.getCKM().computelamu_s()).real();
 }
 
 CKM_Alpha::CKM_Alpha(const StandardModel& SM_i) : ThObservable(SM_i) {}
