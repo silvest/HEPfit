@@ -268,7 +268,7 @@ void MVlnu::updateParameters()
     /* SM + NP Wilson coefficients */
     if (NPanalysis) {
         if (lep == StandardModel::TAU) {
-            if (btocNPpmflag) {
+            if (!btocNPpmflag) {
                 CV += (mySM.getCCC3() - mySM.getCCC4()) / 2. / M_SQRT2;
                 CVp = (mySM.getCCC3() + mySM.getCCC4()) / 2. / M_SQRT2;
                 CA -= (mySM.getCCC3() - mySM.getCCC4()) / 2. / M_SQRT2;
@@ -277,7 +277,7 @@ void MVlnu::updateParameters()
                 CSp = (mySM.getCCC1() + mySM.getCCC2()) / 2. / M_SQRT2;
                 CP = -(mySM.getCCC1() - mySM.getCCC2()) / 2. / M_SQRT2;
                 CPp = -(mySM.getCCC1() + mySM.getCCC2()) / 2. / M_SQRT2;
-                CTp = mySM.getOptionalParameter("CT_NP");
+                CTp = mySM.getCCC5();
             } else {
                 CV += mySM.getCCC3() / 2.;
                 CVp = mySM.getCCC4() / 2.;

@@ -202,7 +202,7 @@ void MPlnu::updateParameters()
 
     if (NPanalysis) {
         if (lep == StandardModel::TAU) {
-            if (btocNPpmflag) {
+            if (!btocNPpmflag) {
                 CV += (mySM.getCCC3() - mySM.getCCC4()) / 2. / M_SQRT2;
                 CVp = (mySM.getCCC3() + mySM.getCCC4()) / 2. / M_SQRT2;
                 CA -= (mySM.getCCC3() - mySM.getCCC4()) / 2. / M_SQRT2;

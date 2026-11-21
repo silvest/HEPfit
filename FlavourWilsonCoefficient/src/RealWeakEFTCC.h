@@ -161,6 +161,8 @@ public:
      *
      * @return \f$ C_T\f$
      */
+    const double getCCC5() const override { return C5; }
+
     const double getC5() const {
         return C5;
     }
