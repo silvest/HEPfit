@@ -704,8 +704,8 @@ private:
     std::map<std::string, double> thMin; ///< A map between the name of a theory observable and its minimum value.
     std::map<std::string, double> thMax; ///< A map between the name of a theory observable and its maximum value.
     std::map<std::string, TPrincipal *> CorrelationMap; ///< A map between the name of a theory observable and its maximum value.
-    double *obval; ///< A pointer to the vector of observable values.
-    double *obweight; ///< A pointer to the vector of observable weights.
+    std::vector<double> obval; ///< The vector of observable values.
+    std::vector<double> obweight; ///< The vector of observable weights.
     unsigned int kwmax; ///< The number of observables whose weights are used for the MCMC.
     unsigned int kmax; ///< The number of observables.
     unsigned int kchainedObs; ///< The number of observables for which the chains should be written.
