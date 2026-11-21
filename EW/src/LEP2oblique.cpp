@@ -1,430 +1,112 @@
-/* 
+/*
  * Copyright (C) 2012 HEPfit Collaboration
- *
  *
  * For the licensing terms see doc/COPYING.
  */
 
 #include "LEP2oblique.h"
+#include <cmath>
+#include <complex>
 
-
-LEP2oblique::LEP2oblique(const StandardModel& SM_i) 
-: SM(SM_i) 
+LEP2oblique::LEP2oblique(const StandardModel& SM_i) : SM(SM_i)
 {
 }
 
-
-////////////////////////////////////////////////////////////////////////
-
-double LEP2oblique::sigma_l_LEP2_NP(const QCD::lepton l, 
-                                    const double s, const double ml,
-                                    const double ObParam_i[]) const 
+double LEP2oblique::Rates::deltaAFB() const
 {
-    double alpha0 = alpha_at_s(s);
-    double Ncf = 1.0;
-    double betaf = sqrt(1.0 - 4.0*ml*ml/s);
-    double G1NP = G1_l_NP(l, s, alpha0, ObParam_i);
-    
-    return ( 4.0*M_PI*alpha0*alpha0/(3.0*s)*Ncf*betaf*G1NP );
+    return (deltaForwardBackward - (forwardBackward / sigma) * deltaSigma) / sigma;
 }
 
-
-double LEP2oblique::sigma_q_LEP2_NP(const QCD::quark q, 
-                                    const double s, const double mq,
-                                    const double ObParam_i[]) const
+LEP2oblique::Rates LEP2oblique::rates(const Particle& finalState, double s, double mass,
+                                      double colors, const double oblique[]) const
 {
-    double alpha0 = alpha_at_s(s);
-    double Ncf = 3.0;
-    double betaf = sqrt(1.0 - 4.0*mq*mq/s);
-    double G1NP = G1_q_NP(q, s, alpha0, ObParam_i);
-    
-    return ( 4.0*M_PI*alpha0*alpha0/(3.0*s)*Ncf*betaf*G1NP );
+    // The SM supplied by NPSTUVWXY is its pure SM reference. Match the photon
+    // and neutral-current Born couplings to the LEP2 running-alpha and G_mu inputs.
+    const double mz = SM.getMz(), mw = SM.Mw();
+    const double sw2 = SM.sW2(mw), cw2 = SM.cW2(mw);
+    const double sw = std::sqrt(sw2), cw = std::sqrt(cw2);
+    const double e = std::sqrt(4. * M_PI * SM.ale_OS(std::sqrt(s), FULLNLO));
+    const double gz = std::sqrt(4. * std::sqrt(2.) * SM.getGF()) * mz;
+    typedef std::complex<double> Complex;
+    const Complex chi = s / Complex(s - mz*mz, s * SM.Gamma_Z() / mz);
+    const double contact = s / (mw * mw);
+
+    // Barbieri et al., hep-ph/0405040, Eqs. (6), (10), (11).
+    // Propagators below include a factor s; Z couples to T3 - sw2 Q.
+    const double d1 = oblique[That] - oblique[W] + 2.*sw/cw*oblique[X] - sw2/cw2*oblique[Y];
+    const double d3 = oblique[Shat] - oblique[W] + oblique[X]/(sw*cw) - oblique[Y];
+    const double eZZ = cw2*oblique[W] - 2.*sw*cw*oblique[X] + sw2*oblique[Y];
+    const double eAA = sw2*oblique[W] + 2.*sw*cw*oblique[X] + cw2*oblique[Y];
+    const double eZA = (cw2-sw2)*oblique[X] + sw*cw*(oblique[W]-oblique[Y]);
+    const Complex dZZ = chi*d1 - contact*eZZ;
+    // At fixed alpha, G_F and M_Z, delta(s_eff^2) includes the shift of the
+    // on-shell angle induced by delta M_W. The delta epsilon_2 terms cancel.
+    double deltaSin2 = sw2 * (d3 - cw2*d1) / (cw2 - sw2);
+    double deltaAlpha = 0.;
+    if (SM.IsFlagMWinput()) {
+        // M_W replaces alpha(M_Z) as an input. Hold the on-shell angle fixed
+        // and include the predicted relative shift of the hard photon coupling squared.
+        const double d2 = oblique[Uhat] - oblique[V] - oblique[W] + 2.*sw/cw*oblique[X];
+        deltaSin2 = cw2 * (d1 - d2) - sw2 * d3;
+        deltaAlpha = (cw2*d1 - 2.*sw2*d3 - (cw2-sw2)*d2) / sw2;
+    }
+    const Complex dZA = -chi * (gz/e) * deltaSin2 - contact*eZA;
+    const double dAA = deltaAlpha - contact*eAA;
+
+    const Particle& electron = SM.getLeptons(QCD::ELECTRON);
+    const double qe = e * electron.getCharge(), qf = e * finalState.getCharge();
+    const double af = gz * finalState.getIsospin() / 2.;
+    const double vf = af - gz * sw2 * finalState.getCharge();
+    const double r = mass*mass/s, beta2 = 1. - 4.*r;
+    double total = 0., deltaTotal = 0., odd = 0., deltaOdd = 0.;
+    for (int chirality : {1, -1}) { // left, right incoming electron
+        const double t3 = chirality == 1 ? electron.getIsospin() : 0.;
+        const double ze = gz * (t3 - sw2 * electron.getCharge());
+        const Complex vec = qe*qf + ze*vf*chi;
+        const Complex ax = ze*af*chi;
+        const Complex dVec = qe*qf*dAA + (ze*qf + qe*vf)*dZA + ze*vf*dZZ;
+        const Complex dAx = qe*af*dZA + ze*af*dZZ;
+
+        total += (1.+2.*r)*std::norm(vec) + beta2*std::norm(ax);
+        deltaTotal += 2.*std::real((1.+2.*r)*std::conj(vec)*dVec + beta2*std::conj(ax)*dAx);
+        odd += chirality * std::real(vec*std::conj(ax));
+        deltaOdd += chirality * std::real(dVec*std::conj(ax) + vec*std::conj(dAx));
+    }
+    const double beta = std::sqrt(beta2);
+    const double normalization = colors*beta/(24.*M_PI*s);
+    const double fbNormalization = normalization*1.5*beta;
+    return {normalization*total, normalization*deltaTotal, fbNormalization*odd, fbNormalization*deltaOdd};
 }
 
-
-double LEP2oblique::AFB_l_LEP2_NP(const QCD::lepton l, 
-                                  const double s, const double ml,
-                                  const double ObParam_i[]) const
+double LEP2oblique::sigma_l_LEP2_NP(QCD::lepton l, double s, double ml, const double oblique[]) const
 {
-    double alpha0 = alpha_at_s(s);
-    double mf2 = ml*ml;
-    double betaf = sqrt(1.0 - 4.0*mf2/s);
-    double G1SM0 = G1_l_SM0(l, s, alpha0);
-    double G2SM0 = G2_l_SM0(l, s, alpha0);
-    double G3SM0 = G3_l_SM0(l, s, alpha0);
-    double AFB_Born0 = 3.0/4.0*betaf*G3SM0/(G1SM0 + 2.0*mf2/s*G2SM0);
-    double G1NP = G1_l_NP(l, s, alpha0, ObParam_i);
-    double G3NP = G3_l_NP(l, s, alpha0, ObParam_i);
-    
-    return ( - AFB_Born0*G1NP/(G1SM0 + 2.0*mf2/s*G2SM0)
-             + AFB_Born0*G3NP/G3SM0 );
+    return rates(SM.getLeptons(l), s, ml, 1., oblique).deltaSigma;
 }
 
-
-double LEP2oblique::AFB_q_LEP2_NP(const QCD::quark q, 
-                                  const double s, const double mq,
-                                  const double ObParam_i[]) const
+double LEP2oblique::sigma_q_LEP2_NP(QCD::quark q, double s, double mq, const double oblique[]) const
 {
-    double alpha0 = alpha_at_s(s);
-    double mf2 = mq*mq;
-    double betaf = sqrt(1.0 - 4.0*mf2/s);
-    double G1SM0 = G1_q_SM0(q, s, alpha0);
-    double G2SM0 = G2_q_SM0(q, s, alpha0);
-    double G3SM0 = G3_q_SM0(q, s, alpha0);
-    double AFB_Born0 = 3.0/4.0*betaf*G3SM0/(G1SM0 + 2.0*mf2/s*G2SM0);
-    double G1NP = G1_q_NP(q, s, alpha0, ObParam_i);
-    double G3NP = G3_q_NP(q, s, alpha0, ObParam_i);
-    
-    return ( - AFB_Born0*G1NP/(G1SM0 + 2.0*mf2/s*G2SM0)
-             + AFB_Born0*G3NP/G3SM0 );  
+    return rates(SM.getQuarks(q), s, mq, 3., oblique).deltaSigma;
 }
 
-
-double LEP2oblique::R_q_LEP2_NP(const QCD::quark q, 
-                                const double s, const double mq,
-                                const double ObParam_i[]) const
+double LEP2oblique::AFB_l_LEP2_NP(QCD::lepton l, double s, double ml, const double oblique[]) const
 {
-    double alpha0 = alpha_at_s(s);
-    double sigma_q_SM0 = sigma_q_LEP2_SM0(q, s, alpha0, mq);
-    double sigma_had_SM0 = sigma_q_LEP2_SM0(QCD::UP, s, alpha0, mq)
-                         + sigma_q_LEP2_SM0(QCD::DOWN, s, alpha0, mq)
-                         + sigma_q_LEP2_SM0(QCD::CHARM, s, alpha0, mq)
-                         + sigma_q_LEP2_SM0(QCD::STRANGE, s, alpha0, mq)
-                         + sigma_q_LEP2_SM0(QCD::BOTTOM, s, alpha0, mq);
-    double sigma_q_NP = sigma_q_LEP2_NP(q, s, mq, ObParam_i);
-    double sigma_had_NP = sigma_q_LEP2_NP(QCD::UP, s, mq, ObParam_i)
-                        + sigma_q_LEP2_NP(QCD::DOWN, s, mq, ObParam_i)
-                        + sigma_q_LEP2_NP(QCD::CHARM, s, mq, ObParam_i)
-                        + sigma_q_LEP2_NP(QCD::STRANGE, s, mq, ObParam_i)
-                        + sigma_q_LEP2_NP(QCD::BOTTOM, s, mq, ObParam_i);
-    
-    return ( - sigma_q_SM0/(sigma_had_SM0*sigma_had_SM0)*sigma_had_NP
-             + sigma_q_NP/sigma_had_SM0 );
+    return rates(SM.getLeptons(l), s, ml, 1., oblique).deltaAFB();
 }
 
-
-////////////////////////////////////////////////////////////////////////
-   
-double LEP2oblique::DeltaEpsilon_1(const double alpha0, 
-                                   const double ObParam_i[]) const
+double LEP2oblique::AFB_q_LEP2_NP(QCD::quark q, double s, double mq, const double oblique[]) const
 {
-    double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
-    return ( ObParam_i[That] - ObParam_i[W] + 2.0*s0/c0*ObParam_i[X] 
-             - s0*s0/c0/c0*ObParam_i[Y] );
+    return rates(SM.getQuarks(q), s, mq, 3., oblique).deltaAFB();
 }
 
-
-double LEP2oblique::DeltaEpsilon_2(const double alpha0, 
-                                   const double ObParam_i[]) const
+double LEP2oblique::R_q_LEP2_NP(QCD::quark q, double s, double mq, const double oblique[]) const
 {
-    double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
-    return ( ObParam_i[Uhat] - ObParam_i[V] - ObParam_i[W] 
-             + 2.0*s0/c0*ObParam_i[X] );
+    const Rates selected = rates(SM.getQuarks(q), s, mq, 3., oblique);
+    double hadronic = 0., deltaHadronic = 0.;
+    for (const auto flavor : {QCD::UP, QCD::DOWN, QCD::STRANGE, QCD::CHARM, QCD::BOTTOM}) {
+        const Rates channel = flavor == q ? selected
+                : rates(SM.getQuarks(flavor), s, SM.getmq(flavor, std::sqrt(s)), 3., oblique);
+        hadronic += channel.sigma;
+        deltaHadronic += channel.deltaSigma;
+    }
+    return (selected.deltaSigma - (selected.sigma / hadronic)*deltaHadronic) / hadronic;
 }
-
-
-double LEP2oblique::DeltaEpsilon_3(const double alpha0, 
-                                   const double ObParam_i[]) const
-{
-    double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
-    return ( ObParam_i[Shat] - ObParam_i[W] + ObParam_i[X]/s0/c0 
-             - ObParam_i[Y] );
-}
-
-
-double LEP2oblique::epsilonZZ(const double alpha0, 
-                              const double ObParam_i[]) const 
-{
-    double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
-    return ( c02(alpha0)*ObParam_i[W] - 2.0*s0*c0*ObParam_i[X] 
-             + s02(alpha0)*ObParam_i[Y] );
-}
-
-
-double LEP2oblique::epsilonGammaGamma(const double alpha0, 
-                                      const double ObParam_i[]) const 
-{
-    double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
-    return ( s02(alpha0)*ObParam_i[W] + 2.0*s0*c0*ObParam_i[X] 
-             + c02(alpha0)*ObParam_i[Y] );
-}
-
-
-double LEP2oblique::epsilonGammaZ(const double alpha0, 
-                                  const double ObParam_i[]) const 
-{
-    double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
-    return ( (c02(alpha0) - s02(alpha0))*ObParam_i[X] + s0*c0*(ObParam_i[W] 
-             - ObParam_i[Y]) );    
-}
-
-
-double LEP2oblique::vl(const QCD::lepton l, const double alpha0) const 
-{
-    double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
-    double Q = SM.getLeptons(l).getCharge();
-    return ( - (SM.getLeptons(l).getIsospin() 
-                - 2.0*Q*s02(alpha0))/(2.0*s0*c0) );
-}
-
-
-double LEP2oblique::vq(const QCD::quark q, const double alpha0) const 
-{
-    double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
-    double Q = SM.getQuarks(q).getCharge();
-    return ( - (SM.getQuarks(q).getIsospin() 
-                - 2.0*Q*s02(alpha0))/(2.0*s0*c0) );
-}
-
-
-double LEP2oblique::al(const QCD::lepton l, const double alpha0) const
-{
-    double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
-    return ( - SM.getLeptons(l).getIsospin()/(2.0*s0*c0) ); 
-}
-
-
-double LEP2oblique::aq(const QCD::quark q, const double alpha0) const 
-{
-    double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
-    return ( - SM.getQuarks(q).getIsospin()/(2.0*s0*c0) );     
-}
-
-
-double LEP2oblique::G1_NP(const double s, const double alpha0, const double Qf, 
-                          const double vf, const double af, 
-                          const double ObParam_i[]) const 
-{
-    double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
-    double Qe = SM.getLeptons(StandardModel::ELECTRON).getCharge();
-    double ve = vl(StandardModel::ELECTRON, alpha0);
-    double ae = al(StandardModel::ELECTRON, alpha0);
-    double Qe2 = Qe*Qe, Qf2 = Qf*Qf;
-    double ve2 = ve*ve, vf2 = vf*vf, ae2 = ae*ae, af2 = af*af;
-    double Mz = SM.getMz();
-    double GammaZ0 = 7.0*alpha0*Mz/(16.0*s02(alpha0)*c02(alpha0));
-    gslpp::complex denom = gslpp::complex(s - Mz*Mz, Mz*GammaZ0, false);
-    double Zprop = (1.0/denom).real();
-
-    double epsilonbarGamma = - s/(Mw0(alpha0)*Mw0(alpha0))
-                               *epsilonGammaGamma(alpha0, ObParam_i);
-    double epsilonbarZ = s*Zprop*DeltaEpsilon_1(alpha0, ObParam_i)
-                         - s/(Mw0(alpha0)*Mw0(alpha0))*epsilonZZ(alpha0, ObParam_i);
-    double epsilonbarGammaZ = c0/s0*s*Zprop
-                              *( DeltaEpsilon_1(alpha0, ObParam_i) 
-                                 - DeltaEpsilon_2(alpha0, ObParam_i) )
-                              - s0/c0*s*Zprop*DeltaEpsilon_3(alpha0, ObParam_i)
-                              + s/(Mw0(alpha0)*Mw0(alpha0))
-                                *epsilonGammaZ(alpha0, ObParam_i);
-    
-    return ( 2.0*Qe2*Qf2*epsilonbarGamma
-             + 2.0*ve*vf*Qe*Qf*(epsilonbarZ + s*epsilonbarGamma*Zprop)
-             + 2.0*(ve2 + ae2)*(vf2 + af2)*s*epsilonbarZ*Zprop
-             + 2.0*(vf*Qe2*Qf + ve*Qe*Qf2)*epsilonbarGammaZ
-             + 2.0*(ve*(vf2 + af2)*Qe + (ve2 + ae2)*vf*Qf)*s*epsilonbarGammaZ*Zprop );    
-}
-
-
-double LEP2oblique::G1_l_NP(const QCD::lepton l, 
-                            const double s, const double alpha0, 
-                            const double ObParam_i[]) const 
-{
-    double Qf = SM.getLeptons(l).getCharge();
-    double vf = vl(l, alpha0), af = al(l, alpha0);
-    return ( G1_NP(s, alpha0, Qf, vf, af, ObParam_i) );
-}
-
-
-double LEP2oblique::G1_q_NP(const QCD::quark q, 
-                            const double s, const double alpha0, 
-                            const double ObParam_i[]) const
-{
-    double Qf = SM.getQuarks(q).getCharge();
-    double vf = vq(q, alpha0), af = aq(q, alpha0);    
-    return ( G1_NP(s, alpha0, Qf, vf, af, ObParam_i) );    
-}
-
-
-double LEP2oblique::G3_NP(const double s, const double alpha0, const double Qf, 
-                          const double vf, const double af, 
-                          const double ObParam_i[]) const
-{
-    double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
-    double Qe = SM.getLeptons(StandardModel::ELECTRON).getCharge();
-    double ve = vl(StandardModel::ELECTRON, alpha0);
-    double ae = al(StandardModel::ELECTRON, alpha0);
-    double Mz = SM.getMz();
-    double GammaZ0 = 7.0*alpha0*Mz/(16.0*s02(alpha0)*c02(alpha0));
-    gslpp::complex denom = gslpp::complex(s - Mz*Mz, Mz*GammaZ0, false);
-    double Zprop = (1.0/denom).real();
-    
-    double epsilonbarGamma = - s/(Mw0(alpha0)*Mw0(alpha0))
-                               *epsilonGammaGamma(alpha0, ObParam_i);
-    double epsilonbarZ = s*Zprop*DeltaEpsilon_1(alpha0, ObParam_i)
-                         - s/(Mw0(alpha0)*Mw0(alpha0))*epsilonZZ(alpha0, ObParam_i);
-    double epsilonbarGammaZ = c0/s0*s*Zprop*( DeltaEpsilon_1(alpha0, ObParam_i) 
-                                              - DeltaEpsilon_2(alpha0, ObParam_i) )
-                              - s0/c0*s*Zprop*DeltaEpsilon_3(alpha0, ObParam_i)
-                              + s/(Mw0(alpha0)*Mw0(alpha0))
-                                *epsilonGammaZ(alpha0, ObParam_i);
-    
-    return ( 2.0*ae*af*Qe*Qf*(epsilonbarZ + s*epsilonbarGamma*Zprop)
-             + 8.0*ve*ae*vf*af*s*epsilonbarZ*Zprop
-             + 4.0*(ae*vf*af*Qe + ve*ae*af*Qf)*s*epsilonbarGammaZ*Zprop );   
-}
-
-
-double LEP2oblique::G3_l_NP(const QCD::lepton l, 
-                            const double s, const double alpha0, 
-                            const double ObParam_i[]) const
-{
-    double Qf = SM.getLeptons(l).getCharge();
-    double vf = vl(l, alpha0), af = al(l, alpha0);    
-    return ( G3_NP(s, alpha0, Qf, vf, af, ObParam_i) );
-}
-
-
-double LEP2oblique::G3_q_NP(const QCD::quark q, 
-                            const double s, const double alpha0, 
-                            const double ObParam_i[]) const
-{
-    double Qf = SM.getQuarks(q).getCharge();
-    double vf = vq(q, alpha0), af = aq(q, alpha0);    
-    return ( G3_NP(s, alpha0, Qf, vf, af, ObParam_i) ); 
-}
-
-
-double LEP2oblique::G1_SM0(const double s, const double alpha0, const double Qf, 
-                           const double vf, const double af) const
-{
-    double Qe = SM.getLeptons(StandardModel::ELECTRON).getCharge();
-    double ve = vl(StandardModel::ELECTRON, alpha0);
-    double ae = al(StandardModel::ELECTRON, alpha0);
-    double Qe2 = Qe*Qe, Qf2 = Qf*Qf;
-    double ve2 = ve*ve, vf2 = vf*vf, ae2 = ae*ae, af2 = af*af;
-    double Mz = SM.getMz();
-    double GammaZ0 = 7.0*alpha0*Mz/(16.0*s02(alpha0)*c02(alpha0));
-    gslpp::complex denom = gslpp::complex(s - Mz*Mz, Mz*GammaZ0, false);
-    gslpp::complex chiZ = s/denom;
-    
-    return ( Qe2*Qf2 + 2.0*ve*vf*Qe*Qf*chiZ.real()
-             + (ve2 + ae2)*(vf2 + af2)*chiZ.abs2() );
-}    
-
-
-double LEP2oblique::G1_l_SM0(const QCD::lepton l, 
-                             const double s, const double alpha0) const 
-{
-    double Qf = SM.getLeptons(l).getCharge();
-    double vf = vl(l, alpha0), af = al(l, alpha0);
-    return ( G1_SM0(s, alpha0, Qf, vf, af) );
-}
-
-
-double LEP2oblique::G1_q_SM0(const QCD::quark q, 
-                             const double s, const double alpha0) const 
-{
-    double Qf = SM.getQuarks(q).getCharge();
-    double vf = vq(q, alpha0), af = aq(q, alpha0);
-    return ( G1_SM0(s, alpha0, Qf, vf, af) ); 
-}
-
-
-double LEP2oblique::G2_SM0(const double s, const double alpha0, const double Qf, 
-                           const double vf, const double af) const 
-{
-    double Qe = SM.getLeptons(StandardModel::ELECTRON).getCharge();
-    double ve = vl(StandardModel::ELECTRON, alpha0);
-    double ae = al(StandardModel::ELECTRON, alpha0);
-    double Qe2 = Qe*Qe, Qf2 = Qf*Qf;
-    double ve2 = ve*ve, vf2 = vf*vf, ae2 = ae*ae;
-    double Mz = SM.getMz();
-    double GammaZ0 = 7.0*alpha0*Mz/(16.0*s02(alpha0)*c02(alpha0));
-    gslpp::complex denom = gslpp::complex(s - Mz*Mz, Mz*GammaZ0, false);
-    gslpp::complex chiZ = s/denom;
-    
-    return ( Qe2*Qf2 + 2.0*ve*vf*Qe*Qf*chiZ.real()
-             + (ve2 + ae2)*vf2*chiZ.abs2() );
-}
-
-
-double LEP2oblique::G2_l_SM0(const QCD::lepton l, 
-                             const double s, const double alpha0) const
-{
-    double Qf = SM.getLeptons(l).getCharge();
-    double vf = vl(l, alpha0), af = al(l, alpha0);
-    return ( G2_SM0(s, alpha0, Qf, vf, af) );    
-}
-
-
-double LEP2oblique::G2_q_SM0(const QCD::quark q, 
-                             const double s, const double alpha0) const
-{
-    double Qf = SM.getQuarks(q).getCharge();
-    double vf = vq(q, alpha0), af = aq(q, alpha0);
-    return ( G2_SM0(s, alpha0, Qf, vf, af) ); 
-    
-}
-
-
-double LEP2oblique::G3_SM0(const double s, const double alpha0, const double Qf, 
-                           const double vf, const double af) const 
-{
-    double Qe = SM.getLeptons(StandardModel::ELECTRON).getCharge();
-    double ve = vl(StandardModel::ELECTRON, alpha0);
-    double ae = al(StandardModel::ELECTRON, alpha0);
-    double Mz = SM.getMz();
-    double GammaZ0 = 7.0*alpha0*Mz/(16.0*s02(alpha0)*c02(alpha0));
-    gslpp::complex denom = gslpp::complex(s - Mz*Mz, Mz*GammaZ0, false);
-    gslpp::complex chiZ = s/denom;
-
-    return ( 2.0*ae*af*Qe*Qf*chiZ.real() + 4.0*ve*ae*vf*af*chiZ.abs2() );
-}
-
-
-double LEP2oblique::G3_l_SM0(const QCD::lepton l, 
-                             const double s, const double alpha0) const 
-{
-    double Qf = SM.getLeptons(l).getCharge();
-    double vf = vl(l, alpha0), af = al(l, alpha0);
-    return ( G3_SM0(s, alpha0, Qf, vf, af) );
-}
-
-
-double LEP2oblique::G3_q_SM0(const QCD::quark q, 
-                             const double s, const double alpha0) const 
-{
-    double Qf = SM.getQuarks(q).getCharge();
-    double vf = vq(q, alpha0), af = aq(q, alpha0);
-    return ( G3_SM0(s, alpha0, Qf, vf, af) );    
-}
-
-
-double LEP2oblique::sigma_l_LEP2_SM0(const QCD::lepton l, 
-                                     const double s, const double alpha0, 
-                                     const double ml) const 
-{
-    double Ncf = 1.0;
-    double mf2 = ml*ml;
-    double betaf = sqrt(1.0 - 4.0*mf2/s);
-    double G1SM0 = G1_l_SM0(l, s, alpha0), G2SM0 = G2_l_SM0(l, s, alpha0);
-
-    return ( 4.0*M_PI*alpha0*alpha0/(3.0*s)*Ncf*betaf
-             *(G1SM0 + 2.0*mf2/s*G2SM0) );    
-}
-
-
-double LEP2oblique::sigma_q_LEP2_SM0(const QCD::quark q, 
-                                     const double s, const double alpha0, 
-                                     const double mq) const 
-{
-    double Ncf = 3.0;
-    double mf2 = mq*mq;
-    double betaf = sqrt(1.0 - 4.0*mf2/s);
-    double G1SM0 = G1_q_SM0(q, s, alpha0), G2SM0 = G2_q_SM0(q, s, alpha0);
-
-    return ( 4.0*M_PI*alpha0*alpha0/(3.0*s)*Ncf*betaf
-             *(G1SM0 + 2.0*mf2/s*G2SM0) );
-}
-
-
