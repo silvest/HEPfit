@@ -6585,10 +6585,10 @@ protected:
     double CQe_2311, CQe_2322, CQe_2333;
     double CQe_3211, CQe_3222, CQe_3233;
     double CLedQ_11, CLedQ_22, CpLedQ_11, CpLedQ_22;
-    double CQQ1_1133, CQQ1_1331, CQQ1_2233, CQQ1_2332, CQQ1_3333, CQQ3_1133, CQQ3_1331, CQQ3_2233, CQQ3_2332, CQQ3_3333;
-    double Cuu_1133, Cuu_1331, Cuu_2233, Cuu_2332, Cuu_3333, Cud1_3311, Cud1_3322, Cud1_3333, Cud8_3311, Cud8_3322, Cud8_3333;
-    double CQu1_1133, CQu1_3311, CQu1_2233, CQu1_3322, CQu1_3333, CQu8_1133, CQu8_3311, CQu8_2233, CQu8_3322, CQu8_3333;
-    double CQd1_3311, CQd1_3322, CQd1_3333, CQd8_3311, CQd8_3322, CQd8_3333;
+    double CQQ1_1133, CQQ1_1331, CQQ1_2233 = 0., CQQ1_2332 = 0., CQQ1_3333, CQQ3_1133, CQQ3_1331, CQQ3_2233 = 0., CQQ3_2332 = 0., CQQ3_3333;
+    double Cuu_1133, Cuu_1331, Cuu_2233 = 0., Cuu_2332 = 0., Cuu_3333, Cud1_3311, Cud1_3322 = 0., Cud1_3333, Cud8_3311, Cud8_3322 = 0., Cud8_3333;
+    double CQu1_1133, CQu1_3311, CQu1_2233 = 0., CQu1_3322 = 0., CQu1_3333, CQu8_1133, CQu8_3311, CQu8_2233 = 0., CQu8_3322 = 0., CQu8_3333;
+    double CQd1_3311, CQd1_3322 = 0., CQd1_3333, CQd8_3311, CQd8_3322 = 0., CQd8_3333;
     double CQuQd1_3333, CQuQd8_3333;
     double Lambda_NP; ///< The new physics scale [GeV].
     // The intrinsic and parametric theory relative errors in the Higgs observables.
