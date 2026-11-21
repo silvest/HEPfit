@@ -474,9 +474,6 @@ private:
     gsl_spline *spline_Im_deltaC9_QCDF;
 
 
-    std::vector<double> ReDeltaC9;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
-    std::vector<double> ImDeltaC9;/**<Vector that samples the QCDF @f$\Delta C_9@f$ */
-    std::vector<double> myq2;/**<Variable used to compute the QCDF @f$\Delta C_9@f$ */
     TFitResultPtr refres;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
     TFitResultPtr imfres;/**<Vector that contains the fitted QCDF @f$\Delta C_9@f$ */
 
@@ -1138,18 +1135,10 @@ private:
     double Integrand_ImTparplus(double up);
 
     /**
-    * @brief The real part of the integral involving \f$ T^{\parallel}_- \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
-    * @param[in] up dummy variable to be integrated out
-    * @return \f$ Re T^{\parallel}_- \Phi^{\parallel}\f$
+    * @brief Complex integrand involving \f$ T^{\parallel}_- \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
+    * @param[in] u integration variable
     */
-    double Integrand_ReTparminus(double up);
-
-    /**
-    * @brief The imaginary part of the integral involving \f$ T^{\parallel}_- \f$ at fixed \f$ q^2 \f$, according to @cite Beneke:2001at .
-    * @param[in] up dummy variable to be integrated out
-    * @return \f$ Im T^{\parallel}_- \Phi^{\parallel}\f$
-    */
-    double Integrand_ImTparminus(double up);
+    gslpp::complex Integrand_Tparminus(double u);
 
     /**
     * @brief The sum of Integrand_ReTparplus() and Integrand_ReTparminus().
@@ -1233,7 +1222,7 @@ private:
     /**
     * @brief The fitting routine for the QCDF correction \f$ \Delta C_9^0 \f$ in the muon channel.
     */
-    void fit_DeltaC9_mumu();
+    bool fit_DeltaC9_mumu();
 
     /**
     * @brief The total QCDF correction \f$ \Delta C_9 \f$ computed fitting over \f$ u \f$.

@@ -15,6 +15,7 @@
 #include <gsl/gsl_sf.h>
 #include <boost/bind/bind.hpp>
 #include <limits>
+#include <cmath>
 #include <TFitResult.h>
 using namespace boost::placeholders;
 
@@ -134,8 +135,7 @@ void MPll::updateParameters()
 {
     if (!mySM.getFlavour().getUpdateFlag(meson, pseudoscalar, lep)) return;
 
-
-
+    ScopedGslErrorHandlerOff handlerGuard;
     GF = mySM.getGF();
     ale = mySM.getAle();
     if (lep == QCD::NEUTRINO_1){
@@ -453,7 +453,7 @@ void MPll::updateParameters()
 #if SPLINE
     if (mySM.getFlavour().getUpdateFlag(meson, pseudoscalar, lep)) spline_QCDF_func();
 #else
-    fit_DeltaC9_mumu();
+    if (lep != QCD::NEUTRINO_1 && !fit_DeltaC9_mumu()) return;
 #endif
 
     mySM.getFlavour().setUpdateFlag(meson, pseudoscalar, lep, false);
@@ -1070,36 +1070,25 @@ double MPll::Integrand_ImTparplus(double up)
             + threeGegen1otwo * ((10. * u - 5.)*(2. * u - 1.) - 1.))) / mySM.getMesons(meson).getLambdaM()).imag();
 }
 
-double MPll::Integrand_ReTparminus(double up)
+gslpp::complex MPll::Integrand_Tparminus(double u)
 {
-    double Lambdaplus = mySM.getMesons(meson).getLambdaM();
-    gslpp::complex Lambdamin = exp(-tmpq2 / MM / Lambdaplus) / Lambdaplus * (-gsl_sf_expint_Ei(tmpq2 / MM / Lambdaplus) + gslpp::complex::i() * M_PI);
-
-    double u = up;
-    return ((Tparminus(u, tmpq2)*6. * u * (1. - u)*
+    const double lambdaB = mySM.getMesons(meson).getLambdaM();
+    const double x = tmpq2 / MM / lambdaB;
+    // Evaluate exp(-x) Ei(x) without overflowing Ei(x) at small positive lambdaB.
+    const gslpp::complex Lambdamin = gslpp::complex(-gsl_sf_expint_Ei_scaled(x), M_PI * exp(-x)) / lambdaB;
+    return Tparminus(u, tmpq2)*6. * u * (1. - u) *
             (1 + threeGegen0 * (2. * u - 1)
-            + threeGegen1otwo * ((10. * u - 5.)*(2. * u - 1.) - 1.))) / Lambdamin).real();
-}
-
-double MPll::Integrand_ImTparminus(double up)
-{
-    double Lambdaplus = mySM.getMesons(meson).getLambdaM();
-    gslpp::complex Lambdamin = exp(-tmpq2 / MM / Lambdaplus) / Lambdaplus * (-gsl_sf_expint_Ei(tmpq2 / MM / Lambdaplus) + gslpp::complex::i() * M_PI);
-
-    double u = up;
-    return ((Tparminus(u, tmpq2)*6. * u * (1. - u)*
-            (1 + threeGegen0 * (2. * u - 1)
-            + threeGegen1otwo * ((10. * u - 5.)*(2. * u - 1.) - 1.))) / Lambdamin).imag();
+            + threeGegen1otwo * ((10. * u - 5.)*(2. * u - 1.) - 1.)) / Lambdamin;
 }
 
 double MPll::Integrand_ImTpar_pm(double up)
 {
-    return Integrand_ImTparplus(up) + Integrand_ImTparminus(up);
+    return Integrand_ImTparplus(up) + Integrand_Tparminus(up).imag();
 }
 
 double MPll::Integrand_ReTpar_pm(double up)
 {
-    return Integrand_ReTparplus(up) + Integrand_ReTparminus(up);
+    return Integrand_ReTparplus(up) + Integrand_Tparminus(up).real();
 }
 
 gslpp::complex MPll::F19(double q2)
@@ -1163,12 +1152,14 @@ gslpp::complex MPll::deltaTpar(double q2)
 
         auto Integrand_ReTpar_pmCallback = bind(&MPll::Integrand_ReTpar_pm, this, _1);
         DTPPR = convertToGslFunction(Integrand_ReTpar_pmCallback);
-        if (gsl_integration_cquad(&DTPPR, 0., 1., 1.e-2, 1.e-1, w_DTPPR, &avaDTPPR, &errDTPPR, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        if (gsl_integration_cquad(&DTPPR, 0., 1., 1.e-2, 1.e-1, w_DTPPR, &avaDTPPR, &errDTPPR, NULL) != GSL_SUCCESS
+                || !std::isfinite(avaDTPPR)) return std::numeric_limits<double>::quiet_NaN();
         double ReTppint = avaDTPPR;
 
         auto Integrand_ImTpar_pmCallback = bind(&MPll::Integrand_ImTpar_pm, this, _1);
         DTPPR = convertToGslFunction(Integrand_ImTpar_pmCallback);
-        if (gsl_integration_cquad(&DTPPR, 0., 1., 1.e-2, 1.e-1, w_DTPPR, &avaDTPPR, &errDTPPR, NULL) != 0) return std::numeric_limits<double>::quiet_NaN();
+        if (gsl_integration_cquad(&DTPPR, 0., 1., 1.e-2, 1.e-1, w_DTPPR, &avaDTPPR, &errDTPPR, NULL) != GSL_SUCCESS
+                || !std::isfinite(avaDTPPR)) return std::numeric_limits<double>::quiet_NaN();
         double ImTppint = avaDTPPR;
 
         cacheDeltaTparp[q2] = (ReTppint + gslpp::complex::i() * ImTppint);
@@ -1191,26 +1182,29 @@ double MPll::imDC9fit(double* x, double* p)
     //double thr = 4.*Mc2;
 }
 
-void MPll::fit_DeltaC9_mumu()
+bool MPll::fit_DeltaC9_mumu()
 {
-    int dim = 0;
-    for (double i = 0.1; i < MPllSWITCH; i += 0.4) {
-        double q2tmp = i;
-        myq2.push_back(q2tmp);
-        ReDeltaC9.push_back((deltaTpar(q2tmp)).real());
-        ImDeltaC9.push_back((deltaTpar(q2tmp)).imag());
-        dim++;
+    const double lambdaB = mySM.getMesons(meson).getLambdaM();
+    if (!std::isfinite(lambdaB) || lambdaB <= 0.) return false;
+
+    std::vector<double> q2, re, im;
+    auto addSample = [&](double q, double weight) {
+        const gslpp::complex sample = weight * deltaTpar(q);
+        if (!std::isfinite(sample.real()) || !std::isfinite(sample.imag())) return false;
+        q2.push_back(q);
+        re.push_back(sample.real());
+        im.push_back(sample.imag());
+        return true;
+    };
+    for (double q = 0.1; q < MPllSWITCH; q += 0.4) {
+        if (!addSample(q, 1.)) return false;
     }
-    for (double i = MPllSWITCH; i < 8.2; i += 0.4) {
-        double q2tmp = i;
-        myq2.push_back(q2tmp);
-        ReDeltaC9.push_back(q2tmp * (deltaTpar(q2tmp)).real());
-        ImDeltaC9.push_back(q2tmp * (deltaTpar(q2tmp)).imag());
-        dim++;
+    for (double q = MPllSWITCH; q < 8.2; q += 0.4) {
+        if (!addSample(q, q)) return false;
     }
 
-    gr1 = TGraph(dim, myq2.data(), ReDeltaC9.data());
-    gr2 = TGraph(dim, myq2.data(), ImDeltaC9.data());
+    gr1 = TGraph(q2.size(), q2.data(), re.data());
+    gr2 = TGraph(q2.size(), q2.data(), im.data());
 
     reffit = TF1("reffit", this, &MPll::reDC9fit, 0, 8.1, 7);
     imffit = TF1("imffit", this, &MPll::imDC9fit, 0, 8.1, 8);
@@ -1218,9 +1212,7 @@ void MPll::fit_DeltaC9_mumu()
     refres = gr1.Fit(&reffit, "SQN0+rob=0.99");
     imfres = gr2.Fit(&imffit, "SQN0+rob=0.99");
 
-    ReDeltaC9.clear();
-    ImDeltaC9.clear();
-    myq2.clear();
+    return true;
 }
 
 gslpp::complex MPll::fDeltaC9(double q2)
