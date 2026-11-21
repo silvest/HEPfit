@@ -50,6 +50,9 @@ public:
      */
     double X_ch();
 
+    /// Real short-distance charm amplitude in the normalization of CMkmm.
+    double charmAmplitude();
+
 private:
     const StandardModel& model;
     const StandardModelMatching& modelmatching;
