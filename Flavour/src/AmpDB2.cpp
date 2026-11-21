@@ -570,7 +570,7 @@ void AmpDB2::computeF1()
     cacheF1[indexF(uu, 1, 1, 1)] = 109. / 6. + 10. * logx_2 + flag_resumz * ((32. / 3. + 8. * log_muM) * F0(uu, 1, 1, 1));
     cacheF1[indexF(uu, 2, 1, 1)] = -40. / 3. - 32. * logx_2 + flag_resumz * ((32. / 3. + 8. * log_muM) * F0(uu, 2, 1, 1));
     cacheF1[indexF(uu, 1, 1, 2)] = -127. / 9. + 4. / 12. - 17. * logx_1 + 10. / 3. * logx_2 + flag_resumz * ((32. / 3. + 8. * log_muM) * F0(uu, 1, 1, 2));
-    cacheF1[indexF(uu, 2, 1, 2)] = -(136. + 12.) / 9. - 8. * logx_1 - 32. / 3. * logx_2 + flag_resumz * ((32. / 3. + 8. * log_muM) * F0(uu, 2, 1, 2));
+    cacheF1[indexF(uu, 2, 1, 2)] = -(136. - 12.) / 9. - 8. * logx_1 - 32. / 3. * logx_2 + flag_resumz * ((32. / 3. + 8. * log_muM) * F0(uu, 2, 1, 2));
     cacheF1[indexF(uu, 1, 2, 2)] = -M_PI2 / 3. - (115. + 42.) / 18. - 10. * logx_1 + 8. / 3. * logx_2 + flag_resumz * ((32. / 3. + 8. * log_muM) * F0(uu, 1, 2, 2));
     cacheF1[indexF(uu, 2, 2, 2)] = 8. * M_PI2 / 3. - 8. / 9. * (19. - 3.) - 16. * logx_1 + 32. / 3. * logx_2 + flag_resumz * ((32. / 3. + 8. * log_muM) * F0(uu, 2, 2, 2));
 
