@@ -19,10 +19,9 @@ def run(command, cwd, expect_success=True):
     return result
 
 
-def model_config():
-    # One varying parameter, a likelihood and a prediction through real HEPfit EW code.
-    values = dict(lambda_=0.225787, A=0.826, rhob=0.148, etab=0.348,
-                  Mz=91.1875, AlsMz=0.1185, GF=1.1663787e-5,
+def model_config(correlated_ckm=False):
+    # A likelihood and a prediction through real HEPfit EW code.
+    values = dict(Mz=91.1875, AlsMz=0.1185, GF=1.1663787e-5,
                   ale=7.2973525698e-3, dAle5Mz=0.0275, mHl=125.09,
                   delMw=0, delSin2th_l=0, delSin2th_q=0, delSin2th_b=0,
                   delGammaZ=0, delsigma0H=0, delR0l=0, delR0c=0, delR0b=0,
@@ -33,6 +32,15 @@ def model_config():
                   mstrange=0.0938, mtop=163.0, mbottom=4.18,
                   muc=1.3, mub=4.8, mut=164.1)
     lines = ['StandardModel']
+    if correlated_ckm:
+        lines += ['ModelFlag Wolfenstein false',
+                  'ModelParameter V_us 0.225787 0 0', 'ModelParameter gamma 1.147 0 0',
+                  'CorrelatedGaussianParameters VubVcb 2',
+                  'ModelParameter V_cb 0.04101 0.00061 0', 'ModelParameter V_ub 0.00380 0.00027 0',
+                  '1.0 0.04', '0.04 1.0']
+    else:
+        values.update(lambda_=0.225787, A=0.826, rhob=0.148, etab=0.348)
+
     for name, value in values.items():
         name = name.rstrip('_')
         lines.append(f'ModelParameter {name} {value} {2.0 if name == "mtop" else 0} 0')
@@ -77,12 +85,14 @@ HistogramBufferSize 0
         for label, processes, pt in [('pt_partial', 3, True), ('pt_serial', 1, True), ('ordinary', 3, False)]:
             work = base / label
             work.mkdir()
-            (work / 'model.conf').write_text(model_config())
+            (work / 'model.conf').write_text(model_config(correlated_ckm=not pt))
             # PT before NChains tests that ladder setup is independent of option order.
             options = ('ParallelTempering true\nPTTemperatures 1:2:4\nPTSwapInterval 5\n' if pt else '')
             # No trailing newline exercises the runtime parser, not only the helper.
             export_transport = pt and processes > 1
             settings = common
+            if not pt:
+                settings += 'PrintLoglikelihoodPlots true\n'
             if pt and processes == 1:
                 settings = settings.replace('WriteChain true', 'WriteChain false')
                 options += 'PTDiagnostics false\n'
@@ -102,6 +112,20 @@ HistogramBufferSize 0
                 np.testing.assert_allclose(trees['Observables']['LogLikelihood'], trees['mcmc']['LogLikelihood'])
                 np.testing.assert_allclose(trees['Parameters']['mtop'], trees['mcmc']['mtop'])
                 np.testing.assert_allclose(trees['Observables']['Mw'], trees['Observables']['MwPrediction'])
+                if not pt:
+                    parameters = trees['Parameters']
+                    likelihood = trees['mcmc']['LogLikelihood']
+                    suffix = '_vs_LogLikelihood'
+                    names = {key for key in root.keys(cycle=False) if key.endswith(suffix)}
+                    assert names == {name + suffix for name in ('V_cb', 'V_ub', 'mtop')}
+                    for name in ('V_cb', 'V_ub', 'mtop'):
+                        hist = root[name + suffix]
+                        assert hist.axis(0).member('fTitle') == name
+                        assert hist.axis(1).member('fTitle') == 'LogLikelihood'
+                        bins = [axis.edges() for axis in hist.axes]
+                        expected, _, _ = np.histogram2d(parameters[name], likelihood, bins=bins)
+                        np.testing.assert_array_equal(hist.values(), expected)
+                        assert (work / 'Observables/LogLikelihoodPlots' / (name + suffix + '.pdf')).is_file()
                 histogram_count = 0
                 for key in root.keys():
                     obj = root[key]

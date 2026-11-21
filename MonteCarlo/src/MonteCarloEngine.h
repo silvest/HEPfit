@@ -690,6 +690,7 @@ private:
     std::string goodFormat(double value, double rms, int rmsPrecision = 2);
 
     bool collectObservableWeight(const Observable& observable) const;
+    void fillLogLikelihoodPlots(const std::map<std::string, double>& physicalParameters, double logLikelihood);
 
     const std::vector<ModelParameter>& ModPars; ///< A vector of model parameters.
     const std::vector<CorrelatedGaussianParameters>& CGP; ///< A vector of correlated Gaussian parameters.
@@ -698,7 +699,6 @@ private:
     std::vector<CorrelatedGaussianObservables>& CGO; ///< A vector of correlated Gaussian observables.
     StandardModel* Mod; ///< A pointer to an abject of type Model.
     std::map<std::string, double> DPars; ///< A map between parameter names and their values.
-    std::vector<std::map<std::string, double> > DPars_allChains; ///< A vector of maps between parameter names and their values for all chains.
     std::map<std::string, BCH1D> Histo1D; ///< A map between pointers to objects of type BCH1D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
     std::map<std::string, BCH2D> Histo2D; ///< A map between pointers to objects of type BCH2D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
     std::map<std::string, double> thMin; ///< A map between the name of a theory observable and its minimum value.
