@@ -34,7 +34,7 @@ double Dleptonnu::computeThValue()
             k = 1;
         break;
         default:
-            std::runtime_error("The observable Dleptonnu is not added for that lepton " );
+            throw std::runtime_error("The observable Dleptonnu is not added for that lepton " );
     }
     
     switch(meson) {
