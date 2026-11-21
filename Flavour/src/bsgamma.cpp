@@ -56,31 +56,9 @@ Intbc_cache(2, 0.), ig(ROOT::Math::Integration::kADAPTIVESINGULAR, ROOT::Math::I
 }
 
 Bsgamma::Bsgamma(const StandardModel& SM_i, int obsFlag)
-: ThObservable(SM_i),
-Intbc_cache(2, 0.), ig(ROOT::Math::Integration::kADAPTIVESINGULAR, ROOT::Math::Integration::kGAUSS51), wf()
+: Bsgamma(SM_i, QCD::STRANGE, obsFlag)
 {
-    if (obsFlag > 0 and obsFlag < 3) obs = obsFlag;
-    else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (ACP)");
-    
     SUM = true;
-    EWflag = true;
-    FOUR_BODY = false;
-    
-    Intb1Cached = 0;
-    Intb2Cached = 0;
-    Intb3Cached = 0;
-    Intb4Cached = 0;
-    Intbb1Cached = 0;
-    Intbb2Cached = 0;
-    Intbb4Cached = 0;
-    Intbc1Cached = 0;
-    Intbc2Cached = 0;
-    Intc1Cached = 0;
-    Intc2Cached = 0;
-    Intc3Cached = 0;
-    Intcc1Cached = 0;
-    IntPhi772rCached = 0;
-
 }
 
 void Bsgamma::checkCache()
@@ -2058,7 +2036,8 @@ double Bsgamma::P21(double E0, double mu)
 {
     int i,j;
     gslpp::complex C0[8]={C1_0,C2_0,C3_0,C4_0,C5_0,C6_0,C7_0,C8_0};
-    gslpp::complex C0p[8]={C7p_0}; /*IMPLEMENT OTHER WC*/
+    gslpp::complex C0p[8] = {};
+    C0p[6] = C7p_0;
     double p21=0.;
     
     for(i=0;i<8;i++)
@@ -2084,7 +2063,8 @@ double Bsgamma::P21_CPodd(double E0, double mu)
 {
     int i,j;
     gslpp::complex C0[8]={C1_0,C2_0,C3_0,C4_0,C5_0,C6_0,C7_0,C8_0};
-    gslpp::complex C0p[8]={C7p_0}; /*IMPLEMENT OTHER WC*/
+    gslpp::complex C0p[8] = {};
+    C0p[6] = C7p_0;
     double p21=0.;
     
     for(i=0;i<8;i++)
