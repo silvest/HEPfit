@@ -7,6 +7,8 @@
 
 #include "Bdmumu.h"
 #include "StandardModel.h"
+#include "AmpDB2.h"
+#include <limits>
 #include "EvolBsmm.h"
 #include "HeffDB1.h"
 #include "NPSMEFTd6GeneralMatching.h"
@@ -28,14 +30,11 @@ double Bdmumu::computeThValue()
 {
     double FBd = SM.getMesons(QCD::B_D).getDecayconst();
 
-    computeObs(FULLNLO, FULLNLO_QED);
+    computeObs(FULLNLO, FULLNLO_QED, obs >= 3);
 
     double PRF = pow(coupling, 2.) / M_PI /8. / SM.getMesons(QCD::B_D).computeWidth() * pow(FBd, 2.) * pow(mlep, 2.) * mBd * beta;
-    yd = 0.; // Use the experimental number here
-    timeInt = (1. + Amumu * yd) / (1. - yd * yd); // Note modification in form due to algorithm
-   
-    if (obs == 1) return( PRF * ampSq);
-    if (obs == 2) return( PRF * ampSq * timeInt);
+    // The Bd time-integrated rate uses y_d = 0.
+    if (obs == 1 || obs == 2) return PRF * ampSq;
     if (obs == 3) return( Amumu );
     if (obs == 4) return( Smumu );
     
@@ -43,7 +42,7 @@ double Bdmumu::computeThValue()
     return (EXIT_FAILURE);
 }
 
-void Bdmumu::computeObs(orders order, orders_qed order_qed)
+void Bdmumu::computeObs(orders order, orders_qed order_qed, bool withMixing)
 {   
     double mu = SM.getMub();  
     
@@ -59,8 +58,14 @@ void Bdmumu::computeObs(orders order, orders_qed order_qed)
     chiral = pow(mBd, 2.) / 2. / mlep * mb / (mb + md);
     beta = sqrt(1. - pow(2. * mlep / mBd, 2.));
     computeAmpSq(order, order_qed, mu);
-    Amumu = (absP * absP * cos(2. * argP - phiNP) -  absS * absS * cos(2. * argS - phiNP)) / (absP * absP + absS * absS);
-    Smumu = (absP * absP * sin(2. * argP - phiNP) -  absS * absS * sin(2. * argS - phiNP)) / (absP * absP + absS * absS);
+    if (!withMixing) return;
+    if (ampSq == 0.) {
+        Amumu = Smumu = std::numeric_limits<double>::quiet_NaN();
+        return;
+    }
+    const double mixingPhase = AmpDB2::mixingPhase(SM, QCD::B_D);
+    Amumu = (absP * absP * cos(2. * argP - mixingPhase) -  absS * absS * cos(2. * argS - mixingPhase)) / (absP * absP + absS * absS);
+    Smumu = (absP * absP * sin(2. * argP - mixingPhase) -  absS * absS * sin(2. * argS - mixingPhase)) / (absP * absP + absS * absS);
 }
 
 double Bdmumu::computeAmumu(orders order)
@@ -182,7 +187,6 @@ void Bdmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
             absS = CC_S.abs();
             argS = CC_S.arg();
     
-            phiNP = 0.;
             
             ampSq = absP * absP + absS * absS;
                   

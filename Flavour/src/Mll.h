@@ -43,13 +43,12 @@ protected:
      * |\f$ BR(B_s \rightarrow \mu \bar{\mu}) \f$|
      */
     void computeAmpSq(orders order, orders_qed order_qed, double mu);
-    void computeObs(orders order, orders_qed order_qed);
+    void computeObs(orders order, orders_qed order_qed, bool withMixing = true);
     
 private:
     
     QCD::lepton lep; /**< Final leptons type. */
     QCD::meson meson;
-    double ys;
     gslpp::complex CKM_factor;
     double beta;
     double mBs;
@@ -65,8 +64,6 @@ private:
     double ampSq;
     double Amumu;
     double Smumu;
-    double phiNP;
-    double timeInt;
     int obs;
     gslpp::complex C_10;
     gslpp::complex C_10p;

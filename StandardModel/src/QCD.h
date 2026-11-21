@@ -436,6 +436,9 @@ public:
      */
     void initializeBParameter(std::string name_i) const;
 
+    /// Whether the leading Bd and Bs mixing matrix elements have been registered.
+    bool hasBBParameters() const { return BParameterMap.count("BBs") != 0; }
+
     /**
      * @brief A method to initialize a meson
      * @param[in] meson_i the enumerator corresponding to the meson

@@ -53,6 +53,12 @@ Vckm(3, 3, 0.) {
     xcachea = 0.;
     xcacheb = 0.;
     xcachec = 0.;
+    sw2b = 0.;
+    sw2c = 0.;
+    sw2d = 0.;
+    sw2e = 0.;
+    xcached = 0.;
+    xcachee = 0.;
 
 
     for (int j = 0; j < 10; j++) {

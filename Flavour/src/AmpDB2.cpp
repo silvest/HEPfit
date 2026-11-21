@@ -9,6 +9,7 @@
 #include "EvolDF2.h"
 #include "HeffDF2.h"
 #include <chrono>
+#include <limits>
 
 AmpDB2::AmpDB2(const StandardModel &SM_i, int BMeson_i, bool flag_fixmub, bool flag_RI)
     : mySM(SM_i), meMStoRI(5, 0.), coeffsMStoRI(3, 0.)
@@ -52,6 +53,28 @@ AmpDB2::AmpDB2(const StandardModel &SM_i, int BMeson_i, bool flag_fixmub, bool f
             coeffsMStoRI.assign(i, j, meMStoRI(i, j));
         }
     }
+}
+
+double AmpDB2::mixingPhase(const StandardModel& model, QCD::meson meson)
+{
+    if (meson != QCD::B_S && meson != QCD::B_D)
+        throw std::invalid_argument("AmpDB2::mixingPhase requires Bd or Bs");
+    const bool strange = meson == QCD::B_S;
+    gslpp::complex amplitude;
+    if (model.hasBBParameters()) {
+        amplitude = strange ? M21_Bs(model, FULLNLO) : M21_Bd(model, FULLNLO);
+    } else {
+        // With Q1 alone its positive matrix element drops out of the phase.
+        const auto& flavour = model.getFlavour();
+        auto coeff = strange ? flavour.ComputeCoeffBs(model.getMub(), NDR)
+                             : flavour.ComputeCoeffBd(model.getMub(), NDR);
+        for (unsigned i = 1; i < 5; ++i)
+            if ((*(coeff[LO]))(i) != 0. || (*(coeff[NLO]))(i) != 0.)
+                throw std::runtime_error("B mixing with Q2-Q5 requires the leading BBd and BBs bag parameters");
+        amplitude = (*(coeff[LO]))(0) + (*(coeff[NLO]))(0);
+    }
+    if (amplitude == 0.) return std::numeric_limits<double>::quiet_NaN();
+    return amplitude.arg() + (strange ? 2. * model.getPhiBs() : -2. * model.getPhiBd());
 }
 
 gslpp::complex AmpDB2::RBs(orders order)
@@ -160,7 +183,7 @@ gslpp::complex AmpDB2::RBd(orders order)
     }
 }
 
-gslpp::complex AmpDB2::M21_Bd(orders order)
+gslpp::complex AmpDB2::M21_Bd(const StandardModel& mySM, orders order)
 {
     if (mySM.getFlavour().getHDF2().getCoeffBd().getOrder() < getHighest(order))
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed");
@@ -206,7 +229,7 @@ gslpp::complex AmpDB2::M21_Bd(orders order)
     }
 }
 
-gslpp::complex AmpDB2::M21_Bs(orders order)
+gslpp::complex AmpDB2::M21_Bs(const StandardModel& mySM, orders order)
 {
     if (mySM.getFlavour().getHDF2().getCoeffBs().getOrder() < getHighest(order))
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed");
