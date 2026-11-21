@@ -332,7 +332,7 @@ void ThObsFactory::registerFlavourObservables()
     obsThFactory["P_4p_Bsphimu"] = [=](const StandardModel& SM) { return new P_4Prime(SM, StandardModel::B_S, StandardModel::PHI, StandardModel::MU); };
     obsThFactory["P_5p_Bsphimu"] = [=](const StandardModel& SM) { return new P_5Prime(SM, StandardModel::B_S, StandardModel::PHI, StandardModel::MU); };
     obsThFactory["P_6p_Bsphimu"] = [=](const StandardModel& SM) { return new P_6Prime(SM, StandardModel::B_S, StandardModel::PHI, StandardModel::MU); };
-    obsThFactory["P_8p_Bsphimu"] = [=](const StandardModel& SM) { return new P_8Prime(SM, StandardModel::B_D, StandardModel::PHI, StandardModel::MU); };
+    obsThFactory["P_8p_Bsphimu"] = [=](const StandardModel& SM) { return new P_8Prime(SM, StandardModel::B_S, StandardModel::PHI, StandardModel::MU); };
     obsThFactory["Gammap_Bsphimu"] = [=](const StandardModel& SM) { return new GammaPrime(SM, StandardModel::B_S, StandardModel::PHI, StandardModel::MU); };
     obsThFactory["A_FB_Bsphimu"] = [=](const StandardModel& SM) { return new A_FB(SM, StandardModel::B_S, StandardModel::PHI, StandardModel::MU); };
     obsThFactory["BR_Bsphimu"] = [=](const StandardModel& SM) { return new BR_MVll(SM, StandardModel::B_S, StandardModel::PHI, StandardModel::MU); };
