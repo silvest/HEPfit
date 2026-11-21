@@ -35755,9 +35755,9 @@ const double NPSMEFTd6General::muTHUVHgaga(const double sqrt_s) const {
 
 const double NPSMEFTd6General::muTHUttHgaga(const double sqrt_s) const {
     if (FlagQuadraticTerms) {
-        return ( muttH(sqrt_s) * BrHgagaRatio() * (1.0 + ettHgaga) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHgagaint + eHgagapar));
+        return ( muttH(sqrt_s) * BrHgagaRatio() * (1.0 + ettHgaga) * (1.0 + eHwidth) / (1.0 + ettHint + ettHpar) / (1.0 + eHgagaint + eHgagapar));
     } else {
-        return ( muttH(sqrt_s) + BrHgagaRatio() - 1.0 + ettHgaga - eeettHint - eeettHpar - eHgagaint - eHgagapar + eHwidth);
+        return ( muttH(sqrt_s) + BrHgagaRatio() - 1.0 + ettHgaga - ettHint - ettHpar - eHgagaint - eHgagapar + eHwidth);
     }
 }
 
@@ -35812,9 +35812,9 @@ const double NPSMEFTd6General::muTHUVHZga(const double sqrt_s) const {
 
 const double NPSMEFTd6General::muTHUttHZga(const double sqrt_s) const {
     if (FlagQuadraticTerms) {
-        return ( muttH(sqrt_s) * BrHZgaRatio() * (1.0 + ettHZga) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHZgaint + eHZgapar));
+        return ( muttH(sqrt_s) * BrHZgaRatio() * (1.0 + ettHZga) * (1.0 + eHwidth) / (1.0 + ettHint + ettHpar) / (1.0 + eHZgaint + eHZgapar));
     } else {
-        return ( muttH(sqrt_s) + BrHZgaRatio() - 1.0 + ettHZga - eeettHint - eeettHpar - eHZgaint - eHZgapar + eHwidth);
+        return ( muttH(sqrt_s) + BrHZgaRatio() - 1.0 + ettHZga - ettHint - ettHpar - eHZgaint - eHZgapar + eHwidth);
     }
 }
 
@@ -35869,9 +35869,9 @@ const double NPSMEFTd6General::muTHUVHZZ(const double sqrt_s) const {
 
 const double NPSMEFTd6General::muTHUttHZZ(const double sqrt_s) const {
     if (FlagQuadraticTerms) {
-        return ( muttH(sqrt_s) * BrHZZRatio() * (1.0 + ettHZZ) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHZZint + eHZZpar));
+        return ( muttH(sqrt_s) * BrHZZRatio() * (1.0 + ettHZZ) * (1.0 + eHwidth) / (1.0 + ettHint + ettHpar) / (1.0 + eHZZint + eHZZpar));
     } else {
-        return ( muttH(sqrt_s) + BrHZZRatio() - 1.0 + ettHZZ - eeettHint - eeettHpar - eHZZint - eHZZpar + eHwidth);
+        return ( muttH(sqrt_s) + BrHZZRatio() - 1.0 + ettHZZ - ettHint - ettHpar - eHZZint - eHZZpar + eHwidth);
     }
 }
 
@@ -35926,9 +35926,9 @@ const double NPSMEFTd6General::muTHUVHZZ4l(const double sqrt_s) const {
 
 const double NPSMEFTd6General::muTHUttHZZ4l(const double sqrt_s) const {
     if (FlagQuadraticTerms) {
-        return ( muttH(sqrt_s) * BrHZZ4lRatio() * (1.0 + ettHZZ) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHZZint + eHZZpar));
+        return ( muttH(sqrt_s) * BrHZZ4lRatio() * (1.0 + ettHZZ) * (1.0 + eHwidth) / (1.0 + ettHint + ettHpar) / (1.0 + eHZZint + eHZZpar));
     } else {
-        return ( muttH(sqrt_s) + BrHZZ4lRatio() - 1.0 + ettHZZ - eeettHint - eeettHpar - eHZZint - eHZZpar + eHwidth);
+        return ( muttH(sqrt_s) + BrHZZ4lRatio() - 1.0 + ettHZZ - ettHint - ettHpar - eHZZint - eHZZpar + eHwidth);
     }
 }
 
@@ -35983,9 +35983,9 @@ const double NPSMEFTd6General::muTHUVHWW(const double sqrt_s) const {
 
 const double NPSMEFTd6General::muTHUttHWW(const double sqrt_s) const {
     if (FlagQuadraticTerms) {
-        return ( muttH(sqrt_s) * BrHWWRatio() * (1.0 + ettHWW) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHWWint + eHWWpar));
+        return ( muttH(sqrt_s) * BrHWWRatio() * (1.0 + ettHWW) * (1.0 + eHwidth) / (1.0 + ettHint + ettHpar) / (1.0 + eHWWint + eHWWpar));
     } else {
-        return ( muttH(sqrt_s) + BrHWWRatio() - 1.0 + ettHWW - eeettHint - eeettHpar - eHWWint - eHWWpar + eHwidth);
+        return ( muttH(sqrt_s) + BrHWWRatio() - 1.0 + ettHWW - ettHint - ettHpar - eHWWint - eHWWpar + eHwidth);
     }
 }
 
@@ -36040,9 +36040,9 @@ const double NPSMEFTd6General::muTHUVHWW2l2v(const double sqrt_s) const {
 
 const double NPSMEFTd6General::muTHUttHWW2l2v(const double sqrt_s) const {
     if (FlagQuadraticTerms) {
-        return ( muttH(sqrt_s) * BrHWW2l2vRatio() * (1.0 + ettHWW) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHWWint + eHWWpar));
+        return ( muttH(sqrt_s) * BrHWW2l2vRatio() * (1.0 + ettHWW) * (1.0 + eHwidth) / (1.0 + ettHint + ettHpar) / (1.0 + eHWWint + eHWWpar));
     } else {
-        return ( muttH(sqrt_s) + BrHWW2l2vRatio() - 1.0 + ettHWW - eeettHint - eeettHpar - eHWWint - eHWWpar + eHwidth);
+        return ( muttH(sqrt_s) + BrHWW2l2vRatio() - 1.0 + ettHWW - ettHint - ettHpar - eHWWint - eHWWpar + eHwidth);
     }
 }
 
@@ -36097,9 +36097,9 @@ const double NPSMEFTd6General::muTHUVHmumu(const double sqrt_s) const {
 
 const double NPSMEFTd6General::muTHUttHmumu(const double sqrt_s) const {
     if (FlagQuadraticTerms) {
-        return ( muttH(sqrt_s) * BrHmumuRatio() * (1.0 + ettHmumu) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHmumuint + eHmumupar));
+        return ( muttH(sqrt_s) * BrHmumuRatio() * (1.0 + ettHmumu) * (1.0 + eHwidth) / (1.0 + ettHint + ettHpar) / (1.0 + eHmumuint + eHmumupar));
     } else {
-        return ( muttH(sqrt_s) + BrHmumuRatio() - 1.0 + ettHmumu - eeettHint - eeettHpar - eHmumuint - eHmumupar + eHwidth);
+        return ( muttH(sqrt_s) + BrHmumuRatio() - 1.0 + ettHmumu - ettHint - ettHpar - eHmumuint - eHmumupar + eHwidth);
     }
 }
 
@@ -36154,9 +36154,9 @@ const double NPSMEFTd6General::muTHUVHtautau(const double sqrt_s) const {
 
 const double NPSMEFTd6General::muTHUttHtautau(const double sqrt_s) const {
     if (FlagQuadraticTerms) {
-        return ( muttH(sqrt_s) * BrHtautauRatio() * (1.0 + ettHtautau) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHtautauint + eHtautaupar));
+        return ( muttH(sqrt_s) * BrHtautauRatio() * (1.0 + ettHtautau) * (1.0 + eHwidth) / (1.0 + ettHint + ettHpar) / (1.0 + eHtautauint + eHtautaupar));
     } else {
-        return ( muttH(sqrt_s) + BrHtautauRatio() - 1.0 + ettHtautau - eeettHint - eeettHpar - eHtautauint - eHtautaupar + eHwidth);
+        return ( muttH(sqrt_s) + BrHtautauRatio() - 1.0 + ettHtautau - ettHint - ettHpar - eHtautauint - eHtautaupar + eHwidth);
     }
 }
 
@@ -36211,9 +36211,9 @@ const double NPSMEFTd6General::muTHUVHbb(const double sqrt_s) const {
 
 const double NPSMEFTd6General::muTHUttHbb(const double sqrt_s) const {
     if (FlagQuadraticTerms) {
-        return ( muttH(sqrt_s) * BrHbbRatio() * (1.0 + ettHbb) * (1.0 + eHwidth) / (1.0 + eeettHint + eeettHpar) / (1.0 + eHbbint + eHbbpar));
+        return ( muttH(sqrt_s) * BrHbbRatio() * (1.0 + ettHbb) * (1.0 + eHwidth) / (1.0 + ettHint + ettHpar) / (1.0 + eHbbint + eHbbpar));
     } else {
-        return ( muttH(sqrt_s) + BrHbbRatio() - 1.0 + ettHbb - eeettHint - eeettHpar - eHbbint - eHbbpar + eHwidth);
+        return ( muttH(sqrt_s) + BrHbbRatio() - 1.0 + ettHbb - ettHint - ettHpar - eHbbint - eHbbpar + eHwidth);
     }
 }
 
