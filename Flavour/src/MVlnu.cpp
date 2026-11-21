@@ -251,7 +251,14 @@ void MVlnu::updateParameters()
     
     /* SM + NP Wilson coefficients */
     gslpp::complex norm = 4./sqrt(2.);
-    gslpp::vector<gslpp::complex> ** allcoeff_bclnu = mySM.getFlavour().ComputeCoeffdiujlknu(2,1,0,mu_b);
+    int k;
+    switch (lep) {
+        case QCD::ELECTRON: k = 0; break;
+        case QCD::MU:       k = 1; break;
+        case QCD::TAU:      k = 2; break;
+        default: throw std::runtime_error("Expected a charged lepton in b to c matching");
+    }
+    gslpp::vector<gslpp::complex> ** allcoeff_bclnu = mySM.getFlavour().ComputeCoeffdiujlknu(2,1,k,mu_b);
     CV = (*(allcoeff_bclnu[LO]))(0)/norm*(1.+ale_mub/M_PI*log(mySM.getMz()/mu_b))/2.;
     CA = -CV;
     CVp = (*(allcoeff_bclnu[LO]))(1)/norm/2.;
