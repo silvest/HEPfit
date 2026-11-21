@@ -142,6 +142,38 @@ void run(bool withBags)
     }
 }
 
+template<class Dilepton> void checkZeroDecay(Dilepton& observable)
+{
+    if (observable.computeThValue() != 0.)
+        throw std::runtime_error("Zero decay amplitude gave a nonzero integrated rate");
+    if (!std::isnan(observable.computeAmumu(FULLNLO)) || !std::isnan(observable.computeSmumu(FULLNLO)))
+        throw std::runtime_error("Expected undefined asymmetries at zero decay amplitude");
+}
+
+void checkZeroDecayWithoutBags()
+{
+    Model model;
+    if (!model.InitializeModel()) throw std::runtime_error("InitializeModel failed");
+    model.setFlag("FlagCsi", false);
+    Mll bs(model, 2, QCD::B_S, QCD::MU), bd(model, 2, QCD::B_D, QCD::MU);
+    Bsmumu legacyS(model, 2);
+    Bdmumu legacyD(model, 2);
+    auto p = inputs(false);
+    p["DGs_Gs"] = .12;
+    if (!model.Init(p)) throw std::runtime_error("Invalid test inputs");
+    check(bs, 0.); check(legacyS, 0.); check(bd, 0.); check(legacyD, 0.);
+
+    // Turn off b -> s,d decay while keeping independent mixing operators active.
+    if (!model.Update({{"A", 0.}, {"imC4_bs", 2.e-10}, {"reC2_bd", 1.e-11}}))
+        throw std::runtime_error("Zero-amplitude update failed");
+    checkZeroDecay(bs); checkZeroDecay(legacyS);
+    checkZeroDecay(bd); checkZeroDecay(legacyD);
+
+    if (!model.Update({{"A", p.at("A")}, {"imC4_bs", 0.}, {"reC2_bd", 0.}}))
+        throw std::runtime_error("Restoring decay amplitudes failed");
+    check(bs, 0.); check(legacyS, 0.); check(bd, 0.); check(legacyD, 0.);
+}
+
 void checkLateObservables()
 {
     Parameters p = inputs(true);
@@ -181,5 +213,6 @@ int main()
     run(false);
     run(true);
     checkLateObservables();
+    checkZeroDecayWithoutBags();
     std::cout << "Bd and Bs dilepton mixing tests passed.\n";
 }

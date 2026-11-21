@@ -9,6 +9,7 @@
 #include "Bdmumu.h"
 #include "StandardModel.h"
 #include "AmpDB2.h"
+#include <limits>
 #include "HeffDB1.h"
 
 Mll::Mll(const StandardModel& SM_i, int obsFlag, QCD::meson meson_i, QCD::lepton lep_i)
@@ -73,6 +74,10 @@ void Mll::computeObs(orders order, orders_qed order_qed, bool withMixing)
     beta = sqrt(1. - pow(2. * mlep / mBs, 2.));
     computeAmpSq(order, order_qed, mu);
     if (!withMixing) return;
+    if (ampSq == 0.) {
+        Amumu = Smumu = std::numeric_limits<double>::quiet_NaN();
+        return;
+    }
     const double mixingPhase = AmpDB2::mixingPhase(SM, meson);
     Amumu = (absP * absP * cos(2. * argP - mixingPhase) -  absS * absS * cos(2. * argS - mixingPhase)) / (absP * absP + absS * absS);
     Smumu = (absP * absP * sin(2. * argP - mixingPhase) -  absS * absS * sin(2. * argS - mixingPhase)) / (absP * absP + absS * absS);

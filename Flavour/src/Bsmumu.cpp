@@ -8,6 +8,7 @@
 #include "Bsmumu.h"
 #include "StandardModel.h"
 #include "AmpDB2.h"
+#include <limits>
 #include "EvolBsmm.h"
 #include "HeffDB1.h"
 #include "NPSMEFTd6GeneralMatching.h"
@@ -59,6 +60,10 @@ void Bsmumu::computeObs(orders order, orders_qed order_qed, bool withMixing)
     beta = sqrt(1. - pow(2. * mlep / mBs, 2.));
     computeAmpSq(order, order_qed, mu);
     if (!withMixing) return;
+    if (ampSq == 0.) {
+        Amumu = Smumu = std::numeric_limits<double>::quiet_NaN();
+        return;
+    }
     const double mixingPhase = AmpDB2::mixingPhase(SM, QCD::B_S);
     Amumu = (absP * absP * cos(2. * argP - mixingPhase) -  absS * absS * cos(2. * argS - mixingPhase)) / (absP * absP + absS * absS);
     Smumu = (absP * absP * sin(2. * argP - mixingPhase) -  absS * absS * sin(2. * argS - mixingPhase)) / (absP * absP + absS * absS);
