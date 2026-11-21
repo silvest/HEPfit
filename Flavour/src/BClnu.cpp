@@ -80,7 +80,6 @@ BClnu::BClnu(const StandardModel& SM_i, QCD::meson meson_i)
      scale_rhoLS_updated = 0;
     //  Vcb_updated = 0;
      BRXclnu_updated = 0;
-     GF_updated = 0;
      MB_updated = 0;
      mcmc_updated = 0;
      mbmb_updated = 0;
@@ -91,7 +90,6 @@ BClnu::BClnu(const StandardModel& SM_i, QCD::meson meson_i)
      alphas_updated = 0;
      mcMS_updated = 0;
      r_updated = 0;
-     amplsq_factor_updated = 0;
 
      Aew = 1.01435;
      beta0 = 9.;
@@ -137,12 +135,16 @@ void BClnu::updateParameters()
     mcMS = mySM.getOptionalParameter("mcMS");
     // Vcb = mySM.getCKM().getV_cb();
     BRXclnu = mySM.getOptionalParameter("BRXclnu");
-    GF = mySM.getGF();
     MB = mySM.getMesons(meson1).getMass(); // In GeV units
     mcmc = mySM.getQuarks(QCD::CHARM).getMass();
     mbmb = mySM.getQuarks(QCD::BOTTOM).getMass();
 
     checkCache();
+
+    // Aew and GF are fixed inputs to the normalization.
+    if (mbkin_updated == 0) {
+        amplsq_factor = Aew * pow(mySM.getGF(), 2) * pow(mbkin, 5) / (192. * pow(M_PI, 3));
+    }
 
     if (mcOS_updated == 0){
         mcOS = mySM.Mbar2Mp(mcmc,QCD::CHARM,FULLNNLO);  /**< c quark mass in the on-shell scheme */
@@ -150,14 +152,6 @@ void BClnu::updateParameters()
 
     if (mbOS_updated == 0){
         mbOS = mySM.Mbar2Mp(mbmb,QCD::BOTTOM,FULLNNLO); /**< b quark mass in the on-shell scheme */
-    }
-
-    if (mbkin_updated == 0){
-        mbkin = mySM.getOptionalParameter("mbkin"); // mbkin is currently an input parameter
-        // mbkin = 4.573;
-        // mbkin = computembkin();
-        // std::cout << "mbkin " << computembkin() << std::endl;
-        // std::cout << "mbkin: " << mbkin << std::endl;
     }
 
     if (MBhat_updated == 0){
@@ -707,11 +701,6 @@ void BClnu::updateParameters()
         for (it = fitMXNNLOnonBLM3Cached.begin(); it != fitMXNNLOnonBLM3Cached.end(); ++it) it->second = 0;
     }
 
-    if (amplsq_factor_updated == 1) {
-        amplsq_factor = (Aew * pow(GF, 2) * pow(mbkin, 5) / (192. * pow(M_PI, 3)));
-    }
-
-
     /**
      * @brief HQE Wilson coefficients for SM
      */
@@ -827,13 +816,6 @@ void BClnu::checkCache()
       BRXclnu_updated = 0;
     }
     
-    if (GF == cached_GF) {
-      GF_updated = 1;
-    } else {
-      cached_GF = GF ;
-      GF_updated = 0;
-    }
-
     if (MB == cached_MB) {
       MB_updated = 1;
     } else {
@@ -876,7 +858,6 @@ void BClnu::checkCache()
     alphas_updated = mbkin_updated;
     // mcMS_updated = scale_mcMS_updated*mcmc_updated;
     r_updated = mcMS_updated*mbkin_updated;
-    amplsq_factor_updated = GF_updated*mbkin_updated;
 }
 
 void BClnu::initializeQ2AuxiliaryFunctions(double q2cut)
