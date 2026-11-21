@@ -48,7 +48,7 @@ double CPenguinBoxMu::B_NL()
 
     return ( (mc * mc / Mw / Mw)*.25 * pow(Kc, 24. / 25.)*
             (3. * (1. - K3)*(4. * M_PI / model.Als(muc) + 15212. / 1875. * (1. - 1. / Kc))
-            - -log(muc * muc / mc / mc) - 329. / 12. + 15212. / 625. * K3 + 30581. / 7500. * K * K3));
+            - log(muc * muc / mc / mc) - 329. / 12. + 15212. / 625. * K3 + 30581. / 7500. * K * K3));
 }
 
 double CPenguinBoxMu::X_ch()
