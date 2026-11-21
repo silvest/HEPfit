@@ -8,6 +8,7 @@ class StandardModel;
 #include <TFitResultPtr.h>
 #include <gsl/gsl_spline.h>
 #include <memory>
+#include <limits>
 
 class BClnu {
 public:
@@ -242,7 +243,6 @@ private:
     std::vector<std::string> bclnuParameters; /**< String of mandatory BClnu parameters */
     //bool NPanalysis; /**< A flag to switch to BSM analysis */
 
-    double GF; /**< Fermi constant */
     double MB; /**< Mass of the B-meson */
     double r; /**< Dimensionless b - c mass ratio */
     double mcmc; /**< mc(mc) */
@@ -413,25 +413,24 @@ private:
     double scale_rhoLS; /**< Renormalization scale for HQE parameter */
 
     /**
-     * @brief Cache parameters
+     * @brief Previous inputs. A NaN makes the first comparison a cache miss.
      */
-     double cached_MuPi; /**< Cached value for MuPi */
-     double cached_MuG; /**< Cached value for MuG */
-     double cached_RhoD; /**< Cached value for RhoD */
-     double cached_RhoLS; /**< Cached value for RhoLS */
-     double cached_scale_mbkin; /**< Cached value for scale_mbkin */
-     double cached_scale_mcMS; /**< Cached value for scale_mcMS */
-     double cached_scale_muG; /**< Cached value for scale_muG */
-     double cached_scale_rhoD; /**< Cached value for scale_rhoD */
-     double cached_scale_rhoLS; /**< Cached value for scale_rhoLS */
+     double cached_MuPi = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for MuPi */
+     double cached_MuG = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for MuG */
+     double cached_RhoD = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for RhoD */
+     double cached_RhoLS = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for RhoLS */
+     double cached_scale_mbkin = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for scale_mbkin */
+     double cached_scale_mcMS = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for scale_mcMS */
+     double cached_scale_muG = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for scale_muG */
+     double cached_scale_rhoD = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for scale_rhoD */
+     double cached_scale_rhoLS = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for scale_rhoLS */
     //  gslpp::complex cached_Vcb; /**< Cached value for Vcb */
-     double cached_BRXclnu; /**< Cached value for BRXclnu */
-     double cached_GF; /**< Cached value for GF */
-     double cached_MB; /**< Cached value for MB */
-     double cached_mcmc; /**< Cached value for mcmc */
-     double cached_mbmb; /**< Cached value for mbmb */
-     double cached_mbkin; /**< Cached value for mbkin */
-     double cached_mcMS; /**< Cached value for mcMS */
+     double cached_BRXclnu = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for BRXclnu */
+     double cached_MB = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for MB */
+     double cached_mcmc = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for mcmc */
+     double cached_mbmb = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for mbmb */
+     double cached_mbkin = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for mbkin */
+     double cached_mcMS = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for mcMS */
 
      std::map<double, unsigned int > Q2X0ur00Cached;/**< Cache variable */
      std::map<double, unsigned int > Q2X1ur00Cached;/**< Cache variable */
@@ -1401,7 +1400,6 @@ private:
      unsigned int scale_rhoLS_updated; /**< Cache flag for scale_rhoLS */
     //  unsigned int Vcb_updated; /**< Cache flag for Vcb */
      unsigned int BRXclnu_updated; /**< Cache flag for BRXclnu */
-     unsigned int GF_updated; /**< Cache flag for GF */
      unsigned int MB_updated; /**< Cache flag for MB */
      unsigned int mcmc_updated; /**< Cache flag for mcmc */
      unsigned int mbmb_updated; /**< Cache flag for mbmb */
