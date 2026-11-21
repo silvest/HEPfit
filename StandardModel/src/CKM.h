@@ -214,7 +214,7 @@ public:
      */
     const double getJcp() const
     {
-        return Eta * pow(A * pow(Lambda, 3), 2);
+        return (V(0, 0) * V(1, 1) * V(0, 1).conjugate() * V(1, 0).conjugate()).imag();
     }
 
     //Complex values of CKM elements
