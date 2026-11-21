@@ -436,6 +436,10 @@ public:
      */
     void initializeBParameter(std::string name_i) const;
 
+    /// Read the leading B-mixing bag parameters when supplied with a dilepton fit.
+    void requestOptionalBBParameters() const { optionalBBParameters = true; }
+    bool hasBBParameters() const { return BParameterMap.count("BBs") != 0; }
+
     /**
      * @brief A method to initialize a meson
      * @param[in] meson_i the enumerator corresponding to the meson
@@ -1029,6 +1033,7 @@ protected:
 
 private:
     mutable std::map<std::string, BParameter> BParameterMap;
+    mutable bool optionalBBParameters = false;
 
     double zeta2; ///< \f$\zeta(2)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
     double zeta3; ///< \f$\zeta(3)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.

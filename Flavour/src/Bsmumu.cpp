@@ -7,6 +7,7 @@
 
 #include "Bsmumu.h"
 #include "StandardModel.h"
+#include "AmpDB2.h"
 #include "EvolBsmm.h"
 #include "HeffDB1.h"
 #include "NPSMEFTd6GeneralMatching.h"
@@ -23,25 +24,19 @@ Bsmumu::Bsmumu(const StandardModel& SM_i, int obsFlag, QCD::lepton lep_i)
     if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
     else throw std::runtime_error("obsFlag in Bsmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
     SM.initializeMeson(QCD::B_S);
+    SM.requestOptionalBBParameters();
 };
 
 double Bsmumu::computeThValue()
 {
     double FBs = SM.getMesons(QCD::B_S).getDecayconst();
     
-    double Mw = SM.Mw();
-    double GF = SM.getGF();
-    coupling = GF * GF * Mw * Mw /M_PI /M_PI ; 
-    //convertFromSingletoDoubleGF = 2. * M_SQRT2 / GF * SM.getAle() / 4. * M_PI / Mw / Mw; /* Single GF for excluding EW corrections*/
-
-    computeObs(FULLNLO, FULLNLO_QED);
+    const double ys = SM.getMesons(QCD::B_S).getDgamma_gamma() / 2.;
+    computeObs(FULLNLO, FULLNLO_QED, obs >= 3 || (obs == 2 && ys != 0.));
 
     double PRF = pow(coupling, 2.) / M_PI /8. / SM.getMesons(QCD::B_S).computeWidth() * pow(FBs, 2.) * pow(mlep, 2.) * mBs * beta;
-    double ys = SM.getMesons(QCD::B_S).getDgamma_gamma()/2.; // Using the experimental number here
-    timeInt = (1. + Amumu * ys) / (1. - ys * ys); // Note modification in form due to algorithm
-   
-    if (obs == 1) return( PRF * ampSq);
-    if (obs == 2) return( PRF * ampSq * timeInt);
+    if (obs == 1 || (obs == 2 && (ys == 0. || ampSq == 0.))) return PRF * ampSq;
+    if (obs == 2) return PRF * ampSq * (1. + Amumu * ys) / (1. - ys * ys);
     if (obs == 3) return( Amumu );
     if (obs == 4) return( Smumu );
     
@@ -49,13 +44,14 @@ double Bsmumu::computeThValue()
     return (EXIT_FAILURE);
 }
 
-void Bsmumu::computeObs(orders order, orders_qed order_qed)
+void Bsmumu::computeObs(orders order, orders_qed order_qed, bool withMixing)
 {   
     double mu = SM.getMub();  
     
     mlep = SM.getLeptons(lep).getMass();
     mBs = SM.getMesons(QCD::B_S).getMass();
     mW = SM.Mw();
+    coupling = pow(SM.getGF() * mW / M_PI, 2.);
     mb = SM.Mrun(mu, SM.getQuarks(QCD::BOTTOM).getMass_scale(),
             SM.getQuarks(QCD::BOTTOM).getMass(), QCD::BOTTOM, FULLNNLO);
     ms = SM.Mrun(mu, SM.getQuarks(QCD::STRANGE).getMass_scale(),
@@ -63,8 +59,10 @@ void Bsmumu::computeObs(orders order, orders_qed order_qed)
     chiral = pow(mBs, 2.) / 2. / mlep * mb / (mb + ms);
     beta = sqrt(1. - pow(2. * mlep / mBs, 2.));
     computeAmpSq(order, order_qed, mu);
-    Amumu = (absP * absP * cos(2. * argP - phiNP) -  absS * absS * cos(2. * argS - phiNP)) / (absP * absP + absS * absS);
-    Smumu = (absP * absP * sin(2. * argP - phiNP) -  absS * absS * sin(2. * argS - phiNP)) / (absP * absP + absS * absS);
+    if (!withMixing) return;
+    const double mixingPhase = AmpDB2::mixingPhase(SM, QCD::B_S);
+    Amumu = (absP * absP * cos(2. * argP - mixingPhase) -  absS * absS * cos(2. * argS - mixingPhase)) / (absP * absP + absS * absS);
+    Smumu = (absP * absP * sin(2. * argP - mixingPhase) -  absS * absS * sin(2. * argS - mixingPhase)) / (absP * absP + absS * absS);
 }
 
 double Bsmumu::computeAmumu(orders order)
@@ -178,14 +176,13 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
 
                 
             absP = CC_P.abs(); 
-            argP = CC_P.arg() - SM.getCKM().computelamt_s().arg();
+            argP = CC_P.arg();
             
             gslpp::complex CC_S = ( beta * mBs * mBs / ( 2. * mlep * (mb + ms)) * (C_S - C_Sp) );
 
             absS = CC_S.abs();
-            argS = CC_S.arg() - SM.getCKM().computelamt_s().arg();
+            argS = CC_S.arg();
     
-            phiNP = 2. * SM.getPhiBs();
             
             ampSq = absP * absP + absS * absS;
                   

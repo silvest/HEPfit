@@ -60,6 +60,9 @@ public:
         }
     }
 
+    /// Phase of M21 from the full matching, including the phenomenological Bd or Bs phase.
+    static double mixingPhase(const StandardModel& model, QCD::meson meson);
+
     enum mass_schemes {pole, MSbar, PS, only1overmb, MSbar_partialNNLO, PS_partialNNLO, MSbar_partialN3LO, PS_partialN3LO}; //mass schemes
     enum quark {d,s};   /*quark index i used for $B_i$*/
     enum quarks {cc, cu, uu};   /*combinations of u- and c- quarks in diagrams */
@@ -122,14 +125,16 @@ protected:
      * @param[in] order the %QCD order of the computation
      * @return @f$M_{21}^{bd}@f$
      */
-    gslpp::complex M21_Bd(orders order);
+    gslpp::complex M21_Bd(orders order) { return M21_Bd(mySM, order); }
+    static gslpp::complex M21_Bd(const StandardModel& mySM, orders order);
 
     /**
      * @brief A method to compute @f$M_{21}^{bs}@f$.
      * @param[in] order the %QCD order of the computation
      * @return @f$M_{21}^{bs}@f$
      */
-    gslpp::complex M21_Bs(orders order);
+    gslpp::complex M21_Bs(orders order) { return M21_Bs(mySM, order); }
+    static gslpp::complex M21_Bs(const StandardModel& mySM, orders order);
 
     /**
      * @brief A method to compute @f$\frac{\Gamma_{21},M_{21}}^{bq}@f$
