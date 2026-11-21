@@ -80,6 +80,13 @@ private:
         DPars_IN["mHl"] = 125.6;
         DPars_IN["delMw"] = 0.;
         DPars_IN["delSin2th_l"] = 0.;
+        DPars_IN["delSin2th_q"] = 0.;
+        DPars_IN["delSin2th_b"] = 0.;
+        DPars_IN["delsigma0H"] = 0.;
+        DPars_IN["delR0l"] = 0.;
+        DPars_IN["delR0c"] = 0.;
+        DPars_IN["delGammaWlv"] = 0.;
+        DPars_IN["delGammaWqq"] = 0.;
         DPars_IN["delGammaZ"] = 0.;
         DPars_IN["mup"] = 0.0023;
         DPars_IN["mdown"] = 0.0048;
@@ -128,7 +135,7 @@ private:
         DPars_IN["A"] = 0.811;
         DPars_IN["rhob"] = 0.124;
         DPars_IN["etab"] = 0.356;
-        DPars_IN["muw"] = 0.;
+        DPars_IN["muw"] = 80.385;
         DPars_IN["phiEpsK"] = 0.;
         DPars_IN["KbarEpsK"] = 0.;
         DPars_IN["DeltaMK"] = 0.;
