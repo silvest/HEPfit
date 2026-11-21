@@ -120,7 +120,8 @@ const std::string QCD::orderToString(const orders order) const
 
 bool QCD::Init(const std::map<std::string, double> &DPars)
 {
-    if (optionalBBParameters && !hasBBParameters() && DPars.count("BBsscale") && DPars.count("BBdscale")) {
+    // Programmatic clients can add their first mixing observable after Init.
+    if (!hasBBParameters() && DPars.count("BBsscale") && DPars.count("BBdscale")) {
         auto supplied = [&](const std::vector<std::string>& names) {
             return std::all_of(names.begin(), names.end(), [&](const std::string& name) {
                 return DPars.count(name) != 0;

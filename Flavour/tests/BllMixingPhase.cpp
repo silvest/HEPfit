@@ -3,6 +3,7 @@
 #include "Bdmumu.h"
 #include "EvolBsmm.h"
 #include "Bsmumu.h"
+#include "ComputeObservables.h"
 #include "FlavourWilsonCoefficient_DF2.h"
 #include "Mll.h"
 #include <cmath>
@@ -140,11 +141,45 @@ void run(bool withBags)
         throw std::runtime_error("Missing matrix elements for Q4 were silently accepted");
     }
 }
+
+void checkLateObservables()
+{
+    Parameters p = inputs(true);
+    p["imC4_bs"] = 2.e-10;
+    p["reC2_bd"] = 1.e-11;
+
+    Model reference;
+    if (!reference.InitializeModel()) throw std::runtime_error("InitializeModel failed");
+    reference.setFlag("FlagCsi", false);
+    Mll bs(reference, 4, QCD::B_S, QCD::MU), bd(reference, 4, QCD::B_D, QCD::MU);
+    if (!reference.Init(p)) throw std::runtime_error("Invalid reference inputs");
+
+    ModelFactory models;
+    ThObsFactory observables;
+    ComputeObservables api(models, observables, "FlavourWilsonCoefficient_DF2", p,
+                           {{"FlagCsi", "false"}}, 1);
+    api.AddObservable("Smumu_Bs");
+    api.AddObservable("Smumu_Bd");
+    auto checkUpdate = [&](const Parameters& delta) {
+        const auto values = api.compute(delta);
+        if (!reference.Update(delta)) throw std::runtime_error("Reference update failed");
+        equal(values.at("Smumu_Bs"), bs.computeThValue(), "late Bs observable");
+        equal(values.at("Smumu_Bd"), bd.computeThValue(), "late Bd observable");
+        return values;
+    };
+    const auto initial = checkUpdate({});
+    const auto newWC = checkUpdate({{"imC4_bs", -1.e-10}});
+    const auto newBag = checkUpdate({{"BBd2", 1.5 * p.at("BBd2")}});
+    if (std::abs(initial.at("Smumu_Bs") - newWC.at("Smumu_Bs")) < .01 ||
+        std::abs(newWC.at("Smumu_Bd") - newBag.at("Smumu_Bd")) < .01)
+        throw std::runtime_error("Dilepton observables did not follow the individual updates");
+}
 }
 
 int main()
 {
     run(false);
     run(true);
+    checkLateObservables();
     std::cout << "Bd and Bs dilepton mixing tests passed.\n";
 }

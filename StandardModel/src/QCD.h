@@ -436,8 +436,7 @@ public:
      */
     void initializeBParameter(std::string name_i) const;
 
-    /// Read the leading B-mixing bag parameters when supplied with a dilepton fit.
-    void requestOptionalBBParameters() const { optionalBBParameters = true; }
+    /// Whether the leading Bd and Bs mixing matrix elements have been registered.
     bool hasBBParameters() const { return BParameterMap.count("BBs") != 0; }
 
     /**
@@ -1033,7 +1032,6 @@ protected:
 
 private:
     mutable std::map<std::string, BParameter> BParameterMap;
-    mutable bool optionalBBParameters = false;
 
     double zeta2; ///< \f$\zeta(2)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
     double zeta3; ///< \f$\zeta(3)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.

@@ -24,7 +24,6 @@ Mll::Mll(const StandardModel& SM_i, int obsFlag, QCD::meson meson_i, QCD::lepton
         return;
     }
     SM.initializeMeson(meson);
-    SM.requestOptionalBBParameters();
     FixedWCbtos = SM.getFlavour().getFlagFixedWCbtos();
     if (FixedWCbtos){
         std::vector<std::string> pars;
