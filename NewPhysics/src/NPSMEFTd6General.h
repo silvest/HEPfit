@@ -8217,7 +8217,6 @@ protected:
      * + \frac{1}{4} \left( C_{ll}^{1221}+C_{ll}^{2112}\right)^2 \frac{\vt^4 }{\Lambda^4}
      * \f]
      */
-    double delta_GF_2;
     
     /**
      * @brief The \f$\mathcal{O}(\Lambda^{-2})\f$ dimension 6 correction to the electromagnetic coupling.

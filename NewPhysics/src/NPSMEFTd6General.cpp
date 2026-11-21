@@ -28181,7 +28181,7 @@ const double NPSMEFTd6General::deltaGammaHffRatio2(const double mf, const double
         double CiHbox = getSMEFTCoeffEW("CHbox");
         double CiHD = getSMEFTCoeffEW("CHD");
 
-        dwidth += (pow(delta_GF, 2.0) - delta_GF_2 - CifH * delta_GF * pow(v(), 3.0) / pow(2.0, 0.5) / mf
+        dwidth += (pow(delta_GF, 2.0) - CifH * delta_GF * pow(v(), 3.0) / pow(2.0, 0.5) / mf
                 + 4.0 * pow(CiHbox, 2.0) * pow(v(), 4.0) - 2.0 * CiHbox * CiHD * pow(v(), 4.0) + pow(CiHD, 2.0) * pow(v(), 4.0) / 4.0
                 - 2.0 * pow(2.0, 0.5) * CifH * CiHbox * pow(v(), 5.0) / mf + CifH * CiHD * pow(v(), 5.0) / pow(2.0, 0.5) / mf
                 + pow(CifH, 2.0) * pow(v(), 6.0) / 2.0 / pow(mf, 2.0));
@@ -28631,7 +28631,7 @@ const double NPSMEFTd6General::deltaGammaHbbRatio2() const //AG:modified
 
     if (FlagQuadraticTerms) {
         //AG:begin
-        double mf = leptons[BOTTOM].getMass();
+        double mf = quarks[BOTTOM].getMass();
         double CifH = getSMEFTCoeffEW("CdHR", 2, 2);
         dwidth += deltaGammaHffRatio2(mf, CifH);
         //AG:end
