@@ -38553,7 +38553,8 @@ const double NPSMEFTd6General::dxseeWWdcosBin(const double sqrt_s, const double 
 
     gsl_function FR; // *< Gsl integral variable 
 
-    FR = convertToGslFunction(bind(&NPSMEFTd6General::dxseeWWdcos, &(*this), sqrt_s, _1));
+    auto dxseeWWdcosCallback = bind(&NPSMEFTd6General::dxseeWWdcos, this, sqrt_s, _1);
+    FR = convertToGslFunction(dxseeWWdcosCallback);
 
     gsl_integration_cquad(&FR, cos1, cos2, 1.e-5, 1.e-4, w_WW, &xsWWbin, &errWW, NULL);
 
