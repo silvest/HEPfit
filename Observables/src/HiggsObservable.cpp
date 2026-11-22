@@ -79,7 +79,9 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
         IsEOF = getline(ifile, line).eof();
         lineNo++;
         if (!line.empty() && line.back() == '\r') line.pop_back(); // for CR+LF
-        if (line.compare(0, 11, "MEASUREMENT") != 0 && !readCorrelations) {
+        // Only MEASUREMENT lines are measurements: comments and blank lines between them are skipped also
+        // for a correlated observable (whose correlation rows are read right after the last measurement).
+        if (line.compare(0, 11, "MEASUREMENT") != 0) {
             continue;
         } else {
             boost::char_separator<char> sep(" |\t");
