@@ -750,6 +750,8 @@ public:
      * @return Threshold correction (without the leading term equal to 1)
      */
     const double NfThresholdCorrections(double mu, double M, double als, int nf, orders order) const;
+    /// Downward inverse matching expressed in the coupling above the threshold.
+    const double NfThresholdDown(double mu, double M, double als, int nf, orders order) const;
 
     /**
      * @brief Return the FULLORDER enum corresponding to order

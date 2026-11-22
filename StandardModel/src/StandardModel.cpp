@@ -713,11 +713,11 @@ const double StandardModel::AlsEByOrder(double mu, orders order, bool Nf_thr) co
             if (nfAls > nfmu) {
                 mutmp = BelowTh(Mz);
                 alstmp = AlsEWithInit(mutmp, AlsMz, Mz, nfAls, realorder);
-                alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(nfAls), alstmp, nfAls, fullord)); // WARNING: QED threshold corrections not implemented yet
+                alstmp *= (1. + NfThresholdDown(mutmp, MassOfNf(nfAls), alstmp, nfAls, fullord)); // WARNING: QED threshold corrections not implemented yet
                 for (i = nfAls - 1; i > nfmu; i--) {
                     mutmp = BelowTh(mutmp - MEPS);
                     alstmp = AlsEWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, i, realorder);
-                    alstmp *= (1. - NfThresholdCorrections(mutmp, MassOfNf(i), alstmp, i, fullord)); // WARNING: QED threshold corrections not implemented yet
+                    alstmp *= (1. + NfThresholdDown(mutmp, MassOfNf(i), alstmp, i, fullord)); // WARNING: QED threshold corrections not implemented yet
                 }
                 als = AlsEWithInit(mu, alstmp, AboveTh(mu) - MEPS, nfmu, order);
             }
