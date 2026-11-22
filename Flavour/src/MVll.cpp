@@ -57,6 +57,7 @@ T_cache(5, 0.)
     mPsi2S = 3.6861;
     mPsi2S2 = mPsi2S * mPsi2S;
     mD2 = 1.8648 * 1.8648;
+    mtau2 = 0.; /* set in updateParameters() for the neutrino modes only, compared in checkCache() for all modes */
 
     I0_updated = 0;
     I1_updated = 0;
@@ -913,12 +914,12 @@ void MVll::updateParameters()
     if (I10_updated == 0 || deltaMixingChanged) for (it = delta10Cached.begin(); it != delta10Cached.end(); ++it) it->second = 0;
     if (I11_updated == 0 || deltaMixingChanged) for (it = delta11Cached.begin(); it != delta11Cached.end(); ++it) it->second = 0;
 
-    if (Itree_updated) for (it = sigmaTreeCached.begin(); it != sigmaTreeCached.end(); ++it) it->second = 0;
+    if (Itree_updated == 0) for (it = sigmaTreeCached.begin(); it != sigmaTreeCached.end(); ++it) it->second = 0;
 
     std::map<double, unsigned int >::iterator iti;
     if (deltaTparpupdated == 0) for (iti = deltaTparpCached.begin(); iti != deltaTparpCached.end(); ++iti) iti->second = 0;
     if (deltaTparmupdated == 0) for (iti = deltaTparmCached.begin(); iti != deltaTparmCached.end(); ++iti) iti->second = 0;
-    if (deltaTperpupdated == 0) for (iti = deltaTparpCached.begin(); iti != deltaTparpCached.end(); ++iti) iti->second = 0;
+    if (deltaTperpupdated == 0) for (iti = deltaTperpCached.begin(); iti != deltaTperpCached.end(); ++iti) iti->second = 0;
 
     if (deltaTparpupdated * deltaTparmupdated == 0) for (it = I1Cached.begin(); it != I1Cached.end(); ++it) it->second = 0;
 
