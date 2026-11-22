@@ -2745,6 +2745,7 @@ gslpp::complex MVll::H_0_nunu(double q2, bool bar, QCD::lepton lep)
         if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu_tau - etaV * pow(-1, angmomV) * C_R_nunu_tau) * V_0t(q2);
         return -gslpp::complex::i() * NN_conjugate * (C_L_nunu_tau.conjugate() - etaV * pow(-1, angmomV) * C_R_nunu_tau.conjugate()) * V_0t(q2);
     } 
+    throw std::runtime_error("MVll::H_0_nunu: lepton must be a neutrino");
 }
 
 gslpp::complex MVll::H_p_nunu(double q2, bool bar, QCD::lepton lep)
@@ -2759,6 +2760,7 @@ gslpp::complex MVll::H_p_nunu(double q2, bool bar, QCD::lepton lep)
         if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu_tau * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu_tau * V_m(q2));
         return -gslpp::complex::i() * NN_conjugate * (C_L_nunu_tau.conjugate() * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu_tau.conjugate() * V_m(q2));
     } 
+    throw std::runtime_error("MVll::H_p_nunu: lepton must be a neutrino");
 }
 
 gslpp::complex MVll::H_m_nunu(double q2, bool bar, QCD::lepton lep)
@@ -2773,6 +2775,7 @@ gslpp::complex MVll::H_m_nunu(double q2, bool bar, QCD::lepton lep)
         if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu_tau * V_m(q2) - etaV * pow(-1, angmomV) * C_R_nunu_tau * V_p(q2));
         return -gslpp::complex::i() * NN_conjugate * (C_L_nunu_tau.conjugate() * V_m(q2) - etaV * pow(-1, angmomV) * C_R_nunu_tau.conjugate() * V_p(q2));
     } 
+    throw std::runtime_error("MVll::H_m_nunu: lepton must be a neutrino");
 }
 
 gslpp::complex MVll::AmpMVpsi_zExpansion(double mpsi, int tran)

@@ -818,6 +818,7 @@ gslpp::complex MVgamma::h_lambda(int hel)
         out << hel;
         throw std::runtime_error("MVgamma: hel " + out.str() + " not implemented, can only be 1 (+) or 2 (-)");
     }
+    throw std::runtime_error("MVgamma::h_lambda: only implemented for the dispersion or zExpansion parametrization");
 }
 
 gslpp::complex MVgamma::H_V_m()
