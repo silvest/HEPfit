@@ -939,6 +939,9 @@ public:
      * @param[in] q the quark for which the conversion is done
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
      * @return the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
+     * @details By default (model flag FlagMpole2MbarNumeric = true) Mbar2Mp() is inverted numerically
+     * (Mp2Mbar_bar()). With FlagMpole2MbarNumeric = false the top-quark conversion uses the analytic
+     * expansion Mp2Mbar_pole() instead; bottom and charm are always converted numerically.
      */
     const double Mp2Mbar(const double mp, const quark q, orders order = FULLNNLO) const;
 
@@ -1018,7 +1021,7 @@ protected:
     bool requireYu; ///< Switch for generating the Yukawa couplings to the up-type quarks.
     bool requireYd; ///< Switch for generating the Yukawa couplings to the down-type quarks.
     bool FlagMtPole; ///< A flag to determine whether the pole mass of the top quark is used as input.
-    bool FlagMpole2MbarNumeric; ///< A flag to determine whether the pole mass to \f$\over \mathrm{MS}\f$ mass conversion is done numerically.
+    bool FlagMpole2MbarNumeric; ///< A flag to determine whether the pole mass to \f$\over \mathrm{MS}\f$ mass conversion is done numerically (default true; false selects the analytic top-quark conversion Mp2Mbar_pole(), see Mp2Mbar()).
 
     // model parameters
     double AlsM; ///< The strong coupling constant at the mass scale MAls, \f$\alpha_s(M_{\alpha_s})\f$.
@@ -1048,7 +1051,7 @@ private:
     mutable double logLambda5_cache[4][CacheSize];
     mutable double logLambdaNLO_cache[9][CacheSize];
     mutable double mrun_cache[11][CacheSize]; ///< Cache for running quark mass.
-    mutable double mp2mbar_cache[6][CacheSize]; ///< Cache for pole mass to msbar mass conversion.
+    mutable double mp2mbar_cache[8][CacheSize]; ///< Cache for pole mass to msbar mass conversion.
     bool unknownParameterWarning; ///< A flag to stop the unknown parameter warning after the first time.
     std::map<std::string, double> optionalParameters; ///< A map for containing the list and values of the parameters that are used only by a specific set of observables.
     std::vector<std::string> unknownParameters; ///< A vector  for containing the names of the parameters that are not being used but specified in the configuration file.

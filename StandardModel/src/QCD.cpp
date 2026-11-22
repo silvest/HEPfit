@@ -69,7 +69,7 @@ QCD::QCD()
             logLambda5_cache[j][i] = 0.;
         for (int j = 0; j < 10; j++)
             mrun_cache[j][i] = 0.;
-        for (int j = 0; j < 6; j++)
+        for (int j = 0; j < 8; j++)
             mp2mbar_cache[j][i] = 0.;
     }
 
@@ -608,7 +608,7 @@ void QCD::ClearCaches() const
         for (int j = 0; j < 4; j++) logLambda5_cache[j][i] = nan;
         for (int j = 0; j < 9; j++) logLambdaNLO_cache[j][i] = nan;
         for (int j = 0; j < 11; j++) mrun_cache[j][i] = nan;
-        for (int j = 0; j < 6; j++) mp2mbar_cache[j][i] = nan;
+        for (int j = 0; j < 8; j++) mp2mbar_cache[j][i] = nan;
     }
 }
 
@@ -1699,11 +1699,13 @@ const double QCD::Mp2Mbar_bar(const double mp, const quark q, const orders order
     double ms = quarks[STRANGE].getMass(), mc = quarks[CHARM].getMass(),
         mb = quarks[BOTTOM].getMass();
     double alsmp = Als(mp, order);
+    // the result depends on the quark (Nf and light masses in Mbar2Mp), so q and mp are part of the key
     for (i = 0; i < CacheSize; ++i)
         if (alsmp == mp2mbar_cache[0][i] && ms == mp2mbar_cache[1][i] &&
             mc == mp2mbar_cache[2][i] && mb == mp2mbar_cache[3][i]
-            && (double)order == mp2mbar_cache[4][i])
-            return mp2mbar_cache[5][i];
+            && (double)order == mp2mbar_cache[4][i] && (double)q == mp2mbar_cache[5][i]
+            && mp == mp2mbar_cache[6][i])
+            return mp2mbar_cache[7][i];
 
     TF1 f("f", this, &QCD::Mp2MbarTMP, mp / 2., 2. * mp, 3);
 
@@ -1720,13 +1722,15 @@ const double QCD::Mp2Mbar_bar(const double mp, const quark q, const orders order
     brf.SetFunction(wf1, .5 * mp, 2. * mp);
     if (brf.Solve())
     {
-        CacheShift(mp2mbar_cache, 6);
+        CacheShift(mp2mbar_cache, 8);
         mp2mbar_cache[0][0] = alsmp;
         mp2mbar_cache[1][0] = ms;
         mp2mbar_cache[2][0] = mc;
         mp2mbar_cache[3][0] = mb;
         mp2mbar_cache[4][0] = (double)order;
-        mp2mbar_cache[5][0] = brf.Root();
+        mp2mbar_cache[5][0] = (double)q;
+        mp2mbar_cache[6][0] = mp;
+        mp2mbar_cache[7][0] = brf.Root();
     }
     else
     {
@@ -1734,15 +1738,16 @@ const double QCD::Mp2Mbar_bar(const double mp, const quark q, const orders order
         std::cout << "Error in QCD::Mp2Mbar()! QCDsuccess set to false" << std::endl;
     }
 
-    return (mp2mbar_cache[5][0]);
+    return (mp2mbar_cache[7][0]);
 }
 
 const double QCD::Mp2Mbar(const double mp, const quark q, const orders order) const
 {
-    if (q == TOP)
-//        return Mp2Mbar_pole(mp, order);
-        return Mp2Mbar_bar(mp, q, order);
-    else if (q == BOTTOM || q == CHARM)
+    // FlagMpole2MbarNumeric: numerical inversion of Mbar2Mp (default) or, for the top quark only,
+    // the analytic expansion of Mp2Mbar_pole. Bottom and charm are always inverted numerically.
+    if (q == TOP && !FlagMpole2MbarNumeric)
+        return Mp2Mbar_pole(mp, order);
+    else if (q == TOP || q == BOTTOM || q == CHARM)
         return Mp2Mbar_bar(mp, q, order);
     else
         throw std::runtime_error("QCD::Mp2Mbar() can convert only top, bottom and charm masses");
