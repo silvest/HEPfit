@@ -543,8 +543,15 @@ const double NPbase::deltaGamma_Zhad() const
 
 const double NPbase::Gamma_had() const                   
 {
+    // Same OutputOrder() logic as Gamma_Z() and Gamma_Zf(), so that the
+    // quadratic terms are included (or not) consistently in all Z widths.
+    if(OutputOrder()==0){ return (trueSM.Gamma_had() ); }
+    if(OutputOrder()==1){ return (trueSM.Gamma_had() + deltaGamma_Zhad()); }
+    if(OutputOrder()==2){ return (trueSM.Gamma_had() + deltaGamma_Zhad() + deltaGamma_Zhad_2() ); }
+    if(OutputOrder()==3){ return (trueSM.Gamma_had() + deltaGamma_Zhad_2() ); }
+    else
     //AG: deltaGamma_Zhad_2() added below
-    return (trueSM.Gamma_had() + deltaGamma_Zhad() + deltaGamma_Zhad_2());
+        return (trueSM.Gamma_had() + deltaGamma_Zhad() + deltaGamma_Zhad_2());
 }
 
 const double NPbase::BR_Zf(const Particle f) const
