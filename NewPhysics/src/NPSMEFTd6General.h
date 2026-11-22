@@ -8216,7 +8216,9 @@ protected:
      * - \left(C_{\varphi l}^{(3)11} + C_{\varphi l}^{(3)22}\right) \left( C_{ll}^{1221}+C_{ll}^{2112}\right) \frac{\vt^4 }{\Lambda^4}
      * + \frac{1}{4} \left( C_{ll}^{1221}+C_{ll}^{2112}\right)^2 \frac{\vt^4 }{\Lambda^4}
      * \f]
+     * @todo Evaluate the quadratic muon-decay matching in PostUpdate(). The general model uses zero until then.
      */
+    double delta_GF_2 = 0.0;
     
     /**
      * @brief The \f$\mathcal{O}(\Lambda^{-2})\f$ dimension 6 correction to the electromagnetic coupling.
