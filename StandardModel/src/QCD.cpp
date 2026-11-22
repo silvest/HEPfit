@@ -688,8 +688,7 @@ const double QCD::AlsWithInit(const double mu, const double alsi, const double m
 
 const double QCD::Als4(const double mu) const
 {
-    double v = 1. - Beta0(4.) * AlsM / 2. / M_PI * log(MAls / mu);
-    return (AlsM / v * (1. - Beta1(4.) / Beta0(4.) * AlsM / 4. / M_PI * log(v) / v));
+    return Als(mu, 4, FULLNLO);
 }
 
 const double QCD::AlsWithLambda(const double mu, const double logLambda,
