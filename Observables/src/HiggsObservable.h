@@ -94,16 +94,21 @@ public:
     
     /**
      * @brief the parser for HiggsObservables
+     * @details The file named after the parametric/new_parametric keyword is opened relative to the
+     * directory of the config file being parsed (@p filepath), as for the histogram files of the other
+     * observables; absolute paths are used as they are.
      * @param[in] beg the iterator that parses a line in the config file
      * @param[in] myObsFactory a reference to the Observables Factory  
      * @param[in] myModel a pointer to the model
      * @param[in] rank the rank of the process that is using the parser
+     * @param[in] filepath the directory of the config file being parsed (including the trailing '/', or empty)
      * @return the iterator for the line being parsed
      */
     boost::tokenizer<boost::char_separator<char> >::iterator & ParseHiggsObservable(boost::tokenizer<boost::char_separator<char> >::iterator & beg, 
                                                                                     ThObsFactory& myObsFactory,
                                                                                     StandardModel * myModel,
-                                                                                    int rank);
+                                                                                    int rank,
+                                                                                    const std::string& filepath);
 
     private:
         TMatrixD channels;///< A matrix holding the information of all the channels.

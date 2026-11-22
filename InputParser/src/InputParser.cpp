@@ -131,7 +131,7 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             beg = tmphObs->ParseObservable(type, &tok, beg, filepath, filename, rank);
             tmphObs->setTho(myObsFactory.CreateThMethod(tmphObs->getThname(), *myModel));
             HiggsObservable * tmpho = new HiggsObservable(*tmphObs);
-            beg = tmpho->ParseHiggsObservable(beg, myObsFactory, myModel, rank);
+            beg = tmpho->ParseHiggsObservable(beg, myObsFactory, myModel, rank, filepath);
             Observables.push_back(tmpho);
             ++beg;
             if (beg != tok.end() && rank == 0) std::cout << "WARNING: unread information in HiggsObservable " << tmpho->getName() << std::endl;
@@ -143,7 +143,7 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             tmphObs->setTho(myObsFactory.CreateThMethod(tmphObs->getThname(), *myModel));
             HiggsObservable * tmpho = new HiggsObservable(*tmphObs);
             tmpho->setIsCorrelated(true);
-            beg = tmpho->ParseHiggsObservable(beg, myObsFactory, myModel, rank);
+            beg = tmpho->ParseHiggsObservable(beg, myObsFactory, myModel, rank, filepath);
             Observables.push_back(tmpho);
             ++beg;
             if (beg != tok.end() && rank == 0) std::cout << "WARNING: unread information in HiggsObservable " << tmpho->getName() << std::endl;
