@@ -28640,7 +28640,7 @@ const double NPSMEFTd6General::deltaGammaHbbRatio2() const //AG:modified
 
     if (FlagQuadraticTerms) {
         //AG:begin
-        double mf = leptons[BOTTOM].getMass();
+        double mf = quarks[BOTTOM].getMass();
         double CifH = getSMEFTCoeffEW("CdHR", 2, 2);
         dwidth += deltaGammaHffRatio2(mf, CifH);
         //AG:end
