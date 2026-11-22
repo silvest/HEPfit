@@ -66,8 +66,8 @@ void NPSMEFTd6Matching::updateNPSMEFTd6Parameters()
     C10pNPmu = SMEFT_factor*(myNPSMEFTd6.getCed_2223()-myNPSMEFTd6.getCLd_2223());
     CSNPmu = SMEFT_factor*myNPSMEFTd6.getCLedQ_22();
     CSpNPmu = SMEFT_factor*myNPSMEFTd6.getCpLedQ_22();
-    CPNPmu = -SMEFT_factor*CSNPmu;
-    CPpNPmu = SMEFT_factor*CSpNPmu;
+    CPNPmu = -CSNPmu;
+    CPpNPmu = CSpNPmu;
     
     C9NPe = SMEFT_factor*(CQe_2311_tot+CLQ1_1123_tot+CLQ3_1123_tot);
     C10NPe = SMEFT_factor*(CQe_2311_tot-CLQ1_1123_tot-CLQ3_1123_tot);
@@ -75,8 +75,8 @@ void NPSMEFTd6Matching::updateNPSMEFTd6Parameters()
     C10pNPe  = SMEFT_factor*(myNPSMEFTd6.getCed_1123()-myNPSMEFTd6.getCLd_1123());
     CSNPe = SMEFT_factor*myNPSMEFTd6.getCLedQ_11();
     CSpNPe = SMEFT_factor*myNPSMEFTd6.getCpLedQ_11();
-    CPNPe = -SMEFT_factor*CSNPe;
-    CPpNPe = SMEFT_factor*CSpNPe; 
+    CPNPe = -CSNPe;
+    CPpNPe = CSpNPe;
 
     CLnunuNPe = SMEFT_factor*(CLQ1_1123_tot-CLQ3_1123_tot);
     CRnunuNPe = SMEFT_factor*myNPSMEFTd6.getCLd_1123();
