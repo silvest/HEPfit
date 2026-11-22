@@ -236,7 +236,7 @@ void MVgamma::updateParameters()
     MV = SM.getMesons(vectorM).getMass();
     Mb = SM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
     mb_pole = SM.Mbar2Mp(Mb, QCD::BOTTOM); /* Conversion to pole mass*/
-    mc_pole = SM.Mbar2Mp(SM.getQuarks(QCD::CHARM).getMass(), QCD::BOTTOM); /* Conversion to pole mass*/
+    mc_pole = SM.Mbar2Mp(SM.getQuarks(QCD::CHARM).getMass(), QCD::CHARM); /* Conversion to pole mass*/
     Ms = SM.getQuarks(QCD::STRANGE).getMass();
     MW = SM.Mw();
     mu_b = SM.getMub();
@@ -346,7 +346,7 @@ void MVgamma::updateParameters()
             lambda_t = SM.getCKM().computelamt_s();
             lambda_u = SM.getCKM().computelamu_s();
             spectator_charge = SM.getQuarks(QCD::STRANGE).getCharge();
-            SU3_breaking = gslpp::complex(1. + SM.getOptionalParameter("SU3_breaking_abs"),
+            SU3_breaking = 1. + gslpp::complex(SM.getOptionalParameter("SU3_breaking_abs"),
                     SM.getOptionalParameter("SU3_breaking_arg"), true);
             break;
         case StandardModel::RHO:
