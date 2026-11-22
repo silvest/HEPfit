@@ -503,7 +503,7 @@ void MVgamma::updateParameters()
         allcoeff_noSM = SM.getFlavour().ComputeCoeffsgamma(mu_b, true); //check the mass scale, scheme fixed to NDR
         C_7 = SM.getOptionalParameter("C7_SM") + ((*(allcoeff_noSM[LO]))(6) + (*(allcoeff_noSM[NLO]))(6));
     }
-    else C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6)););
+    else C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
     C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
     /* Done in the dirty way to remove from the effective basis since the effective C7p does not involve the non-primed C_1 to C_6.*/
     C_7p -= ms_over_mb * (C_7 + 1. / 3. * C_3 + 4. / 9. * C_4 + 20. / 3. * C_5 + 80. / 9. * C_6);
