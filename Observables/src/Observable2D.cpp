@@ -208,7 +208,6 @@ int Observable2D::ParseObservable2D(std::string& type,
         std::vector<std::string> label(2, "");
         std::vector<std::string> type2D(2, "");
         std::string line;
-        size_t pos = 0;
         boost::char_separator<char> sep(" \t");
         for (int i = 0; i < 2; i++) {
             IsEOF = getline(ifile, line).eof();
@@ -228,6 +227,7 @@ int Observable2D::ParseObservable2D(std::string& type,
             thname[i] = *beg;
             ++beg;
             label[i] = *beg;
+            size_t pos = 0;
             while ((pos = label[i].find("~", pos)) != std::string::npos)
                 label[i].replace(pos++, 1, " ");
             ++beg;
