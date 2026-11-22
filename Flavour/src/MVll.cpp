@@ -774,7 +774,7 @@ void MVll::updateParameters()
         allcoeffh = mySM.getFlavour().ComputeCoeffBMll(mu_h, lep); //check the mass scale, scheme fixed to NDR
 
         C_1Lh_bar = (*(allcoeffh[LO]))(0) / 2.;
-        C_2Lh_bar = (*(allcoeffh[LO]))(1) - (*(allcoeff[LO]))(0) / 6.;
+        C_2Lh_bar = (*(allcoeffh[LO]))(1) - (*(allcoeffh[LO]))(0) / 6.;
         C_8Lh = (*(allcoeffh[LO]))(7);
 
         if (zExpansion) {
