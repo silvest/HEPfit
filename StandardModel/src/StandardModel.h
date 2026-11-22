@@ -3457,6 +3457,9 @@ virtual const double getmq(const QCD::quark q, const double mu) const
     ////////////////////////////////////////////////////////////////////////
 protected:
 
+    /// SM one-loop H -> gamma gamma form factor, with tauW = 4 M_W^2 / m_H^2.
+    gslpp::complex hGammaGammaFormFactor(const double tauW) const;
+
     /**
      * @brief A method to set the value of a parameter of %StandardModel.
      * @param[in] name name of a model parameter
