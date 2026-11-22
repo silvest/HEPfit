@@ -3384,6 +3384,10 @@ public:
 
     /**
      * @brief Total decay width of the charged Higgs @f$H^+@f$.
+     * @details Sum of the @f$\tau\nu@f$, @f$t\bar b@f$, @f$c\bar b@f$, @f$c\bar s@f$, @f$W h@f$, @f$W H@f$
+     * and @f$W A@f$ partial widths. The quark widths use @f$\overline{\mathrm{MS}}@f$ running masses at
+     * @f$\mu = m_{H^+}@f$ in the Yukawa couplings and the QCD factor @f$1+\Delta_{qq}@f$
+     * (Djouadi, Phys. Rept. 459 (2008) 1, eqs. (2.3), (2.11), (2.13)); see computeHpquantities().
      * @return @f$\Gamma_{H^+}@f$
      */
     double GammaHptot; /**<  */
