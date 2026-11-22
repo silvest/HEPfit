@@ -29,9 +29,21 @@ class HiggsObservable : public Observable {
 public:
     HiggsObservable(const Observable& Obs);
                
+    /**
+     * @brief The copy constructor: copies the Observable base and all the parsed data; the inverse
+     * covariance matrix of a correlated observable is copied, each object owning its own.
+     */
     HiggsObservable(const HiggsObservable& orig);
 
-//    virtual ~HiggsObservable();
+    /**
+     * @brief Copy assignment is not supported (the object owns its inverse covariance matrix).
+     */
+    HiggsObservable& operator=(const HiggsObservable& orig) = delete;
+
+    /**
+     * @brief The destructor: frees the inverse covariance matrix.
+     */
+    virtual ~HiggsObservable();
     
     // Read the necessary information from the config file. First row should 
     // contain the list of categories used in the analysis

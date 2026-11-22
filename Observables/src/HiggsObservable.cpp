@@ -29,24 +29,27 @@ HiggsObservable::HiggsObservable(const Observable& Obs) :
 Observable(Obs)
 {
     isnew = true;
+    thobsvsize = 0.;
+    channelsize = 0.;
     isCorrelated = false;
     covarianceFromConfig = false;
+    InvCov = NULL;
+    rank = 0;
 };
 
-HiggsObservable::HiggsObservable(const HiggsObservable& orig)
+HiggsObservable::HiggsObservable(const HiggsObservable& orig) :
+Observable(orig), channels(orig.channels), isnew(orig.isnew), thObsV(orig.thObsV), theoryValues(orig.theoryValues),
+thobsvsize(orig.thobsvsize), channelsize(orig.channelsize), isCorrelated(orig.isCorrelated),
+covarianceFromConfig(orig.covarianceFromConfig),
+InvCov(orig.InvCov != NULL ? new gslpp::matrix<double>(*orig.InvCov) : NULL), // each copy owns its matrix
+rank(orig.rank)
 {
-    channels = orig.channels;
-    thObsV = orig.thObsV;
-    thobsvsize = orig.thobsvsize;
-    channelsize = orig.channelsize;
-    isnew = orig.isnew;
-    isCorrelated = orig.isCorrelated;
-    covarianceFromConfig = orig.covarianceFromConfig;
-    InvCov = orig.InvCov;
-    rank = orig.rank;
 }
 
-//HiggsObservable::~HiggsObservable() {}
+HiggsObservable::~HiggsObservable()
+{
+    delete InvCov;
+}
 
 void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<ThObservable*> thObsV)
 {
@@ -136,6 +139,7 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
                 }
                 if (myCorr.size_i() != nrows || myCorr.size_j() != nrows)
                     throw std::runtime_error("The size of the correlated observables in " + name + " does not match the size of the correlation matrix!");
+                delete InvCov;
                 InvCov = new gslpp::matrix<double>(nrows, nrows, 0.);
                 if (covarianceFromConfig) {
                     for (unsigned int i = 0; i < nrows; i++)
