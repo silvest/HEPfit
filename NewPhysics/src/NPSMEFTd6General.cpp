@@ -25923,7 +25923,10 @@ const double NPSMEFTd6General::deltaGammaHWWRatio1() const {
 
     //    double C1 = 0.0073;
 
-    dwidth = deltaGammaHWW4fRatio1();
+    // Same charged-current H->4f sum as BrHWWRatio() (= BrH4fCCRatio()) and the total width,
+    // so that Gamma, Br and the linearised mu(...WW) observables use one parametrisation.
+    //    dwidth = deltaGammaHWW4fRatio1();
+    dwidth = deltaGammaH4fCCRatio1();
 
     //  Linear contribution from Higgs self-coupling
     //    dwidth += cLHd6*(C1 + 2.0*dZH1)*deltaG_hhhRatio(); 
@@ -25941,7 +25944,9 @@ const double NPSMEFTd6General::deltaGammaHWWRatio2() const {
     double dwidth = 0.0;
 
     if (FlagQuadraticTerms) {
-        dwidth = deltaGammaHWW4fRatio2();
+        // Same charged-current H->4f sum as BrHWWRatio() (= BrH4fCCRatio())
+        //        dwidth = deltaGammaHWW4fRatio2();
+        dwidth = deltaGammaH4fCCRatio2();
     }
 
     return dwidth;
@@ -26512,7 +26517,10 @@ const double NPSMEFTd6General::deltaGammaHZZRatio1() const {
 
     //    double C1 = 0.0083;
 
-    dwidth = deltaGammaHZZ4fRatio1();
+    // Same neutral-current H->4f sum as BrHZZRatio() (= BrH4fNCRatio()) and the total width,
+    // so that Gamma, Br and the linearised mu(...ZZ) observables use one parametrisation.
+    //    dwidth = deltaGammaHZZ4fRatio1();
+    dwidth = deltaGammaH4fNCRatio1();
 
     //  Linear contribution from Higgs self-coupling
     //    dwidth += cLHd6*(C1 + 2.0*dZH1)*deltaG_hhhRatio();
@@ -26530,7 +26538,8 @@ const double NPSMEFTd6General::deltaGammaHZZRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
         //Contributions that are quadratic in the effective coefficients
-        dwidth += 0.0;
+        // Same neutral-current H->4f sum as BrHZZRatio() (= BrH4fNCRatio())
+        dwidth = deltaGammaH4fNCRatio2();
     }
 
     return dwidth;
@@ -35063,9 +35072,11 @@ const double NPSMEFTd6General::BrHvisRatio() const {
     if (FlagQuadraticTerms) {
 
         //  Sum over decays of visible SM and exotic modes
+        //  Same channels as the linear part and as the total width (deltaGammaTotalRatio2)
         delta2SM = trueSM.computeBrHtogg() * deltaGammaHggRatio2()
-                + trueSM.computeBrHtoWW() * deltaGammaHWWRatio2()
-                + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio2()
+                //            + trueSM.computeBrHtoWW() * deltaGammaHWWRatio2()
+                //            + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio2()
+                + trueSM.computeBrHto4f() * deltaGammaH4fRatio2()
                 + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio2()
                 + trueSM.computeBrHtogaga() * deltaGammaHgagaRatio2()
                 + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio2()

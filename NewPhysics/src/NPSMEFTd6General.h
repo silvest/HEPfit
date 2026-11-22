@@ -2338,6 +2338,10 @@ public:
     /**
      * @brief The ratio of the @f$\Gamma(H\to WW)@f$ in the current model
      * and in the Standard Model.
+     * @details Computed from the sum of the charged-current @f$H\to 4f@f$ channels,
+     * i.e. the same width as GammaH4fCCRatio() and BrHWWRatio() (= BrH4fCCRatio()),
+     * at linear and quadratic order (deltaGammaHWWRatio1(), deltaGammaHWWRatio2()).
+     * The dedicated @f$H\to WW^*\to 4f@f$ fit is available in GammaHWW4fRatio().
      * @return @f$\Gamma(H\to WW)@f$/@f$\Gamma(H\to WW)_{\mathrm{SM}}@f$
      */
     const double  GammaHWWRatio() const override;
@@ -2528,6 +2532,10 @@ public:
     /**
      * @brief The ratio of the @f$\Gamma(H\to ZZ)@f$ in the current model
      * and in the Standard Model.
+     * @details Computed from the sum of the neutral-current @f$H\to 4f@f$ channels,
+     * i.e. the same width as GammaH4fNCRatio() and BrHZZRatio() (= BrH4fNCRatio()),
+     * at linear and quadratic order (deltaGammaHZZRatio1(), deltaGammaHZZRatio2()).
+     * The dedicated @f$H\to ZZ^*\to 4f@f$ fit is available in GammaHZZ4fRatio().
      * @return @f$\Gamma(H\to ZZ)@f$/@f$\Gamma(H\to ZZ)_{\mathrm{SM}}@f$
      */
     const double  GammaHZZRatio() const override;
