@@ -244,7 +244,9 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
                 d7 = 0.708 * 0.0001;
                 d8 = -7.61 * 0.000001;
                 d9 = 4.03 * 0.0001;
-                d10 = 6.61 * 0.1;
+                // 0811.1364 prints d10 = +6.61e-1, a sign typo: the M_Z slope is -0.655 for all other flavours
+                // (hep-ph/0608099) and negative in the newer b fits (1607.08375: -0.664, 1906.08815: -0.663).
+                d10 = -6.61 * 0.1;
                 ThError = mycache.getSM().getDelSin2th_b();
                 break;
 
