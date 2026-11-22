@@ -24691,7 +24691,8 @@ const double NPSMEFTd6General::aPskPol(const double sqrt_s, const double Pol_em,
     // Expression missing Cll contributions!
 
     double aL, aR, aPol;
-    double sM = sqrt_s * sqrt_s;
+    const double sqrt_sGeV = 1000. * sqrt_s;
+    const double sM = sqrt_sGeV * sqrt_sGeV;
     double Mz2 = Mz*Mz;
     double MH2 = mHl*mHl;
     double dMz = 0.0;
@@ -24726,9 +24727,9 @@ const double NPSMEFTd6General::aPskPol(const double sqrt_s, const double Pol_em,
     EZ = sqrt(Mz2 + kCM2);
     EZ2 = EZ*EZ;
 
-    kZ = 2.0 * Mz2 / (sM - Mz2) + (EZ * Mz2) / (2 * kCM2 * sqrt_s) - Mz2 / (2 * kCM2) - (EZ2 / Mz2) / (2.0 + EZ2 / Mz2)*(1.0 - Mz2 / (EZ * sqrt_s));
+    kZ = 2.0 * Mz2 / (sM - Mz2) + (EZ * Mz2) / (2 * kCM2 * sqrt_sGeV) - Mz2 / (2 * kCM2) - (EZ2 / Mz2) / (2.0 + EZ2 / Mz2)*(1.0 - Mz2 / (EZ * sqrt_sGeV));
 
-    kH = -((EZ * MH2) / (2 * kCM2 * sqrt_s)) - (EZ2 / Mz2) / (2 + EZ2 / Mz2) * MH2 / (EZ * sqrt_s);
+    kH = -((EZ * MH2) / (2 * kCM2 * sqrt_sGeV)) - (EZ2 / Mz2) / (2 + EZ2 / Mz2) * MH2 / (EZ * sqrt_sGeV);
 
     //  Other parameters (2): Missing Cll!!!
     dg = -(1.0 / (g1_tree * (cW2_tree * cW2_tree - sW2_tree * sW2_tree))) * (dv * cW2_tree * g1_tree
@@ -24770,7 +24771,8 @@ const double NPSMEFTd6General::aPskPol(const double sqrt_s, const double Pol_em,
 
 const double NPSMEFTd6General::bPskPol(const double sqrt_s, const double Pol_em, const double Pol_ep) const {
     double bL, bR, bPol;
-    double sM = sqrt_s * sqrt_s;
+    const double sqrt_sGeV = 1000. * sqrt_s;
+    const double sM = sqrt_sGeV * sqrt_sGeV;
     double Mz2 = Mz*Mz;
 
     double ZetaZ, ZetaAZ;

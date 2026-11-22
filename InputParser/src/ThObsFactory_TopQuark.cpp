@@ -417,7 +417,7 @@ void ThObsFactory::registerTopQuarkObservables()
 
    obsThFactory["F0_LO"] = [](const StandardModel& SM) { return new F0_LO(SM); };
    obsThFactory["FL_LO"] = [](const StandardModel& SM) { return new FL_LO(SM); };
-   obsThFactory["FR_LO"] = [](const StandardModel& SM) { return new FL_LO(SM); };
+   obsThFactory["FR_LO"] = [](const StandardModel& SM) { return new FR_LO(SM); };
 
    obsThFactory["sigma_tttt_13_LO"] = [](const StandardModel& SM) { return new sigma_tttt_13_LO(SM); };
    obsThFactory["sigma_ttbb_13_LO_dilepton"] = [](const StandardModel& SM) { return new sigma_ttbb_13_LO_dilepton(SM); };
