@@ -7,6 +7,7 @@
 
 #include "EvolDF1nlep.h"
 #include "StandardModel.h"
+#include <gsl/gsl_linalg.h>
 
 EvolDF1nlep::EvolDF1nlep(unsigned int dim_i, schemes scheme, orders order, orders_qed order_qed, const StandardModel& model)
 : RGEvolutor(dim_i, scheme, order, order_qed), model(model), V(dim_i, 0.), Vi(dim_i, 0.),
@@ -15,7 +16,7 @@ JsK0V(dim_i, 0.), ViK0Js(dim_i, 0.), Gamma_s0T(dim_i, 0.), Gamma_s1T(dim_i, 0.),
 Gamma_eT(dim_i, 0.), Gamma_seT(dim_i, 0.), JsV(dim_i, 0.), ViJs(dim_i, 0.), K0V(dim_i, 0.),
 ViK0(dim_i, 0.), ge0sing(dim_i, 0.), K0sing(dim_i, 0.), K0singV(dim_i, 0.), K11V(dim_i, 0.), 
 ViK11(dim_i, 0.), ge11sing(dim_i, 0.), K11sing(dim_i, 0.),K11singV(dim_i, 0.), 
-JsK0singV(dim_i, 0.), e(dim_i, 0.), dim(dim_i)
+JsK0singV(dim_i, 0.), e(dim_i, 0.), dim(dim_i), threeFlavourGenerator(4 * dim_i, 0.)
 {
 
     int nu = 0, nd = 0;
@@ -48,6 +49,32 @@ JsK0singV(dim_i, 0.), e(dim_i, 0.), dim(dim_i)
         Gamma_s1T = AnomalousDimension_nlep_S(NLO, nu, nd).transpose();
         Gamma_eT = AnomalousDimension_nlep_EM(LO, nu, nd).transpose();
         Gamma_seT = AnomalousDimension_nlep_EM(NLO, nu, nd).transpose();
+
+        if (L == 3) {
+            // In t = log(alpha_s(M)/alpha_s(mu)), use the blocks
+            // U0, Us/as, Ue*as/ae and Use/ae, with as,e = alpha_s,e/(4 pi).
+            // Their RG equation has constant coefficients even at resonance.
+            for (unsigned int i = 0; i < dim; ++i) {
+                for (unsigned int j = 0; j < dim; ++j) {
+                    const double lo = Gamma_s0T(i, j).real() / (2. * b0);
+                    const double qcd = (Gamma_s1T(i, j).real() - b1 / b0 * Gamma_s0T(i, j).real()) / (2. * b0);
+                    const double qed = Gamma_eT(i, j).real() / (2. * b0);
+                    const double mixed = (Gamma_seT(i, j).real() - b1 / b0 * Gamma_eT(i, j).real()) / (2. * b0);
+                    threeFlavourGenerator(i, j) = lo;
+                    threeFlavourGenerator(dim + i, dim + j) = lo + (i == j);
+                    threeFlavourGenerator(2 * dim + i, 2 * dim + j) = lo - (i == j);
+                    threeFlavourGenerator(3 * dim + i, 3 * dim + j) = lo;
+                    threeFlavourGenerator(dim + i, j) = qcd;
+                    threeFlavourGenerator(2 * dim + i, j) = qed;
+                    threeFlavourGenerator(3 * dim + i, j) = mixed;
+                    threeFlavourGenerator(3 * dim + i, dim + j) = qed;
+                    threeFlavourGenerator(3 * dim + i, 2 * dim + j) = qcd;
+                }
+            }
+            continue;
+        }
+        gsl_matrix_complex_set_zero(ge0sing.as_gsl_type_ptr());
+        gsl_matrix_complex_set_zero(ge11sing.as_gsl_type_ptr());
 
         AnomalousDimension_nlep_S(LO, nu, nd).transpose().eigensystem(V, e);
         Vi = V.inverse();
@@ -602,13 +629,14 @@ gslpp::matrix<double>& EvolDF1nlep::Df1Evolnlep(double mu, double M, orders orde
     double alsMZ = model.getAlsMz();
     double Mz = model.getMz();
     double Ale = model.getAle();
-    if (alsMZ == alsMZ_cache && Mz == Mz_cache && Ale == Ale_cache) {
+    if (!fixedThreeFlavours && alsMZ == alsMZ_cache && Mz == Mz_cache && Ale == Ale_cache) {
         if (mu == this->mu && M == this->M && scheme == this->scheme && order_qed == NO_QED)
             return (*Evol(order));
 
         if (mu == this->mu && M == this->M && scheme == this->scheme && order_qed == NLO_QED11)
             return (*Evol(order_qed));
     }
+    fixedThreeFlavours = false;
     alsMZ_cache = alsMZ;
     Mz_cache = Mz;
     Ale_cache = Ale;
@@ -656,45 +684,44 @@ void EvolDF1nlep::Df1Evolnlep(double mu, double M, double nf, schemes scheme)
 
     double eta = alsM / alsmu;
 
-    //The calculation of matrix entries for the various orders should be moved inside the switch to avoid wasting time on unnecessary calculations
-    
-    for (unsigned int k = 0; k < dim; k++) {
-        double etap = pow(eta, a[L][k]);
-        for (unsigned int i = 0; i < dim; i++) {
-            for (unsigned int j = 0; j < dim; j++) {
+    if (L == 3) {
+        const gslpp::matrix<double> generator = log(eta) * threeFlavourGenerator;
+        gslpp::matrix<double> evolution(4 * dim, 0.);
+        if (gsl_linalg_exponential_ss(generator.as_gsl_type_ptr(), evolution.as_gsl_type_ptr(), GSL_PREC_DOUBLE) != GSL_SUCCESS)
+            throw std::runtime_error("Three-flavour nonleptonic evolution failed");
+        for (unsigned int i = 0; i < dim; ++i) {
+            for (unsigned int j = 0; j < dim; ++j) {
+                resLO(i, j) = evolution(i, j);
+                resNLO(i, j) = alsmu * evolution(dim + i, j);
+                resLO_ew(i, j) = (ale / alsmu) * evolution(2 * dim + i, j);
+                resNLO_QED(i, j) = ale * evolution(3 * dim + i, j);
+            }
+        }
+    } else {
+        for (unsigned int k = 0; k < dim; k++) {
+            double etap = pow(eta, a[L][k]);
+            for (unsigned int i = 0; i < dim; i++) {
+                for (unsigned int j = 0; j < dim; j++) {
 
-                resLO(i, j) += b[L][i][j][k] * etap;
+                    resLO(i, j) += b[L][i][j][k] * etap;
 
-                resNLO(i, j) += c[L][i][j][k] * etap * alsmu;
-                resNLO(i, j) += d[L][i][j][k] * etap * alsM;
+                    resNLO(i, j) += c[L][i][j][k] * etap * alsmu;
+                    resNLO(i, j) += d[L][i][j][k] * etap * alsM;
 
-                resLO_ew(i, j) += m[L][i][j][k] * etap * ale / alsmu;
-                resLO_ew(i, j) += n[L][i][j][k] * etap * ale / alsM;
-                resLO_ew(i, j) += mn[L][i][j][k] * etap * ale / alsM * log(eta);
+                    resLO_ew(i, j) += m[L][i][j][k] * etap * ale / alsmu;
+                    resLO_ew(i, j) += n[L][i][j][k] * etap * ale / alsM;
+                    resLO_ew(i, j) += mn[L][i][j][k] * etap * ale / alsM * log(eta);
 
-                resNLO_QED(i, j) += o[L][i][j][k] * etap * ale;
-                resNLO_QED(i, j) += p[L][i][j][k] * etap * ale;
-                resNLO_QED(i, j) += op[L][i][j][k] * etap * ale * log(eta);
+                    resNLO_QED(i, j) += o[L][i][j][k] * etap * ale;
+                    resNLO_QED(i, j) += p[L][i][j][k] * etap * ale;
+                    resNLO_QED(i, j) += op[L][i][j][k] * etap * ale * log(eta);
 
-                resNLO_QED(i, j) += q[L][i][j][k] * etap * ale;
-                resNLO_QED(i, j) += r[L][i][j][k] * etap * ale;
-                resNLO_QED(i, j) += s[L][i][j][k] * etap * ale / eta;
-                resNLO_QED(i, j) += t[L][i][j][k] * etap * ale * eta;
-                resNLO_QED(i, j) += qq[L][i][j][k] * etap * ale * log(eta);
-                resNLO_QED(i, j) += rr[L][i][j][k] * etap * ale * log(eta);
-                
-                // unreasonable large entries: this fixes the issue, weird numerical instability needs investigation
-                if(L==3){
-                    if((i==6) and (j==6)){
-                    resNLO_QED(i, j) -= op[L][i][j][k] * etap * ale * log(eta);
-                    resNLO_QED(i, j) -= qq[L][i][j][k] * etap * ale * log(eta);
-                    resNLO_QED(i, j) -= rr[L][i][j][k] * etap * ale * log(eta);
-                    }
-                    if((i==7) and ((j==6) or (j==7))){
-                    resNLO_QED(i, j) -= op[L][i][j][k] * etap * ale * log(eta);
-                    resNLO_QED(i, j) -= qq[L][i][j][k] * etap * ale * log(eta);
-                    resNLO_QED(i, j) -= rr[L][i][j][k] * etap * ale * log(eta);
-                    }
+                    resNLO_QED(i, j) += q[L][i][j][k] * etap * ale;
+                    resNLO_QED(i, j) += r[L][i][j][k] * etap * ale;
+                    resNLO_QED(i, j) += s[L][i][j][k] * etap * ale / eta;
+                    resNLO_QED(i, j) += t[L][i][j][k] * etap * ale * eta;
+                    resNLO_QED(i, j) += qq[L][i][j][k] * etap * ale * log(eta);
+                    resNLO_QED(i, j) += rr[L][i][j][k] * etap * ale * log(eta);
                 }
             }
         }
@@ -774,7 +801,7 @@ gslpp::matrix<double>& EvolDF1nlep::Df1Evolnlep3flav(double mu, double M, orders
     double alsMZ = model.getAlsMz();
     double Mz = model.getMz();
     double Ale = model.getAle();
-    if (alsMZ == alsMZ_cache && Mz == Mz_cache && Ale == Ale_cache) {
+    if (fixedThreeFlavours && alsMZ == alsMZ_cache && Mz == Mz_cache && Ale == Ale_cache) {
         if (mu == this->mu && M == this->M && scheme == this->scheme && order_qed == NO_QED)
             return (*Evol(order));
 
@@ -782,6 +809,7 @@ gslpp::matrix<double>& EvolDF1nlep::Df1Evolnlep3flav(double mu, double M, orders
             return (*Evol(order_qed));
     }
     
+    fixedThreeFlavours = true;
     alsMZ_cache = alsMZ;
     Mz_cache = Mz;
     Ale_cache = Ale;
