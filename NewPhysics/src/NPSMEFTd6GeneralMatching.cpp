@@ -1375,7 +1375,7 @@ std::vector<WilsonCoefficient>& NPSMEFTd6GeneralMatching::CMprimebsg() {
             mcprimebsg.setCoeff(1, (.5 * (1. - 1./mySMEFT.getNc()/mySMEFT.getNc()) * getCudV8RR(1,1,1,2) + 1./mySMEFT.getNc() * getCudV1RR(1,1,1,2)) * LEFT_factor, LO);
             // Add penguin operators in the future
             mcprimebsg.setCoeff(6, getCdg(2,1).conjugate() * LEFT_factor_radiative, LO);
-            mcprimebsg.setCoeff(7, getCdG(2,1).conjugate() * LEFT_factor_radiative * (mySMEFT.getAle()/mySMEFT.Als(mySMEFT.getMuw())), LO);
+            mcprimebsg.setCoeff(7, getCdG(2,1).conjugate() * LEFT_factor_radiative * sqrt(mySMEFT.getAle()/mySMEFT.Als(mySMEFT.getMuw())), LO);
             break;
         default:
             std::stringstream out;
