@@ -1500,6 +1500,19 @@ const double QCD::Mrun(const double mu_f, const double mu_i, const double m, con
                 mrun *= threCorrForMass(nff, nfi - 1.); // threshold corrections
             mrun = MrunTMP(mu_f, mu_threshold2 - MEPS, mrun, lround(nff), order);
         }
+        else if (nff == nfi - 3.)
+        {
+            // mirror of the upward nff == nfi + 3 case (light quark, mu_i > mut, mu_f < muc)
+            mu_threshold2 = BelowTh(mu_threshold - MEPS);
+            mrun = MrunTMP(mu_threshold2 + MEPS, mu_threshold - MEPS, mrun, lround(nfi) - 1, order);
+            if (order == FULLNNLO)
+                mrun *= threCorrForMass(nfi - 2., nfi - 1.); // threshold corrections
+            mu_threshold3 = AboveTh(mu_f);
+            mrun = MrunTMP(mu_threshold3 + MEPS, mu_threshold2 - MEPS, mrun, lround(nff) + 1, order);
+            if (order == FULLNNLO)
+                mrun *= threCorrForMass(nff, nfi - 2.); // threshold corrections
+            mrun = MrunTMP(mu_f, mu_threshold3 - MEPS, mrun, lround(nff), order);
+        }
         else
         {
             QCDsuccess = false;
