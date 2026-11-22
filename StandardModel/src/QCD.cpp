@@ -1547,10 +1547,12 @@ const double QCD::MrunTMP(const double mu_f, const double mu_i, const double m, 
     orders orderForAls;
     if (order == LO)
         orderForAls = LO;
-    if (order == NLO || order == FULLNLO)
+    else if (order == NLO || order == FULLNLO)
         orderForAls = FULLNLO;
-    if (order == NNLO || order == FULLNNLO)
+    else if (order == NNLO || order == FULLNNLO)
         orderForAls = FULLNNLO;
+    else
+        throw std::runtime_error(orderToString(order) + " is not implemented in QCD::MrunTMP()");
     double ai = Als(mu_i, nf, orderForAls) / (4. * M_PI);
     double af = Als(mu_f, nf, orderForAls) / (4. * M_PI);
 
