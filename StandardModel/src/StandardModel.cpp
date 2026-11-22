@@ -236,15 +236,8 @@ bool StandardModel::PostUpdate()
     if(requireCKM)
         computeCKM();
     
-    /* Compute the 5-quark contribution to the running of alpha*/
-    dAl5hMz = Dalpha5hMz();   
-
-    /* Set the Yukawa matrices */
-    if (!isModelSUSY()) {
-        computeYukawas();
-    }
-
     /* Check whether the parameters for the EWPO are updated or not */
+    /* (before Dalpha5hMz(), which uses DeltaAlphaLepton() in the MWinput scheme) */
     if (!checkSMparamsForEWPO()) {
         useDeltaAlphaLepton_cache = false;
         useDeltaAlpha_cache = false;
@@ -255,6 +248,15 @@ bool StandardModel::PostUpdate()
             useKappaZ_f_cache[i] = false;
         }
     }
+
+    /* Compute the 5-quark contribution to the running of alpha*/
+    dAl5hMz = Dalpha5hMz();   
+
+    /* Set the Yukawa matrices */
+    if (!isModelSUSY()) {
+        computeYukawas();
+    }
+
     SMFlavour.setSMupdated();
     /* Necessary for updating StandardModel parameters in StandardModelMatching */
     if (!isModelSUSY()) SMM.getObj().updateSMParameters();
