@@ -1235,7 +1235,10 @@ gslpp::complex MPll::DeltaC9(double q2)
 gslpp::complex MPll::deltaC7_QCDF(double q2, bool spline)
 {
 #if SPLINE
-    if (spline) return gsl_spline_eval(spline_Re_deltaC7_QCDF, q2, acc_Re_deltaC7_QCDF);
+    if (spline && q2 >= spline_Re_deltaC7_QCDF->x[0] && q2 <= spline_Re_deltaC7_QCDF->x[spline_Re_deltaC7_QCDF->size - 1]) {
+        return gslpp::complex(gsl_spline_eval(spline_Re_deltaC7_QCDF, q2, acc_Re_deltaC7_QCDF),
+                gsl_spline_eval(spline_Im_deltaC7_QCDF, q2, acc_Im_deltaC7_QCDF));
+    }
 #endif
 
     double muh = mu_b / mb_pole;
@@ -1260,7 +1263,10 @@ gslpp::complex MPll::deltaC7_QCDF(double q2, bool spline)
 gslpp::complex MPll::deltaC9_QCDF(double q2, bool spline)
 {
 #if SPLINE
-    if (spline) return gsl_spline_eval(spline_Re_deltaC9_QCDF, q2, acc_Re_deltaC9_QCDF);
+    if (spline && q2 >= spline_Re_deltaC9_QCDF->x[0] && q2 <= spline_Re_deltaC9_QCDF->x[spline_Re_deltaC9_QCDF->size - 1]) {
+        return gslpp::complex(gsl_spline_eval(spline_Re_deltaC9_QCDF, q2, acc_Re_deltaC9_QCDF),
+                gsl_spline_eval(spline_Im_deltaC9_QCDF, q2, acc_Im_deltaC9_QCDF));
+    }
 #endif
     double muh = mu_b / mb_pole;
     double z = mc_pole * mc_pole / mb_pole / mb_pole;
