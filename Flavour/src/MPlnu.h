@@ -77,7 +77,9 @@ public:
     
     /**
      * @brief return fT form factor at \f$ q^2 \f$
-     * @return \f$ q^2 \f$ 
+     * @details \f$ f_T \f$ is obtained from \f$ f_+ \f$ and \f$ f_0 \f$ through the heavy-quark relation
+     * of arXiv:1309.0301, eqs. (31) and (48a), see fT(); \f$ q^2 > 0 \f$.
+     * @return \f$ f_{T}(q^2) \f$ 
      */
     double get_fT(double q2);
 
@@ -177,6 +179,7 @@ private:
     double af0_3_cache,afplus_3_cache;
 #endif    
     gslpp::complex CS_cache,CSp_cache,CP_cache,CPp_cache,CV_cache,CVp_cache,CA_cache,CAp_cache,CT_cache,CTp_cache;
+    double Mb_cache, Mc_cache; /**< quark masses entering the scalar amplitudes and f_T */
     bool checkcache_int_tau, checkcache_int_mu, checkcache_int_el;
     
     /**
@@ -223,7 +226,13 @@ private:
     
     /**
     * @brief Form factor function \f$ f_{T} \f$.
-    * @param[in] z \f$z\f$ of the decay
+    * @details Not an independent input: it follows from the heavy-quark/equation-of-motion relation of
+    * Sakaki et al., arXiv:1309.0301, eqs. (31) and (48a) (residual momenta of \f$ O(\Lambda_{QCD}) \f$ neglected),
+    * \f[ f_T(q^2) = \frac{(m_b+m_c)(M_B+M_D)}{q^2}\left[f_+(q^2)-f_0(q^2)\right] , \f]
+    * the \f$ B\to D \f$ counterpart of the \f$ T_1, T_2, T_{23} \f$ relations used in MVlnu, with the same quark masses.
+    * The relation needs \f$ f_+(0)=f_0(0) \f$, which the CLN and BGL parametrisations impose; with the DM (binned)
+    * parametrisation \f$ f_T \f$ has a spurious \f$ 1/q^2 \f$ pole unless the bin parameters satisfy it.
+    * @param[in] q2 \f$q^2\f$ of the decay (\f$ q^2 > 0 \f$)
     * @return \f$ f_{T} \f$
     */
     double fT(double q2);
