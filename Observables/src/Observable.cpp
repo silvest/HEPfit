@@ -59,6 +59,7 @@ Observable::Observable (const std::string name_i,
     bin_min = 0.;
     bin_max = 0.;
     iterationNo = std::numeric_limits<int>::max();
+    thValue = 0.;
     writeChain = false;
     hasInverseCovariance = false;
 }
@@ -84,6 +85,7 @@ Observable::Observable(const Observable& orig)
     bin_min = orig.bin_min;
     bin_max = orig.bin_max;
     iterationNo = orig.iterationNo;
+    thValue = orig.thValue;
     inhisto = orig.inhisto;
     writeChain = orig.writeChain;
     hasInverseCovariance = orig.hasInverseCovariance;
@@ -110,6 +112,7 @@ Observable::Observable()
     bin_min = 0.;
     bin_max = 0.;
     iterationNo = std::numeric_limits<int>::max();
+    thValue = 0.;
     writeChain = false;
     hasInverseCovariance = false;
 }
@@ -221,7 +224,9 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
                                                                                        std::string& infilename,
                                                                                        int rank) 
 {
-    if ((type.compare("Observable") == 0 || type.compare("HiggsObservable") == 0) && std::distance(tok->begin(), tok->end()) < 8) {
+    // Every type needs at least the keyword, name, thname, label, min, max, the MCMC flag and one more token (the
+    // distribution, or the type name for a CustomObservable); the distribution-specific numbers are checked below.
+    if (std::distance(tok->begin(), tok->end()) < 8) {
         if(rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename);
         else sleep (2);
     } else if (type.compare("BinnedObservable") == 0 && std::distance(tok->begin(), tok->end()) < 12) {
@@ -256,10 +261,12 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
         }
 
         if (obsType.compare("Observable") == 0 || obsType.compare("BinnedObservable") == 0 || obsType.compare("FunctionObservable") == 0 || type.compare("AsyGausObservable") == 0) {
+            // tokens after the distribution information: bin_min and bin_max (BinnedObservable) or x_value (FunctionObservable)
+            const int nBinTokens = (obsType.compare("BinnedObservable") == 0 ? 2 : (obsType.compare("FunctionObservable") == 0 ? 1 : 0));
             ++beg;
             distr = *beg;
             if (distr.compare("file") == 0) {
-                if (std::distance(tok->begin(), tok->end()) < 10) {
+                if (std::distance(tok->begin(), tok->end()) < 10 + nBinTokens) {
                     if (rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename + ".\n");
                     else sleep(2);
                 } else if (type.compare("AsyGausObservable") == 0) {
@@ -272,7 +279,7 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
                     if (rank == 0) std::cout << "added input histogram " << filename << "/" << histoname << std::endl;
                 }
             } else if (distr.compare("weight") == 0) {
-                if (std::distance(tok->begin(), tok->end()) < 11) {
+                if (std::distance(tok->begin(), tok->end()) < 11 + nBinTokens) {
                     if(rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename + ".\n");
                     else sleep (2);
                 }
@@ -299,6 +306,10 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
                     else sleep(2);
                 }
                 if (obsType.compare("BinnedObservable") == 0 || obsType.compare("FunctionObservable") == 0) {
+                    if (std::distance(tok->begin(), tok->end()) < 11 + nBinTokens) {
+                        if (rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename + ".\n");
+                        else sleep(2);
+                    }
                     ++beg;
                     ++beg;
                     ++beg;
