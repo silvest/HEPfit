@@ -1218,17 +1218,17 @@ bool NPSMEFTd6::PostUpdate()
 
         //  Proportional to Yukawa interactions Wilson coeff in Warsaw - C=y c - Wilson coeff in model par
 
-        CieH_11r = Yuke * CeH_11r;
-        CieH_22r = Yukmu * CeH_22r;
-        CieH_33r = Yuktau * CeH_33r;
+        CieH_11r *= Yuke;
+        CieH_22r *= Yukmu;
+        CieH_33r *= Yuktau;
 
-        CiuH_11r = Yuku * CuH_11r;
-        CiuH_22r = Yukc * CuH_22r;
-        CiuH_33r = Yukt * CuH_33r;
+        CiuH_11r *= Yuku;
+        CiuH_22r *= Yukc;
+        CiuH_33r *= Yukt;
 
-        CidH_11r = Yukd * CdH_11r;
-        CidH_22r = Yuks * CdH_22r;
-        CidH_33r = Yukb * CdH_33r;
+        CidH_11r *= Yukd;
+        CidH_22r *= Yuks;
+        CidH_33r *= Yukb;
 
         CiuG_11r = Yuku * CuG_11r;
         CiuG_22r = Yukc * CuG_22r;
