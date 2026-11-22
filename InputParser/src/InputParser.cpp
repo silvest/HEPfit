@@ -185,6 +185,8 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             beg = tmpcustomObs->ParseObservable(type, &tok, beg, filepath, filename, rank);
             tmpcustomObs->setTho(myObsFactory.CreateThMethod(tmpcustomObs->getThname(), *myModel));
             Observables.push_back(tmpcustomObs);
+            ++beg;
+            if (beg != tok.end() && rank == 0) std::cout << "WARNING: unread information in CustomObservable " << tmpcustomObs->getName() << std::endl;
 
         } else if (type.compare("ModelFlag") == 0) {
             if (std::distance(tok.begin(), tok.end()) < 3) {

@@ -73,6 +73,35 @@ public:
                                                                                 int rank);
     
     /**
+     * @brief The parser for the user-defined input of a CustomObservable.
+     * @details A CustomObservable is specified in the config file as
+     * @code
+     * CustomObservable <CustomName> <name> <thname> <label> <min> <max> (no)MCMC <user defined input>
+     * @endcode
+     * where <CustomName> is the type registered with InputParser::addCustomObservableType(); it is kept as the
+     * observable type (getObsType()). After reading the common fields, ParseObservable() sets the distribution
+     * to "weight" for an MCMC observable (its likelihood is given by computeWeight(), which the custom type
+     * must provide) and to "noweight" for a noMCMC one (a prediction, no weight is computed), and then calls
+     * this method with @p beg pointing to the MCMC flag. A custom observable type overrides it to read its own
+     * input (and may change the distribution); it must return @p beg pointing to the last token it has read.
+     * The default implementation reads nothing, so any further input triggers an "unread information" warning.
+     * @param[in] tok the tokenizer containing the line being parsed
+     * @param[in] beg the iterator pointing to the MCMC flag
+     * @param[in] filepath the path to the config file being parsed
+     * @param[in] infilename the name of the config file being parsed
+     * @param[in] rank the MPI rank of the process accessing the code
+     * @return the iterator pointing to the last token read
+     */
+    virtual boost::tokenizer<boost::char_separator<char> >::iterator & ParseUserInput(boost::tokenizer<boost::char_separator<char> >* tok,
+                                                                                      boost::tokenizer<boost::char_separator<char> >::iterator & beg,
+                                                                                      std::string& filepath,
+                                                                                      std::string& infilename,
+                                                                                      int rank)
+    {
+        return beg;
+    }
+
+    /**
      * @brief The default destructor.
      */
     virtual ~Observable();

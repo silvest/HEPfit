@@ -236,7 +236,7 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
         if(rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename);
         else sleep (2);
     } else {
-        obsType = type;
+        if (type.compare("CustomObservable") != 0) obsType = type; // a CustomObservable keeps its custom type name
         name = *beg;
         ++beg;
         thname = *beg;
@@ -260,7 +260,10 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
             else sleep (2);
         }
 
-        if (obsType.compare("Observable") == 0 || obsType.compare("BinnedObservable") == 0 || obsType.compare("FunctionObservable") == 0 || type.compare("AsyGausObservable") == 0) {
+        if (type.compare("CustomObservable") == 0) {
+            distr = (tMCMC ? "weight" : "noweight");
+            beg = ParseUserInput(tok, beg, filepath, infilename, rank);
+        } else if (obsType.compare("Observable") == 0 || obsType.compare("BinnedObservable") == 0 || obsType.compare("FunctionObservable") == 0 || type.compare("AsyGausObservable") == 0) {
             // tokens after the distribution information: bin_min and bin_max (BinnedObservable) or x_value (FunctionObservable)
             const int nBinTokens = (obsType.compare("BinnedObservable") == 0 ? 2 : (obsType.compare("FunctionObservable") == 0 ? 1 : 0));
             ++beg;
