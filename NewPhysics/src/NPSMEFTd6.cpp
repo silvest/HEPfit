@@ -26478,9 +26478,13 @@ const double NPSMEFTd6::delta_Dsigma_f(const Particle f, const double pol_e, con
     double Nf;
     
     double pLH, pRH; //Polarization factors, minus the 1/4 average
+    double pLLH, pRRH; //Same for the t-channel LR/RL (Bhabha) terms: e-_L (e-_R) with a helicity -1/2 (+1/2) e+, as in StandardModel::eeffsigmaEbin
     
     pLH = (1.0 - pol_e) * (1.0 + pol_p);
     pRH = (1.0 + pol_e) * (1.0 - pol_p);
+    
+    pLLH = (1.0 - pol_e) * (1.0 - pol_p);
+    pRRH = (1.0 + pol_e) * (1.0 + pol_p);
 
 
     if (f.is("LEPTON")) {
@@ -26498,7 +26502,7 @@ const double NPSMEFTd6::delta_Dsigma_f(const Particle f, const double pol_e, con
 
     // Add t-channel contributions for f=e
     if (f.is("ELECTRON")) {
-        sumM2 = sumM2 + (pLH * deltaMLR2t_e(t) + pRH * deltaMRL2t_e(t)) * s * s / t / t;
+        sumM2 = sumM2 + (pLLH * deltaMLR2t_e(t) + pRRH * deltaMRL2t_e(t)) * s * s / t / t;
     }
 
     dsigma = Nf * 0.5 * M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s;
@@ -26898,9 +26902,13 @@ const double NPSMEFTd6::sigmaSM_ee(const double pol_e, const double pol_p, const
     double t0, t1, lambdaK;
     
     double pLH, pRH; //Polarization factors, minus the 1/4 average
+    double pLLH, pRRH; //Same for the t-channel LR/RL (Bhabha) terms: e-_L (e-_R) with a helicity -1/2 (+1/2) e+, as in StandardModel::eeffsigmaEbin
     
     pLH = (1.0 - pol_e) * (1.0 + pol_p);
     pRH = (1.0 + pol_e) * (1.0 - pol_p);
+    
+    pLLH = (1.0 - pol_e) * (1.0 - pol_p);
+    pRRH = (1.0 + pol_e) * (1.0 + pol_p);
     
     // t values for cosmin and cosmax
     t0 = 0.5 * s * ( -1.0 + cosmin );
@@ -26910,7 +26918,8 @@ const double NPSMEFTd6::sigmaSM_ee(const double pol_e, const double pol_p, const
     lambdaK = s*s;
     
     // Sum of the integrals of the amplitudes squared x (t/s)^2, (s/t)^2, (u/s)^2 
-    sumM2 = (pLH + pRH) * ( intMeeLR2SMts2(s, t0, t1) + intMeeLRtilde2SMst2(s, t0, t1) ) + 
+    sumM2 = (pLH + pRH) * ( intMeeLR2SMts2(s, t0, t1) ) + 
+            (pLLH + pRRH) * ( intMeeLRtilde2SMst2(s, t0, t1) ) + 
             pLH * intMeeLL2SMus2(s, t0, t1) + pRH * intMeeRR2SMus2(s, t0, t1);  
     
     // Build the cross section
@@ -26928,9 +26937,13 @@ const double NPSMEFTd6::delta_sigma_ee(const double pol_e, const double pol_p, c
     double t0, t1, lambdaK;
     
     double pLH, pRH; //Polarization factors, minus the 1/4 average
+    double pLLH, pRRH; //Same for the t-channel LR/RL (Bhabha) terms: e-_L (e-_R) with a helicity -1/2 (+1/2) e+, as in StandardModel::eeffsigmaEbin
     
     pLH = (1.0 - pol_e) * (1.0 + pol_p);
     pRH = (1.0 + pol_e) * (1.0 - pol_p);
+    
+    pLLH = (1.0 - pol_e) * (1.0 - pol_p);
+    pRRH = (1.0 + pol_e) * (1.0 + pol_p);
     
     // t values for cosmin and cosmax
     t0 = 0.5 * s * ( -1.0 + cosmin );
@@ -26942,7 +26955,7 @@ const double NPSMEFTd6::delta_sigma_ee(const double pol_e, const double pol_p, c
     // Sum of the integrals of the amplitudes squared x (t/s)^2, (s/t)^2, (u/s)^2 
     sumM2 = pLH * intDMLL2eus2(s, t0, t1) + pRH * intDMRR2eus2(s, t0, t1) +
             pLH * intDMLR2ets2(s, t0, t1) + pRH * intDMRL2ets2(s, t0, t1) + 
-            pLH * intDMLR2etildest2(s, t0, t1) + pRH * intDMRL2etildest2(s, t0, t1);   
+            pLLH * intDMLR2etildest2(s, t0, t1) + pRRH * intDMRL2etildest2(s, t0, t1);   
         
     // Build the cross section
     dsigma = M_PI * (trueSM.alphaMz())*(trueSM.alphaMz()) * sumM2 / s / sqrt(lambdaK);
