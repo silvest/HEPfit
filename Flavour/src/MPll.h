@@ -607,6 +607,7 @@ private:
 
     unsigned int lambda_updated;/**< Cache variable */
 
+    std::vector<double> angularInputsCache;/**< Cache variable */
     unsigned int F_updated;/**< Cache variable */
 
     unsigned int VL_updated;/**< Cache variable */
