@@ -68,8 +68,8 @@ void Meson::ModelParameterMapInsert(std::map< std::string, std::reference_wrappe
         return;
     }
     if (name.compare("D_0") == 0) {
-        ModelParamMap.insert(std::make_pair("MD0", std::cref(mass)));
-        ModelParamMap.insert(std::make_pair("tD0", std::cref(lifetime)));
+        ModelParamMap.insert(std::make_pair("MD", std::cref(mass)));
+        ModelParamMap.insert(std::make_pair("tD", std::cref(lifetime)));
         ModelParamMap.insert(std::make_pair("FD", std::cref(decayconst)));
         return;
     }
@@ -134,7 +134,7 @@ void Meson::ModelParameterMapInsert(std::map< std::string, std::reference_wrappe
     }
     if (name.compare("K_star_P") == 0) {
         ModelParamMap.insert(std::make_pair("MKstarP", std::cref(mass)));
-        ModelParamMap.insert(std::make_pair("tKstarP", std::cref(lifetime)));
+        ModelParamMap.insert(std::make_pair("tKstar", std::cref(lifetime)));
         ModelParamMap.insert(std::make_pair("FKstar", std::cref(decayconst)));
         ModelParamMap.insert(std::make_pair("FKstarp", std::cref(decayconst_p)));
         ModelParamMap.insert(std::make_pair("alpha1kst", std::cref(gegenalpha[0])));
