@@ -88,7 +88,8 @@ private:
     gslpp::matrix<gslpp::complex> myCKM;
     WilsonCoefficient mcdbs2, mcbtaunu, mcbsg, mcprimebsg, mcgminus2mu;
     
-    double CWbsgArrayLO[8], CWbsgArrayNLO[8], CWbsgArrayNNLO[8];
+    double CWbsgArrayLO[8] = {}, CWbsgArrayNLO[8] = {}, CWbsgArrayNNLO[8] = {};
+    int cachedBsgOrder = -1;
     double tanbsg, mtbsg, mhpbsg, mubsg; // caching
 //    double gscalar(double r);
 //    double gpseudoscalar(double r);
