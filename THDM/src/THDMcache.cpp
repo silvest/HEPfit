@@ -7532,7 +7532,7 @@ void THDMcache::computeSignalStrengthQuantities()
     gslpp::complex fermU=I_h_U(mHl*mHl,Mu,Mc,Mt);
     gslpp::complex fermD=I_h_D(mHl*mHl,Md,Ms,Mb);
     gslpp::complex fermL=I_h_L(mHl*mHl,Me,Mmu,Mtau);
-    gslpp::complex I_hSM_W=I_H_W(mHl*mHl,MW);
+    gslpp::complex I_hSM_W=I_H_W(mHl,MW);
     gslpp::complex I_h_W=sin_ba*I_hSM_W;
     gslpp::complex I_h_Hp=I_H_Hp(mHp2,mHl)*ghHpHm(mHp2,tanb,m12_2,bma,mHl*mHl,vev)*vev/(2.0*mHp2);
 
@@ -7545,7 +7545,7 @@ void THDMcache::computeSignalStrengthQuantities()
     gslpp::complex A_h_Ux = A_h_U(mHl*mHl,cW2,Mu,Mc,Mt,MZ);
     gslpp::complex A_h_Dx = A_h_D(mHl*mHl,cW2,Md,Ms,Mb,MZ);
     gslpp::complex A_h_Lx  = A_h_L(mHl*mHl,cW2,Me,Mmu,Mtau,MZ);
-    gslpp::complex A_hSM_W = A_H_W(mHl*mHl,cW2,MW,MZ);
+    gslpp::complex A_hSM_W = A_H_W(mHl,cW2,MW,MZ);
     gslpp::complex A_h_W = sin_ba*A_hSM_W;
     gslpp::complex A_h_Hp = A_H_Hp(mHp2,mHl,cW2,MZ)*ghHpHm(mHp2,tanb,m12_2,bma,mHl*mHl,vev)*vev/(2.0*mHp2);
 
