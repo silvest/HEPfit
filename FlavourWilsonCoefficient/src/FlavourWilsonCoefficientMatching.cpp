@@ -74,12 +74,20 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsmm()
         case NLO:
             mcbsmm.setCoeff(7, 0., NLO);
         case LO:
-            mcbsmm.setCoeff(7, DC10, LO);
+            mcbsmm.setCoeff(7, 0., LO);
             break;
         default:
             std::stringstream out;
             out << mcbsmm.getOrder();
             throw std::runtime_error("FlavourWilsonCoefficientMatching::CMbsmm(): order " + out.str() + "not implemented"); 
+    }
+    /* NP C10 in the normalisation of StandardModelMatching::CMbsmm (Bobeth-Gorbahn-Stamou, read by the
+     * Bsmumu/Bdmumu "*_old" observables): C10 enters as lambda_t sW^2 C10 in the O(alpha_e) slot NLO_QED11, where
+     * the SM coefficient is lambda_t sW^2 (-Y0/sW^2) (setWCBsmmEW), so that DC10 is a plain shift of C10 as in CMBMll. */
+    {
+        double Mw = myFlavourWilsonCoefficient.Mw();
+        double sw2 = M_PI * myFlavourWilsonCoefficient.getAle() / (sqrt(2.) * myFlavourWilsonCoefficient.getGF() * Mw * Mw);
+        mcbsmm.setCoeff(7, myFlavourWilsonCoefficient.getCKM().computelamt_s() * sw2 * DC10, NLO_QED11);
     }
 
     vmcbsmm.push_back(mcbsmm);
@@ -108,12 +116,20 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbdmm()
         case NLO:
             mcbdmm.setCoeff(7, 0., NLO);
         case LO:
-            mcbdmm.setCoeff(7, DC10, LO);
+            mcbdmm.setCoeff(7, 0., LO);
             break;
         default:
             std::stringstream out;
             out << mcbdmm.getOrder();
             throw std::runtime_error("FlavourWilsonCoefficientMatching::CMbdmm(): order " + out.str() + "not implemented"); 
+    }
+    /* NP C10 in the normalisation of StandardModelMatching::CMbdmm (Bobeth-Gorbahn-Stamou, read by the
+     * Bsmumu/Bdmumu "*_old" observables): C10 enters as lambda_t sW^2 C10 in the O(alpha_e) slot NLO_QED11, where
+     * the SM coefficient is lambda_t sW^2 (-Y0/sW^2) (setWCBdmmEW), so that DC10 is a plain shift of C10 as in CMBMll. */
+    {
+        double Mw = myFlavourWilsonCoefficient.Mw();
+        double sw2 = M_PI * myFlavourWilsonCoefficient.getAle() / (sqrt(2.) * myFlavourWilsonCoefficient.getGF() * Mw * Mw);
+        mcbdmm.setCoeff(7, myFlavourWilsonCoefficient.getCKM().computelamt_d() * sw2 * DC10, NLO_QED11);
     }
 
     vmcbdmm.push_back(mcbdmm);
@@ -140,10 +156,13 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsg()
     switch (mcbsg.getOrder()) {
         case NNLO:
             mcbsg.setCoeff(6, 0., NNLO);
+            mcbsg.setCoeff(7, 0., NNLO);
         case NLO:
             mcbsg.setCoeff(6, 0., NLO);
+            mcbsg.setCoeff(7, 0., NLO);
         case LO:
             mcbsg.setCoeff(6, DC7g, LO);
+            mcbsg.setCoeff(7, DC8g, LO); // chromomagnetic dipole C8g (index 7 of the b -> s gamma basis)
             break;
         default:
             std::stringstream out;
@@ -175,10 +194,13 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimebsg()
     switch (mcprimebsg.getOrder()) {
         case NNLO:
             mcprimebsg.setCoeff(6, 0., NNLO);
+            mcprimebsg.setCoeff(7, 0., NNLO);
         case NLO:
             mcprimebsg.setCoeff(6, 0., NLO);
+            mcprimebsg.setCoeff(7, 0., NLO);
         case LO:
             mcprimebsg.setCoeff(6, DC7gp, LO);
+            mcprimebsg.setCoeff(7, DC8gp, LO); // chromomagnetic dipole C8g (index 7 of the b -> s gamma basis)
             break;
         default:
             std::stringstream out;
@@ -213,6 +235,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMBMll(QCD::le
             //mcBMll.setCoeff(6, 0., NLO);
         case LO:
             mcBMll.setCoeff(6, DC7g, LO);
+            mcBMll.setCoeff(7, DC8g, LO); // chromomagnetic dipole C8g (index 7, as in CMbsg)
             mcBMll.setCoeff(8, DC9, LO);
             mcBMll.setCoeff(9, DC10, LO);
             break;
@@ -249,6 +272,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimeBMll(QC
             //mcprimeBMll.setCoeff(6, 0., NLO);
         case LO:
             mcprimeBMll.setCoeff(6, DC7gp, LO);
+            mcprimeBMll.setCoeff(7, DC8gp, LO); // chromomagnetic dipole C8g (index 7, as in CMbsg)
             mcprimeBMll.setCoeff(8, DC9p, LO);
             mcprimeBMll.setCoeff(9, DC10p, LO);
             break;

@@ -80,8 +80,14 @@ public:
     }
 
     /**
-     * @brief Half the relative phase of the $B_s$ mixing amplitude w.r.t. the Standard Model one
-     * @return @f$ 1/2 (\mathrm{arg}((M_{12}^{bs})_\mathrm{full})-\mathrm{arg}((M_{12}^{bs})_\mathrm{SM}))\vert@f$
+     * @brief Half the relative phase of the $B_s$ mixing amplitude w.r.t. the Standard Model one,
+     * with the sign convention implemented in the @f$B_s@f$ observables.
+     * @details The @f$B_s@f$ observables (Phis_JPsiPhi, DmBs, Asl_s_*, DGamma_s_*) use
+     * @f$(M_{21}^{bs})_\mathrm{full} = C_{B_s}\, e^{+2i\phi_{B_s}} (M_{21}^{bs})_\mathrm{SM}@f$, i.e.
+     * @f$(M_{12}^{bs})_\mathrm{full} = C_{B_s}\, e^{-2i\phi_{B_s}} (M_{12}^{bs})_\mathrm{SM}@f$,
+     * so that @f$\phi_s = \phi_s^\mathrm{SM} - 2\phi_{B_s}@f$ in Phis_JPsiPhi.
+     * This sign convention is opposite to the one of @f$\phi_{B_d}@f$ (see getPhiBd()).
+     * @return @f$\phi_{B_s} = -1/2 (\mathrm{arg}((M_{12}^{bs})_\mathrm{full})-\mathrm{arg}((M_{12}^{bs})_\mathrm{SM}))@f$
      */
     const double getPhiBs() const
     {
@@ -90,6 +96,10 @@ public:
 
     /**
      * @brief Half the relative phase of the $B_d$ mixing amplitude w.r.t. the Standard Model one
+     * @details The @f$B_d@f$ observables use
+     * @f$(M_{12}^{bd})_\mathrm{full} = C_{B_d}\, e^{+2i\phi_{B_d}} (M_{12}^{bd})_\mathrm{SM}@f$,
+     * so that @f$S_{J/\psi K} = \sin(2\beta + 2\phi_{B_d})@f$. Note the opposite sign convention
+     * of getPhiBs().
      * @return @f$ 1/2 (\mathrm{arg}((M_{12}^{bd})_\mathrm{full})-\mathrm{arg}((M_{12}^{bd})_\mathrm{SM}))\vert@f$
      */
     const double getPhiBd() const

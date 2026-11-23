@@ -90,6 +90,12 @@
  *   <td class="mod_desc">The Matching scale of the Wilson coefficients</td>
  * </tr>
  * </table>
+ * The shifts @f$\Delta C_{7g}, \Delta C_{8g}, \Delta C_9, \Delta C_{10}@f$ and their primed counterparts enter
+ * the @f$ b\to s\gamma @f$ (CMbsg, CMprimebsg) and @f$ b\to s\ell\ell @f$ (CMBMll, CMprimeBMll) matchings.
+ * @f$\Delta C_{10}@f$ also enters CMbsmm/CMbdmm, read by the "old" @f$ B_q\to\mu\mu @f$ implementation, in the
+ * Bobeth-Gorbahn-Stamou normalisation; in CMBMll, used by the Mll implementation, it is a plain shift of @f$C_{10}@f$.
+ * The parameters @f$\Delta C_1,\ldots,\Delta C_8@f$, @f$\Delta C_7^\prime@f$ and @f$\Delta C_8^\prime@f$ are
+ * not yet used in any matching.
  */
 class FlavourWilsonCoefficient: public StandardModel {
 public:

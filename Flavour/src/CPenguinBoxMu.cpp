@@ -19,8 +19,9 @@ double CPenguinBoxMu::C_NL()
 {
     double muc = model.getMuc();
     double Mw = model.getMuw();
-    double mc = model.Mrun(muc, model.getQuarks(QCD::CHARM).getMass_scale(),
-            model.getQuarks(QCD::CHARM).getMass(), QCD::CHARM, FULLNNLO);
+    // m = m_c(m_c) in x(m), K_c = alpha_s(mu)/alpha_s(m) and ln(mu^2/m^2): Buchalla-Buras,
+    // hep-ph/9308272, eqs. (cnln)-(bnln) ("m = m_c") with (xmu) (m(m) is the input parameter)
+    double mc = model.getQuarks(QCD::CHARM).getMass();
 
     double K = model.Als(Mw) / model.Als(muc);
     double Kc = model.Als(muc) / model.Als(mc);
@@ -39,8 +40,9 @@ double CPenguinBoxMu::B_NL()
 {
     double muc = model.getMuc();
     double Mw = model.getMuw();
-    double mc = model.Mrun(muc, model.getQuarks(QCD::CHARM).getMass_scale(),
-            model.getQuarks(QCD::CHARM).getMass(), QCD::CHARM, FULLNNLO);
+    // m = m_c(m_c) in x(m), K_c = alpha_s(mu)/alpha_s(m) and ln(mu^2/m^2): Buchalla-Buras,
+    // hep-ph/9308272, eqs. (cnln)-(bnln) ("m = m_c") with (xmu) (m(m) is the input parameter)
+    double mc = model.getQuarks(QCD::CHARM).getMass();
 
     double K = model.Als(Mw) / model.Als(muc);
     double Kc = model.Als(muc) / model.Als(mc);

@@ -100,6 +100,14 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMbsmm()
             out << mcbsmm.getOrder();
             throw std::runtime_error("FlavourWilsonCoefficientMatching::CMbsmm(): order " + out.str() + "not implemented"); 
     }
+    /* NP C10 in the normalisation of StandardModelMatching::CMbsmm (Bobeth-Gorbahn-Stamou, read by the
+     * Bsmumu/Bdmumu "*_old" observables): C10 enters as lambda_t sW^2 C10 in the O(alpha_e) slot NLO_QED11, where
+     * the SM coefficient is lambda_t sW^2 (-Y0/sW^2) (setWCBsmmEW), so that C10NPmu is a plain shift of C10 as in CMBMll. */
+    {
+        double Mw = myRealWeakEFTLFV.Mw();
+        double sw2 = M_PI * myRealWeakEFTLFV.getAle() / (sqrt(2.) * myRealWeakEFTLFV.getGF() * Mw * Mw);
+        mcbsmm.setCoeff(7, myRealWeakEFTLFV.getCKM().computelamt_s() * sw2 * C10NPmu, NLO_QED11);
+    }
 
     vmcbsmm.push_back(mcbsmm);
     return (vmcbsmm);
@@ -133,6 +141,14 @@ std::vector<WilsonCoefficient>& RealWeakEFTLFVMatching::CMbdmm()
             std::stringstream out;
             out << mcbdmm.getOrder();
             throw std::runtime_error("FlavourWilsonCoefficientMatching::CMbdmm(): order " + out.str() + "not implemented"); 
+    }
+    /* NP C10 in the normalisation of StandardModelMatching::CMbdmm (Bobeth-Gorbahn-Stamou, read by the
+     * Bsmumu/Bdmumu "*_old" observables): C10 enters as lambda_t sW^2 C10 in the O(alpha_e) slot NLO_QED11, where
+     * the SM coefficient is lambda_t sW^2 (-Y0/sW^2) (setWCBdmmEW), so that C10NPmu is a plain shift of C10 as in CMBMll. */
+    {
+        double Mw = myRealWeakEFTLFV.Mw();
+        double sw2 = M_PI * myRealWeakEFTLFV.getAle() / (sqrt(2.) * myRealWeakEFTLFV.getGF() * Mw * Mw);
+        mcbdmm.setCoeff(7, myRealWeakEFTLFV.getCKM().computelamt_d() * sw2 * C10NPmu, NLO_QED11);
     }
 
     vmcbdmm.push_back(mcbdmm);

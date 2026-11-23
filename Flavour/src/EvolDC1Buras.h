@@ -90,8 +90,10 @@ class EvolDC1Buras : public RGEvolutor {
     gslpp::matrix<gslpp::complex> v, vi, js, h, gg, s_s, jssv, jss, jv, vij;
     gslpp::vector<gslpp::complex> e;
     unsigned int dim;
-    double alsMZ_cache;
-    double Mz_cache;
+    double alsMZ_cache = 0.;
+    double Mz_cache = 0.;
+    double mut_cache = 0., mub_cache = 0., muc_cache = 0.; ///< threshold scales in the cache key
+    double mt_cache = 0., mb_cache = 0., mc_cache = 0.; ///< quark masses in the cache key
     
  };
 

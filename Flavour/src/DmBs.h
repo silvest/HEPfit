@@ -91,7 +91,9 @@ public:
  * @class PhiBs
  * @ingroup Flavour
  * @brief Model parameter PhiBs from the NP model NPDF2
- * @detail Half the relative phase of the $B_s$ mixing amplitude w.r.t. the Standard Model one
+ * @detail Half the relative phase of the $B_s$ mixing amplitude w.r.t. the Standard Model one,
+ * with the sign convention @f$(M_{12}^{bs})_\mathrm{full} = C_{B_s}\, e^{-2i\phi_{B_s}} (M_{12}^{bs})_\mathrm{SM}@f$
+ * (opposite to the one of @f$\phi_{B_d}@f$); see StandardModel::getPhiBs().
  */
 class PhiBs : public ThObservable {
 public:
