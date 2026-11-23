@@ -926,7 +926,8 @@ public:
      * @brief Converts the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ to the pole mass.
      * @param[in] mbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
      * @param[in] q the quark for which the conversion is done
-     * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
+     * @param[in] order LO, NLO, FULLNLO, NNLO, FULLNNLO, NNNLO or FULLNNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
+     * (the @f$O(\alpha_s^3)@f$ term neglects the light-quark masses)
      * @return the pole mass in GeV
      *
      * @attention Can only be used for conversion of mass of the top and bottom quarks.
@@ -937,7 +938,7 @@ public:
      * @brief Converts a quark pole mass to the corresponding @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$.
      * @param[in] mp the pole mass of the bottom or top quark in GeV
      * @param[in] q the quark for which the conversion is done
-     * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
+     * @param[in] order LO, FULLNLO, FULLNNLO or FULLNNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
      * @return the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
      * @details By default (model flag FlagMpole2MbarNumeric = true) Mbar2Mp() is inverted numerically
      * (Mp2Mbar_bar()). With FlagMpole2MbarNumeric = false the top-quark conversion uses the analytic

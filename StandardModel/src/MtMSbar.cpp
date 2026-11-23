@@ -9,5 +9,6 @@
 
 double MtMSbar::computeThValue() 
 {
-    return SM.Mp2Mbar(SM.getMtpole(), QCD::TOP);
+    // three-loop pole <-> MSbar relation (see QCD::Mbar2Mp)
+    return SM.Mp2Mbar(SM.getMtpole(), QCD::TOP, FULLNNNLO);
 }

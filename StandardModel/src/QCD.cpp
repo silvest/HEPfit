@@ -1643,8 +1643,12 @@ const double QCD::Mbar2Mp(const double mbar, const quark q, const orders order) 
     orders orderForAls;
     if (order == NLO || order == FULLNLO)
         orderForAls = FULLNLO;
-    if (order == NNLO || order == FULLNNLO)
+    else if (order == NNLO || order == FULLNNLO)
         orderForAls = FULLNNLO;
+    else if (order == NNNLO || order == FULLNNNLO)
+        orderForAls = FULLNNNLO;
+    else
+        throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Mbar2Mp().");
     double a = Als(mbar, Nf_m, orderForAls) / M_PI;
 
     // NLO contribution
@@ -1673,6 +1677,15 @@ const double QCD::Mbar2Mp(const double mbar, const quark q, const orders order) 
     if (order == FULLNNLO)
         return (MpLO + MpNLO + MpNNLO);
 
+    // NNNLO contribution: Chetyrkin, Steinhauser, hep-ph/9911434 and Melnikov, van Ritbergen, hep-ph/9912391
+    // (numerical form, a = alpha_s^(nl+1)(mbar)/pi), light-quark masses neglected at this order
+    double MpNNNLO = mbar * (190.595 - 26.655 * nl + 0.6527 * nl * nl) * a * a * a;
+
+    if (order == NNNLO)
+        return MpNNNLO;
+    if (order == FULLNNNLO)
+        return (MpLO + MpNLO + MpNNLO + MpNNNLO);
+
     throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Mbar2Mp().");
 }
 
@@ -1692,7 +1705,7 @@ const double QCD::Mp2MbarTMP(double *mu, double *params) const
 
 const double QCD::Mp2Mbar_bar(const double mp, const quark q, const orders order) const
 {
-    if (order == NLO || order == NNLO)
+    if (order == NLO || order == NNLO || order == NNNLO)
         throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Mp2Mbar().");
 
     int i;
@@ -1765,8 +1778,12 @@ const double QCD::Mp2Mbar_pole(const double mp, const orders order) const
         orders orderForAls;
         if (order == NLO || order == FULLNLO)
             orderForAls = FULLNLO;
-        if (order == NNLO || order == FULLNNLO)
+        else if (order == NNLO || order == FULLNNLO)
             orderForAls = FULLNNLO;
+        else if (order == NNNLO || order == FULLNNNLO)
+            orderForAls = FULLNNNLO;
+        else
+            throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Mp2Mbar_pole().");
         double a = Als(mp, Nfmp, orderForAls) / M_PI;
 
         // NLO contribution
@@ -1786,6 +1803,21 @@ const double QCD::Mp2Mbar_pole(const double mp, const orders order) const
             return mbarNNLO;
         if (order == FULLNNLO)
             return (mbarLO + mbarNLO + mbarNNLO);
+
+        // NNNLO: invert M/m = 1 + c1 a' + c2 a'^2 + c3 a'^3 (a' = alpha_s(m)/pi, coefficients as in Mbar2Mp) and
+        // re-expand in a = alpha_s(M)/pi with a' = a + 2 b0 c1 a^3 + O(a^4), b0 = (11 - 2 nf/3)/4:
+        // m/M = 1 - c1 a + (c1^2 - c2) a^2 + (2 c1 c2 - c1^3 - c3 - 2 b0 c1^2) a^3
+        double nl = (double)Nfmp - 1.;
+        double c1 = 4. / 3.;
+        double c2 = 307. / 32. + 2. * zeta2 + 2. / 3. * zeta2 * log(2.0) - zeta3 / 6. - nl / 3. * (zeta2 + 71. / 48.);
+        double c3 = 190.595 - 26.655 * nl + 0.6527 * nl * nl;
+        double b0 = (11. - 2. / 3. * (double)Nfmp) / 4.;
+        double mbarNNNLO = mp * (2. * c1 * c2 - c1 * c1 * c1 - c3 - 2. * b0 * c1 * c1) * a * a * a;
+
+        if (order == NNNLO)
+            return mbarNNNLO;
+        if (order == FULLNNNLO)
+            return (mbarLO + mbarNLO + mbarNNLO + mbarNNNLO);
 
     throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Mp2Mbar_new().");
 }
