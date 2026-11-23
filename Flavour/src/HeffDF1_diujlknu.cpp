@@ -36,11 +36,18 @@ gslpp::vector<gslpp::complex>** HeffDF1_diujlknu::ComputeCoeffdiujleptonknu(int 
 
     //Hard-coding the Sirlin factor for the moment, Mauro's student can implement the full calculation. 
     //Since it includes the QED running, it should be applied to the SM only. The NP instead will be run using the QED and QCD anomalous dimensions
+    //The SM V_LL coefficient returned here therefore includes the leading-log short-distance electroweak correction
+    //eta_EW = 1 + alpha/pi ln(M_Z/mu) (A. Sirlin, Nucl. Phys. B196 (1982) 83), the same factor that the LO QED running
+    //in EvolDF1_diujlknu (gamma = -4 alpha/(4 pi)) gives the NP V_LL coefficient, so SM and NP are normalised alike.
+    //Observables whose inputs already contain S_EW = eta_EW^2 (Pmunu: delPl2em) must divide it out.
 
     orders ordDF1 = coeffdiujleptonknu[index].getOrder();
     for (unsigned int i = 0; i < mcu.size(); i++) {
-        if(i==0)
-            coeffdiujleptonknu[index].setCoeff(*mcu[0].getCoeff(LO), orders(LO));
+        if(i==0) {
+            gslpp::vector<gslpp::complex> coeffSM(*mcu[0].getCoeff(LO));
+            coeffSM.assign(0, coeffSM(0) * (1. + model.getAle() / M_PI * log(model.getMz() / mu)));
+            coeffdiujleptonknu[index].setCoeff(coeffSM, orders(LO));
+        }
         else
         for (int j = LO; j <= ordDF1; j++) {
             for (int k = LO; k <= j; k++) {

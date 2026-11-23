@@ -240,7 +240,6 @@ void MVlnu::updateParameters()
     mu_b = MM; // mySM.getMub();
     Mb = mySM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
     Mc = mySM.getQuarks(QCD::CHARM).getMass(); // add the PS b mass
-    ale_mub = mySM.Ale(mu_b,FULLNLO);
     /* Amplitude propto 4*GF*Vij/sqrt(2) & kinematics requires 1/(2^9 pi^3 MB^3) */
     amplsq_factor = 1./(64.*M_PI*M_PI*M_PI*MM*MM*MM);
     q2min = Mlep*Mlep;
@@ -259,7 +258,8 @@ void MVlnu::updateParameters()
         default: throw std::runtime_error("Expected a charged lepton in b to c matching");
     }
     gslpp::vector<gslpp::complex> ** allcoeff_bclnu = mySM.getFlavour().ComputeCoeffdiujlknu(2,1,k,mu_b);
-    CV = (*(allcoeff_bclnu[LO]))(0)/norm*(1.+ale_mub/M_PI*log(mySM.getMz()/mu_b))/2.;
+    /* the SM part already includes the short-distance EW (Sirlin) factor, see HeffDF1_diujlknu */
+    CV = (*(allcoeff_bclnu[LO]))(0)/norm/2.;
     CA = -CV;
     CVp = (*(allcoeff_bclnu[LO]))(1)/norm/2.;
     CAp = -CVp;

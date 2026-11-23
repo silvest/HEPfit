@@ -25,6 +25,8 @@ class StandardModel;
  * @copyright GNU General Public License
  * @details This class is used to compute the theoretical value of
  * branching ratio of \f$D\to \lepton \nu\f.
+ * The SM amplitude includes the leading-log short-distance electroweak (Sirlin) factor
+ * \f$1+\frac{\alpha}{\pi}\ln\frac{M_Z}{M_D}\f$ through HeffDF1_diujlknu.
  */
 class Dleptonnu : public ThObservable {
 public:   

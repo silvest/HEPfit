@@ -48,6 +48,9 @@ public:
      * @param k the flavour of the charged lepton
      * @param mu the scale at which the coefficients should be evaluated
      * @return short distance contribution to \f$ \bar{d_i} u_j \bar{\ell_k} \nu \f$ transitions in the JMS basis ordered as CnueduVLLkkij, CnueduVLRkkij, CnueduSRRkkij, CnueduSRLkkij, CnueduTRRkkij
+     * @details The SM part of CnueduVLL includes the leading-log short-distance electroweak (Sirlin) factor
+     * \f$ \eta_{EW} = 1+\frac{\alpha}{\pi}\ln\frac{M_Z}{\mu} \f$; the NP coefficients are evolved from their matching
+     * scale with the QCD and LO QED anomalous dimensions, which give the NP CnueduVLL the same factor.
      */
     gslpp::vector<gslpp::complex>** ComputeCoeffdiujleptonknu(int i, int j, int k, double mu);
 
