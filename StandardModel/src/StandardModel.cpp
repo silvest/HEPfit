@@ -146,7 +146,6 @@ SMM(*this), SMFlavour(*this), Ye(3, 3, 0.)
     ModelParamMap.insert(std::make_pair("muw", std::cref(muw)));
     
     iterationNo = 0;
-    realorder = LO;
 
     w_GSL1 = gsl_integration_workspace_alloc (200);
 }
@@ -698,8 +697,10 @@ const double StandardModel::AlsE(double mu, orders order, bool Nf_thr) const
     switch (order)
     {
         case FULLNNNLO:
-            realorder = order;
-            return (AlsByOrder(mu, LO, Nf_thr) + AlsByOrder(mu, NLO, Nf_thr) + AlsByOrder(mu, NNLO, Nf_thr) + AlsEByOrder(mu, NNNLO, Nf_thr));
+            // Evolved as a whole from the coupling matched at the flavour thresholds at FULLNNNLO (QCD + QED running).
+            // The former sum of QCD::AlsByOrder(LO, NLO, NNLO) pieces took their threshold order from QCD::realorder,
+            // i.e. from the order of the last QCD::Als() call, which a StandardModel member of the same name hid.
+            return AlsEByOrder(mu, order, Nf_thr);
         default:
             throw std::runtime_error("StandardModel::AlsE(): " + orderToString(order) + " is not implemented.");
     }
@@ -724,16 +725,17 @@ const double StandardModel::AlsEByOrder(double mu, orders order, bool Nf_thr) co
     switch (order)
     {
         case NNNLO:
+        case FULLNNNLO:
             if (nfAls == nfmu) 
                 als = AlsEWithInit(mu, AlsMz, Mz, nfAls, order);
-            fullord = FullOrder(order);
+            fullord = FULLNNNLO; // threshold evolution and matching at the full order
             if (nfAls > nfmu) {
                 mutmp = BelowTh(Mz);
-                alstmp = AlsEWithInit(mutmp, AlsMz, Mz, nfAls, realorder);
+                alstmp = AlsEWithInit(mutmp, AlsMz, Mz, nfAls, fullord);
                 alstmp *= (1. + NfThresholdDown(mutmp, MassOfNf(nfAls), alstmp, nfAls, fullord)); // WARNING: QED threshold corrections not implemented yet
                 for (i = nfAls - 1; i > nfmu; i--) {
                     mutmp = BelowTh(mutmp - MEPS);
-                    alstmp = AlsEWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, i, realorder);
+                    alstmp = AlsEWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, i, fullord);
                     alstmp *= (1. + NfThresholdDown(mutmp, MassOfNf(i), alstmp, i, fullord)); // WARNING: QED threshold corrections not implemented yet
                 }
                 als = AlsEWithInit(mu, alstmp, AboveTh(mu) - MEPS, nfmu, order);
@@ -741,11 +743,11 @@ const double StandardModel::AlsEByOrder(double mu, orders order, bool Nf_thr) co
 
             if (nfAls < nfmu) {
                 mutmp = AboveTh(Mz) - MEPS;
-                alstmp = AlsEWithInit(mutmp, AlsMz, Mz, nfAls, realorder);
+                alstmp = AlsEWithInit(mutmp, AlsMz, Mz, nfAls, fullord);
                 alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(nfAls + 1), alstmp, nfAls + 1, fullord)); // WARNING: QED threshold corrections not implemented yet
                 for (i = nfAls + 1; i < nfmu; i++) {
                     mutmp = AboveTh(mutmp) - MEPS;
-                    alstmp = AlsEWithInit(mutmp, alstmp, BelowTh(mutmp) + MEPS, i, realorder); 
+                    alstmp = AlsEWithInit(mutmp, alstmp, BelowTh(mutmp) + MEPS, i, fullord); 
                     alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(i + 1), alstmp, i + 1, fullord)); // WARNING: QED threshold corrections not implemented yet
                 }
                 als = AlsEWithInit(mu, alstmp, BelowTh(mu) + MEPS, nfmu, order);

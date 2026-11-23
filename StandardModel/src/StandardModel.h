@@ -3865,7 +3865,6 @@ private:
     mutable double als_cache[14][CacheSize]; ///< Cache for \f$\alpha_s\f$ (AlsEByOrder()).
     mutable double ale_cache[13][CacheSize]; ///< Cache for \f$\alpha_e\f$.
     void ClearAlphaCaches() const; ///< Invalidate als_cache and ale_cache (not reached by QCD::ClearCaches()).
-    mutable orders realorder;
 
 
 };
