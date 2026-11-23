@@ -21,24 +21,28 @@ HiggsObservable::HiggsObservable(const Observable& Obs) :
 Observable(Obs)
 {
     isnew = true;
+    thobsvsize = 0.;
+    channelsize = 0.;
     isCorrelated = false;
     covarianceFromConfig = false;
+    InvCov = NULL;
+    logNorm = 0.;
+    rank = 0;
 };
 
-HiggsObservable::HiggsObservable(const HiggsObservable& orig)
+HiggsObservable::HiggsObservable(const HiggsObservable& orig) :
+Observable(orig), channels(orig.channels), isnew(orig.isnew), thObsV(orig.thObsV), theoryValues(orig.theoryValues),
+thobsvsize(orig.thobsvsize), channelsize(orig.channelsize), isCorrelated(orig.isCorrelated),
+covarianceFromConfig(orig.covarianceFromConfig),
+InvCov(orig.InvCov != NULL ? new gslpp::matrix<double>(*orig.InvCov) : NULL), // each copy owns its matrix
+logNorm(orig.logNorm), rank(orig.rank)
 {
-    channels = orig.channels;
-    thObsV = orig.thObsV;
-    thobsvsize = orig.thobsvsize;
-    channelsize = orig.channelsize;
-    isnew = orig.isnew;
-    isCorrelated = orig.isCorrelated;
-    covarianceFromConfig = orig.covarianceFromConfig;
-    InvCov = orig.InvCov;
-    rank = orig.rank;
 }
 
-//HiggsObservable::~HiggsObservable() {}
+HiggsObservable::~HiggsObservable()
+{
+    delete InvCov;
+}
 
 void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<ThObservable*> thObsV)
 {
@@ -71,7 +75,9 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
         IsEOF = getline(ifile, line).eof();
         lineNo++;
         if (!line.empty() && line.back() == '\r') line.pop_back(); // for CR+LF
-        if (line.compare(0, 11, "MEASUREMENT") != 0 && !readCorrelations) {
+        // Only MEASUREMENT lines are measurements: comments and blank lines between them are skipped also
+        // for a correlated observable (whose correlation rows are read right after the last measurement).
+        if (line.compare(0, 11, "MEASUREMENT") != 0) {
             continue;
         } else {
             boost::char_separator<char> sep(" |\t");
@@ -126,15 +132,22 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
                 }
                 if (myCorr.size_i() != nrows || myCorr.size_j() != nrows)
                     throw std::runtime_error("The size of the correlated observables in " + name + " does not match the size of the correlation matrix!");
+                delete InvCov;
                 InvCov = new gslpp::matrix<double>(nrows, nrows, 0.);
+                // normalisation of the log-likelihood, -1/2 ln det(2 pi C) (left at 0 if det <= 0)
+                logNorm = 0.;
                 if (covarianceFromConfig) {
                     for (unsigned int i = 0; i < nrows; i++)
                         for (unsigned int j = 0; j < nrows; j++)
                             (*InvCov)(i, j) = myCorr(i, j);
+                    const double det = InvCov->determinant();
+                    if (det > 0.) logNorm = -0.5 * nrows * log(2. * M_PI) + 0.5 * log(det);
                 } else {
                     for (unsigned int i = 0; i < nrows; i++)
                         for (unsigned int j = 0; j < nrows; j++)
                             (*InvCov)(i, j) = std::fabs(channels(i, errorColumn)) * myCorr(i, j) * std::fabs(channels(j, errorColumn));
+                    const double det = InvCov->determinant();
+                    if (det > 0.) logNorm = -0.5 * nrows * log(2. * M_PI) - 0.5 * log(det);
                     *InvCov = InvCov->inverse();
                 }
                 readCorrelations = false;
@@ -188,7 +201,7 @@ double HiggsObservable::computeWeight()
         gslpp::vector<double> residuals(channels.GetNrows(), 0.);
         for (int i = 0; i < channels.GetNrows(); i++)
             residuals(i) = theoryValues.at(thobsvsize + i + 1) - channels(i, meanColumn);
-        return -0.5 * residuals * ((*InvCov) * residuals);
+        return -0.5 * residuals * ((*InvCov) * residuals) + logNorm;
     }
     for (int i = 0; i < channels.GetNrows(); i++)
         logprob += LogSplitGaussian(theoryValues.at(thobsvsize + i + 1), channels(i, meanColumn),

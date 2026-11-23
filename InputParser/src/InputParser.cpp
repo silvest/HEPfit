@@ -12,6 +12,20 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <iostream>
 #include <boost/tokenizer.hpp>
+#include <algorithm>
+#include <cstdlib>
+
+namespace {
+// Canonical name of a file, used to detect recursive IncludeFile directives; the name itself if it cannot be resolved.
+std::string canonicalFileName(const std::string& name)
+{
+    char* resolved = realpath(name.c_str(), NULL);
+    if (resolved == NULL) return name;
+    std::string canonical(resolved);
+    free(resolved);
+    return canonical;
+}
+}
 
 InputParser::InputParser(ModelFactory& ModF, ThObsFactory& ObsF) : myModelFactory(ModF), myObsFactory(ObsF), filename(""), rank(0)
 {
@@ -49,7 +63,14 @@ std::string InputParser::ReadParameters(const std::string filename_i,
         else sleep (2);
     }
 
-    if (filename.find("\\/") == std::string::npos) filepath = filename.substr(0, filename.find_last_of("\\/") + 1);
+    // files being read (nested by IncludeFile), to reject a file that includes itself directly or indirectly
+    includeStack.push_back(canonicalFileName(filename));
+    struct PopIncludeStack {
+        std::vector<std::string>& stack;
+        ~PopIncludeStack() { stack.pop_back(); }
+    } popIncludeStack = {includeStack};
+
+    filepath = filename.substr(0, filename.find_last_of("\\/") + 1);
     const boost::char_separator<char> sep(" \t");
     std::string line;
     while (std::getline(ifile, line)) {
@@ -79,6 +100,8 @@ std::string InputParser::ReadParameters(const std::string filename_i,
 
         std::string type = *beg;
         ++beg;
+        const int keywordLineNo = lineNo;
+        const size_t nObservables = Observables.size(), nObservables2D = Observables2D.size(), nCGO = CGO.size();
         if (type.compare("ModelParameter") == 0) {
             
             if (std::distance(tok.begin(), tok.end()) < 5) {
@@ -166,7 +189,7 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             CorrelatedGaussianObservables tmpCO;
             tmpCO.setIsPrediction(true);
             lineNo = tmpCO.ParseCGO(Observables, ifile, beg, filename, myObsFactory, myModel, lineNo, rank);
-            CGO.push_back(tmpCO);
+            if (tmpCO.getObs().size() > 1) CGO.push_back(tmpCO); // a single member is booked as a normal Observable by ParseCGO()
 
         } else if (type.compare("CustomObservable") == 0) {
             
@@ -185,6 +208,8 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             beg = tmpcustomObs->ParseObservable(type, &tok, beg, filepath, filename, rank);
             tmpcustomObs->setTho(myObsFactory.CreateThMethod(tmpcustomObs->getThname(), *myModel));
             Observables.push_back(tmpcustomObs);
+            ++beg;
+            if (beg != tok.end() && rank == 0) std::cout << "WARNING: unread information in CustomObservable " << tmpcustomObs->getName() << std::endl;
 
         } else if (type.compare("ModelFlag") == 0) {
             if (std::distance(tok.begin(), tok.end()) < 3) {
@@ -216,10 +241,21 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             ++beg;
             if (beg != tok.end() && rank == 0) std::cout << "WARNING: unread information in Flag " << flagname << std::endl;
         } else if (type.compare("IncludeFile") == 0) {
+            if (beg == tok.end()) {
+                if (rank == 0) throw std::runtime_error("\nERROR: IncludeFile without a file name in file " + filename + " line no. " + boost::lexical_cast<std::string>(lineNo) + ".\n");
+                else sleep(2);
+                continue;
+            }
             std::string oldfilepath = filepath;
             std::string oldfilename = filename;
             int oldlineNo = lineNo;
-            std::string IncludeFileName = filepath + *beg;
+            // a relative name is relative to the directory of the including file; an absolute name is used as it is
+            std::string IncludeFileName = ((*beg).at(0) == '/' ? *beg : filepath + *beg);
+            if (std::find(includeStack.begin(), includeStack.end(), canonicalFileName(IncludeFileName)) != includeStack.end()) {
+                if (rank == 0) throw std::runtime_error("\nERROR: recursive IncludeFile of " + IncludeFileName + " in file " + filename + " line no. " + boost::lexical_cast<std::string>(lineNo) + ".\n");
+                else sleep(2);
+                continue;
+            }
             if (rank == 0) std::cout << "Including File: " + IncludeFileName << std::endl;
             ReadParameters(IncludeFileName, rank, ModelPars, Observables, Observables2D, CGO, CGP);
             filepath = oldfilepath;
@@ -230,6 +266,20 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             if (rank == 0) throw std::runtime_error("\nERROR: wrong keyword " + type + " in file " + filename + " line no. " + boost::lexical_cast<std::string>(lineNo) + ". Make sure to specify a valid model configuration file.\n");
             else sleep(2);
         }
+
+        // Observable names must be unique (histograms, statistics and chains are keyed by name).
+        // The observables of an included file have been checked while reading it.
+        if (type.compare("IncludeFile") != 0) {
+            for (size_t i = nObservables; i < Observables.size(); i++)
+                CheckDuplicateObservable(checkDuplicateObservable, Observables[i].getName(), "Observable", keywordLineNo);
+            for (size_t i = nCGO; i < CGO.size(); i++) {
+                const std::vector<Observable> members = CGO[i].getObs();
+                for (size_t j = 0; j < members.size(); j++)
+                    CheckDuplicateObservable(checkDuplicateObservable, members[j].getName(), "Observable", keywordLineNo);
+            }
+            for (size_t i = nObservables2D; i < Observables2D.size(); i++)
+                CheckDuplicateObservable(checkDuplicateObservable2D, Observables2D[i].getName(), "Observable2D", keywordLineNo);
+        }
     }
 
     if (modelset == 0 && rank == 0)
@@ -237,6 +287,20 @@ std::string InputParser::ReadParameters(const std::string filename_i,
     if (rank == 0 && !myModel->CheckFlags())
         throw std::runtime_error("ERROR: incompatible flag(s)\n");
     return (modname);
+}
+
+void InputParser::CheckDuplicateObservable(std::map<std::string, std::pair<std::string, int> >& seen, const std::string& name,
+                                           const std::string& kind, const int line)
+{
+    std::map<std::string, std::pair<std::string, int> >::const_iterator it = seen.find(name);
+    if (it != seen.end()) {
+        // A repeated name is only reported: several shipped configurations reuse a name for different bins.
+        if (rank == 0) std::cout << "\nWARNING: " << kind << " " << name << " appears more than once: "
+                << "first at line " << it->second.second << " in file " << it->second.first << ", again at line "
+                << line << " in file " << filename << ". Histograms, statistics and chain branches of observables"
+                << " with the same name are merged; rename one of them to keep them separate.\n" << std::endl;
+    } else
+        seen[name] = std::make_pair(filename, line);
 }
 
 void InputParser::addCustomObservableType(const std::string name, boost::function<Observable*() > funct)

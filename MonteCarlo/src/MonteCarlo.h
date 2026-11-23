@@ -211,6 +211,16 @@ private:
      * @param[in] buffsize the size of the buffer exchanged with the workers
      */
     void terminateMPIWorkers(int buffsize);
+
+    /**
+     * @brief Sum the numbers of used and discarded events over all the MPI ranks.
+     * @details The log-likelihood is evaluated by all the ranks, each counting its own events. Called on rank 0
+     * while the other ranks wait in the worker loop of Run() (command 5).
+     * @param[in] buffsize the size of the buffer exchanged with the workers
+     * @param[out] used the total number of used events
+     * @param[out] discarded the total number of discarded events
+     */
+    void collectMPIEventCounters(int buffsize, double& used, double& discarded);
 #endif
 };
 

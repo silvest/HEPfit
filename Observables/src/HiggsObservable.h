@@ -29,9 +29,21 @@ class HiggsObservable : public Observable {
 public:
     HiggsObservable(const Observable& Obs);
                
+    /**
+     * @brief The copy constructor: copies the Observable base and all the parsed data; the inverse
+     * covariance matrix of a correlated observable is copied, each object owning its own.
+     */
     HiggsObservable(const HiggsObservable& orig);
 
-//    virtual ~HiggsObservable();
+    /**
+     * @brief Copy assignment is not supported (the object owns its inverse covariance matrix).
+     */
+    HiggsObservable& operator=(const HiggsObservable& orig) = delete;
+
+    /**
+     * @brief The destructor: frees the inverse covariance matrix.
+     */
+    virtual ~HiggsObservable();
     
     // Read the necessary information from the config file. First row should 
     // contain the list of categories used in the analysis
@@ -46,6 +58,9 @@ public:
 
     /**
      * @brief A method to compute the weight associated with the observable.
+     * @details The normalised log-likelihood (see Observable::computeWeight(double)): the sum of the two-piece
+     * normal log densities of the channels (LogSplitGaussian()), or for a correlated observable the multivariate
+     * Gaussian log density including @f$-\frac12\ln\det(2\pi C)@f$.
      */
     virtual double computeWeight();
     
@@ -115,6 +130,7 @@ public:
         bool isCorrelated;///< A flag for correlated Higgs Observable.
         bool covarianceFromConfig;///< A flag for reading inverse covariance from config file.
         gslpp::matrix<double>* InvCov;///< The inverse covariance matrix.
+        double logNorm;///< The normalisation -1/2 ln det(2 pi C) of the correlated log-likelihood.
         int rank;///< The rank of the process initializing this observable.
 };
 

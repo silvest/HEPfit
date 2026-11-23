@@ -84,6 +84,15 @@ public:
      * \li Search and read the Observable2D list using the ParseObservable() method.
      * \li Search and read the CorrelatedGaussianObservables.
      * \li Return the name of the model initialized.
+     *
+     * A line "IncludeFile <file>" reads <file> at that point; a relative name is relative to the directory of
+     * the file containing the directive, an absolute name is used as it is. A file that includes itself, directly
+     * or through other included files, is an error.
+     *
+     * Observable names must be unique, including the members of correlated sets (histograms, statistics and
+     * chains are keyed by name); the same holds for the names of the Observable2D. A repeated name is reported
+     * with a warning (unlike repeated ModelParameters, which are an error), since the outputs of observables
+     * sharing a name are merged.
      * @param[in] filename name of the SomeModel.conf file passed as an argument to the executable
      * @param[in] rank the rank of the process in an MPI run (set to 0 for a serial run)
      * @param[out] ModelPars the vector of model parameters
@@ -129,12 +138,24 @@ public:
     }
     
 private:
+    /**
+     * @brief Warns if an observable name has already been booked, otherwise records where it was booked.
+     * @param[in,out] seen the names booked so far, with the file and line number where they were defined
+     * @param[in] name the name of the observable
+     * @param[in] kind the kind of observable, for the warning
+     * @param[in] line the line number of the definition in the current file
+     */
+    void CheckDuplicateObservable(std::map<std::string, std::pair<std::string, int> >& seen, const std::string& name,
+                                  const std::string& kind, const int line);
+
     StandardModel* myModel;///< Pointer to an object of type StandardModel.
     ModelFactory& myModelFactory;///< Pointer to an object of type ModelFactory.
     ThObsFactory& myObsFactory;///< Reference to an object of type ThObsFactory.
     std::string modname;///< A string to store the model name in.
     bool modelset;
     std::map <std::string, boost::tuple<bool, std::string, int> > checkDuplicateParameter;
+    std::map<std::string, std::pair<std::string, int> > checkDuplicateObservable;///< Observable names booked so far (file, line).
+    std::map<std::string, std::pair<std::string, int> > checkDuplicateObservable2D;///< Observable2D names booked so far (file, line).
     std::string modeldefinedinfile;
     //std::map<std::string, boost::function<InputParser*(ModelFactory&, ThObsFactory&) > > customParserMap;
     std::map<std::string, boost::function<Observable* ()> > customObservableTypeMap;
@@ -143,6 +164,7 @@ private:
     std::string filename;
     int rank;
     std::string filepath;
+    std::vector<std::string> includeStack;///< The canonical names of the files being read (nested by IncludeFile).
 };
 
 /** 

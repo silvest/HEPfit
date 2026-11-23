@@ -59,6 +59,8 @@ Observable::Observable (const std::string name_i,
     bin_min = 0.;
     bin_max = 0.;
     iterationNo = std::numeric_limits<int>::max();
+    thValue = 0.;
+    logHistoNorm = 0.;
     writeChain = false;
     hasInverseCovariance = false;
 }
@@ -84,7 +86,9 @@ Observable::Observable(const Observable& orig)
     bin_min = orig.bin_min;
     bin_max = orig.bin_max;
     iterationNo = orig.iterationNo;
+    thValue = orig.thValue;
     inhisto = orig.inhisto;
+    logHistoNorm = orig.logHistoNorm;
     writeChain = orig.writeChain;
     hasInverseCovariance = orig.hasInverseCovariance;
 }
@@ -110,6 +114,8 @@ Observable::Observable()
     bin_min = 0.;
     bin_max = 0.;
     iterationNo = std::numeric_limits<int>::max();
+    thValue = 0.;
+    logHistoNorm = 0.;
     writeChain = false;
     hasInverseCovariance = false;
 }
@@ -139,6 +145,9 @@ void Observable::setLikelihoodFromHisto(std::string filename, std::string histon
         inhisto->SetDirectory(gROOT);
         setMin(inhisto->GetXaxis()->GetXmin());
         setMax(inhisto->GetXaxis()->GetXmax());
+        // normalise the likelihood to a probability density over the histogram range (see computeWeight())
+        const double norm = inhisto->Integral("width");
+        logHistoNorm = (norm > 0. ? log(norm) : 0.);
         lik->Close();
         delete lik;
     }
@@ -158,12 +167,13 @@ double Observable::computeTheoryValue()
 double Observable::LogSplitGaussian(double x, double ave, double errl, double errr)
 {
     double sigma = (x > ave ? errr : errl);
-    return -0.5 * (x-ave) * (x-ave) / sigma / sigma;
+    // two-piece normal density, normalised to 1: 2 / (sqrt(2 pi) (|errl| + |errr|)) exp(-(x-ave)^2 / (2 sigma^2))
+    return -0.5 * (x-ave) * (x-ave) / sigma / sigma + 0.5 * log(2. / M_PI) - log(std::fabs(errl) + std::fabs(errr));
 }
 
 double Observable::LogGaussian(double x, double ave, double sigma)
 {
-    return -0.5 * (x-ave) * (x-ave) / sigma / sigma;
+    return -0.5 * (x-ave) * (x-ave) / sigma / sigma - log(std::sqrt(2. * M_PI) * std::fabs(sigma));
 }
 
 double Observable::computeWeight(double th)
@@ -176,18 +186,18 @@ double Observable::computeWeight(double th)
                 logprob = LogGaussian(th, ave, errg);
             else if (errg == 0.) {
                 if (th < ave + errf && th > ave - errf)
-                    logprob = 1.;
+                    logprob = -log(2. * errf);
                 else
                     logprob = log(0.);
             } else
-                logprob = logGaussianFlat(th - ave, errg, errf);
+                logprob = logGaussianFlat(th - ave, errg, errf) - log(4. * errf);
         }
     } else if (distr.compare("file") == 0) {
         int i = inhisto->FindBin(th);
         if (inhisto->IsBinOverflow(i) || inhisto->IsBinUnderflow(i))
             logprob = log(0.);
         else
-            logprob = log(inhisto->GetBinContent(i));
+            logprob = log(inhisto->GetBinContent(i)) - logHistoNorm;
         //logprob = log(h->GetBinContent(h->FindBin(th)));
     } else
         throw std::runtime_error("ERROR: MonteCarloEngine::Weight() called without weight for "
@@ -203,11 +213,11 @@ double Observable::computeWeight(double th, double ave_i, double errg_i, double 
             logprob = LogGaussian(th, ave_i, errg_i);
         else if (errg_i == 0.) {
             if (th < ave_i + errf_i && th > ave_i - errf_i)
-                logprob = 1.;
+                logprob = -log(2. * errf_i);
             else
                 logprob = log(0.);
         } else
-            logprob = logGaussianFlat(th - ave_i, errg_i, errf_i);
+            logprob = logGaussianFlat(th - ave_i, errg_i, errf_i) - log(4. * errf_i);
     } else
         throw std::runtime_error("ERROR: MonteCarloEngine::Weight() called without weight for "
             + name);
@@ -221,7 +231,9 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
                                                                                        std::string& infilename,
                                                                                        int rank) 
 {
-    if ((type.compare("Observable") == 0 || type.compare("HiggsObservable") == 0) && std::distance(tok->begin(), tok->end()) < 8) {
+    // Every type needs at least the keyword, name, thname, label, min, max, the MCMC flag and one more token (the
+    // distribution, or the type name for a CustomObservable); the distribution-specific numbers are checked below.
+    if (std::distance(tok->begin(), tok->end()) < 8) {
         if(rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename);
         else sleep (2);
     } else if (type.compare("BinnedObservable") == 0 && std::distance(tok->begin(), tok->end()) < 12) {
@@ -231,7 +243,7 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
         if(rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename);
         else sleep (2);
     } else {
-        obsType = type;
+        if (type.compare("CustomObservable") != 0) obsType = type; // a CustomObservable keeps its custom type name
         name = *beg;
         ++beg;
         thname = *beg;
@@ -255,11 +267,16 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
             else sleep (2);
         }
 
-        if (obsType.compare("Observable") == 0 || obsType.compare("BinnedObservable") == 0 || obsType.compare("FunctionObservable") == 0 || type.compare("AsyGausObservable") == 0) {
+        if (type.compare("CustomObservable") == 0) {
+            distr = (tMCMC ? "weight" : "noweight");
+            beg = ParseUserInput(tok, beg, filepath, infilename, rank);
+        } else if (obsType.compare("Observable") == 0 || obsType.compare("BinnedObservable") == 0 || obsType.compare("FunctionObservable") == 0 || type.compare("AsyGausObservable") == 0) {
+            // tokens after the distribution information: bin_min and bin_max (BinnedObservable) or x_value (FunctionObservable)
+            const int nBinTokens = (obsType.compare("BinnedObservable") == 0 ? 2 : (obsType.compare("FunctionObservable") == 0 ? 1 : 0));
             ++beg;
             distr = *beg;
             if (distr.compare("file") == 0) {
-                if (std::distance(tok->begin(), tok->end()) < 10) {
+                if (std::distance(tok->begin(), tok->end()) < 10 + nBinTokens) {
                     if (rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename + ".\n");
                     else sleep(2);
                 } else if (type.compare("AsyGausObservable") == 0) {
@@ -272,7 +289,7 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
                     if (rank == 0) std::cout << "added input histogram " << filename << "/" << histoname << std::endl;
                 }
             } else if (distr.compare("weight") == 0) {
-                if (std::distance(tok->begin(), tok->end()) < 11) {
+                if (std::distance(tok->begin(), tok->end()) < 11 + nBinTokens) {
                     if(rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename + ".\n");
                     else sleep (2);
                 }
@@ -299,6 +316,10 @@ boost::tokenizer<boost::char_separator<char> >::iterator & Observable::ParseObse
                     else sleep(2);
                 }
                 if (obsType.compare("BinnedObservable") == 0 || obsType.compare("FunctionObservable") == 0) {
+                    if (std::distance(tok->begin(), tok->end()) < 11 + nBinTokens) {
+                        if (rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + infilename + ".\n");
+                        else sleep(2);
+                    }
                     ++beg;
                     ++beg;
                     ++beg;

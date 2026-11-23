@@ -26,7 +26,7 @@ CorrelatedGaussianObservables::CorrelatedGaussianObservables() {
     covarianceFromConfig = false;
 }
 
-CorrelatedGaussianObservables::CorrelatedGaussianObservables(const CorrelatedGaussianObservables& orig) : InvCov(orig.InvCov), x(orig.x) {
+CorrelatedGaussianObservables::CorrelatedGaussianObservables(const CorrelatedGaussianObservables& orig) : InvCov(orig.InvCov), x(orig.x), logNorm(orig.logNorm) {
     Obs = orig.Obs;
     name = orig.name;
     IsPrediction = orig.IsPrediction;
@@ -67,6 +67,15 @@ void CorrelatedGaussianObservables::ComputeCov(const TMatrixDSym& Corr) {
             std::cout << "("<< EVbad <<" non positive eigenvalue(s).)" << std::endl;
             sleep(2);
         }
+        // normalisation -1/2 ln det(2 pi C) = -n/2 ln(2 pi) + 1/2 ln det(C^-1); left at 0 if C^-1 is singular
+        logNorm = 0.;
+        double logDet = 0.;
+        bool positive = true;
+        for (unsigned int i = 0; i < size; i++) {
+            if (egval(i) > 0.) logDet += log(egval(i));
+            else positive = false;
+        }
+        if (positive) logNorm = -0.5 * size * log(2. * M_PI) + 0.5 * logDet;
         
     } else {
         for (unsigned int i = 0; i < size; i++) {
@@ -88,6 +97,14 @@ void CorrelatedGaussianObservables::ComputeCov(const TMatrixDSym& Corr) {
             std::cout << "("<< EVbad <<" non positive eigenvalue(s).)" << std::endl;
             sleep(2);
         }
+        // normalisation -1/2 ln det(2 pi C); left at 0 if C is not positive definite
+        logNorm = 0.;
+        if (EVbad == 0) {
+            double logDet = 0.;
+            for (unsigned int i = 0; i < size; i++)
+                logDet += log(egval(i));
+            logNorm = -0.5 * size * log(2. * M_PI) - 0.5 * logDet;
+        }
         
         // Invert
         InvCov.Invert();
@@ -99,7 +116,7 @@ double CorrelatedGaussianObservables::computeWeight() {
     for (unsigned int i = 0; i < Obs.size(); i++)
         x(i) = Obs.at(i).computeTheoryValue() - Obs.at(i).getAve();
 
-    return (-0.5 * x * (InvCov * x));
+    return (-0.5 * x * (InvCov * x) + logNorm);
 }
 
 std::vector<double> CorrelatedGaussianObservables::computeLeaveOneOutWeights() {
@@ -122,12 +139,14 @@ std::vector<double> CorrelatedGaussianObservables::computeLeaveOneOutWeights(
 
     std::vector<double> weights;
     weights.reserve(Obs.size() + 1);
-    weights.push_back(-0.5 * (residuals * precisionResiduals));
+    weights.push_back(-0.5 * (residuals * precisionResiduals) + logNorm);
     for (unsigned int i = 0; i < Obs.size(); i++) {
-        // Marginalizing over i uses the Schur complement of its precision entry.
+        // Marginalizing over i uses the Schur complement of its precision entry. The normalisations differ by
+        // 1/2 ln(InvCov(i,i) / (2 pi)), since det C = det C_{-i} / InvCov(i,i) (C_{-i}: C without row/column i).
         const double diagonal = InvCov(i, i);
         const double projected = precisionResiduals(i);
-        weights.push_back(diagonal == 0.0 ? 0.0 : -0.5 * projected * (projected / diagonal));
+        weights.push_back(diagonal == 0.0 ? 0.0 : -0.5 * projected * (projected / diagonal)
+                + (diagonal > 0. ? 0.5 * log(diagonal / (2. * M_PI)) : 0.));
     }
     return weights;
 }
@@ -247,10 +266,11 @@ int CorrelatedGaussianObservables::ParseCGO(boost::ptr_vector<Observable>& Obser
     } else {
         if (rank == 0) std::cout << "\nWARNING: Correlated (Gaussian) Observable " << name.c_str() << " defined with less than two observables" << " in file " << infilename << ". The set is being marked as normal Observables." << std::endl;
         if (getObs().size() == 1) Observables.push_back(new Observable(getObs(0)));
-        for (int i = 0; i < size; i++) {
-            IsEOF = getline(ifile, line).eof();
-            lineNo++;
-        }
+        if (!IsPrediction) // skip the correlation matrix; a set of predictions (CorrelatedObservables) has none
+            for (int i = 0; i < size; i++) {
+                IsEOF = getline(ifile, line).eof();
+                lineNo++;
+            }
     }
     return lineNo;
 }

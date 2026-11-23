@@ -295,6 +295,9 @@ void MonteCarlo::Run(const int rank) {
                         MCEngine.fillObservableBuffer(pars, observableBuffer.data());
                     }
                     MPI_Gather(observableBuffer.data(), obsbuffsize, MPI_DOUBLE, sendbuff[0], obsbuffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+                } else if (recvbuff[0] == 5.) { // send the event counters (collectMPIEventCounters())
+                    double counters[2] = {(double) MCEngine.getNumOfUsedEvents(), (double) MCEngine.getNumOfDiscardedEvents()};
+                    MPI_Gather(counters, 2, MPI_DOUBLE, sendbuff[0], 2, MPI_DOUBLE, 0, MPI_COMM_WORLD);
                 } else if (recvbuff[0] == -1.)
                     break;
                 else {
@@ -594,16 +597,20 @@ void MonteCarlo::Run(const int rank) {
                 outPreRun.close();
             }
 
-            /* Number of events */
+            /* Number of events (summed over the MPI ranks, which evaluate the likelihood in parallel) */
+            double usedEvents = MCEngine.getNumOfUsedEvents(), discardedEvents = MCEngine.getNumOfDiscardedEvents();
+#ifdef _MPI
+            collectMPIEventCounters(buffsize, usedEvents, discardedEvents);
+#endif
             std::stringstream ss;
             ss << ""; 
             BCLog::SetPrefix(false);
             BCLog::OutSummary(ss.str().c_str());
             BCLog::SetPrefix(true);
-            ss << "Number of used events: " << MCEngine.getNumOfUsedEvents();
+            ss << "Number of used events: " << std::fixed << std::setprecision(0) << usedEvents;
             BCLog::OutSummary(ss.str().c_str());
             ss.str("");
-            ss << "Number of discarded events: " << MCEngine.getNumOfDiscardedEvents() << "\n";
+            ss << "Number of discarded events: " << discardedEvents << "\n";
             BCLog::OutSummary(ss.str().c_str());
             // close log file
             BCLog::CloseLog();
@@ -671,6 +678,25 @@ void MonteCarlo::terminateMPIWorkers(int buffsize)
     delete [] recvbuff;
     delete [] sendbuff[0];
     delete [] sendbuff;
+}
+
+void MonteCarlo::collectMPIEventCounters(int buffsize, double& used, double& discarded)
+{
+    int procnum = MCEngine.getMPIWorldSize();
+    std::vector<double> sendbuff(procnum * buffsize, 0.);
+    for (int il = 1; il < procnum; il++)
+        sendbuff[il * buffsize] = 5.; // 5 = send the event counters
+    std::vector<double> recvbuff(buffsize);
+    MPI_Scatter(&sendbuff[0], buffsize, MPI_DOUBLE, &recvbuff[0], buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    double counters[2] = {used, discarded}; // rank 0's own counters
+    std::vector<double> gathbuff(2 * procnum, 0.);
+    MPI_Gather(counters, 2, MPI_DOUBLE, &gathbuff[0], 2, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    used = 0.;
+    discarded = 0.;
+    for (int il = 0; il < procnum; il++) {
+        used += gathbuff[2 * il];
+        discarded += gathbuff[2 * il + 1];
+    }
 }
 #endif
 
@@ -927,28 +953,30 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
                 throw std::runtime_error("\nERROR: Histogram2DAlpha in the MonteCarlo configuration file: " + MCMCConf + " can only be a real number greater than 0.0 and less than or equal to 1.0.\n");
         } else if (beg->compare("NBinsHistogram1D") == 0) {
             ++beg;
-            unsigned int nBins1D = atoi((*beg).c_str());
-            if (nBins1D >= 0) MCEngine.setNBins1D(nBins1D);
+            int nBins1D = atoi((*beg).c_str());
+            if (nBins1D > 0) MCEngine.setNBins1D(nBins1D);
+            else if (nBins1D == 0) MCEngine.setNBins1D(NBINS1D);
             else throw std::runtime_error("\nERROR: NBinsHistogram1D in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default value (100).\n");
         } else if (beg->compare("NBinsHistogram2D") == 0) {
             ++beg;
-            unsigned int nBins2D = atoi((*beg).c_str());
-            if (nBins2D >= 0) MCEngine.setNBins2D(nBins2D);
+            int nBins2D = atoi((*beg).c_str());
+            if (nBins2D > 0) MCEngine.setNBins2D(nBins2D);
+            else if (nBins2D == 0) MCEngine.setNBins2D(NBINS2D);
             else throw std::runtime_error("\nERROR: NBinsHistogram2D in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default value (100).\n");
         } else if (beg->compare("InitialPositionAttemptLimit") == 0) {
             ++beg;
-            unsigned int max_tries = atoi((*beg).c_str());
+            int max_tries = atoi((*beg).c_str());
             if (max_tries > 0) MCEngine.SetInitialPositionAttemptLimit(max_tries);
             else if (max_tries == 0) MCEngine.SetInitialPositionAttemptLimit(10000);
-            else throw std::runtime_error("\nERROR: InitialPositionAttemptLimit in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default value (100).\n");
+            else throw std::runtime_error("\nERROR: InitialPositionAttemptLimit in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default value (10000).\n");
         } else if (beg->compare("SignificantDigits") == 0) {
             ++beg;
-            unsigned int significants = atoi((*beg).c_str());
+            int significants = atoi((*beg).c_str());
             if (significants >= 0) MCEngine.setSignificants(significants);
             else throw std::runtime_error("\nERROR: SignificantDigits in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default values.\n");
         } else if (beg->compare("HistogramBufferSize") == 0) {
             ++beg;
-            unsigned int histogramBufferSize = atoi((*beg).c_str());
+            int histogramBufferSize = atoi((*beg).c_str());
             if (histogramBufferSize >= 0) MCEngine.setHistogramBufferSize(histogramBufferSize);
             else throw std::runtime_error("\nERROR: HistogramBufferSize in the MonteCarlo configuration file: " + MCMCConf + " can only be a integer greater than 0 or 0 to set to default values.\n");
         } else if (beg->compare("ScaleFactorLowerLimit") == 0) {
