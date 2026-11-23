@@ -705,6 +705,12 @@ public:
         this->FlagNoApproximateGammaZ = FlagNoApproximateGammaZ;
     }
 
+    /** @return Whether the W mass is an electroweak input. */
+    bool IsFlagMWinput() const
+    {
+        return FlagMWinput;
+    }
+
     /**
      * @brief A method to retrieve the model flag %Mw.
      * @details See @ref StandardModelFlags for detail.
