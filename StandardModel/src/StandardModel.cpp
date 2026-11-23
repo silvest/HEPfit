@@ -9,6 +9,8 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdexcept>
+#include <algorithm>
+#include <string>
 #include <gsl/gsl_sf_zeta.h>
 #include "StandardModel.h"
 #include "EWSMcache.h"
@@ -3337,6 +3339,147 @@ const double StandardModel::SigmaeeHee(const double sqrt_s, const double Pe, con
 // Higgs decay widths
 ////////////////////////////////////////////////////////////////////////
 
+namespace {
+
+/* Data for the H -> V* V* integrands, see GammaHtoVstarVstar() below. */
+struct HVstarVstarParams {
+    double mH2; // M_H^2
+    double MV; // M_V
+    double GV; // Gamma_V
+    double q1sq; // q_1^2, set by the outer integrand
+    double t2max; // upper limit of the inner integration in t_2, set by the outer integrand
+    gsl_integration_workspace* inner; // workspace of the inner integration
+    int innerStatus; // first failure of an inner integration (no exceptions through the GSL callbacks)
+};
+
+/*
+ * Breit-Wigner mapping: t = theta - theta(q^2=0) with q^2 = M_V^2 + M_V Gamma_V tan(theta), so that
+ * dq^2 M_V Gamma_V/((q^2-M_V^2)^2 + M_V^2 Gamma_V^2) = dt and q^2 = 0 at t = 0. Written in this form,
+ *   q^2(t) = (M_V^2 + Gamma_V^2) M_V sin(t)/(M_V sin(t) + Gamma_V cos(t)),
+ * the mapping has no cancellations near q^2 = 0, where the integration ranges can become tiny.
+ */
+double HVstarVstar_qsq(const double t, const HVstarVstarParams& p)
+{
+    double s = sin(t);
+    return (p.MV * p.MV + p.GV * p.GV) * p.MV * s / (p.MV * s + p.GV * cos(t));
+}
+
+double HVstarVstar_t(const double qsq, const HVstarVstarParams& p)
+{
+    return atan2(qsq * p.GV, p.MV * (p.MV * p.MV + p.GV * p.GV - qsq));
+}
+
+/*
+ * Inner integrand: sqrt(lambda) (lambda + 12 q1^2 q2^2/M_H^4), in the variable u with
+ * t_2 = t2max - u^2, which removes the square-root behaviour of sqrt(lambda) at the upper end.
+ */
+double HVstarVstar_inner(double u, void* params)
+{
+    const HVstarVstarParams& p = *static_cast<HVstarVstarParams*> (params);
+    double x1 = p.q1sq / p.mH2;
+    double x2 = HVstarVstar_qsq(p.t2max - u * u, p) / p.mH2;
+    double lambda = (1. - x1 - x2) * (1. - x1 - x2) - 4. * x1 * x2;
+    if (lambda <= 0.)
+        return 0.;
+    return 2. * u * sqrt(lambda) * (lambda + 12. * x1 * x2);
+}
+
+/*
+ * Outer integrand in t_1: the integral over t_2 at fixed q_1^2. The integrand is symmetric under
+ * q_1 <-> q_2, so only the region q_2 < q_1 is integrated (the factor 2 is applied by the caller).
+ * Then, for M_H < 2 M_V, the inner integration never crosses the Breit-Wigner peak.
+ */
+double HVstarVstar_outer(double t1, void* params)
+{
+    HVstarVstarParams& p = *static_cast<HVstarVstarParams*> (params);
+    p.q1sq = HVstarVstar_qsq(t1, p);
+    double q1 = sqrt(p.q1sq);
+    double q2max = std::min(q1, sqrt(p.mH2) - q1);
+    q2max *= q2max;
+    gsl_function F;
+    F.function = &HVstarVstar_inner;
+    F.params = params;
+    double result, error;
+    p.t2max = HVstarVstar_t(q2max, p);
+    int status = gsl_integration_qags(&F, 0., sqrt(p.t2max), 0., 1.e-8, 200, p.inner, &result, &error);
+    if (status != GSL_SUCCESS && p.innerStatus == GSL_SUCCESS)
+        p.innerStatus = status;
+    return result;
+}
+
+/*
+ * Gamma(H -> V* V* -> 4f) with both vector bosons off shell, massless fermions and
+ * fixed-width Breit-Wigner propagators (Djouadi, hep-ph/0503172, eqs. (2.35)-(2.36)):
+ *   Gamma = 1/pi^2 int_0^{M_H^2} dq1^2 M_V Gamma_V/((q1^2-M_V^2)^2+M_V^2 Gamma_V^2)
+ *                  int_0^{(M_H-q1)^2} dq2^2 M_V Gamma_V/((q2^2-M_V^2)^2+M_V^2 Gamma_V^2) Gamma_0,
+ *   Gamma_0 = G_mu M_H^3 delta_V/(16 sqrt2 pi) sqrt(lambda) [lambda + 12 q1^2 q2^2/M_H^4],
+ * with lambda = (1-q1^2/M_H^2-q2^2/M_H^2)^2 - 4 q1^2 q2^2/M_H^4 and delta_V = 2 (1) for V = W (Z).
+ */
+double GammaHtoVstarVstar(const double mH, const double MV, const double GammaV,
+        const double deltaV, const double GF)
+{
+    if (!(GammaV > 0.))
+        throw std::runtime_error("Error in StandardModel::GammaHtoVstarVstar(): the vector-boson width must be positive");
+
+    // The 2D integration takes a few hundred microseconds; GammaHTot() and every BrHto*() need both the
+    // WW* and the ZZ* width, so keep the last result for each set of inputs (one slot per delta_V).
+    struct CacheEntry {
+        double mH, MV, GammaV, GF, value;
+        bool valid;
+    };
+    static thread_local CacheEntry cache[2] = {{0., 0., 0., 0., 0., false}, {0., 0., 0., 0., 0., false}};
+    CacheEntry& c = cache[deltaV == 1. ? 1 : 0];
+    if (c.valid && c.mH == mH && c.MV == MV && c.GammaV == GammaV && c.GF == GF)
+        return c.value;
+
+    HVstarVstarParams p;
+    p.mH2 = mH * mH;
+    p.MV = MV;
+    p.GV = GammaV;
+    p.q1sq = 0.;
+    p.t2max = 0.;
+    p.innerStatus = GSL_SUCCESS;
+
+    gsl_integration_workspace* outer = gsl_integration_workspace_alloc(200);
+    p.inner = gsl_integration_workspace_alloc(200);
+
+    gsl_function F;
+    F.function = &HVstarVstar_outer;
+    F.params = &p;
+    // Break points: the kink of the inner upper limit at q_1 = M_H/2 and, above the VV threshold,
+    // the point q_1 = M_H - M_V where the inner upper limit crosses the Breit-Wigner peak.
+    double pts[4];
+    size_t npts = 0;
+    pts[npts++] = 0.;
+    pts[npts++] = HVstarVstar_t(p.mH2 / 4., p);
+    if (mH > 2. * MV)
+        pts[npts++] = HVstarVstar_t((mH - MV) * (mH - MV), p);
+    pts[npts++] = HVstarVstar_t(p.mH2, p);
+    double result = 0., error;
+    int status;
+    {
+        const ScopedGslErrorHandlerOff errorHandler;
+        status = gsl_integration_qagp(&F, pts, npts, 0., 1.e-6, 200, outer, &result, &error);
+    }
+    gsl_integration_workspace_free(p.inner);
+    gsl_integration_workspace_free(outer);
+
+    if (p.innerStatus != GSL_SUCCESS)
+        throw std::runtime_error("Error in StandardModel::GammaHtoVstarVstar(): inner integration failed: " + std::string(gsl_strerror(p.innerStatus)));
+    if (status != GSL_SUCCESS)
+        throw std::runtime_error("Error in StandardModel::GammaHtoVstarVstar(): outer integration failed: " + std::string(gsl_strerror(status)));
+
+    c.mH = mH;
+    c.MV = MV;
+    c.GammaV = GammaV;
+    c.GF = GF;
+    c.value = GF * mH * mH * mH * deltaV / (16. * sqrt(2.) * M_PI) * 2. * result / M_PI / M_PI;
+    c.valid = true;
+    return c.value;
+}
+
+} // namespace
+
 const double StandardModel::GammaHtogg() const
 {   
     double gamma;
@@ -3371,34 +3514,16 @@ const double StandardModel::GammaHtogg() const
 
 const double StandardModel::GammaHtoZZstar() const
 {
-    double x=Mz/mHl;
-    double fx;
-    double g2 = 4.0 * sqrt(2.0) * GF * Mz * Mz;
-    double gamma;
-    
-    fx = -fabs(1.0-x*x)*( 47.0*x*x/2.0 - 13.0/2.0 +1.0/x/x ) + 
-            3.0*( 1.0 - 6.0*x*x + 4.0*x*x*x*x )*fabs(log(x)) + 
-            3.0*( 1.0 - 8.0*x*x + 20.0*x*x*x*x )*acos(( 3.0*x*x - 1.0 )/2.0/x/x/x)/sqrt( 4.0*x*x- 1.0);
-    
-    gamma = g2*g2 * mHl * fx * ( 7.0 - 40.0*sW2()/3.0 + 160.0 *sW2()*sW2()/9.0 ) / 2048.0 / pow(M_PI,3.0);
-    
-    return gamma;
+    // Both Z bosons off shell (Djouadi, hep-ph/0503172, eqs. (2.35)-(2.36), delta_Z = 1).
+    // The single-off-shell formula (eqs. (2.30)-(2.31)) assumes one on-shell Z and is 19% low at M_H = 125 GeV.
+    return GammaHtoVstarVstar(mHl, Mz, Gamma_Z(), 1.0, GF);
 }
     
 const double StandardModel::GammaHtoWWstar() const
 {
-    double x=Mw()/mHl;
-    double fx;
-    double g2 = 4.0 * sqrt(2.0) * GF * pow(Mw(),2);
-    double gamma;
-    
-    fx = -fabs(1.0-x*x)*( 47.0*x*x/2.0 - 13.0/2.0 +1.0/x/x ) + 
-            3.0*( 1.0 - 6.0*x*x + 4.0*x*x*x*x )*fabs(log(x)) + 
-            3.0*( 1.0 - 8.0*x*x + 20.0*x*x*x*x )*acos(( 3.0*x*x - 1.0 )/2.0/x/x/x)/sqrt( 4.0*x*x- 1.0);
-    
-    gamma = 3.0 * g2*g2 * mHl * fx / 512.0 / pow(M_PI,3.0);
-    
-    return gamma;
+    // Both W bosons off shell (Djouadi, hep-ph/0503172, eqs. (2.35)-(2.36), delta_W = 2).
+    // The single-off-shell formula (eqs. (2.30)-(2.31)) assumes one on-shell W and is 7.5% low at M_H = 125 GeV.
+    return GammaHtoVstarVstar(mHl, Mw(), GammaW(), 2.0, GF);
 }
 
 const double StandardModel::GammaHtoZga() const

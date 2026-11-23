@@ -2252,14 +2252,22 @@ public:
 
     /**
      * @brief The @f$\Gamma(H\to Z Z^*)@f$ in the Standard Model.
-     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @details Tree level, with both vector bosons off shell: the double Breit-Wigner integral of
+     * Djouadi, hep-ph/0503172, eqs. (2.35)-(2.36), for massless fermions, evaluated numerically.
+     * The @f$Z@f$ propagators use the model's total width Gamma_Z() (fixed-width Breit-Wigner).
+     * This replaces the single-off-shell formula (eqs. (2.30)-(2.31)), which is not valid at
+     * @f$M_H\approx 125@f$ GeV.
      * @return @f$\Gamma(H\to Z Z^*)@f$
      */
     virtual const double GammaHtoZZstar() const;
  
     /**
      * @brief The @f$\Gamma(H\to W W^*)@f$ in the Standard Model.
-     * @details Currently, only at tree level. From Higgs Hunter's guide
+     * @details Tree level, with both vector bosons off shell: the double Breit-Wigner integral of
+     * Djouadi, hep-ph/0503172, eqs. (2.35)-(2.36), for massless fermions, evaluated numerically.
+     * The @f$W@f$ propagators use the model's total width GammaW() (fixed-width Breit-Wigner).
+     * This replaces the single-off-shell formula (eqs. (2.30)-(2.31)), which is not valid at
+     * @f$M_H\approx 125@f$ GeV.
      * @return @f$\Gamma(H\to W W^*)@f$
      */
     virtual const double GammaHtoWWstar() const;
