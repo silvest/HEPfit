@@ -88,21 +88,11 @@ public:
 private:
     const FlavourWilsonCoefficient & myFlavourWilsonCoefficient;///< An object of the %FlavourWilsonCoefficient class.
     gslpp::matrix<gslpp::complex> myCKM;///< The CKM matrix.
-    gslpp::complex DC1;///< the modification Wilson Coefficient \f$C_{1}\f$.
-    gslpp::complex DC2;///< the modification Wilson Coefficient \f$C_{2}\f$.
-    gslpp::complex DC3;///< the modification Wilson Coefficient \f$C_{3}\f$.
-    gslpp::complex DC4;///< the modification Wilson Coefficient \f$C_{4}\f$.
-    gslpp::complex DC5;///< the modification Wilson Coefficient \f$C_{5}\f$.
-    gslpp::complex DC6;///< the modification Wilson Coefficient \f$C_{6}\f$.
-    gslpp::complex DC7;///< the modification Wilson Coefficient \f$C_{7}\f$.
-    gslpp::complex DC8;///< the modification Wilson Coefficient \f$C_{8}\f$.
     gslpp::complex DC9;///< the modification Wilson Coefficient \f$C_{9}\f$.
     gslpp::complex DC10;///< the modification Wilson Coefficient \f$C_{10}\f$.
     gslpp::complex DC7g;///< the modification Wilson Coefficient \f$C_{7g}\f$.
     gslpp::complex DC8g;///< the modification Wilson Coefficient \f$C_{8g}\f$.
     
-    gslpp::complex DC7p;///< the modification Wilson Coefficient \f$C_{7}^{\prime}\f$.
-    gslpp::complex DC8p;///< the modification Wilson Coefficient \f$C_{8}^{\prime}\f$.
     gslpp::complex DC9p;///< the modification Wilson Coefficient \f$C_{9}^{\prime}\f$.
     gslpp::complex DC10p;///< the modification Wilson Coefficient \f$C_{10}^{\prime}\f$.
     gslpp::complex DC7gp;///< the modification Wilson Coefficient \f$C_{7g}^{\prime}\f$.

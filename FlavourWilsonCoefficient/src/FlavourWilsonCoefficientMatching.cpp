@@ -26,21 +26,11 @@ void FlavourWilsonCoefficientMatching::updateFlavourWilsonCoefficientParameters(
 {
     myCKM = myFlavourWilsonCoefficient.getVCKM();
     
-    DC1 = myFlavourWilsonCoefficient.getDC1();
-    DC2 = myFlavourWilsonCoefficient.getDC2();
-    DC3 = myFlavourWilsonCoefficient.getDC3();
-    DC4 = myFlavourWilsonCoefficient.getDC4();
-    DC5 = myFlavourWilsonCoefficient.getDC5();
-    DC6 = myFlavourWilsonCoefficient.getDC6();
-    DC7 = myFlavourWilsonCoefficient.getDC7();
-    DC8 = myFlavourWilsonCoefficient.getDC8();
     DC9 = myFlavourWilsonCoefficient.getDC9();
     DC10 = myFlavourWilsonCoefficient.getDC10();
     DC7g = myFlavourWilsonCoefficient.getDC7g();
     DC8g = myFlavourWilsonCoefficient.getDC8g();
     
-    DC7p = myFlavourWilsonCoefficient.getDC7p();
-    DC8p = myFlavourWilsonCoefficient.getDC8p();
     DC9p = myFlavourWilsonCoefficient.getDC9p();
     DC10p = myFlavourWilsonCoefficient.getDC10p();
     DC7gp = myFlavourWilsonCoefficient.getDC7gp();
@@ -156,10 +146,13 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMbsg()
     switch (mcbsg.getOrder()) {
         case NNLO:
             mcbsg.setCoeff(6, 0., NNLO);
+            mcbsg.setCoeff(7, 0., NNLO);
         case NLO:
             mcbsg.setCoeff(6, 0., NLO);
+            mcbsg.setCoeff(7, 0., NLO);
         case LO:
             mcbsg.setCoeff(6, DC7g, LO);
+            mcbsg.setCoeff(7, DC8g, LO); // chromomagnetic dipole C8g (index 7 of the b -> s gamma basis)
             break;
         default:
             std::stringstream out;
@@ -191,10 +184,13 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimebsg()
     switch (mcprimebsg.getOrder()) {
         case NNLO:
             mcprimebsg.setCoeff(6, 0., NNLO);
+            mcprimebsg.setCoeff(7, 0., NNLO);
         case NLO:
             mcprimebsg.setCoeff(6, 0., NLO);
+            mcprimebsg.setCoeff(7, 0., NLO);
         case LO:
             mcprimebsg.setCoeff(6, DC7gp, LO);
+            mcprimebsg.setCoeff(7, DC8gp, LO); // chromomagnetic dipole C8g (index 7 of the b -> s gamma basis)
             break;
         default:
             std::stringstream out;
@@ -229,6 +225,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMBMll(QCD::le
             //mcBMll.setCoeff(6, 0., NLO);
         case LO:
             mcBMll.setCoeff(6, DC7g, LO);
+            mcBMll.setCoeff(7, DC8g, LO); // chromomagnetic dipole C8g (index 7, as in CMbsg)
             mcBMll.setCoeff(8, DC9, LO);
             mcBMll.setCoeff(9, DC10, LO);
             break;
@@ -265,6 +262,7 @@ std::vector<WilsonCoefficient>& FlavourWilsonCoefficientMatching::CMprimeBMll(QC
             //mcprimeBMll.setCoeff(6, 0., NLO);
         case LO:
             mcprimeBMll.setCoeff(6, DC7gp, LO);
+            mcprimeBMll.setCoeff(7, DC8gp, LO); // chromomagnetic dipole C8g (index 7, as in CMbsg)
             mcprimeBMll.setCoeff(8, DC9p, LO);
             mcprimeBMll.setCoeff(9, DC10p, LO);
             break;
