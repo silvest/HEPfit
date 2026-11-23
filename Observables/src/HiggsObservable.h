@@ -58,6 +58,9 @@ public:
 
     /**
      * @brief A method to compute the weight associated with the observable.
+     * @details The normalised log-likelihood (see Observable::computeWeight(double)): the sum of the two-piece
+     * normal log densities of the channels (LogSplitGaussian()), or for a correlated observable the multivariate
+     * Gaussian log density including @f$-\frac12\ln\det(2\pi C)@f$.
      */
     virtual double computeWeight();
     
@@ -132,6 +135,7 @@ public:
         bool isCorrelated;///< A flag for correlated Higgs Observable.
         bool covarianceFromConfig;///< A flag for reading inverse covariance from config file.
         gslpp::matrix<double>* InvCov;///< The inverse covariance matrix.
+        double logNorm;///< The normalisation -1/2 ln det(2 pi C) of the correlated log-likelihood.
         int rank;///< The rank of the process initializing this observable.
 };
 

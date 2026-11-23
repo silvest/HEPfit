@@ -113,12 +113,27 @@ public:
 
     /**
      * @brief A method to compute the weight associated with the observable.
+     * @details The weight is the natural log of a probability density normalised to 1, so that the absolute
+     * log-likelihood (and the information criteria and evidence derived from it) can be compared between
+     * configurations; the normalisation constants do not depend on the model parameters and leave the posterior
+     * unchanged. With the residual @f$r = th - ave@f$:
+     * \li Gaussian: @f$-r^2/(2\sigma_g^2) - \ln(\sqrt{2\pi}\sigma_g)@f$;
+     * \li flat: @f$-\ln(2\sigma_f)@f$ for @f$|r| < \sigma_f@f$, @f$-\infty@f$ outside;
+     * \li Gaussian (x) flat (a Gaussian convolved with a uniform distribution of half-width @f$\sigma_f@f$):
+     * @f$\ln\{[\mathrm{erf}((r+\sigma_f)/(\sqrt2\sigma_g)) - \mathrm{erf}((r-\sigma_f)/(\sqrt2\sigma_g))]/(4\sigma_f)\}@f$;
+     * \li asymmetric Gaussian (AsyGausObservable): the two-piece normal density, see LogSplitGaussian();
+     * \li file: the log of the histogram bin content divided by the histogram integral (content times bin width),
+     * i.e. the histogram is normalised to a density over its range.
+     * The correlated sets (CorrelatedGaussianObservables, correlated HiggsObservable) include
+     * @f$-\frac12\ln\det(2\pi C)@f$ in the same way.
      * @param[in] th the theoretical value of the observable
+     * @return the log-likelihood
      */
     virtual double computeWeight(double th);
     
     /**
      * @brief A method to compute the weight associated with the observable.
+     * @details Normalised as computeWeight(double).
      * @param[in] th the theoretical value of the observable
      * @param[in] ave_i the average value of the observable
      * @param[in] errg_i the Gaussian error of the observable
@@ -461,6 +476,9 @@ public:
     
     /**
      * A method to compute the log of a split Gaussian likelihood
+     * @details The density is the two-piece normal distribution normalised to 1,
+     * @f$\frac{2}{\sqrt{2\pi}(|err_l|+|err_r|)}\exp[-(x-ave)^2/(2\sigma^2)]@f$ with @f$\sigma = err_r@f$ for
+     * @f$x > ave@f$ and @f$err_l@f$ otherwise.
      * @param x the value of the split-Gaussian distributed variable
      * @param[in] ave the average value
      * @param[in] errl the left-side error
@@ -471,6 +489,7 @@ public:
     
     /**
      * A method to compute the log of a Gaussian likelihood
+     * @details The density is normalised to 1 (it includes @f$-\ln(\sqrt{2\pi}\sigma)@f$).
      * @param[in] x the value of the Gaussian distributed variable
      * @param[in] ave the average value
      * @param[in] sigma the error
@@ -527,6 +546,7 @@ protected:
     int iterationNo; ///< A counter for the interation that helps with the observable caching.
     double thValue; ///< The theory value of the first observable.
     bool hasInverseCovariance;
+    double logHistoNorm; ///< The log of the integral (content times bin width) of inhisto, normalising the "file" likelihood.
 };
 
 

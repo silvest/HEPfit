@@ -201,6 +201,8 @@ public:
 
     /**
      * @brief A method to compute the weight associated with the observable.
+     * @details Normalised log density as in Observable::computeWeight(double): a 2D histogram is normalised to its
+     * integral (content times bin area); for "weight" it is the sum of the two 1D log densities.
      * @param[in] th1 the theoretical value of the first observable
      * @param[in] th2 the theoretical value of the second observable
      */
@@ -300,6 +302,7 @@ private:
     std::string obsType2; ///< Type of the second Observable. 0: Observable, 1: HiggsObservable, 2: BinnedObservable, 3: FunctionObservable.
     ThObservable * tho2; ///< A pointer to an object of the ThObservable class.
     TH2D * inhisto2d = nullptr; ///< 2D Histogram containing the experimental likelihood for the observable.
+    double logHistoNorm2D = 0.; ///< The log of the integral (content times bin area) of inhisto2d, normalising the "file" likelihood.
     std::vector<double> bin_min; ///< The minimum value of the bin.
     std::vector<double> bin_max; ///< The maximum value of the bin.
     std::string filepath; ///< The path to the file being parsed.

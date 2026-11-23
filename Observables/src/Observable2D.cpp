@@ -102,6 +102,7 @@ Observable2D::Observable2D(const Observable2D& orig)
     iterationNo2 = std::numeric_limits<int>::max();
     IsEOF = orig.IsEOF;
     inhisto2d = orig.inhisto2d;
+    logHistoNorm2D = orig.logHistoNorm2D;
 }
 
 Observable2D::~Observable2D()
@@ -135,6 +136,9 @@ void Observable2D::setLikelihoodFromHisto(std::string filename, std::string hist
     setMax(inhisto2d->GetXaxis()->GetXmax());
     setMin2(inhisto2d->GetYaxis()->GetXmin());
     setMax2(inhisto2d->GetYaxis()->GetXmax());
+    // normalise the likelihood to a probability density over the histogram range (see Observable::computeWeight())
+    const double norm = inhisto2d->Integral("width");
+    logHistoNorm2D = (norm > 0. ? log(norm) : 0.);
     lik2->Close();
     delete lik2;
 }
@@ -147,7 +151,7 @@ double Observable2D::computeWeight(double th1, double th2)
         if (inhisto2d->IsBinOverflow(i) || inhisto2d->IsBinUnderflow(i))
             logprob = log(0.);
         else
-            logprob = log(inhisto2d->GetBinContent(i));
+            logprob = log(inhisto2d->GetBinContent(i)) - logHistoNorm2D;
         //logprob = log(h->GetBinContent(h->GetXaxis()->FindBin(th1),h->GetYaxis()->FindBin(th2)));
     } else if (distr.compare("weight") == 0) {
         double wt2;

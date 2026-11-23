@@ -63,11 +63,16 @@ public:
 
     /**
      * @brief A method to compute the weight associated with the observable.
+     * @details The log of the multivariate Gaussian density normalised to 1,
+     * @f$-\frac12 r^T C^{-1} r - \frac12\ln\det(2\pi C)@f$ (see Observable::computeWeight(double)); the
+     * normalisation is omitted (0) if the (inverse) covariance matrix is not positive definite.
      */
     virtual double computeWeight();
 
     /**
      * @brief Returns the full log weight followed by its difference from each leave-one-out log weight.
+     * @details Normalised as computeWeight(): the difference for observable i is the normalised conditional log
+     * density of observable i given the others, @f$-\frac12 (C^{-1}r)_i^2/(C^{-1})_{ii} + \frac12\ln[(C^{-1})_{ii}/(2\pi)]@f$.
      */
     std::vector<double> computeLeaveOneOutWeights();
 
@@ -190,6 +195,7 @@ private:
     bool IsEOF;///< A boolean which is true if the end of file is reached.
     bool IsPrediction;///< Flag to define a set of Correlated Observables to be predicted.
     bool covarianceFromConfig;
+    double logNorm = 0.;///< The normalisation -1/2 ln det(2 pi C) of the log-likelihood (0 if not computable).
 };
 
 /** 

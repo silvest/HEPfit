@@ -34,6 +34,7 @@ Observable(Obs)
     isCorrelated = false;
     covarianceFromConfig = false;
     InvCov = NULL;
+    logNorm = 0.;
     rank = 0;
 };
 
@@ -42,7 +43,7 @@ Observable(orig), channels(orig.channels), isnew(orig.isnew), thObsV(orig.thObsV
 thobsvsize(orig.thobsvsize), channelsize(orig.channelsize), isCorrelated(orig.isCorrelated),
 covarianceFromConfig(orig.covarianceFromConfig),
 InvCov(orig.InvCov != NULL ? new gslpp::matrix<double>(*orig.InvCov) : NULL), // each copy owns its matrix
-rank(orig.rank)
+logNorm(orig.logNorm), rank(orig.rank)
 {
 }
 
@@ -141,14 +142,20 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
                     throw std::runtime_error("The size of the correlated observables in " + name + " does not match the size of the correlation matrix!");
                 delete InvCov;
                 InvCov = new gslpp::matrix<double>(nrows, nrows, 0.);
+                // normalisation of the log-likelihood, -1/2 ln det(2 pi C) (left at 0 if det <= 0)
+                logNorm = 0.;
                 if (covarianceFromConfig) {
                     for (unsigned int i = 0; i < nrows; i++)
                         for (unsigned int j = 0; j < nrows; j++)
                             (*InvCov)(i, j) = myCorr(i, j);
+                    const double det = InvCov->determinant();
+                    if (det > 0.) logNorm = -0.5 * nrows * log(2. * M_PI) + 0.5 * log(det);
                 } else {
                     for (unsigned int i = 0; i < nrows; i++)
                         for (unsigned int j = 0; j < nrows; j++)
                             (*InvCov)(i, j) = std::fabs(channels(i, errorColumn)) * myCorr(i, j) * std::fabs(channels(j, errorColumn));
+                    const double det = InvCov->determinant();
+                    if (det > 0.) logNorm = -0.5 * nrows * log(2. * M_PI) - 0.5 * log(det);
                     *InvCov = InvCov->inverse();
                 }
                 readCorrelations = false;
@@ -202,7 +209,7 @@ double HiggsObservable::computeWeight()
         gslpp::vector<double> residuals(channels.GetNrows(), 0.);
         for (int i = 0; i < channels.GetNrows(); i++)
             residuals(i) = theoryValues.at(thobsvsize + i + 1) - channels(i, meanColumn);
-        return -0.5 * residuals * ((*InvCov) * residuals);
+        return -0.5 * residuals * ((*InvCov) * residuals) + logNorm;
     }
     for (int i = 0; i < channels.GetNrows(); i++)
         logprob += LogSplitGaussian(theoryValues.at(thobsvsize + i + 1), channels(i, meanColumn),
