@@ -133,14 +133,11 @@ void BXqll::updateParameters()
 
 double BXqll::getR_LOWQ2(double sh)
 {
-    updateParameters();
-    
-    //To test HeffDF1 Wilson coefficients and Expanded multiplications
-    Test_WC_DF1();
-    return 0.;
-    
-//    computeMi(sh);
-//    return H_A(sh);
+    // R(sh) = 1/Gamma(B -> X_c e nu) dGamma(B -> X_q l l)/dsh. H_T + H_L (+ the collinear-photon term),
+    // as integrated over sh in BR_BXqll, is dBR/dsh, so R(sh) = (H_T + H_L)(sh) / BR(B -> X_c e nu).
+    // (getH() calls updateParameters(), which sets BR_BXcenu.)
+    double dBRdsh = getH("TL", sh);
+    return dBRdsh / BR_BXcenu;
 }
 
 gslpp::complex BXqll::F19(double sh) 
@@ -443,7 +440,7 @@ double BXqll::H_T(double sh)
                 M_7[QCD1 + 3*QED1](i).abs2() * S77_T(sh, NLO) +
                 M_9[QCD1 + 3*QED1](i).abs2() * S99_T(sh, NLO) +
                 (M_9[QCD1 + 3*QED1](i) * M_9[QCD2 + 3*QED1](i).conjugate()).real() * 2. * S99_T(sh, LO) +
-                (M_7[QCD2 + 3*QED1](i) * M_9[QCD1 + 3*QED1](i)).real() * S79_T(sh, LO));
+                (M_7[QCD2 + 3*QED1](i) * M_9[QCD1 + 3*QED1](i).conjugate()).real() * S79_T(sh, LO));
 
             else
                 Hij.assign(i, j,
@@ -642,7 +639,7 @@ double BXqll::H_L(double sh)
                 M_7[QCD1 + 3*QED1](i).abs2() * S77_L(sh, NLO) +
                 M_9[QCD1 + 3*QED1](i).abs2() * S99_L(sh, NLO) +
                 (M_9[QCD1 + 3*QED1](i) * M_9[QCD2 + 3*QED1](i).conjugate()).real() * 2. * S99_L(sh, LO) +
-                (M_7[QCD2 + 3*QED1](i) * M_9[QCD1 + 3*QED1](i)).real() * S79_L(sh, LO));
+                (M_7[QCD2 + 3*QED1](i) * M_9[QCD1 + 3*QED1](i).conjugate()).real() * S79_L(sh, LO));
 
             else
                 Hij.assign(i, j,

@@ -64,7 +64,8 @@ void equal(double result, double expected, const char* quantity)
 template<class Dilepton> void check(Dilepton& obs, double phase)
 {
     equal(obs.computeAmumu(FULLNLO), std::cos(phase), "A_DeltaGamma");
-    equal(obs.computeSmumu(FULLNLO), -std::sin(phase), "S_ll");
+    // LHCb convention (De Bruyn et al.): S_ll = -sin(phi^NP) = +sin(phase) for an SM decay amplitude
+    equal(obs.computeSmumu(FULLNLO), std::sin(phase), "S_ll");
 }
 
 void run(bool withBags)
@@ -86,7 +87,7 @@ void run(bool withBags)
         check(bs, phaseS); check(legacyS, phaseS);
         check(bd, phaseD); check(legacyD, phaseD);
         equal(bsA.computeThValue(), std::cos(phaseS), "factory A");
-        equal(bdS.computeThValue(), -std::sin(phaseD), "factory S");
+        equal(bdS.computeThValue(), std::sin(phaseD), "factory S");
         equal(bs.computeThValue() / promptS, 1., "Bs prompt rate");
         equal(bd.computeThValue() / promptD, 1., "Bd prompt rate");
         equal(bdBar.computeThValue() / promptD, 1., "Bd integrated rate");

@@ -80,7 +80,12 @@ void Mll::computeObs(orders order, orders_qed order_qed, bool withMixing)
     }
     const double mixingPhase = AmpDB2::mixingPhase(SM, meson);
     Amumu = (absP * absP * cos(2. * argP - mixingPhase) -  absS * absS * cos(2. * argS - mixingPhase)) / (absP * absP + absS * absS);
-    Smumu = (absP * absP * sin(2. * argP - mixingPhase) -  absS * absS * sin(2. * argS - mixingPhase)) / (absP * absP + absS * absS);
+    /* LHCb convention: S = [|P|^2 sin(2 phi_P - phi^NP) - |S|^2 sin(2 phi_S - phi^NP)]/(|P|^2 + |S|^2) (De Bruyn et al.,
+     * arXiv:1204.1737, eqs. (16), (19); NP mixing phase phi^NP as in Buras et al., arXiv:1303.3820), with the CP asymmetry
+     * [Gamma(B) - Gamma(Bbar)]/[...] = S sin(Delta m t)/[...] and lambda_SM = -1. M21, and hence mixingPhase, is the
+     * conjugate of the standard M12 (mixingPhase - mixingPhase_SM = -phi^NP) and P carries the same CKM phase
+     * (2 argP = mixingPhase in the SM), so S = sin(mixingPhase - 2 argP) for the P term. */
+    Smumu = (absP * absP * sin(mixingPhase - 2. * argP) -  absS * absS * sin(mixingPhase - 2. * argS)) / (absP * absP + absS * absS);
 }
 
 double Mll::computeAmumu(orders order)

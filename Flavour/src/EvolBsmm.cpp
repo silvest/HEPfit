@@ -1082,21 +1082,17 @@ double EvolBsmm::H(unsigned int i, unsigned int p, unsigned int q, unsigned int 
 
     double etai = pow(eta, a[L][i]);
     double etapx = pow(eta, a[L][p] + x - 3.);
-    double etaqx = pow(eta, a[L][q] + x - 3.);
 
     double cut = 0.000000001;
     double result = 0.;
 
     if(fabs(a[L][p] + x - 3. - a[L][i]) < cut && fabs(a[L][q] + y - 3. - a[L][p]) < cut && fabs(a[L][j] + z - 3. - a[L][q]) < cut) value = 0;
     else if(fabs(a[L][p] + x - 3. - a[L][i]) > cut  && fabs(a[L][q] + y - 3. - a[L][p]) < cut && fabs(a[L][j] + z - 3. - a[L][q]) < cut) value = 1;
-    else if((a[L][q] + x - 3. + y + 3 - a[L][i] ) < cut && fabs(a[L][j] + z - 3. - a[L][q]) < cut){
-        if(fabs(a[L][p] + x - 3. - a[L][i]) < cut) value = 2;
-        else value = 3;
-    }
-    else if((a[L][q] + x - 3. + y + 3 - a[L][i]) > cut && fabs(a[L][j] + z - 3. - a[L][q]) < cut){
-        if(fabs(a[L][p] + x - 3. - a[L][i]) > cut) value = 4;
-        else value = 5;
-    }  
+    /* H is the third divided difference of eta^t at t = a_i, b_p = a_p + x - 3, c_q = a_q + x - 3 + y - 3 and
+     * c_j = a_j + x - 3 + y - 3 + z - 3 (G and F are the second and first ones); degenerate points give its limits.
+     * c_j = c_q != b_p: the limit of case 6 is (R(i,q,x+y-3) - G(i,p,q,x,y))/(c_q - b_p), where R and G also handle
+     * c_q = a_i and b_p = a_i (as in EvolDF1::f_h) */
+    else if(fabs(a[L][j] + z - 3. - a[L][q]) < cut) value = 2;
     else if(fabs(a[L][j] + z - 3. - a[L][q]) > cut) value = 6;
 
     switch(value) {
@@ -1108,16 +1104,7 @@ double EvolBsmm::H(unsigned int i, unsigned int p, unsigned int q, unsigned int 
                     - ((etapx - etai)/(a[L][p] + x - 3. - a[L][i])))/(a[L][p] + x - 3. - a[L][i])))/(a[L][p] + x - 3. - a[L][i]);
         break;
         case 2:
-            result = (etai * logeta * logeta * 0.5 - ((etai * logeta - etai * logeta)/(a[L][q] + y - 3. - a[L][p])))/(a[L][q] + y - 3. - a[L][p]);
-        break;
-        case 3:
-            result = (etai * logeta * logeta * 0.5 - ((etai * logeta- ((etapx - etai)/(a[L][p] + x - 3. - a[L][i])) )/(a[L][q] + y - 3. - a[L][p])))/(a[L][q] + y - 3. - a[L][p]);
-        break;
-        case 4:
-            result = (((etaqx * logeta - ((etaqx - etai)/(a[L][q] + x - 3. - a[L][i])))/(a[L][q] + y + 3. + x - 3. - a[L][i])) - ((etai * logeta - etai * logeta)/(a[L][q] + y - 3. - a[L][p])))/(a[L][q] + y - 3. - a[L][p]);
-        break;
-        case 5:
-            result = (((etaqx * logeta - ((etaqx - etai)/(a[L][q] + x - 3. - a[L][i])))/(a[L][q] + y + 3. + x - 3. - a[L][i])) - ((etai * logeta - ((etapx - etai)/(a[L][p] + x - 3. - a[L][i])) )/(a[L][q] + y - 3. - a[L][p])))/(a[L][q] + y - 3. - a[L][p]);
+            result = (R(i, q, x + y - 3, mu, M, nf) - G(i, p, q, x, y, mu, M, nf))/(a[L][q] + y - 3. - a[L][p]);
         break;
         case 6:
             result = (G(i, p, j, x , y + z - 3., mu, M, nf) - G(i, p, q, x , y, mu, M, nf))/(a[L][j] + z - 3. - a[L][q]);		

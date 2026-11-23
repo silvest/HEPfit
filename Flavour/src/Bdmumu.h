@@ -28,7 +28,24 @@ public:
      * @return theoretical value of |\f$ BR(B_d \rightarrow \mu \bar{\mu}) \f$|
      */
     double computeThValue();
+    /**
+     * @brief The mass-eigenstate rate asymmetry @f$A_{\Delta\Gamma}@f$ of @f$B_d \to \mu^+\mu^-@f$ (1 in the SM).
+     */
     double computeAmumu(orders order);
+    /**
+     * @brief The CP asymmetry @f$S_{\ell\ell}@f$ of @f$B_d \to \mu^+\mu^-@f$ (observable Smumu_Bd_old).
+     * @details LHCb convention (De Bruyn et al., arXiv:1204.1737, eqs. (16), (19), with the NP mixing phase as in
+     * Buras et al., arXiv:1303.3820):
+     * @f$[\Gamma(B_q(t)\to\ell\ell) - \Gamma(\bar B_q(t)\to\ell\ell)]/[\Gamma + \bar\Gamma]
+     * = S_{\ell\ell}\sin(\Delta m_q t)/[\cosh(y_q\Gamma_q t) + A_{\Delta\Gamma}\sinh(y_q\Gamma_q t)]@f$ and
+     * @f$S_{\ell\ell} = [|P|^2\sin(2\varphi_P - \phi_q^{NP}) - |S|^2\sin(2\varphi_S - \phi_q^{NP})]/(|P|^2+|S|^2)@f$,
+     * where @f$\lambda = (q/p)\bar A/A = -1@f$ in the SM and @f$\phi_q^{NP}@f$ is the NP phase of @f$B_q@f$ mixing with
+     * the sign of the HEPfit observables Phis_JPsiPhi (@f$\phi_s = \phi_s^{SM} + \phi_s^{NP}@f$, @f$\phi_s^{SM}
+     * \simeq -2\beta_s@f$) and SJPsiK (@f$S_{\psi K} = \sin(2\beta + \phi_d^{NP})@f$). @f$S_{\ell\ell} = 0@f$ in the SM;
+     * with an SM decay amplitude @f$S_{\ell\ell} = -\sin\phi_q^{NP}@f$, i.e. @f$+\sin(2\phi_{B_s})@f$ and
+     * @f$-\sin(2\phi_{B_d})@f$ for the mixing phases getPhiBs(), getPhiBd() (e.g. the NPDF2 parameters PhiBs, PhiBd). (After upstream #24 and until this was
+     * fixed the opposite sign, @f$2\,{\rm Im}\lambda/(1+|\lambda|^2)@f$, was returned.)
+     */
     double computeSmumu(orders order);
     
     
