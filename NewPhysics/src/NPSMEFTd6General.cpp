@@ -8758,6 +8758,17 @@ bool NPSMEFTd6General::PostUpdate() {
     delta_GF = v2 * (getRawSMEFTCoeffEW("CHl3R", 0, 0) + getRawSMEFTCoeffEW("CHl3R", 1, 1)
             - 0.5 * (getRawSMEFTCoeffEW("CllR", 0, 1, 1, 0) + getRawSMEFTCoeffEW("CllR", 1, 0, 0, 1)));
 
+    //  O(1/Lambda^4) part of the same muon-decay matching (as in NPSMEFTd6::PostUpdate):
+    //  G_F/G_F^(0) = (1+a)(1+b) - c, with a,b = v^2 C_Hl3^(11,22), c = v^2 (C_ll^1221 + C_ll^2112)/2,
+    //  i.e. delta_GF_2 = delta_GF^2 + a*b
+    {
+        double CHl3R11 = getRawSMEFTCoeffEW("CHl3R", 0, 0), CHl3R22 = getRawSMEFTCoeffEW("CHl3R", 1, 1);
+        double CllSum = getRawSMEFTCoeffEW("CllR", 0, 1, 1, 0) + getRawSMEFTCoeffEW("CllR", 1, 0, 0, 1);
+        delta_GF_2 = (CHl3R11 * CHl3R11 + CHl3R22 * CHl3R22 + 3.0 * CHl3R11 * CHl3R22
+                - (CHl3R11 + CHl3R22) * CllSum
+                + 0.25 * CllSum * CllSum) * v2 * v2;
+    }
+
     //  NP correction to the vev, as extracted from GF
     delta_v = 0.5 * delta_GF;
 
