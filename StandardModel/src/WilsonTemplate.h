@@ -56,6 +56,26 @@ public:
             else elem[i] = NULL;
     }
     
+    WilsonTemplate<T>& operator=(const WilsonTemplate<T>& orig)
+    {
+        // deep copy, as in the copy constructor (the implicit assignment copied the owning pointers)
+        if (this == &orig)
+            return *this;
+        T* newelem[MAXORDER_QED + 1];
+        for (int i = LO; i <= MAXORDER_QED; i++)
+            newelem[i] = (orig.elem[i] != NULL) ? new T(*(orig.elem[i])) : NULL;
+        for (int i = LO; i <= MAXORDER_QED; i++) {
+            if (elem[i] != NULL) delete elem[i];
+            elem[i] = newelem[i];
+        }
+        size = orig.size;
+        scheme = orig.scheme;
+        order = orig.order;
+        order_qed = orig.order_qed;
+        mu = orig.mu;
+        return *this;
+    }
+
     virtual ~WilsonTemplate()
     {
         for (int i = LO; i <= MAXORDER_QED; i++)

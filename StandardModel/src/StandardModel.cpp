@@ -76,6 +76,8 @@ SMM(*this), SMFlavour(*this), Ye(3, 3, 0.)
     bSigmaForAFB = false;
     bSigmaForR = false;
     
+    ClearAlphaCaches();
+
     // Caches for EWPO
     FlagCacheInStandardModel = true; // use caches in the current class
     useDeltaAlphaLepton_cache = false;
@@ -144,7 +146,6 @@ SMM(*this), SMFlavour(*this), Ye(3, 3, 0.)
     ModelParamMap.insert(std::make_pair("muw", std::cref(muw)));
     
     iterationNo = 0;
-    realorder = LO;
 
     w_GSL1 = gsl_integration_workspace_alloc (200);
 }
@@ -230,6 +231,7 @@ bool StandardModel::Update(const std::map<std::string, double>& DPars)
 bool StandardModel::PostUpdate()
 {
     if (!QCD::PostUpdate()) return (false);
+    ClearAlphaCaches(); // see ClearAlphaCaches()
 
     SMSuccess = true;
     /* Set the CKM and PMNS matrices if not already set in the derived classes */
@@ -678,13 +680,27 @@ const double StandardModel::Beta_e(int nm, unsigned int nf) const
     }
 }
 
+// StandardModel's als_cache/ale_cache hide QCD's caches, so QCD::ClearCaches() does not reach them. Their values
+// depend on the quark masses through the alpha_s threshold matching (now also part of the keys); as in QCD, the
+// caches are invalidated for every parameter point and still serve repeated calls within one point.
+void StandardModel::ClearAlphaCaches() const
+{
+    const double nan = std::numeric_limits<double>::quiet_NaN();
+    for (int i = 0; i < CacheSize; i++) {
+        for (int j = 0; j < 14; j++) als_cache[j][i] = nan;
+        for (int j = 0; j < 13; j++) ale_cache[j][i] = nan;
+    }
+}
+
 const double StandardModel::AlsE(double mu, orders order, bool Nf_thr) const
 {
     switch (order)
     {
         case FULLNNNLO:
-            realorder = order;
-            return (AlsByOrder(mu, LO, Nf_thr) + AlsByOrder(mu, NLO, Nf_thr) + AlsByOrder(mu, NNLO, Nf_thr) + AlsEByOrder(mu, NNNLO, Nf_thr));
+            // Evolved as a whole from the coupling matched at the flavour thresholds at FULLNNNLO (QCD + QED running).
+            // The former sum of QCD::AlsByOrder(LO, NLO, NNLO) pieces took their threshold order from QCD::realorder,
+            // i.e. from the order of the last QCD::Als() call, which a StandardModel member of the same name hid.
+            return AlsEByOrder(mu, order, Nf_thr);
         default:
             throw std::runtime_error("StandardModel::AlsE(): " + orderToString(order) + " is not implemented.");
     }
@@ -701,22 +717,25 @@ const double StandardModel::AlsEByOrder(double mu, orders order, bool Nf_thr) co
                 (AlsMz == als_cache[2][i]) && (Mz == als_cache[3][i]) &&
                 (mut == als_cache[4][i]) && (mub == als_cache[5][i]) &&
                 (muc == als_cache[6][i]) && (double) true == als_cache[7][i]
-                && (double) Nf_thr == als_cache[8][i] && alphaMz() == als_cache[9][i])
-            return als_cache[10][i];
+                && (double) Nf_thr == als_cache[8][i] && alphaMz() == als_cache[9][i]
+                && quarks[TOP].getMass() == als_cache[10][i] && quarks[BOTTOM].getMass() == als_cache[11][i]
+                && quarks[CHARM].getMass() == als_cache[12][i])
+            return als_cache[13][i];
 
     switch (order)
     {
         case NNNLO:
+        case FULLNNNLO:
             if (nfAls == nfmu) 
                 als = AlsEWithInit(mu, AlsMz, Mz, nfAls, order);
-            fullord = FullOrder(order);
+            fullord = FULLNNNLO; // threshold evolution and matching at the full order
             if (nfAls > nfmu) {
                 mutmp = BelowTh(Mz);
-                alstmp = AlsEWithInit(mutmp, AlsMz, Mz, nfAls, realorder);
+                alstmp = AlsEWithInit(mutmp, AlsMz, Mz, nfAls, fullord);
                 alstmp *= (1. + NfThresholdDown(mutmp, MassOfNf(nfAls), alstmp, nfAls, fullord)); // WARNING: QED threshold corrections not implemented yet
                 for (i = nfAls - 1; i > nfmu; i--) {
                     mutmp = BelowTh(mutmp - MEPS);
-                    alstmp = AlsEWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, i, realorder);
+                    alstmp = AlsEWithInit(mutmp, alstmp, AboveTh(mutmp) - MEPS, i, fullord);
                     alstmp *= (1. + NfThresholdDown(mutmp, MassOfNf(i), alstmp, i, fullord)); // WARNING: QED threshold corrections not implemented yet
                 }
                 als = AlsEWithInit(mu, alstmp, AboveTh(mu) - MEPS, nfmu, order);
@@ -724,17 +743,17 @@ const double StandardModel::AlsEByOrder(double mu, orders order, bool Nf_thr) co
 
             if (nfAls < nfmu) {
                 mutmp = AboveTh(Mz) - MEPS;
-                alstmp = AlsEWithInit(mutmp, AlsMz, Mz, nfAls, realorder);
+                alstmp = AlsEWithInit(mutmp, AlsMz, Mz, nfAls, fullord);
                 alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(nfAls + 1), alstmp, nfAls + 1, fullord)); // WARNING: QED threshold corrections not implemented yet
                 for (i = nfAls + 1; i < nfmu; i++) {
                     mutmp = AboveTh(mutmp) - MEPS;
-                    alstmp = AlsEWithInit(mutmp, alstmp, BelowTh(mutmp) + MEPS, i, realorder); 
+                    alstmp = AlsEWithInit(mutmp, alstmp, BelowTh(mutmp) + MEPS, i, fullord); 
                     alstmp *= (1. + NfThresholdCorrections(mutmp, MassOfNf(i + 1), alstmp, i + 1, fullord)); // WARNING: QED threshold corrections not implemented yet
                 }
                 als = AlsEWithInit(mu, alstmp, BelowTh(mu) + MEPS, nfmu, order);
             }
 
-            CacheShift(als_cache, 11);
+            CacheShift(als_cache, 14);
             als_cache[0][0] = mu;
             als_cache[1][0] = (double) order;       
             als_cache[2][0] = AlsMz;
@@ -745,7 +764,10 @@ const double StandardModel::AlsEByOrder(double mu, orders order, bool Nf_thr) co
             als_cache[7][0] = (double) true;
             als_cache[8][0] = (double) Nf_thr;
             als_cache[9][0] = alphaMz();
-            als_cache[10][0] = als;
+            als_cache[10][0] = quarks[TOP].getMass();
+            als_cache[11][0] = quarks[BOTTOM].getMass();
+            als_cache[12][0] = quarks[CHARM].getMass();
+            als_cache[13][0] = als;
 
              return als;
         default:
@@ -792,26 +814,29 @@ const double StandardModel::Ale(const double mu, orders order, bool Nf_thr) cons
                 (AlsMz == ale_cache[2][i]) && (Mz == ale_cache[3][i]) &&
                 (mut == ale_cache[4][i]) && (mub == ale_cache[5][i]) &&
                 (muc == ale_cache[6][i])
-                && (double) Nf_thr == ale_cache[7][i] && aleMz == ale_cache[8][i])
-            return ale_cache[9][i];
+                && (double) Nf_thr == ale_cache[7][i] && aleMz == ale_cache[8][i]
+                && quarks[TOP].getMass() == ale_cache[9][i] && quarks[BOTTOM].getMass() == ale_cache[10][i]
+                && quarks[CHARM].getMass() == ale_cache[11][i])
+            return ale_cache[12][i];
 
+    // FULLNLO is evolved as a whole (alpha_e at the thresholds at FULLNLO), so that it is continuous across the
+    // flavour thresholds; summing the LO and NLO terms would evolve the LO term with the LO threshold value.
     switch (order)
     {
-        case FULLNLO:
-            return (Ale(mu, LO, Nf_thr) + Ale(mu, NLO, Nf_thr));
         case FULLNNLO:
-            return (Ale(mu, LO, Nf_thr) + Ale(mu, NLO, Nf_thr) + Ale(mu, NNLO, Nf_thr));
+            return (Ale(mu, FULLNLO, Nf_thr) + Ale(mu, NNLO, Nf_thr));
         case FULLNNNLO:
-            return (Ale(mu, LO, Nf_thr) + Ale(mu, NLO, Nf_thr) + Ale(mu, NNLO, Nf_thr) + Ale(mu, NNNLO, Nf_thr));
+            return (Ale(mu, FULLNLO, Nf_thr) + Ale(mu, NNLO, Nf_thr) + Ale(mu, NNNLO, Nf_thr));
         case LO:
+        case NLO:
+        case FULLNLO:
             if (nfAle == nfmu)
                 return(AleWithInit(mu, aleMz, Mz, order));
-        case NLO:
         case NNLO:
         case NNNLO:
             if (nfAle == nfmu)
                 return(0.);
-            fullord = FullOrder(order);
+            fullord = (order == FULLNLO ? FULLNLO : FullOrder(order));
             if (nfAle > nfmu) {
                 mutmp = BelowTh(Mz);
                 aletmp = AleWithInit(mutmp, aleMz, Mz, fullord);
@@ -836,7 +861,7 @@ const double StandardModel::Ale(const double mu, orders order, bool Nf_thr) cons
                 ale = AleWithInit(mu, aletmp, BelowTh(mu) + MEPS, order);
             }
 
-            CacheShift(ale_cache, 10);
+            CacheShift(ale_cache, 13);
             ale_cache[0][0] = mu;
             ale_cache[1][0] = (double) order;    
             ale_cache[2][0] = AlsMz;
@@ -846,7 +871,10 @@ const double StandardModel::Ale(const double mu, orders order, bool Nf_thr) cons
             ale_cache[6][0] = muc;
             ale_cache[7][0] = (double) Nf_thr;
             ale_cache[8][0] = aleMz;
-            ale_cache[9][0] = ale;
+            ale_cache[9][0] = quarks[TOP].getMass();
+            ale_cache[10][0] = quarks[BOTTOM].getMass();
+            ale_cache[11][0] = quarks[CHARM].getMass();
+            ale_cache[12][0] = ale;
 
             return ale;
         default:
@@ -856,7 +884,7 @@ const double StandardModel::Ale(const double mu, orders order, bool Nf_thr) cons
 
 const double StandardModel::AleWithInit(double mu, double alei, double mu_i, orders order) const
 {
-    if (fabs(mu - mu_i) < MEPS) return(alei);
+    if (fabs(mu - mu_i) < MEPS) return(order == NLO ? 0. : alei); // the NLO term vanishes at mu = mu_i
 
     double nf = Nf(mu), alsi = (mu_i == Mz ? AlsMz : Als(mu_i, FULLNNNLO, true, true));
     double b00e = Beta_e(00, nf), b00s = Beta_s(00, nf);

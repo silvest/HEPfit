@@ -61,7 +61,8 @@ public:
     
     /**
      *
-     * @brief
+     * @brief Sets the element (i,j) of the evolutor term of electroweak order order_qed
+     * (the term of QCD order order_i is not modified; order_i is only checked).
      * @param[in] i
      * @param[in] j
      * @param[in] x

@@ -69,7 +69,7 @@ QCD::QCD()
             logLambda5_cache[j][i] = 0.;
         for (int j = 0; j < 10; j++)
             mrun_cache[j][i] = 0.;
-        for (int j = 0; j < 6; j++)
+        for (int j = 0; j < 8; j++)
             mp2mbar_cache[j][i] = 0.;
     }
 
@@ -201,11 +201,11 @@ bool QCD::PostUpdate()
     {
         if(FlagMtPole){
             quarks[TOP].setMass(163.); //Cannot use MSbar mass for Alphas thresholds since it is not yet updated
-            quarks[TOP].setMass(Mp2Mbar(mtpole, TOP, FULLNNLO));
+            quarks[TOP].setMass(Mp2Mbar(mtpole, TOP, FULLNNNLO)); // three-loop pole <-> MSbar relation, as in MtMSbar
             quarks[TOP].setMass_scale(quarks[TOP].getMass());
         }
         else
-            mtpole = Mbar2Mp(quarks[TOP].getMass(), TOP, FULLNNLO);
+            mtpole = Mbar2Mp(quarks[TOP].getMass(), TOP, FULLNNNLO);
    }
     ClearCaches(); // see ClearCaches()
     return (QCDsuccess);
@@ -608,7 +608,7 @@ void QCD::ClearCaches() const
         for (int j = 0; j < 4; j++) logLambda5_cache[j][i] = nan;
         for (int j = 0; j < 9; j++) logLambdaNLO_cache[j][i] = nan;
         for (int j = 0; j < 11; j++) mrun_cache[j][i] = nan;
-        for (int j = 0; j < 6; j++) mp2mbar_cache[j][i] = nan;
+        for (int j = 0; j < 8; j++) mp2mbar_cache[j][i] = nan;
     }
 }
 
@@ -721,9 +721,9 @@ const double QCD::AlsWithLambda(const double mu, const double logLambda,
     if (order == FULLNNLO)
         return (alsLO + alsNLO + alsNNLO);
 
-    // NNNLO contribution
+    // NNNLO contribution: PDG QCD review, eq. (9.5): b1^3 (ln^3 t - 5/2 ln^2 t - 2 ln t + 1/2)
     double b3 = Beta3(nf);
-    double alsNNNLO = 4. * M_PI / b0L * (-1. / b0L / b0L / b0L * (b1 * b1 * b1 / b0 / b0 / b0 * (log_L * log_L * log_L - 5. / 2. * log_L * log_L - 2. * log_L - 0.5) + 3. * b1 * b2 * log_L / b0 / b0 - 0.5 * b3 / b0));
+    double alsNNNLO = 4. * M_PI / b0L * (-1. / b0L / b0L / b0L * (b1 * b1 * b1 / b0 / b0 / b0 * (log_L * log_L * log_L - 5. / 2. * log_L * log_L - 2. * log_L + 0.5) + 3. * b1 * b2 * log_L / b0 / b0 - 0.5 * b3 / b0));
     if (order == NNNLO)
         return alsNNNLO;
     if (order == FULLNNNLO)
@@ -1500,6 +1500,19 @@ const double QCD::Mrun(const double mu_f, const double mu_i, const double m, con
                 mrun *= threCorrForMass(nff, nfi - 1.); // threshold corrections
             mrun = MrunTMP(mu_f, mu_threshold2 - MEPS, mrun, lround(nff), order);
         }
+        else if (nff == nfi - 3.)
+        {
+            // mirror of the upward nff == nfi + 3 case (light quark, mu_i > mut, mu_f < muc)
+            mu_threshold2 = BelowTh(mu_threshold - MEPS);
+            mrun = MrunTMP(mu_threshold2 + MEPS, mu_threshold - MEPS, mrun, lround(nfi) - 1, order);
+            if (order == FULLNNLO)
+                mrun *= threCorrForMass(nfi - 2., nfi - 1.); // threshold corrections
+            mu_threshold3 = AboveTh(mu_f);
+            mrun = MrunTMP(mu_threshold3 + MEPS, mu_threshold2 - MEPS, mrun, lround(nff) + 1, order);
+            if (order == FULLNNLO)
+                mrun *= threCorrForMass(nff, nfi - 2.); // threshold corrections
+            mrun = MrunTMP(mu_f, mu_threshold3 - MEPS, mrun, lround(nff), order);
+        }
         else
         {
             QCDsuccess = false;
@@ -1630,8 +1643,12 @@ const double QCD::Mbar2Mp(const double mbar, const quark q, const orders order) 
     orders orderForAls;
     if (order == NLO || order == FULLNLO)
         orderForAls = FULLNLO;
-    if (order == NNLO || order == FULLNNLO)
+    else if (order == NNLO || order == FULLNNLO)
         orderForAls = FULLNNLO;
+    else if (order == NNNLO || order == FULLNNNLO)
+        orderForAls = FULLNNNLO;
+    else
+        throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Mbar2Mp().");
     double a = Als(mbar, Nf_m, orderForAls) / M_PI;
 
     // NLO contribution
@@ -1660,6 +1677,15 @@ const double QCD::Mbar2Mp(const double mbar, const quark q, const orders order) 
     if (order == FULLNNLO)
         return (MpLO + MpNLO + MpNNLO);
 
+    // NNNLO contribution: Chetyrkin, Steinhauser, hep-ph/9911434 and Melnikov, van Ritbergen, hep-ph/9912391
+    // (numerical form, a = alpha_s^(nl+1)(mbar)/pi), light-quark masses neglected at this order
+    double MpNNNLO = mbar * (190.595 - 26.655 * nl + 0.6527 * nl * nl) * a * a * a;
+
+    if (order == NNNLO)
+        return MpNNNLO;
+    if (order == FULLNNNLO)
+        return (MpLO + MpNLO + MpNNLO + MpNNNLO);
+
     throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Mbar2Mp().");
 }
 
@@ -1679,18 +1705,20 @@ const double QCD::Mp2MbarTMP(double *mu, double *params) const
 
 const double QCD::Mp2Mbar_bar(const double mp, const quark q, const orders order) const
 {
-    if (order == NLO || order == NNLO)
+    if (order == NLO || order == NNLO || order == NNNLO)
         throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Mp2Mbar().");
 
     int i;
     double ms = quarks[STRANGE].getMass(), mc = quarks[CHARM].getMass(),
         mb = quarks[BOTTOM].getMass();
     double alsmp = Als(mp, order);
+    // the result depends on the quark (Nf and light masses in Mbar2Mp), so q and mp are part of the key
     for (i = 0; i < CacheSize; ++i)
         if (alsmp == mp2mbar_cache[0][i] && ms == mp2mbar_cache[1][i] &&
             mc == mp2mbar_cache[2][i] && mb == mp2mbar_cache[3][i]
-            && (double)order == mp2mbar_cache[4][i])
-            return mp2mbar_cache[5][i];
+            && (double)order == mp2mbar_cache[4][i] && (double)q == mp2mbar_cache[5][i]
+            && mp == mp2mbar_cache[6][i])
+            return mp2mbar_cache[7][i];
 
     TF1 f("f", this, &QCD::Mp2MbarTMP, mp / 2., 2. * mp, 3);
 
@@ -1707,13 +1735,15 @@ const double QCD::Mp2Mbar_bar(const double mp, const quark q, const orders order
     brf.SetFunction(wf1, .5 * mp, 2. * mp);
     if (brf.Solve())
     {
-        CacheShift(mp2mbar_cache, 6);
+        CacheShift(mp2mbar_cache, 8);
         mp2mbar_cache[0][0] = alsmp;
         mp2mbar_cache[1][0] = ms;
         mp2mbar_cache[2][0] = mc;
         mp2mbar_cache[3][0] = mb;
         mp2mbar_cache[4][0] = (double)order;
-        mp2mbar_cache[5][0] = brf.Root();
+        mp2mbar_cache[5][0] = (double)q;
+        mp2mbar_cache[6][0] = mp;
+        mp2mbar_cache[7][0] = brf.Root();
     }
     else
     {
@@ -1721,15 +1751,16 @@ const double QCD::Mp2Mbar_bar(const double mp, const quark q, const orders order
         std::cout << "Error in QCD::Mp2Mbar()! QCDsuccess set to false" << std::endl;
     }
 
-    return (mp2mbar_cache[5][0]);
+    return (mp2mbar_cache[7][0]);
 }
 
 const double QCD::Mp2Mbar(const double mp, const quark q, const orders order) const
 {
-    if (q == TOP)
-//        return Mp2Mbar_pole(mp, order);
-        return Mp2Mbar_bar(mp, q, order);
-    else if (q == BOTTOM || q == CHARM)
+    // FlagMpole2MbarNumeric: numerical inversion of Mbar2Mp (default) or, for the top quark only,
+    // the analytic expansion of Mp2Mbar_pole. Bottom and charm are always inverted numerically.
+    if (q == TOP && !FlagMpole2MbarNumeric)
+        return Mp2Mbar_pole(mp, order);
+    else if (q == TOP || q == BOTTOM || q == CHARM)
         return Mp2Mbar_bar(mp, q, order);
     else
         throw std::runtime_error("QCD::Mp2Mbar() can convert only top, bottom and charm masses");
@@ -1747,8 +1778,12 @@ const double QCD::Mp2Mbar_pole(const double mp, const orders order) const
         orders orderForAls;
         if (order == NLO || order == FULLNLO)
             orderForAls = FULLNLO;
-        if (order == NNLO || order == FULLNNLO)
+        else if (order == NNLO || order == FULLNNLO)
             orderForAls = FULLNNLO;
+        else if (order == NNNLO || order == FULLNNNLO)
+            orderForAls = FULLNNNLO;
+        else
+            throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Mp2Mbar_pole().");
         double a = Als(mp, Nfmp, orderForAls) / M_PI;
 
         // NLO contribution
@@ -1768,6 +1803,21 @@ const double QCD::Mp2Mbar_pole(const double mp, const orders order) const
             return mbarNNLO;
         if (order == FULLNNLO)
             return (mbarLO + mbarNLO + mbarNNLO);
+
+        // NNNLO: invert M/m = 1 + c1 a' + c2 a'^2 + c3 a'^3 (a' = alpha_s(m)/pi, coefficients as in Mbar2Mp) and
+        // re-expand in a = alpha_s(M)/pi with a' = a + 2 b0 c1 a^3 + O(a^4), b0 = (11 - 2 nf/3)/4:
+        // m/M = 1 - c1 a + (c1^2 - c2) a^2 + (2 c1 c2 - c1^3 - c3 - 2 b0 c1^2) a^3
+        double nl = (double)Nfmp - 1.;
+        double c1 = 4. / 3.;
+        double c2 = 307. / 32. + 2. * zeta2 + 2. / 3. * zeta2 * log(2.0) - zeta3 / 6. - nl / 3. * (zeta2 + 71. / 48.);
+        double c3 = 190.595 - 26.655 * nl + 0.6527 * nl * nl;
+        double b0 = (11. - 2. / 3. * (double)Nfmp) / 4.;
+        double mbarNNNLO = mp * (2. * c1 * c2 - c1 * c1 * c1 - c3 - 2. * b0 * c1 * c1) * a * a * a;
+
+        if (order == NNNLO)
+            return mbarNNNLO;
+        if (order == FULLNNNLO)
+            return (mbarLO + mbarNLO + mbarNNLO + mbarNNNLO);
 
     throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Mp2Mbar_new().");
 }
