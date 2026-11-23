@@ -40,9 +40,11 @@ public:
         std::vector<std::vector<T> > obj;
         std::vector<T> tmp;
         if (order_qcd < FULLQCD1 && order_qed < FULLQED1) {
-            for (int j = 0; j <= order_qed; j++)
-                tmp.push_back(el);
+            // Expanded::getOrd/setOrd(j, i) address the element [i][j] (i = outer index), and they are
+            // called as (order_qcd, order_qed): the outer index is QED, the inner one QCD.
             for (int i = 0; i <= order_qcd; i++)
+                tmp.push_back(el);
+            for (int j = 0; j <= order_qed; j++)
                 obj.push_back(tmp);
         } else
             throw std::runtime_error("WilsonTemplate::WilsonTemplate(): order_qcd and/or order_qed out of range");

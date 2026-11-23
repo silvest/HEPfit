@@ -25,7 +25,7 @@ Expanded<gslpp::complex> WilsonCoefficientNew::getCoeffElement(int i) const {
     std::vector<std::vector<gslpp::complex> > obj(wilson.getN1());
     for (int j = 0; j < wilson.getN1(); j++)
         for (int k = 0; k < wilson.getN2().at(j); k++)
-            obj[j].push_back(wilson.getOrd(j, k)(i));
+            obj[j].push_back(wilson.getOrd(k, j)(i)); // getOrd(inner, outer): same layout as wilson
     return (Expanded<gslpp::complex>(obj));
 };
 

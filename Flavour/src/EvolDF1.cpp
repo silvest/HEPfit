@@ -1455,9 +1455,10 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
     gslpp::matrix<double> mtmp(nops, 0.);
     std::vector<std::vector<gslpp::matrix<double> > > vtmp2;
     std::vector<gslpp::matrix<double> > vtmp;
-    for (int j = 0; j <= order_qed; j++)
-        vtmp.push_back(mtmp);
+    // outer index QED, inner index QCD, as in WilsonTemplateNew (getOrd/setOrd(QCD, QED))
     for (int i = 0; i <= order_qcd; i++)
+        vtmp.push_back(mtmp);
+    for (int j = 0; j <= order_qed; j++)
         vtmp2.push_back(vtmp);
     Expanded<gslpp::matrix<double> > res(vtmp2);
     //     gslpp::matrix<double> res01(nops, 0.), res02(nops, 0.), res11(nops, 0.), res12(nops, 0.),
