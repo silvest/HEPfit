@@ -295,6 +295,9 @@ void MonteCarlo::Run(const int rank) {
                         MCEngine.fillObservableBuffer(pars, observableBuffer.data());
                     }
                     MPI_Gather(observableBuffer.data(), obsbuffsize, MPI_DOUBLE, sendbuff[0], obsbuffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+                } else if (recvbuff[0] == 5.) { // send the event counters (collectMPIEventCounters())
+                    double counters[2] = {(double) MCEngine.getNumOfUsedEvents(), (double) MCEngine.getNumOfDiscardedEvents()};
+                    MPI_Gather(counters, 2, MPI_DOUBLE, sendbuff[0], 2, MPI_DOUBLE, 0, MPI_COMM_WORLD);
                 } else if (recvbuff[0] == -1.)
                     break;
                 else {
@@ -594,16 +597,20 @@ void MonteCarlo::Run(const int rank) {
                 outPreRun.close();
             }
 
-            /* Number of events */
+            /* Number of events (summed over the MPI ranks, which evaluate the likelihood in parallel) */
+            double usedEvents = MCEngine.getNumOfUsedEvents(), discardedEvents = MCEngine.getNumOfDiscardedEvents();
+#ifdef _MPI
+            collectMPIEventCounters(buffsize, usedEvents, discardedEvents);
+#endif
             std::stringstream ss;
             ss << ""; 
             BCLog::SetPrefix(false);
             BCLog::OutSummary(ss.str().c_str());
             BCLog::SetPrefix(true);
-            ss << "Number of used events: " << MCEngine.getNumOfUsedEvents();
+            ss << "Number of used events: " << std::fixed << std::setprecision(0) << usedEvents;
             BCLog::OutSummary(ss.str().c_str());
             ss.str("");
-            ss << "Number of discarded events: " << MCEngine.getNumOfDiscardedEvents() << "\n";
+            ss << "Number of discarded events: " << discardedEvents << "\n";
             BCLog::OutSummary(ss.str().c_str());
             // close log file
             BCLog::CloseLog();
@@ -671,6 +678,25 @@ void MonteCarlo::terminateMPIWorkers(int buffsize)
     delete [] recvbuff;
     delete [] sendbuff[0];
     delete [] sendbuff;
+}
+
+void MonteCarlo::collectMPIEventCounters(int buffsize, double& used, double& discarded)
+{
+    int procnum = MCEngine.getMPIWorldSize();
+    std::vector<double> sendbuff(procnum * buffsize, 0.);
+    for (int il = 1; il < procnum; il++)
+        sendbuff[il * buffsize] = 5.; // 5 = send the event counters
+    std::vector<double> recvbuff(buffsize);
+    MPI_Scatter(&sendbuff[0], buffsize, MPI_DOUBLE, &recvbuff[0], buffsize, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    double counters[2] = {used, discarded}; // rank 0's own counters
+    std::vector<double> gathbuff(2 * procnum, 0.);
+    MPI_Gather(counters, 2, MPI_DOUBLE, &gathbuff[0], 2, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+    used = 0.;
+    discarded = 0.;
+    for (int il = 0; il < procnum; il++) {
+        used += gathbuff[2 * il];
+        discarded += gathbuff[2 * il + 1];
+    }
 }
 #endif
 
