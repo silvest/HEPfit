@@ -40355,7 +40355,7 @@ const double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH0_60_Nj1(const double sqrt
 
         }
     } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_ggH_pTH200_300()");
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH0_60_Nj1()");
 
     if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
 
