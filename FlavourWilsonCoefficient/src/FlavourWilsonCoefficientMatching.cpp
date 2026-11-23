@@ -26,11 +26,21 @@ void FlavourWilsonCoefficientMatching::updateFlavourWilsonCoefficientParameters(
 {
     myCKM = myFlavourWilsonCoefficient.getVCKM();
     
+    DC1 = myFlavourWilsonCoefficient.getDC1();
+    DC2 = myFlavourWilsonCoefficient.getDC2();
+    DC3 = myFlavourWilsonCoefficient.getDC3();
+    DC4 = myFlavourWilsonCoefficient.getDC4();
+    DC5 = myFlavourWilsonCoefficient.getDC5();
+    DC6 = myFlavourWilsonCoefficient.getDC6();
+    DC7 = myFlavourWilsonCoefficient.getDC7();
+    DC8 = myFlavourWilsonCoefficient.getDC8();
     DC9 = myFlavourWilsonCoefficient.getDC9();
     DC10 = myFlavourWilsonCoefficient.getDC10();
     DC7g = myFlavourWilsonCoefficient.getDC7g();
     DC8g = myFlavourWilsonCoefficient.getDC8g();
     
+    DC7p = myFlavourWilsonCoefficient.getDC7p();
+    DC8p = myFlavourWilsonCoefficient.getDC8p();
     DC9p = myFlavourWilsonCoefficient.getDC9p();
     DC10p = myFlavourWilsonCoefficient.getDC10p();
     DC7gp = myFlavourWilsonCoefficient.getDC7gp();
