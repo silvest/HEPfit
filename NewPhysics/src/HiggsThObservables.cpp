@@ -10602,9 +10602,9 @@ double STXS12_qqHlv_pTV0_150::computeThValue()                                //
     //Since adding bins, include partial weigths of SM_predictions 
     //(https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.)
     double muProd   = (0.21509*(myNPbase->STXS12_qqHlv_pTV0_75(sqrt_s))
-                      + 0.13440*(myNPbase->STXS12_qqHlv_pTV75_150(sqrt_s))/(0.21509+0.13440));
+                      + 0.13440*(myNPbase->STXS12_qqHlv_pTV75_150(sqrt_s)))/(0.21509+0.13440);
     double muProd1  = (0.21509*(myNPbase->STXS12_qqHlv_pTV0_75(sqrt_s)-1.0)
-                      + 0.13440*(myNPbase->STXS12_qqHlv_pTV75_150(sqrt_s)-1.0)/(0.21509+0.13440));
+                      + 0.13440*(myNPbase->STXS12_qqHlv_pTV75_150(sqrt_s)-1.0))/(0.21509+0.13440);
     double muProd2  = 0.0;
 
     //-- Decay:
