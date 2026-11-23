@@ -247,10 +247,11 @@ int CorrelatedGaussianObservables::ParseCGO(boost::ptr_vector<Observable>& Obser
     } else {
         if (rank == 0) std::cout << "\nWARNING: Correlated (Gaussian) Observable " << name.c_str() << " defined with less than two observables" << " in file " << infilename << ". The set is being marked as normal Observables." << std::endl;
         if (getObs().size() == 1) Observables.push_back(new Observable(getObs(0)));
-        for (int i = 0; i < size; i++) {
-            IsEOF = getline(ifile, line).eof();
-            lineNo++;
-        }
+        if (!IsPrediction) // skip the correlation matrix; a set of predictions (CorrelatedObservables) has none
+            for (int i = 0; i < size; i++) {
+                IsEOF = getline(ifile, line).eof();
+                lineNo++;
+            }
     }
     return lineNo;
 }

@@ -166,7 +166,7 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             CorrelatedGaussianObservables tmpCO;
             tmpCO.setIsPrediction(true);
             lineNo = tmpCO.ParseCGO(Observables, ifile, beg, filename, myObsFactory, myModel, lineNo, rank);
-            CGO.push_back(tmpCO);
+            if (tmpCO.getObs().size() > 1) CGO.push_back(tmpCO); // a single member is booked as a normal Observable by ParseCGO()
 
         } else if (type.compare("CustomObservable") == 0) {
             
