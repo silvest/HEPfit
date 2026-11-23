@@ -43762,6 +43762,12 @@ const double NPSMEFTd6General::AuxObs_NP4() const {
     // To be used for some temporary observable
     
     // 10 TeV Muon Collider: VBF & HH
+    //
+    // The fit below was generated with one U(2)-symmetric light-lepton coefficient for CHl1, CHl3 and CHe
+    // (in every polynomial the "11" terms are exactly 4 times the "33" ones, i.e. the e and mu entries enter
+    // together). The variables CHl111*, CHl311*, CHe11* therefore stand for that common coefficient and are set
+    // to the average of the (1,1) and (2,2) entries, so that e and mu couplings are treated alike and the
+    // U(2)-symmetric limit reproduces the fit (assumption: the observables depend on the sum of the two entries).
 
     
     double CHq111b2, CHq122b2, CHq133b2, CHq311b2, CHq322b2, CHq333b2, CHu11b2;
@@ -43835,11 +43841,11 @@ const double NPSMEFTd6General::AuxObs_NP4() const {
     CuH33b2 = getSMEFTCoeff("CuHR", 2,2, muRb2);
     CuW33b2 = getSMEFTCoeff("CuWR", 2,2, muRb2);
     CuB33b2 = getSMEFTCoeff("CuBR", 2,2, muRb2);
-    CHl111b2 = getSMEFTCoeff("CHl1R", 0,0, muRb2);
+    CHl111b2 = 0.5 * (getSMEFTCoeff("CHl1R", 0,0, muRb2) + getSMEFTCoeff("CHl1R", 1,1, muRb2));
     CHl133b2 = getSMEFTCoeff("CHl1R", 2,2, muRb2);
-    CHl311b2 = getSMEFTCoeff("CHl3R", 0,0, muRb2);
+    CHl311b2 = 0.5 * (getSMEFTCoeff("CHl3R", 0,0, muRb2) + getSMEFTCoeff("CHl3R", 1,1, muRb2));
     CHl333b2 = getSMEFTCoeff("CHl3R", 2,2, muRb2);
-    CHe11b2 = getSMEFTCoeff("CHeR", 0,0, muRb2);
+    CHe11b2 = 0.5 * (getSMEFTCoeff("CHeR", 0,0, muRb2) + getSMEFTCoeff("CHeR", 1,1, muRb2));
     CHe33b2 = getSMEFTCoeff("CHeR", 2,2, muRb2);      
     
     chi2VBFff = 2090013419192. * CHq111b2 * CHq111b2 -5341278337407. * CHq111b2 * CHq122b2 -461275890118. * CHq111b2 * CHq133b2 -42429032623811. * CHq111b2 * CHq311b2  
@@ -43887,11 +43893,11 @@ const double NPSMEFTd6General::AuxObs_NP4() const {
     CuH33b3 = getSMEFTCoeff("CuHR", 2,2, muRb3);
     CuW33b3 = getSMEFTCoeff("CuWR", 2,2, muRb3);
     CuB33b3 = getSMEFTCoeff("CuBR", 2,2, muRb3);
-    CHl111b3 = getSMEFTCoeff("CHl1R", 0,0, muRb3);
+    CHl111b3 = 0.5 * (getSMEFTCoeff("CHl1R", 0,0, muRb3) + getSMEFTCoeff("CHl1R", 1,1, muRb3));
     CHl133b3 = getSMEFTCoeff("CHl1R", 2,2, muRb3);
-    CHl311b3 = getSMEFTCoeff("CHl3R", 0,0, muRb3);
+    CHl311b3 = 0.5 * (getSMEFTCoeff("CHl3R", 0,0, muRb3) + getSMEFTCoeff("CHl3R", 1,1, muRb3));
     CHl333b3 = getSMEFTCoeff("CHl3R", 2,2, muRb3);
-    CHe11b3 = getSMEFTCoeff("CHeR", 0,0, muRb3);
+    CHe11b3 = 0.5 * (getSMEFTCoeff("CHeR", 0,0, muRb3) + getSMEFTCoeff("CHeR", 1,1, muRb3));
     CHe33b3 = getSMEFTCoeff("CHeR", 2,2, muRb3);
     
     chi2VBFff = chi2VBFff
@@ -43940,11 +43946,11 @@ const double NPSMEFTd6General::AuxObs_NP4() const {
     CuH33b4 = getSMEFTCoeff("CuHR", 2,2, muRb4);
     CuW33b4 = getSMEFTCoeff("CuWR", 2,2, muRb4);
     CuB33b4 = getSMEFTCoeff("CuBR", 2,2, muRb4);
-    CHl111b4 = getSMEFTCoeff("CHl1R", 0,0, muRb4);
+    CHl111b4 = 0.5 * (getSMEFTCoeff("CHl1R", 0,0, muRb4) + getSMEFTCoeff("CHl1R", 1,1, muRb4));
     CHl133b4 = getSMEFTCoeff("CHl1R", 2,2, muRb4);
-    CHl311b4 = getSMEFTCoeff("CHl3R", 0,0, muRb4);
+    CHl311b4 = 0.5 * (getSMEFTCoeff("CHl3R", 0,0, muRb4) + getSMEFTCoeff("CHl3R", 1,1, muRb4));
     CHl333b4 = getSMEFTCoeff("CHl3R", 2,2, muRb4);
-    CHe11b4 = getSMEFTCoeff("CHeR", 0,0, muRb4);
+    CHe11b4 = 0.5 * (getSMEFTCoeff("CHeR", 0,0, muRb4) + getSMEFTCoeff("CHeR", 1,1, muRb4));
     CHe33b4 = getSMEFTCoeff("CHeR", 2,2, muRb4);
     
     chi2VBFff = chi2VBFff 
@@ -43993,11 +43999,11 @@ const double NPSMEFTd6General::AuxObs_NP4() const {
     CuH33b5 = getSMEFTCoeff("CuHR", 2,2, muRb5);
     CuW33b5 = getSMEFTCoeff("CuWR", 2,2, muRb5);
     CuB33b5 = getSMEFTCoeff("CuBR", 2,2, muRb5);
-    CHl111b5 = getSMEFTCoeff("CHl1R", 0,0, muRb5);
+    CHl111b5 = 0.5 * (getSMEFTCoeff("CHl1R", 0,0, muRb5) + getSMEFTCoeff("CHl1R", 1,1, muRb5));
     CHl133b5 = getSMEFTCoeff("CHl1R", 2,2, muRb5);
-    CHl311b5 = getSMEFTCoeff("CHl3R", 0,0, muRb5);
+    CHl311b5 = 0.5 * (getSMEFTCoeff("CHl3R", 0,0, muRb5) + getSMEFTCoeff("CHl3R", 1,1, muRb5));
     CHl333b5 = getSMEFTCoeff("CHl3R", 2,2, muRb5);
-    CHe11b5 = getSMEFTCoeff("CHeR", 0,0, muRb5);
+    CHe11b5 = 0.5 * (getSMEFTCoeff("CHeR", 0,0, muRb5) + getSMEFTCoeff("CHeR", 1,1, muRb5));
     CHe33b5 = getSMEFTCoeff("CHeR", 2,2, muRb5);
     
     chi2VBFff = chi2VBFff 
@@ -44046,11 +44052,11 @@ const double NPSMEFTd6General::AuxObs_NP4() const {
     CuH33b6 = getSMEFTCoeff("CuHR", 2,2, muRb6);
     CuW33b6 = getSMEFTCoeff("CuWR", 2,2, muRb6);
     CuB33b6 = getSMEFTCoeff("CuBR", 2,2, muRb6);
-    CHl111b6 = getSMEFTCoeff("CHl1R", 0,0, muRb6);
+    CHl111b6 = 0.5 * (getSMEFTCoeff("CHl1R", 0,0, muRb6) + getSMEFTCoeff("CHl1R", 1,1, muRb6));
     CHl133b6 = getSMEFTCoeff("CHl1R", 2,2, muRb6);
-    CHl311b6 = getSMEFTCoeff("CHl3R", 0,0, muRb6);
+    CHl311b6 = 0.5 * (getSMEFTCoeff("CHl3R", 0,0, muRb6) + getSMEFTCoeff("CHl3R", 1,1, muRb6));
     CHl333b6 = getSMEFTCoeff("CHl3R", 2,2, muRb6);
-    CHe11b6 = getSMEFTCoeff("CHeR", 0,0, muRb6);
+    CHe11b6 = 0.5 * (getSMEFTCoeff("CHeR", 0,0, muRb6) + getSMEFTCoeff("CHeR", 1,1, muRb6));
     CHe33b6 = getSMEFTCoeff("CHeR", 2,2, muRb6);
     
     chi2VBFff = chi2VBFff 
@@ -44121,11 +44127,11 @@ const double NPSMEFTd6General::AuxObs_NP4() const {
     CuH33b7 = CuH_33r_LNP / LambdaNP2;  
     CuW33b7 = CuW_33r_LNP / LambdaNP2;  
     CuB33b7 = CuB_33r_LNP / LambdaNP2;  
-    CHl111b7 = CHl1_11r_LNP / LambdaNP2;  
+    CHl111b7 = 0.5 * (CHl1_11r_LNP + CHl1_22r_LNP) / LambdaNP2;  
     CHl133b7 = CHl1_33r_LNP / LambdaNP2;  
-    CHl311b7 = CHl3_11r_LNP / LambdaNP2;  
+    CHl311b7 = 0.5 * (CHl3_11r_LNP + CHl3_22r_LNP) / LambdaNP2;  
     CHl333b7 = CHl3_33r_LNP / LambdaNP2;  
-    CHe11b7 = CHe_11r_LNP / LambdaNP2;  
+    CHe11b7 = 0.5 * (CHe_11r_LNP + CHe_22r_LNP) / LambdaNP2;  
     CHe33b7 = CHe_33r_LNP / LambdaNP2;  
     
     chi2VBFff = chi2VBFff 
@@ -44173,11 +44179,11 @@ const double NPSMEFTd6General::AuxObs_NP4() const {
     CHd33bi = getSMEFTCoeff("CHdR", 2,2, muRbi);
     CuW33bi = getSMEFTCoeff("CuWR", 2,2, muRbi);
     CuB33bi = getSMEFTCoeff("CuBR", 2,2, muRbi);
-    CHl111bi = getSMEFTCoeff("CHl1R", 0,0, muRbi);
+    CHl111bi = 0.5 * (getSMEFTCoeff("CHl1R", 0,0, muRbi) + getSMEFTCoeff("CHl1R", 1,1, muRbi));
     CHl133bi = getSMEFTCoeff("CHl1R", 2,2, muRbi);
-    CHl311bi = getSMEFTCoeff("CHl3R", 0,0, muRbi);
+    CHl311bi = 0.5 * (getSMEFTCoeff("CHl3R", 0,0, muRbi) + getSMEFTCoeff("CHl3R", 1,1, muRbi));
     CHl333bi = getSMEFTCoeff("CHl3R", 2,2, muRbi);
-    CHe11bi = getSMEFTCoeff("CHeR", 0,0, muRbi);
+    CHe11bi = 0.5 * (getSMEFTCoeff("CHeR", 0,0, muRbi) + getSMEFTCoeff("CHeR", 1,1, muRbi));
     CHe33bi = getSMEFTCoeff("CHeR", 2,2, muRbi);
     
     chi2VBFffH = 6817949880551. * CHq111bi * CHq111bi -12567937638303. * CHq111bi * CHq122bi +287551704845. * CHq111bi * CHq133bi -38967551431310. * CHq111bi * CHq311bi  
