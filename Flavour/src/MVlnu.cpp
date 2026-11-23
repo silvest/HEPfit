@@ -1587,46 +1587,88 @@ double MVlnu::get_R0(double w)
 
 
 /***************************************************************************
- * SM computation  ... lep hel asymmetry, see 1203.2654, 1707.09509        *
+ * lepton helicity asymmetry, see 1203.2654, 1707.09509 (SM) and           *
+ * 1309.0301 eqs. (12), (50a), (50b) (SM + NP)                             *
  * ************************************************************************/
 
+/* Hadronic helicity amplitudes H_{V,+}, H_{V,-}, H_{V,0}, H_{V,t} of 1309.0301 eqs. (12a)-(12c),
+ * i.e. with the D* momentum |p| = sqrt(lambda)/(2 M_B) of 1203.2654. */
 double MVlnu::Hplus(double q2){
-    double abs_p = lambda_half(MM*MM,MV*MV,q2);
+    double abs_p = lambda_half(MM*MM,MV*MV,q2)/(2.*MM);
     return (MM+MV)*A1(q2)-2.*MM/(MM+MV)*abs_p*V(q2);
 }
 
 double MVlnu::Hminus(double q2){
-    double abs_p = lambda_half(MM*MM,MV*MV,q2);
+    double abs_p = lambda_half(MM*MM,MV*MV,q2)/(2.*MM);
     return (MM+MV)*A1(q2)+2.*MM/(MM+MV)*abs_p*V(q2);
 }
 
 double MVlnu::H0(double q2){
-    double abs_p = lambda_half(MM*MM,MV*MV,q2);
-    return ((MM*MM-MV*MV-q2)*(MM+MV)*A1(q2)-4.*MM*MM*abs_p*abs_p/(MM+MV)*A2(q2))/(2.*MV*sqrt(q2));
+    double abs_p = lambda_half(MM*MM,MV*MV,q2)/(2.*MM);
+    return -((MM*MM-MV*MV-q2)*(MM+MV)*A1(q2)-4.*MM*MM*abs_p*abs_p/(MM+MV)*A2(q2))/(2.*MV*sqrt(q2));
 }
 
 double MVlnu::H0t(double q2){
-    double abs_p = lambda_half(MM*MM,MV*MV,q2);
-    return 2.*MM*abs_p*A0(q2)/sqrt(q2);
+    double abs_p = lambda_half(MM*MM,MV*MV,q2)/(2.*MM);
+    return -2.*MM*abs_p*A0(q2)/sqrt(q2);
+}
+
+double MVlnu::dGlepheldq2(double q2, bool positive)
+{
+    /* 1309.0301 eqs. (50a) (lambda_tau = +1/2) and (50b) (lambda_tau = -1/2). The coefficients of this
+     * class (GHZ basis, 1506.03970) map onto those of 1309.0301 as delta_ltau + C_V1 -> CV, C_V2 -> CVp,
+     * C_S1 -> CS, C_S2 -> CSp, C_T -> CTp/2 (the primed tensor is the one with a left-handed neutrino).
+     * The unprimed CT multiplies (c_L sigma b)(l sigma nu), whose non-vanishing part has a right-handed
+     * neutrino: it does not interfere with the other amplitudes and enters with the tau helicities
+     * exchanged (CT/2 below). With this mapping and the normalisation 4/3*amplsq_factor, the sum of the
+     * two helicities equals 6*amplsq_factor*G000, i.e. the d Gamma/d q^2 of this class, for any
+     * coefficients. C7, C7p are zero in this class. */
+    double sqlam = lambda_half(MM*MM,MV*MV,q2);
+    double sq = sqrt(q2);
+    double r = Mlep*Mlep/q2;
+    double ml_o_sq = Mlep/sq;
+    double Hp = Hplus(q2);
+    double Hm = Hminus(q2);
+    double Hz = H0(q2);
+    double Ht = H0t(q2);
+    double Hsc = -sqlam/(Mb+Mc)*A0(q2); // eq. (12d)
+    double HTp_ = ((MM*MM-MV*MV)*T2(q2)+sqlam*T1(q2))/sq; // eq. (12e)
+    double HTm_ = (-(MM*MM-MV*MV)*T2(q2)+sqlam*T1(q2))/sq;
+    double HTz = -4.*MM*MV/(MM+MV)*T23(q2); // eq. (12f) in terms of T23
+    double sumV = Hp*Hp+Hm*Hm+Hz*Hz;
+    double sumT = HTp_*HTp_+HTm_*HTm_+HTz*HTz;
+    double intL = HTz*Hz+HTp_*Hp-HTm_*Hm;
+    double intR = HTz*Hz+HTp_*Hm-HTm_*Hp;
+    gslpp::complex tL = CTp/2.;
+    gslpp::complex tR = CT/2.;
+    double sumC2 = CV.abs2()+CVp.abs2();
+    double reCVCVp = (CV*CVp.conjugate()).real();
+    double res;
+    if (positive)
+        res = 0.5*sumC2*r*(sumV+3.*Ht*Ht)-reCVCVp*r*(Hz*Hz+2.*Hp*Hm+3.*Ht*Ht)
+            +1.5*(CS-CSp).abs2()*Hsc*Hsc+8.*tL.abs2()*sumT
+            +3.*((CV-CVp)*(CS-CSp).conjugate()).real()*ml_o_sq*Hsc*Ht
+            -4.*(CV*tL.conjugate()).real()*ml_o_sq*intL+4.*(CVp*tL.conjugate()).real()*ml_o_sq*intR
+            +16.*tR.abs2()*r*sumT;
+    else
+        res = sumC2*sumV-2.*reCVCVp*(Hz*Hz+2.*Hp*Hm)+16.*tL.abs2()*r*sumT
+            -8.*(CV*tL.conjugate()).real()*ml_o_sq*intL+8.*(CVp*tL.conjugate()).real()*ml_o_sq*intR
+            +8.*tR.abs2()*sumT;
+    return 4./3.*amplsq_factor*q2*sqlam*(1.-r)*(1.-r)*res;
 }
 
 double MVlnu::dGpdq2(double q2){
         
     updateParameters();
         
-    double abs_p = lambda_half(MM*MM,MV*MV,q2);
-    double lep_factor = (1.-Mlep*Mlep/q2)*(1.-Mlep*Mlep/q2)*Mlep*Mlep/(2.*q2);
-    return 2./3.*amplsq_factor*abs_p*q2*lep_factor*(Hplus(q2)*Hplus(q2)+Hminus(q2)*Hminus(q2)+H0(q2)*H0(q2)
-            +3.*H0t(q2)*H0t(q2));
+    return dGlepheldq2(q2, true);
 }
 
 double MVlnu::dGmdq2(double q2){
     
     updateParameters(); 
     
-    double abs_p = lambda_half(MM*MM,MV*MV,q2);
-    double lep_factor = (1.-Mlep*Mlep/q2)*(1.-Mlep*Mlep/q2);
-    return 2./3.*amplsq_factor*abs_p*q2*lep_factor*(Hplus(q2)*Hplus(q2)+Hminus(q2)*Hminus(q2)+H0(q2)*H0(q2));
+    return dGlepheldq2(q2, false);
 }
 
 double MVlnu::integrateGpm(int i, double q2_min, double q2_max)

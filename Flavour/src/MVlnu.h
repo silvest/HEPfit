@@ -141,6 +141,9 @@ public:
  
      /**
     * @brief Binned lepton helicity asymmetry \f$ P_{\ell} = (<G_{+}>  - <G_{-}>) / (<G_{+}> + <G_{-}>) \f$ 
+    * @details The rates for definite \f$ \ell \f$ helicity follow arXiv:1309.0301, eqs. (50a), (50b), and include
+    * the vector, scalar and tensor new-physics coefficients of this class (see dGlepheldq2()); their sum equals
+    * the \f$ d\Gamma/dq^2 \f$ used for the other observables.
     * @return \f$ <P_{\ell}> \f$ 
     */
     double getPlep();
@@ -698,32 +701,45 @@ private:
     double dGammadchi(double chi);
     
     /**
-    * @brief Helicity amplitude \f$ H_{--} \f$ .
+    * @brief Hadronic helicity amplitude \f$ H_{V,-} \f$ of arXiv:1309.0301, eq. (12a).
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ H_{--} \f$
+    * @return \f$ H_{V,-} \f$
     */
     double  Hminus(double q2);
     
     /**
-    * @brief Helicity amplitude \f$ H_{++} \f$ .
+    * @brief Hadronic helicity amplitude \f$ H_{V,+} \f$ of arXiv:1309.0301, eq. (12a).
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ H_{++} \f$
+    * @return \f$ H_{V,+} \f$
     */
     double  Hplus(double q2);
     
     /**
-    * @brief Helicity amplitude \f$ H_{00} \f$ .
+    * @brief Hadronic helicity amplitude \f$ H_{V,0} \f$ of arXiv:1309.0301, eq. (12b).
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ H_{00} \f$
+    * @return \f$ H_{V,0} \f$
     */
     double  H0(double q2);
     
     /**
-    * @brief Helicity amplitude \f$ H_{0t} \f$ .
+    * @brief Hadronic helicity amplitude \f$ H_{V,t} \f$ of arXiv:1309.0301, eq. (12c).
     * @param[in] q2 \f$q^2\f$ of the decay
-    * @return \f$ H_{0t} \f$
+    * @return \f$ H_{V,t} \f$
     */
     double  H0t(double q2);
+    
+    /**
+     * @brief \f$ d\Gamma_{\lambda_\ell=\pm1/2}/dq^2 \f$ including new physics.
+     * @details arXiv:1309.0301, eqs. (50a), (50b), with the coefficients of this class (GHZ basis, arXiv:1506.03970)
+     * mapped as \f$ 1+C_{V_1}\to C_V \f$, \f$ C_{V_2}\to C_V' \f$, \f$ C_{S_1}\to C_S \f$, \f$ C_{S_2}\to C_S' \f$,
+     * \f$ C_T\to C_T'/2 \f$ (left-handed neutrino), and the unprimed \f$ C_T \f$ (whose operator only has a
+     * right-handed-neutrino part) entering as \f$ C_T/2 \f$ with the \f$ \ell \f$ helicities exchanged.
+     * Normalised so that the sum over the two helicities equals the \f$ d\Gamma/dq^2 \f$ of this class.
+     * @param[in] q2 \f$q^2\f$ of the decay
+     * @param[in] positive true for \f$ \lambda_\ell=+1/2 \f$, false for \f$ \lambda_\ell=-1/2 \f$
+     * @return \f$ d\Gamma_{\lambda_\ell}/dq^2 \f$
+     */
+    double dGlepheldq2(double q2, bool positive);
     
     /**
      * @brief \f$ d\Gamma_{\lambda=+1/2}/dq2 \f$ 
