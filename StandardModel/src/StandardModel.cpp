@@ -3118,9 +3118,9 @@ const double StandardModel::Gamma_muon() const
       
     H3x = -15.3;
       
-    // alpha(m_mu): PDG muon decay parameters review, alpha^-1(m_mu) = alpha^-1 - 2/(3 pi) ln(m_mu/m_e) + 1/(6 pi)
+    // alpha(m_mu): PDG muon decay parameters review, alpha^-1(m_mu) = alpha^-1 - 2/(3 pi) ln(m_mu/m_e)
     // (log(x) = -2 ln(m_mu/m_e))
-    alpha = 1./ale + log(x)/3./M_PI + 1./6./M_PI;
+    alpha = 1./ale + log(x)/3./M_PI;
     alpha = 1./alpha;
       
     // Rad. corrections
