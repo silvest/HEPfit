@@ -537,7 +537,10 @@
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This auxiliary flag is used for setting the W mass as a SM input, 
  *   instead of the electromagnetic constant parameter %dAle5Mz. 
- *   The default value is FALSE. This flag will override the flag of the same name in StandardModel</td>
+ *   The default value is FALSE. This flag will override the flag of the same name in StandardModel.
+ *   Predictions that are only available as MW-scheme fits (several production fits, the STXS1.2 bins and the
+ *   quadratic \f$H\to 4f\f$ widths) throw a runtime error when used with MWinput = FALSE; since the quadratic
+ *   \f$H\to 4f\f$ widths enter the total Higgs width, QuadraticTerms = TRUE requires MWinput = TRUE.</td>
  * </tr> 
  * <tr>
  *   <td class="mod_name">%QuadraticTerms</td>
