@@ -27,8 +27,9 @@ void Charm_Kpnunu::update()
     mc_mc=model.getQuarks(QCD::CHARM).getMass();
     etab=model.Als(model.getMuw()) / model.Als(model.getMub());
     etacb=model.Als(model.getMub()) / model.Als(model.getMuc());
-    etac=model.Als(model.getMuc()) / model.Als(model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass_scale(),
-        model.getQuarks(QCD::CHARM).getMass(), QCD::CHARM, FULLNNLO));
+    // eta_c = alpha_s(mu_c)/alpha_s(m_c) with m_c = m_c(m_c), so that kappa_c x_c(m_c) = x_c(mu_c) at LO:
+    // hep-ph/0603079, definition after eq. (xc)
+    etac=model.Als(model.getMuc()) / model.Als(mc_mc);
     kc= pow(etac, 24. / 25.);
     xc_mc_qed=sqrt(2.) * model.sW2_ND() * model.getGF() / M_PI / model.alphaMz() * mc_mc * mc_mc ;
     L = log(model.getMuc() * model.getMuc() / mc_mc / mc_mc);
@@ -541,7 +542,8 @@ double Charm_Kpnunu::C_Bt_qed(orders_qed order_qed)
           
         double rho_e = 0.;
         double rho_es = -4. * kc * xice * (kc - xt * (1 - log(xt / kc) ) ) / (kc - xt) / (kc - xt) ;
-        double rho_1 = 5. + 4. * L + 4. * xt / (1. - xt) + 4. / (xt - kc)*(kc * log(kc)
+        // rho_tau^{B(1)} with r_tau^{B(1)} = 5 + 4 x_tau ln(x_tau)/(1 - x_tau) + 4 L: hep-ph/0603079 eqs. (rBtau), (rhoBtaus), as in C_Bt
+        double rho_1 = 5. + 4. * L + 4. * xt * log(xt) / (1. - xt) + 4. / (xt - kc)*(kc * log(kc)
                         - xt * (1. - kc) / (1. - xt) * log(xt));
         
         gslpp::vector<double> C0 = C(LO,NO_QED,0);
