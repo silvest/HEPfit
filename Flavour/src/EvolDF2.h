@@ -98,6 +98,8 @@ private:
     unsigned int dim;
     double alsMZ_cache = 0.;
     double Mz_cache = 0.;
+    double mut_cache = 0., mub_cache = 0., muc_cache = 0.; ///< threshold scales in the cache key
+    double mt_cache = 0., mb_cache = 0., mc_cache = 0.; ///< quark masses in the cache key
 };
 
 #endif	/* EVOLDF2_H */

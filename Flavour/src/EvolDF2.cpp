@@ -160,12 +160,25 @@ gslpp::matrix<double>& EvolDF2::Df2Evol(double mu, double M, orders order, schem
 
     double alsMZ = model.getAlsMz();
     double Mz = model.getMz();
-    if(alsMZ == alsMZ_cache && Mz == Mz_cache) {
+    // The evolution also depends on the threshold scales (QCD::AboveTh, QCD::Nf) and on the
+    // quark masses entering the alpha_s threshold matching: they are part of the cache key.
+    double mut = model.getMut(), mub = model.getMub(), muc = model.getMuc();
+    double mt = model.getQuarks(QCD::TOP).getMass(), mb = model.getQuarks(QCD::BOTTOM).getMass(),
+            mc = model.getQuarks(QCD::CHARM).getMass();
+    if(alsMZ == alsMZ_cache && Mz == Mz_cache
+            && mut == mut_cache && mub == mub_cache && muc == muc_cache
+            && mt == mt_cache && mb == mb_cache && mc == mc_cache) {
         if (mu == this->mu && M == this->M && scheme == this->scheme)
             return (*Evol(order));        
     }
     alsMZ_cache = alsMZ;
     Mz_cache = Mz;
+    mut_cache = mut;
+    mub_cache = mub;
+    muc_cache = muc;
+    mt_cache = mt;
+    mb_cache = mb;
+    mc_cache = mc;
 
     if (M < mu) {
         std::stringstream out;

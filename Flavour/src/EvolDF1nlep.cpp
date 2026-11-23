@@ -629,7 +629,14 @@ gslpp::matrix<double>& EvolDF1nlep::Df1Evolnlep(double mu, double M, orders orde
     double alsMZ = model.getAlsMz();
     double Mz = model.getMz();
     double Ale = model.getAle();
-    if (!fixedThreeFlavours && alsMZ == alsMZ_cache && Mz == Mz_cache && Ale == Ale_cache) {
+    // The evolution also depends on the threshold scales (QCD::AboveTh, QCD::Nf) and on the
+    // quark masses entering the alpha_s threshold matching: they are part of the cache key.
+    double mut = model.getMut(), mub = model.getMub(), muc = model.getMuc();
+    double mt = model.getQuarks(QCD::TOP).getMass(), mb = model.getQuarks(QCD::BOTTOM).getMass(),
+            mc = model.getQuarks(QCD::CHARM).getMass();
+    if (!fixedThreeFlavours && alsMZ == alsMZ_cache && Mz == Mz_cache && Ale == Ale_cache
+            && mut == mut_cache && mub == mub_cache && muc == muc_cache
+            && mt == mt_cache && mb == mb_cache && mc == mc_cache) {
         if (mu == this->mu && M == this->M && scheme == this->scheme && order_qed == NO_QED)
             return (*Evol(order));
 
@@ -640,6 +647,12 @@ gslpp::matrix<double>& EvolDF1nlep::Df1Evolnlep(double mu, double M, orders orde
     alsMZ_cache = alsMZ;
     Mz_cache = Mz;
     Ale_cache = Ale;
+    mut_cache = mut;
+    mub_cache = mub;
+    muc_cache = muc;
+    mt_cache = mt;
+    mb_cache = mb;
+    mc_cache = mc;
 
     if (M < mu) {
         std::stringstream out;
@@ -801,7 +814,14 @@ gslpp::matrix<double>& EvolDF1nlep::Df1Evolnlep3flav(double mu, double M, orders
     double alsMZ = model.getAlsMz();
     double Mz = model.getMz();
     double Ale = model.getAle();
-    if (fixedThreeFlavours && alsMZ == alsMZ_cache && Mz == Mz_cache && Ale == Ale_cache) {
+    // The evolution also depends on the threshold scales (QCD::AboveTh, QCD::Nf) and on the
+    // quark masses entering the alpha_s threshold matching: they are part of the cache key.
+    double mut = model.getMut(), mub = model.getMub(), muc = model.getMuc();
+    double mt = model.getQuarks(QCD::TOP).getMass(), mb = model.getQuarks(QCD::BOTTOM).getMass(),
+            mc = model.getQuarks(QCD::CHARM).getMass();
+    if (fixedThreeFlavours && alsMZ == alsMZ_cache && Mz == Mz_cache && Ale == Ale_cache
+            && mut == mut_cache && mub == mub_cache && muc == muc_cache
+            && mt == mt_cache && mb == mb_cache && mc == mc_cache) {
         if (mu == this->mu && M == this->M && scheme == this->scheme && order_qed == NO_QED)
             return (*Evol(order));
 
@@ -813,6 +833,12 @@ gslpp::matrix<double>& EvolDF1nlep::Df1Evolnlep3flav(double mu, double M, orders
     alsMZ_cache = alsMZ;
     Mz_cache = Mz;
     Ale_cache = Ale;
+    mut_cache = mut;
+    mub_cache = mub;
+    muc_cache = muc;
+    mt_cache = mt;
+    mb_cache = mb;
+    mc_cache = mc;
 
     setScales(mu, M); // also assign evol to identity
 

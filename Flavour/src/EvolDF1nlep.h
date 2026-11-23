@@ -128,8 +128,10 @@ class EvolDF1nlep : public RGEvolutor {
     gslpp::matrix<double> threeFlavourGenerator;
     bool fixedThreeFlavours = false;
     double alsMZ_cache = -1.;
-    double Mz_cache;
-    double Ale_cache;
+    double Mz_cache = 0.;
+    double Ale_cache = 0.;
+    double mut_cache = 0., mub_cache = 0., muc_cache = 0.; ///< threshold scales in the cache key
+    double mt_cache = 0., mb_cache = 0., mc_cache = 0.; ///< quark masses in the cache key
 
  };
 
