@@ -11,6 +11,17 @@
 #include "QCD.h"
 #include "ThObservable.h"
 
+/*
+ * Angular conventions of the M -> V l+ l- observables in this file: the CP-averaged and CP-asymmetric
+ * coefficients Sigma_i and Delta_i computed in MVll follow the theory convention of Altmannshofer et al.,
+ * arXiv:0811.1214, while all observables are returned in the LHCb convention for the angles (LHCb,
+ * arXiv:1304.6325, 1512.04442), obtained from it with theta_l -> pi - theta_l and phi -> -phi. The terms 4, 6s,
+ * 6c, 7 and 9 change sign, so S_4, S_6c, S_7, S_9, A_6, A_6c, A_9, A_FB, P_2, P_3 and P_3^CP are minus their
+ * theory-convention expressions, P_4' and P_8' are -1/2 times them (LHCb normalises the P_i' to
+ * sqrt(F_L(1-F_L))), and the other observables are the same in both conventions. The formulas in the class
+ * documentation give the returned values. (S_6c, A_6c, A_9 and P_3^CP returned the theory-convention sign
+ * before this was made uniform.)
+ */
 
 /**
  * @class P_1
@@ -62,7 +73,7 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
  * @f$<\Sigma_i>@f$, computed in the MVll class:
  * @f[
- * <P_2>=\frac {<\Sigma_6>}{8<\Sigma_{2s}>}\,.
+ * <P_2>=- \frac {<\Sigma_{6s}>}{8<\Sigma_{2s}>}\,.
  * @f]
  */
 class P_2 : public ThObservable {
@@ -101,7 +112,7 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
  * @f$<\Sigma_i>@f$, computed in the MVll class:
  * @f[
- * <P_3>=- \frac {<\Sigma_9>}{4<\Sigma_{2s}>}\,.
+ * <P_3>=\frac {<\Sigma_9>}{4<\Sigma_{2s}>}\,.
  * @f]
  */
 class P_3 : public ThObservable{
@@ -140,7 +151,7 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
  * @f$<\Sigma_i>@f$, computed in the MVll class:
  * @f[
- * <P_4'>=\frac {<\Sigma_4>}{\sqrt{-<\Sigma_{2s}><\Sigma_{2c}>}}\,.
+ * <P_4'>=- \frac {<\Sigma_4>}{2\sqrt{-<\Sigma_{2s}><\Sigma_{2c}>}}\,.
  * @f]
  */
 class P_4Prime : public ThObservable{
@@ -262,7 +273,7 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the binned CP averaged helicity coefficients 
  * @f$<\Sigma_i>@f$, computed in the MVll class:
  * @f[
- * <P_8'>=- \frac {<\Sigma_8>}{\sqrt{-<\Sigma_{2s}><\Sigma_{2c}>}}\,.
+ * <P_8'>=\frac {<\Sigma_8>}{2\sqrt{-<\Sigma_{2s}><\Sigma_{2c}>}}\,.
  * @f]
  */
 class P_8Prime : public ThObservable{
@@ -756,8 +767,10 @@ private:
  * @f$<\Delta_i>@f$ and the CP average helicity coefficients @f$<\Sigma_i>@f$,
  *  computed in the MVll class:
  * @f[
- * <P_3^{CP}>= -\frac {<\Delta_{9}>}{4<\Sigma_{2s}>} \,.
+ * <P_3^{CP}>= \frac {<\Delta_{9}>}{4<\Sigma_{2s}>} \,.
  * @f]
+ * This is the LHCb sign convention (see the note at the top of this file); the opposite,
+ * theory-convention sign was returned before.
  */
 class P3CP : public ThObservable{
 public:
@@ -1068,7 +1081,7 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
  * @f$<\Sigma_i>@f$, computed in the MVll class:
  * @f[
- * <S_4>= \frac {<\Sigma_{4}>}{<\Gamma'>} \,.
+ * <S_4>= -\frac {<\Sigma_{4}>}{<\Gamma'>} \,.
  * @f]
  */
 class S_4: public GammaPrime{
@@ -1146,8 +1159,10 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
  * @f$<\Sigma_i>@f$, computed in the MVll class:
  * @f[
- * <S_{6c}>= \frac {<\Sigma_{6c}>}{<\Gamma'>} \,.
+ * <S_{6c}>= -\frac {<\Sigma_{6c}>}{<\Gamma'>} \,.
  * @f]
+ * This is the LHCb sign convention (see the note at the top of this file); the opposite,
+ * theory-convention sign was returned before.
  */
 class S_6c : public GammaPrime{
 public:
@@ -1185,7 +1200,7 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
  * @f$<\Sigma_i>@f$, computed in the MVll class:
  * @f[
- * <S_7>= \frac {<\Sigma_{7}>}{<\Gamma'>} \,.
+ * <S_7>= -\frac {<\Sigma_{7}>}{<\Gamma'>} \,.
  * @f]
  */
 class S_7 : public GammaPrime{
@@ -1263,7 +1278,7 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
  * @f$<\Sigma_i>@f$, computed in the MVll class:
  * @f[
- * <S_9>= \frac {<\Sigma_{9}>}{<\Gamma'>} \,.
+ * <S_9>= -\frac {<\Sigma_{9}>}{<\Gamma'>} \,.
  * @f]
  */
 class S_9 : public GammaPrime{
@@ -1341,7 +1356,7 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
  * @f$<\Delta_i>@f$, computed in the MVll class:
  * @f[
- * <A_6>= \frac {<\Delta_{6}>}{<\Gamma'>} \,.
+ * <A_6>= -\frac {<\Delta_{6s}>}{<\Gamma'>} \,.
  * @f]
  */
 class A_6 : public GammaPrime{
@@ -1380,8 +1395,10 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
  * @f$<\Delta_i>@f$, computed in the MVll class:
  * @f[
- * <A_{6c}>= \frac {<\Delta_{6c}>}{<\Gamma'>} \,.
+ * <A_{6c}>= -\frac {<\Delta_{6c}>}{<\Gamma'>} \,.
  * @f]
+ * This is the LHCb sign convention (see the note at the top of this file); the opposite,
+ * theory-convention sign was returned before.
  */
 class A_6c : public GammaPrime{
 public:
@@ -1458,8 +1475,10 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the binned CP average helicity coefficients 
  * @f$<\Delta_i>@f$, computed in the MVll class:
  * @f[
- * <A_9>= \frac {<\Delta_{9}>}{<\Gamma'>} \,.
+ * <A_9>= -\frac {<\Delta_{9}>}{<\Gamma'>} \,.
  * @f]
+ * This is the LHCb sign convention (see the note at the top of this file); the opposite,
+ * theory-convention sign was returned before.
  */
 class A_9 : public GammaPrime{
 public:
@@ -2184,7 +2203,7 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the CP averaged helicity coefficients 
  * @f$\Sigma_i@f$, computed in the MVll class:
  * @f[
- * P_2=\frac {\Sigma_6}{8\Sigma_{2s}}\,.
+ * P_2=- \frac {\Sigma_{6s}}{8\Sigma_{2s}}\,.
  * @f]
  */
 class P_2f : public ThObservable {
@@ -2223,7 +2242,7 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the CP averaged helicity coefficients 
  * @f$\Sigma_i@f$, computed in the MVll class:
  * @f[
- * P_3=- \frac {\Sigma_9}{4\Sigma_{2s}}\,.
+ * P_3=\frac {\Sigma_9}{4\Sigma_{2s}}\,.
  * @f]
  */
 class P_3f : public ThObservable{
@@ -2262,7 +2281,7 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the CP averaged helicity coefficients 
  * @f$\Sigma_i@f$, computed in the MVll class:
  * @f[
- * P_4'=\frac {\Sigma_4}{\sqrt{-\Sigma_{2s}\Sigma_{2c}}}\,.
+ * P_4'=- \frac {\Sigma_4}{2\sqrt{-\Sigma_{2s}\Sigma_{2c}}}\,.
  * @f]
  */
 class P_4Primef : public ThObservable{
@@ -2384,7 +2403,7 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the CP averaged helicity coefficients 
  * @f$\Sigma_i@f$, computed in the MVll class:
  * @f[
- * P_8'=- \frac {\Sigma_8}{\sqrt{-\Sigma_{2s}\Sigma_{2c}}}\,.
+ * P_8'=\frac {\Sigma_8}{2\sqrt{-\Sigma_{2s}\Sigma_{2c}}}\,.
  * @f]
  */
 class P_8Primef : public ThObservable{
@@ -2633,7 +2652,7 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the CP average helicity coefficients 
  * @f$\Sigma_i@f$, computed in the MVll class:
  * @f[
- * S_4= \frac {\Sigma_{4}}{\Gamma'} \,.
+ * S_4= -\frac {\Sigma_{4}}{\Gamma'} \,.
  * @f]
  */
 class S_4f: public GammaPrimef{
@@ -2711,7 +2730,7 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the CP average helicity coefficients 
  * @f$\Sigma_i@f$, computed in the MVll class:
  * @f[
- * S_7= \frac {\Sigma_{7}}{\Gamma'} \,.
+ * S_7= -\frac {\Sigma_{7}}{\Gamma'} \,.
  * @f]
  */
 class S_7f : public GammaPrimef{
@@ -2789,7 +2808,7 @@ private:
  * @f$M \to V l^+l^-@f$ in terms of the CP average helicity coefficients 
  * @f$\Sigma_i@f$, computed in the MVll class:
  * @f[
- * S_9= \frac {\Sigma_{9}}{\Gamma'} \,.
+ * S_9= -\frac {\Sigma_{9}}{\Gamma'} \,.
  * @f]
  */
 class S_9f : public GammaPrimef{
