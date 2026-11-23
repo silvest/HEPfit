@@ -3174,6 +3174,10 @@ const double StandardModel::Gamma_tau_l_nunu(const Particle l) const
 
 const double StandardModel::TauLFU_gmuge() const
 {
+    // g_mu/g_e is extracted from the leptonic decay rates of the leptons, Gamma(tau -> mu nu nu)/Gamma(tau -> e nu nu),
+    // with the phase-space factors divided out. NP models add their shift (NPbase::delta_TauLFU_*) defined from
+    // the same decay rates, so it contains the full NP effect on the rates, including the four-fermion operators
+    // entering the decays, and not only the ratio of the W couplings g_i/g_j.
     double g2LFU;
     
     double me, mmu, mtau, xe, Fxe, xmu, Fxmu;
@@ -3197,16 +3201,56 @@ const double StandardModel::TauLFU_gmuge() const
 
 const double StandardModel::TauLFU_gtaugmu() const
 {
-    // HFLAV defines (g_tau/g_mu) from B(tau -> e nu nu)/B(mu -> e nu nu) with the phase-space, R_gamma and R_W
-    // factors divided out, so the SM prediction is exactly 1 (NP models add their shifts on top of it).
-    return 1.0;
+    // g_tau/g_mu is extracted from the leptonic decay rates of the leptons, Gamma(tau -> e nu nu)/Gamma(mu -> e nu nu),
+    // with the phase-space factors divided out. NP models add their shift (NPbase::delta_TauLFU_*) defined from
+    // the same decay rates, so it contains the full NP effect on the rates, including the four-fermion operators
+    // entering the decays, and not only the ratio of the W couplings g_i/g_j.
+    double g2LFU;
+    
+    double me, mmu, mtau, xtau, Fxtau, xmu, Fxmu;
+      
+    me = leptons[ELECTRON].getMass();
+    mmu = leptons[MU].getMass();
+    mtau = leptons[TAU].getMass();
+    
+    xtau = me*me/mtau/mtau;
+    Fxtau = 1. - 8. * xtau + 8. * xtau*xtau*xtau - xtau*xtau*xtau*xtau -12. * xtau*xtau * log(xtau);     
+      
+    xmu = me*me/mmu/mmu;
+    Fxmu = 1. - 8. * xmu + 8. * xmu*xmu*xmu - xmu*xmu*xmu*xmu -12. * xmu*xmu * log(xmu); 
+      
+    g2LFU = (Gamma_tau_l_nunu(leptons[ELECTRON])/Gamma_muon());
+    
+    g2LFU = g2LFU * (pow(mmu,5)*Fxmu/pow(mtau,5)/Fxtau);
+    
+    return sqrt(g2LFU);
 }
 
 const double StandardModel::TauLFU_gtauge() const
 {
-    // HFLAV defines (g_tau/g_e) from B(tau -> mu nu nu)/B(mu -> e nu nu) with the phase-space, R_gamma and R_W
-    // factors divided out, so the SM prediction is exactly 1 (NP models add their shifts on top of it).
-    return 1.0;
+    // g_tau/g_e is extracted from the leptonic decay rates of the leptons, Gamma(tau -> mu nu nu)/Gamma(mu -> e nu nu),
+    // with the phase-space factors divided out. NP models add their shift (NPbase::delta_TauLFU_*) defined from
+    // the same decay rates, so it contains the full NP effect on the rates, including the four-fermion operators
+    // entering the decays, and not only the ratio of the W couplings g_i/g_j.
+    double g2LFU;
+    
+    double me, mmu, mtau, xtau, Fxtau, xmu, Fxmu;
+      
+    me = leptons[ELECTRON].getMass();
+    mmu = leptons[MU].getMass();
+    mtau = leptons[TAU].getMass();
+    
+    xtau = mmu*mmu/mtau/mtau;
+    Fxtau = 1. - 8. * xtau + 8. * xtau*xtau*xtau - xtau*xtau*xtau*xtau -12. * xtau*xtau * log(xtau);     
+      
+    xmu = me*me/mmu/mmu;
+    Fxmu = 1. - 8. * xmu + 8. * xmu*xmu*xmu - xmu*xmu*xmu*xmu -12. * xmu*xmu * log(xmu); 
+      
+    g2LFU = (Gamma_tau_l_nunu(leptons[MU])/Gamma_muon());
+    
+    g2LFU = g2LFU * (pow(mmu,5)*Fxmu/pow(mtau,5)/Fxtau);
+    
+    return sqrt(g2LFU);
 }
 
 
