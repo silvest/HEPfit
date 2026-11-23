@@ -85,6 +85,10 @@ public:
      * \li Search and read the CorrelatedGaussianObservables.
      * \li Return the name of the model initialized.
      *
+     * A line "IncludeFile <file>" reads <file> at that point; a relative name is relative to the directory of
+     * the file containing the directive, an absolute name is used as it is. A file that includes itself, directly
+     * or through other included files, is an error.
+     *
      * Observable names must be unique, including the members of correlated sets (histograms, statistics and
      * chains are keyed by name); the same holds for the names of the Observable2D. A repeated name is an error,
      * as for the ModelParameters.
@@ -159,6 +163,7 @@ private:
     std::string filename;
     int rank;
     std::string filepath;
+    std::vector<std::string> includeStack;///< The canonical names of the files being read (nested by IncludeFile).
 };
 
 /** 

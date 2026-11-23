@@ -12,6 +12,20 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <iostream>
 #include <boost/tokenizer.hpp>
+#include <algorithm>
+#include <cstdlib>
+
+namespace {
+// Canonical name of a file, used to detect recursive IncludeFile directives; the name itself if it cannot be resolved.
+std::string canonicalFileName(const std::string& name)
+{
+    char* resolved = realpath(name.c_str(), NULL);
+    if (resolved == NULL) return name;
+    std::string canonical(resolved);
+    free(resolved);
+    return canonical;
+}
+}
 
 InputParser::InputParser(ModelFactory& ModF, ThObsFactory& ObsF) : myModelFactory(ModF), myObsFactory(ObsF), filename(""), rank(0)
 {
@@ -49,7 +63,14 @@ std::string InputParser::ReadParameters(const std::string filename_i,
         else sleep (2);
     }
 
-    if (filename.find("\\/") == std::string::npos) filepath = filename.substr(0, filename.find_last_of("\\/") + 1);
+    // files being read (nested by IncludeFile), to reject a file that includes itself directly or indirectly
+    includeStack.push_back(canonicalFileName(filename));
+    struct PopIncludeStack {
+        std::vector<std::string>& stack;
+        ~PopIncludeStack() { stack.pop_back(); }
+    } popIncludeStack = {includeStack};
+
+    filepath = filename.substr(0, filename.find_last_of("\\/") + 1);
     const boost::char_separator<char> sep(" \t");
     std::string line;
     while (std::getline(ifile, line)) {
@@ -220,10 +241,21 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             ++beg;
             if (beg != tok.end() && rank == 0) std::cout << "WARNING: unread information in Flag " << flagname << std::endl;
         } else if (type.compare("IncludeFile") == 0) {
+            if (beg == tok.end()) {
+                if (rank == 0) throw std::runtime_error("\nERROR: IncludeFile without a file name in file " + filename + " line no. " + boost::lexical_cast<std::string>(lineNo) + ".\n");
+                else sleep(2);
+                continue;
+            }
             std::string oldfilepath = filepath;
             std::string oldfilename = filename;
             int oldlineNo = lineNo;
-            std::string IncludeFileName = filepath + *beg;
+            // a relative name is relative to the directory of the including file; an absolute name is used as it is
+            std::string IncludeFileName = ((*beg).at(0) == '/' ? *beg : filepath + *beg);
+            if (std::find(includeStack.begin(), includeStack.end(), canonicalFileName(IncludeFileName)) != includeStack.end()) {
+                if (rank == 0) throw std::runtime_error("\nERROR: recursive IncludeFile of " + IncludeFileName + " in file " + filename + " line no. " + boost::lexical_cast<std::string>(lineNo) + ".\n");
+                else sleep(2);
+                continue;
+            }
             if (rank == 0) std::cout << "Including File: " + IncludeFileName << std::endl;
             ReadParameters(IncludeFileName, rank, ModelPars, Observables, Observables2D, CGO, CGP);
             filepath = oldfilepath;
