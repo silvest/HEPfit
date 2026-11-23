@@ -14,7 +14,7 @@ RGEvolutorNew::RGEvolutorNew(unsigned int dim, schemes scheme, qcd_orders order_
 
 void RGEvolutorNew::setEvol(unsigned int i, unsigned int  j, double x, qcd_orders order_qcd_i, qed_orders order_qed_i) 
 {    
-    if (i > size || j > size) {
+    if (i >= size || j >= size) {
         std::stringstream out;
         out << i << " " << j;
         throw std::runtime_error("RGEvolutorNew::setEvol(): matrix indices " + out.str() + " out of range"); 

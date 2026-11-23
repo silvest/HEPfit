@@ -19,7 +19,7 @@ WilsonCoefficient::WilsonCoefficient(unsigned int dim, schemes scheme, orders or
 
 void WilsonCoefficient::setCoeff(unsigned int i, gslpp::complex z, orders order_i) 
 {    
-    if ((unsigned int) i > size) {
+    if ((unsigned int) i >= size) {
         std::stringstream out;
         out << i;
         throw std::runtime_error("WilsonCoefficient::setCoeff(): coefficient index "
@@ -36,7 +36,7 @@ void WilsonCoefficient::setCoeff(unsigned int i, gslpp::complex z, orders order_
 
 void WilsonCoefficient::setCoeff(unsigned int i, gslpp::complex z, orders_qed order_qed_i) 
 {    
-    if ((unsigned int) i > size) {
+    if ((unsigned int) i >= size) {
         std::stringstream out;
         out << i;
         throw std::runtime_error("WilsonCoefficientEW::setCoeff(): coefficient index "
