@@ -1134,7 +1134,8 @@ public:
 
     /**
      * @brief The running electromagnetic coupling @f$\alpha_e(\mu)@f$ in the @f$\overline{MS}@f$ scheme.
-     * @details See @cite Huber:2005ig
+     * @details See @cite Huber:2005ig. FULLNLO is evolved as a whole (the coupling at the flavour thresholds is
+     * evolved at FULLNLO), so it is continuous across the thresholds and differs there from the sum of the LO and NLO terms.
      * @param[in] mu renormalization scale @f$\mu@f$ in GeV
      * @param[in] order order in the @f$\alpha_e@f$ expansion as defined in the order enum in OrderScheme
      * @param[in] Nf_thr flag to activate flavour thresholds. Default: true 
@@ -3861,8 +3862,9 @@ private:
     const double AlsEWithInit(double mu, double alsi, double mu_i, const int nf_i, orders order) const;
     const double AleWithInit(double mu, double alsi, double mu_i, orders order) const;
     static const int CacheSize = 5; ///< Defines the depth of the cache.
-    mutable double als_cache[11][CacheSize]; ///< Cache for \f$\alpha_s\f$.
-    mutable double ale_cache[10][CacheSize]; ///< Cache for \f$\alpha_e\f$.
+    mutable double als_cache[14][CacheSize]; ///< Cache for \f$\alpha_s\f$ (AlsEByOrder()).
+    mutable double ale_cache[13][CacheSize]; ///< Cache for \f$\alpha_e\f$.
+    void ClearAlphaCaches() const; ///< Invalidate als_cache and ale_cache (not reached by QCD::ClearCaches()).
     mutable orders realorder;
 
 
