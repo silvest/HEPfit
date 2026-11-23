@@ -17,14 +17,6 @@
 #include <string>
 #include <sstream>
 
-namespace {
-// Relative file names are relative to the directory of the config file (filepath), as for histogram files.
-std::string configRelativePath(const std::string& filepath, const std::string& name)
-{
-    return (!name.empty() && name[0] == '/') ? name : filepath + name;
-}
-}
-
 HiggsObservable::HiggsObservable(const Observable& Obs) :
 Observable(Obs)
 {
@@ -221,8 +213,7 @@ boost::tokenizer<boost::char_separator<char> >::iterator & HiggsObservable::Pars
         boost::tokenizer<boost::char_separator<char> >::iterator & beg,
         ThObsFactory& myObsFactory,
         StandardModel * myModel,
-        int rank,
-        const std::string& filepath)
+        int rank)
 {
     this->rank = rank;
     std::string type = "HiggsObservable";
@@ -251,11 +242,9 @@ boost::tokenizer<boost::char_separator<char> >::iterator & HiggsObservable::Pars
             hthobs.push_back(myObsFactory.CreateThMethod("ttH196", *myModel));
         } else if (rank == 0)
             throw std::runtime_error("ERROR: wrong keyword " + distr + " in " + getName());
-        ++beg;
-        setParametricLikelihood(configRelativePath(filepath, *beg), hthobs);
+        setParametricLikelihood(*(++beg), hthobs);
     } else if (distr.compare("new_parametric") == 0) {
-        ++beg;
-        std::string filename_h = configRelativePath(filepath, *beg);
+        std::string filename_h = *(++beg);
         std::ifstream ifile(filename_h.c_str());
         if (!ifile.is_open()) {
             if (rank == 0) throw std::runtime_error("\nERROR: " + filename_h + " does not exist. Make sure to specify a valid Higgs parameters configuration file.\n");
