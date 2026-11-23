@@ -90,8 +90,9 @@ public:
      * or through other included files, is an error.
      *
      * Observable names must be unique, including the members of correlated sets (histograms, statistics and
-     * chains are keyed by name); the same holds for the names of the Observable2D. A repeated name is an error,
-     * as for the ModelParameters.
+     * chains are keyed by name); the same holds for the names of the Observable2D. A repeated name is reported
+     * with a warning (unlike repeated ModelParameters, which are an error), since the outputs of observables
+     * sharing a name are merged.
      * @param[in] filename name of the SomeModel.conf file passed as an argument to the executable
      * @param[in] rank the rank of the process in an MPI run (set to 0 for a serial run)
      * @param[out] ModelPars the vector of model parameters
@@ -138,10 +139,10 @@ public:
     
 private:
     /**
-     * @brief Throws if an observable name has already been booked, otherwise records where it was booked.
+     * @brief Warns if an observable name has already been booked, otherwise records where it was booked.
      * @param[in,out] seen the names booked so far, with the file and line number where they were defined
      * @param[in] name the name of the observable
-     * @param[in] kind the kind of observable, for the error message
+     * @param[in] kind the kind of observable, for the warning
      * @param[in] line the line number of the definition in the current file
      */
     void CheckDuplicateObservable(std::map<std::string, std::pair<std::string, int> >& seen, const std::string& name,

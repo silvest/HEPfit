@@ -294,10 +294,11 @@ void InputParser::CheckDuplicateObservable(std::map<std::string, std::pair<std::
 {
     std::map<std::string, std::pair<std::string, int> >::const_iterator it = seen.find(name);
     if (it != seen.end()) {
-        if (rank == 0) throw std::runtime_error("\nERROR: " + kind + " " + name + " appears more than once ...!! \n" +
-                "1st Occurrence: Line No:" + boost::lexical_cast<std::string>(it->second.second) + " in file " + it->second.first + ".\n"
-                "2nd Occurrence: Line No:" + boost::lexical_cast<std::string>(line) + " in file " + filename + ".\n");
-        else sleep(2);
+        // A repeated name is only reported: several shipped configurations reuse a name for different bins.
+        if (rank == 0) std::cout << "\nWARNING: " << kind << " " << name << " appears more than once: "
+                << "first at line " << it->second.second << " in file " << it->second.first << ", again at line "
+                << line << " in file " << filename << ". Histograms, statistics and chain branches of observables"
+                << " with the same name are merged; rename one of them to keep them separate.\n" << std::endl;
     } else
         seen[name] = std::make_pair(filename, line);
 }
