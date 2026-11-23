@@ -263,7 +263,9 @@ public:
      * @f]
      * The current functions handles only the special case of @f$p_1^2=p_2^2=0@f$.
      * When bExtraMinusSign=true is passed to the constructor, an extra overall
-     * minus sign is added to the above definition. 
+     * minus sign is added to the above definition (in all cases, including @f$p^2=0@f$).
+     * Without LoopTools, @f$p^2=0@f$ with two or three vanishing masses (IR divergent) and some
+     * mass configurations with @f$p^2\neq 0@f$ (e.g. @f$m_1=m_2\neq m_0@f$) throw an exception.
      * @param[in] p2 momentum squared, @f$p^2@f$
      * @param[in] m02, m12, m22 mass squared, @f$m_0^2@f$, @f$m_1^2@f$ and @f$m_2^2@f$
      * @return @f$C_{0}(0,0,p^2; m_0^2, m_1^2, m_2^2)@f$

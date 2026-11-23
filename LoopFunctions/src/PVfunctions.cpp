@@ -509,21 +509,34 @@ gslpp::complex PVfunctions::C0(const double p2,
     bool diff12 = (fabs(m12 - m22) > (m12 + m22)*Tolerance);
     bool diff20 = (fabs(m22 - m02) > (m22 + m02)*Tolerance);
 
+    // C0 below is computed in the convention of Bardin:1999ak (minus the LoopTools C0), and the
+    // returned value is -ExtraMinusSign*C0 in all cases (see the class documentation).
     gslpp::complex C0(0.0, 0.0, false);   
     if ( p2zero ) {
         if ( !m02zero && !m12zero && !m22zero ) {
             if ( diff01 && diff12 && diff20 )
-                return ( - ( m12/(m02 - m12)*log(m12/m02)
-                            - m22/(m02 - m22)*log(m22/m02) )/(m12 - m22) );
+                C0 = - ( m12/(m02 - m12)*log(m12/m02)
+                        - m22/(m02 - m22)*log(m22/m02) )/(m12 - m22);
             else if ( !diff01 && diff12 && diff20 )
-                return ( - (- m02 + m22 - m22*log(m22/m02))/(m02 - m22)/(m02 - m22) );
+                C0 = - (- m02 + m22 - m22*log(m22/m02))/(m02 - m22)/(m02 - m22);
             else if ( diff01 && !diff12 && diff20 )
-                return ( - (  m02 - m12 + m02*log(m12/m02))/(m02 - m12)/(m02 - m12) );
+                C0 = - (  m02 - m12 + m02*log(m12/m02))/(m02 - m12)/(m02 - m12);
             else if ( diff01 && diff12 && !diff20 )
-                return ( - (- m02 + m12 - m12*log(m12/m02))/(m02 - m12)/(m02 - m12) );
+                C0 = - (- m02 + m12 - m12*log(m12/m02))/(m02 - m12)/(m02 - m12);
             else
-                return ( 1.0/2.0/m02 );
-        }
+                C0 = 1.0/2.0/m02;
+        } else if ( (m02zero ? 1 : 0) + (m12zero ? 1 : 0) + (m22zero ? 1 : 0) == 1 ) {
+            // one zero mass: at p^2 = 0, C0 is symmetric in the masses and the Feynman-parameter
+            // integral gives C0 = log(ma^2/mb^2)/(ma^2 - mb^2) (-> 1/ma^2 for ma = mb) for the two
+            // non-zero masses ma, mb
+            const double ma2 = m02zero ? m12 : m02;
+            const double mb2 = m22zero ? m12 : m22;
+            if ( fabs(ma2 - mb2) > (ma2 + mb2)*Tolerance )
+                C0 = log(ma2/mb2)/(ma2 - mb2);
+            else
+                C0 = 1.0/ma2;
+        } else
+            throw std::runtime_error("PVfunctions::C0(): IR divergent for p2 = 0 with two or more zero masses!");
     } else {
         if ( !diff20 && diff01 ) {
             double epsilon = 1.0e-12;
@@ -583,9 +596,12 @@ gslpp::complex PVfunctions::C0(const double p2,
                                    + GSL_IMAG(gsl_complex_log(arg1_tmp))
                                       *GSL_REAL(gsl_complex_log(arg2_tmp)) );            
         } else if ( m02zero && !m12zero && !m22zero ) {
+            // masses m^2 -> m^2 (1 - i delta) fix the side of the dilogarithm cut above threshold (p2 > m22)
+            const double delta = 1.0e-12;
+            gslpp::complex m12c(m12, -delta*m12, false), m22c(m22, -delta*m22, false);
             gslpp::complex arg[2];
-            arg[0] = 1.0 - m22/m12;
-            arg[1] = 1.0 - (-p2+m22)/m12;
+            arg[0] = 1.0 - m22c/m12c;
+            arg[1] = 1.0 - (m22c - p2)/m12c;
             gslpp::complex Li2[2];
             for (int i=0; i<2; i++) {
                 gsl_sf_result re, im;
@@ -595,10 +611,15 @@ gslpp::complex PVfunctions::C0(const double p2,
             }
             C0 = 1./(-p2)*(Li2[0]-Li2[1]);
         } else if ( !m02zero && !m12zero && !m22zero && diff01 && diff12 ) {
-            double x0 = 1.0 - (m02-m12)/p2;
-            double x1 = -(-p2+m02-m22-sqrt(fabs((m02+m22-p2)*(m02+m22-p2) - 4.*m02*m22)))/p2/2.0;
-            double x2 = -(-p2+m02-m22+sqrt(fabs((m02+m22-p2)*(m02+m22-p2) - 4.*m02*m22)))/p2/2.0;
-            double x3 = m22/(m22-m12);
+            // three different masses: the roots x1, x2 are complex below the pseudo-threshold, and the
+            // masses m^2 -> m^2 (1 - i delta) select the side of the cuts (the -i epsilon prescription)
+            const double delta = 1.0e-12;
+            gslpp::complex m02c(m02, -delta*m02, false), m12c(m12, -delta*m12, false), m22c(m22, -delta*m22, false);
+            gslpp::complex sqrtD = sqrt((m02c + m22c - p2)*(m02c + m22c - p2) - 4.0*m02c*m22c);
+            gslpp::complex x0 = 1.0 - (m02c - m12c)/p2;
+            gslpp::complex x1 = (p2 - m02c + m22c + sqrtD)/2.0/p2;
+            gslpp::complex x2 = (p2 - m02c + m22c - sqrtD)/2.0/p2;
+            gslpp::complex x3 = m22c/(m22c - m12c);
             
             gslpp::complex arg[6];
             arg[0] = (x0-1.0)/(x0-x1);
@@ -609,7 +630,7 @@ gslpp::complex PVfunctions::C0(const double p2,
             arg[5] = x0/(x0-x3);
             
             gslpp::complex Li2[6];
-            for (int i=0; i<2; i++) {
+            for (int i=0; i<6; i++) {
                 gsl_sf_result re, im;
                 gsl_sf_complex_dilog_xy_e(arg[i].real(), arg[i].imag(), &re, &im);
                 Li2[i].real() = re.val;
