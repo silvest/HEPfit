@@ -247,6 +247,7 @@ private:
     double r; /**< Dimensionless b - c mass ratio */
     double mcmc; /**< mc(mc) */
     double mbmb; /**< mb(mb) */
+    double AlsMz; /**< alpha_s(M_Z), entering mcOS, mbOS and alphas */
     double mbOS; /**< b-quark mass in the on-shell scheme */
     double mcOS; /**< c-quark mass in the on-shell scheme */
     double mbkin; /**< b-quark mass in the kinetic scheme */
@@ -431,6 +432,7 @@ private:
      double cached_mbmb = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for mbmb */
      double cached_mbkin = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for mbkin */
      double cached_mcMS = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for mcMS */
+     double cached_AlsMz = std::numeric_limits<double>::quiet_NaN(); /**< Cached value for AlsMz */
 
      std::map<double, unsigned int > Q2X0ur00Cached;/**< Cache variable */
      std::map<double, unsigned int > Q2X1ur00Cached;/**< Cache variable */
@@ -1409,6 +1411,7 @@ private:
      unsigned int mbkin_updated; /**< Cache flag for mbkin */
      unsigned int MBhat_updated; /**< Cache flag for MBhat */
      unsigned int alphas_updated; /**< Cache flag for alphas */
+     unsigned int AlsMz_updated; /**< Cache flag for AlsMz */
      unsigned int mcMS_updated; /**< Cache flag for mcMS */
      unsigned int r_updated; /**< Cache flag for r */
 
