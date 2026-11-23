@@ -2091,7 +2091,9 @@ public:
 
     /**
      * @brief The computation of the LFU ratio @f$g_\mu/ g_e @f$
-     * @details
+     * @details Extracted from the leptonic decay rates of the leptons, @f$\Gamma(\tau\to\mu\nu\bar\nu)/\Gamma(\tau\to e\nu\bar\nu)@f$, with the
+     * phase-space factors divided out, so that in NP models it includes the full NP effect on the
+     * rates (e.g. four-fermion operators), not only the ratio of the W couplings.
      * @return @f$g_\mu/ g_e @f$
      */
       virtual const double TauLFU_gmuge() const;
@@ -2099,7 +2101,9 @@ public:
 
     /**
      * @brief The computation of the LFU ratio @f$g_\tau/ g_\mu @f$
-     * @details
+     * @details Extracted from the leptonic decay rates of the leptons, @f$\Gamma(\tau\to e\nu\bar\nu)/\Gamma(\mu\to e\nu\bar\nu)@f$, with the
+     * phase-space factors divided out, so that in NP models it includes the full NP effect on the
+     * rates (e.g. four-fermion operators), not only the ratio of the W couplings.
      * @return @f$g_\tau/ g_\mu @f$
      */
       virtual const double TauLFU_gtaugmu() const;
@@ -2107,7 +2111,9 @@ public:
 
     /**
      * @brief The computation of the LFU ratio @f$g_\tau/ g_e @f$
-     * @details
+     * @details Extracted from the leptonic decay rates of the leptons, @f$\Gamma(\tau\to\mu\nu\bar\nu)/\Gamma(\mu\to e\nu\bar\nu)@f$, with the
+     * phase-space factors divided out, so that in NP models it includes the full NP effect on the
+     * rates (e.g. four-fermion operators), not only the ratio of the W couplings.
      * @return @f$g_\tau/ g_e @f$
      */
       virtual const double TauLFU_gtauge() const;

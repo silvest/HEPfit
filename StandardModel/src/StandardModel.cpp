@@ -238,15 +238,8 @@ bool StandardModel::PostUpdate()
     if(requireCKM)
         computeCKM();
     
-    /* Compute the 5-quark contribution to the running of alpha*/
-    dAl5hMz = Dalpha5hMz();   
-
-    /* Set the Yukawa matrices */
-    if (!isModelSUSY()) {
-        computeYukawas();
-    }
-
     /* Check whether the parameters for the EWPO are updated or not */
+    /* (before Dalpha5hMz(), which uses DeltaAlphaLepton() in the MWinput scheme) */
     if (!checkSMparamsForEWPO()) {
         useDeltaAlphaLepton_cache = false;
         useDeltaAlpha_cache = false;
@@ -257,6 +250,15 @@ bool StandardModel::PostUpdate()
             useKappaZ_f_cache[i] = false;
         }
     }
+
+    /* Compute the 5-quark contribution to the running of alpha*/
+    dAl5hMz = Dalpha5hMz();   
+
+    /* Set the Yukawa matrices */
+    if (!isModelSUSY()) {
+        computeYukawas();
+    }
+
     SMFlavour.setSMupdated();
     /* Necessary for updating StandardModel parameters in StandardModelMatching */
     if (!isModelSUSY()) SMM.getObj().updateSMParameters();
@@ -3142,8 +3144,9 @@ const double StandardModel::Gamma_muon() const
       
     H3x = -15.3;
       
-    // alpha(m_mu)
-    alpha = 1./ale - log(x)/3./M_PI; // + 1./6./M_PI;
+    // alpha(m_mu): PDG muon decay parameters review, alpha^-1(m_mu) = alpha^-1 - 2/(3 pi) ln(m_mu/m_e)
+    // (log(x) = -2 ln(m_mu/m_e))
+    alpha = 1./ale + log(x)/3./M_PI;
     alpha = 1./alpha;
       
     // Rad. corrections
@@ -3199,6 +3202,10 @@ const double StandardModel::Gamma_tau_l_nunu(const Particle l) const
 
 const double StandardModel::TauLFU_gmuge() const
 {
+    // g_mu/g_e is extracted from the leptonic decay rates of the leptons, Gamma(tau -> mu nu nu)/Gamma(tau -> e nu nu),
+    // with the phase-space factors divided out. NP models add their shift (NPbase::delta_TauLFU_*) defined from
+    // the same decay rates, so it contains the full NP effect on the rates, including the four-fermion operators
+    // entering the decays, and not only the ratio of the W couplings g_i/g_j.
     double g2LFU;
     
     double me, mmu, mtau, xe, Fxe, xmu, Fxmu;
@@ -3222,6 +3229,10 @@ const double StandardModel::TauLFU_gmuge() const
 
 const double StandardModel::TauLFU_gtaugmu() const
 {
+    // g_tau/g_mu is extracted from the leptonic decay rates of the leptons, Gamma(tau -> e nu nu)/Gamma(mu -> e nu nu),
+    // with the phase-space factors divided out. NP models add their shift (NPbase::delta_TauLFU_*) defined from
+    // the same decay rates, so it contains the full NP effect on the rates, including the four-fermion operators
+    // entering the decays, and not only the ratio of the W couplings g_i/g_j.
     double g2LFU;
     
     double me, mmu, mtau, xtau, Fxtau, xmu, Fxmu;
@@ -3245,6 +3256,10 @@ const double StandardModel::TauLFU_gtaugmu() const
 
 const double StandardModel::TauLFU_gtauge() const
 {
+    // g_tau/g_e is extracted from the leptonic decay rates of the leptons, Gamma(tau -> mu nu nu)/Gamma(mu -> e nu nu),
+    // with the phase-space factors divided out. NP models add their shift (NPbase::delta_TauLFU_*) defined from
+    // the same decay rates, so it contains the full NP effect on the rates, including the four-fermion operators
+    // entering the decays, and not only the ratio of the W couplings g_i/g_j.
     double g2LFU;
     
     double me, mmu, mtau, xtau, Fxtau, xmu, Fxmu;
@@ -3415,7 +3430,7 @@ const double StandardModel::GammaHtogg() const
     h0 = (95./4.) + (11./2.)*LH + nl*(-7./6. - LH/3.);
     h1 = 5803./540. + 77.*LH/30. -14.*Lt/15. + nl * (-29./60. - 7. * LH / 45.);
     h2 = 1029839./189000. + 16973.*LH/12600. - 1543.*Lt/1575. + nl * ( - 89533./378000 - 1543.*LH/18900. );
-    h3 = 9075763./2976750. + 1243*LH/1575. - 452.*Lt/575. + nl * ( - 3763./28350. -226. * LH / 4725. );
+    h3 = 9075763./2976750. + 1243*LH/1575. - 452.*Lt/525. + nl * ( - 3763./28350. -226. * LH / 4725. ); // 452/525: 0708.0916, eq. (5)
     G0 = GF * pow(mHl,3.0)/(36.*M_PI*sqrt(2.));
     
     gamma = asMH*asMH * (4.0 * GF /sqrt(2.0)) * (mHl*mHl*mHl /64.0/pow(M_PI,3.0)) * 
@@ -3512,7 +3527,13 @@ const double StandardModel::GammaHtoZga() const
             vSMmu * Qmu * AHZga_f(tau_mu, lambda_mu)) +
             AHZga_W(tau_W, lambda_W)/sqrt(sW2()));
 
-    gamma = (4.0*sqrt(2)*GF) * (MSM.abs2()) * pow(mHl*(1.0-Mz*Mz/mHl/mHl),3.0)/32.0/M_PI;
+    // Djouadi, hep-ph/0503172, eq. (2.53):
+    // Gamma = G_mu^2 M_W^2 alpha M_H^3/(64 pi^4) (1-M_Z^2/M_H^2)^3 |X|^2, with X = 4 pi s_W MSM/alpha,
+    // i.e. the Z coupling is normalised with G_mu M_W^2 and the photon coupling with alpha(0).
+    // The last factor converts from the tree-level form G_mu M_W^2 = pi alpha/(sqrt(2) s_W^2),
+    // which would use alpha(0) also for the Z coupling.
+    gamma = (4.0*sqrt(2)*GF) * (MSM.abs2()) * pow(mHl*(1.0-Mz*Mz/mHl/mHl),3.0)/32.0/M_PI
+            * sqrt(2.0)*GF*M_w_2*sW2()/(M_PI*ale);
 
     return gamma;
 }
