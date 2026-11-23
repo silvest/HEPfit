@@ -5285,6 +5285,10 @@ public:
 
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$\lambda_{Z}@f$.
+     * @details @f$\lambda_Z=\lambda_\gamma=\frac{3}{2}\, g\, v^2 C_W@f$, in the convention of Hagiwara et al.
+     * (relative to the SM vertex, @f$g_{WW\gamma}=-e@f$), with @f$C_W@f$ defined for the covariant derivative
+     * @f$D_\mu=\partial_\mu+i g T^I W^I_\mu@f$ of \cite Grzadkowski:2010es (also the convention of the
+     * MadGraph @f$e^+e^-\to W^+W^-@f$ fits used in this model). The same quantity is returned by lambz_HB().
      * @return @f$\lambda_{Z}@f$
      */
     virtual const double lambdaZNP(const double mu) const override;

@@ -36351,6 +36351,11 @@ const double NPSMEFTd6General::deltaKgammaNP(const double mu) const {
 const double NPSMEFTd6General::lambdaZNP(const double mu) const {
     double NPdirect;
  
+    // Hagiwara et al. (Nucl. Phys. B282 (1987) 253) lambda_Z = lambda_gamma, relative to the SM vertex
+    // (g_WWgamma = -e), for C_W defined with D_mu = d_mu + i g T^I W^I_mu (Grzadkowski et al., 1008.4884;
+    // the convention of the MadGraph e+e- -> WW fits in mueeWW): lambda_V = +(3/2) g v^2 C_W.
+    // (Cf. HISZ, PRD 48 (1993) 2182: lambda = 3 g^2 MW^2 f_WWW/(2 Lambda^2), O_WWW = (g^3/4) O_W.)
+    // NPSMEFTd6 and LHCHXWG-INT-2015-001 quote -(3/2) g v^2 C_W, i.e. C_W in the D_mu = d_mu - i g T^I W^I_mu convention.
     NPdirect = (3.0 / 2.0) * (eeMz / sW_tree) * getSMEFTCoeff("CW", mu) * v2;
 
     return NPdirect;
@@ -36449,9 +36454,11 @@ const double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int 
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1);
 
-    dlga = -lambdaZNP(sqrt_s);
+    // lambdaZNP is the Hagiwara lambda_gamma = lambda_Z, the same convention as the coefficients below
+    // (same sign as dkga), so no extra minus sign.
+    dlga = lambdaZNP(sqrt_s);
 
-    dlZ = -lambdaZNP(sqrt_s);
+    dlZ = lambdaZNP(sqrt_s);
 
     deem = delta_e + 0.5 * delta_A;
 
@@ -37011,9 +37018,11 @@ const double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstat
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1);
 
-    dlga = -lambdaZNP(sqrt_s);
+    // lambdaZNP is the Hagiwara lambda_gamma = lambda_Z, the same convention as the coefficients below
+    // (same sign as dkga), so no extra minus sign.
+    dlga = lambdaZNP(sqrt_s);
 
-    dlZ = -lambdaZNP(sqrt_s);
+    dlZ = lambdaZNP(sqrt_s);
 
     deem = delta_e + 0.5 * delta_A;
 
@@ -37550,9 +37559,11 @@ const double NPSMEFTd6General::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, con
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1);
 
-    dlga = -lambdaZNP(sqrt_s);
+    // lambdaZNP is the Hagiwara lambda_gamma = lambda_Z, the same convention as the coefficients below
+    // (same sign as dkga), so no extra minus sign.
+    dlga = lambdaZNP(sqrt_s);
 
-    dlZ = -lambdaZNP(sqrt_s);
+    dlZ = lambdaZNP(sqrt_s);
 
     deem = delta_e + 0.5 * delta_A;
 
@@ -37933,9 +37944,11 @@ const double NPSMEFTd6General::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const in
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1);
 
-    dlga = -lambdaZNP(sqrt_s);
+    // lambdaZNP is the Hagiwara lambda_gamma = lambda_Z, the same convention as the coefficients below
+    // (same sign as dkga), so no extra minus sign.
+    dlga = lambdaZNP(sqrt_s);
 
-    dlZ = -lambdaZNP(sqrt_s);
+    dlZ = lambdaZNP(sqrt_s);
 
     deem = delta_e + 0.5 * delta_A;
 
@@ -43058,7 +43071,9 @@ const double NPSMEFTd6General::cggEff_HB(const double mu) const {
 const double NPSMEFTd6General::lambz_HB(const double mu) const {
     double ciHB;
 
-    ciHB = -(3.0 / 2.0)*(eeMz / sW_tree) * getSMEFTCoeff("CW", mu) * v2;
+    // Same quantity and sign as lambdaZNP(): +(3/2) g v^2 C_W for C_W defined with D_mu = d_mu + i g T^I W^I_mu
+    // (LHCHXWG-INT-2015-001 quotes the minus sign with the opposite covariant-derivative convention).
+    ciHB = (3.0 / 2.0)*(eeMz / sW_tree) * getSMEFTCoeff("CW", mu) * v2;
 
     return ciHB;
 }
