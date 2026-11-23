@@ -2575,8 +2575,10 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CQQ1_3333 = value;
     } else if (name.compare("CQQ1") == 0) {
         CQQ1_1133 = value;
+        CQQ1_2233 = value;
         CQQ1_3333 = value;
         CQQ1_1331 = 0.;
+        CQQ1_2332 = 0.;
     } else if (name.compare("CQQ3_1133") == 0) {
         CQQ3_1133 = value;
     } else if (name.compare("CQQ3_1331") == 0) {
@@ -2589,8 +2591,10 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CQQ3_3333 = value;
     } else if (name.compare("CQQ3") == 0) {
         CQQ3_1133 = value;
+        CQQ3_2233 = value;
         CQQ3_3333 = value;
         CQQ3_1331 = 0.;
+        CQQ3_2332 = 0.;
     } else if (name.compare("Cuu_1133") == 0) {
         Cuu_1133 = value;
     } else if (name.compare("Cuu_1331") == 0) {
@@ -2603,8 +2607,10 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         Cuu_3333 = value;
     } else if (name.compare("Cuu") == 0) {
         Cuu_1133 = value;
+        Cuu_2233 = value;
         Cuu_3333 = value;
         Cuu_1331 = 0.;
+        Cuu_2332 = 0.;
     } else if (name.compare("Cud1_3311") == 0) {
         Cud1_3311 = value;
     } else if (name.compare("Cud1_3322") == 0) {
@@ -2613,6 +2619,7 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         Cud1_3333 = value;
     } else if (name.compare("Cud1") == 0) {
         Cud1_3311 = value;
+        Cud1_3322 = value;
         Cud1_3333 = value;
     } else if (name.compare("Cud8_3311") == 0) {
         Cud8_3311 = value;
@@ -2622,6 +2629,7 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         Cud8_3333 = value;
     } else if (name.compare("Cud8") == 0) {
         Cud8_3311 = value;
+        Cud8_3322 = value;
         Cud8_3333 = value;
     } else if (name.compare("CQu1_1133") == 0) {
         CQu1_1133 = value;
@@ -2635,7 +2643,9 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CQu1_3333 = value;
     } else if (name.compare("CQu1") == 0) {
         CQu1_1133 = value;
+        CQu1_2233 = value;
         CQu1_3311 = value;
+        CQu1_3322 = value;
         CQu1_3333 = value;
     } else if (name.compare("CQu8_1133") == 0) {
         CQu8_1133 = value;
@@ -2649,7 +2659,9 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CQu8_3333 = value;
     } else if (name.compare("CQu8") == 0) {
         CQu8_1133 = value;
+        CQu8_2233 = value;
         CQu8_3311 = value;
+        CQu8_3322 = value;
         CQu8_3333 = value;
     } else if (name.compare("CQd1_3311") == 0) {
         CQd1_3311 = value;
@@ -2659,6 +2671,7 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CQd1_3333 = value;
     } else if (name.compare("CQd1") == 0) {
         CQd1_3311 = value;
+        CQd1_3322 = value;
         CQd1_3333 = value;
     } else if (name.compare("CQd8_3311") == 0) {
         CQd8_3311 = value;
@@ -2668,6 +2681,7 @@ void NPSMEFTd6::setParameter(const std::string name, const double& value)
         CQd8_3333 = value;
     } else if (name.compare("CQd8") == 0) {
         CQd8_3311 = value;
+        CQd8_3322 = value;
         CQd8_3333 = value;
     } else if (name.compare("CQuQd1_3333") == 0) {
         CQuQd1_3333 = value;
