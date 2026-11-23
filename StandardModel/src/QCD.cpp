@@ -721,9 +721,9 @@ const double QCD::AlsWithLambda(const double mu, const double logLambda,
     if (order == FULLNNLO)
         return (alsLO + alsNLO + alsNNLO);
 
-    // NNNLO contribution
+    // NNNLO contribution: PDG QCD review, eq. (9.5): b1^3 (ln^3 t - 5/2 ln^2 t - 2 ln t + 1/2)
     double b3 = Beta3(nf);
-    double alsNNNLO = 4. * M_PI / b0L * (-1. / b0L / b0L / b0L * (b1 * b1 * b1 / b0 / b0 / b0 * (log_L * log_L * log_L - 5. / 2. * log_L * log_L - 2. * log_L - 0.5) + 3. * b1 * b2 * log_L / b0 / b0 - 0.5 * b3 / b0));
+    double alsNNNLO = 4. * M_PI / b0L * (-1. / b0L / b0L / b0L * (b1 * b1 * b1 / b0 / b0 / b0 * (log_L * log_L * log_L - 5. / 2. * log_L * log_L - 2. * log_L + 0.5) + 3. * b1 * b2 * log_L / b0 / b0 - 0.5 * b3 / b0));
     if (order == NNNLO)
         return alsNNNLO;
     if (order == FULLNNNLO)
