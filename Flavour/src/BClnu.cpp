@@ -21288,7 +21288,9 @@ double BClnu::XGamma()
     double rhoLS = RhoLS / pow(mbkin, 3);
 
     double FLAGcf = (0.5 * (4/3. + 3 * (1 + log(scale_muG))));
-    double FLAGcD = ((8/3. * 4/3. * log(scale_muG)) + 3 * (1/2. - 2/3. * log(scale_muG)));
+    /* one-loop Darwin coefficient c_D(mu) = 1 + alpha_s/pi [C_F (-8/3 ln(mu/m_b)) + C_A (1/2 - 2/3 ln(mu/m_b))],
+     * Manohar hep-ph/9701294 eq. (47), Mannel-Moreno-Pivovarov 2112.03875 eq. (35); same as in the q^2 moments */
+    double FLAGcD = ((- 8/3. * 4/3. * log(scale_muG)) + 3 * (1/2. - 2/3. * log(scale_muG)));
     double FLAGcs = (0.5 * (4/3. + 3 * (1 + log(scale_muG))));
 
     double deltambkin1 = deltambkin(1);
