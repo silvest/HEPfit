@@ -41,6 +41,11 @@ public:
     CorrelatedGaussianParameters(const CorrelatedGaussianParameters& orig);
 
     /**
+     * @brief The copy assignment: deep-copies the owned rotation matrix and eigenvalue vector.
+     */
+    CorrelatedGaussianParameters& operator=(const CorrelatedGaussianParameters& orig);
+
+    /**
      * @brief The default destructor.
      */
     virtual ~CorrelatedGaussianParameters();

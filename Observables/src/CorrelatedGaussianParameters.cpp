@@ -36,6 +36,25 @@ CorrelatedGaussianParameters::CorrelatedGaussianParameters(const CorrelatedGauss
     IsEOF = orig.IsEOF;
 }
 
+CorrelatedGaussianParameters& CorrelatedGaussianParameters::operator=(const CorrelatedGaussianParameters& orig)
+{
+    if (this != &orig) {
+        gslpp::matrix<double>* newv = orig.v ? new gslpp::matrix<double>(*orig.v) : NULL;
+        gslpp::vector<double>* newe = orig.e ? new gslpp::vector<double>(*orig.e) : NULL;
+        delete v;
+        delete e;
+        v = newv;
+        e = newe;
+        Pars = orig.Pars;
+        Cov.ResizeTo(orig.Cov); // TMatrixDSym assignment requires equal dimensions
+        Cov = orig.Cov;
+        name = orig.name;
+        DiagPars = orig.DiagPars;
+        IsEOF = orig.IsEOF;
+    }
+    return *this;
+}
+
 CorrelatedGaussianParameters::~CorrelatedGaussianParameters() {
     //Cov = new gslpp::matrix<double>(10, 10, 0.); /** Put in to prevent seg fault during error handling in InputParser **/
     if (v != NULL)
