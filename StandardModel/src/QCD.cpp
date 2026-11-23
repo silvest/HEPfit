@@ -201,11 +201,11 @@ bool QCD::PostUpdate()
     {
         if(FlagMtPole){
             quarks[TOP].setMass(163.); //Cannot use MSbar mass for Alphas thresholds since it is not yet updated
-            quarks[TOP].setMass(Mp2Mbar(mtpole, TOP, FULLNNLO));
+            quarks[TOP].setMass(Mp2Mbar(mtpole, TOP, FULLNNNLO)); // three-loop pole <-> MSbar relation, as in MtMSbar
             quarks[TOP].setMass_scale(quarks[TOP].getMass());
         }
         else
-            mtpole = Mbar2Mp(quarks[TOP].getMass(), TOP, FULLNNLO);
+            mtpole = Mbar2Mp(quarks[TOP].getMass(), TOP, FULLNNNLO);
    }
     ClearCaches(); // see ClearCaches()
     return (QCDsuccess);

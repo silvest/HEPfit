@@ -17,9 +17,9 @@
  * @copyright GNU General Public License
  * @details This class is used to compute the value of
  * @f$m_t(m_t)@f$ in the @f$\bar{\mathrm{MS}}@f$ scheme from the top pole mass, using the three-loop
- * (FULLNNNLO) pole @f$\leftrightarrow\bar{\mathrm{MS}}@f$ relation. Note that the internal conversion
- * between the top input mass and the pole mass in QCD::PostUpdate() uses FULLNNLO, so the value differs
- * from the internally used @f$m_t(m_t)@f$ by the @f$O(\alpha_s^3)@f$ term (about -0.5 GeV).
+ * (FULLNNNLO) pole @f$\leftrightarrow\bar{\mathrm{MS}}@f$ relation, the same order used by QCD::PostUpdate()
+ * to convert between the top input mass and the pole mass, so the value coincides with the internally used
+ * @f$m_t(m_t)@f$.
  */
 class MtMSbar : public ThObservable {
 public:
