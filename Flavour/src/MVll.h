@@ -882,7 +882,7 @@ private:
     double spectator_charge;  /**<spectator quark charge */
     double width;         /**<Initial meson width */
     double ys;            /**<CP-violation factor \f$\frac{\Delta \Gamma}{2\Gamma}\f$*/
-    double xs;            /**<CP-violation factor \f$\frac{\Delta m}{\Gamma}\f$*/
+    double xs;            /**<CP-violation factor \f$\frac{\Delta m}{\Gamma}\f$ (parameter xs_phi; it enters only the tagged \f$ x\, s_i \f$ terms, which the untagged observables do not use)*/
     double angmomV;       /**<angular momentum of meson V; for a resonance, it's replaced by its spin */
     int etaV;             /**<parity of meson V */
     double alpha_s_mub; /**<@f\aplha_s(\mu_b)$@f$ */
@@ -2437,6 +2437,15 @@ private:
     
     /**
     * @brief The CP difference \f$ \Delta_{5} \f$ .
+    * @details For \f$ B_s \to \phi \ell \ell \f$ this is the untagged, time-integrated combination
+    * \f$ J_i + \tilde J_i = J_i - \bar J_i \f$, which evolves with \f$ (y, h_i) \f$ and not with \f$ (x, s_i) \f$
+    * (Descotes-Genon and Virto, arXiv:1502.05509, eqs. (16), (42), (50), (54)):
+    * \f$ [(J_i - \bar J_i) - y\, h_i]/2 \f$, with the common factor \f$ 1/(1-y^2) \f$ dropped as for the
+    * \f$ \Sigma_i \f$. In the approximation \f$ e^{i\phi} \tilde A_X = \eta_X A_X \f$ used for the \f$ h_i \f$
+    * of the \f$ \Sigma_i \f$, \f$ h_i \f$ vanishes for \f$ i = 5, 6s, 6c, 8, 9 \f$ (interference of
+    * amplitudes with opposite CP parities), so the expression reduces to the one for \f$ B \to K^* \ell \ell \f$,
+    * and the parameter xs_phi no longer enters (previously \f$ (1-y^2)/(1+x^2)\,[(J_i - \bar J_i) - x\, s_i]/2 \f$,
+    * the tagged formula, was used).
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ \Delta_{5} \f$
     */ 
@@ -2450,7 +2459,7 @@ private:
                 return (I_5(q2, 0) - I_5(q2, 1))/2.;
                 break;
             case QCD::PHI:
-                return (1. - ys*ys)/(1. + xs*xs) * (I_5(q2, 0) - I_5(q2, 1) - xs * s_5(q2, 0))/2.;
+                return (I_5(q2, 0) - I_5(q2, 1))/2.; /* untagged J + J~ = J - Jbar: see the getDelta5() documentation */
                 break;
             default:
                 std::stringstream out;
@@ -2461,6 +2470,15 @@ private:
     
     /**
     * @brief The CP difference \f$ \Delta_{6s} \f$ .
+    * @details For \f$ B_s \to \phi \ell \ell \f$ this is the untagged, time-integrated combination
+    * \f$ J_i + \tilde J_i = J_i - \bar J_i \f$, which evolves with \f$ (y, h_i) \f$ and not with \f$ (x, s_i) \f$
+    * (Descotes-Genon and Virto, arXiv:1502.05509, eqs. (16), (42), (50), (54)):
+    * \f$ [(J_i - \bar J_i) - y\, h_i]/2 \f$, with the common factor \f$ 1/(1-y^2) \f$ dropped as for the
+    * \f$ \Sigma_i \f$. In the approximation \f$ e^{i\phi} \tilde A_X = \eta_X A_X \f$ used for the \f$ h_i \f$
+    * of the \f$ \Sigma_i \f$, \f$ h_i \f$ vanishes for \f$ i = 5, 6s, 6c, 8, 9 \f$ (interference of
+    * amplitudes with opposite CP parities), so the expression reduces to the one for \f$ B \to K^* \ell \ell \f$,
+    * and the parameter xs_phi no longer enters (previously \f$ (1-y^2)/(1+x^2)\,[(J_i - \bar J_i) - x\, s_i]/2 \f$,
+    * the tagged formula, was used).
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ \Delta_{6s} \f$
     */ 
@@ -2474,7 +2492,7 @@ private:
                 return (I_6s(q2, 0) - I_6s(q2, 1))/2.;
                 break;
             case QCD::PHI:
-                return (1. - ys*ys)/(1. + xs*xs) * (I_6s(q2, 0) - I_6s(q2, 1) - xs * s_6s(q2, 0))/2.;
+                return (I_6s(q2, 0) - I_6s(q2, 1))/2.; /* untagged J + J~ = J - Jbar: see the getDelta6s() documentation */
                 break;
             default:
                 std::stringstream out;
@@ -2485,6 +2503,15 @@ private:
     
     /**
     * @brief The CP difference \f$ \Delta_{6c} \f$ .
+    * @details For \f$ B_s \to \phi \ell \ell \f$ this is the untagged, time-integrated combination
+    * \f$ J_i + \tilde J_i = J_i - \bar J_i \f$, which evolves with \f$ (y, h_i) \f$ and not with \f$ (x, s_i) \f$
+    * (Descotes-Genon and Virto, arXiv:1502.05509, eqs. (16), (42), (50), (54)):
+    * \f$ [(J_i - \bar J_i) - y\, h_i]/2 \f$, with the common factor \f$ 1/(1-y^2) \f$ dropped as for the
+    * \f$ \Sigma_i \f$. In the approximation \f$ e^{i\phi} \tilde A_X = \eta_X A_X \f$ used for the \f$ h_i \f$
+    * of the \f$ \Sigma_i \f$, \f$ h_i \f$ vanishes for \f$ i = 5, 6s, 6c, 8, 9 \f$ (interference of
+    * amplitudes with opposite CP parities), so the expression reduces to the one for \f$ B \to K^* \ell \ell \f$,
+    * and the parameter xs_phi no longer enters (previously \f$ (1-y^2)/(1+x^2)\,[(J_i - \bar J_i) - x\, s_i]/2 \f$,
+    * the tagged formula, was used).
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ \Delta_{6c} \f$
     */ 
@@ -2498,7 +2525,7 @@ private:
                 return (I_6c(q2, 0) - I_6c(q2, 1))/2.;
                 break;
             case QCD::PHI:
-                return (1. - ys*ys)/(1. + xs*xs) * (I_6c(q2, 0) - I_6c(q2, 1) - xs * s_6c(q2, 0))/2.;
+                return (I_6c(q2, 0) - I_6c(q2, 1))/2.; /* untagged J + J~ = J - Jbar: see the getDelta6c() documentation */
                 break;
             default:
                 std::stringstream out;
@@ -2519,6 +2546,15 @@ private:
     
     /**
     * @brief The CP difference \f$ \Delta_{8} \f$ .
+    * @details For \f$ B_s \to \phi \ell \ell \f$ this is the untagged, time-integrated combination
+    * \f$ J_i + \tilde J_i = J_i - \bar J_i \f$, which evolves with \f$ (y, h_i) \f$ and not with \f$ (x, s_i) \f$
+    * (Descotes-Genon and Virto, arXiv:1502.05509, eqs. (16), (42), (50), (54)):
+    * \f$ [(J_i - \bar J_i) - y\, h_i]/2 \f$, with the common factor \f$ 1/(1-y^2) \f$ dropped as for the
+    * \f$ \Sigma_i \f$. In the approximation \f$ e^{i\phi} \tilde A_X = \eta_X A_X \f$ used for the \f$ h_i \f$
+    * of the \f$ \Sigma_i \f$, \f$ h_i \f$ vanishes for \f$ i = 5, 6s, 6c, 8, 9 \f$ (interference of
+    * amplitudes with opposite CP parities), so the expression reduces to the one for \f$ B \to K^* \ell \ell \f$,
+    * and the parameter xs_phi no longer enters (previously \f$ (1-y^2)/(1+x^2)\,[(J_i - \bar J_i) - x\, s_i]/2 \f$,
+    * the tagged formula, was used).
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ \Delta_{8} \f$
     */ 
@@ -2532,7 +2568,7 @@ private:
                 return (I_8(q2, 0) - I_8(q2, 1))/2.;
                 break;
             case QCD::PHI:
-                return (1. - ys*ys)/(1. + xs*xs) * (I_8(q2, 0) - I_8(q2, 1) - xs * s_8(q2, 0))/2.;
+                return (I_8(q2, 0) - I_8(q2, 1))/2.; /* untagged J + J~ = J - Jbar: see the getDelta8() documentation */
                 break;
             default:
                 std::stringstream out;
@@ -2543,6 +2579,15 @@ private:
     
     /**
     * @brief The CP difference \f$ \Delta_{9} \f$ .
+    * @details For \f$ B_s \to \phi \ell \ell \f$ this is the untagged, time-integrated combination
+    * \f$ J_i + \tilde J_i = J_i - \bar J_i \f$, which evolves with \f$ (y, h_i) \f$ and not with \f$ (x, s_i) \f$
+    * (Descotes-Genon and Virto, arXiv:1502.05509, eqs. (16), (42), (50), (54)):
+    * \f$ [(J_i - \bar J_i) - y\, h_i]/2 \f$, with the common factor \f$ 1/(1-y^2) \f$ dropped as for the
+    * \f$ \Sigma_i \f$. In the approximation \f$ e^{i\phi} \tilde A_X = \eta_X A_X \f$ used for the \f$ h_i \f$
+    * of the \f$ \Sigma_i \f$, \f$ h_i \f$ vanishes for \f$ i = 5, 6s, 6c, 8, 9 \f$ (interference of
+    * amplitudes with opposite CP parities), so the expression reduces to the one for \f$ B \to K^* \ell \ell \f$,
+    * and the parameter xs_phi no longer enters (previously \f$ (1-y^2)/(1+x^2)\,[(J_i - \bar J_i) - x\, s_i]/2 \f$,
+    * the tagged formula, was used).
     * @param[in] q2 \f$q^2\f$ of the decay
     * @return \f$ \Delta_{9} \f$
     */ 
@@ -2556,7 +2601,7 @@ private:
                 return (I_9(q2, 0) - I_9(q2, 1))/2.;
                 break;
             case QCD::PHI:
-                return (1. - ys*ys)/(1. + xs*xs) * (I_9(q2, 0) - I_9(q2, 1) - xs * s_9(q2, 0))/2.;
+                return (I_9(q2, 0) - I_9(q2, 1))/2.; /* untagged J + J~ = J - Jbar: see the getDelta9() documentation */
                 break;
             default:
                 std::stringstream out;

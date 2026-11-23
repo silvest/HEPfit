@@ -883,7 +883,8 @@ void MVll::updateParameters()
     if (vectorM == QCD::PHI) {
         const double newYs = mySM.getMesons(QCD::B_S).getDgamma_gamma() / 2.;
         const double newXs = mySM.getOptionalParameter("xs_phi");
-        // The mixing terms in Sigma use ys, while those in Delta use xs and ys squared.
+        // The mixing terms in Sigma use ys. The Delta caches are still reset when xs or ys squared change,
+        // although the untagged B_s -> phi Delta_i no longer depend on them (see getDelta5()).
         sigmaMixingChanged = newYs != ys;
         deltaMixingChanged = newXs != xs || newYs * newYs != ys * ys;
         ys = newYs;
