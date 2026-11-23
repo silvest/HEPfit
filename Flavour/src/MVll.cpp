@@ -96,6 +96,7 @@ T_cache(5, 0.)
     //    w_DTPPR = gsl_integration_cquad_workspace_alloc (100);
     w_sigmaTree = gsl_integration_cquad_workspace_alloc(100);
     w_delta = gsl_integration_cquad_workspace_alloc(100);
+    w_QCDF = gsl_integration_cquad_workspace_alloc(100);
 
     acc_Re_T_perp = gsl_interp_accel_alloc();
     acc_Im_T_perp = gsl_interp_accel_alloc();
@@ -2207,7 +2208,7 @@ double MVll::integrateQCDF(const gsl_function& f)
 {
     if (!qcdfReady) return std::numeric_limits<double>::quiet_NaN();
     double result, error;
-    const int status = gsl_integration_cquad(&f, 0., 1., 1.e-2, 1.e-1, w_sigma, &result, &error, NULL);
+    const int status = gsl_integration_cquad(&f, 0., 1., 1.e-2, 1.e-1, w_QCDF, &result, &error, NULL);
     qcdfReady = status == GSL_SUCCESS && std::isfinite(result);
     return qcdfReady ? result : std::numeric_limits<double>::quiet_NaN();
 }
@@ -2215,29 +2216,29 @@ double MVll::integrateQCDF(const gsl_function& f)
 double MVll::T_perp_real(double q2, bool conjugate)
 {
     auto T_perp_realCallback = bind(&MVll::T_perp_real, this, q2, _1, conjugate);
-    FS = convertToGslFunction(T_perp_realCallback);
-    return integrateQCDF(FS);
+    gsl_function F = convertToGslFunction(T_perp_realCallback);
+    return integrateQCDF(F);
 }
 
 double MVll::T_perp_imag(double q2, bool conjugate)
 {
     auto T_perp_imagCallback = bind(&MVll::T_perp_imag, this, q2, _1, conjugate);
-    FS = convertToGslFunction(T_perp_imagCallback);
-    return integrateQCDF(FS);
+    gsl_function F = convertToGslFunction(T_perp_imagCallback);
+    return integrateQCDF(F);
 }
 
 double MVll::T_para_real(double q2, bool conjugate)
 {
     auto T_para_realCallback = bind(&MVll::T_para_real, this, q2, _1, conjugate);
-    FS = convertToGslFunction(T_para_realCallback);
-    return integrateQCDF(FS);
+    gsl_function F = convertToGslFunction(T_para_realCallback);
+    return integrateQCDF(F);
 }
 
 double MVll::T_para_imag(double q2, bool conjugate)
 {
     auto T_para_imagCallback = bind(&MVll::T_para_imag, this, q2, _1, conjugate);
-    FS = convertToGslFunction(T_para_imagCallback);
-    return integrateQCDF(FS);
+    gsl_function F = convertToGslFunction(T_para_imagCallback);
+    return integrateQCDF(F);
 }
 
 double MVll::QCDF_fit_func(double* x, double* p)
@@ -2387,11 +2388,19 @@ gslpp::complex MVll::T_minus(double q2, bool conjugate)
         return 0.;
     else {
     #if COMPUTECP && SPLINE 
-        if (!conjugate) return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp, q2, acc_Im_T_perp));
-        else return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp_conj, q2, acc_Re_T_perp_conj) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp_conj, q2, acc_Im_T_perp_conj));
+        if (!conjugate && q2 >= spline_Re_T_perp->x[0] && q2 <= spline_Re_T_perp->x[spline_Re_T_perp->size - 1])
+            return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp, q2, acc_Im_T_perp));
+        if (conjugate && q2 >= spline_Re_T_perp_conj->x[0] && q2 <= spline_Re_T_perp_conj->x[spline_Re_T_perp_conj->size - 1])
+            return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp_conj, q2, acc_Re_T_perp_conj) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp_conj, q2, acc_Im_T_perp_conj));
     #elif SPLINE
-        return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp, q2, acc_Im_T_perp));
+        if (q2 >= spline_Re_T_perp->x[0] && q2 <= spline_Re_T_perp->x[spline_Re_T_perp->size - 1])
+            return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp, q2, acc_Im_T_perp));
     #endif     
+    #if SPLINE
+        /* Outside the spline grid (q2 > 8.91 GeV^2 or q2 < 0.001 GeV^2), where gsl_spline_eval returns NaN, use the
+         * function the spline interpolates, as deltaC7_QCDF and deltaC9_QCDF do. */
+        return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (T_perp_real(q2, conjugate) + gslpp::complex::i() * T_perp_imag(q2, conjugate));
+    #endif
 
     #if COMPUTECP  && !SPLINE
         if (!conjugate) return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_perp_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_perp_res->GetParams())));
@@ -2409,10 +2418,17 @@ gslpp::complex MVll::T_0(double q2, bool conjugate)
         return 0.;
     else {
     #if COMPUTECP && SPLINE
-        if (!conjugate) return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para, q2, acc_Im_T_para));
-        else return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para_conj, q2, acc_Re_T_para_conj) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para_conj, q2, acc_Im_T_para_conj));
+        if (!conjugate && q2 >= spline_Re_T_para->x[0] && q2 <= spline_Re_T_para->x[spline_Re_T_para->size - 1])
+            return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para, q2, acc_Im_T_para));
+        if (conjugate && q2 >= spline_Re_T_para_conj->x[0] && q2 <= spline_Re_T_para_conj->x[spline_Re_T_para_conj->size - 1])
+            return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para_conj, q2, acc_Re_T_para_conj) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para_conj, q2, acc_Im_T_para_conj));
     #elif SPLINE
-        return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para, q2, acc_Im_T_para));
+        if (q2 >= spline_Re_T_para->x[0] && q2 <= spline_Re_T_para->x[spline_Re_T_para->size - 1])
+            return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para, q2, acc_Im_T_para));
+    #endif
+    #if SPLINE
+        /* Outside the spline grid, use the function the spline interpolates (see T_minus). */
+        return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (T_para_real(q2, conjugate) + gslpp::complex::i() * T_para_imag(q2, conjugate));
     #endif
 
     #if COMPUTECP && !SPLINE

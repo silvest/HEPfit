@@ -1211,6 +1211,7 @@ private:
     gsl_integration_cquad_workspace * w_sigma;/**< GSL integral variable */
     gsl_integration_cquad_workspace * w_delta;/**< GSL integral variable */
     gsl_integration_cquad_workspace * w_sigmaTree;/**< Gsl integral variable */
+    gsl_integration_cquad_workspace * w_QCDF;/**< GSL integral variable of the QCDF u integrals, which can run inside the q^2 integrals */
 
     
     std::map<std::pair<double, double>, gslpp::complex > cacheI1;/**< Cache variable */
@@ -2771,8 +2772,19 @@ private:
     
     void spline_QCDF_func();
     
+    /**
+     * @brief QCDF contribution to the helicity-minus amplitude. With SPLINE, the spline built by spline_QCDF_func()
+     * is used on its grid (0.001 to 8.91 GeV^2); outside it the u integral is evaluated directly.
+     * @param q2 @f$ q^2 @f$
+     * @param conjugate a boolean to control conjugation
+     */
     gslpp::complex T_minus(double q2, bool conjugate);
     
+    /**
+     * @brief QCDF contribution to the longitudinal amplitude, with the same q^2 range handling as T_minus().
+     * @param q2 @f$ q^2 @f$
+     * @param conjugate a boolean to control conjugation
+     */
     gslpp::complex T_0(double q2, bool conjugate);
     
     /**
