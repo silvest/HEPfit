@@ -15,7 +15,9 @@ EpsilonP_O_Epsilon_TH::EpsilonP_O_Epsilon_TH(const StandardModel& SM_i)
     setParametersForObservable(make_vector<std::string>() << "Br_Ks_P0P0" << "Br_Ks_PpPm" << "Br_Kp_P0Pp" << "Omega_eta_etap" << "Delta_0" << "Delta_2" << "EpsK" << "phiEpsK"
                                                           << "Zqq00" << "Zqq11" << "Zqq12" << "Zqq13" << "Zqq14" << "Zqq21" << "Zqq22" << "Zqq23" << "Zqq24"
                                                           << "Zqq31" << "Zqq32" << "Zqq33" << "Zqq34" << "Zqq41" << "Zqq42" << "Zqq43" << "Zqq44" << "Zqq55"
-                                                          << "Zqq56" << "Zqq65" << "Zqq66");
+                                                          << "Zqq56" << "Zqq65" << "Zqq66"
+                                                          // read here and, via AmpDK2/HeffDF2, for eps_K (as in EpsilonK)
+                                                          << "DeltaMK" << "KbarEpsK" << "DeltattEpsK");
 }
 
 double EpsilonP_O_Epsilon_TH::computeThValue()
