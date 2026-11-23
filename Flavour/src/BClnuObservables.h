@@ -131,8 +131,10 @@ class Vcb_BClnu : public ThObservable
         Vcb_BClnu(const StandardModel& SM_i, QCD::meson meson_i);
 
         /**
-         * @brief The computation of the moments, varying the number and elcut
-         * @note All the other parameters are initialized in the constructor
+         * @brief \f$ |V_{cb}| = \sqrt{\mathcal{B}\,\hbar/(\Gamma_0 X \tau_B)} \f$ from the inclusive
+         * \f$ B\to X_c\ell\nu \f$ branching ratio.
+         * @details \f$ \tau_B \f$ is the average of the \f$ B^0 \f$ and \f$ B^+ \f$ lifetimes, taken from the
+         * model parameters tBd and tBp (which the configuration must therefore provide, together with MBp).
          */
 
         double computeThValue();
