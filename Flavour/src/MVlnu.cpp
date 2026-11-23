@@ -1369,7 +1369,7 @@ double MVlnu::dGammadcldq2(double q2, double cl)
 {
     updateParameters();
 
-    return 3. / 8. * ((J1s(q2) + 2. * J1c(q2)) + cl * (J6s(q2) + 2. * J6c(q2))+(2. * cl * cl - 1.)*(J2s(q2) + 2. * J2c(q2)));
+    return 3. / 8. * ((J1c(q2) + 2. * J1s(q2)) + cl * (J6c(q2) + 2. * J6s(q2))+(2. * cl * cl - 1.)*(J2c(q2) + 2. * J2s(q2)));
 }
 
 double MVlnu::dGammadcl(double cl)
@@ -1383,7 +1383,7 @@ double MVlnu::dGammadcl(double cl)
     double intJ6s = integrateJ(8, q2min, q2max);
     double intJ6c = integrateJ(9, q2min, q2max);
 
-    return 3. / 8. * ((intJ1s + 2. * intJ1c) + cl * (intJ6s + 2. * intJ6c)+(2. * cl * cl - 1.)*(intJ2s + 2. * intJ2c));
+    return 3. / 8. * ((intJ1c + 2. * intJ1s) + cl * (intJ6c + 2. * intJ6s)+(2. * cl * cl - 1.)*(intJ2c + 2. * intJ2s));
 }
 
 double MVlnu::getDeltaGammaDeltacl(double cl_min, double cl_max)
@@ -1402,11 +1402,11 @@ double MVlnu::getDeltaGammaDeltacl(double cl_min, double cl_max)
             (2. / 3. * (cl_max * cl_max * cl_max - cl_min * cl_min * cl_min)-(cl_max - cl_min))*(intJ2c + 2. * intJ2s));
 }
 
-double MVlnu::dGammadcVdq2(double q2, double cl)
+double MVlnu::dGammadcVdq2(double q2, double cV)
 {
     updateParameters();
 
-    return 3. / 8. * ((J1s(q2) + 2. * J1c(q2)) + cl * (J6s(q2) + 2. * J6c(q2))+(2. * cl * cl - 1.)*(J2s(q2) + 2. * J2c(q2)));
+    return 3. / 8. * (cV * cV * (3. * J1c(q2) - J2c(q2))+(1. - cV * cV)*(3. * J1s(q2) - J2s(q2)));
 }
 
 double MVlnu::dGammadcV(double cV)
