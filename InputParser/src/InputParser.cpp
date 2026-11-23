@@ -79,6 +79,8 @@ std::string InputParser::ReadParameters(const std::string filename_i,
 
         std::string type = *beg;
         ++beg;
+        const int keywordLineNo = lineNo;
+        const size_t nObservables = Observables.size(), nObservables2D = Observables2D.size(), nCGO = CGO.size();
         if (type.compare("ModelParameter") == 0) {
             
             if (std::distance(tok.begin(), tok.end()) < 5) {
@@ -232,6 +234,20 @@ std::string InputParser::ReadParameters(const std::string filename_i,
             if (rank == 0) throw std::runtime_error("\nERROR: wrong keyword " + type + " in file " + filename + " line no. " + boost::lexical_cast<std::string>(lineNo) + ". Make sure to specify a valid model configuration file.\n");
             else sleep(2);
         }
+
+        // Observable names must be unique (histograms, statistics and chains are keyed by name).
+        // The observables of an included file have been checked while reading it.
+        if (type.compare("IncludeFile") != 0) {
+            for (size_t i = nObservables; i < Observables.size(); i++)
+                CheckDuplicateObservable(checkDuplicateObservable, Observables[i].getName(), "Observable", keywordLineNo);
+            for (size_t i = nCGO; i < CGO.size(); i++) {
+                const std::vector<Observable> members = CGO[i].getObs();
+                for (size_t j = 0; j < members.size(); j++)
+                    CheckDuplicateObservable(checkDuplicateObservable, members[j].getName(), "Observable", keywordLineNo);
+            }
+            for (size_t i = nObservables2D; i < Observables2D.size(); i++)
+                CheckDuplicateObservable(checkDuplicateObservable2D, Observables2D[i].getName(), "Observable2D", keywordLineNo);
+        }
     }
 
     if (modelset == 0 && rank == 0)
@@ -239,6 +255,19 @@ std::string InputParser::ReadParameters(const std::string filename_i,
     if (rank == 0 && !myModel->CheckFlags())
         throw std::runtime_error("ERROR: incompatible flag(s)\n");
     return (modname);
+}
+
+void InputParser::CheckDuplicateObservable(std::map<std::string, std::pair<std::string, int> >& seen, const std::string& name,
+                                           const std::string& kind, const int line)
+{
+    std::map<std::string, std::pair<std::string, int> >::const_iterator it = seen.find(name);
+    if (it != seen.end()) {
+        if (rank == 0) throw std::runtime_error("\nERROR: " + kind + " " + name + " appears more than once ...!! \n" +
+                "1st Occurrence: Line No:" + boost::lexical_cast<std::string>(it->second.second) + " in file " + it->second.first + ".\n"
+                "2nd Occurrence: Line No:" + boost::lexical_cast<std::string>(line) + " in file " + filename + ".\n");
+        else sleep(2);
+    } else
+        seen[name] = std::make_pair(filename, line);
 }
 
 void InputParser::addCustomObservableType(const std::string name, boost::function<Observable*() > funct)
