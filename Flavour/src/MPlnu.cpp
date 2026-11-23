@@ -196,17 +196,17 @@ void MPlnu::updateParameters()
     }
     gslpp::vector<gslpp::complex> ** allcoeff_bclnu = mySM.getFlavour().ComputeCoeffdiujlknu(2,1,k,mu_b);
     /* the SM part already includes the short-distance EW (Sirlin) factor, see HeffDF1_diujlknu */
-    CV = (*(allcoeff_bclnu[LO]))(0)/norm/2.;
+    CV = (*(allcoeff_bclnu[LO]) + *(allcoeff_bclnu[NLO]))(0)/norm/2.;
     CA = -CV;
-    CVp = (*(allcoeff_bclnu[LO]))(1)/norm/2.;
+    CVp = (*(allcoeff_bclnu[LO]) + *(allcoeff_bclnu[NLO]))(1)/norm/2.;
     CAp = -CVp;
-    CS = (*(allcoeff_bclnu[LO]))(2)/norm/2.;
-    CSp = (*(allcoeff_bclnu[LO]))(3)/norm/2.;
+    CS = (*(allcoeff_bclnu[LO]) + *(allcoeff_bclnu[NLO]))(2)/norm/2.;
+    CSp = (*(allcoeff_bclnu[LO]) + *(allcoeff_bclnu[NLO]))(3)/norm/2.;
     CP = -CS;
     CPp = -CSp;
     C7 = 0.;
     C7p = 0.;
-    CT = (*(allcoeff_bclnu[LO]))(4)/norm/2.;
+    CT = (*(allcoeff_bclnu[LO]) + *(allcoeff_bclnu[NLO]))(4)/norm/2.;
     CTp = 0.;
 
     if (NPanalysis) {

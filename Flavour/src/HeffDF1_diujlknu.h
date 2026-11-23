@@ -51,6 +51,7 @@ public:
      * @details The SM part of CnueduVLL includes the leading-log short-distance electroweak (Sirlin) factor
      * \f$ \eta_{EW} = 1+\frac{\alpha}{\pi}\ln\frac{M_Z}{\mu} \f$; the NP coefficients are evolved from their matching
      * scale with the QCD and LO QED anomalous dimensions, which give the NP CnueduVLL the same factor.
+     * The QCD evolution is at NLO: the full coefficient is the sum of the LO and NLO elements of the returned array.
      */
     gslpp::vector<gslpp::complex>** ComputeCoeffdiujleptonknu(int i, int j, int k, double mu);
 

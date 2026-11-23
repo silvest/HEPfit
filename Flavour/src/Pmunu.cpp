@@ -41,7 +41,7 @@ double Pmunu::computeThValue()
     // the V_LL coefficient includes the short-distance EW factor eta_EW = 1 + alpha/pi ln(M_Z/mu) (HeffDF1_diujlknu),
     // whose square S_EW is already contained in delPl2em: divide it out to avoid counting it twice
     double etaEW = 1. + SM.getAle() / M_PI * log(SM.getMz() / SM.getQuarks(QCD::UP).getMass_scale());
-    double amp2 = ((*(allcoeff_P_mu_nu[LO]))(0) / etaEW -(*(allcoeff_P_mu_nu[LO]))(1) - mP * mP / (md+mu) / mmu * ((*(allcoeff_P_mu_nu[LO]))(2) - (*(allcoeff_P_mu_nu[LO]))(3))).abs2();
+    double amp2 = ((*(allcoeff_P_mu_nu[LO]) + *(allcoeff_P_mu_nu[NLO]))(0) / etaEW -(*(allcoeff_P_mu_nu[LO]) + *(allcoeff_P_mu_nu[NLO]))(1) - mP * mP / (md+mu) / mmu * ((*(allcoeff_P_mu_nu[LO]) + *(allcoeff_P_mu_nu[NLO]))(2) - (*(allcoeff_P_mu_nu[LO]) + *(allcoeff_P_mu_nu[NLO]))(3))).abs2();
     
     //double WCnum = 1.0;
     //double WCden = 1.0;

@@ -13,8 +13,10 @@
 
 HeffDF1_diujlknu::HeffDF1_diujlknu(const StandardModel & SM)
 : model(SM), evolDF1(new EvolDF1_diujlknu(5, NDR, NLO, SM)) {
+    // NLO: the scalar and tensor NP coefficients are evolved with the NLO QCD anomalous dimensions, consistently
+    // with the FULLNLO running masses used in their matching (e.g. THDMMatching); the result is LO + NLO.
     for(int i = 0; i < 27; i++)
-        coeffdiujleptonknu.push_back(WilsonCoefficient(5,NDR,LO));
+        coeffdiujleptonknu.push_back(WilsonCoefficient(5,NDR,NLO));
 }
 
 HeffDF1_diujlknu::~HeffDF1_diujlknu() {
@@ -51,6 +53,7 @@ gslpp::vector<gslpp::complex>** HeffDF1_diujlknu::ComputeCoeffdiujleptonknu(int 
         else
         for (int j = LO; j <= ordDF1; j++) {
             for (int k = LO; k <= j; k++) {
+                if (j - k > mcu[i].getOrder()) continue; // the NP matching may be given at LO only
                 coeffdiujleptonknu[index].setCoeff(*coeffdiujleptonknu[index].getCoeff(orders(j))
                         + evolDF1->Df1diujlknuEvol(mu, mcu[i].getMu(), orders(k), mcu[i].getScheme()) *
                         (*mcu[i].getCoeff(orders(j - k))), orders(j));
