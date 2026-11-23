@@ -86,7 +86,7 @@ UnitarityV_MPlnu::UnitarityV_MPlnu(const StandardModel& SM_i, QCD::meson meson_i
 
 double UnitarityV_MPlnu::computeThValue() 
 {
-    return SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep).get_unitarity_0plus_BGL();
+    return SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep).get_unitarity_1min_BGL();
 }
 
 UnitarityA_MPlnu::UnitarityA_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i)
@@ -101,7 +101,7 @@ UnitarityA_MPlnu::UnitarityA_MPlnu(const StandardModel& SM_i, QCD::meson meson_i
 
 double UnitarityA_MPlnu::computeThValue() 
 {
-    return SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep).get_unitarity_1min_BGL();
+    return SM.getFlavour().getMPlnu(meson, pseudoscalarM, lep).get_unitarity_0plus_BGL();
 }
 
 Unitarity_Strong_MPlnu::Unitarity_Strong_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i)

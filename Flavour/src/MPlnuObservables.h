@@ -80,8 +80,10 @@ public:
     UnitarityV_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
      
     /**
-    * @brief Vectorial unitarity constraint for @f$M \to P l \nu@f$.
-    * @return @f$ \Sum_i ag_i^2 @f$
+    * @brief Vectorial unitarity constraint for @f$M \to P l \nu@f$: BGL sum of the
+    * @f$ 1^- @f$ channel (@f$ f_+ @f$), as UnitarityV_MVlnu is the @f$ 1^- @f$ sum for @f$M \to V l \nu@f$.
+    * @details Until this was made consistent with MVlnu, UnitarityV_MPlnu returned the @f$ 0^+ @f$ sum.
+    * @return @f$ \sum_i (a^{f_+}_i)^2 @f$
     */
     double computeThValue ();
     
@@ -105,8 +107,11 @@ public:
     UnitarityA_MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudoscalar_i, QCD::lepton lep_i);
     
     /**
-    * @brief Axial unitarity constraint for @f$M \to P l \nu@f$.
-    * @return @f$ \Sum_i (af_i^2 + aF1_i^2) @f$
+    * @brief Unitarity constraint for @f$M \to P l \nu@f$ in the remaining (@f$ 0^+ @f$, @f$ f_0 @f$) channel.
+    * @details The name is kept for compatibility: the @f$ 0^+ @f$ channel belongs to the vector current, there is
+    * no axial-vector channel in @f$M \to P l \nu@f$. Until this was made consistent with MVlnu,
+    * UnitarityA_MPlnu returned the @f$ 1^- @f$ sum.
+    * @return @f$ \sum_i (a^{f_0}_i)^2 @f$
     */
     double computeThValue ();
      
