@@ -932,8 +932,8 @@ const double HiggsChiral::muggHgagaInt(const double sqrt_s) const
     
     kw = computecV();
     
-    kg = (3.0/2.0) * computecg();
-    kgamma = (3.0/2.0) * computecgaga();
+    kg = (3.0/2.0) * cg;
+    kgamma = (3.0/2.0) * cga;
     
     GammaRatio = computeGammaTotalRatio();
 
