@@ -3116,8 +3116,9 @@ const double StandardModel::Gamma_muon() const
       
     H3x = -15.3;
       
-    // alpha(m_mu)
-    alpha = 1./ale - log(x)/3./M_PI; // + 1./6./M_PI;
+    // alpha(m_mu): PDG muon decay parameters review, alpha^-1(m_mu) = alpha^-1 - 2/(3 pi) ln(m_mu/m_e) + 1/(6 pi)
+    // (log(x) = -2 ln(m_mu/m_e))
+    alpha = 1./ale + log(x)/3./M_PI + 1./6./M_PI;
     alpha = 1./alpha;
       
     // Rad. corrections
@@ -3196,48 +3197,16 @@ const double StandardModel::TauLFU_gmuge() const
 
 const double StandardModel::TauLFU_gtaugmu() const
 {
-    double g2LFU;
-    
-    double me, mmu, mtau, xtau, Fxtau, xmu, Fxmu;
-      
-    me = leptons[ELECTRON].getMass();
-    mmu = leptons[MU].getMass();
-    mtau = leptons[TAU].getMass();
-    
-    xtau = me*me/mtau/mtau;
-    Fxtau = 1. - 8. * xtau + 8. * xtau*xtau*xtau - xtau*xtau*xtau*xtau -12. * xtau*xtau * log(xtau);     
-      
-    xmu = me*me/mmu/mmu;
-    Fxmu = 1. - 8. * xmu + 8. * xmu*xmu*xmu - xmu*xmu*xmu*xmu -12. * xmu*xmu * log(xmu); 
-      
-    g2LFU = (Gamma_tau_l_nunu(leptons[ELECTRON])/Gamma_muon());
-    
-    g2LFU = g2LFU * (pow(mmu,5)*Fxmu/pow(mtau,5)/Fxtau);
-    
-    return sqrt(g2LFU);
+    // HFLAV defines (g_tau/g_mu) from B(tau -> e nu nu)/B(mu -> e nu nu) with the phase-space, R_gamma and R_W
+    // factors divided out, so the SM prediction is exactly 1 (NP models add their shifts on top of it).
+    return 1.0;
 }
 
 const double StandardModel::TauLFU_gtauge() const
 {
-    double g2LFU;
-    
-    double me, mmu, mtau, xtau, Fxtau, xmu, Fxmu;
-      
-    me = leptons[ELECTRON].getMass();
-    mmu = leptons[MU].getMass();
-    mtau = leptons[TAU].getMass();
-    
-    xtau = mmu*mmu/mtau/mtau;
-    Fxtau = 1. - 8. * xtau + 8. * xtau*xtau*xtau - xtau*xtau*xtau*xtau -12. * xtau*xtau * log(xtau);     
-      
-    xmu = me*me/mmu/mmu;
-    Fxmu = 1. - 8. * xmu + 8. * xmu*xmu*xmu - xmu*xmu*xmu*xmu -12. * xmu*xmu * log(xmu); 
-      
-    g2LFU = (Gamma_tau_l_nunu(leptons[MU])/Gamma_muon());
-    
-    g2LFU = g2LFU * (pow(mmu,5)*Fxmu/pow(mtau,5)/Fxtau);
-    
-    return sqrt(g2LFU);
+    // HFLAV defines (g_tau/g_e) from B(tau -> mu nu nu)/B(mu -> e nu nu) with the phase-space, R_gamma and R_W
+    // factors divided out, so the SM prediction is exactly 1 (NP models add their shifts on top of it).
+    return 1.0;
 }
 
 

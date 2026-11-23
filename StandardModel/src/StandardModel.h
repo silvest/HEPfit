@@ -2098,7 +2098,8 @@ public:
 
     /**
      * @brief The computation of the LFU ratio @f$g_\tau/ g_\mu @f$
-     * @details
+     * @details Defined as in HFLAV, from @f$B(\tau\to e\nu\bar\nu)/B(\mu\to e\nu\bar\nu)@f$ with the
+     * phase-space, @f$R_\gamma@f$ and @f$R_W@f$ factors divided out, so that it is exactly 1 in the SM.
      * @return @f$g_\tau/ g_\mu @f$
      */
       virtual const double TauLFU_gtaugmu() const;
@@ -2106,7 +2107,8 @@ public:
 
     /**
      * @brief The computation of the LFU ratio @f$g_\tau/ g_e @f$
-     * @details
+     * @details Defined as in HFLAV, from @f$B(\tau\to \mu\nu\bar\nu)/B(\mu\to e\nu\bar\nu)@f$ with the
+     * phase-space, @f$R_\gamma@f$ and @f$R_W@f$ factors divided out, so that it is exactly 1 in the SM.
      * @return @f$g_\tau/ g_e @f$
      */
       virtual const double TauLFU_gtauge() const;
