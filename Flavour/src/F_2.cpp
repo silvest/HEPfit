@@ -9,8 +9,20 @@
  * authors: Christoph Greub, Volker Pilipp, Christof Schüpbach
  */
 
+/* Ranges of validity. Below the charm threshold s^ = q^2/m_b^2 = 4z (z = m_c^2/m_b^2) the functions use the
+ * expansion in s^, z and s^/(4z) of Asatrian, Asatryan, Greub, Walker (hep-ph/0109140; used there for
+ * 0.05 < s^ < 0.25), above it the expansion in m_c/m_b at fixed s^ of arXiv:0810.4077 (valid for q^2 > 4 m_c^2),
+ * which converges like (4z/s^)^n. Close to s^ = 4z neither series converges: with the physical z ~ 0.11-0.12 the two
+ * branches disagreed by O(100%) at the former switch s^ = 0.4 (e.g. F_19 = -28 + 0.1i vs -81 - 76i). The low-s^
+ * branch is used for s^ < min(0.4, 4z), as before for the physical z (its s^3 terms are still 10-20% of F_19 and
+ * F_29 at s^ = 0.39), and the high-s^ branch for s^ >= 4.5z, where going from 15 to 20 terms changes F_19 (F_29) by
+ * at most 5% (10%), 2.4% (4.7%) at s^ = 5z (a cut at 5z would fall on the common bin edge q^2 = 14.18 GeV^2 for
+ * z ~ 0.12-0.13). NaN is returned in between, i.e. for about 9 GeV^2 < q^2 < 12.5-13 GeV^2 (charmonium region).
+ */
+
 #include "F_2.h"
 #include "hpl.h"
+#include <limits>
 
 F_2::F_2()
 {}
@@ -34,7 +46,7 @@ double F_2::F_27re(double muh, double z, double sh, int maxpow)
 
     double res = 0;
 
-    if (sh < 0.4) {
+    if (sh < 0.4 && sh < 4. * z) {
         res = 6.85597 + 5.135802469135802 * lmu + 12.4502 * sh +
                 0.0987654 * Lsh * sh + 1.333335 * lz * sh + 13.2214 * z +
                 15.6523 * lz * z + 155.555 * sh * z - 6.22222 * Lsh * sh * z +
@@ -104,6 +116,9 @@ double F_2::F_27re(double muh, double z, double sh, int maxpow)
                 3.555555 * Lsh * lz * sh3 * z3 +
                 144.14825 * lz2 * sh3 * z3 +
                 35.5555 * Lsh * lz2 * sh3 * z3;
+    } else if (sh < 4.5 * z) {
+        /* Neither expansion is valid here, see the note at the top of this file. */
+        return std::numeric_limits<double>::quiet_NaN();
     } else {
         double Lshb = log(1. - sh);
         double sqrtsh = sqrt(sh);
@@ -1858,7 +1873,7 @@ double F_2::F_27im(double muh, double z, double sh, int maxpow)
 
     double res = 0;
 
-    if (sh < 0.4) {
+    if (sh < 0.4 && sh < 4. * z) {
         res = 3.10281 - 8.37758 * sh - 2.792525 * lz * sh - 9.55118 * z -
                 5.58505 * lz * z - 34.6839 * sh * z - 5.58505 * Lsh * sh * z -
                 39.0954 * lz * sh * z - 5.58505 * z * pow(lz, 2) -
@@ -1896,6 +1911,9 @@ double F_2::F_27im(double muh, double z, double sh, int maxpow)
                 11.1701 * Lsh * pow(sh, 3) * pow(z, 3) +
                 554.78 * lz * pow(sh, 3) * pow(z, 3) +
                 223.402 * Lsh * lz * pow(sh, 3) * pow(z, 3);
+    } else if (sh < 4.5 * z) {
+        /* Neither expansion is valid here, see the note at the top of this file. */
+        return std::numeric_limits<double>::quiet_NaN();
     } else {
         if (0 <= maxpow) {
             if (sh < .900001)
@@ -2448,7 +2466,7 @@ double F_2::F_29re(double muh, double z, double sh, int maxpow)
 
     double res = 0;
 
-    if (sh < 0.4) {
+    if (sh < 0.4 && sh < 4. * z) {
         res = -24.2913 + 0.296296 * Lsh + 0.3950617283950617 * lmu * Lsh +
                 lmu * (1.0534979423868314 - 7.111111111111111 * lz) -
                 11.55555 * lz - 26.8464 * sh - 4.444445 * lz * sh - 86.7723 * z +
@@ -2532,6 +2550,9 @@ double F_2::F_29re(double muh, double z, double sh, int maxpow)
                 35.55555 * Lsh * lz * sh3 * z3 -
                 496.89 * lz2 * sh3 * z3 -
                 118.5185 * Lsh * lz2 * sh3 * z3;
+    } else if (sh < 4.5 * z) {
+        /* Neither expansion is valid here, see the note at the top of this file. */
+        return std::numeric_limits<double>::quiet_NaN();
     } else {
         double Lshb = log(1. - sh);
         double sqrtsh = sqrt(sh);
@@ -4526,7 +4547,7 @@ double F_2::F_29im(double muh, double z, double sh, int maxpow)
 
     double res = 0;
 
-    if (sh < 0.4) {
+    if (sh < 0.4 && sh < 4. * z) {
         res = -22.0299 - 1.241123023640412 * lmu + 0.620562 * Lsh -
                 5.58505 * lz + 1.86168 * sh + 5.58505 * lz * sh + 97.2931 * z +
                 33.5103 * lz * z + 184.792 * sh * z + 11.1701 * Lsh * sh * z +
@@ -4569,6 +4590,9 @@ double F_2::F_29im(double muh, double z, double sh, int maxpow)
                 111.701 * Lsh * pow(sh, 3) * pow(z, 3) -
                 1958.49 * lz * pow(sh, 3) * pow(z, 3) -
                 744.675 * Lsh * lz * pow(sh, 3) * pow(z, 3);
+    } else if (sh < 4.5 * z) {
+        /* Neither expansion is valid here, see the note at the top of this file. */
+        return std::numeric_limits<double>::quiet_NaN();
     } else {
         if (0 <= maxpow) {
             if (sh < .900001)
@@ -5183,10 +5207,13 @@ double F_2::DeltaF_29re(double muh, double z, double sh, int maxpow)
 
     double res = 0;
 
-    if (sh < 0.4) {
+    if (sh < 0.4 && sh < 4. * z) {
         res = 0.06772486772486773 * (0.6666666666666666 + lmu - 0.5 * lz)*
                 (105. + pow(sh, 3) * pow(z, -3) + 4.5 * pow(sh, 2) * pow(z, -2) +
                 21. * sh * pow(z, -1));
+    } else if (sh < 4.5 * z) {
+        /* Neither expansion is valid here, see the note at the top of this file. */
+        return std::numeric_limits<double>::quiet_NaN();
     } else {
         if (0 <= maxpow)
             res += 0.;
@@ -5319,8 +5346,11 @@ double F_2::DeltaF_29im(double muh, double z, double sh, int maxpow)
 
     double res = 0;
 
-    if (sh < 0.4) {
+    if (sh < 0.4 && sh < 4. * z) {
         res = 0.;
+    } else if (sh < 4.5 * z) {
+        /* Neither expansion is valid here, see the note at the top of this file. */
+        return std::numeric_limits<double>::quiet_NaN();
     } else {
         if (0 <= maxpow)
             res += 0.;

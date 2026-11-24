@@ -46,6 +46,7 @@ T_cache(5, 0.)
     MPll_DM_flag = false;
     NeutrinoTree_flag = false;
     mJ2 = 3.096 * 3.096;
+    mtau2 = 0.; /* set in updateParameters() for the neutrino modes only, compared in checkCache() for all modes */
 
     I0_updated = 0;
     I2_updated = 0;
@@ -442,7 +443,7 @@ bool MPll::updateParameters()
     if (I0_updated == 0) for (it = delta0Cached.begin(); it != delta0Cached.end(); ++it) it->second = 0;
     if (I2_updated == 0) for (it = delta2Cached.begin(); it != delta2Cached.end(); ++it) it->second = 0;
     
-    if (Itree_updated) for (it = sigmaTreeCached.begin(); it != sigmaTreeCached.end(); ++it) it->second = 0;
+    if (Itree_updated == 0) for (it = sigmaTreeCached.begin(); it != sigmaTreeCached.end(); ++it) it->second = 0;
 
     std::map<double, unsigned int >::iterator iti;
     if (deltaTparpupdated == 0) for (iti = deltaTparpCached.begin(); iti != deltaTparpCached.end(); ++iti) iti->second = 0;
@@ -567,7 +568,22 @@ void MPll::checkCache()
     }
 
     lambda_updated = k2_updated;
-    F_updated = lambda_updated * beta_updated;
+    // As in MVll::checkCache(): the amplitudes also depend on the channel parameters (including the
+    // form-factor pole masses and the Chi's of the DM parametrization), on C_8 and the LO coefficients
+    // of the QCDF corrections and on the hadronic inputs of QCDF, which the caches below do not key.
+    std::vector<double> sharedInputs = {mu_b, Mb, Ms, Mc, MW, mb_pole, mc_pole, alpha_s_mub,
+        mySM.getMesons(meson).getDecayconst(), mySM.getMesons(pseudoscalar).getDecayconst(),
+        mySM.getMesons(meson).getLambdaM(), double(dispersion)};
+    if (lep != QCD::NEUTRINO_1) {
+        for (const auto& c : {C_8, C_8L, C_1L_bar, C_2L_bar, C_1Lh_bar, C_2Lh_bar, C_8Lh}) {
+            sharedInputs.push_back(c.real());
+            sharedInputs.push_back(c.imag());
+        }
+    }
+    for (const auto& name : mpllParameters)
+        sharedInputs.push_back(mySM.getOptionalParameter(name));
+    F_updated = lambda_updated && beta_updated && !mpllParameters.empty() && sharedInputs == angularInputsCache;
+    angularInputsCache.swap(sharedInputs);
 
     if (MPll_Lattice_flag || MPll_GRvDV_flag || MPll_DM_flag) {
     VL_updated = k2_updated * fplus_lat_updated;
