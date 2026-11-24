@@ -13,37 +13,42 @@
 /**
  * @class NPSMEFTd6flavchain
  * @ingroup NewPhysics
- * @brief Chain models of quark flavour (SU(2)-singlet vector-like quarks, arXiv:2602.17754)
- * matched onto the SMEFT at the scale @f$\mu = M_{\rm VLQ}@f$.
- * @details The model sets directly the non-vanishing Wilson coefficients of %NPSMEFTd6General,
- * in the UP flavour basis (the only basis allowed for this model: SMEFTBasisFlag = UP).
- * In this basis the Yukawa matrices of RGESolver are
- * @f$\mathcal Y_u = {\rm diag}(y_u,y_c,y_t)@f$, @f$\mathcal Y_d = {\rm diag}(y_d,y_s,y_b)V^\dagger@f$,
- * with @f$\mathcal L_Y = -(\bar d\,\mathcal Y_d\, q\, H^\dagger + \bar u\,\mathcal Y_u\, q\,\tilde H^\dagger) + {\rm h.c.}@f$,
- * and the chain model is flavour diagonal:
- * @f$M^2\hat C_U = {\rm diag}(\lambda^{u\,2}_1,\lambda^{u\,2}_2,0)@f$,
- * @f$M^2\hat C_D = {\rm diag}(\lambda^{d\,2}_1,\lambda^{d\,2}_2,\lambda^{d\,2}_3)@f$.
- * With @f$\Lambda_{NP} = M_{\rm VLQ}@f$ the coefficients @f$C_i^{LNP}=\Lambda_{NP}^2 C_i@f$ are
+ * @brief Chain model of quark flavour (SU(2)-singlet vector-like quarks, arXiv:2602.17754),
+ * matched at tree level onto the SMEFT at the scale @f$\mu = M_{\rm VLQ}@f$, exactly in
+ * @f$\epsilon=\mu/M@f$ (dimension-six truncation only).
+ * @details The UV parameters are sampled directly. At @f$\Lambda_{\rm NP}=M_{\rm VLQ}@f$ the model
+ * - replaces the SMEFT Yukawa matrices of RGESolver with those of the chain model, so that quark
+ *   masses and CKM matrix are predictions (NPSMEFTd6General::PostUpdate() rediagonalizes the
+ *   quark mass matrices at the electroweak scale and sets masses and CKM from them);
+ * - sets the non-vanishing dimension-six coefficients
  * @f[
- * C_{Hq}^{(1)} = \frac{M^2}{4}(\hat C_U-\hat C_D),\quad
- * C_{Hq}^{(3)} = -\frac{M^2}{4}(\hat C_U+\hat C_D),\quad
- * C_{uH} = \frac{M^2}{2}\hat C_U\mathcal Y_u^\dagger,\quad
- * C_{dH} = \frac{M^2}{2}\hat C_D\mathcal Y_d^\dagger ,
+ * C_{Hq}^{(1)} = \tfrac14(\hat C_U-\hat C_D),\quad
+ * C_{Hq}^{(3)} = -\tfrac14(\hat C_U+\hat C_D),\quad
+ * C_{uH} = \tfrac12\hat C_U\hat Y_u,\quad
+ * C_{dH} = \tfrac12\hat C_D\hat Y_d .
  * @f]
- * All other Wilson coefficients vanish at the matching scale. No *_LNP input is accepted.
- * The top-Yukawa enhanced running into @f$\Delta F=2@f$ operators is obtained with RGEci = true
- * (flag of %NPSMEFTd6General). Contributions quadratic in @f$\hat C@f$ (one-loop VLQ boxes,
- * double Z exchange) are not included.
+ * Conventions (chain_flavor_matching notes): @f$\mathcal L\supset-\bar q\tilde H\hat Y_uu-\bar qH\hat Y_dd+{\rm h.c.}@f$,
+ * i.e. @f$\hat Y@f$ has the doublet index first. RGESolver stores the hermitian conjugate,
+ * @f$\mathcal Y=\hat Y^\dagger@f$ (right-handed row, left-handed column). The flavour basis is
+ * the chain basis, which is the UP basis of the SMEFT (@f$\hat Y_u@f$ diagonal); the right-handed
+ * down quarks are canonically normalized with a Cholesky factor. Yuhat, Ydhat, Cuhat, Cdhat are
+ * stored in units such that Cuhat, Cdhat @f$=M^2\hat C@f$ are dimensionless, which with
+ * @f$\Lambda_{\rm NP}=M_{\rm VLQ}@f$ are directly the *_LNP inputs of %NPSMEFTd6General.
+ * Contributions quadratic in @f$\hat C@f$ (one-loop VLQ boxes, double Z exchange) are not included.
  *
  * @anchor NPSMEFTd6flavchainParameters
  * <h3>Model parameters</h3>
  * <table class="model">
  * <tr><th>Label</th><th>Description</th></tr>
- * <tr><td>MVLQ</td><td>Common mass of the vector-like quarks in GeV; it is also the matching scale (Lambda_NP).</td></tr>
- * <tr><td>lamu1, lamu2</td><td>Light-heavy couplings of q1, q2 to the first sites of the up-type chains.</td></tr>
- * <tr><td>lamd1, lamd2, lamd3</td><td>Light-heavy couplings of q1, q2, q3 to the first sites of the down-type chains.</td></tr>
- * <tr><td>eps</td><td>Ratio mu/M of the hopping masses, used only with MinimalCouplings = true.</td></tr>
- * <tr><td>deltaU2u, deltaU2d</td><td>Relative U(2) breaking, \f$\hat C_{22}=\hat C_{11}(1-\delta)\f$, used only with U2 = true.</td></tr>
+ * <tr><td>MVLQ</td><td>Common VLQ mass in GeV; it is also the matching scale (Lambda_NP = MVLQ).</td></tr>
+ * <tr><td>eps</td><td>Hopping parameter @f$\epsilon=\mu/M@f$.</td></tr>
+ * <tr><td>lamu1, lamu2</td><td>Couplings of q1, q2 to the first site of the up chains (B5, B2).</td></tr>
+ * <tr><td>lamd1, lamd2, lamd3</td><td>Couplings of q1, q2, q3 to the first site of the down chains (B4, B4, B1).</td></tr>
+ * <tr><td>x1u, x2u</td><td>Mixings of the last up sites with u1, u2.</td></tr>
+ * <tr><td>x1d ... x6d</td><td>Mixings of the down sites with the light singlets: chain 1 site 4 to d2 (x1d) and d3 (x2d e^{i phi});
+ * chain 2 site 3 to d2 (x3d) and d3 (x4d); chain 2 site 4 to d1 (x5d); chain 3 site 1 to d3 (x6d).</td></tr>
+ * <tr><td>phi</td><td>The physical phase of the down-sector chain loop.</td></tr>
+ * <tr><td>Ytop</td><td>Elementary top Yukawa coupling at MVLQ.</td></tr>
  * </table>
  *
  * <h3>Model flags</h3>
@@ -57,15 +62,15 @@
 class NPSMEFTd6flavchain : public NPSMEFTd6General {
 public:
 
-    static const int NNPSMEFTd6flavchainVars = 9;
+    static const int NNPSMEFTd6flavchainVars = 17;
 
     static const std::string NPSMEFTd6flavchainVars[NNPSMEFTd6flavchainVars];
 
     NPSMEFTd6flavchain();
 
     /**
-     * @brief Computes the couplings and sets the non-vanishing Wilson coefficients of
-     * %NPSMEFTd6General before calling NPSMEFTd6General::PostUpdate().
+     * @brief Computes the chain-model matrices, replaces the SMEFT Yukawas at MVLQ and sets the
+     * non-vanishing Wilson coefficients, then calls NPSMEFTd6General::PostUpdate().
      */
     virtual bool PostUpdate() override;
 
@@ -78,12 +83,11 @@ public:
      */
     virtual bool setFlagStr(const std::string name, const std::string value) override;
 
-    /** @brief The couplings actually used in the matching (after the U2/MinimalCouplings options). */
-    double getlamu1_eff() const { return lamu1_eff; }
-    double getlamu2_eff() const { return lamu2_eff; }
-    double getlamd1_eff() const { return lamd1_eff; }
-    double getlamd2_eff() const { return lamd2_eff; }
-    double getlamd3_eff() const { return lamd3_eff; }
+    /** @brief Matrices at MVLQ in the chain (= UP) basis, notes conventions. */
+    const gslpp::matrix<gslpp::complex>& getYuhat() const { return Yuhat; }
+    const gslpp::matrix<gslpp::complex>& getYdhat() const { return Ydhat; }
+    const gslpp::matrix<gslpp::complex>& getCuhat() const { return Cuhat; }
+    const gslpp::matrix<gslpp::complex>& getCdhat() const { return Cdhat; }
 
 protected:
 
@@ -92,32 +96,26 @@ protected:
     const char* matchingScaleInputAlias() const override { return "MVLQ"; }
 
     // Input parameters, set from the configuration file
-    double MVLQ; ///< Common vector-like quark mass and matching scale [GeV].
-    double lamu1, lamu2; ///< Up-type light-heavy couplings.
-    double lamd1, lamd2, lamd3; ///< Down-type light-heavy couplings.
-    double eps; ///< mu/M, used only with MinimalCouplings.
-    double deltaU2u, deltaU2d; ///< Relative U(2) breaking of Chat_22, used only with U2.
+    double MVLQ = 0.; ///< Common vector-like quark mass and matching scale [GeV].
+    double lamu1 = 0., lamu2 = 0.; ///< Up-type light-heavy couplings.
+    double lamd1 = 0., lamd2 = 0., lamd3 = 0.; ///< Down-type light-heavy couplings.
+    double eps = 0.; ///< mu/M, used only with MinimalCouplings.
+    double xu1 = 0., xu2 = 0.; ///< Hopping coefficients of the up-type chains, used only with MinimalCouplings.
+    double xd1 = 0., xd2 = 0., xd3 = 0., xd4 = 0., xd5 = 0., xd6 = 0.; ///< Hopping coefficients of the down-type chains, used only with MinimalCouplings.
+    double phi = 0.; ///< Phase of the down-type chain
+    double Ytop = 0.; ///< Top Yukawa coupling.
 
-    // Derived quantities (can be used as observables through ModelParameter)
-    double lamu1_eff, lamu2_eff, lamd1_eff, lamd2_eff, lamd3_eff;
-    double ChatU11, ChatU22; ///< Diagonal of M^2 Chat_U (UP basis).
-    double ChatD11, ChatD22, ChatD33; ///< Diagonal of M^2 Chat_D (UP basis).
-
-    /**
-     * @brief Sets the effective couplings according to the flags.
-     * @param[in] Yu, Yd the RGESolver Yukawa matrices at MVLQ in the UP basis
-     */
-    void computeCouplings(const gslpp::matrix<gslpp::complex>& Yu, const gslpp::matrix<gslpp::complex>& Yd);
+    gslpp::matrix<gslpp::complex> Yuhat, Ydhat; ///< Yukawa matrices at MVLQ (doublet index first).
+    gslpp::matrix<gslpp::complex> Cuhat, Cdhat; ///< M^2 Chat_U, M^2 Chat_D at MVLQ (dimensionless, hermitian).
 
     /**
-     * @brief Sets the non-vanishing *_LNP coefficients of %NPSMEFTd6General.
+     * @brief Computes Yuhat, Ydhat, Cuhat, Cdhat exactly in eps (chain_flavor_matching notes, Sects. 5-6).
      */
-    void setChainWilsonCoefficients(const gslpp::matrix<gslpp::complex>& Yu, const gslpp::matrix<gslpp::complex>& Yd);
+    void computeMatrices();
 
 private:
 
     bool flag_U2; ///< U(2)_q limit.
-    bool flag_minimal; ///< Minimal couplings from eps.
 
 };
 
