@@ -57,6 +57,7 @@ T_cache(5, 0.)
     mPsi2S = 3.6861;
     mPsi2S2 = mPsi2S * mPsi2S;
     mD2 = 1.8648 * 1.8648;
+    mtau2 = 0.; /* set in updateParameters() for the neutrino modes only, compared in checkCache() for all modes */
 
     I0_updated = 0;
     I1_updated = 0;
@@ -95,6 +96,7 @@ T_cache(5, 0.)
     //    w_DTPPR = gsl_integration_cquad_workspace_alloc (100);
     w_sigmaTree = gsl_integration_cquad_workspace_alloc(100);
     w_delta = gsl_integration_cquad_workspace_alloc(100);
+    w_QCDF = gsl_integration_cquad_workspace_alloc(100);
 
     acc_Re_T_perp = gsl_interp_accel_alloc();
     acc_Im_T_perp = gsl_interp_accel_alloc();
@@ -881,7 +883,8 @@ void MVll::updateParameters()
     if (vectorM == QCD::PHI) {
         const double newYs = mySM.getMesons(QCD::B_S).getDgamma_gamma() / 2.;
         const double newXs = mySM.getOptionalParameter("xs_phi");
-        // The mixing terms in Sigma use ys, while those in Delta use xs and ys squared.
+        // The mixing terms in Sigma use ys. The Delta caches are still reset when xs or ys squared change,
+        // although the untagged B_s -> phi Delta_i no longer depend on them (see getDelta5()).
         sigmaMixingChanged = newYs != ys;
         deltaMixingChanged = newXs != xs || newYs * newYs != ys * ys;
         ys = newYs;
@@ -913,12 +916,12 @@ void MVll::updateParameters()
     if (I10_updated == 0 || deltaMixingChanged) for (it = delta10Cached.begin(); it != delta10Cached.end(); ++it) it->second = 0;
     if (I11_updated == 0 || deltaMixingChanged) for (it = delta11Cached.begin(); it != delta11Cached.end(); ++it) it->second = 0;
 
-    if (Itree_updated) for (it = sigmaTreeCached.begin(); it != sigmaTreeCached.end(); ++it) it->second = 0;
+    if (Itree_updated == 0) for (it = sigmaTreeCached.begin(); it != sigmaTreeCached.end(); ++it) it->second = 0;
 
     std::map<double, unsigned int >::iterator iti;
     if (deltaTparpupdated == 0) for (iti = deltaTparpCached.begin(); iti != deltaTparpCached.end(); ++iti) iti->second = 0;
     if (deltaTparmupdated == 0) for (iti = deltaTparmCached.begin(); iti != deltaTparmCached.end(); ++iti) iti->second = 0;
-    if (deltaTperpupdated == 0) for (iti = deltaTparpCached.begin(); iti != deltaTparpCached.end(); ++iti) iti->second = 0;
+    if (deltaTperpupdated == 0) for (iti = deltaTperpCached.begin(); iti != deltaTperpCached.end(); ++iti) iti->second = 0;
 
     if (deltaTparpupdated * deltaTparmupdated == 0) for (it = I1Cached.begin(); it != I1Cached.end(); ++it) it->second = 0;
 
@@ -2206,7 +2209,7 @@ double MVll::integrateQCDF(const gsl_function& f)
 {
     if (!qcdfReady) return std::numeric_limits<double>::quiet_NaN();
     double result, error;
-    const int status = gsl_integration_cquad(&f, 0., 1., 1.e-2, 1.e-1, w_sigma, &result, &error, NULL);
+    const int status = gsl_integration_cquad(&f, 0., 1., 1.e-2, 1.e-1, w_QCDF, &result, &error, NULL);
     qcdfReady = status == GSL_SUCCESS && std::isfinite(result);
     return qcdfReady ? result : std::numeric_limits<double>::quiet_NaN();
 }
@@ -2214,29 +2217,29 @@ double MVll::integrateQCDF(const gsl_function& f)
 double MVll::T_perp_real(double q2, bool conjugate)
 {
     auto T_perp_realCallback = bind(&MVll::T_perp_real, this, q2, _1, conjugate);
-    FS = convertToGslFunction(T_perp_realCallback);
-    return integrateQCDF(FS);
+    gsl_function F = convertToGslFunction(T_perp_realCallback);
+    return integrateQCDF(F);
 }
 
 double MVll::T_perp_imag(double q2, bool conjugate)
 {
     auto T_perp_imagCallback = bind(&MVll::T_perp_imag, this, q2, _1, conjugate);
-    FS = convertToGslFunction(T_perp_imagCallback);
-    return integrateQCDF(FS);
+    gsl_function F = convertToGslFunction(T_perp_imagCallback);
+    return integrateQCDF(F);
 }
 
 double MVll::T_para_real(double q2, bool conjugate)
 {
     auto T_para_realCallback = bind(&MVll::T_para_real, this, q2, _1, conjugate);
-    FS = convertToGslFunction(T_para_realCallback);
-    return integrateQCDF(FS);
+    gsl_function F = convertToGslFunction(T_para_realCallback);
+    return integrateQCDF(F);
 }
 
 double MVll::T_para_imag(double q2, bool conjugate)
 {
     auto T_para_imagCallback = bind(&MVll::T_para_imag, this, q2, _1, conjugate);
-    FS = convertToGslFunction(T_para_imagCallback);
-    return integrateQCDF(FS);
+    gsl_function F = convertToGslFunction(T_para_imagCallback);
+    return integrateQCDF(F);
 }
 
 double MVll::QCDF_fit_func(double* x, double* p)
@@ -2386,11 +2389,19 @@ gslpp::complex MVll::T_minus(double q2, bool conjugate)
         return 0.;
     else {
     #if COMPUTECP && SPLINE 
-        if (!conjugate) return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp, q2, acc_Im_T_perp));
-        else return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp_conj, q2, acc_Re_T_perp_conj) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp_conj, q2, acc_Im_T_perp_conj));
+        if (!conjugate && q2 >= spline_Re_T_perp->x[0] && q2 <= spline_Re_T_perp->x[spline_Re_T_perp->size - 1])
+            return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp, q2, acc_Im_T_perp));
+        if (conjugate && q2 >= spline_Re_T_perp_conj->x[0] && q2 <= spline_Re_T_perp_conj->x[spline_Re_T_perp_conj->size - 1])
+            return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp_conj, q2, acc_Re_T_perp_conj) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp_conj, q2, acc_Im_T_perp_conj));
     #elif SPLINE
-        return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp, q2, acc_Im_T_perp));
+        if (q2 >= spline_Re_T_perp->x[0] && q2 <= spline_Re_T_perp->x[spline_Re_T_perp->size - 1])
+            return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (gsl_spline_eval(spline_Re_T_perp, q2, acc_Re_T_perp) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_perp, q2, acc_Im_T_perp));
     #endif     
+    #if SPLINE
+        /* Outside the spline grid (q2 > 8.91 GeV^2 or q2 < 0.001 GeV^2), where gsl_spline_eval returns NaN, use the
+         * function the spline interpolates, as deltaC7_QCDF and deltaC9_QCDF do. */
+        return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (T_perp_real(q2, conjugate) + gslpp::complex::i() * T_perp_imag(q2, conjugate));
+    #endif
 
     #if COMPUTECP  && !SPLINE
         if (!conjugate) return -2. * MM * mb_pole / q2 * (1. - q2 / MM2) * (QCDF_fit_func(&q2, const_cast<double *> (Re_T_perp_res->GetParams())) + gslpp::complex::i() * QCDF_fit_func(&q2, const_cast<double *> (Im_T_perp_res->GetParams())));
@@ -2408,10 +2419,17 @@ gslpp::complex MVll::T_0(double q2, bool conjugate)
         return 0.;
     else {
     #if COMPUTECP && SPLINE
-        if (!conjugate) return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para, q2, acc_Im_T_para));
-        else return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para_conj, q2, acc_Re_T_para_conj) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para_conj, q2, acc_Im_T_para_conj));
+        if (!conjugate && q2 >= spline_Re_T_para->x[0] && q2 <= spline_Re_T_para->x[spline_Re_T_para->size - 1])
+            return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para, q2, acc_Im_T_para));
+        if (conjugate && q2 >= spline_Re_T_para_conj->x[0] && q2 <= spline_Re_T_para_conj->x[spline_Re_T_para_conj->size - 1])
+            return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para_conj, q2, acc_Re_T_para_conj) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para_conj, q2, acc_Im_T_para_conj));
     #elif SPLINE
-        return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para, q2, acc_Im_T_para));
+        if (q2 >= spline_Re_T_para->x[0] && q2 <= spline_Re_T_para->x[spline_Re_T_para->size - 1])
+            return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (gsl_spline_eval(spline_Re_T_para, q2, acc_Re_T_para) + gslpp::complex::i() * gsl_spline_eval(spline_Im_T_para, q2, acc_Im_T_para));
+    #endif
+    #if SPLINE
+        /* Outside the spline grid, use the function the spline interpolates (see T_minus). */
+        return -(1. - q2 / MM2)* (1. - q2 / MM2) * MM * mb_pole / sqrt(q2) * (T_para_real(q2, conjugate) + gslpp::complex::i() * T_para_imag(q2, conjugate));
     #endif
 
     #if COMPUTECP && !SPLINE
@@ -2643,7 +2661,7 @@ gslpp::complex MVll::h_lambda(int hel, double q2)
     } else {
         if (h_pole == true) return SU3_breaking * (h_0[hel]+(1. - h_2[hel]) * q2 * (h_1[hel] - h_0[hel]) / (q2 - h_2[hel]));
         else if (hel == 1) return SU3_breaking * (h_0[1] + h_1[1] * q2 + h_2[1] * q2 * q2 + (twoMboMM * h_0[2] * T_p(q2) + h_1[2] * q2 / MM2 * V_p(q2)) / sixteenM_PI2);
-        else if (hel == 2) return SU3_breaking * (twoMboMM * h_0[2] * T_m(q2) + h_1[2] * q2 / MM2 * V_m(q2)) / sixteenM_PI2 + h_2[2] * q2 * q2;
+        else if (hel == 2) return SU3_breaking * ((twoMboMM * h_0[2] * T_m(q2) + h_1[2] * q2 / MM2 * V_m(q2)) / sixteenM_PI2 + h_2[2] * q2 * q2);
         else return SU3_breaking * ((h_0[hel] + h_1[hel] * q2) * sqrt(q2) + (twoMboMM * h_0[2] * T_0t(q2) + h_1[2] * q2 * V_0t(q2) / MM2) / sixteenM_PI2);
     }
 }
@@ -2671,7 +2689,7 @@ double MVll::Delta_C9_zExp(int hel)
                     (1.*a_0A1 + 0.7098414384537659*a_0V)/(1.*a_0A1 + 0.7098414384537659*a_0V) + 
                    (-117.34075946812884*a_0A1 - 35.43498229234759*a_0V + 12.728340172828181*a_1A1 + 9.035103297409211*a_1V)*(beta_1[2].real() + beta_2[2].real())/
                     (1.*a_0A1 + 0.7098414384537659*a_0V)/(1.*a_0A1 + 0.7098414384537659*a_0V) + 
-                   (-79.86709064819027*a_0A1 - 35.702158475408076*a_0V + 5.582687021261181*a_1A1 + 3.962822585609206*a_1V)*(beta_1[3].real() - beta_2[3].real())/
+                   (-79.86709064819027*a_0A1 - 35.702158475408076*a_0V + 5.582687021261181*a_1A1 + 3.962822585609206*a_1V)*(beta_1[3].real() + beta_2[3].real())/
                     (1.*a_0A1 + 0.7098414384537659*a_0V)/(1.*a_0A1 + 0.7098414384537659*a_0V);
 }
 
@@ -2679,7 +2697,7 @@ gslpp::complex MVll::H_V_0(double q2, bool bar)
 {
     updateParameters();
     if (!qcdfReady) return std::numeric_limits<double>::quiet_NaN();
-    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar, SPLINE) /*+ fDeltaC9_0(q2)*/ + Y(q2)) - etaV * pow(-1, angmomV) * C_9p) * V_0t(q2) + T_0(q2, !bar) + MM2 / q2 * (twoMboMM * (C_7 + deltaC7_QCDF(q2, !bar, SPLINE) - etaV * pow(-1, angmomV) * C_7p) * T_0t(q2) - sixteenM_PI2 * h_lambda(0, q2)));
+    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_0(q2)*/ + Y(q2)) - etaV * pow(-1, angmomV) * C_9p) * V_0t(q2) + T_0(q2, bar) + MM2 / q2 * (twoMboMM * (C_7 + deltaC7_QCDF(q2, bar, SPLINE) - etaV * pow(-1, angmomV) * C_7p) * T_0t(q2) - sixteenM_PI2 * h_lambda(0, q2)));
     return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_0(q2)*/ + Y(q2)) - etaV * pow(-1, angmomV) * C_9p.conjugate()) * V_0t(q2) + T_0(q2, bar) + MM2 / q2 * (twoMboMM * (C_7.conjugate() + deltaC7_QCDF(q2, bar, SPLINE) - etaV * pow(-1, angmomV) * C_7p.conjugate()) * T_0t(q2) - sixteenM_PI2 * h_lambda(0, q2)));
 }
 
@@ -2687,7 +2705,7 @@ gslpp::complex MVll::H_V_p(double q2, bool bar)
 {
     updateParameters();
     if (!qcdfReady) return std::numeric_limits<double>::quiet_NaN();
-    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar, SPLINE) /*+ fDeltaC9_p(q2)*/ + Y(q2)) * V_p(q2) - etaV * pow(-1, angmomV) * C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * ((C_7 + deltaC7_QCDF(q2, !bar, SPLINE)) * T_p(q2) - etaV * pow(-1, angmomV) * C_7p * T_m(q2)) - sixteenM_PI2 * h_lambda(1, q2)));
+    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_p(q2)*/ + Y(q2)) * V_p(q2) - etaV * pow(-1, angmomV) * C_9p * V_m(q2)) + MM2 / q2 * (twoMboMM * ((C_7 + deltaC7_QCDF(q2, bar, SPLINE)) * T_p(q2) - etaV * pow(-1, angmomV) * C_7p * T_m(q2)) - sixteenM_PI2 * h_lambda(1, q2)));
     return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_p(q2)*/ + Y(q2)) * V_p(q2) - etaV * pow(-1, angmomV) * C_9p.conjugate() * V_m(q2)) + MM2 / q2 * (twoMboMM * ((C_7.conjugate() + deltaC7_QCDF(q2, bar, SPLINE)) * T_p(q2) - etaV * pow(-1, angmomV) * C_7p.conjugate() * T_m(q2)) - sixteenM_PI2 * h_lambda(1, q2)));
 }
 
@@ -2695,7 +2713,7 @@ gslpp::complex MVll::H_V_m(double q2, bool bar)
 {
     updateParameters();
     if (!qcdfReady) return std::numeric_limits<double>::quiet_NaN();
-    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, !bar, SPLINE) /*+ fDeltaC9_m(q2)*/ + Y(q2)) * V_m(q2) - etaV * pow(-1, angmomV) * C_9p * V_p(q2)) + T_minus(q2, !bar) + MM2 / q2 * (twoMboMM * ((C_7 + deltaC7_QCDF(q2, !bar, SPLINE)) * T_m(q2) - etaV * pow(-1, angmomV) * C_7p * T_p(q2)) - sixteenM_PI2 * h_lambda(2, q2)));
+    if (!bar) return -gslpp::complex::i() * NN * (((C_9 + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_m(q2)*/ + Y(q2)) * V_m(q2) - etaV * pow(-1, angmomV) * C_9p * V_p(q2)) + T_minus(q2, bar) + MM2 / q2 * (twoMboMM * ((C_7 + deltaC7_QCDF(q2, bar, SPLINE)) * T_m(q2) - etaV * pow(-1, angmomV) * C_7p * T_p(q2)) - sixteenM_PI2 * h_lambda(2, q2)));
     return -gslpp::complex::i() * NN_conjugate * (((C_9.conjugate() + deltaC9_QCDF(q2, bar, SPLINE) /*+ fDeltaC9_m(q2)*/ + Y(q2)) * V_m(q2) - etaV * pow(-1, angmomV) * C_9p.conjugate() * V_p(q2)) + T_minus(q2, bar) + MM2 / q2 * (twoMboMM * ((C_7.conjugate() + deltaC7_QCDF(q2, bar, SPLINE)) * T_m(q2) - etaV * pow(-1, angmomV) * C_7p.conjugate() * T_p(q2)) - sixteenM_PI2 * h_lambda(2, q2)));
 }
 
@@ -2745,6 +2763,7 @@ gslpp::complex MVll::H_0_nunu(double q2, bool bar, QCD::lepton lep)
         if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu_tau - etaV * pow(-1, angmomV) * C_R_nunu_tau) * V_0t(q2);
         return -gslpp::complex::i() * NN_conjugate * (C_L_nunu_tau.conjugate() - etaV * pow(-1, angmomV) * C_R_nunu_tau.conjugate()) * V_0t(q2);
     } 
+    throw std::runtime_error("MVll::H_0_nunu: lepton must be a neutrino");
 }
 
 gslpp::complex MVll::H_p_nunu(double q2, bool bar, QCD::lepton lep)
@@ -2759,6 +2778,7 @@ gslpp::complex MVll::H_p_nunu(double q2, bool bar, QCD::lepton lep)
         if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu_tau * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu_tau * V_m(q2));
         return -gslpp::complex::i() * NN_conjugate * (C_L_nunu_tau.conjugate() * V_p(q2) - etaV * pow(-1, angmomV) * C_R_nunu_tau.conjugate() * V_m(q2));
     } 
+    throw std::runtime_error("MVll::H_p_nunu: lepton must be a neutrino");
 }
 
 gslpp::complex MVll::H_m_nunu(double q2, bool bar, QCD::lepton lep)
@@ -2773,6 +2793,7 @@ gslpp::complex MVll::H_m_nunu(double q2, bool bar, QCD::lepton lep)
         if (!bar) return -gslpp::complex::i() * NN * (C_L_nunu_tau * V_m(q2) - etaV * pow(-1, angmomV) * C_R_nunu_tau * V_p(q2));
         return -gslpp::complex::i() * NN_conjugate * (C_L_nunu_tau.conjugate() * V_m(q2) - etaV * pow(-1, angmomV) * C_R_nunu_tau.conjugate() * V_p(q2));
     } 
+    throw std::runtime_error("MVll::H_m_nunu: lepton must be a neutrino");
 }
 
 gslpp::complex MVll::AmpMVpsi_zExpansion(double mpsi, int tran)

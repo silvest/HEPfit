@@ -16,6 +16,7 @@
 #include "AmpDB2.h"
 #include <boost/bind/bind.hpp>
 #include <limits>
+#include <cmath>
 #include <gsl/gsl_sf_zeta.h>
 #include <gsl/gsl_sf_gegenbauer.h>
 using namespace boost::placeholders;
@@ -503,11 +504,12 @@ void MVgamma::updateParameters()
         allcoeff_noSM = SM.getFlavour().ComputeCoeffsgamma(mu_b, true); //check the mass scale, scheme fixed to NDR
         C_7 = SM.getOptionalParameter("C7_SM") + ((*(allcoeff_noSM[LO]))(6) + (*(allcoeff_noSM[NLO]))(6));
     }
-    else C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6)););
+    else C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
     C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
     /* Done in the dirty way to remove from the effective basis since the effective C7p does not involve the non-primed C_1 to C_6.*/
     C_7p -= ms_over_mb * (C_7 + 1. / 3. * C_3 + 4. / 9. * C_4 + 20. / 3. * C_5 + 80. / 9. * C_6);
 #endif    
+    bool integrationsOK = true;
     if (zExpansion) {
         DC7_QCDF = 0.;
         DC7_QCDF_bar = 0.;
@@ -521,25 +523,32 @@ void MVgamma::updateParameters()
         
         ScopedGslErrorHandlerOff handlerGuard;
         
+        // As in MVll/MPll since #31: a failed or non-finite quadrature gives NaN (and is not overwritten)
+        // and keeps the update flag set, so that the same point is computed again on the next call.
+        auto integrate = [&]() {
+            if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != GSL_SUCCESS
+                    || !std::isfinite(average)) {
+                integrationsOK = false;
+                return std::numeric_limits<double>::quiet_NaN();
+            }
+            return average;
+        };
+        
         auto getT_perp_integrand_realCallback = bind(&MVgamma::getT_perp_integrand_real, this, _1);
         f_GSL = convertToGslFunction(getT_perp_integrand_realCallback);
-        if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_real = std::numeric_limits<double>::quiet_NaN();
-        T_perp_real = average;
+        T_perp_real = integrate();
         
         auto getT_perp_integrand_imagCallback = bind(&MVgamma::getT_perp_integrand_imag, this, _1);
         f_GSL = convertToGslFunction(getT_perp_integrand_imagCallback);
-        if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_imag = std::numeric_limits<double>::quiet_NaN();
-        T_perp_imag = average;
+        T_perp_imag = integrate();
         
         auto getT_perp_bar_integrand_realCallback = bind(&MVgamma::getT_perp_bar_integrand_real, this, _1);
         f_GSL = convertToGslFunction(getT_perp_bar_integrand_realCallback);
-        if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_bar_real = std::numeric_limits<double>::quiet_NaN();
-        T_perp_bar_real = average;
+        T_perp_bar_real = integrate();
         
         auto getT_perp_bar_integrand_imagCallback = bind(&MVgamma::getT_perp_bar_integrand_imag, this, _1);
         f_GSL = convertToGslFunction(getT_perp_bar_integrand_imagCallback);
-        if (gsl_integration_cquad(&f_GSL, 0., 1., 1.e-2, 1.e-1, w_GSL, &average, &error, NULL) != 0) T_perp_bar_imag = std::numeric_limits<double>::quiet_NaN();
-        T_perp_bar_imag = average;
+        T_perp_bar_imag = integrate();
     }
 
     s_p = 4. * mD2;
@@ -548,7 +557,7 @@ void MVgamma::updateParameters()
     Q2 = - Mb*Mb;
     chiOPE = 0.000181;
     
-    SM.getFlavour().setUpdateFlag(meson, vectorM, QCD::NOLEPTON, false);
+    if (integrationsOK) SM.getFlavour().setUpdateFlag(meson, vectorM, QCD::NOLEPTON, false);
     
 }
 
@@ -818,6 +827,7 @@ gslpp::complex MVgamma::h_lambda(int hel)
         out << hel;
         throw std::runtime_error("MVgamma: hel " + out.str() + " not implemented, can only be 1 (+) or 2 (-)");
     }
+    throw std::runtime_error("MVgamma::h_lambda: only implemented for the dispersion or zExpansion parametrization");
 }
 
 gslpp::complex MVgamma::H_V_m()

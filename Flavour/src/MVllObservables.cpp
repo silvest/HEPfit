@@ -413,7 +413,9 @@ double P3CP::computeThValue()
     double q_min = getBinMin();
     double q_max = getBinMax();
 
-    return - SM.getFlavour().getMVll(meson, vectorM, lep).integrateDelta(11,q_min,q_max)/(4.*SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(3,q_min,q_max));
+    double P3CP_theory = - SM.getFlavour().getMVll(meson, vectorM, lep).integrateDelta(11,q_min,q_max)/(4.*SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(3,q_min,q_max));
+
+    return -P3CP_theory; /* LHCb convention, as P_3 */
 }
 
 
@@ -642,7 +644,7 @@ double S_6c::computeThValue()
     double q_min = getBinMin();
     double q_max = getBinMax();
 
-    return SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(8,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
+    return -SM.getFlavour().getMVll(meson, vectorM, lep).integrateSigma(8,q_min,q_max) / computeGammaPrime(q_min, q_max, lep); /* LHCb convention, as A_FB */
 }
 
 
@@ -762,7 +764,7 @@ double A_6c::computeThValue()
     double q_min = getBinMin();
     double q_max = getBinMax();
 
-    return SM.getFlavour().getMVll(meson, vectorM, lep).integrateDelta(8,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
+    return -SM.getFlavour().getMVll(meson, vectorM, lep).integrateDelta(8,q_min,q_max) / computeGammaPrime(q_min, q_max, lep); /* LHCb convention, as S_6c */
 }
 
 
@@ -802,7 +804,7 @@ double A_9::computeThValue()
     double q_min = getBinMin();
     double q_max = getBinMax();
 
-    return SM.getFlavour().getMVll(meson, vectorM, lep).integrateDelta(11,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
+    return -SM.getFlavour().getMVll(meson, vectorM, lep).integrateDelta(11,q_min,q_max) / computeGammaPrime(q_min, q_max, lep); /* LHCb convention, as S_9 */
 }
 
 V0::V0(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson vector_i, QCD::lepton lep_i)
