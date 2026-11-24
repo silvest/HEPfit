@@ -863,9 +863,7 @@ double MVlnu::V(double q2)
 
 double MVlnu::A0(double q2)
 {
-    double w = w0 - q2 / (2. * MM * MV);
-    // A0 = RV * P1 = R0 * A1
-    if (CLNflag) return R0(q2) * (w + 1.) * RV / 2. * hA1(q2);
+    if (CLNflag) return R0(q2) * hA1(q2) / RV;
     // F2 = P1 / (RV / 2.)
     else if (BGLflag) return F2_BGL(q2) / 2.;
     else if (DMflag) {
