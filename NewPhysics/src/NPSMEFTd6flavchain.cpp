@@ -11,7 +11,7 @@
 #include <stdexcept>
 
 const std::string NPSMEFTd6flavchain::NPSMEFTd6flavchainVars[NNPSMEFTd6flavchainVars] = {
-    "MVLQ", "lamu1", "lamu2", "lamd1", "lamd2", "lamd3", "eps", 
+    "Lambda_NP", "MVLQ", "lamu1", "lamu2", "lamd1", "lamd2", "lamd3", "eps",
     "x1u", "x2u", "x1d", "x2d", "x3d", "x4d", "x5d", "x6d", "phi", "Ytop"
 };
 
@@ -245,7 +245,7 @@ bool NPSMEFTd6flavchain::setFlagStr(const std::string name, const std::string va
 
 bool NPSMEFTd6flavchain::CheckParameters(const std::map<std::string, double>& DPars)
 {
-    std::vector<std::string> mandatory = {"MVLQ", "lamu1", "lamu2", "lamd1", "lamd2", "lamd3", "eps", 
+    std::vector<std::string> mandatory = {"Lambda_NP", "MVLQ", "lamu1", "lamu2", "lamd1", "lamd2", "lamd3", "eps",
         "x1u", "x2u", "x1d", "x2d", "x3d", "x4d", "x5d", "x6d", "phi", "Ytop"};
 
 
@@ -261,7 +261,10 @@ bool NPSMEFTd6flavchain::CheckParameters(const std::map<std::string, double>& DP
 
 void NPSMEFTd6flavchain::computeMatrices()
 {
-    chainMatching(eps, lamu1, lamu2, lamd1, lamd2, lamd3, xu1, xu2, xd1, xd2, xd3, xd4, xd5, xd6, phi, Ytop,
+    // U(2)_q limit: lamu2 = lamu1, lamd2 = lamd1
+    const double lu2 = flag_U2 ? lamu1 : lamu2;
+    const double ld2 = flag_U2 ? lamd1 : lamd2;
+    chainMatching(eps, lamu1, lu2, lamd1, ld2, lamd3, xu1, xu2, xd1, xd2, xd3, xd4, xd5, xd6, phi, Ytop,
             Yuhat, Ydhat, Cuhat, Cdhat);
 }
 
@@ -271,8 +274,8 @@ bool NPSMEFTd6flavchain::PostUpdate()
 {
     if (SMEFTBasisFlag.compare("UP") != 0)
         throw std::runtime_error("NPSMEFTd6flavchain::PostUpdate(): SMEFTBasisFlag must be UP");
-    if (!(MVLQ > 0.) || !(eps > 0.)) {
-        std::cout << "ERROR: NPSMEFTd6flavchain requires MVLQ > 0 and eps > 0" << std::endl;
+    if (!(MVLQ > 0.) || !(eps > 0.) || !(Lambda_NP > 0.)) {
+        std::cout << "ERROR: NPSMEFTd6flavchain requires Lambda_NP > 0, MVLQ > 0 and eps > 0" << std::endl;
         return (false);
     }
 
@@ -290,32 +293,36 @@ bool NPSMEFTd6flavchain::PostUpdate()
             SMEFTEvolEW.SetCoefficient("YdI", i, j,-Ydhat(j, i).imag());
         }
 
-   // Coefficients in units of 1/Lambda_NP^2 with Lambda_NP = MVLQ: Cuhat, Cdhat = M^2 Chat
-    const gslpp::matrix<gslpp::complex> CuH = Cuhat * Yuhat * 0.5;
-    const gslpp::matrix<gslpp::complex> CdH = Cdhat * Ydhat * 0.5;
+    // *_LNP inputs = Lambda_NP^2 C. With M = MVLQ * Lambda_NP and Cuhat, Cdhat = M^2 Chat:
+    // Lambda_NP^2 Chat = Cuhat / MVLQ^2, Cdhat / MVLQ^2
+    const double invMVLQ2 = 1. / (MVLQ * MVLQ);
+    const gslpp::matrix<gslpp::complex> CU = Cuhat * invMVLQ2;
+    const gslpp::matrix<gslpp::complex> CD = Cdhat * invMVLQ2;
+    const gslpp::matrix<gslpp::complex> CuH = CU * Yuhat * 0.5;
+    const gslpp::matrix<gslpp::complex> CdH = CD * Ydhat * 0.5;
 
     // C_Hq^(1) = (Chat_U - Chat_D)/4, C_Hq^(3) = -(Chat_U + Chat_D)/4 (hermitian)
-    CHq1_11r_LNP = 0.25 * (Cuhat(0, 0) - Cdhat(0, 0)).real();
-    CHq1_22r_LNP = 0.25 * (Cuhat(1, 1) - Cdhat(1, 1)).real();
-    CHq1_33r_LNP = 0.25 * (Cuhat(2, 2) - Cdhat(2, 2)).real();
-    CHq1_12r_LNP = 0.25 * (Cuhat(0, 1) - Cdhat(0, 1)).real();
-    CHq1_12i_LNP = 0.25 * (Cuhat(0, 1) - Cdhat(0, 1)).imag();
-    CHq1_13r_LNP = 0.25 * (Cuhat(0, 2) - Cdhat(0, 2)).real();
-    CHq1_13i_LNP = 0.25 * (Cuhat(0, 2) - Cdhat(0, 2)).imag();
-    CHq1_23r_LNP = 0.25 * (Cuhat(1, 2) - Cdhat(1, 2)).real();
-    CHq1_23i_LNP = 0.25 * (Cuhat(1, 2) - Cdhat(1, 2)).imag();
+    CHq1_11r_LNP = 0.25 * (CU(0, 0) - CD(0, 0)).real();
+    CHq1_22r_LNP = 0.25 * (CU(1, 1) - CD(1, 1)).real();
+    CHq1_33r_LNP = 0.25 * (CU(2, 2) - CD(2, 2)).real();
+    CHq1_12r_LNP = 0.25 * (CU(0, 1) - CD(0, 1)).real();
+    CHq1_12i_LNP = 0.25 * (CU(0, 1) - CD(0, 1)).imag();
+    CHq1_13r_LNP = 0.25 * (CU(0, 2) - CD(0, 2)).real();
+    CHq1_13i_LNP = 0.25 * (CU(0, 2) - CD(0, 2)).imag();
+    CHq1_23r_LNP = 0.25 * (CU(1, 2) - CD(1, 2)).real();
+    CHq1_23i_LNP = 0.25 * (CU(1, 2) - CD(1, 2)).imag();
 
-    CHq3_11r_LNP = -0.25 * (Cuhat(0, 0) + Cdhat(0, 0)).real();
-    CHq3_22r_LNP = -0.25 * (Cuhat(1, 1) + Cdhat(1, 1)).real();
-    CHq3_33r_LNP = -0.25 * (Cuhat(2, 2) + Cdhat(2, 2)).real();
-    CHq3_12r_LNP = -0.25 * (Cuhat(0, 1) + Cdhat(0, 1)).real();
-    CHq3_12i_LNP = -0.25 * (Cuhat(0, 1) + Cdhat(0, 1)).imag();
-    CHq3_13r_LNP = -0.25 * (Cuhat(0, 2) + Cdhat(0, 2)).real();
-    CHq3_13i_LNP = -0.25 * (Cuhat(0, 2) + Cdhat(0, 2)).imag();
-    CHq3_23r_LNP = -0.25 * (Cuhat(1, 2) + Cdhat(1, 2)).real();
-    CHq3_23i_LNP = -0.25 * (Cuhat(1, 2) + Cdhat(1, 2)).imag();
+    CHq3_11r_LNP = -0.25 * (CU(0, 0) + CD(0, 0)).real();
+    CHq3_22r_LNP = -0.25 * (CU(1, 1) + CD(1, 1)).real();
+    CHq3_33r_LNP = -0.25 * (CU(2, 2) + CD(2, 2)).real();
+    CHq3_12r_LNP = -0.25 * (CU(0, 1) + CD(0, 1)).real();
+    CHq3_12i_LNP = -0.25 * (CU(0, 1) + CD(0, 1)).imag();
+    CHq3_13r_LNP = -0.25 * (CU(0, 2) + CD(0, 2)).real();
+    CHq3_13i_LNP = -0.25 * (CU(0, 2) + CD(0, 2)).imag();
+    CHq3_23r_LNP = -0.25 * (CU(1, 2) + CD(1, 2)).real();
+    CHq3_23i_LNP = -0.25 * (CU(1, 2) + CD(1, 2)).imag();
 
-    // C_uH = Chat_U Yu^dagger / 2: (C_uH)_ij = CU_i (Yu_ji)^* / 2, diagonal in the UP basis
+    // C_uH = Chat_U Yuhat / 2, C_dH = Chat_D Ydhat / 2 (doublet index first, as the Warsaw C_uH, C_dH;
     CuH_11r_LNP = CuH(0, 0).real();
     CuH_11i_LNP = CuH(0, 0).imag();
     CuH_12r_LNP = CuH(0, 1).real();
