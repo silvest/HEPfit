@@ -160,6 +160,7 @@ namespace {
 
 NPSMEFTd6flavchain::NPSMEFTd6flavchain()
 : NPSMEFTd6General(),
+  Yuhat(3, 3, 0.), Ydhat(3, 3, 0.), Cuhat(3, 3, 0.), Cdhat(3, 3, 0.)
 {
     setModelName("NPSMEFTd6flavchain");
 
@@ -260,7 +261,7 @@ bool NPSMEFTd6flavchain::CheckParameters(const std::map<std::string, double>& DP
 
 void NPSMEFTd6flavchain::computeMatrices()
 {
-    chainMatching(eps, lamu1, lu2, lamd1, ld2, lamd3, xu1, xu2, xd1, xd2, xd3, xd4, xd5, xd6, phi, Ytop,
+    chainMatching(eps, lamu1, lamu2, lamd1, lamd2, lamd3, xu1, xu2, xd1, xd2, xd3, xd4, xd5, xd6, phi, Ytop,
             Yuhat, Ydhat, Cuhat, Cdhat);
 }
 
@@ -283,10 +284,10 @@ bool NPSMEFTd6flavchain::PostUpdate()
 
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++) {
-            SMEFTEvolEW.setCoefficient("YuR", i, j, Yuhat(j, i).real());
-            SMEFTEvolEW.setCoefficient("YuI", i, j,-Yuhat(j, i).imag());
-            SMEFTEvolEW.setCoefficient("YdR", i, j, Ydhat(j, i).real());
-            SMEFTEvolEW.setCoefficient("YdI", i, j,-Ydhat(j, i).imag());
+            SMEFTEvolEW.SetCoefficient("YuR", i, j, Yuhat(j, i).real());
+            SMEFTEvolEW.SetCoefficient("YuI", i, j,-Yuhat(j, i).imag());
+            SMEFTEvolEW.SetCoefficient("YdR", i, j, Ydhat(j, i).real());
+            SMEFTEvolEW.SetCoefficient("YdI", i, j,-Ydhat(j, i).imag());
         }
 
    // Coefficients in units of 1/Lambda_NP^2 with Lambda_NP = MVLQ: Cuhat, Cdhat = M^2 Chat
