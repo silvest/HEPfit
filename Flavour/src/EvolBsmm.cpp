@@ -1113,14 +1113,23 @@ double EvolBsmm::H(unsigned int i, unsigned int p, unsigned int q, unsigned int 
 return (result);
 }
 
+double EvolBsmm::alphatilde_e_Mz() const
+{
+    /* MS-bar alpha_e(M_Z) of the five-flavour effective theory (W, Z and top decoupled), the initial condition
+     * of the running below. model.alphaMz() is the on-shell alpha(M_Z) = alpha/(1 - Delta alpha); the MS-bar
+     * coupling differs by the light-fermion constant (alpha/pi) (5/9) sum_f N_c Q_f^2 = (alpha/pi) 100/27, so
+     * 1/alpha_hat(M_Z) = 1/alpha(M_Z) - 100/(27 pi), i.e. 1/127.75 for 1/alpha(M_Z) = 128.93 (BGS,
+     * arXiv:1311.1348, below Eq. (A9): alpha_e^eff(M_Z) = 1/127.751). */
+    return 1. / (1. / model.alphaMz() - 100. / 27. / M_PI) / 4. / M_PI;
+}
+
 double EvolBsmm::alphatilde_e(double mu)
 
 {     // also the running is only for nf = 5
     
     //double mu_0 = 91.1876;
     double mu_0 = model.getMz();
-    //double alphatilde_e = 1./(127.751 * 4. * M_PI); // alpha_e at mu_0 = 91.1876 Gev
-    double alphatilde_e = model.alphaMz()/4./M_PI;
+    double alphatilde_e = alphatilde_e_Mz();
     //double alphatilde_s = 0.1184/(4.* M_PI); // alpha_s at mu_0 = 91.1876 Gev
     double alphatilde_s = model.getAlsMz()/4./M_PI;
     unsigned int nf = 5;
@@ -1159,8 +1168,7 @@ double EvolBsmm::alphatilde_s(double mu)
     
     //double mu_0 = 91.1876;
     double mu_0 = model.getMz();
-    //double alphatilde_e = 1./(127.751 * 4. * M_PI); // alpha_e at mu_0 = 91.1876 Gev
-    double alphatilde_e = model.alphaMz()/4./M_PI;
+    double alphatilde_e = alphatilde_e_Mz();
     //double alphatilde_s = 0.1184/(4.* M_PI); // alpha_s at mu_0 = 91.1876 Gev
     double alphatilde_s = model.getAlsMz()/4./M_PI;
     unsigned int nf = 5;

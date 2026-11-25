@@ -20,6 +20,8 @@ public:
     gslpp::matrix<double> AnomalousDimension(int gam, unsigned int n_u, unsigned int n_d) const;
     gslpp::matrix<double>& Df1Evol(double mu, double M, orders order, orders_qed order_qed, schemes scheme = NDR);
     double alphatilde_e(double mu);
+    /// MS-bar alpha_e(M_Z)/(4 pi) of the five-flavour effective theory, the initial condition of alphatilde_e and alphatilde_s.
+    double alphatilde_e_Mz() const;
     double alphatilde_s(double mu);
 
 
