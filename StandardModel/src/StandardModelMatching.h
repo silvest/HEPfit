@@ -415,6 +415,13 @@ public:
     const double Rest(double x, double mu) const;
 
     /**
+     * @brief @f$s_W^2 = \pi\hat\alpha_e(\mu_W)/(\sqrt2 G_F M_W^2)@f$ converting the single- to the quadratic-@f$G_F@f$
+     * normalization of the @f$B_q\to\ell^+\ell^-@f$ coefficients (BGS, Eq. (37)), with the five-flavour
+     * @f$\overline{MS}@f$ @f$\hat\alpha_e(\mu_W)@f$.
+     */
+    double sw2Bqll() const;
+
+    /**
      * 
      * @brief approximation of two-loops EW correction for @f$Q_{10}@f$ operator from @cite Bobeth:2013tba
      * @param[in] x the ratio \f$ \frac{m_t^2}{M_W^2} \f$
