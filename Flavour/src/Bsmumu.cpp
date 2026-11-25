@@ -150,10 +150,17 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
                 const gslpp::complex LedVLR = matching->getCedVLR(leptonindex,leptonindex,1,2);
                 const gslpp::complex LedVRR = matching->getCedVRR(leptonindex,leptonindex,1,2);
 
-                C_10 = C_10 + (LdeVLR - LedVLL
-                        + vectorQEDMix * (LdeVLR + LedVLL)) / NPfactor;
-                C_10p = C_10p + (-LedVLR + LedVRR
-                        - vectorQEDMix * (LedVLR + LedVRR)) / NPfactor;
+                /* The JMS coefficients with quark indices (1,2) multiply (sbar ... b) operators, i.e. the
+                 * Bbar_s decay. The SM coefficients of this class (CMbsmm, lambda_t = computelamt_s() = V_ts V_tb^*) and
+                 * M21 refer instead to the (bbar ... s) operators, as CddVLL[2][1][2][1] in NPSMEFTd6GeneralMatching::CMdbs2().
+                 * The NP shifts, built below in the sbar-b convention (JMS -> C10, C_S, C_P dictionary), therefore
+                 * enter the amplitude complex conjugated. The hermitian conjugation maps each shift to its own
+                 * conjugate (the sign of (lbar gamma5 l)^dagger is compensated by P_R <-> P_L in the quark density).
+                 */
+                C_10 = C_10 + ((LdeVLR - LedVLL
+                        + vectorQEDMix * (LdeVLR + LedVLL)) / NPfactor).conjugate();
+                C_10p = C_10p + ((-LedVLR + LedVRR
+                        - vectorQEDMix * (LedVLR + LedVRR)) / NPfactor).conjugate();
 
                 /* JMS also contains T^{RR}_{ed} -> S^{RR}_{ed} QED mixing.
                  * It vanishes for the present tree-level SMEFT matching, but
@@ -175,10 +182,10 @@ void Bsmumu::computeAmpSq(orders order, orders_qed order_qed, double mu)
                 const gslpp::complex LedSRLhc = scalarRunning
                         * matching->getCedSRL(leptonindex,leptonindex,2,1).conjugate();
 
-                C_S = C_S + (LedSRR + LedSRLhc) / NPfactor;
-                C_Sp = C_Sp + (LedSRL + LedSRRhc) / NPfactor;
-                C_P = C_P + (LedSRR - LedSRLhc) / NPfactor;
-                C_Pp = C_Pp + (LedSRL - LedSRRhc) / NPfactor;
+                C_S = C_S + ((LedSRR + LedSRLhc) / NPfactor).conjugate();
+                C_Sp = C_Sp + ((LedSRL + LedSRRhc) / NPfactor).conjugate();
+                C_P = C_P + ((LedSRR - LedSRLhc) / NPfactor).conjugate();
+                C_Pp = C_Pp + ((LedSRL - LedSRRhc) / NPfactor).conjugate();
             }
 
             gslpp::complex CC_P = (C_10 - C_10p + mBs * mBs / ( 2. * mlep * (mb + ms)) * (C_P - C_Pp) );
