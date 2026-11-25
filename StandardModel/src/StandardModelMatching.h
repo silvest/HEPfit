@@ -403,7 +403,13 @@ public:
      * 
      * @brief approximation of two-loops EW correction for @f$Q_{10}@f$ operator
      * in the non-effective Misiak basis, Misiak and Urban @cite Bobeth:2013tba
-     * @param[in] x the square of the ratio between top mass and W mass
+     * @details Numerical fit of the NLO EW matching @f$\tilde c_{10}^{(22)}@f$ of Bobeth, Gorbahn and Stamou in the
+     * quadratic-@f$G_F@f$ normalization with on-shell @f$M_W@f$ (scheme OS-2), as a function of the QCD
+     * @f$\overline{MS}@f$ top mass @f$m_t(\mu)@f$ and of @f$M_W@f$ and @f$\mu@f$ in GeV (it uses SM.Mw() and the
+     * running top mass at @p mu, not @p x). With @f$m_t(m_t) = 163.5@f$ GeV it reproduces the LO + NLO EW band of
+     * @cite Bobeth:2013tba, @f$C_{10}(\mu_0) \in [-8.31, -8.25]\cdot 10^{-8}@f$ GeV@f$^{-2}@f$ for
+     * @f$\mu_0 \in [50, 300]@f$ GeV; its range of validity outside this region has not been documented.
+     * @param[in] x the square of the ratio between top mass and W mass (unused)
      * @param[in] mu the matching scale of the Wilson coefficients
      */
     const double Rest(double x, double mu) const;
