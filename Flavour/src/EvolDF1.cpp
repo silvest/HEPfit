@@ -101,6 +101,8 @@ evalc(blocks_nops.at(reqblocks), 0.)
         for (a = 0; a < nops; a++)
         {
             ai[nnf].insert(std::pair<uint, double > (a, eval(a)));
+            if (aiv[nnf].size() < nops) aiv[nnf].resize(nops);
+            aiv[nnf][a] = eval(a);
             for (b = 0; b < nops; b++)
                 for (i = 0; i < nops; i++)
                 {
@@ -203,8 +205,53 @@ EvolDF1::~EvolDF1()
                        QM QED,BM??? (in 031209 C7,8 are normalised with alpha_s and not in the effective basis)
  */
 
+void EvolDF1::fillEtaTables(uint nnf, double eta)
+{
+    // the same expressions as f_f and f_r below, evaluated once per (nnf, eta)
+    const std::vector<double>& a = aiv[nnf];
+    const uint n = a.size();
+    pw_tab.assign(n * NK, 0.);
+    ff_tab.assign(n * n * NK, 0.);
+    for (uint j = 0; j < n; j++)
+        for (int k = KMIN; k <= KMAX; k++)
+            pw_tab[j * NK + (k - KMIN)] = pow(eta, a[j] + k);
+    for (uint i = 0; i < n; i++)
+        for (uint j = 0; j < n; j++)
+            for (int k = KMIN; k <= KMAX; k++) {
+                double den = a[j] + k - a[i];
+                ff_tab[(i * n + j) * NK + (k - KMIN)] = (fabs(den) < EPS) ? pow(eta, a[i]) * log(eta)
+                        : (pow(eta, a[j] + k) - pow(eta, a[i])) / den;
+            }
+    tab_nnf = (int) nnf;
+    tab_eta = eta;
+    tab_ll = log(eta);
+}
+
+const std::vector<EvolDF1::FlatEntry>& EvolDF1::flatOf(const std::map< std::vector<uint>, double >& m)
+{
+    std::map<const void*, std::vector<FlatEntry> >::iterator it = flat_cache.find(&m);
+    if (it != flat_cache.end() && it->second.size() == m.size())
+        return it->second;
+    std::vector<FlatEntry>& f = flat_cache[&m];
+    f.clear();
+    f.reserve(m.size());
+    for (std::map< std::vector<uint>, double >::const_iterator kv = m.begin(); kv != m.end(); ++kv) {
+        if (kv->first.size() > 6)
+            throw std::runtime_error("EvolDF1::flatOf(): index vector longer than 6");
+        FlatEntry e = {};
+        for (uint k = 0; k < kv->first.size(); k++)
+            e.idx[k] = kv->first[k];
+        e.c = kv->second;
+        f.push_back(e);
+    }
+    return f;
+}
+
 double EvolDF1::f_f(uint nnf, uint i, uint j, int k, double eta)
 {
+    if (tabValid(nnf, eta) && k >= KMIN && k <= KMAX)
+        return ff_tab[(i * aiv[nnf].size() + j) * NK + (k - KMIN)];
+
     for (int il = 0; il < F_iCacheSize; il++)
         if (f_f_c[0][il] == (int) nnf && f_f_c[1][il] == (int) i && f_f_c[2][il] == (int) j &&
                 f_f_c[3][il] == k && f_f_d[0][il] == eta)
@@ -232,6 +279,14 @@ double EvolDF1::f_f(uint nnf, uint i, uint j, int k, double eta)
 
 double EvolDF1::f_r(uint nnf, uint i, uint j, int k, double eta)
 {
+    if (tabValid(nnf, eta) && k >= KMIN && k <= KMAX) {
+        const std::vector<double>& a = aiv[nnf];
+        double den = a[j] + k - a[i];
+        if (fabs(den) < EPS)
+            return (0.5 * pow(eta, a[i]) * tab_ll * tab_ll);
+        else
+            return ((pw_tab[j * NK + (k - KMIN)] * tab_ll - f_f(nnf, i, j, k, eta)) / den);
+    }
     double ll = log(eta), den = ai[nnf].at(j) + k - ai[nnf].at(i);
 
     if (fabs(den) < EPS)
@@ -242,7 +297,7 @@ double EvolDF1::f_r(uint nnf, uint i, uint j, int k, double eta)
 
 double EvolDF1::f_g(uint nnf, uint i, uint p, uint j, int k, int l, double eta)
 {
-    double den = ai[nnf].at(j) + l - ai[nnf].at(p);
+    double den = aiv[nnf].at(j) + l - aiv[nnf].at(p);
 
     if (fabs(den) < EPS)
         return (f_r(nnf, i, p, k, eta));
@@ -252,14 +307,14 @@ double EvolDF1::f_g(uint nnf, uint i, uint p, uint j, int k, int l, double eta)
 
 double EvolDF1::f_h(uint nnf, uint i, uint p, uint q, uint j, int k, int l, int m, double eta)
 {
-    double ll = log(eta), den1 = ai[nnf].at(j) + m - ai[nnf].at(q),
-            den2 = ai[nnf].at(q) + l - ai[nnf].at(p),
-            den3 = ai[nnf].at(p) + k - ai[nnf].at(i);
+    double ll = log(eta), den1 = aiv[nnf].at(j) + m - aiv[nnf].at(q),
+            den2 = aiv[nnf].at(q) + l - aiv[nnf].at(p),
+            den3 = aiv[nnf].at(p) + k - aiv[nnf].at(i);
 
     if (fabs(den1) < EPS && fabs(den2) < EPS && fabs(den3) < EPS)
-        return (pow(eta, ai[nnf].at(i)) * ll * ll * ll / 6.);
+        return (pow(eta, aiv[nnf].at(i)) * ll * ll * ll / 6.);
     else if (fabs(den1) < EPS && fabs(den2) < EPS)
-        return ((0.5 * pow(eta, ai[nnf].at(p) + k) * ll * ll - f_r(nnf, i, p, k, eta)) / den3);
+        return ((0.5 * pow(eta, aiv[nnf].at(p) + k) * ll * ll - f_r(nnf, i, p, k, eta)) / den3);
     else if (fabs(den1) < EPS)
         return ((f_r(nnf, i, q, k + l, eta) - f_g(nnf, i, p, q, k, l, eta)) / den2);
     else
@@ -1467,7 +1522,6 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
     //    uint a, b, i, j, p, q
     uint nnf = nf - nfmin;
     double b0, b0e, b5, alsM, eta, omega, lambda; //, term;
-    std::map< std::vector<uint>, double >::iterator itr;
     //    std::vector<uint> v;
 
 
@@ -1478,49 +1532,50 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
     eta = alsM / model.Als(mu, FULLNNNLO, true, order_qed == QED0 ? false : true);
     //    eta = alsM / model.Als(mu);
     omega = 2. * b0 * alsM / 4. / M_PI;
+    fillEtaTables(nnf, eta);
 
-    for (itr = vM0vi[nnf].begin(); itr != vM0vi[nnf].end(); ++itr)
+    for (const FlatEntry &e : flatOf(vM0vi[nnf]))
     {
-        const std::vector<uint> &v = itr->first;
+        const uint *v = e.idx;
         const uint &a = v[0];
         const uint &b = v[1];
         const uint &i = v[2];
 
-        res.setMatrixElement(QCD0, QED0, a, b, res.getOrd(QCD0, QED0)(a, b) + itr->second * pow(eta, ai[nnf].at(i)));
+        res.setMatrixElement(QCD0, QED0, a, b, res.getOrd(QCD0, QED0)(a, b) + e.c * pow(eta, ai[nnf].at(i)));
     }
 
-    for (itr = vM1vi[nnf].begin(); itr != vM1vi[nnf].end(); ++itr)
+    for (const FlatEntry &e : flatOf(vM1vi[nnf]))
     {
-        const std::vector<uint> &v = itr->first;
-        const uint &a = v[0];
-        const uint &b = v[1];
-        const uint &i = v[2];
-        const uint &j = v[3];
-
-        res.setMatrixElement(QCD1, QED0, a, b, res.getOrd(QCD1, QED0)(a, b) + omega * itr->second * f_f(nnf, i, j, -1, eta));
-    }
-
-    for (itr = vM2vi[nnf].begin(); itr != vM2vi[nnf].end(); ++itr)
-    {
-        const std::vector<uint> &v = itr->first;
+        const uint *v = e.idx;
         const uint &a = v[0];
         const uint &b = v[1];
         const uint &i = v[2];
         const uint &j = v[3];
 
-        res.setMatrixElement(QCD2, QED0, a, b, res.getOrd(QCD2, QED0)(a, b) + omega * omega * itr->second * f_f(nnf, i, j, -2, eta));
+        res.setMatrixElement(QCD1, QED0, a, b, res.getOrd(QCD1, QED0)(a, b) + omega * e.c * f_f(nnf, i, j, -1, eta));
     }
 
-    for (itr = vM11vi[nnf].begin(); itr != vM11vi[nnf].end(); ++itr)
+    for (const FlatEntry &e : flatOf(vM2vi[nnf]))
     {
-        const std::vector<uint> &v = itr->first;
+        const uint *v = e.idx;
+        const uint &a = v[0];
+        const uint &b = v[1];
+        const uint &i = v[2];
+        const uint &j = v[3];
+
+        res.setMatrixElement(QCD2, QED0, a, b, res.getOrd(QCD2, QED0)(a, b) + omega * omega * e.c * f_f(nnf, i, j, -2, eta));
+    }
+
+    for (const FlatEntry &e : flatOf(vM11vi[nnf]))
+    {
+        const uint *v = e.idx;
         const uint &a = v[0];
         const uint &b = v[1];
         const uint &i = v[2];
         const uint &j = v[3];
         const uint &p = v[4];
 
-        res.setMatrixElement(QCD2, QED0, a, b, res.getOrd(QCD2, QED0)(a, b) + omega * omega * itr->second * f_g(nnf, i, p, j, -1, -1, eta));
+        res.setMatrixElement(QCD2, QED0, a, b, res.getOrd(QCD2, QED0)(a, b) + omega * omega * e.c * f_g(nnf, i, p, j, -1, -1, eta));
     }
 
     if (order_qed != QED0)
@@ -1529,170 +1584,170 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
         b5 = model.Beta_e(01, nf) / 2. / b0 / b0e - model.Beta_s(10, nf) / 2. / b0 / b0;
         lambda = b0e * model.Ale(M, FULLNLO) / b0 / model.Als(M, FULLNNNLO, true, true); // WARNING: CHANGE ME!!!
 
-        for (itr = vM3vi[nnf].begin(); itr != vM3vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM3vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
             const uint &j = v[3];
-            const double &term = itr->second;
+            const double &term = e.c;
 
             res.setMatrixElement(QCD0, QED1, a, b, res.getOrd(QCD0, QED1)(a, b) + lambda * term * f_f(nnf, i, j, 1, eta));
             res.setMatrixElement(QCD0, QED2, a, b, res.getOrd(QCD0, QED2)(a, b) + lambda * lambda * term * (f_f(nnf, i, j, 2, eta) - f_f(nnf, i, j, 1, eta)));
             res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * b5 * term * f_r(nnf, i, j, 1, eta));
         }
 
-        for (itr = vM4vi[nnf].begin(); itr != vM4vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM4vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
             const uint &j = v[3];
-            const double &term = itr->second;
+            const double &term = e.c;
 
             res.setMatrixElement(QCD1, QED1, a, b, res.getOrd(QCD1, QED1)(a, b) + omega * lambda * term * f_f(nnf, i, j, 0, eta));
             res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) - omega * lambda * lambda * term * f_f(nnf, i, j, 0, eta));
         }
 
-        for (itr = vM5vi[nnf].begin(); itr != vM5vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM5vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
             const uint &j = v[3];
 
-            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_f(nnf, i, j, -1, eta));
+            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * e.c * f_f(nnf, i, j, -1, eta));
         }
 
-        for (itr = vM6vi[nnf].begin(); itr != vM6vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM6vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
             const uint &j = v[3];
 
-            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_f(nnf, i, j, 1, eta));
+            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * e.c * f_f(nnf, i, j, 1, eta));
         }
 
-        for (itr = vM33vi[nnf].begin(); itr != vM33vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM33vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
             const uint &j = v[3];
             const uint &p = v[4];
 
-            res.setMatrixElement(QCD0, QED2, a, b, res.getOrd(QCD0, QED2)(a, b) + lambda * lambda * itr->second * f_g(nnf, i, p, j, 1, 1, eta));
+            res.setMatrixElement(QCD0, QED2, a, b, res.getOrd(QCD0, QED2)(a, b) + lambda * lambda * e.c * f_g(nnf, i, p, j, 1, 1, eta));
         }
 
-        for (itr = vM13vi[nnf].begin(); itr != vM13vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM13vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
             const uint &j = v[3];
             const uint &p = v[4];
-            const double &term = itr->second;
+            const double &term = e.c;
 
             res.setMatrixElement(QCD1, QED1, a, b, res.getOrd(QCD1, QED1)(a, b) + omega * lambda * term * f_g(nnf, i, p, j, -1, 1, eta));
             res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * term * (f_g(nnf, i, p, j, -1, 2, eta) - f_g(nnf, i, p, j, -1, 1, eta)));
         }
 
-        for (itr = vM31vi[nnf].begin(); itr != vM31vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM31vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
             const uint &j = v[3];
             const uint &p = v[4];
-            const double &term = itr->second;
+            const double &term = e.c;
 
             res.setMatrixElement(QCD1, QED1, a, b, res.getOrd(QCD1, QED1)(a, b) + omega * lambda * term * f_g(nnf, i, p, j, 1, -1, eta));
             res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * term * (f_g(nnf, i, p, j, 2, -1, eta) - f_g(nnf, i, p, j, 1, -1, eta)));
         }
 
-        for (itr = vM34vi[nnf].begin(); itr != vM34vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM34vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
             const uint &j = v[3];
             const uint &p = v[4];
 
-            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_g(nnf, i, p, j, 1, 0, eta));
+            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * e.c * f_g(nnf, i, p, j, 1, 0, eta));
         }
 
-        for (itr = vM43vi[nnf].begin(); itr != vM43vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM43vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
             const uint &j = v[3];
             const uint &p = v[4];
 
-            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_g(nnf, i, p, j, 0, 1, eta));
+            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * e.c * f_g(nnf, i, p, j, 0, 1, eta));
         }
 
-        for (itr = vM23vi[nnf].begin(); itr != vM23vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM23vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
             const uint &j = v[3];
             const uint &p = v[4];
 
-            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_g(nnf, i, p, j, -2, 1, eta));
+            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * e.c * f_g(nnf, i, p, j, -2, 1, eta));
         }
 
-        for (itr = vM32vi[nnf].begin(); itr != vM32vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM32vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
             const uint &j = v[3];
             const uint &p = v[4];
 
-            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_g(nnf, i, p, j, 1, -2, eta));
+            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * e.c * f_g(nnf, i, p, j, 1, -2, eta));
         }
 
-        for (itr = vM14vi[nnf].begin(); itr != vM14vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM14vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
             const uint &j = v[3];
             const uint &p = v[4];
 
-            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_g(nnf, i, p, j, -1, 0, eta));
+            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * e.c * f_g(nnf, i, p, j, -1, 0, eta));
         }
 
-        for (itr = vM41vi[nnf].begin(); itr != vM41vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM41vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
             const uint &j = v[3];
             const uint &p = v[4];
 
-            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_g(nnf, i, p, j, 0, -1, eta));
+            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * e.c * f_g(nnf, i, p, j, 0, -1, eta));
         }
 
-        for (itr = vM113vi[nnf].begin(); itr != vM113vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM113vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
@@ -1700,12 +1755,12 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &p = v[4];
             const uint &q = v[5];
 
-            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_h(nnf, i, p, q, j, -1, -1, 1, eta));
+            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * e.c * f_h(nnf, i, p, q, j, -1, -1, 1, eta));
         }
 
-        for (itr = vM131vi[nnf].begin(); itr != vM131vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM131vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
@@ -1713,12 +1768,12 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &p = v[4];
             const uint &q = v[5];
 
-            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_h(nnf, i, p, q, j, -1, 1, -1, eta));
+            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * e.c * f_h(nnf, i, p, q, j, -1, 1, -1, eta));
         }
 
-        for (itr = vM311vi[nnf].begin(); itr != vM311vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM311vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
@@ -1726,12 +1781,12 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &p = v[4];
             const uint &q = v[5];
 
-            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * itr->second * f_h(nnf, i, p, q, j, 1, -1, -1, eta));
+            res.setMatrixElement(QCD2, QED1, a, b, res.getOrd(QCD2, QED1)(a, b) + omega * omega * lambda * e.c * f_h(nnf, i, p, q, j, 1, -1, -1, eta));
         }
 
-        for (itr = vM133vi[nnf].begin(); itr != vM133vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM133vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
@@ -1739,12 +1794,12 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &p = v[4];
             const uint &q = v[5];
 
-            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_h(nnf, i, p, q, j, -1, 1, 1, eta));
+            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * e.c * f_h(nnf, i, p, q, j, -1, 1, 1, eta));
         }
 
-        for (itr = vM313vi[nnf].begin(); itr != vM313vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM313vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
@@ -1752,12 +1807,12 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &p = v[4];
             const uint &q = v[5];
 
-            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_h(nnf, i, p, q, j, 1, -1, 1, eta));
+            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * e.c * f_h(nnf, i, p, q, j, 1, -1, 1, eta));
         }
 
-        for (itr = vM331vi[nnf].begin(); itr != vM331vi[nnf].end(); ++itr)
+        for (const FlatEntry &e : flatOf(vM331vi[nnf]))
         {
-            const std::vector<uint> &v = itr->first;
+            const uint *v = e.idx;
             const uint &a = v[0];
             const uint &b = v[1];
             const uint &i = v[2];
@@ -1765,7 +1820,7 @@ void EvolDF1::DF1Ev(double mu, double M, int nf, schemes scheme)
             const uint &p = v[4];
             const uint &q = v[5];
 
-            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * itr->second * f_h(nnf, i, p, q, j, 1, 1, -1, eta));
+            res.setMatrixElement(QCD1, QED2, a, b, res.getOrd(QCD1, QED2)(a, b) + omega * lambda * lambda * e.c * f_h(nnf, i, p, q, j, 1, 1, -1, eta));
         }
         /*
         for (a = 0; a < nops; a++)

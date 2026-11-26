@@ -346,6 +346,27 @@ private:
 #define F_iCacheSize 5
     int f_f_c[4][F_iCacheSize];
     double f_f_d[2][F_iCacheSize];
+
+    // Per-call tables of the magic-number functions, filled once by DF1Ev for its (nnf, eta):
+    // aiv[nnf][i] = ai[nnf].at(i) (eigenvalues, vector access);
+    // pw_tab[j*NK + k-KMIN] = pow(eta, a_j + k);  ff_tab[(i*n + j)*NK + k-KMIN] = f_f(nnf, i, j, k, eta).
+    // f_f and f_r read them when (nnf, eta, k) match, otherwise they compute as before.
+    static const int KMIN = -4, KMAX = 4, NK = KMAX - KMIN + 1;
+    std::vector<double> aiv[NF];
+    std::vector<double> ff_tab, pw_tab;
+    int tab_nnf = -1;
+    double tab_eta = 0., tab_ll = 0.;
+    void fillEtaTables(uint nnf, double eta);
+    bool tabValid(uint nnf, double eta) const { return (int) nnf == tab_nnf && eta == tab_eta; }
+
+    // Contiguous copies of the magic-number maps vM*vi (same order as the maps), built once on first use:
+    // DF1Ev loops over these instead of walking the std::map nodes.
+    struct FlatEntry {
+        uint idx[6];
+        double c;
+    };
+    std::map<const void*, std::vector<FlatEntry> > flat_cache;
+    const std::vector<FlatEntry>& flatOf(const std::map< std::vector<uint>, double >& m);
 };
 
 #endif /* EVOLDF1_H */
