@@ -12,6 +12,8 @@
 
 #include "StandardModel.h"
 #include "bsgamma.h"
+#include <gsl/gsl_integration.h>
+#include <gsl/gsl_errno.h>
 #include "std_make_vector.h"
 #include "gslpp_function_adapter.h"
 #include <gsl/gsl_sf_dilog.h>
@@ -22,7 +24,7 @@ using namespace boost::placeholders;
 
 Bsgamma::Bsgamma(const StandardModel& SM_i, QCD::quark quark_i, int obsFlag)
 : ThObservable(SM_i),
-Intbc_cache(2, 0.), ig(ROOT::Math::Integration::kADAPTIVESINGULAR, ROOT::Math::Integration::kGAUSS51), wf()
+Intbc_cache(2, 0.)
 {    
     if (obsFlag > 0 and obsFlag < 3) obs = obsFlag;
     else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (ACP)");
@@ -334,20 +336,73 @@ gslpp::complex Bsgamma::kappa(double Mq,double t)
     return 1./2. + Gamma_t(s)/s;
 }
 
+namespace {
+// Gauss-Legendre rule on [0, 1] used for the kappa integrals (fixed, allocated once).
+const gsl_integration_glfixed_table* kappaRule()
+{
+    static const gsl_integration_glfixed_table* table = gsl_integration_glfixed_table_alloc(30);
+    return table;
+}
+}
+
+void Bsgamma::updateKappaNodes(double E0)
+{
+    if (kappaNodesValid && E0 == kappaNodesE0 && Mb_kin == kappaNodesMb && Mc == kappaNodesMc) return;
+
+    /* Nodes for the integrals over [0, t1] and [t1, 1] of kappa(m_b, t), kappa(m_c, t) times polynomials in t.
+     * kappa(m_b, t) is smooth for t in [0, 1]; kappa(m_c, t) has the c cbar threshold at t = 4 m_c^2/m_b^2, where it
+     * behaves as sqrt(|t - t_th|). An interval containing the threshold is split there and each part is mapped as
+     * t = t_th + (end - t_th) u^2, which makes the integrand smooth in u; the others are mapped linearly. Each part
+     * uses a 30-point Gauss-Legendre rule, and kappa(m_b, t), kappa(m_c, t) are evaluated once per node for all the
+     * integrals. */
+    const double t1 = 1. - delta(E0);
+    const double tth = 4. * Mc * Mc / Mb_kin / Mb_kin;
+    const gsl_integration_glfixed_table* rule = kappaRule();
+    for (int k = 0; k < 2; k++) {
+        const double a = k == 0 ? 0. : t1, b = k == 0 ? t1 : 1.;
+        std::vector<KappaNode>& nodes = kappaNodes[k];
+        nodes.clear();
+        auto addNode = [&](double t, double w) {
+            KappaNode node;
+            node.t = t;
+            node.w = w;
+            node.kb = kappa(Mb_kin, t);
+            node.kc = kappa(Mc, t);
+            nodes.push_back(node);
+        };
+        for (size_t m = 0; m < rule->n; m++) {
+            double u, w;
+            gsl_integration_glfixed_point(0., 1., m, &u, &w, rule);
+            if (a < tth && tth < b) {
+                addNode(tth - (tth - a) * u * u, w * 2. * (tth - a) * u);
+                addNode(tth + (b - tth) * u * u, w * 2. * (b - tth) * u);
+            } else
+                addNode(a + (b - a) * u, w * (b - a));
+        }
+    }
+    kappaNodesE0 = E0;
+    kappaNodesMb = Mb_kin;
+    kappaNodesMc = Mc;
+    kappaNodesValid = true;
+}
+
+template<typename Integrand>
+double Bsgamma::kappaIntegral(double E0, int interval, Integrand integrand)
+{
+    updateKappaNodes(E0);
+    double sum = 0.;
+    for (const KappaNode& node : kappaNodes[interval])
+        sum += node.w * integrand(node.t, node.kb, node.kc);
+    return sum;
+}
+
 double Bsgamma::Int_b1(double E0)
 {
     if (Intb1Cached == 0) {
-        double t1 = (1. - delta(E0));
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_re_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kb.real() * (1. - t); }); // getKb_re_1mt
         double mt = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_re_1mt2);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kb.real() * (1. - t) * (1. - t); }); // getKb_re_1mt2
         double mt2 = avaINT;
 
         CacheIntb1 = delta(E0)*mt + mt2;
@@ -360,18 +415,11 @@ double Bsgamma::Int_b1(double E0)
 double Bsgamma::Int_b2(double E0)
 {
     if (Intb2Cached == 0) {
-        double t1 = (1. - delta(E0));
     
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_re_t_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kb.real() * t * (1. - t); }); // getKb_re_t_1mt
         double mt = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_re_t_1mt2);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kb.real() * t * (1. - t) * (1. - t); }); // getKb_re_t_1mt2
         double mt2 = avaINT;
 
         CacheIntb2 = delta(E0)*mt + mt2;
@@ -384,18 +432,11 @@ double Bsgamma::Int_b2(double E0)
 double Bsgamma::Int_b3(double E0)
 {
     if (Intb3Cached == 0) {
-        double t1 = (1. - delta(E0));
     
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_re_t);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kb.real() * t; }); // getKb_re_t
         double t = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_re_t_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kb.real() * t * (1. - t); }); // getKb_re_t_1mt
         double mt = avaINT;
 
         CacheIntb3 = delta(E0)*t + mt;
@@ -408,18 +449,11 @@ double Bsgamma::Int_b3(double E0)
 double Bsgamma::Int_b4(double E0)
 {
     if (Intb4Cached == 0) {
-        double t1 = (1. - delta(E0));
     
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_re_t2_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kb.real() * t * t * (1. - t); }); // getKb_re_t2_1mt
         double mt = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_re_t2_1mt2);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kb.real() * t * t * (1. - t) * (1. - t); }); // getKb_re_t2_1mt2
         double mt2 = avaINT;
 
         CacheIntb4 = delta(E0)*mt + mt2;
@@ -432,18 +466,11 @@ double Bsgamma::Int_b4(double E0)
 double Bsgamma::Int_bb1(double E0)
 {
     if (Intbb1Cached == 0) {
-        double t1 = (1. - delta(E0));
     
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_abs2_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kb.abs2() * (1. - t); }); // getKb_abs2_1mt
         double mt = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_abs2_1mt2);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kb.abs2() * (1. - t) * (1. - t); }); // getKb_abs2_1mt2
         double mt2 = avaINT;
 
         CacheIntbb1 = delta(E0)*mt + mt2;
@@ -456,18 +483,11 @@ double Bsgamma::Int_bb1(double E0)
 double Bsgamma::Int_bb2(double E0)
 {
     if (Intbb2Cached == 0) {
-        double t1 = (1. - delta(E0));
     
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_abs2_t_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kb.abs2() * t * (1. - t); }); // getKb_abs2_t_1mt
         double mt = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_abs2_t_1mt2);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kb.abs2() * t * (1. - t) * (1. - t); }); // getKb_abs2_t_1mt2
         double mt2 = avaINT;
 
         CacheIntbb2 = delta(E0)*mt + mt2;
@@ -480,18 +500,11 @@ double Bsgamma::Int_bb2(double E0)
 double Bsgamma::Int_bb4(double E0)
 {
     if (Intbb4Cached == 0) {
-        double t1 = (1. - delta(E0));
     
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_abs2_t2_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kb.abs2() * t * t * (1. - t); }); // getKb_abs2_t2_1mt
         double mt = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKb_abs2_t2_1mt2);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kb.abs2() * t * t * (1. - t) * (1. - t); }); // getKb_abs2_t2_1mt2
         double mt2 = avaINT;
 
         CacheIntbb4 = delta(E0)*mt + mt2;
@@ -504,30 +517,17 @@ double Bsgamma::Int_bb4(double E0)
 gslpp::complex Bsgamma::Int_bc1(double E0)
 {
     if (Intbc1Cached == 0) {
-        double t1 = (1. - delta(E0));
     
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_Kb_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.real() * kb.real() * (1. - t); }); // getKc_re_Kb_1mt
         gslpp::complex mt = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_Kb_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.imag() * kb.real() * (1. - t); }); // getKc_im_Kb_1mt
         mt += gslpp::complex::i() * avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_Kb_1mt2);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.real() * kb.real() * (1. - t) * (1. - t); }); // getKc_re_Kb_1mt2
         gslpp::complex mt2 = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_Kb_1mt2);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.imag() * kb.real() * (1. - t) * (1. - t); }); // getKc_im_Kb_1mt2
         mt2 += gslpp::complex::i() * avaINT;
 
         CacheIntbc1 = delta(E0)*mt + mt2;
@@ -540,30 +540,17 @@ gslpp::complex Bsgamma::Int_bc1(double E0)
 gslpp::complex Bsgamma::Int_bc2(double E0)
 {
     if (Intbc2Cached == 0) {
-        double t1 = (1. - delta(E0));
     
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_Kb_t_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.real() * kb.real() * t * (1. - t); }); // getKc_re_Kb_t_1mt
         gslpp::complex mt = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_Kb_t_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.imag() * kb.real() * t * (1. - t); }); // getKc_im_Kb_t_1mt
         mt += gslpp::complex::i() * avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_Kb_t_1mt2);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.real() * kb.real() * t * (1. - t) * (1. - t); }); // getKc_re_Kb_t_1mt2
         gslpp::complex mt2 = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_Kb_t_1mt2);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.imag() * kb.real() * t * (1. - t) * (1. - t); }); // getKc_im_Kb_t_1mt2
         mt2 += gslpp::complex::i() * avaINT;
 
         CacheIntbc2 = delta(E0)*mt + mt2;
@@ -576,30 +563,17 @@ gslpp::complex Bsgamma::Int_bc2(double E0)
 gslpp::complex Bsgamma::Int_c1(double E0)
 {
     if (Intc1Cached == 0) {
-        double t1 = (1. - delta(E0));
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.real() * (1. - t); }); // getKc_re_1mt
         gslpp::complex mt = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.imag() * (1. - t); }); // getKc_im_1mt
         mt += gslpp::complex::i() * avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_1mt2);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.real() * (1. - t) * (1. - t); }); // getKc_re_1mt2
         gslpp::complex mt2 = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_1mt2);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.imag() * (1. - t) * (1. - t); }); // getKc_im_1mt2
         mt2 += gslpp::complex::i() * avaINT;
 
         CacheIntc1 = delta(E0)*mt + mt2;
@@ -612,30 +586,17 @@ gslpp::complex Bsgamma::Int_c1(double E0)
 gslpp::complex Bsgamma::Int_c2(double E0)
 {
     if (Intc2Cached == 0) {
-        double t1 = (1. - delta(E0));
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_t_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.real() * t * (1. - t); }); // getKc_re_t_1mt
         gslpp::complex mt = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_t_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.imag() * t * (1. - t); }); // getKc_im_t_1mt
         mt += gslpp::complex::i() * avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_t_1mt2);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.real() * t * (1. - t) * (1. - t); }); // getKc_re_t_1mt2
         gslpp::complex mt2 = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_t_1mt2);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.imag() * t * (1. - t) * (1. - t); }); // getKc_im_t_1mt2
         mt2 += gslpp::complex::i() * avaINT;        
 
         CacheIntc2 = delta(E0)*mt + mt2;
@@ -648,30 +609,17 @@ gslpp::complex Bsgamma::Int_c2(double E0)
 gslpp::complex Bsgamma::Int_c3(double E0)
 {
     if (Intc3Cached == 0) {
-        double t1 = (1. - delta(E0));
     
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_t);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.real() * t; }); // getKc_re_t
         gslpp::complex t = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_t);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.imag() * t; }); // getKc_im_t
         t += gslpp::complex::i() * avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_re_t_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.real() * t * (1. - t); }); // getKc_re_t_1mt
         gslpp::complex mt = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_im_t_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.imag() * t * (1. - t); }); // getKc_im_t_1mt
         mt += gslpp::complex::i() * avaINT;        
 
         CacheIntc3 = delta(E0)*t + mt;
@@ -684,18 +632,11 @@ gslpp::complex Bsgamma::Int_c3(double E0)
 double Bsgamma::Int_cc(double E0)
 {
     if (IntccCached == 0) {
-        double t1 = (1. - delta(E0));
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_abs2_t);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.abs2() * t; }); // getKc_abs2_t
         double mt = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_abs2_t_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.abs2() * t * (1. - t); }); // getKc_abs2_t_1mt
         double mt2 = avaINT;
         
         CacheIntcc = delta(E0)*mt + 2. * mt2;
@@ -708,18 +649,11 @@ double Bsgamma::Int_cc(double E0)
 double Bsgamma::Int_cc1(double E0)
 {
     if (Intcc1Cached == 0) {
-        double t1 = (1. - delta(E0));
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_abs2_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.abs2() * (1. - t); }); // getKc_abs2_1mt
         double mt = avaINT;
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_abs2_1mt2);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(t1, 1.);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 1, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.abs2() * (1. - t) * (1. - t); }); // getKc_abs2_1mt2
         double mt2 = avaINT;
 
         CacheIntcc1 = delta(E0)*mt + mt2;
@@ -732,12 +666,7 @@ double Bsgamma::Int_cc1(double E0)
 double Bsgamma::Int_cc1_part1(double E0)
 {
     if (Intcc1p1Cached == 0) {
-        double t1 = (1. - delta(E0));
-
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::getKc_abs2_1mt);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0., t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        avaINT = kappaIntegral(E0, 0, [](double t, const gslpp::complex& kb, const gslpp::complex& kc) { return kc.abs2() * (1. - t); }); // getKc_abs2_1mt
 
         CacheIntcc1p1 = delta(E0)*avaINT;
         Intcc1p1Cached = 1;
@@ -1871,12 +1800,23 @@ double Bsgamma::Int_Phi77_2rem(double E0)
     if (IntPhi772rCached == 0) {
         double t1 = (1. - delta(E0));
 
-        wf=ROOT::Math::Functor1D(&(*this),&Bsgamma::omega77);
-        ig.SetFunction(wf);
-        avaINT = ig.Integral(0.,t1);
-        if (ig.Status() != 0) return std::numeric_limits<double>::quiet_NaN();
+        /* Adaptive integration (QAGS) with the tolerances of the ROOT GSLIntegrator used before (absolute 1e-9,
+         * relative 1e-6, 1000 intervals), so the result is unchanged; the first 21-point pass usually suffices. */
+        struct Omega77 {
+            static double eval(double z, void* p) { return static_cast<Bsgamma*>(p)->omega77(z); }
+        };
+        gsl_function F;
+        F.function = &Omega77::eval;
+        F.params = this;
+        gsl_integration_workspace* workspace = gsl_integration_workspace_alloc(1000);
+        double result = 0., error = 0.;
+        gsl_error_handler_t* handler = gsl_set_error_handler_off();
+        const int status = gsl_integration_qags(&F, 0., t1, 1.e-9, 1.e-6, 1000, workspace, &result, &error);
+        gsl_set_error_handler(handler);
+        gsl_integration_workspace_free(workspace);
+        if (status != 0) return std::numeric_limits<double>::quiet_NaN();
 
-        CacheIntPhi772r = avaINT;
+        CacheIntPhi772r = result;
         IntPhi772rCached = 1;
     }
     
