@@ -14232,7 +14232,7 @@ bool validFlavourIndex(int index)
 }
 }
 
-double NPSMEFTd6General::WilsonCoefficients::get(const std::string& name) const
+NPSMEFTd6General::WilsonCoefficients::ScalarKey NPSMEFTd6General::WilsonCoefficients::resolveScalar(const std::string& name)
 {
     static const std::unordered_map<std::string, double WilsonCoefficients::*> lookup = {
         {"CG", &WilsonCoefficients::CG},
@@ -14251,16 +14251,18 @@ double NPSMEFTd6General::WilsonCoefficients::get(const std::string& name) const
         {"CHBtilde", &WilsonCoefficients::CHBtilde},
         {"CHWtildeB", &WilsonCoefficients::CHWtildeB},
     };
-    return this->*lookup.at(name);
+    ScalarKey key;
+    key.member = lookup.at(name);
+    return key;
 }
 
-double NPSMEFTd6General::WilsonCoefficients::get(const std::string& name, int i, int j) const
+double NPSMEFTd6General::WilsonCoefficients::get(const std::string& name) const
 {
-    if (!validFlavourIndex(i) || !validFlavourIndex(j)) {
-        std::cout << "ERROR : INDICES OUT OF RANGE [0:2]" << std::endl;
-        return 0.;
-    }
+    return get(resolveScalar(name));
+}
 
+NPSMEFTd6General::WilsonCoefficients::Tensor2Key NPSMEFTd6General::WilsonCoefficients::resolveTensor2(const std::string& name)
+{
     static const auto lookup = componentLookup<Tensor2 WilsonCoefficients::*>({
         {"CHl1", &WilsonCoefficients::CHl1},
         {"CHl3", &WilsonCoefficients::CHl3},
@@ -14283,17 +14285,33 @@ double NPSMEFTd6General::WilsonCoefficients::get(const std::string& name, int i,
         {"CeB", &WilsonCoefficients::CeB},
     });
     const auto& component = lookup.at(name);
-    const auto& value = (this->*component.first)[i][j];
-    return component.second ? value.imag() : value.real();
+    Tensor2Key key;
+    key.member = component.first;
+    key.imag = component.second;
+    return key;
 }
 
-double NPSMEFTd6General::WilsonCoefficients::get(const std::string& name, int i, int j, int k, int l) const
+double NPSMEFTd6General::WilsonCoefficients::get(const Tensor2Key& key, int i, int j) const
 {
-    if (!validFlavourIndex(i) || !validFlavourIndex(j) || !validFlavourIndex(k) || !validFlavourIndex(l)) {
+    if (!validFlavourIndex(i) || !validFlavourIndex(j)) {
         std::cout << "ERROR : INDICES OUT OF RANGE [0:2]" << std::endl;
         return 0.;
     }
+    const auto& value = (this->*key.member)[i][j];
+    return key.imag ? value.imag() : value.real();
+}
 
+double NPSMEFTd6General::WilsonCoefficients::get(const std::string& name, int i, int j) const
+{
+    if (!validFlavourIndex(i) || !validFlavourIndex(j)) {
+        std::cout << "ERROR : INDICES OUT OF RANGE [0:2]" << std::endl;
+        return 0.;
+    }
+    return get(resolveTensor2(name), i, j);
+}
+
+NPSMEFTd6General::WilsonCoefficients::Tensor4Key NPSMEFTd6General::WilsonCoefficients::resolveTensor4(const std::string& name)
+{
     static const auto lookup = componentLookup<Tensor4 WilsonCoefficients::*>({
         {"Cll", &WilsonCoefficients::Cll},
         {"Clq1", &WilsonCoefficients::Clq1},
@@ -14322,8 +14340,29 @@ double NPSMEFTd6General::WilsonCoefficients::get(const std::string& name, int i,
         {"Clequ3", &WilsonCoefficients::Clequ3},
     });
     const auto& component = lookup.at(name);
-    const auto& value = (this->*component.first)[i][j][k][l];
-    return component.second ? value.imag() : value.real();
+    Tensor4Key key;
+    key.member = component.first;
+    key.imag = component.second;
+    return key;
+}
+
+double NPSMEFTd6General::WilsonCoefficients::get(const Tensor4Key& key, int i, int j, int k, int l) const
+{
+    if (!validFlavourIndex(i) || !validFlavourIndex(j) || !validFlavourIndex(k) || !validFlavourIndex(l)) {
+        std::cout << "ERROR : INDICES OUT OF RANGE [0:2]" << std::endl;
+        return 0.;
+    }
+    const auto& value = (this->*key.member)[i][j][k][l];
+    return key.imag ? value.imag() : value.real();
+}
+
+double NPSMEFTd6General::WilsonCoefficients::get(const std::string& name, int i, int j, int k, int l) const
+{
+    if (!validFlavourIndex(i) || !validFlavourIndex(j) || !validFlavourIndex(k) || !validFlavourIndex(l)) {
+        std::cout << "ERROR : INDICES OUT OF RANGE [0:2]" << std::endl;
+        return 0.;
+    }
+    return get(resolveTensor4(name), i, j, k, l);
 }
 
 double NPSMEFTd6General::getSMEFTCoeffEW(const std::string& name) const
