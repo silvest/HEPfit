@@ -11853,7 +11853,7 @@ double STXS12_ttH_pTH0_120::computeThValue()                                   /
     double dBrHXXRatio2 = 0.0;
     if (fstate==0){
         // Use for Cross-section [pb] with no Higgs-boson decay
-        weight = 0.17813; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
+        weight = 0.11821 + 0.17813; //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
     } else if (fstate == 1){
         BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
@@ -12262,18 +12262,18 @@ double STXS12_ttH::computeThValue()                                  //AG:added
     double weight = 1.0; //If normalized to the SM
     //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
     //Since adding bins, include partial weigths (SM_predictions)
-    double muProd   = ( 0.09779*myNPbase->STXS12_ttH_pTH0_60(sqrt_s)
-                    + 0.13884*myNPbase->STXS12_ttH_pTH60_120(sqrt_s)
-                    + 0.05439*myNPbase->STXS12_ttH_pTH120_200(sqrt_s)
-                    + 0.05303*myNPbase->STXS12_ttH_pTH200_300(sqrt_s)
-                    + 0.00498*myNPbase->STXS12_ttH_pTH300_450(sqrt_s)
-                    + 0.00060*myNPbase->STXS12_ttH_pTH450_Inf(sqrt_s) ) /(0.09779 + 0.13884 + 0.05439 + 0.05303 + 0.00498 + 0.00060 );
-    double muProd1  = ( 0.09779*(myNPbase->STXS12_ttH_pTH0_60(sqrt_s)-1.0)
-                    + 0.13884*(myNPbase->STXS12_ttH_pTH60_120(sqrt_s)-1.0)
-                    + 0.05439*(myNPbase->STXS12_ttH_pTH120_200(sqrt_s)-1.0)
-                    + 0.05303*(myNPbase->STXS12_ttH_pTH200_300(sqrt_s)-1.0)
-                    + 0.00498*(myNPbase->STXS12_ttH_pTH300_450(sqrt_s)-1.0)
-                    + 0.00060*(myNPbase->STXS12_ttH_pTH450_Inf(sqrt_s)-1.0) ) /(0.09779 + 0.13884 + 0.05439 + 0.05303 + 0.00498 + 0.00060 );
+    double muProd   = ( 0.11821*myNPbase->STXS12_ttH_pTH0_60(sqrt_s)
+                    + 0.17813*myNPbase->STXS12_ttH_pTH60_120(sqrt_s)
+                    + 0.12647*myNPbase->STXS12_ttH_pTH120_200(sqrt_s)
+                    + 0.05263*myNPbase->STXS12_ttH_pTH200_300(sqrt_s)
+                    + 0.01903*myNPbase->STXS12_ttH_pTH300_450(sqrt_s)
+                    + 0.00538*myNPbase->STXS12_ttH_pTH450_Inf(sqrt_s) ) /(0.11821 + 0.17813 + 0.12647 + 0.05263 + 0.01903 + 0.00538 );
+    double muProd1  = ( 0.11821*(myNPbase->STXS12_ttH_pTH0_60(sqrt_s)-1.0)
+                    + 0.17813*(myNPbase->STXS12_ttH_pTH60_120(sqrt_s)-1.0)
+                    + 0.12647*(myNPbase->STXS12_ttH_pTH120_200(sqrt_s)-1.0)
+                    + 0.05263*(myNPbase->STXS12_ttH_pTH200_300(sqrt_s)-1.0)
+                    + 0.01903*(myNPbase->STXS12_ttH_pTH300_450(sqrt_s)-1.0)
+                    + 0.00538*(myNPbase->STXS12_ttH_pTH450_Inf(sqrt_s)-1.0) ) /(0.11821 + 0.17813 + 0.12647 + 0.05263 + 0.01903 + 0.00538 );
     double muProd2  = 0.0;
 
     //-- Decay:
@@ -12281,7 +12281,7 @@ double STXS12_ttH::computeThValue()                                  //AG:added
     double dBrHXXRatio1 = 0.0;
     double dBrHXXRatio2 = 0.0;
     if (fstate==0){
-        weight = (0.09779 + 0.13884 + 0.05439 + 0.05303 + 0.00498 + 0.00060 ); 
+        weight = (0.11821 + 0.17813 + 0.12647 + 0.05263 + 0.01903 + 0.00538 );
     } else if (fstate == 1){
         BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
@@ -12416,14 +12416,14 @@ double STXS12_ttH_tH::computeThValue()                                  //VM:add
     double weight = 1.0; //If normalized to the SM
     //Ref: https://www.hepdata.net/record/ins2104706 Figure7. After symmetrizing.
     //Since adding bins, include partial weigths (SM_predictions)
-    double muProd   = ( 0.09779*myNPbase->STXS12_ttH_pTH0_60(sqrt_s)
-                    + 0.13884*myNPbase->STXS12_ttH_pTH60_120(sqrt_s)
-                    + 0.05439*myNPbase->STXS12_ttH_pTH120_200(sqrt_s)
-                    + 0.05303*myNPbase->STXS12_ttH_pTH200_300(sqrt_s)
-                    + 0.00498*myNPbase->STXS12_ttH_pTH300_450(sqrt_s)
-                    + 0.00060*myNPbase->STXS12_ttH_pTH450_Inf(sqrt_s) 
+    double muProd   = ( 0.11821*myNPbase->STXS12_ttH_pTH0_60(sqrt_s)
+                    + 0.17813*myNPbase->STXS12_ttH_pTH60_120(sqrt_s)
+                    + 0.12647*myNPbase->STXS12_ttH_pTH120_200(sqrt_s)
+                    + 0.05263*myNPbase->STXS12_ttH_pTH200_300(sqrt_s)
+                    + 0.01903*myNPbase->STXS12_ttH_pTH300_450(sqrt_s)
+                    + 0.00538*myNPbase->STXS12_ttH_pTH450_Inf(sqrt_s)
                     + 0.08207*myNPbase->STXS12_tH(sqrt_s) 
-                    ) /(0.09779 + 0.13884 + 0.05439 + 0.05303 + 0.00498 + 0.00060 + 0.08207);
+                    ) /(0.11821 + 0.17813 + 0.12647 + 0.05263 + 0.01903 + 0.00538 + 0.08207);
     double muProd1  = ( muProd - 1.0 );
     double muProd2  = 0.0;
 
@@ -12432,7 +12432,7 @@ double STXS12_ttH_tH::computeThValue()                                  //VM:add
     double dBrHXXRatio1 = 0.0;
     double dBrHXXRatio2 = 0.0;
     if (fstate==0){
-        weight = (0.09779 + 0.13884 + 0.05439 + 0.05303 + 0.00498 + 0.00060 + 0.08207); 
+        weight = (0.11821 + 0.17813 + 0.12647 + 0.05263 + 0.01903 + 0.00538 + 0.08207);
     } else if (fstate == 1){
         BrHXXRatio   = (myNPbase->STXS12_BrH4lRatio());
         dBrHXXRatio1 = BrHXXRatio - 1.0;
