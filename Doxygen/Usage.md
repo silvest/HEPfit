@@ -118,6 +118,16 @@ Each line has to be written as follows:
     Check visits to each interval in the cold chain when assessing
     mixing, especially if the gap is large compared with the proposal scale.
 
+    Minuit cannot cross the gaps, where -log(posterior) is infinite. After an
+    MCMC run, `FindModeWithMinuit` refines the best MCMC point within its
+    interval. `RunMinuitOnly` (also with `ParallelMinuit`) starts from the
+    central value, warns, and finds the mode of that interval only: move the
+    central value to search another one. If the mode lies at the edge of a gap,
+    the Minuit results carry a warning, since the Hessian and the errors do not
+    describe a truncated posterior. `CalculateNormalization LME` is skipped,
+    with the reason in `Statistics.txt`, when the mode lies at the edge of a gap
+    or more than 1% of the main-run samples lie outside the interval of the mode.
+
 4. __A set of correlated model parameter__ is specified with "
 ~~~~~~~~~~~~~~~~
     CorrelatedGaussianParameters name Npar

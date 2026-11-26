@@ -88,6 +88,20 @@ PrintTrianglePlot false
         higgs = samples['mHl']
         assert np.all(((higgs >= 124) & (higgs <= 126)) | ((higgs >= 127) & (higgs <= 128))), higgs
 
+        # The cold chains visit both mtop intervals, so the Laplace normalization is skipped.
+        (work / 'mc.conf').write_text('ParallelTempering true\nPTTemperatures 1:2:4\nPTSwapInterval 5\n'
+                                      + settings.replace('CalculateNormalization false',
+                                                         'CalculateNormalization LME'))
+        run(command, work)
+        statistics = ''.join(path.read_text() for path in work.rglob('Statistics*.txt'))
+        assert '(LME) not computed' in statistics, statistics
+
+        # Minuit alone stays in the interval of the central value and says so.
+        (work / 'mc.conf').write_text(settings + 'RunMinuitOnly true\n')
+        run(command, work)
+        log = (work / 'MinuitMinimizationResults.txt').read_text()
+        assert 'cannot cross the gaps of disjoint flat priors' in log, log
+
         (work / 'model.conf').write_text(model_config())
         result = run(command, work)
         assert warning not in result.stdout, result.stdout

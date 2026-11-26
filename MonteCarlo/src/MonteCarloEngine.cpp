@@ -335,6 +335,7 @@ void MonteCarloEngine::DefineParameters() {
             else
                 setPrior(parameter, makeCombinedPrior(*it), 0);
             variedParameters.push_back(&*it);
+            flatIntervalVisits.emplace_back(it->getFlatIntervals().size(), 0);
             k++;
         }
 
@@ -346,19 +347,97 @@ void MonteCarloEngine::DefineParameters() {
     }
 }
 
-void MonteCarloEngine::warnAboutUntemperedFlatIntervals() const
+std::vector<unsigned> MonteCarloEngine::disjointParameters() const
+{
+    std::vector<unsigned> indices;
+    for (unsigned i = 0; i < variedParameters.size(); ++i)
+        if (!GetParameter(i).Fixed() && variedParameters[i]->getFlatIntervals().size() >= 2)
+            indices.push_back(i);
+    return indices;
+}
+
+std::string MonteCarloEngine::disjointParameterNames() const
 {
     std::string names;
-    for (size_t i = 0; i < variedParameters.size(); ++i) {
-        if (GetParameter(i).Fixed() || variedParameters[i]->getFlatIntervals().size() < 2)
-            continue;
+    for (unsigned i : disjointParameters()) {
         if (!names.empty()) names += ", ";
         names += variedParameters[i]->getname();
     }
+    return names;
+}
+
+int MonteCarloEngine::flatInterval(unsigned i, double x) const
+{
+    const auto& intervals = variedParameters.at(i)->getFlatIntervals();
+    for (size_t k = 0; k < intervals.size(); ++k)
+        if (intervals[k].first <= x && x <= intervals[k].second)
+            return static_cast<int>(k);
+    return -1;
+}
+
+void MonteCarloEngine::warnAboutUntemperedFlatIntervals() const
+{
+    const std::string names = disjointParameterNames();
     if (!names.empty())
         BCLog::OutWarning("Parallel tempering is disabled for disjoint flat priors (" + names
                           + "). Chains may stay in one interval. To enable replica exchange, set "
                             "ParallelTempering true and configure PTTemperatures in the Monte Carlo configuration.");
+}
+
+void MonteCarloEngine::warnAboutMinuitInDisjointPriors() const
+{
+    const std::string names = disjointParameterNames();
+    if (!names.empty())
+        BCLog::OutWarning("Minuit without MCMC cannot cross the gaps of disjoint flat priors (" + names
+                          + "): it finds the mode within the interval of the starting point, the configured "
+                            "central value. To search another interval, move the central value there and rerun, "
+                            "or run the MCMC with FindModeWithMinuit true.");
+}
+
+std::string MonteCarloEngine::modeAtGapEdge(const std::vector<double>& mode) const
+{
+    /* Relative to the width of the interval: Migrad ends close to a wall, not on it. */
+    const double tolerance = 1.e-3;
+    std::ostringstream out;
+    for (unsigned i : disjointParameters()) {
+        const auto& intervals = variedParameters[i]->getFlatIntervals();
+        const int k = flatInterval(i, mode.at(i));
+        if (k < 0) continue;
+        const double width = intervals[k].second - intervals[k].first;
+        const bool lowerGap = k > 0 && mode[i] - intervals[k].first <= tolerance * width;
+        const bool upperGap = k + 1 < static_cast<int>(intervals.size()) && intervals[k].second - mode[i] <= tolerance * width;
+        if (lowerGap || upperGap)
+            out << (out.tellp() > 0 ? ", " : "") << variedParameters[i]->getname() << " = " << mode[i]
+                << " (edge " << (lowerGap ? intervals[k].first : intervals[k].second) << ")";
+    }
+    if (out.tellp() == 0) return "";
+    return "the mode lies at the edge of a gap of a disjoint flat prior for " + out.str()
+            + ". The posterior is truncated there: Migrad may not have converged, and the Hessian and the errors "
+              "do not describe the posterior.";
+}
+
+std::string MonteCarloEngine::lmeNotApplicable(const std::vector<double>& mode) const
+{
+    const std::string edge = modeAtGapEdge(mode);
+    if (!edge.empty()) return edge;
+    std::ostringstream out;
+    for (unsigned i : disjointParameters()) {
+        const std::vector<unsigned long>& visits = flatIntervalVisits.at(i);
+        unsigned long total = 0;
+        for (unsigned long n : visits) total += n;
+        const int k = flatInterval(i, mode.at(i));
+        if (total == 0 || k < 0) {
+            out << (out.tellp() > 0 ? "; " : "") << variedParameters[i]->getname()
+                << ": no main-run samples to check which intervals the posterior occupies";
+            continue;
+        }
+        const double outside = 1. - static_cast<double>(visits[k]) / total;
+        if (outside > 0.01)
+            out << (out.tellp() > 0 ? "; " : "") << variedParameters[i]->getname() << ": " << 100. * outside
+                << "% of the samples lie outside the interval of the mode";
+    }
+    if (out.tellp() == 0) return "";
+    return "the Laplace approximation describes only the interval of the mode of a disjoint flat prior (" + out.str() + ").";
 }
 
 std::vector<double> MonteCarloEngine::centralValues() const
@@ -737,7 +816,12 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
     if (fMCMCFlagWriteChainToFile || getchainedObsSize() > 0  || WriteLogLikelihoodChain) InChainFillObservablesTree();
     if (WriteParametersChain) InChainFillParametersTree();
 #endif
+    const std::vector<unsigned> disjoint = disjointParameters();
     for (unsigned int i = 0; i < GetNPosteriorChains(); i++) {
+        for (unsigned p : disjoint) {
+            const int k = flatInterval(p, fMCMCStates.at(i).parameters.at(p));
+            if (k >= 0) flatIntervalVisits[p][k]++;
+        }
         double LogLikelihood = fMCMCStates.at(i).log_likelihood;
         if (LogLikelihood > LogLikelihood_max) {
             LogLikelihood_max = std::max(LogLikelihood, LogLikelihood_max);
@@ -1826,6 +1910,11 @@ std::string MonteCarloEngine::writeMinuitResults(const gslpp::matrix<double> * h
         out << " Covariance matrix: " << (covStatus >= 0 && covStatus <= 3 ? covMessage[covStatus] : "unknown")
                 << " (status " << covStatus << ")" << std::endl;
     out << " Estimated distance to the minimum: " << min.Edm() << std::endl;
+    const std::string edge = modeAtGapEdge(std::vector<double>(mode, mode + Npars));
+    if (!edge.empty()) {
+        out << " WARNING: " << edge << std::endl;
+        BCLog::OutWarning("Minuit: " + edge);
+    }
     if (hessian) {
         const ParallelLogPosterior& function = static_cast<const ParallelLogPosterior&>(*parallelFunction);
         out << " Evaluations of the model by Migrad: " << function.evaluations << " (" << function.gradients << " gradients)" << std::endl;

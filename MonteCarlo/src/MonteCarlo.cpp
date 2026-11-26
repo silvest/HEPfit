@@ -336,6 +336,7 @@ void MonteCarlo::Run(const int rank) {
                 std::cout << "\nMinuit Minimization started at " << mitime << " (" << ti << "s since the Epoch)" << "\n" << std::endl;
 #endif      
                 std::cout << "          " <<std::endl;
+                MCEngine.warnAboutMinuitInDisjointPriors();
                 if (ParallelMinuit)
                     RunParallelMinuit();
                 else {
@@ -636,7 +637,13 @@ void MonteCarlo::Run(const int rank) {
                 if (CalculateNormalization.compare("LME") == 0) {
                     // Make sure mode is found by MINUIT for normalization computation.
                     if (!FindModeWithMinuit) MCEngine.FindMode(MCEngine.GetBestFitParameters());
-                    outStatLog << "\nNormalization for " << ModelName.c_str() << ": " << MCEngine.computeNormalizationLME() << "\n" << std::endl;
+                    const std::string notApplicable = MCEngine.lmeNotApplicable(MCEngine.GetBestFitParameters());
+                    if (notApplicable.empty())
+                        outStatLog << "\nNormalization for " << ModelName.c_str() << ": " << MCEngine.computeNormalizationLME() << "\n" << std::endl;
+                    else {
+                        BCLog::OutWarning("LME normalization not computed: " + notApplicable);
+                        outStatLog << "\nNormalization for " << ModelName.c_str() << " (LME) not computed: " << notApplicable << "\n" << std::endl;
+                    }
                 } 
                 else if (CalculateNormalization.compare("MC") == 0) {
                     std::vector<double> normalizationMC = MCEngine.computeNormalizationMC(NIterationNormalizationMC);
