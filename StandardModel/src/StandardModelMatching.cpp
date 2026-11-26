@@ -493,7 +493,7 @@ const double StandardModelMatching::Rest(double x, double mu) const
             0.20348320015672194 * mt * Mw - 0.02858827491583899 * Mw * Mw +
             0.001422822903303167 * mt * Mw * Mw + (4.257050684362808 + 0.17719711396626878 * mt -
             0.8190947921716011 * Mw - 0.002315407459561656 * mt * Mw + 0.008797408866807221 * Mw * Mw) * log(
-            mu) + (0.49627858125619595 - pow(5.784745743815408, -8) * mt +
+            mu) + (0.49627858125619595 - 5.784745743815408e-8 * mt +
             0.031869225004473686 * Mw - 0.00041193393986696286 * Mw * Mw) * log(
             mu) * log(mu));
 }
@@ -2135,12 +2135,25 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMBXdnn() {
 
 }
 
+double StandardModelMatching::sw2Bqll() const
+{
+    /* Conversion of the single-G_F to the quadratic-G_F normalization of the B_q -> l l coefficients,
+     * c~_i = s_W^2 c_i with s_W^2 = pi alpha_e(mu_0)/(sqrt2 G_F M_W^2) and the MS-bar alpha_e(mu_0) of the
+     * five-flavour effective theory that is pulled out of the coefficients (BGS, arXiv:1311.1348, Eq. (37)).
+     * SM.Ale() runs the on-shell alpha(M_Z); the effective-theory MS-bar coupling differs by the light-fermion
+     * constant, 1/alpha_hat = 1/alpha - 100/(27 pi), as in EvolBsmm::alphatilde_e_Mz(). (alpha(0) was used before,
+     * s_W^2 = 0.215 instead of 0.230.) The factor cancels in C10^(11), C10^(21) and C10^(22) and only affects the
+     * four-quark and C9 contributions to C10 at the low scale. */
+    const double aleMuw = 1. / (1. / SM.Ale(Muw, FULLNLO) - 100. / 27. / M_PI);
+    return (M_PI * aleMuw) / (sqrt(2.) * GF * Mw * Mw);
+}
+
 /*******************************************************************************
  * Wilson coefficients calculus, MISIAK base for Bs to mu mu  decay               *  
  * ****************************************************************************/
 double StandardModelMatching::setWCBsmm(int i, double x, orders order) {
 
-    sw2 = (M_PI * Ale) / (sqrt(2.) * GF * Mw * Mw);
+    sw2 = sw2Bqll();
 
     if (sw2d == sw2 && xcached == x) {
         switch (order) {
@@ -2206,7 +2219,7 @@ double StandardModelMatching::setWCBsmm(int i, double x, orders order) {
 }
 
 double StandardModelMatching::setWCBsmmEW(int i, double x, orders_qed order_qed) {
-    sw2 = (M_PI * Ale) / (sqrt(2.) * GF * Mw * Mw);
+    sw2 = sw2Bqll();
 
     double mt = SM.Mrun(Muw, SM.getQuarks(QCD::TOP).getMass_scale(),
             SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
@@ -2294,7 +2307,7 @@ double StandardModelMatching::setWCBsmmEW(int i, double x, orders_qed order_qed)
  * ****************************************************************************/
 double StandardModelMatching::setWCBdmm(int i, double x, orders order) {
 
-    sw2 = (M_PI * Ale) / (sqrt(2.) * GF * Mw * Mw);
+    sw2 = sw2Bqll();
 
     if (bdQcdOrder == order && sw2b == sw2 && xcacheb == x) {
         switch (order) {
@@ -2361,7 +2374,7 @@ double StandardModelMatching::setWCBdmm(int i, double x, orders order) {
 }
 
 double StandardModelMatching::setWCBdmmEW(int i, double x, orders_qed order_qed) {
-    sw2 = (M_PI * Ale) / (sqrt(2.) * GF * Mw * Mw);
+    sw2 = sw2Bqll();
 
     double mt = SM.Mrun(Muw, SM.getQuarks(QCD::TOP).getMass_scale(),
             SM.getQuarks(QCD::TOP).getMass(), QCD::TOP, FULLNNLO);
