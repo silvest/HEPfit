@@ -1148,6 +1148,21 @@ double Bsgamma::Phi88_1(double E0)
 gslpp::complex Bsgamma::Kij_1(int i, int j, double E0, double mu)
 {
     if (i > 8 || j>8 || i<1 || j<1) throw std::runtime_error("Bsgamma::Kij_1(): indices (i,j) must be included in (1,..,8)");
+
+    // The whole K^(1) matrix is computed at once and kept until the arguments or the parameters (updateParameters())
+    // change: P21, P32, P21_CPodd and Kij_2 ask for its elements about 200 times per evaluation.
+    if (!K1CacheValid || E0 != K1CacheE0 || mu != K1CacheMu) {
+        computeKij_1(E0, mu);
+        K1CacheE0 = E0;
+        K1CacheMu = mu;
+        K1CacheValid = true;
+    }
+    if (j >= i ) return K1Cache[i-1][j-1];
+    else return K1Cache[j-1][i-1].conjugate();
+}
+
+void Bsgamma::computeKij_1(double E0, double mu)
+{
     
     double gamma_i7[8] = {-208./243., 416./81., -176./81., -152./243., -6272./81., 4624./243., 32./3., -32./9.};
     gslpp::complex K_ij[8][8] = {{0.}};
@@ -1197,8 +1212,9 @@ gslpp::complex Bsgamma::Kij_1(int i, int j, double E0, double mu)
     
     K_ij[7][7] = 4.*Phi88_1(E0);
     
-    if (j >= i ) return K_ij[i-1][j-1];
-    else return K_ij[j-1][i-1].conjugate();
+    for (int k = 0; k < 8; k++)
+        for (int l = 0; l < 8; l++)
+            K1Cache[k][l] = K_ij[k][l];
 }
 
 double Bsgamma::Rer22(double z)
@@ -1904,6 +1920,20 @@ double Bsgamma::Kij_2(int i, int j, double E0, double mu_b, double mu_c)
     int temp;
     
     if (i > j) {temp=i; i=j; j=temp;}
+
+    // computed once per arguments and parameters, as Kij_1
+    if (!K2CacheValid || E0 != K2CacheE0 || mu_b != K2CacheMub || mu_c != K2CacheMuc) {
+        computeKij_2(E0, mu_b, mu_c);
+        K2CacheE0 = E0;
+        K2CacheMub = mu_b;
+        K2CacheMuc = mu_c;
+        K2CacheValid = true;
+    }
+    return K2Cache[i-1][j-1];
+}
+
+void Bsgamma::computeKij_2(double E0, double mu_b, double mu_c)
+{
     
     double K_ij[8][8] = {{0.}};
     double z = zeta();
@@ -1951,7 +1981,9 @@ double Bsgamma::Kij_2(int i, int j, double E0, double mu_b, double mu_c)
             + 4.*Phi88_2beta0(E0,mu_b) * SM.Beta0(3)/SM.Beta0(5) + 16./3. * Phi88_1(E0) * (Lcb - Lb)
             + xm * (delddel_Phi88_1(E0));
     
-    return K_ij[i-1][j-1];
+    for (int k = 0; k < 8; k++)
+        for (int l = 0; l < 8; l++)
+            K2Cache[k][l] = K_ij[k][l];
 }
 
 void Bsgamma::computeCoeff(double mu)
@@ -2394,6 +2426,10 @@ double Bsgamma::C_sem()
 
 void Bsgamma::updateParameters()
 {
+    // the K^(1) and K^(2) matrices depend on the parameters read below
+    K1CacheValid = false;
+    K2CacheValid = false;
+
     mu_kin=SM.getOptionalParameter("mukin");
     BRsl=SM.getOptionalParameter("BRsem")/100.;
     Mb_kin=SM.getOptionalParameter("Mbkin");

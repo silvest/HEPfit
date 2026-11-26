@@ -1511,6 +1511,16 @@ public:
     * @return \f$ K_{ij}^{(2)} \f$
     */
     double Kij_2(int i, int j, double E0, double mu_b, double mu_c);
+
+    /**
+    * @brief Compute the whole \f$ K^{(1)} \f$ matrix into K1Cache (see Kij_1()).
+    */
+    void computeKij_1(double E0, double mu);
+
+    /**
+    * @brief Compute the whole \f$ K^{(2)} \f$ matrix into K2Cache (see Kij_2()).
+    */
+    void computeKij_2(double E0, double mu_b, double mu_c);
     
     
     /**
@@ -1808,6 +1818,12 @@ private:
     
     double avaINT;/**< integral variable */    
     ROOT::Math::GSLIntegrator ig;/**< GSL integrator */
+    gslpp::complex K1Cache[8][8];/**< cached K^(1) matrix, valid for (K1CacheE0, K1CacheMu) until updateParameters() */
+    double K1CacheE0 = 0., K1CacheMu = 0.;
+    bool K1CacheValid = false;
+    double K2Cache[8][8] = {};/**< cached K^(2) matrix, valid for (K2CacheE0, K2CacheMub, K2CacheMuc) until updateParameters() */
+    double K2CacheE0 = 0., K2CacheMub = 0., K2CacheMuc = 0.;
+    bool K2CacheValid = false;
     ROOT::Math::Functor1D wf;/**< GSL integrator function */
     
     unsigned int Intb1Cached;/**< Cache variable */
