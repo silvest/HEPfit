@@ -28119,7 +28119,20 @@ const double NPSMEFTd6General::deltaGammaHgagaRatio1() const {
     double dGammaHgaga_cHB, dGammaHgaga_cHW, dGammaHgaga_cHWB, dGammaHgagaRatio_tree;
 
     //-- Indirect effects from the theory-scheme prefactors:
-    deltaGammaHgaga_Prefactor = (-0.211587 * cHD - 0.352136 * cHWB) * pow(1000, 2) - 0.181872 * dgf;
+    deltaGammaHgaga_Prefactor = (-0.211587 * cHD - 0.352136 * cHWB) * pow(1000, 2);
+    if (FlagMWinput) {
+        // With fixed W and Z masses, e^4/v^2 scales as v^-6.
+        deltaGammaHgaga_Prefactor -= 3.0 * dgf;
+    } else if (dgf != 0.) {
+        // At fixed alpha, delta ln(v^2) = dgf and delta ln(M_W^2) = -s_W^2/(c_W^2-s_W^2) * dgf.
+        const double tauW = 4.0 * Mw_tree * Mw_tree / (mHl * mHl);
+        if (tauW == 1.) return std::numeric_limits<double>::quiet_NaN(); // W-pair cusp has no linear slope.
+        const gslpp::complex dfDlogTau = g_triangle(tauW) / (1.0 - tauW);
+        const gslpp::complex dAWDlogTau = -3.0 * tauW * (1.0 + 2.0 * (1.0 - tauW) * f_triangle(tauW)
+                + (2.0 - tauW) * dfDlogTau);
+        const double dLogFormFactorSq = 2.0 * (dAWDlogTau / hGammaGammaFormFactor(tauW)).real();
+        deltaGammaHgaga_Prefactor -= dgf * (1.0 + sW2_tree / (cW2_tree - sW2_tree) * dLogFormFactorSq);
+    }
 
     //-- Indirect effect from Higgs-shift:
     dGammaHgagaRatio_HiggsField = sqrt(2)*(cHbox - cHD / 4.) / GF;

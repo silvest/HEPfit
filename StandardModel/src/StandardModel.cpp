@@ -3538,18 +3538,14 @@ const double StandardModel::GammaHtoZga() const
     return gamma;
 }
 
-const double StandardModel::GammaHtogaga() const
-{   
-    double gamma;
-    
+gslpp::complex StandardModel::hGammaGammaFormFactor(const double tauW) const
+{
     double m_t = mtpole;
     double m_b = quarks[BOTTOM].getMass();
     double m_c = quarks[CHARM].getMass();
     double m_s = quarks[STRANGE].getMass();
     double m_tau = leptons[TAU].getMass();
     double m_mu = leptons[MU].getMass();
-
-    double M_w_2 = pow(Mw(),2.0);
 
     double Qt = quarks[TOP].getCharge();
     double Qb = quarks[BOTTOM].getCharge();
@@ -3564,23 +3560,23 @@ const double StandardModel::GammaHtogaga() const
     double tau_s = 4.0 * m_s * m_s / mHl / mHl;
     double tau_tau = 4.0 * m_tau * m_tau / mHl / mHl;
     double tau_mu = 4.0 * m_mu * m_mu / mHl / mHl;
-    double tau_W = 4.0 * M_w_2 / mHl / mHl;
 
-    gslpp::complex MSM;
-
-    MSM = ale * (3.0 * Qt * Qt * AH_f(tau_t) +
+    return 3.0 * Qt * Qt * AH_f(tau_t) +
             3.0 * Qb * Qb * AH_f(tau_b) +
             3.0 * Qc * Qc * AH_f(tau_c) +
             3.0 * Qs * Qs * AH_f(tau_s) +
             Qtau * Qtau * AH_f(tau_tau) +
             Qmu * Qmu * AH_f(tau_mu) +
-            AH_W(tau_W));
-
-    gamma = (4.0*GF/sqrt(2)) * (MSM.abs2()) * pow(mHl,3.0)/512.0/pow(M_PI,3);
-
-    return gamma;
+            AH_W(tauW);
 }
-    
+
+const double StandardModel::GammaHtogaga() const
+{
+    const double tauW = 4.0 * pow(Mw(), 2) / (mHl * mHl);
+    const gslpp::complex amplitude = ale * hGammaGammaFormFactor(tauW);
+    return (4.0*GF/sqrt(2)) * amplitude.abs2() * pow(mHl,3.0)/512.0/pow(M_PI,3);
+}
+
 const double StandardModel::GammaHtomumu() const
 {   
     double mf=leptons[MU].getMass();
