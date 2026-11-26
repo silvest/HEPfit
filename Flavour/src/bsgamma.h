@@ -9,8 +9,7 @@
 #define	BSGAMMA_H
 
 #include "ThObservable.h"
-#include "Math/GSLIntegrator.h"
-#include "Math/Functor.h"
+#include <vector>
 #include <Polylogarithms.h>
 #include <ClausenFunctions.h>
 
@@ -1817,14 +1816,25 @@ private:
     gslpp::complex C_7p_NP;
     
     double avaINT;/**< integral variable */    
-    ROOT::Math::GSLIntegrator ig;/**< GSL integrator */
+    /// A node of the rules used for the kappa integrals (see updateKappaNodes()).
+    struct KappaNode {
+        double t, w;
+        gslpp::complex kb, kc;
+    };
+    std::vector<KappaNode> kappaNodes[2];/**< nodes for the integrals over [0, t1] and [t1, 1] */
+    double kappaNodesE0 = 0., kappaNodesMb = 0., kappaNodesMc = 0.;
+    bool kappaNodesValid = false;
+    /// Build the nodes for the cut E0 and the current m_b, m_c (kept while these do not change).
+    void updateKappaNodes(double E0);
+    /// Integral of integrand(t, kappa(m_b, t), kappa(m_c, t)) over [0, t1] (interval 0) or [t1, 1] (interval 1).
+    template<typename Integrand>
+    double kappaIntegral(double E0, int interval, Integrand integrand);
     gslpp::complex K1Cache[8][8];/**< cached K^(1) matrix, valid for (K1CacheE0, K1CacheMu) until updateParameters() */
     double K1CacheE0 = 0., K1CacheMu = 0.;
     bool K1CacheValid = false;
     double K2Cache[8][8] = {};/**< cached K^(2) matrix, valid for (K2CacheE0, K2CacheMub, K2CacheMuc) until updateParameters() */
     double K2CacheE0 = 0., K2CacheMub = 0., K2CacheMuc = 0.;
     bool K2CacheValid = false;
-    ROOT::Math::Functor1D wf;/**< GSL integrator function */
     
     unsigned int Intb1Cached;/**< Cache variable */
     unsigned int Intb2Cached;/**< Cache variable */
