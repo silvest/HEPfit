@@ -951,12 +951,12 @@ gslpp::complex THDMcache::B0p_MZ2_mHl2_0_0(const double MZ2, const double mHl2) 
     int NumPar = 2;
     double params[] = {MZ2, mHl2};
 
-    int i = CacheCheck(B0p_MZ2_0_0_mHl2_cache, NumPar, params);
+    int i = CacheCheck(B0p_MZ2_mHl2_0_0_cache, NumPar, params);
     if (i>=0) {
-        return ( B0p_MZ2_0_0_mHl2_cache[NumPar][i] );
+        return ( B0p_MZ2_mHl2_0_0_cache[NumPar][i] );
     } else {
         gslpp::complex newResult = PV.B0p(MZ2, mHl2, 0.0, 0.0);
-        CacheShift(B0p_MZ2_0_0_mHl2_cache, NumPar, params, newResult);
+        CacheShift(B0p_MZ2_mHl2_0_0_cache, NumPar, params, newResult);
         return newResult;
     } 
 }
@@ -1063,12 +1063,12 @@ gslpp::complex THDMcache::B0p_MZ2_mHh2_0_0(const double MZ2, const double mHh2) 
     int NumPar = 2;
     double params[] = {MZ2, mHh2};
 
-    int i = CacheCheck(B0p_MZ2_0_0_mHh2_cache, NumPar, params);
+    int i = CacheCheck(B0p_MZ2_mHh2_0_0_cache, NumPar, params);
     if (i>=0) {
-        return ( B0p_MZ2_0_0_mHh2_cache[NumPar][i] );
+        return ( B0p_MZ2_mHh2_0_0_cache[NumPar][i] );
     } else {
         gslpp::complex newResult = PV.B0p(MZ2, mHh2, 0.0, 0.0);
-        CacheShift(B0p_MZ2_0_0_mHh2_cache, NumPar, params, newResult);
+        CacheShift(B0p_MZ2_mHh2_0_0_cache, NumPar, params, newResult);
         return newResult;
     } 
 }
@@ -1405,7 +1405,7 @@ gslpp::complex THDMcache::B00_MZ2_0_MW2_mHh2(const double MZ2, const double MW2,
     if (i>=0) {
         return ( B00_MZ2_0_MW2_mHh2_cache[NumPar][i] );
     } else {
-        gslpp::complex newResult = PV.B00(MZ2, MW2, MW2, mHh2);
+        gslpp::complex newResult = PV.B00(MZ2, 0.0, MW2, mHh2);
         CacheShift(B00_MZ2_0_MW2_mHh2_cache, NumPar, params, newResult);
         return newResult;
     } 
