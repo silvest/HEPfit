@@ -8,6 +8,7 @@
 #include "EvolBsmm.h"
 #include "StandardModel.h"
 #include <gsl/gsl_sf.h>
+#include <algorithm>
 
 EvolBsmm::EvolBsmm(unsigned int dim_i, schemes scheme, orders order, orders_qed order_qed, const StandardModel & model)
 :   RGEvolutor(dim_i, scheme, order, order_qed), model(model), V(dim_i,0.), Vi(dim_i,0.),
@@ -81,258 +82,115 @@ EvolBsmm::EvolBsmm(unsigned int dim_i, schemes scheme, orders order, orders_qed 
     FF = BuiltB('F', nu, nd);
     RR = BuiltB('R', nu, nd);
         
-    double cutoff = 0.000000001 ;
-    
-    for(l = 0; l < dim; l++){
-        for(i = 0; i < dim; i++){
-            for(j = 0; j < dim; j++){
-            	for(m = 0; m < dim; m++){
-                  
-                    if(fabs(V(l, i).real() * AA(i, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                        vavi.push_back(l);
-                        vavi.push_back(i);
-                        vavi.push_back(j);
-                        vavi.push_back(m);
-                        vavi.push_back(V(l, i).real() * AA(i, j).real() * Vi(j, m).real());
-                   
-                    }
-                    if(fabs(V(l, i).real() * BB(i, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                        vbvi.push_back(l);
-                        vbvi.push_back(i);
-                        vbvi.push_back(j);
-                        vbvi.push_back(m);
-                        vbvi.push_back(V(l, i).real() * BB(i, j).real() * Vi(j, m).real());
-                    
-                    }
-                    if(fabs(V(l, i).real() * CC(i, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                        vcvi.push_back(l);
-                        vcvi.push_back(i);
-                        vcvi.push_back(j);
-                        vcvi.push_back(m);
-                        vcvi.push_back(V(l, i).real() * CC(i, j).real() * Vi(j, m).real());
-                    
-                    }
-                    if(fabs(V(l, i).real() * DD(i, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                        vdvi.push_back(l);
-                        vdvi.push_back(i);
-                        vdvi.push_back(j);
-                        vdvi.push_back(m);
-                        vdvi.push_back(V(l, i).real() * DD(i, j).real() * Vi(j, m).real());
-                    
-                    }
-                    if(fabs(V(l, i).real() * EE(i, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                        vevi.push_back(l);
-                        vevi.push_back(i);
-                        vevi.push_back(j);
-                        vevi.push_back(m);
-                        vevi.push_back(V(l, i).real() * EE(i, j).real() * Vi(j, m).real());
-                    
-                    }
-                    if(fabs(V(l, i).real() * FF(i, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                        vfvi.push_back(l);
-                        vfvi.push_back(i);
-                        vfvi.push_back(j);
-                        vfvi.push_back(m);
-                        vfvi.push_back(V(l, i).real() * FF(i, j).real() * Vi(j, m).real());
+    /* The products below only need the real parts of V, V^-1 and of the B matrices: copy them once to plain
+     * arrays (element access through gslpp::matrix<gslpp::complex> dominated the construction time). The loop
+     * order and the order of the factors are unchanged, so the stored lists are identical to the previous ones. */
+    const unsigned int n = dim;
+    auto realParts = [n](const gslpp::matrix<gslpp::complex>& matrix) {
+        std::vector<double> r(n * n);
+        for (unsigned int row = 0; row < n; row++)
+            for (unsigned int col = 0; col < n; col++)
+                r[row * n + col] = matrix(row, col).real();
+        return r;
+    };
+    const std::vector<double> rV = realParts(V), rVi = realParts(Vi), rA = realParts(AA), rB = realParts(BB),
+            rC = realParts(CC), rD = realParts(DD), rE = realParts(EE), rF = realParts(FF), rR = realParts(RR);
 
-                    }
-                    if(fabs(V(l, i).real() * RR(i, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                        vrvi.push_back(l);
-                        vrvi.push_back(i);
-                        vrvi.push_back(j);
-                        vrvi.push_back(m);
-                        vrvi.push_back(V(l, i).real() * RR(i, j).real() * Vi(j, m).real());
+    const double cutoff = 0.000000001;
+    auto store = [cutoff](std::vector<double>& list, std::initializer_list<double> indices, double value) {
+        if (fabs(value) > cutoff) {
+            list.insert(list.end(), indices);
+            list.push_back(value);
+        }
+    };
 
-                    }
-                   
-                    for(p = 0; p < dim; p++){
+    for (l = 0; l < n; l++) {
+        for (i = 0; i < n; i++) {
+            const double Vli = rV[l * n + i];
+            for (j = 0; j < n; j++) {
+                for (m = 0; m < n; m++) {
+                    const double Vijm = rVi[j * n + m];
+                    store(vavi, {(double) l, (double) i, (double) j, (double) m}, Vli * rA[i * n + j] * Vijm);
+                    store(vbvi, {(double) l, (double) i, (double) j, (double) m}, Vli * rB[i * n + j] * Vijm);
+                    store(vcvi, {(double) l, (double) i, (double) j, (double) m}, Vli * rC[i * n + j] * Vijm);
+                    store(vdvi, {(double) l, (double) i, (double) j, (double) m}, Vli * rD[i * n + j] * Vijm);
+                    store(vevi, {(double) l, (double) i, (double) j, (double) m}, Vli * rE[i * n + j] * Vijm);
+                    store(vfvi, {(double) l, (double) i, (double) j, (double) m}, Vli * rF[i * n + j] * Vijm);
+                    store(vrvi, {(double) l, (double) i, (double) j, (double) m}, Vli * rR[i * n + j] * Vijm);
 
-                        if(fabs(V(l, i).real() * AA(i, p).real() * EE(p, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                            vaevi.push_back(l);
-                            vaevi.push_back(i);
-                            vaevi.push_back(p);
-                            vaevi.push_back(j);
-                            vaevi.push_back(m);
-                            vaevi.push_back(V(l, i).real() * AA(i, p).real() * EE(p, j).real() * Vi(j, m).real());
-                   
+                    for (p = 0; p < n; p++) {
+                        const double Aip = rA[i * n + p], Bip = rB[i * n + p], Dip = rD[i * n + p], Eip = rE[i * n + p];
+                        const double Epj = rE[p * n + j], Bpj = rB[p * n + j], Dpj = rD[p * n + j], Apj = rA[p * n + j];
+                        store(vaevi, {(double) l, (double) i, (double) p, (double) j, (double) m}, Vli * Aip * Epj * Vijm);
+                        store(vbbvi, {(double) l, (double) i, (double) p, (double) j, (double) m}, Vli * Bip * Bpj * Vijm);
+                        store(vbdvi, {(double) l, (double) i, (double) p, (double) j, (double) m}, Vli * Bip * Dpj * Vijm);
+                        store(vbevi, {(double) l, (double) i, (double) p, (double) j, (double) m}, Vli * Bip * Epj * Vijm);
+                        store(vdbvi, {(double) l, (double) i, (double) p, (double) j, (double) m}, Vli * Dip * Bpj * Vijm);
+                        store(vdevi, {(double) l, (double) i, (double) p, (double) j, (double) m}, Vli * Dip * Epj * Vijm);
+                        store(veavi, {(double) l, (double) i, (double) p, (double) j, (double) m}, Vli * Eip * Apj * Vijm);
+                        store(vebvi, {(double) l, (double) i, (double) p, (double) j, (double) m}, Vli * Eip * Bpj * Vijm);
+                        store(vedvi, {(double) l, (double) i, (double) p, (double) j, (double) m}, Vli * Eip * Dpj * Vijm);
+                        store(veevi, {(double) l, (double) i, (double) p, (double) j, (double) m}, Vli * Eip * Epj * Vijm);
+
+                        for (q = 0; q < n; q++) {
+                            const double Epq = rE[p * n + q], Bpq = rB[p * n + q];
+                            const double Eqj = rE[q * n + j], Bqj = rB[q * n + j];
+                            store(vbeevi, {(double) l, (double) i, (double) p, (double) q, (double) j, (double) m}, Vli * Bip * Epq * Eqj * Vijm);
+                            store(vebevi, {(double) l, (double) i, (double) p, (double) q, (double) j, (double) m}, Vli * Eip * Bpq * Eqj * Vijm);
+                            store(veebvi, {(double) l, (double) i, (double) p, (double) q, (double) j, (double) m}, Vli * Eip * Epq * Bqj * Vijm);
+                            store(vbbevi, {(double) l, (double) i, (double) p, (double) q, (double) j, (double) m}, Vli * Bip * Bpq * Eqj * Vijm);
+                            store(vbebvi, {(double) l, (double) i, (double) p, (double) q, (double) j, (double) m}, Vli * Bip * Epq * Bqj * Vijm);
+                            store(vebbvi, {(double) l, (double) i, (double) p, (double) q, (double) j, (double) m}, Vli * Eip * Bpq * Bqj * Vijm);
                         }
-                        if(fabs(V(l, i).real() * BB(i, p).real() * BB(p, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                            vbbvi.push_back(l);
-                            vbbvi.push_back(i);
-                            vbbvi.push_back(p);
-                            vbbvi.push_back(j);
-                            vbbvi.push_back(m);
-                            vbbvi.push_back(V(l, i).real() * BB(i, p).real() * BB(p, j).real() * Vi(j, m).real());
-                    
-                        }
-                        if(fabs(V(l, i).real() * BB(i, p).real() * DD(p, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                            vbdvi.push_back(l);
-                            vbdvi.push_back(i);
-                            vbdvi.push_back(p);
-                            vbdvi.push_back(j);
-                            vbdvi.push_back(m);
-                            vbdvi.push_back(V(l, i).real() * BB(i, p).real() * DD(p, j).real() * Vi(j, m).real());
-                   
-                        }
-                        if(fabs(V(l, i).real() * BB(i, p).real() * EE(p, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                            vbevi.push_back(l);
-                            vbevi.push_back(i);
-                            vbevi.push_back(p);
-                            vbevi.push_back(j);
-                            vbevi.push_back(m);
-                            vbevi.push_back(V(l, i).real() * BB(i, p).real() * EE(p, j).real() * Vi(j, m).real());
-                   
-                        }
-                        if(fabs(V(l, i).real() * DD(i, p).real() * BB(p, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                            vdbvi.push_back(l);
-                            vdbvi.push_back(i);
-                            vdbvi.push_back(p);
-                            vdbvi.push_back(j);
-                            vdbvi.push_back(m);
-                            vdbvi.push_back(V(l, i).real() * DD(i, p).real() * BB(p, j).real() * Vi(j, m).real());
-                   
-                        }
-                        if(fabs(V(l, i).real() * DD(i, p).real() * EE(p, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                            vdevi.push_back(l);
-                            vdevi.push_back(i);
-                            vdevi.push_back(p);
-                            vdevi.push_back(j);
-                            vdevi.push_back(m);
-                            vdevi.push_back(V(l, i).real() * DD(i, p).real() * EE(p, j).real() * Vi(j, m).real());
-                   
-                        }
-                        if(fabs(V(l, i).real() * EE(i, p).real() * AA(p, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                            veavi.push_back(l);
-                            veavi.push_back(i);
-                            veavi.push_back(p);
-                            veavi.push_back(j);
-                            veavi.push_back(m);
-                            veavi.push_back(V(l, i).real() * EE(i, p).real() * AA(p, j).real() * Vi(j, m).real());
-                   
-                        }
-                        if(fabs(V(l, i).real() * EE(i, p).real() * BB(p, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                            vebvi.push_back(l);
-                            vebvi.push_back(i);
-                            vebvi.push_back(p);
-                            vebvi.push_back(j);
-                            vebvi.push_back(m);
-                            vebvi.push_back(V(l, i).real() * EE(i, p).real() * BB(p, j).real() * Vi(j, m).real());
-                   
-                        }    
-                        if(fabs(V(l, i).real() * EE(i, p).real() * DD(p, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                            vedvi.push_back(l);
-                            vedvi.push_back(i);
-                            vedvi.push_back(p);
-                            vedvi.push_back(j);
-                            vedvi.push_back(m);
-                            vedvi.push_back(V(l, i).real() * EE(i, p).real() * DD(p, j).real() * Vi(j, m).real());
-                   
-                        }    
-                        if(fabs(V(l, i).real() * EE(i, p).real() * EE(p, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                            veevi.push_back(l);
-                            veevi.push_back(i);
-                            veevi.push_back(p);
-                            veevi.push_back(j);
-                            veevi.push_back(m);
-                            veevi.push_back(V(l, i).real() * EE(i, p).real() * EE(p, j).real() * Vi(j, m).real());
-                   
-                        }
-                        
-                        for(q = 0; q < dim; q++){
-			
-                            if(fabs(V(l, i).real() * BB(i, p).real() * EE(p, q).real() * EE(q, j).real() * Vi(j, m).real()) > cutoff){
-                    
-                                vbeevi.push_back(l);
-                                vbeevi.push_back(i);
-                                vbeevi.push_back(p);
-                                vbeevi.push_back(q);
-                                vbeevi.push_back(j);
-                                vbeevi.push_back(m);
-                                vbeevi.push_back(V(l, i).real() * BB(i, p).real() * EE(p, q).real() * EE(q, j).real() * Vi(j, m).real());
-                   
-                            }
-                            
-                            if (fabs(V(l, i).real() * EE(i, p).real() * BB(p, q).real() * EE(q, j).real() * Vi(j, m).real()) > cutoff) {
-
-                                vebevi.push_back(l);
-                                vebevi.push_back(i);
-                                vebevi.push_back(p);
-                                vebevi.push_back(q);
-                                vebevi.push_back(j);
-                                vebevi.push_back(m);
-                                vebevi.push_back(V(l, i).real() * EE(i, p).real() * BB(p, q).real() * EE(q, j).real() * Vi(j, m).real());
-
-                            }
-                            if (fabs(V(l, i).real() * EE(i, p).real() * EE(p, q).real() * BB(q, j).real() * Vi(j, m).real()) > cutoff) {
-
-                                veebvi.push_back(l);
-                                veebvi.push_back(i);
-                                veebvi.push_back(p);
-                                veebvi.push_back(q);
-                                veebvi.push_back(j);
-                                veebvi.push_back(m);
-                                veebvi.push_back(V(l, i).real() * EE(i, p).real() * EE(p, q).real() * BB(q, j).real() * Vi(j, m).real());
-
-                            }
-                            if (fabs(V(l, i).real() * BB(i, p).real() * BB(p, q).real() * EE(q, j).real() * Vi(j, m).real()) > cutoff) {
-
-                                vbbevi.push_back(l);
-                                vbbevi.push_back(i);
-                                vbbevi.push_back(p);
-                                vbbevi.push_back(q);
-                                vbbevi.push_back(j);
-                                vbbevi.push_back(m);
-                                vbbevi.push_back(V(l, i).real() * BB(i, p).real() * BB(p, q).real() * EE(q, j).real() * Vi(j, m).real());
-
-                            }
-                            if (fabs(V(l, i).real() * BB(i, p).real() * EE(p, q).real() * BB(q, j).real() * Vi(j, m).real()) > cutoff) {
-
-                                vbebvi.push_back(l);
-                                vbebvi.push_back(i);
-                                vbebvi.push_back(p);
-                                vbebvi.push_back(q);
-                                vbebvi.push_back(j);
-                                vbebvi.push_back(m);
-                                vbebvi.push_back(V(l, i).real() * BB(i, p).real() * EE(p, q).real() * BB(q, j).real() * Vi(j, m).real());
-
-                            }
-                            if (fabs(V(l, i).real() * EE(i, p).real() * BB(p, q).real() * BB(q, j).real() * Vi(j, m).real()) > cutoff) {
-
-                                vebbvi.push_back(l);
-                                vebbvi.push_back(i);
-                                vebbvi.push_back(p);
-                                vebbvi.push_back(q);
-                                vebbvi.push_back(j);
-                                vebbvi.push_back(m);
-                                vebbvi.push_back(V(l, i).real() * EE(i, p).real() * BB(p, q).real() * BB(q, j).real() * Vi(j, m).real());
-
-                            }
-			}
                     }
-		}
+                }
             }
-	}
+        }
     }
-            
+
+    for (std::vector<double>* list : {&vavi, &vbvi, &vcvi, &vdvi, &vevi, &vfvi, &vrvi})
+        groupByArguments(*list, 2);
+    for (std::vector<double>* list : {&vaevi, &vbbvi, &vbdvi, &vbevi, &vdbvi, &vdevi, &veavi, &vebvi, &vedvi, &veevi})
+        groupByArguments(*list, 3);
+    for (std::vector<double>* list : {&vbeevi, &vebevi, &veebvi, &vbbevi, &vbebvi, &vebbvi})
+        groupByArguments(*list, 4);
 }
 
+
+template<typename Function>
+void EvolBsmm::accumulate(const std::vector<double>& list, unsigned int nargs, std::vector<double>& target,
+        Function function)
+{
+    // entries (l, arguments, m, coefficient), grouped by their arguments (see groupByArguments())
+    const std::size_t stride = nargs + 3;
+    const double* group = nullptr;
+    double value = 0.;
+    for (std::size_t k = 0; k + stride <= list.size(); k += stride) {
+        const double* entry = &list[k];
+        if (group == nullptr || !std::equal(entry + 1, entry + 1 + nargs, group + 1)) {
+            value = function(entry + 1);
+            group = entry;
+        }
+        target[(unsigned int) entry[0] * dim + (unsigned int) entry[nargs + 1]] += entry[nargs + 2] * value;
+    }
+}
+
+void EvolBsmm::groupByArguments(std::vector<double>& list, unsigned int nargs)
+{
+    // Reorder the entries (l, arguments, m, coefficient) so that equal arguments are contiguous; the stable sort keeps
+    // the original order within a group.
+    const std::size_t stride = nargs + 3, size = list.size() / stride;
+    std::vector<std::size_t> order(size);
+    for (std::size_t k = 0; k < size; k++) order[k] = k;
+    std::stable_sort(order.begin(), order.end(), [&](std::size_t a, std::size_t b) {
+        return std::lexicographical_compare(list.begin() + a * stride + 1, list.begin() + a * stride + 1 + nargs,
+                list.begin() + b * stride + 1, list.begin() + b * stride + 1 + nargs);
+    });
+    std::vector<double> grouped;
+    grouped.reserve(list.size());
+    for (std::size_t k : order) grouped.insert(grouped.end(), list.begin() + k * stride, list.begin() + (k + 1) * stride);
+    list.swap(grouped);
+}
 
 EvolBsmm::~EvolBsmm()
 {}
@@ -722,6 +580,9 @@ gslpp::matrix< double > & EvolBsmm::Df1Evol(double mu, double M, orders order, o
 
         eta = alsM / alsmu;
         logeta = log(eta);
+        for (unsigned int j = 0; j < dim; j++)
+            for (int shift = -8; shift <= 8; shift++)
+                etaPowTable[j][shift + 8] = pow(eta, a[1][j] + shift); // a[L] with L = 6 - nf = 1
 
         /*while (m_up < M) {                         //there is no thresholds
                 Df1Evol(m_down, m_up, nf, scheme);
@@ -746,12 +607,8 @@ void EvolBsmm::Df1Evol(double mu, double M, double nf, schemes scheme)
     unsigned int j = 0;
     unsigned int k = 0;
 
-    gslpp::matrix<double> resLO(dim, 0.);
-    gslpp::matrix<double> Ueos(dim, 0.), Ue(dim, 0.), Ues(dim,0.), Us(dim,0.), Ue2os(dim, 0.), Ue2os2(dim, 0.), Ue2(dim,0.), Us2(dim,0.);
 
     int L = 6 - (int) nf;
-
-    double eta = alsM / alsmu;
 
     double B00S = model.Beta0(nf);// B10S = model.Beta1(nf); /*inizializza i B*/
 
@@ -760,222 +617,130 @@ void EvolBsmm::Df1Evol(double mu, double M, double nf, schemes scheme)
     double omega = 2. * B00S , lambda = B00E  /B00S ;    /*   E ale dipende da mu?*/
 
 
-    for (k = 0; k < dim; k++) {
-        double etap = pow(eta, a[L][k]);
-        for (i = 0; i < dim; i++) {
-            for (j = 0; j < dim; j++) {
-                resLO(i, j) += b[L][i][j][k] * etap;
-                Ue2(i, j) = (i == j);
+
+    /* Each list entry is (l, arguments, m, coefficient) and adds coefficient * f(arguments) to the (l, m) element
+     * of one of the matrices below. The lists are grouped by their arguments in the constructor, so that every
+     * F, R, G and H value is computed once per group instead of once per (l, m) pair. */
+    const unsigned int n = dim;
+    std::vector<double> us(n * n, 0.), us2(n * n, 0.), ue(n * n, 0.), ueos(n * n, 0.), ue2os(n * n, 0.),
+            ue2os2(n * n, 0.), ues(n * n, 0.);
+
+    accumulate(vbeevi, 4, ue2os, [&](const double* k) { return H(k[0], k[1], k[2], k[3], 2, 4, 4, mu, M, nf); });
+    accumulate(vebevi, 4, ue2os, [&](const double* k) { return H(k[0], k[1], k[2], k[3], 4, 2, 4, mu, M, nf); });
+    accumulate(veebvi, 4, ue2os, [&](const double* k) { return H(k[0], k[1], k[2], k[3], 4, 4, 2, mu, M, nf); });
+    accumulate(vbbevi, 4, ues, [&](const double* k) { return H(k[0], k[1], k[2], k[3], 2, 2, 4, mu, M, nf); });
+    accumulate(vbebvi, 4, ues, [&](const double* k) { return H(k[0], k[1], k[2], k[3], 2, 4, 2, mu, M, nf); });
+    accumulate(vebbvi, 4, ues, [&](const double* k) { return H(k[0], k[1], k[2], k[3], 4, 2, 2, mu, M, nf); });
+
+    accumulate(vaevi, 3, ues, [&](const double* k) { return G(k[0], k[1], k[2], 1, 4, mu, M, nf); });
+    accumulate(vbbvi, 3, us2, [&](const double* k) { return G(k[0], k[1], k[2], 2, 2, mu, M, nf); });
+    accumulate(vbdvi, 3, ues, [&](const double* k) { return G(k[0], k[1], k[2], 2, 3, mu, M, nf); });
+    accumulate(vbevi, 3, ue, [&](const double* k) { return G(k[0], k[1], k[2], 2, 4, mu, M, nf); });
+    accumulate(vbevi, 3, ue2os, [&](const double* k) {
+        return -G(k[0], k[1], k[2], 2, 4, mu, M, nf) + G(k[0], k[1], k[2], 2, 5, mu, M, nf); });
+    accumulate(vdbvi, 3, ues, [&](const double* k) { return G(k[0], k[1], k[2], 3, 2, mu, M, nf); });
+    accumulate(vdevi, 3, ue2os, [&](const double* k) { return G(k[0], k[1], k[2], 3, 4, mu, M, nf); });
+    accumulate(veavi, 3, ues, [&](const double* k) { return G(k[0], k[1], k[2], 4, 1, mu, M, nf); });
+    accumulate(vebvi, 3, ue, [&](const double* k) { return G(k[0], k[1], k[2], 4, 2, mu, M, nf); });
+    accumulate(vebvi, 3, ue2os, [&](const double* k) {
+        return -G(k[0], k[1], k[2], 4, 2, mu, M, nf) + G(k[0], k[1], k[2], 5, 2, mu, M, nf); });
+    accumulate(vedvi, 3, ue2os, [&](const double* k) { return G(k[0], k[1], k[2], 4, 3, mu, M, nf); });
+    accumulate(veevi, 3, ue2os2, [&](const double* k) { return G(k[0], k[1], k[2], 4, 4, mu, M, nf); });
+
+    accumulate(vavi, 2, us2, [&](const double* k) { return F(k[0], k[1], 1, mu, M, nf); });
+    accumulate(vbvi, 2, us, [&](const double* k) { return F(k[0], k[1], 2, mu, M, nf); });
+    accumulate(vcvi, 2, ues, [&](const double* k) { return F(k[0], k[1], 2, mu, M, nf); });
+    accumulate(vdvi, 2, ue, [&](const double* k) { return F(k[0], k[1], 3, mu, M, nf); });
+    accumulate(vdvi, 2, ue2os, [&](const double* k) { return -F(k[0], k[1], 3, mu, M, nf); });
+    accumulate(vevi, 2, ueos, [&](const double* k) { return F(k[0], k[1], 4, mu, M, nf); });
+    accumulate(vevi, 2, ue2os2, [&](const double* k) {
+        return F(k[0], k[1], 5, mu, M, nf) - F(k[0], k[1], 4, mu, M, nf); });
+    accumulate(vfvi, 2, ue2os, [&](const double* k) { return F(k[0], k[1], 4, mu, M, nf); });
+    accumulate(vrvi, 2, ue2os, [&](const double* k) { return R(k[0], k[1], 4, mu, M, nf); });
+
+    /* Combine with the evolution matrices of the previous step (*elem[...], all taken before any update, as in the
+     * fall-through switches below) using plain arrays: the 8x8 products through gslpp element access dominated the
+     * cost otherwise. Sums are taken left to right, as before. */
+    typedef std::vector<double> Dense;
+    auto scaled = [n](const Dense& values, double factor) {
+        Dense r(n * n);
+        for (unsigned int k = 0; k < n * n; k++) r[k] = factor * values[k];
+        return r;
+    };
+    auto dense = [n](const gslpp::matrix<double>& matrix) {
+        Dense r(n * n);
+        for (unsigned int row = 0; row < n; row++)
+            for (unsigned int col = 0; col < n; col++)
+                r[row * n + col] = matrix(row, col);
+        return r;
+    };
+    auto mul = [n](const Dense& a, const Dense& b) {
+        Dense c(n * n);
+        for (unsigned int row = 0; row < n; row++)
+            for (unsigned int col = 0; col < n; col++) {
+                double sum = 0.;
+                for (unsigned int k = 0; k < n; k++) sum += a[row * n + k] * b[k * n + col];
+                c[row * n + col] = sum;
             }
-        }
+        return c;
+    };
+    auto add = [n](std::initializer_list<Dense> terms) {
+        Dense r(n * n, 0.);
+        for (const Dense& term : terms)
+            for (unsigned int k = 0; k < n * n; k++) r[k] += term[k];
+        return r;
+    };
+    auto assign = [n](gslpp::matrix<double>& matrix, const Dense& values) {
+        for (unsigned int row = 0; row < n; row++)
+            for (unsigned int col = 0; col < n; col++)
+                matrix(row, col) = values[row * n + col];
+    };
+
+    Dense rLO(n * n, 0.), rUe2(n * n, 0.);
+    for (k = 0; k < n; k++) {
+        const double etap = etaPow(k, 0);
+        for (i = 0; i < n; i++)
+            for (j = 0; j < n; j++)
+                rLO[i * n + j] += b[L][i][j][k] * etap;
     }
+    for (i = 0; i < n; i++) rUe2[i * n + i] = 1.;
+    const Dense rUs = scaled(us, omega), rUs2 = scaled(us2, omega * omega), rUeos = scaled(ueos, lambda),
+            rUe = scaled(ue, lambda * omega), rUe2os2 = scaled(ue2os2, lambda * lambda),
+            rUes = scaled(ues, omega * omega * lambda), rUe2os = scaled(ue2os, omega * lambda * lambda);
 
-    unsigned int ind = 0;
-    //double max = 0;
-    
-    gslpp::vector<double> list(23, 0.);
-    
-    list(0) = vbeevi.size()/7.;
-    list(1) = vebevi.size()/7.;
-    list(2) = veebvi.size()/7.;
-    list(3) = vbbevi.size()/7.;
-    list(4) = vbebvi.size()/7.;
-    list(5) = vebbvi.size()/7.;
-    list(6) = vaevi.size()/6.;
-    list(7) = vbbvi.size()/6.;
-    list(8) = vbdvi.size()/6.;
-    list(9) = vbevi.size()/6.;
-    list(10) = vdbvi.size()/6.;
-    list(11) = vdevi.size()/6.;
-    list(12) = veavi.size()/6.;
-    list(13) = vebvi.size()/6.;
-    list(14) = vedvi.size()/6.;
-    list(15) = veevi.size()/6.;
-    list(16) = vavi.size()/5.;
-    list(17) = vbvi.size()/5.;
-    list(18) = vcvi.size()/5.;
-    list(19) = vdvi.size()/5.;
-    list(20) = vevi.size()/5.;
-    list(21) = vfvi.size()/5.;
-    list(22) = vrvi.size()/5.;
-    
-    double max = list.max();
+    const Dense eLO = dense(*elem[LO]), eNLO = dense(*elem[NLO]), eNNLO = dense(*elem[NNLO]),
+            e11 = dense(*elem[NLO_QED11]), e21 = dense(*elem[NLO_QED21]), e22 = dense(*elem[NLO_QED22]);
 
-    for (ind = 0; ind < max; ind++) {
-
-        if (ind < list(0)) {
-
-            Ue2os(vbeevi[7 * ind], vbeevi[7 * ind + 5]) += vbeevi[7 * ind + 6] * H(vbeevi[7 * ind + 1], vbeevi[7 * ind + 2], vbeevi[7 * ind + 3], vbeevi[7 * ind + 4], 2, 4, 4, mu, M, nf);
-        }
-        if (ind < list(1)) {
-
-            Ue2os(vebevi[7 * ind], vebevi[7 * ind + 5]) += vebevi[7 * ind + 6] * H(vebevi[7 * ind + 1], vebevi[7 * ind + 2], vebevi[7 * ind + 3], vebevi[7 * ind + 4], 4, 2, 4, mu, M, nf);
-        }
-        if (ind < list(2)) {
-
-            Ue2os(veebvi[7 * ind], veebvi[7 * ind + 5]) += veebvi[7 * ind + 6] * H(veebvi[7 * ind + 1], veebvi[7 * ind + 2], veebvi[7 * ind + 3], veebvi[7 * ind + 4], 4, 4, 2, mu, M, nf);
-        }
-        if (ind < list(3)) {
-
-            Ues(vbbevi[7 * ind], vbbevi[7 * ind + 5]) += vbbevi[7 * ind + 6] * H(vbbevi[7 * ind + 1], vbbevi[7 * ind + 2], vbbevi[7 * ind + 3], vbbevi[7 * ind + 4], 2, 2, 4, mu, M, nf);
-        }
-        if (ind < list(4)) {
-
-            Ues(vbebvi[7 * ind], vbebvi[7 * ind + 5]) += vbebvi[7 * ind + 6] * H(vbebvi[7 * ind + 1], vbebvi[7 * ind + 2], vbebvi[7 * ind + 3], vbebvi[7 * ind + 4], 2, 4, 2, mu, M, nf);
-        }
-        if (ind < list(5)) {
-
-            Ues(vebbvi[7 * ind], vebbvi[7 * ind + 5]) += vebbvi[7 * ind + 6] * H(vebbvi[7 * ind + 1], vebbvi[7 * ind + 2], vebbvi[7 * ind + 3], vebbvi[7 * ind + 4], 4, 2, 2, mu, M, nf);
-        }
-
-
-        if (ind < list(6)) {
-
-            Ues(vaevi[6 * ind], vaevi[6 * ind + 4]) += vaevi[6 * ind + 5] * G(vaevi[6 * ind + 1], vaevi[6 * ind + 2], vaevi[6 * ind + 3], 1, 4, mu, M, nf);
-        }
-        if (ind < list(7)) {
-
-            Us2(vbbvi[6 * ind], vbbvi[6 * ind + 4]) += vbbvi[6 * ind + 5] * G(vbbvi[6 * ind + 1], vbbvi[6 * ind + 2], vbbvi[6 * ind + 3], 2, 2, mu, M, nf);
-        }
-        if (ind < list(8)) {
-
-            Ues(vbdvi[6 * ind], vbdvi[6 * ind + 4]) += vbdvi[6 * ind + 5] * G(vbdvi[6 * ind + 1], vbdvi[6 * ind + 2], vbdvi[6 * ind + 3], 2, 3, mu, M, nf);
-        }
-        if (ind < list(9)) {
-
-            Ue(vbevi[6 * ind], vbevi[6 * ind + 4]) += vbevi[6 * ind + 5] * G(vbevi[6 * ind + 1], vbevi[6 * ind + 2], vbevi[6 * ind + 3], 2, 4, mu, M, nf);
-            Ue2os(vbevi[6 * ind], vbevi[6 * ind + 4]) += vbevi[6 * ind + 5] * (-G(vbevi[6 * ind + 1], vbevi[6 * ind + 2], vbevi[6 * ind + 3], 2, 4, mu, M, nf)
-                    + G(vbevi[6 * ind + 1], vbevi[6 * ind + 2], vbevi[6 * ind + 3], 2, 5, mu, M, nf));
-        }
-        if (ind < list(10)) {
-
-            Ues(vdbvi[6 * ind], vdbvi[6 * ind + 4]) += vdbvi[6 * ind + 5] * G(vdbvi[6 * ind + 1], vdbvi[6 * ind + 2], vdbvi[6 * ind + 3], 3, 2, mu, M, nf);
-        }
-        if (ind < list(11)) {
-
-            Ue2os(vdevi[6 * ind], vdevi[6 * ind + 4]) += vdevi[6 * ind + 5] * G(vdevi[6 * ind + 1], vdevi[6 * ind + 2], vdevi[6 * ind + 3], 3, 4, mu, M, nf);
-        }
-        if (ind < list(12)) {
-
-            Ues(veavi[6 * ind], veavi[6 * ind + 4]) += veavi[6 * ind + 5] * G(veavi[6 * ind + 1], veavi[6 * ind + 2], veavi[6 * ind + 3], 4, 1, mu, M, nf);
-
-        }
-        if (ind < list(13)) {
-
-            Ue(vebvi[6 * ind], vebvi[6 * ind + 4]) += vebvi[6 * ind + 5] * G(vebvi[6 * ind + 1], vebvi[6 * ind + 2], vebvi[6 * ind + 3], 4, 2, mu, M, nf);
-            Ue2os(vebvi[6 * ind], vebvi[6 * ind + 4]) += vebvi[6 * ind + 5] * (-G(vebvi[6 * ind + 1], vebvi[6 * ind + 2], vebvi[6 * ind + 3], 4, 2, mu, M, nf)
-                    + G(vebvi[6 * ind + 1], vebvi[6 * ind + 2], vebvi[6 * ind + 3], 5, 2, mu, M, nf));
-        }
-        if (ind < list(14)) {
-
-            Ue2os(vedvi[6 * ind], vedvi[6 * ind + 4]) += vedvi[6 * ind + 5] * G(vedvi[6 * ind + 1], vedvi[6 * ind + 2], vedvi[6 * ind + 3], 4, 3, mu, M, nf);
-
-        }
-        if (ind < list(15)) {
-
-            Ue2os2(veevi[6 * ind], veevi[6 * ind + 4]) += (veevi[6 * ind + 5] * G(veevi[6 * ind + 1], veevi[6 * ind + 2], veevi[6 * ind + 3], 4, 4, mu, M, nf));
-
-        }
-
-
-        if (ind < list(16)) {
-
-            Us2(vavi[5 * ind], vavi[5 * ind + 3]) += (vavi[5 * ind + 4] * F(vavi[5 * ind + 1], vavi[5 * ind + 2], 1, mu, M, nf));
-        }
-
-
-        if (ind < list(17)) {
-
-            Us(vbvi[5 * ind], vbvi[5 * ind + 3]) += vbvi[5 * ind + 4] * F(vbvi[5 * ind + 1], vbvi[5 * ind + 2], 2, mu, M, nf);
-
-        }
-
-        if (ind < list(18)) {
-
-            Ues(vcvi[5 * ind], vcvi[5 * ind + 3]) += vcvi[5 * ind + 4] * F(vcvi[5 * ind + 1], vcvi[5 * ind + 2], 2, mu, M, nf);
-        }
-        if (ind < list(19)) {
-
-            Ue(vdvi[5 * ind], vdvi[5 * ind + 3]) += vdvi[5 * ind + 4] * F(vdvi[5 * ind + 1], vdvi[5 * ind + 2], 3, mu, M, nf);
-//            Ue2os(vdvi[5 * ind], vdvi[5 * ind + 3]) += (lambda * lambda * omega)
-//                    * (-vdvi[5 * ind + 4] * F(vdvi[5 * ind + 1], vdvi[5 * ind + 2], 3, mu, M, nf));
-            Ue2os(vdvi[5 * ind], vdvi[5 * ind + 3]) += (-vdvi[5 * ind + 4] * F(vdvi[5 * ind + 1], vdvi[5 * ind + 2], 3, mu, M, nf));
-        }
-        if (ind < list(20)) {
-
-            Ueos(vevi[5 * ind], vevi[5 * ind + 3]) += vevi[5 * ind + 4] * F(vevi[5 * ind + 1], vevi[5 * ind + 2], 4, mu, M, nf);
-            Ue2os2(vevi[5 * ind], vevi[5 * ind + 3]) += (vevi[5 * ind + 4] * (F(vevi[5 * ind + 1], vevi[5 * ind + 2], 5, mu, M, nf)
-                    - F(vevi[5 * ind + 1], vevi[5 * ind + 2], 4, mu, M, nf)));
-        }
-        if (ind < list(21)) {
-
-            Ue2os(vfvi[5 * ind], vfvi[5 * ind + 3]) += (vfvi[5 * ind + 4] * F(vfvi[5 * ind + 1], vfvi[5 * ind + 2], 4, mu, M, nf));
-        }
-        if (ind < list(22)) {
-
-            Ue2os(vrvi[5 * ind], vrvi[5 * ind + 3]) += vrvi[5 * ind + 4] * R(vrvi[5 * ind + 1], vrvi[5 * ind + 2], 4, mu, M, nf);
-
-        }
-
-    } 
-
-
-    Us = omega * Us;
-    Us2 = omega * omega * Us2;
-    Ueos = lambda * Ueos;
-    Ue = lambda * omega * Ue;
-    Ue2os2 = lambda * lambda * Ue2os2;
-    Ues = (omega * omega * lambda) * Ues; 
-    Ue2os = (omega * lambda * lambda) * Ue2os;
-
-    switch(order_qed) {    
-
-
+    switch(order_qed) {
         case NLO_QED22:
-
-            *elem[NLO_QED22] = (*elem[NLO_QED22]) * resLO + (*elem[NLO_QED11]) * Ue + (*elem[LO]) * Ue2 + 
-                    (*elem[NLO_QED21]) * Ueos + (*elem[NNLO]) * Ue2os2 + (*elem[NLO]) * Ue2os;
-
+            assign(*elem[NLO_QED22], add({mul(e22, rLO), mul(e11, rUe), mul(eLO, rUe2), mul(e21, rUeos),
+                    mul(eNNLO, rUe2os2), mul(eNLO, rUe2os)}));
         case NLO_QED12:
-
-            *elem[NLO_QED12] =(*elem[NLO_QED11]) * Ueos + (*elem[NLO]) * Ue2os2 + (*elem[LO]) * Ue2os;
-
-        case NLO_QED21:    
-
-            *elem[NLO_QED21] = (*elem[NLO_QED21]) * resLO + (*elem[NLO_QED11]) * Us +
-                        (*elem[NLO]) * Ue + (*elem[LO]) * Ues + (*elem[NNLO]) * Ueos;
-
-        case NLO_QED02:   
-
-            *elem[NLO_QED02] = (*elem[LO]) * Ue2os2;
-
+            assign(*elem[NLO_QED12], add({mul(e11, rUeos), mul(eNLO, rUe2os2), mul(eLO, rUe2os)}));
+        case NLO_QED21:
+            assign(*elem[NLO_QED21], add({mul(e21, rLO), mul(e11, rUs), mul(eNLO, rUe), mul(eLO, rUes), mul(eNNLO, rUeos)}));
+        case NLO_QED02:
+            assign(*elem[NLO_QED02], mul(eLO, rUe2os2));
         case NLO_QED11:
-
-            *elem[NLO_QED11] = (*elem[NLO_QED11]) * resLO + (*elem[LO]) * Ue + (*elem[NLO]) * Ueos;
-
-
+            assign(*elem[NLO_QED11], add({mul(e11, rLO), mul(eLO, rUe), mul(eNLO, rUeos)}));
         case LO_QED:
-
-            *elem[LO_QED] = (*elem[LO]) * Ueos;
+            assign(*elem[LO_QED], mul(eLO, rUeos));
             break;
-            default:
+        default:
             throw std::runtime_error("Error in EvolBsmm::Df1Evol");
-    }   
+    }
 
     switch(order) {
         case NNLO:
-
-            *elem[NNLO] =  (*elem[LO]) * Us2 + (*elem[NNLO]) * resLO + (*elem[NLO]) * Us;
+            assign(*elem[NNLO], add({mul(eLO, rUs2), mul(eNNLO, rLO), mul(eNLO, rUs)}));
         case NLO:
-
-            *elem[NLO] = (*elem[LO]) * Us + (*elem[NLO]) * resLO;
+            assign(*elem[NLO], add({mul(eLO, rUs), mul(eNLO, rLO)}));
         case LO:
-
-            *elem[LO] = (*elem[LO]) * resLO;	
-        break;
-            default:
+            assign(*elem[LO], mul(eLO, rLO));
+            break;
+        default:
             throw std::runtime_error("Error in EvolBsmm::Df1Evol");
-    } 
+    }
 }
 
 double EvolBsmm::F(unsigned int i, unsigned int j, int x, double mu, double M, double nf)
@@ -984,8 +749,8 @@ double EvolBsmm::F(unsigned int i, unsigned int j, int x, double mu, double M, d
     int value = 0;
     int L = 6 - (int) nf;
 
-    double etai = pow(eta, a[L][i]);    
-    double etajx = pow(eta, a[L][j]+ x - 3.);
+    double etai = etaPow(i, 0);
+    double etajx = etaPow(j, x - 3);
         
     double cut = 0.000000001;
     double result = 0.;
@@ -1011,8 +776,8 @@ double EvolBsmm::R(unsigned int i, unsigned int j, int x, double mu, double M, d
     int value = 0;
     int L = 6 - (int) nf;
 
-    double etai = pow(eta, a[L][i]);
-    double etajx = pow(eta, a[L][j] + x - 3.);
+    double etai = etaPow(i, 0);
+    double etajx = etaPow(j, x - 3);
         
     double cut = 0.000000001;
     double result = 0.;
@@ -1037,9 +802,9 @@ double EvolBsmm::G(unsigned int i, unsigned int p, unsigned int j, int x, int y,
     int value = 0;
     int L = 6 - (int) nf;
     
-    double etai = pow(eta, a[L][i]);
-    double etapx = pow(eta, a[L][p]+ x - 3.);
-    double etajxy = pow(eta, a[L][j]+ x - 3. + y - 3.);
+    double etai = etaPow(i, 0);
+    double etapx = etaPow(p, x - 3);
+    double etajxy = etaPow(j, x - 3 + y - 3);
         
     double cut = 0.000000001;
     double result = 0.;
@@ -1053,7 +818,7 @@ double EvolBsmm::G(unsigned int i, unsigned int p, unsigned int j, int x, int y,
 
     switch(value) {
         case 0:
-            result = etai * logeta * log(eta) * 0.5;
+            result = etai * logeta * logeta * 0.5;
         break;
         case 1:
             result = ((etapx * logeta - ((etapx - etai)/(a[L][p] + x - 3. - a[L][i])))/(a[L][p] + x - 3. - a[L][i]));
@@ -1068,7 +833,7 @@ double EvolBsmm::G(unsigned int i, unsigned int p, unsigned int j, int x, int y,
             result = (etai * logeta - ((etapx - etai)/(a[L][p] + x - 3. - a[L][i])))/(a[L][j] + y - 3. - a[L][p]);
         break;
         case 5:
-            result = (((etajxy - etai)/(a[L][j] + x - 3. + y - 3. - a[L][i])) - etai * log(eta))/(a[L][j] + y - 3. - a[L][p]);
+            result = (((etajxy - etai)/(a[L][j] + x - 3. + y - 3. - a[L][i])) - etai * logeta)/(a[L][j] + y - 3. - a[L][p]);
         break;
         }
     return (result);
@@ -1080,8 +845,8 @@ double EvolBsmm::H(unsigned int i, unsigned int p, unsigned int q, unsigned int 
     int value = 0;
     int L = 6 - (int) nf;
 
-    double etai = pow(eta, a[L][i]);
-    double etapx = pow(eta, a[L][p] + x - 3.);
+    double etai = etaPow(i, 0);
+    double etapx = etaPow(p, x - 3);
 
     double cut = 0.000000001;
     double result = 0.;

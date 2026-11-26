@@ -40,12 +40,24 @@ private:
 
     double eta;
     double logeta;
+    /// eta^(a_j + s) for the eigenvalue exponents a_j (nf = 5) and integer shifts s in [-8, 8], filled once per
+    /// evolution so that F, R, G and H need no pow() calls.
+    double etaPowTable[8][17];
+    double etaPow(unsigned int j, int s) const
+    {
+        return etaPowTable[j][s + 8];
+    }
 
     double F(unsigned int i, unsigned int j, int x, double mu, double M, double nf);
     double R(unsigned int i, unsigned int j, int x, double mu, double M, double nf);
     double G(unsigned int i, unsigned int p, unsigned int j, int x, int y, double mu, double M, double nf);
     double H(unsigned int i, unsigned int p, unsigned int q, unsigned int j, int x, int y, int z, double mu, double M, double nf);
     gslpp::matrix<double> BuiltB(char letter, unsigned int n_u, unsigned int n_d);
+    /// Add coefficient * function(arguments) of each (l, arguments, m, coefficient) entry of list to target(l, m).
+    template<typename Function>
+    void accumulate(const std::vector<double>& list, unsigned int nargs, std::vector<double>& target, Function function);
+    /// Reorder a list so that entries with the same arguments are contiguous (done once, in the constructor).
+    static void groupByArguments(std::vector<double>& list, unsigned int nargs);
 };
 
 #endif	/* EVOLBSMM_H */
