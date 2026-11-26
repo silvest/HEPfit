@@ -13,6 +13,8 @@
 #include "NPbase.h"
 #include "NPSMEFTd6GeneralMatching.h"
 #include <array>
+#include <cstdint>
+#include <cstring>
 #include <map>
 #include <string.h>
 #include <stdexcept>
@@ -7362,6 +7364,21 @@ public:
     double getSMEFTCoeffEW(const std::string& name, int i, int j) const;
     double getSMEFTCoeffEW(const std::string& name, int i, int j, int k, int l) const;
 
+    // The same for a name given as a string literal (selected instead of the std::string versions): the name is
+    // resolved once per call site and cached, so that no std::string is built and no hash lookup is done per call.
+    template<std::size_t N> double getSMEFTCoeffEW(const char (&name)[N]) const
+    {
+        return ewCoefficients.get(cachedCoefficientKey<WilsonCoefficients::ScalarKey>(name, &WilsonCoefficients::resolveScalar));
+    }
+    template<std::size_t N> double getSMEFTCoeffEW(const char (&name)[N], int i, int j) const
+    {
+        return ewCoefficients.get(cachedCoefficientKey<WilsonCoefficients::Tensor2Key>(name, &WilsonCoefficients::resolveTensor2), i, j);
+    }
+    template<std::size_t N> double getSMEFTCoeffEW(const char (&name)[N], int i, int j, int k, int l) const
+    {
+        return ewCoefficients.get(cachedCoefficientKey<WilsonCoefficients::Tensor4Key>(name, &WilsonCoefficients::resolveTensor4), i, j, k, l);
+    }
+
     void printNonVanishingSMEFTCoeffEW() const;
     
     RGESolver getSMEFTEvolEW() const
@@ -7375,6 +7392,20 @@ public:
     double getSMEFTCoeff(const std::string& name, int i, int j, const double mu) const;
     
     double getSMEFTCoeff(const std::string& name, int i, int j, int k, int l, const double mu) const;
+
+    // The same for a name given as a string literal (see getSMEFTCoeffEW()).
+    template<std::size_t N> double getSMEFTCoeff(const char (&name)[N], const double mu) const
+    {
+        return coefficientsAtScale(mu).get(cachedCoefficientKey<WilsonCoefficients::ScalarKey>(name, &WilsonCoefficients::resolveScalar));
+    }
+    template<std::size_t N> double getSMEFTCoeff(const char (&name)[N], int i, int j, const double mu) const
+    {
+        return coefficientsAtScale(mu).get(cachedCoefficientKey<WilsonCoefficients::Tensor2Key>(name, &WilsonCoefficients::resolveTensor2), i, j);
+    }
+    template<std::size_t N> double getSMEFTCoeff(const char (&name)[N], int i, int j, int k, int l, const double mu) const
+    {
+        return coefficientsAtScale(mu).get(cachedCoefficientKey<WilsonCoefficients::Tensor4Key>(name, &WilsonCoefficients::resolveTensor4), i, j, k, l);
+    }
         
     // Functions used by the above to compute the approximation by a polynomial up to log^5 to the RG evolution
     
@@ -8616,7 +8647,66 @@ private:
         double get(const std::string& name) const;
         double get(const std::string& name, int i, int j) const;
         double get(const std::string& name, int i, int j, int k, int l) const;
+
+        // A name resolved to the coefficient (and real or imaginary part) it refers to, independent of the values.
+        struct ScalarKey {
+            double WilsonCoefficients::* member = nullptr;
+        };
+        struct Tensor2Key {
+            Tensor2 WilsonCoefficients::* member = nullptr;
+            bool imag = false;
+        };
+        struct Tensor4Key {
+            Tensor4 WilsonCoefficients::* member = nullptr;
+            bool imag = false;
+        };
+        // Resolve a name; throw std::out_of_range for an unknown name, as get() does.
+        static ScalarKey resolveScalar(const std::string& name);
+        static Tensor2Key resolveTensor2(const std::string& name);
+        static Tensor4Key resolveTensor4(const std::string& name);
+
+        double get(ScalarKey key) const
+        {
+            return this->*key.member;
+        }
+        double get(const Tensor2Key& key, int i, int j) const;
+        double get(const Tensor4Key& key, int i, int j, int k, int l) const;
     };
+
+    /**
+     * @brief Resolve a coefficient name given as a string literal, caching the result per call site.
+     * @details The cache is indexed by the address of the literal and checked against its content (a reused
+     * buffer with a different name is resolved again). It stores which coefficient a name refers to, never a
+     * value, so it needs no invalidation when the parameters change. Unknown names throw, as in get().
+     */
+    template<typename Key>
+    struct CoefficientNameSlot {
+        const char* address = nullptr;
+        char name[16] = {};
+        Key key{};
+    };
+
+    /// One cache table per kind of key (scalar, two- and four-index coefficients) and per thread.
+    template<typename Key>
+    static CoefficientNameSlot<Key>* coefficientNameCache()
+    {
+        static thread_local CoefficientNameSlot<Key> table[256];
+        return table;
+    }
+
+    template<typename Key, std::size_t N>
+    static Key cachedCoefficientKey(const char (&name)[N], Key (*resolve)(const std::string&))
+    {
+        static_assert(N <= 16, "SMEFT coefficient names are limited to 15 characters in the name cache");
+        CoefficientNameSlot<Key>& slot = coefficientNameCache<Key>()[(reinterpret_cast<std::uintptr_t>(name) * 0x9E3779B97F4A7C15ull) >> 56];
+        if (slot.address == name && std::memcmp(slot.name, name, N) == 0)
+            return slot.key;
+        const Key key = resolve(std::string(name));
+        slot.address = name;
+        std::memcpy(slot.name, name, N);
+        slot.key = key;
+        return key;
+    }
 
     struct QuarkMassBasis {
         gslpp::matrix<gslpp::complex> upLeft{3, 0.0}, upRight{3, 0.0};

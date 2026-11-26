@@ -81,17 +81,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -133,17 +133,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -186,17 +186,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -239,17 +239,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -287,17 +287,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -333,17 +333,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -377,17 +377,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -422,17 +422,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -474,17 +474,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -530,17 +530,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -581,17 +581,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -634,17 +634,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -689,17 +689,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -741,17 +741,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -795,17 +795,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -840,17 +840,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -888,17 +888,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -936,17 +936,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -982,17 +982,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -1028,17 +1028,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -1081,17 +1081,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -1129,17 +1129,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -1171,17 +1171,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -1218,17 +1218,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -1265,17 +1265,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -1315,17 +1315,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -1363,17 +1363,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -1409,17 +1409,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -1454,17 +1454,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -1546,17 +1546,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -1597,17 +1597,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -1646,17 +1646,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -1693,17 +1693,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -1739,17 +1739,17 @@ private:
     
     
     //We need to multiply by the square of the scale used to obtain the parametrisation (1000 GeV)
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j)*1000000;
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l)*1000000;
     }
@@ -1784,17 +1784,17 @@ private:
      */
     double computeThValue();
     
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name);
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j);
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l);
     }
@@ -1830,17 +1830,17 @@ private:
      */
     double computeThValue();
     
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name);
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j);
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l);
     }
@@ -1876,17 +1876,17 @@ private:
      */
     double computeThValue();
 
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name);
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j);
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l);
     }
@@ -1922,17 +1922,17 @@ private:
      */
     double computeThValue();
 
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name);
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j);
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l);
     }
@@ -1968,17 +1968,17 @@ private:
      */
     double computeThValue();
 
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name);
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j);
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l);
     }
@@ -2014,17 +2014,17 @@ private:
      */
     double computeThValue();
 
-    inline double ewgc(const std::string name) const
+    template<typename Name> inline double ewgc(const Name& name) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name);
     }
     
-    inline double ewgc(const std::string name, int i, int j) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j);
     }
     
-    inline double ewgc(const std::string name, int i, int j, int k, int l) const
+    template<typename Name> inline double ewgc(const Name& name, int i, int j, int k, int l) const
     {
         return mytopobs.GetmyNPSMEFTd6General().getSMEFTCoeffEW(name, i, j, k, l);
     }
