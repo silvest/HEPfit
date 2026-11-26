@@ -12097,10 +12097,10 @@ void THDMcache::computeHpquantities()
     double mHh=sqrt(mHh2);
     double mA=sqrt(mA2);
     double mHp=sqrt(mHp2);
-    double Mt2=Mt*Mt;
-    double Mb2=Mb*Mb;
     double Mtau2=Mtau*Mtau;
     double Vtb=myTHDM->getCKM().getV_tb().abs();
+    double Vcb=myTHDM->getCKM().getV_cb().abs();
+    double Vcs=myTHDM->getCKM().getV_cs().abs();
     double gHpt=-1.0/tanb;
     double gHpb=0.0;
     double gHptau=0.0;
@@ -12144,12 +12144,35 @@ void THDMcache::computeHpquantities()
     }
 
     double GammaHptaunu=HSTheta(mHp-Mtau)*(Mtau2*(mHp2-Mtau2)*(mHp2-Mtau2)*gHptau*gHptau)/(8.0*mHp*mHp2*M_PI*vev2);
-    double GammaHptb = 0.0;
-    if (mHp > Mt + Mb) {
-        const double phaseSpace = 2.0 * KaellenFunction(mHp2, Mt2, Mb2) / mHp;
-        GammaHptb = (Vtb*Vtb/(8.0*mHp*M_PI*vev2))*3.0*(-4.0*gHpb*gHpt*Mb2*Mt2
-                     -gHpb*gHpb*Mb2*(Mb2-mHp2+Mt2)-gHpt*gHpt*Mt2*(Mb2-mHp2+Mt2))*phaseSpace;
-    }
+
+    /* H+ -> u dbar widths following Djouadi, Phys. Rept. 459 (2008) 1 [hep-ph/0503173], eqs. (2.11) and (2.13):
+     * the quark masses entering through the Yukawa couplings are MSbar running masses at mu = m_H+, which absorb
+     * the large logarithms of the QCD corrections, and the light-quark QCD factor 1 + Delta_qq of eq. (2.3)
+     * (coefficients up to O(alpha_s^3) for N_F = 5, as in StandardModel::GammaHtobb()) multiplies every quark
+     * channel. The kinematic masses (threshold and phase space) are the top pole mass and m_b(m_b) for t bbar and
+     * the running masses for the light channels. For t bbar this is the large-m_H+ limit of the massive result,
+     * eq. (2.11), which Djouadi quotes as accurate at the 20% level. gHpt (up-type) and gHpb (down-type) are the
+     * type-dependent couplings set above; they also apply to c sbar and c bbar. */
+    const double asHp = myTHDM->Als(mHp, FULLNLO);
+    const double NF = 5.0;
+    const double DeltaQCD = 1.0 + (asHp/M_PI) * ( 17.0/3.0 + (asHp/M_PI) * ( (35.94 - 1.36*NF)
+                            + (164.14 - 25.77*NF + 0.26*NF*NF)*(asHp/M_PI) ) );
+    const double MtPole = myTHDM->getMtpole();
+    const double mtHp = myTHDM->Mrun(mHp, myTHDM->getQuarks(QCD::TOP).getMass_scale(), Mt, QCD::TOP, FULLNLO);
+    const double mbHp = myTHDM->Mrun(mHp, myTHDM->getQuarks(QCD::BOTTOM).getMass_scale(), Mb, QCD::BOTTOM, FULLNLO);
+    const double mcHp = myTHDM->Mrun(mHp, myTHDM->getQuarks(QCD::CHARM).getMass_scale(), Mc, QCD::CHARM, FULLNLO);
+    const double msHp = myTHDM->Mrun(mHp, myTHDM->getQuarks(QCD::STRANGE).getMass_scale(), Ms, QCD::STRANGE, FULLNLO);
+    // Vud: |V_ud|; gu, gd: H+ couplings; mubar, mdbar: Yukawa (running) masses; Mu, Md: kinematic masses
+    auto GammaHptoud = [&](const double Vud, const double gu, const double gd, const double mubar,
+                           const double mdbar, const double Mu, const double Md) {
+        if (mHp <= Mu + Md) return 0.0;
+        const double phaseSpace = 2.0 * KaellenFunction(mHp2, Mu*Mu, Md*Md) / mHp;
+        return (Vud*Vud/(8.0*mHp*M_PI*vev2))*3.0*((mHp2-Mu*Mu-Md*Md)*(gu*gu*mubar*mubar+gd*gd*mdbar*mdbar)
+                -4.0*gu*gd*mubar*mdbar*Mu*Md)*phaseSpace*DeltaQCD;
+    };
+    const double GammaHptb = GammaHptoud(Vtb, gHpt, gHpb, mtHp, mbHp, MtPole, Mb);
+    const double GammaHpcb = GammaHptoud(Vcb, gHpt, gHpb, mcHp, mbHp, mcHp, mbHp);
+    const double GammaHpcs = GammaHptoud(Vcs, gHpt, gHpb, mcHp, msHp, mcHp, msHp);
     const double bosonicWidthFactor = 1.0 / (2.0 * M_PI * vev2);
     const double GammaHpHlW = mHp > mHl + MW
             ? pow(KaellenFunction(mHp2, mHl2, MW2), 3) * cos(bma)*cos(bma) * bosonicWidthFactor : 0.0;
@@ -12157,7 +12180,7 @@ void THDMcache::computeHpquantities()
             ? pow(KaellenFunction(mHp2, mHh2, MW2), 3) * sin(bma)*sin(bma) * bosonicWidthFactor : 0.0;
     const double GammaHpAW = mHp > mA + MW
             ? pow(KaellenFunction(mHp2, mA2, MW2), 3) * bosonicWidthFactor : 0.0;
-    GammaHptot= GammaHptaunu + GammaHptb + GammaHpHlW + GammaHpHhW + GammaHpAW;
+    GammaHptot= GammaHptaunu + GammaHptb + GammaHpcb + GammaHpcs + GammaHpHlW + GammaHpHhW + GammaHpAW;
 
     double Br_Hptotaunu=GammaHptaunu/GammaHptot;
     double Br_Hptotb=GammaHptb/GammaHptot;

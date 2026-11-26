@@ -74,10 +74,12 @@ std::vector<WilsonCoefficient>& THDMMatching::CMdiujleptonknu(int i, int j, int 
     const double zetaU = 1. / tanBeta;
     const double zetaD = (type == "type2" || type == "typeY") ? -tanBeta : zetaU;
     const double zetaL = (type == "type2" || type == "typeX") ? -tanBeta : zetaU;
+    // FULLNLO masses: HeffDF1_diujlknu evolves the scalar coefficients back at NLO, so that the
+    // consumers' division by m_q(m_q) reproduces the tree-level H+ factor (round trip within 0.3%).
     const double md = myTHDM.Mrun(scale, myTHDM.getQuarks(down[i]).getMass_scale(),
-                                  myTHDM.getQuarks(down[i]).getMass(), down[i], FULLNNLO);
+                                  myTHDM.getQuarks(down[i]).getMass(), down[i], FULLNLO);
     const double mu = myTHDM.Mrun(scale, myTHDM.getQuarks(up[j]).getMass_scale(),
-                                  myTHDM.getQuarks(up[j]).getMass(), up[j], FULLNNLO);
+                                  myTHDM.getQuarks(up[j]).getMass(), up[j], FULLNLO);
     const double ml = myTHDM.getLeptons(lepton[k]).getMass();
     const gslpp::complex prefactor = 4. * myTHDM.getGF() / sqrt(2.) * myTHDM.getVCKM()(j, i)
                                     * zetaL * ml / myTHDM.getmHp2();
