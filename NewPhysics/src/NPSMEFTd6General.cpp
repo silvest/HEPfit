@@ -28133,7 +28133,7 @@ const double NPSMEFTd6General::deltaGammaHgagaRatio1() const {
     double dGammaHgaga_cHB, dGammaHgaga_cHW, dGammaHgaga_cHWB, dGammaHgagaRatio_tree;
 
     //-- Indirect effects from the theory-scheme prefactors:
-    deltaGammaHgaga_Prefactor = (-0.211587 * cHD - 0.352136 * cHWB) * pow(1000, 2);
+    deltaGammaHgaga_Prefactor = (-0.211587 * cHD - 0.352136 * cHWB) * 1.e6;
     if (FlagMWinput) {
         // With fixed W and Z masses, e^4/v^2 scales as v^-6.
         deltaGammaHgaga_Prefactor -= 3.0 * dgf;
@@ -28155,7 +28155,7 @@ const double NPSMEFTd6General::deltaGammaHgagaRatio1() const {
     dGammaHgagaRatio_Yukawa =
             (-0.000257658 * cdH11 - 0.00248474 * cdH22 - 0.0186489 * cdH33
             - 0.000126593 * ceH11 - 0.00812649 * ceH22 - 0.0430632 * ceH33
-            - 0.000562257 * cuH11 - 0.0493429 * cuH22 + 0.0342643 * cuH33) * pow(1000, 2);
+            - 0.000562257 * cuH11 - 0.0493429 * cuH22 + 0.0342643 * cuH33) * 1.e6;
 
     dGammaHgagaRatio_dipoleOp = (
             cuB33 * (1.863305361 - 0.828073331 * log(MuS2 / MZ2)) +
@@ -28175,15 +28175,15 @@ const double NPSMEFTd6General::deltaGammaHgagaRatio1() const {
             cdB22 * (0.001582086 + 0.000224401 * log(MuS2 / MZ2)) +
             ceB22 * (0.001758414 + 0.000253852 * log(MuS2 / MZ2)) +
             ceB33 * (0.01755746253200913 + 0.004269048861525898 * log(MuS2 / MZ2)) +
-            cdB33 * (0.03292252565024579 + 0.010042785723792674 * log(MuS2 / MZ2))) * pow(1000, 2);
+            cdB33 * (0.03292252565024579 + 0.010042785723792674 * log(MuS2 / MZ2))) * 1.e6;
 
     //-- Insertions in boson-loop: 
-    dGammaHgagaRatio_cW = (-0.0338638 * cW) * pow(1000, 2);
+    dGammaHgagaRatio_cW = (-0.0338638 * cW) * 1.e6;
 
     //-- Tree-Level contributions:
-    dGammaHgaga_cHB = (-45.2606 + 0.975724 * log(MuS2 / MZ2)) * pow(1000, 2);
-    dGammaHgaga_cHW = (-13.0377 + 0.196935 * log(MuS2 / MZ2)) * pow(1000, 2);
-    dGammaHgaga_cHWB = (24.4444 - 0.500946 * log(MuS2 / MZ2)) * pow(1000, 2);
+    dGammaHgaga_cHB = (-45.2606 + 0.975724 * log(MuS2 / MZ2)) * 1.e6;
+    dGammaHgaga_cHW = (-13.0377 + 0.196935 * log(MuS2 / MZ2)) * 1.e6;
+    dGammaHgaga_cHWB = (24.4444 - 0.500946 * log(MuS2 / MZ2)) * 1.e6;
 
     dGammaHgagaRatio_tree = dGammaHgaga_cHB * cHB + dGammaHgaga_cHW * cHW + dGammaHgaga_cHWB*cHWB;
 
