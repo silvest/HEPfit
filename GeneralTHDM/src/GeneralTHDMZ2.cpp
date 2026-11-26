@@ -74,6 +74,7 @@ bool GeneralTHDMZ2::PostUpdate()
 void GeneralTHDMZ2::setParameter(const std::string name, const double& value)
 {
     if (name.compare("logtb") == 0) {
+        logtb = value; // needed to print logtb as an observable
         tanb  = pow(10., value); // Input is log(tanb), but we work with tanb
         beta  = atan(tanb);
         cosb  = cos(beta);

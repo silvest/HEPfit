@@ -1,6 +1,6 @@
-# LHWG-NOTE-2001-08, fig. 4, data taken from HiggsBounds_Old
-# observed 95% exclusion limits on BR(H -> gamma gamma) for sqrt(s) = 88-209 GeV
-# mH[GeV] | BR_95%
+# LHWG Note 2002-02 (final LEP combination), fig. 5; data taken from HiggsBounds (data/Expt_tables/LEPtables/LEP_h-gammagamma.txt, obs column)
+# observed 95% exclusion limits on [sigma(ee->hZ)/sigma_SM(ee->hZ)] x BR(h -> gamma gamma) for sqrt(s) = 88-209 GeV
+# mH[GeV] | sigma/sigma_SM x BR_95%
 20.0     0.425e-02
 22.0     0.287e-02
 24.0     0.345e-02

@@ -118,7 +118,7 @@ double GeneralTHDMMatching::F3oneloopgm2(const double ratio_sq) {
         final_result = ((-2 + ratio_sq)*ratio_sq + 2*(-1 + ratio_sq)*log(1 - ratio_sq))/(2.*ratio_sq*ratio_sq*ratio_sq);
     }
     else{
-        final_result = (-(1/6) - ratio_sq/12);
+        final_result = (-(1./6.) - ratio_sq/12.);
     }
         
         
