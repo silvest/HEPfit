@@ -134,6 +134,13 @@ public:
      */
     void DefineParameters();
 
+    /** Set the coordinates of disjoint flat priors to their configured central values.
+     *  Returns true if the point includes such a parameter. */
+    bool applyFlatIntervalCenters(std::vector<double>& point) const;
+
+    /** Warn once about active disjoint priors before an untempered MCMC run. */
+    void warnAboutUntemperedFlatIntervals() const;
+
     /**
      * @brief This member calculates the loglikelihood for the observables included in the MCMC run.
      * @details The model is updated with the new set of parameters through the Model::Update() method.
@@ -692,6 +699,8 @@ private:
     bool collectObservableWeight(const Observable& observable) const;
     void fillLogLikelihoodPlots(const std::map<std::string, double>& physicalParameters, double logLikelihood);
 
+    double distanceToPriorBoundary(unsigned i, double x) const;
+    std::vector<const ModelParameter*> variedParameters; ///< Parameters in BAT coordinate order.
     const std::vector<ModelParameter>& ModPars; ///< A vector of model parameters.
     const std::vector<CorrelatedGaussianParameters>& CGP; ///< A vector of correlated Gaussian parameters.
     boost::ptr_vector<Observable>& Obs_ALL; ///< A vector of all observables.

@@ -95,6 +95,28 @@ Each line has to be written as follows:
     where all the parameters in a given model (see @ref PageModels) have
     to be listed in the configuration file.  
 
+    For a flat prior on two or more disjoint intervals, give the central value
+    followed by `flat_intervals` and the lower and upper limits of each interval.
+    For example, a fit of `mtop` can admit two separate ranges:
+~~~~~~~~~~~~~~~~
+    ModelParameter mtop 163 flat_intervals 161 164 166 167
+~~~~~~~~~~~~~~~~
+    The prior density is constant on the union and zero in the gaps. The two
+    ranges in this example have prior probabilities 3/4 and 1/4 because their
+    widths are 3 and 1 GeV. Limits must be finite, each lower limit must be
+    smaller than its upper limit, and intervals must neither touch nor overlap.
+    The central value must lie in one of the intervals. This form applies to
+    independent model parameters. For MCMC, build HEPfit against a bat_MPI
+    installation providing `BCDisjointFlatPrior` (`BAT_INSTALL=OFF`).
+
+    For parallel tempering, use the same parameter line for the entire run.
+    `MCMCInitialPosition RandomPrior` draws starting positions directly from
+    the allowed intervals. The gaps retain zero probability at every
+    temperature. An MCMC run with parallel tempering disabled issues one startup
+    warning naming the affected parameters and continues sampling.
+    Check visits to each interval in the cold chain when assessing
+    mixing, especially if the gap is large compared with the proposal scale.
+
 4. __A set of correlated model parameter__ is specified with "
 ~~~~~~~~~~~~~~~~
     CorrelatedGaussianParameters name Npar
@@ -264,8 +286,10 @@ parameters and options are:
 
 * `Histogram2DType`: Sets the type of 2D histograms: 1001 -> Lego (default), 101 -> Filled, 1 -> Contour.
 
-* `MCMCInitialPosition`: The initial distribution of chains over the parameter space. (Options: Center, RandomPrior, 
-    RandomUniform (default))
+* `MCMCInitialPosition` selects `Center`, `RandomPrior`, or `RandomUniform`.
+    Fits with a `flat_intervals` parameter default to `RandomPrior`. Other fits
+    default to `RandomUniform`. With `Center`, each `flat_intervals` parameter
+    starts at its configured central value.
 
 * `PrintLogo`: Toggle the printing of the `HEPfit` logo on the histograms. (Default: true)
 

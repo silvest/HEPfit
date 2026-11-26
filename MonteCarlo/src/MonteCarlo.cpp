@@ -189,7 +189,7 @@ void MonteCarlo::Run(const int rank) {
         int buffsize = 0;
         std::map<std::string, double> DP;
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
-                if (it->geterrg() > 0. || it->geterrf() > 0.)
+                if (!it->IsFixed())
                     buffsize++;
                 if (it->IsCorrelated()) {
                     for (unsigned int i = 0; i < CGP.size(); i++) {
@@ -231,9 +231,9 @@ void MonteCarlo::Run(const int rank) {
         std::vector<std::string> unknownParameters = myInputParser.getModel()->getUnknownParameters();
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
             if (std::find(unknownParameters.begin(), unknownParameters.end(), it->getname()) != unknownParameters.end()) {
-                if (it->geterrg() > 0. || it->geterrf() > 0.) {
+                if (!it->IsFixed()) {
                     discardbuffer++;
-                    if (rank == 0) std::cout << "\nWARNING: " << it->getname() << " has a flat or Gaussian error in the configuration file even though it is an unknown parameter!!!\n";
+                    if (rank == 0) std::cout << "\nWARNING: " << it->getname() << " is varied in the configuration file even though it is an unknown parameter.\n";
                 }
             }
         }
@@ -342,7 +342,11 @@ void MonteCarlo::Run(const int rank) {
                     std::cout << "\t\t*** Minimizer Options ***" << std::endl;
                     MCEngine.GetMinuit().Options().Print();
                     std::cout << "          " <<std::endl;
-                    MCEngine.FindMode();
+                    auto start = MCEngine.GetParameters().GetRangeCenters();
+                    if (MCEngine.applyFlatIntervalCenters(start))
+                        MCEngine.FindMode(start);
+                    else
+                        MCEngine.FindMode();
                     std::ofstream(("Minuit_results" + JobTag + ".txt").c_str()) << MCEngine.writeMinuitResults();
                 }
                 std::time_t tf = std::time(NULL);
@@ -372,10 +376,11 @@ void MonteCarlo::Run(const int rank) {
                 gSystem->RedirectOutput(("HessianComputationResults" + JobTag + ".txt").c_str(), "a", rHandle);
                 std::vector<double> point;
                 unsigned int Npars = MCEngine.GetNParameters();
-                for (unsigned int i = 0; i < Npars; i++) {
-                    std::cout << "Parameter " << MCEngine.GetParameter(i).GetName() << " = " << MCEngine.GetParameter(i).GetPriorMean() << std::endl;
+                for (unsigned int i = 0; i < Npars; i++)
                     point.push_back(MCEngine.GetParameter(i).GetPriorMean());
-                }
+                MCEngine.applyFlatIntervalCenters(point);
+                for (unsigned int i = 0; i < Npars; i++)
+                    std::cout << "Parameter " << MCEngine.GetParameter(i).GetName() << " = " << point[i] << std::endl;
                 /* The refinement keeps the stiff block of the first pass and starts from
                    its eigenvectors. Fixed steps are set by the width of the prior, not of
                    the posterior, so they bias both wherever the posterior is not quadratic
@@ -523,6 +528,8 @@ void MonteCarlo::Run(const int rank) {
             MCEngine.SetMarginalizationMethod(BCIntegrate::kMargMetropolis);
             if (FileIn != "")
                 MCEngine.LoadMCMC(FileIn);
+            if (!parallelTempering)
+                MCEngine.warnAboutUntemperedFlatIntervals();
             MCEngine.MarginalizeAll();
 #ifdef HEPFIT_BAT_HAS_PT
             if (parallelTempering && ptDiagnostics) {
@@ -912,7 +919,7 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
         } else if (beg->compare("MCMCInitialPosition") == 0) {
             ++beg;
             if (beg->compare("Center") == 0) {
-                MCEngine.SetInitialPositionScheme(BCEngineMCMC::kInitCenter); /* Default */
+                MCEngine.SetInitialPositionScheme(BCEngineMCMC::kInitCenter);
             } else if (beg->compare("RandomUniform") == 0) {
                 MCEngine.SetInitialPositionScheme(BCEngineMCMC::kInitRandomUniform);
             } else if (beg->compare("RandomPrior") == 0) {
@@ -1060,6 +1067,11 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
     if (!proposal.load.empty()) MCEngine.LoadProposalFunction(proposal.load, proposal.warmup);
 #endif
     if (!preRunData.empty()) ReadPreRunData(preRunData);
+    else if (MCEngine.GetInitialPositionScheme() == BCEngineMCMC::kInitCenter) {
+        auto center = MCEngine.GetParameters().GetRangeCenters();
+        if (MCEngine.applyFlatIntervalCenters(center))
+            MCEngine.SetInitialPositions(std::vector<std::vector<double>>(MCEngine.GetNChains(), center));
+    }
     if (FindModeWithMinuit || RunMinuitOnly) 
         MCEngine.SetOptimizationMethod(BCIntegrate::kOptMinuit);
     /* Have Minuit run Hesse after every Migrad that converges, also when Migrad deems its
