@@ -148,6 +148,26 @@ const double NPSTUVWXY::GammaW() const
     return Gamma_W;
 }
 
+const double NPSTUVWXY::GammaW(const Particle fi, const Particle fj) const
+{
+    // Same universal correction as the total width GammaW(), including the
+    // (V-W) term, so that the W branching ratios stay at their SM values.
+    double Gamma_Wij = trueSM.GammaW(fi, fj);
+
+    double Wbar = (obliqueV() - obliqueW()) / alphaMz();
+
+    double alpha = StandardModel::alphaMz();
+    double c2 = trueSM.cW2();
+    double s2 = trueSM.sW2();
+
+    Gamma_Wij *= 1.0 - 3.0 * alpha / 4.0 / (c2 - s2)
+            *(obliqueS() - 2.0 * c2 * obliqueT()
+            - (c2 - s2) * obliqueU() / 2.0 / s2 - 2.0 * (c2 - s2) * Wbar)
+            - (1.0 + c2) / 2.0 / (c2 - s2) * DeltaGF();
+
+    return Gamma_Wij;
+}
+
 
 const double NPSTUVWXY::LEP2sigmaMu(const double s) const
 {

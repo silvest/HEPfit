@@ -558,8 +558,8 @@ void ThObsFactory::registerHiggsObservables()
     obsThFactory["eettH1500"] = [=](const StandardModel& SM) { return new mueettH(SM, sqrt_s_leptcoll_1500, 0., 0.); };
     obsThFactory["eettH3000"] = [=](const StandardModel& SM) { return new mueettH(SM, sqrt_s_leptcoll_3000, 0., 0.); };
     //
-    obsThFactory["mumuttH1500"] = [=](const StandardModel& SM) { return new mummttH(SM, sqrt_s_leptcoll_1500); };
     obsThFactory["mumuttH3000"] = [=](const StandardModel& SM) { return new mummttH(SM, sqrt_s_leptcoll_3000); };
+    obsThFactory["mumuttH10000"] = [=](const StandardModel& SM) { return new mummttH(SM, sqrt_s_leptcoll_10000); };
     //
     obsThFactory["eettH500_p80_m30"] = [=](const StandardModel& SM) { return new mueettH(SM, sqrt_s_leptcoll_500, pol_80, -pol_30); };
     obsThFactory["eettH500_m80_p30"] = [=](const StandardModel& SM) { return new mueettH(SM, sqrt_s_leptcoll_500, -pol_80, pol_30); };

@@ -295,6 +295,26 @@ public:
      * @return @f$\Gamma_W@f$ in GeV
      */
     virtual const double GammaW() const;
+
+    /**
+     * @brief @copybrief NPbase::GammaW(const Particle, const Particle)
+     * @details The partial width receives the same universal correction as
+     * the total width GammaW(), including the @f$\overline{W}@f$ term:
+     * @f[
+     * \Gamma_W^{ij} = \Gamma_{W,\mathrm{SM}}^{ij}
+     * \left[ 1
+     * - \frac{3\alpha(M_Z^2)}{4(c_W^2-s_W^2)}
+     *  \left( S' - 2c_W^2\,T' - \frac{c_W^2-s_W^2}{2s_W^2}\,U'
+     *         - 2 (c_W^2 - s_W^2)\, \overline{W} \right)
+     * - \frac{1+c_W^2}{2(c_W^2-s_W^2)}\, \Delta G
+     * \right],
+     * @f]
+     * so that the @f$W@f$ branching ratios are not shifted by the oblique corrections.
+     * @param[in] fi a lepton or quark
+     * @param[in] fj a lepton or quark
+     * @return @f$\Gamma^W_{ij}@f$ in GeV
+     */
+    virtual const double GammaW(const Particle fi, const Particle fj) const;
     
     
     

@@ -526,7 +526,10 @@ public:
      * @brief The hadronic decay width of the @f$Z@f$ boson, @f$\Gamma_{Z,had}@f$.
      * @details
      * \Gamma_{Z,had} = \Gamma_Z,had}^{SM} + \Delta \Gamma_{Z,had}^{(1)} + \Delta \Gamma_{Z,had}^{(2)}
-     * @return @f$\Gamma_{Z,had}@f$ in GeV, including SM plus @f$\mathcal{O}(\Lambda^{-2})@f$ and @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions
+     *
+     * As in Gamma_Z() and Gamma_Zf(), the terms included are selected by OutputOrder():
+     * 0 = SM only, 1 = SM + @f$\Delta \Gamma_{Z,had}^{(1)}@f$ (the default), 2 = SM + both, 3 = SM + @f$\Delta \Gamma_{Z,had}^{(2)}@f$.
+     * @return @f$\Gamma_{Z,had}@f$ in GeV, including SM plus the @f$\mathcal{O}(\Lambda^{-2})@f$ and/or @f$\mathcal{O}(\Lambda^{-4})@f$ NP contributions selected by OutputOrder()
      *
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
