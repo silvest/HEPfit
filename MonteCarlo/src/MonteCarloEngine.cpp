@@ -14,6 +14,13 @@
 #if __has_include(<BAT/BCCombinedPrior.h>)
 #include <BAT/BCCombinedPrior.h>
 #endif
+#ifndef HEPFIT_BAT_HAS_DISJOINT_FLAT_PRIOR
+// Non-CMake builds can use the header available on their include path.
+#define HEPFIT_BAT_HAS_DISJOINT_FLAT_PRIOR __has_include(<BAT/BCDisjointFlatPrior.h>)
+#endif
+#if HEPFIT_BAT_HAS_DISJOINT_FLAT_PRIOR
+#include <BAT/BCDisjointFlatPrior.h>
+#endif
 #include <BAT/BCLog.h>
 #ifdef _MPI
 #include <mpi.h>
@@ -289,7 +296,7 @@ void MonteCarloEngine::DefineParameters() {
     for (std::vector<ModelParameter>::const_iterator it = ModPars.begin();
             it < ModPars.end(); it++) {
         if (std::find(unknownParameters.begin(), unknownParameters.end(), it->getname()) == unknownParameters.end()) {
-            if (it->geterrf() == 0. && it->geterrg() == 0.)
+            if (it->IsFixed())
                 continue;
 
             AddParameter(it->getname().c_str(), it->getmin(), it->getmax());
@@ -312,12 +319,23 @@ void MonteCarloEngine::DefineParameters() {
             } else
                 DPars[it->getname()] = 0.;
             BCParameter& parameter = GetParameter(k);
-            if (it->geterrf() == 0.)
+            if (!it->getFlatIntervals().empty()) {
+#if HEPFIT_BAT_HAS_DISJOINT_FLAT_PRIOR
+                setPrior(parameter, std::make_unique<BCDisjointFlatPrior>(it->getFlatIntervals()), 0);
+                // A random point in the bounding range can have vanishingly little chance
+                // of landing in the support. An explicit MCMCInitialPosition overrides this.
+                SetInitialPositionScheme(BCEngineMCMC::kInitRandomPrior);
+#else
+                throw std::runtime_error("flat_intervals requires bat_MPI with BCDisjointFlatPrior support. Rebuild HEPfit against it with BAT_INSTALL=OFF.");
+#endif
+            } else if (it->geterrf() == 0.)
                 setPrior(parameter, std::make_unique<BCGaussianPrior>(it->getave(), it->geterrg()), 0);
             else if (it->geterrg() == 0.)
                 parameter.SetPriorConstant();
             else
                 setPrior(parameter, makeCombinedPrior(*it), 0);
+            variedParameters.push_back(&*it);
+            flatIntervalVisits.emplace_back(it->getFlatIntervals().size(), 0);
             k++;
         }
 
@@ -327,6 +345,120 @@ void MonteCarloEngine::DefineParameters() {
         for (std::vector<std::string>::iterator it = unknownParameters.begin(); it != unknownParameters.end(); it++)
             std::cout << "WARNING: unknown parameter " << *it << " not added to MCMC" << std::endl;
     }
+}
+
+std::vector<unsigned> MonteCarloEngine::disjointParameters() const
+{
+    std::vector<unsigned> indices;
+    for (unsigned i = 0; i < variedParameters.size(); ++i)
+        if (!GetParameter(i).Fixed() && variedParameters[i]->getFlatIntervals().size() >= 2)
+            indices.push_back(i);
+    return indices;
+}
+
+std::string MonteCarloEngine::disjointParameterNames() const
+{
+    std::string names;
+    for (unsigned i : disjointParameters()) {
+        if (!names.empty()) names += ", ";
+        names += variedParameters[i]->getname();
+    }
+    return names;
+}
+
+int MonteCarloEngine::flatInterval(unsigned i, double x) const
+{
+    const auto& intervals = variedParameters.at(i)->getFlatIntervals();
+    for (size_t k = 0; k < intervals.size(); ++k)
+        if (intervals[k].first <= x && x <= intervals[k].second)
+            return static_cast<int>(k);
+    return -1;
+}
+
+void MonteCarloEngine::warnAboutUntemperedFlatIntervals() const
+{
+    const std::string names = disjointParameterNames();
+    if (!names.empty())
+        BCLog::OutWarning("Parallel tempering is disabled for disjoint flat priors (" + names
+                          + "). Chains may stay in one interval. To enable replica exchange, set "
+                            "ParallelTempering true and configure PTTemperatures in the Monte Carlo configuration.");
+}
+
+void MonteCarloEngine::warnAboutMinuitInDisjointPriors() const
+{
+    const std::string names = disjointParameterNames();
+    if (!names.empty())
+        BCLog::OutWarning("Minuit without MCMC cannot cross the gaps of disjoint flat priors (" + names
+                          + "): it finds the mode within the interval of the starting point, the configured "
+                            "central value. To search another interval, move the central value there and rerun, "
+                            "or run the MCMC with FindModeWithMinuit true.");
+}
+
+std::string MonteCarloEngine::modeAtGapEdge(const std::vector<double>& mode) const
+{
+    /* Relative to the width of the interval: Migrad ends close to a wall, not on it. */
+    const double tolerance = 1.e-3;
+    std::ostringstream out;
+    for (unsigned i : disjointParameters()) {
+        const auto& intervals = variedParameters[i]->getFlatIntervals();
+        const int k = flatInterval(i, mode.at(i));
+        if (k < 0) continue;
+        const double width = intervals[k].second - intervals[k].first;
+        const bool lowerGap = k > 0 && mode[i] - intervals[k].first <= tolerance * width;
+        const bool upperGap = k + 1 < static_cast<int>(intervals.size()) && intervals[k].second - mode[i] <= tolerance * width;
+        if (lowerGap || upperGap)
+            out << (out.tellp() > 0 ? ", " : "") << variedParameters[i]->getname() << " = " << mode[i]
+                << " (edge " << (lowerGap ? intervals[k].first : intervals[k].second) << ")";
+    }
+    if (out.tellp() == 0) return "";
+    return "the mode lies at the edge of a gap of a disjoint flat prior for " + out.str()
+            + ". The posterior is truncated there: Migrad may not have converged, and the Hessian and the errors "
+              "do not describe the posterior.";
+}
+
+std::string MonteCarloEngine::lmeNotApplicable(const std::vector<double>& mode) const
+{
+    const std::string edge = modeAtGapEdge(mode);
+    if (!edge.empty()) return edge;
+    std::ostringstream out;
+    for (unsigned i : disjointParameters()) {
+        const std::vector<unsigned long>& visits = flatIntervalVisits.at(i);
+        unsigned long total = 0;
+        for (unsigned long n : visits) total += n;
+        const int k = flatInterval(i, mode.at(i));
+        if (total == 0 || k < 0) {
+            out << (out.tellp() > 0 ? "; " : "") << variedParameters[i]->getname()
+                << ": no main-run samples to check which intervals the posterior occupies";
+            continue;
+        }
+        const double outside = 1. - static_cast<double>(visits[k]) / total;
+        if (outside > 0.01)
+            out << (out.tellp() > 0 ? "; " : "") << variedParameters[i]->getname() << ": " << 100. * outside
+                << "% of the samples lie outside the interval of the mode";
+    }
+    if (out.tellp() == 0) return "";
+    return "the Laplace approximation describes only the interval of the mode of a disjoint flat prior (" + out.str() + ").";
+}
+
+std::vector<double> MonteCarloEngine::centralValues() const
+{
+    std::vector<double> point;
+    point.reserve(variedParameters.size());
+    for (const ModelParameter* parameter : variedParameters)
+        point.push_back(parameter->getave());
+    return point;
+}
+
+bool MonteCarloEngine::applyFlatIntervalCenters(std::vector<double>& point) const
+{
+    bool found = false;
+    for (size_t i = 0; i < variedParameters.size(); ++i) {
+        if (!variedParameters[i]->getFlatIntervals().empty()) {
+            point.at(i) = variedParameters[i]->getave();
+            found = true;
+        }
+    }
+    return found;
 }
 
 void MonteCarloEngine::setDParsFromParameters(const std::vector<double>& parameters, 
@@ -684,7 +816,12 @@ void MonteCarloEngine::MCMCUserIterationInterface() {
     if (fMCMCFlagWriteChainToFile || getchainedObsSize() > 0  || WriteLogLikelihoodChain) InChainFillObservablesTree();
     if (WriteParametersChain) InChainFillParametersTree();
 #endif
+    const std::vector<unsigned> disjoint = disjointParameters();
     for (unsigned int i = 0; i < GetNPosteriorChains(); i++) {
+        for (unsigned p : disjoint) {
+            const int k = flatInterval(p, fMCMCStates.at(i).parameters.at(p));
+            if (k >= 0) flatIntervalVisits[p][k]++;
+        }
         double LogLikelihood = fMCMCStates.at(i).log_likelihood;
         if (LogLikelihood > LogLikelihood_max) {
             LogLikelihood_max = std::max(LogLikelihood, LogLikelihood_max);
@@ -1666,8 +1803,10 @@ std::vector<double> MonteCarloEngine::findModeParallel(std::vector<double> start
     /* the starting point, as for FindMode() of BAT */
     if (start.empty())
         start = GetBestFitParameters();
-    if (start.size() != Npars || !GetParameters().IsWithinLimits(start))
+    if (start.size() != Npars || !GetParameters().IsWithinLimits(start)) {
         start = GetParameters().GetRangeCenters();
+        applyFlatIntervalCenters(start);
+    }
 
     /* The steps calibrated for the Hessian at the starting point, which change the log
        posterior by about 1, are the initial steps of Minuit, and a fraction of them those
@@ -1771,6 +1910,11 @@ std::string MonteCarloEngine::writeMinuitResults(const gslpp::matrix<double> * h
         out << " Covariance matrix: " << (covStatus >= 0 && covStatus <= 3 ? covMessage[covStatus] : "unknown")
                 << " (status " << covStatus << ")" << std::endl;
     out << " Estimated distance to the minimum: " << min.Edm() << std::endl;
+    const std::string edge = modeAtGapEdge(std::vector<double>(mode, mode + Npars));
+    if (!edge.empty()) {
+        out << " WARNING: " << edge << std::endl;
+        BCLog::OutWarning("Minuit: " + edge);
+    }
     if (hessian) {
         const ParallelLogPosterior& function = static_cast<const ParallelLogPosterior&>(*parallelFunction);
         out << " Evaluations of the model by Migrad: " << function.evaluations << " (" << function.gradients << " gradients)" << std::endl;
@@ -1947,20 +2091,27 @@ std::vector<double> MonteCarloEngine::computeFunction_h(const std::vector<std::v
     return values;
 }
 
+double MonteCarloEngine::distanceToPriorBoundary(unsigned i, double x) const
+{
+    const auto& intervals = variedParameters.at(i)->getFlatIntervals();
+    if (intervals.empty())
+        return std::min(GetParameter(i).GetUpperLimit() - x, x - GetParameter(i).GetLowerLimit());
+    for (const auto& interval : intervals)
+        if (interval.first <= x && x <= interval.second)
+            return std::min(x - interval.first, interval.second - x);
+    return 0.;
+}
+
 double MonteCarloEngine::getDerivativeStep(unsigned int i, const std::vector<double>& point, double relStep) const {
 
     const BCParameter& par = GetParameter(i);
 
-    /* The width of the prior of the parameter, which is the scale the curvature of
-       the posterior is measured against. HEPfit builds the prior out of a Gaussian
-       of width errg and a flat part of half width errf, so its variance is known
-       analytically and needs no integration. */
-    double scale = 0.;
-    for (std::vector<ModelParameter>::const_iterator it = ModPars.begin(); it < ModPars.end(); it++)
-        if (it->getname().compare(par.GetName()) == 0) {
-            scale = sqrt(it->geterrg() * it->geterrg() + it->geterrf() * it->geterrf() / 3.);
-            break;
-        }
+    // Gaussian and flat errors add in quadrature. BAT supplies the variance
+    // of a uniform distribution on the configured intervals.
+    const ModelParameter& input = *variedParameters.at(i);
+    double scale = input.getFlatIntervals().empty()
+        ? sqrt(input.geterrg() * input.geterrg() + input.geterrf() * input.geterrf() / 3.)
+        : sqrt(par.GetPriorVariance());
     if (!std::isfinite(scale) || scale <= 0.) scale = par.GetRangeWidth() / sqrt(12.);
 
     double step = relStep * scale;
@@ -1968,7 +2119,7 @@ double MonteCarloEngine::getDerivativeStep(unsigned int i, const std::vector<dou
     /* Keep point +- 2 steps inside the range of the parameter: outside it the priors
        of BAT are still finite, so leaving the range is silently allowed and the
        model is evaluated at unphysical values. */
-    double room = std::min(par.GetUpperLimit() - point.at(i), point.at(i) - par.GetLowerLimit());
+    double room = distanceToPriorBoundary(i, point.at(i));
     if (room <= 0.)
         BCLog::OutWarning(("MonteCarloEngine::getDerivativeStep(): " + par.GetName() + " is on or outside the boundary of its range; its derivatives are unreliable.").c_str());
     else if (step > room / 2.)
@@ -1990,8 +2141,7 @@ std::vector<double> MonteCarloEngine::calibrateDerivativeSteps(const std::vector
     for (unsigned int i = 0; i < Npars; i++) {
         step[i] = getDerivativeStep(i, point, relStep);
         /* the largest step that keeps point +- 2 steps inside the range */
-        const BCParameter& par = GetParameter(i);
-        double room = std::min(par.GetUpperLimit() - point.at(i), point.at(i) - par.GetLowerLimit());
+        double room = distanceToPriorBoundary(i, point.at(i));
         maxstep[i] = (room > 0.) ? room / 2. : step[i];
     }
 
@@ -2387,10 +2537,8 @@ gslpp::matrix<double> MonteCarloEngine::refineHessianSoftDirections(const std::v
        eigenbasis of the first pass they are of the order of its noise, and that,
        squared over a stiff eigenvalue, can exceed the soft curvatures. */
     std::vector<double> room(N, 0.);
-    for (unsigned int i = 0; i < N; i++) {
-        const BCParameter& par = GetParameter(i);
-        room[i] = std::max(0., std::min(par.GetUpperLimit() - point.at(i), point.at(i) - par.GetLowerLimit()));
-    }
+    for (unsigned int i = 0; i < N; i++)
+        room[i] = std::max(0., distanceToPriorBoundary(i, point.at(i)));
     std::vector<std::vector<double> > u(N, std::vector<double>(N, 0.));
     std::vector<double> maxstep(N, std::numeric_limits<double>::max());
     for (unsigned int a = 0; a < N; a++)
@@ -2991,7 +3139,8 @@ double MonteCarloEngine::Function_h(const std::vector<double>& point) {
        the model cannot evaluate. */
     std::string message;
     try {
-        return LogLikelihood(point) + LogAPrioriProbability(point);
+        const double prior = LogAPrioriProbability(point);
+        return std::isfinite(prior) ? LogLikelihood(point) + prior : prior;
     } catch (const std::string& s) {
         message = s;
     } catch (const char * s) {

@@ -134,6 +134,37 @@ public:
      */
     void DefineParameters();
 
+    /** Set the coordinates of disjoint flat priors to their configured central values.
+     *  Returns true if the point includes such a parameter. */
+    bool applyFlatIntervalCenters(std::vector<double>& point) const;
+
+    /** Warn once about active disjoint priors before an untempered MCMC run. */
+    void warnAboutUntemperedFlatIntervals() const;
+
+    /** Warn before a Minuit run without MCMC: Minuit cannot cross the gaps of disjoint flat priors. */
+    void warnAboutMinuitInDisjointPriors() const;
+
+    /**
+     * @brief Describe the parameters of disjoint flat priors whose mode lies at the edge of a gap.
+     * @details There -log(posterior) jumps to +infinity, so Migrad may not converge and the
+     * Hessian, the errors and the Laplace approximation do not describe the posterior.
+     * @return an empty string if no such parameter exists
+     */
+    std::string modeAtGapEdge(const std::vector<double>& mode) const;
+
+    /**
+     * @brief Why the Laplace (LME) normalization cannot be computed, if it cannot.
+     * @details It cannot when a parameter of a disjoint flat prior has its mode at the edge of a
+     * gap, or when more than 1% of the main-run samples of such a parameter lie outside the
+     * interval of the mode: the Laplace approximation only describes one interval.
+     * @return an empty string if the LME normalization can be computed
+     */
+    std::string lmeNotApplicable(const std::vector<double>& mode) const;
+
+    /** The configured central values of the varied parameters, in BAT coordinate order
+     *  (the starting point of MCMCInitialPosition CentralValues). */
+    std::vector<double> centralValues() const;
+
     /**
      * @brief This member calculates the loglikelihood for the observables included in the MCMC run.
      * @details The model is updated with the new set of parameters through the Model::Update() method.
@@ -692,6 +723,12 @@ private:
     bool collectObservableWeight(const Observable& observable) const;
     void fillLogLikelihoodPlots(const std::map<std::string, double>& physicalParameters, double logLikelihood);
 
+    double distanceToPriorBoundary(unsigned i, double x) const;
+    std::vector<const ModelParameter*> variedParameters; ///< Parameters in BAT coordinate order.
+    std::vector<std::vector<unsigned long> > flatIntervalVisits; ///< Main-run samples in each interval of a disjoint flat prior, per parameter.
+    std::vector<unsigned> disjointParameters() const; ///< Varied parameters with a disjoint flat prior.
+    std::string disjointParameterNames() const;
+    int flatInterval(unsigned i, double x) const; ///< Index of the interval of parameter i containing x, or -1.
     const std::vector<ModelParameter>& ModPars; ///< A vector of model parameters.
     const std::vector<CorrelatedGaussianParameters>& CGP; ///< A vector of correlated Gaussian parameters.
     boost::ptr_vector<Observable>& Obs_ALL; ///< A vector of all observables.

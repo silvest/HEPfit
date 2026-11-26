@@ -8,7 +8,27 @@
 #include "GenerateEvent.h"
 #include <TSystem.h>
 #include <TRandom3.h>
+#include <algorithm>
 #include <iomanip>  
+
+namespace {
+// Draw on the combined length, then map that distance back onto the intervals.
+double drawFlatIntervals(const std::vector<std::pair<double, double>>& intervals)
+{
+    long double length = 0.;
+    for (const auto& interval : intervals)
+        length += static_cast<long double>(interval.second) - interval.first;
+
+    long double distance = gRandom->Rndm() * length;
+    for (const auto& interval : intervals) {
+        const long double width = static_cast<long double>(interval.second) - interval.first;
+        if (distance < width)
+            return static_cast<double>(interval.first + distance);
+        distance -= width;
+    }
+    return intervals.back().second;
+}
+}
 
 GenerateEvent::GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF,
                              const std::string& ModelConf_i,
@@ -396,7 +416,7 @@ void GenerateEvent::initModel() {
     }
     std::vector<std::string> unknownParameters = Mod->getUnknownParameters();
     for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
-        if (it->geterrg() > 0. || it->geterrf() > 0.) {
+        if (!it->IsFixed()) {
             if (std::find(unknownParameters.begin(), unknownParameters.end(), it->getname()) == unknownParameters.end()) ModParsVar.push_back(*it);
         }
     }
@@ -438,6 +458,7 @@ void GenerateEvent::defineParameterDistributions() {
                 }
             }
         } else if (outputTerm == 0 && rank == 0) std::cout << it->getname() << ", "; //<< k << std::endl;
+        if (!it->getFlatIntervals().empty()) continue;
         if (it->geterrf() == 0. && it->geterrg() != 0.) {
             DDist[it->getname()] = new TF1(it->getname().c_str(),
                     "1./sqrt(2.*TMath::Pi())/[1] * exp(-(x-[0])*(x-[0])/2./[1]/[1])",
@@ -468,6 +489,8 @@ void GenerateEvent::generateRandomEvent(int iterationNo) {
     std::vector<double> vec(ModParsVar.size(), 0.);
     for (unsigned int i = 0; i < vec.size(); i++) {
         if (iterationNo == 0) vec[i] = ModParsVar[i].getave();
+        else if (!ModParsVar[i].getFlatIntervals().empty())
+            vec[i] = drawFlatIntervals(ModParsVar[i].getFlatIntervals());
         else vec[i] = DDist[ModParsVar[i].getname()]->GetRandom();
     }
 

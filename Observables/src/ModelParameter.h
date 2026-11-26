@@ -10,6 +10,8 @@
 
 #include <string>
 #include <iostream>
+#include <utility>
+#include <vector>
 #include <boost/tokenizer.hpp>
 
 /**
@@ -27,6 +29,7 @@
  */
 class ModelParameter {
 public:
+    typedef std::vector<std::pair<double, double> > Intervals;
     
     /**
      * @brief Constructor.
@@ -36,6 +39,9 @@ public:
      * @param[in] errf_in the flat error for the model parameter
      */
     ModelParameter(std::string name_in, double ave_in, double errg_in, double errf_in);
+
+    /** Uniform density on the union of disjoint closed intervals. */
+    ModelParameter(std::string name_in, double central, Intervals intervals);
     
     /**
      * @brief Constructor.
@@ -80,6 +86,12 @@ public:
         return ave;
     }
     
+    /** Sorted support intervals, empty for the ordinary Gaussian/flat parameter syntax. */
+    const Intervals& getFlatIntervals() const
+    {
+        return flatIntervals;
+    }
+
     /**
      * @brief A get method to get the flat error
      * @return the flat error of the parameter
@@ -159,6 +171,7 @@ private:
     double max; ///< The maximum value of the model parameter.
     bool isFixed; ///< A boolean flag that is true if the parameter is fixed
     std::string cgp_name;
+    Intervals flatIntervals;
 };
 
 #endif	/* MODELPARAMETER_H */

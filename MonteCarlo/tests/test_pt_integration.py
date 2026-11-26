@@ -19,7 +19,7 @@ def run(command, cwd, expect_success=True):
     return result
 
 
-def model_config(correlated_ckm=False):
+def model_config(correlated_ckm=False, mtop_prior='2.0 0'):
     # A likelihood and a prediction through real HEPfit EW code.
     values = dict(Mz=91.1875, AlsMz=0.1185, GF=1.1663787e-5,
                   ale=7.2973525698e-3, dAle5Mz=0.0275, mHl=125.09,
@@ -43,7 +43,8 @@ def model_config(correlated_ckm=False):
 
     for name, value in values.items():
         name = name.rstrip('_')
-        lines.append(f'ModelParameter {name} {value} {2.0 if name == "mtop" else 0} 0')
+        prior = mtop_prior if name == 'mtop' else '0 0'
+        lines.append(f'ModelParameter {name} {value} {prior}')
     lines += ['Observable Mw Mw Mw 79 82 MCMC weight 80.36 0.04 0',
               'Observable MwPrediction Mw MwPrediction 79 82 noMCMC noweight']
     return '\n'.join(lines) + '\n'

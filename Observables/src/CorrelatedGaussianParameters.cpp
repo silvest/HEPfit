@@ -64,6 +64,9 @@ CorrelatedGaussianParameters::~CorrelatedGaussianParameters() {
 }
 
 void CorrelatedGaussianParameters::AddPar(ModelParameter& Par_i) {
+    if (!Par_i.getFlatIntervals().empty())
+        throw std::runtime_error("Uniform flat_intervals parameter " + Par_i.getname() +
+                                 " cannot be part of CorrelatedGaussianParameters " + name);
     Pars.push_back(Par_i);
 }
 

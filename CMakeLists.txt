@@ -391,6 +391,7 @@ set(_pt_saved_type "${CMAKE_TRY_COMPILE_TARGET_TYPE}")
 set(CMAKE_REQUIRED_FLAGS "${ROOT_CFLAGS} ${MPI_COMPILE_FLAGS}")
 set(CMAKE_REQUIRED_INCLUDES "${BAT_INCLUDE_PATH};${MPI_CXX_INCLUDE_DIRS}")
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+unset(HEPFIT_BAT_HAS_DISJOINT_FLAT_PRIOR CACHE)
 unset(HEPFIT_BAT_HAS_PT CACHE)
 unset(HEPFIT_BAT_HAS_PT_STREAMING CACHE)
 unset(HEPFIT_BAT_HAS_STAGED_WARMUP CACHE)
@@ -399,6 +400,7 @@ unset(HEPFIT_BAT_HAS_PROPOSAL_CACHE CACHE)
 unset(HEPFIT_BAT_HAS_PT_TEMPERATURE_ADAPTATION CACHE)
 if(BAT_INSTALL)
   # The bundled download is legacy BAT even if the current prefix has a PT API.
+  set(HEPFIT_BAT_HAS_DISJOINT_FLAT_PRIOR FALSE)
   set(HEPFIT_BAT_HAS_PT FALSE)
   set(HEPFIT_BAT_HAS_PT_STREAMING FALSE)
   set(HEPFIT_BAT_HAS_STAGED_WARMUP FALSE)
@@ -406,6 +408,9 @@ if(BAT_INSTALL)
   set(HEPFIT_BAT_HAS_PROPOSAL_CACHE FALSE)
   set(HEPFIT_BAT_HAS_PT_TEMPERATURE_ADAPTATION FALSE)
 else()
+check_cxx_source_compiles("#include <BAT/BCDisjointFlatPrior.h>
+int main() { BCDisjointFlatPrior prior({{0., 1.}, {2., 3.}}); }
+" HEPFIT_BAT_HAS_DISJOINT_FLAT_PRIOR)
 check_cxx_source_compiles("#include <BAT/BCEngineMCMC.h>
 int main() {
     auto configure = &BCEngineMCMC::SetParallelTempering;
@@ -814,6 +819,10 @@ set(HEPFIT_DIAGNOSTICS_PYTHON "" CACHE FILEPATH "Python with bat_MPI diagnostics
 set(HEPFIT_BAT_SOURCE_DIR "" CACHE PATH "bat_MPI source containing diagnostics/analyze_mcmc.py")
 if(HEPFIT_BUILD_PT_TESTS)
   enable_testing()
+  add_executable(HEPfitFlatIntervalsConfigTest InputParser/tests/flat_intervals_config_test.cpp
+    Observables/src/ModelParameter.cpp)
+  target_include_directories(HEPfitFlatIntervalsConfigTest PRIVATE Observables/src ${BOOST_INC})
+  add_test(NAME HEPfit_flat_intervals_config COMMAND HEPfitFlatIntervalsConfigTest)
   add_executable(HEPfitPTConfigTest MonteCarlo/tests/pt_config_test.cpp)
   target_include_directories(HEPfitPTConfigTest PRIVATE MonteCarlo/src)
   add_test(NAME HEPfit_PT_config COMMAND HEPfitPTConfigTest)
@@ -823,6 +832,13 @@ if(HEPFIT_BUILD_PT_TESTS)
   add_executable(HEPfitProposalConfigTest MonteCarlo/tests/proposal_config_test.cpp)
   target_include_directories(HEPfitProposalConfigTest PRIVATE MonteCarlo/src)
   add_test(NAME HEPfit_proposal_config COMMAND HEPfitProposalConfigTest)
+  if(HEPFIT_BAT_HAS_DISJOINT_FLAT_PRIOR AND HEPFIT_BAT_HAS_PT AND MPIBAT AND HEPFIT_DIAGNOSTICS_PYTHON)
+    add_test(NAME HEPfit_disjoint_prior COMMAND ${HEPFIT_DIAGNOSTICS_PYTHON}
+      ${CMAKE_SOURCE_DIR}/MonteCarlo/tests/test_disjoint_prior.py
+      --analysis $<TARGET_FILE:analysis> --mpiexec ${MPIEXEC_EXECUTABLE} "--mpi-flags=${MPIEXEC_PREFLAGS}")
+    set_tests_properties(HEPfit_disjoint_prior PROPERTIES TIMEOUT 120 RUN_SERIAL TRUE
+      ENVIRONMENT "PYTHONDONTWRITEBYTECODE=1")
+  endif()
   if(HEPFIT_BAT_HAS_PT_TEMPERATURE_ADAPTATION AND MPIBAT AND HEPFIT_DIAGNOSTICS_PYTHON AND HEPFIT_BAT_SOURCE_DIR)
     add_test(NAME HEPfit_temperature_adaptation COMMAND ${HEPFIT_DIAGNOSTICS_PYTHON}
       ${CMAKE_SOURCE_DIR}/MonteCarlo/tests/test_temperature_adaptation.py

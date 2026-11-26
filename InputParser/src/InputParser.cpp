@@ -104,12 +104,12 @@ std::string InputParser::ReadParameters(const std::string filename_i,
         const size_t nObservables = Observables.size(), nObservables2D = Observables2D.size(), nCGO = CGO.size();
         if (type.compare("ModelParameter") == 0) {
             
-            if (std::distance(tok.begin(), tok.end()) < 5) {
-                if (rank == 0) throw std::runtime_error("ERROR: lack of information on " + *beg + " in " + filename + ".\n");
-                else sleep(2);
-            } else {
             ModelParameter tmpMP;
-            beg = tmpMP.ParseModelParameter(beg);
+            try {
+                tmpMP.ParseModelParameter(beg);
+            } catch (const std::runtime_error& err) {
+                throw std::runtime_error(filename + ":" + std::to_string(lineNo) + ": " + err.what());
+            }
             if (checkDuplicateParameter[tmpMP.getname()].get<0>()) {
                 if(rank == 0) throw std::runtime_error("\nERROR: ModelParameter " + tmpMP.getname() + " appears more than once ...!! \n" +
                 "1st Occurrence: Line No:" + boost::lexical_cast<std::string>(checkDuplicateParameter[tmpMP.getname()].get<2>()) +
@@ -118,15 +118,14 @@ std::string InputParser::ReadParameters(const std::string filename_i,
                 else sleep (2);
             }
             
-            if (tmpMP.getname().compare("lambdaNP") == 0 && (tmpMP.geterrf() > 0. || tmpMP.geterrg() > 0.))
+            if (tmpMP.getname().compare("lambdaNP") == 0 && !tmpMP.IsFixed())
                 if(rank == 0) throw std::runtime_error("\nERROR: ModelParameter " + tmpMP.getname() + " cannot float in the MonteCarlo run ");
             
-            if (beg != tok.end())
+            if (beg != tok.end() && beg->front() != '#')
                 if (rank == 0) std::cout << "WARNING: unread information in parameter " << tmpMP.getname() << std::endl;
             checkDuplicateParameter[tmpMP.getname()] = boost::make_tuple(true, filename, lineNo);
                
             ModelPars.push_back(tmpMP);
-            }
 
         } else if (type.compare("CorrelatedGaussianParameters") == 0) {
             

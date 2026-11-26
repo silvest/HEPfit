@@ -31,6 +31,7 @@ include_directories(${BOOST_INC})
 
 file(GLOB srcs "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 add_library(MonteCarlo ${LIBTYPE} ${srcs})
+target_compile_definitions(MonteCarlo PRIVATE HEPFIT_BAT_HAS_DISJOINT_FLAT_PRIOR=$<BOOL:${HEPFIT_BAT_HAS_DISJOINT_FLAT_PRIOR}>)
 if(HEPFIT_BAT_HAS_STAGED_WARMUP)
   target_compile_definitions(MonteCarlo PRIVATE HEPFIT_BAT_HAS_STAGED_WARMUP)
 endif()
