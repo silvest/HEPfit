@@ -2995,6 +2995,7 @@ NPbase(), NPSMEFTd6GM(*this),
 }
 
 bool NPSMEFTd6General::PreUpdate() {
+    deltaGammaZCacheValid = false;
     SMEFTEvolEW.Reset();
 
     isSMInitialConditionComputed = false;
@@ -8725,6 +8726,7 @@ void NPSMEFTd6General::rotateWilsonCoefficients(const RGESolver& solver, const Q
 }
 
 bool NPSMEFTd6General::PostUpdate() {
+    deltaGammaZCacheValid = false;
     if (!isSMInitialConditionComputed) GenerateSMInitialConditions();
 
     setSMEFTEvolWC(SMEFTEvolEW);
@@ -8910,6 +8912,8 @@ bool NPSMEFTd6General::PostUpdate() {
 
     if (FlagmatchLEFT) getMatching().updateLEFTGeneralParameters();
 
+    // drop a value computed while the parameters were being updated
+    deltaGammaZCacheValid = false;
     return true;
 }
 
@@ -14093,6 +14097,7 @@ void NPSMEFTd6General::setParameter(const std::string name, const double& value)
 }
 
 bool NPSMEFTd6General::setFlag(const std::string name, const bool value) {
+    deltaGammaZCacheValid = false;
     bool res = false;
     if (name.compare("MWinput") == 0) {
         FlagMWinput = value;
@@ -15889,6 +15894,15 @@ const double NPSMEFTd6General::Gamma_Zf(const Particle f) const
 
 
 const double NPSMEFTd6General::deltaGamma_Z() const
+{
+    if (!deltaGammaZCacheValid) {
+        deltaGammaZCache = computeDeltaGamma_Z();
+        deltaGammaZCacheValid = true;
+    }
+    return deltaGammaZCache;
+}
+
+double NPSMEFTd6General::computeDeltaGamma_Z() const
 {
     double deltaGamma_Z = 0.;
     bool nonZeroNP = false;

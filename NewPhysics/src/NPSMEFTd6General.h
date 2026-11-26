@@ -8236,6 +8236,11 @@ protected:
 
     // Cache variables
     double dGammaHTotR1, dGammaHTotR2, GammaHTotR; ///< NP contributions and Total to Higgs width ratio with SM
+    /// deltaGamma_Z() is constant at fixed parameters but called in every e+e- -> f fbar amplitude: computed once
+    /// per parameter point. Invalidated in PreUpdate(), at the start and end of PostUpdate() and in setFlag().
+    mutable double deltaGammaZCache = 0.;
+    mutable bool deltaGammaZCacheValid = false;
+    double computeDeltaGamma_Z() const;
 
     double delta_GF = 0.0; ///< The dimension 6 correction to the Fermi constant, as extracted from muon decay
 
