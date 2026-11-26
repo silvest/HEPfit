@@ -111,7 +111,8 @@ Each line has to be written as follows:
 
     For parallel tempering, use the same parameter line for the entire run.
     `MCMCInitialPosition RandomPrior` draws starting positions directly from
-    the allowed intervals. The gaps retain zero probability at every
+    the allowed intervals; `MCMCInitialPosition CentralValues` starts every
+    chain from the configured central values. The gaps retain zero probability at every
     temperature. An MCMC run with parallel tempering disabled issues one startup
     warning naming the affected parameters and continues sampling.
     Check visits to each interval in the cold chain when assessing
@@ -286,10 +287,13 @@ parameters and options are:
 
 * `Histogram2DType`: Sets the type of 2D histograms: 1001 -> Lego (default), 101 -> Filled, 1 -> Contour.
 
-* `MCMCInitialPosition` selects `Center`, `RandomPrior`, or `RandomUniform`.
+* `MCMCInitialPosition` selects `Center`, `CentralValues`, `RandomPrior`, or `RandomUniform`.
     Fits with a `flat_intervals` parameter default to `RandomPrior`. Other fits
     default to `RandomUniform`. With `Center`, each `flat_intervals` parameter
-    starts at its configured central value.
+    starts at its configured central value and the other parameters at the
+    centre of their range. With `CentralValues`, every chain starts from the
+    central values given in the model configuration file for all varied
+    parameters, which always lie in the support of their prior.
 
 * `PrintLogo`: Toggle the printing of the `HEPfit` logo on the histograms. (Default: true)
 

@@ -709,6 +709,7 @@ void MonteCarlo::collectMPIEventCounters(int buffsize, double& used, double& dis
 
 void MonteCarlo::ParseMCMCConfig(std::string file)
 {
+    bool startFromCentralValues = false; // MCMCInitialPosition CentralValues
     std::ifstream ifile(file.c_str());
     if (!ifile.is_open())
         throw std::runtime_error("\nERROR: " + MCMCConf + " does not exist. Make sure to specify a valid Monte Carlo configuration file.\n");
@@ -918,14 +919,17 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
                 throw std::runtime_error("\nERROR: Histogram2DType in the MonteCarlo configuration file : " + MCMCConf + "can only be an integer amongst 1001 -> Lego, 101 -> Filled, 1 -> Contour.\n");
         } else if (beg->compare("MCMCInitialPosition") == 0) {
             ++beg;
+            startFromCentralValues = false; // the last MCMCInitialPosition line wins
             if (beg->compare("Center") == 0) {
                 MCEngine.SetInitialPositionScheme(BCEngineMCMC::kInitCenter);
             } else if (beg->compare("RandomUniform") == 0) {
                 MCEngine.SetInitialPositionScheme(BCEngineMCMC::kInitRandomUniform);
             } else if (beg->compare("RandomPrior") == 0) {
                 MCEngine.SetInitialPositionScheme(BCEngineMCMC::kInitRandomPrior);
+            } else if (beg->compare("CentralValues") == 0) {
+                startFromCentralValues = true;
             } else
-                throw std::runtime_error("\nERROR: MCMCInitialPosition in MonteCarlo config file: " + MCMCConf + " can only be 'Center', 'RandomUniform' or 'RandomPrior'.\n");
+                throw std::runtime_error("\nERROR: MCMCInitialPosition in MonteCarlo config file: " + MCMCConf + " can only be 'Center', 'CentralValues', 'RandomUniform' or 'RandomPrior'.\n");
         } else if (beg->compare("PrintLogo") == 0) {
             ++beg;
             if (beg->compare("true") == 0 || beg->compare("false") == 0) MCEngine.setPrintLogo((beg->compare("true") == 0));
@@ -1067,7 +1071,11 @@ void MonteCarlo::ParseMCMCConfig(std::string file)
     if (!proposal.load.empty()) MCEngine.LoadProposalFunction(proposal.load, proposal.warmup);
 #endif
     if (!preRunData.empty()) ReadPreRunData(preRunData);
-    else if (MCEngine.GetInitialPositionScheme() == BCEngineMCMC::kInitCenter) {
+    else if (startFromCentralValues) {
+        // Every chain starts from the central values given in the model configuration file.
+        MCEngine.SetInitialPositions(std::vector<std::vector<double>>(MCEngine.GetNChains(), MCEngine.centralValues()));
+        std::cout << "MCMC chains start from the configured central values of the parameters." << std::endl;
+    } else if (MCEngine.GetInitialPositionScheme() == BCEngineMCMC::kInitCenter) {
         auto center = MCEngine.GetParameters().GetRangeCenters();
         if (MCEngine.applyFlatIntervalCenters(center))
             MCEngine.SetInitialPositions(std::vector<std::vector<double>>(MCEngine.GetNChains(), center));

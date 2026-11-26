@@ -141,6 +141,10 @@ public:
     /** Warn once about active disjoint priors before an untempered MCMC run. */
     void warnAboutUntemperedFlatIntervals() const;
 
+    /** The configured central values of the varied parameters, in BAT coordinate order
+     *  (the starting point of MCMCInitialPosition CentralValues). */
+    std::vector<double> centralValues() const;
+
     /**
      * @brief This member calculates the loglikelihood for the observables included in the MCMC run.
      * @details The model is updated with the new set of parameters through the Model::Update() method.

@@ -76,6 +76,18 @@ PrintTrianglePlot false
             assert 'mtop' in warnings[0] and 'mHl' in warnings[0], warnings[0]
             assert (work / 'log.txt').read_text().count(warning) == 1
 
+        # Every chain starts from the configured central values (mtop 163, mHl 125.09).
+        (work / 'mc.conf').write_text('ParallelTempering true\nPTTemperatures 1:2:4\nPTSwapInterval 5\n'
+                                      + settings.replace('MCMCInitialPosition Center',
+                                                         'MCMCInitialPosition CentralValues'))
+        result = run(command, work)
+        assert 'start from the configured central values' in result.stdout, result.stdout
+        with uproot.open(work / 'MCout.root') as output:
+            samples = output['StandardModel_mcmc'].arrays(library='np')
+        check_samples(samples['mtop'])
+        higgs = samples['mHl']
+        assert np.all(((higgs >= 124) & (higgs <= 126)) | ((higgs >= 127) & (higgs <= 128))), higgs
+
         (work / 'model.conf').write_text(model_config())
         result = run(command, work)
         assert warning not in result.stdout, result.stdout

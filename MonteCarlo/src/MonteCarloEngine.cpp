@@ -361,6 +361,15 @@ void MonteCarloEngine::warnAboutUntemperedFlatIntervals() const
                             "ParallelTempering true and configure PTTemperatures in the Monte Carlo configuration.");
 }
 
+std::vector<double> MonteCarloEngine::centralValues() const
+{
+    std::vector<double> point;
+    point.reserve(variedParameters.size());
+    for (const ModelParameter* parameter : variedParameters)
+        point.push_back(parameter->getave());
+    return point;
+}
+
 bool MonteCarloEngine::applyFlatIntervalCenters(std::vector<double>& point) const
 {
     bool found = false;

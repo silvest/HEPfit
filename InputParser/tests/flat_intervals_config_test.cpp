@@ -41,6 +41,11 @@ int main()
     reject("x 0 flat_intervals");
     reject("x 0 flat_intervals -1 1");
     reject("x 0 flat_intervals -1 1 2");
+    try {
+        parse("x 0 flat_intervals -1 1 2");
+    } catch (const std::runtime_error& error) {
+        check(std::string(error.what()).find("odd number of flat_intervals endpoints") != std::string::npos);
+    }
     reject("x 0 flat_intervals -1 1 2 # missing endpoint");
     reject("x 0 flat_intervals -1 1 0 2");
     reject("x 0 flat_intervals -1 1 1 2");

@@ -94,6 +94,8 @@ boost::tokenizer<boost::char_separator<char> >::iterator & ModelParameter::Parse
         Intervals intervals;
         while (!beg.at_end() && beg->front() != '#') {
             const double low = number(next());
+            if (beg.at_end() || beg->front() == '#')
+                throw std::runtime_error("ModelParameter " + parameterName + ": odd number of flat_intervals endpoints");
             const double high = number(next());
             intervals.emplace_back(low, high);
         }
