@@ -537,7 +537,10 @@
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This auxiliary flag is used for setting the W mass as a SM input, 
  *   instead of the electromagnetic constant parameter %dAle5Mz. 
- *   The default value is FALSE. This flag will override the flag of the same name in StandardModel</td>
+ *   The default value is FALSE. This flag will override the flag of the same name in StandardModel.
+ *   Predictions that are only available as MW-scheme fits (several production fits, the STXS1.2 bins and the
+ *   quadratic \f$H\to 4f\f$ widths) throw a runtime error when used with MWinput = FALSE; since the quadratic
+ *   \f$H\to 4f\f$ widths enter the total Higgs width, QuadraticTerms = TRUE requires MWinput = TRUE.</td>
  * </tr> 
  * <tr>
  *   <td class="mod_name">%QuadraticTerms</td>
@@ -2338,6 +2341,10 @@ public:
     /**
      * @brief The ratio of the @f$\Gamma(H\to WW)@f$ in the current model
      * and in the Standard Model.
+     * @details Computed from the sum of the charged-current @f$H\to 4f@f$ channels,
+     * i.e. the same width as GammaH4fCCRatio() and BrHWWRatio() (= BrH4fCCRatio()),
+     * at linear and quadratic order (deltaGammaHWWRatio1(), deltaGammaHWWRatio2()).
+     * The dedicated @f$H\to WW^*\to 4f@f$ fit is available in GammaHWW4fRatio().
      * @return @f$\Gamma(H\to WW)@f$/@f$\Gamma(H\to WW)_{\mathrm{SM}}@f$
      */
     const double  GammaHWWRatio() const override;
@@ -2528,6 +2535,10 @@ public:
     /**
      * @brief The ratio of the @f$\Gamma(H\to ZZ)@f$ in the current model
      * and in the Standard Model.
+     * @details Computed from the sum of the neutral-current @f$H\to 4f@f$ channels,
+     * i.e. the same width as GammaH4fNCRatio() and BrHZZRatio() (= BrH4fNCRatio()),
+     * at linear and quadratic order (deltaGammaHZZRatio1(), deltaGammaHZZRatio2()).
+     * The dedicated @f$H\to ZZ^*\to 4f@f$ fit is available in GammaHZZ4fRatio().
      * @return @f$\Gamma(H\to ZZ)@f$/@f$\Gamma(H\to ZZ)_{\mathrm{SM}}@f$
      */
     const double  GammaHZZRatio() const override;
@@ -5277,6 +5288,10 @@ public:
 
     /**
      * @brief The new physics contribution to the anomalous triple gauge coupling @f$\lambda_{Z}@f$.
+     * @details @f$\lambda_Z=\lambda_\gamma=\frac{3}{2}\, g\, v^2 C_W@f$, in the convention of Hagiwara et al.
+     * (relative to the SM vertex, @f$g_{WW\gamma}=-e@f$), with @f$C_W@f$ defined for the covariant derivative
+     * @f$D_\mu=\partial_\mu+i g T^I W^I_\mu@f$ of \cite Grzadkowski:2010es (also the convention of the
+     * MadGraph @f$e^+e^-\to W^+W^-@f$ fits used in this model). The same quantity is returned by lambz_HB().
      * @return @f$\lambda_{Z}@f$
      */
     virtual const double lambdaZNP(const double mu) const override;
@@ -8216,7 +8231,7 @@ protected:
      * - \left(C_{\varphi l}^{(3)11} + C_{\varphi l}^{(3)22}\right) \left( C_{ll}^{1221}+C_{ll}^{2112}\right) \frac{\vt^4 }{\Lambda^4}
      * + \frac{1}{4} \left( C_{ll}^{1221}+C_{ll}^{2112}\right)^2 \frac{\vt^4 }{\Lambda^4}
      * \f]
-     * @todo Evaluate the quadratic muon-decay matching in PostUpdate(). The general model uses zero until then.
+     * Computed in PostUpdate() from the exact muon-decay relation; it equals \f$\dGf^2 + \vt^4 C_{\varphi l}^{(3)11} C_{\varphi l}^{(3)22}/\Lambda^4\f$.
      */
     double delta_GF_2 = 0.0;
     

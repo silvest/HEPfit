@@ -8758,6 +8758,17 @@ bool NPSMEFTd6General::PostUpdate() {
     delta_GF = v2 * (getRawSMEFTCoeffEW("CHl3R", 0, 0) + getRawSMEFTCoeffEW("CHl3R", 1, 1)
             - 0.5 * (getRawSMEFTCoeffEW("CllR", 0, 1, 1, 0) + getRawSMEFTCoeffEW("CllR", 1, 0, 0, 1)));
 
+    //  O(1/Lambda^4) part of the same muon-decay matching (as in NPSMEFTd6::PostUpdate):
+    //  G_F/G_F^(0) = (1+a)(1+b) - c, with a,b = v^2 C_Hl3^(11,22), c = v^2 (C_ll^1221 + C_ll^2112)/2,
+    //  i.e. delta_GF_2 = delta_GF^2 + a*b
+    {
+        double CHl3R11 = getRawSMEFTCoeffEW("CHl3R", 0, 0), CHl3R22 = getRawSMEFTCoeffEW("CHl3R", 1, 1);
+        double CllSum = getRawSMEFTCoeffEW("CllR", 0, 1, 1, 0) + getRawSMEFTCoeffEW("CllR", 1, 0, 0, 1);
+        delta_GF_2 = (CHl3R11 * CHl3R11 + CHl3R22 * CHl3R22 + 3.0 * CHl3R11 * CHl3R22
+                - (CHl3R11 + CHl3R22) * CllSum
+                + 0.25 * CllSum * CllSum) * v2 * v2;
+    }
+
     //  NP correction to the vev, as extracted from GF
     delta_v = 0.5 * delta_GF;
 
@@ -17096,7 +17107,7 @@ const double NPSMEFTd6General::deltaG_hggRatio() const {
     
     double deltaloc = deltaG_hgg();
 
-    gSM = aSPiv * (AH_f(tau_t) + AH_f(tau_b) + AH_f(tau_c));
+    gSM = aSPiv * (AH_f(tau_t) + AH_f(tau_b) + AH_f(tau_c) + AH_f(tau_s));
 
     dg = deltaloc / gSM + (aSPiv / gSM) * (dKappa_t * AH_f(tau_t) + dKappa_b * AH_f(tau_b) + dKappa_c * AH_f(tau_c) + dKappa_s * AH_f(tau_s));
 
@@ -17345,7 +17356,7 @@ const double NPSMEFTd6General::deltaG_hggRatio_mu(const double mu) const {
     
     double deltaloc = deltaG_hgg_mu(mu);
 
-    gSM = aSPiv * (AH_f(tau_t) + AH_f(tau_b) + AH_f(tau_c));
+    gSM = aSPiv * (AH_f(tau_t) + AH_f(tau_b) + AH_f(tau_c) + AH_f(tau_s));
 
     dg = deltaloc / gSM + (aSPiv / gSM) * (dKappa_t * AH_f(tau_t) + dKappa_b * AH_f(tau_b) + dKappa_c * AH_f(tau_c) + dKappa_s * AH_f(tau_s));
 
@@ -25923,7 +25934,10 @@ const double NPSMEFTd6General::deltaGammaHWWRatio1() const {
 
     //    double C1 = 0.0073;
 
-    dwidth = deltaGammaHWW4fRatio1();
+    // Same charged-current H->4f sum as BrHWWRatio() (= BrH4fCCRatio()) and the total width,
+    // so that Gamma, Br and the linearised mu(...WW) observables use one parametrisation.
+    //    dwidth = deltaGammaHWW4fRatio1();
+    dwidth = deltaGammaH4fCCRatio1();
 
     //  Linear contribution from Higgs self-coupling
     //    dwidth += cLHd6*(C1 + 2.0*dZH1)*deltaG_hhhRatio(); 
@@ -25941,7 +25955,9 @@ const double NPSMEFTd6General::deltaGammaHWWRatio2() const {
     double dwidth = 0.0;
 
     if (FlagQuadraticTerms) {
-        dwidth = deltaGammaHWW4fRatio2();
+        // Same charged-current H->4f sum as BrHWWRatio() (= BrH4fCCRatio())
+        //        dwidth = deltaGammaHWW4fRatio2();
+        dwidth = deltaGammaH4fCCRatio2();
     }
 
     return dwidth;
@@ -26428,7 +26444,7 @@ const double NPSMEFTd6General::deltaGammaHWW4fRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
         //Contributions that are quadratic in the effective coefficients
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.01471) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (-0.0081083) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (0.0009192) * pow(getSMEFTCoeffEW("CHD"), 2.0)
@@ -26452,9 +26468,9 @@ const double NPSMEFTd6General::deltaGammaHWW4fRatio2() const {
                 + (-0.01384871) * getSMEFTCoeffEW("CHl3R", 1, 1) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.85) * pow(deltaGwd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.85) * pow(deltaGwd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.1119) * deltaGwd6() * getSMEFTCoeffEW("CHbox")
                 + (0.0842) * deltaGwd6() * getSMEFTCoeffEW("CHW")
                 + (0.029323) * deltaGwd6() * getSMEFTCoeffEW("CHD")
@@ -26512,7 +26528,10 @@ const double NPSMEFTd6General::deltaGammaHZZRatio1() const {
 
     //    double C1 = 0.0083;
 
-    dwidth = deltaGammaHZZ4fRatio1();
+    // Same neutral-current H->4f sum as BrHZZRatio() (= BrH4fNCRatio()) and the total width,
+    // so that Gamma, Br and the linearised mu(...ZZ) observables use one parametrisation.
+    //    dwidth = deltaGammaHZZ4fRatio1();
+    dwidth = deltaGammaH4fNCRatio1();
 
     //  Linear contribution from Higgs self-coupling
     //    dwidth += cLHd6*(C1 + 2.0*dZH1)*deltaG_hhhRatio();
@@ -26530,7 +26549,8 @@ const double NPSMEFTd6General::deltaGammaHZZRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
         //Contributions that are quadratic in the effective coefficients
-        dwidth += 0.0;
+        // Same neutral-current H->4f sum as BrHZZRatio() (= BrH4fNCRatio())
+        dwidth = deltaGammaH4fNCRatio2();
     }
 
     return dwidth;
@@ -27605,7 +27625,7 @@ const double NPSMEFTd6General::deltaGammaHZZ4fRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
         //Contributions that are quadratic in the effective coefficients
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.01438) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (0.4094) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (1.1627) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -27681,9 +27701,9 @@ const double NPSMEFTd6General::deltaGammaHZZ4fRatio2() const {
                 + (-0.002008333) * getSMEFTCoeffEW("CHeR", 1, 1) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.71) * pow(deltaGzd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.71) * pow(deltaGzd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.095) * deltaGzd6() * getSMEFTCoeffEW("CHbox")
                 + (0.0101) * deltaGzd6() * getSMEFTCoeffEW("CHW")
                 + (0.0301) * deltaGzd6() * getSMEFTCoeffEW("CHB")
@@ -28761,7 +28781,7 @@ const double NPSMEFTd6General::deltaGammaH2L2LRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.014691) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (0.18009) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (0.48021) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -28876,9 +28896,9 @@ const double NPSMEFTd6General::deltaGammaH2L2LRatio2() const {
                 + (-0.0042564489) * getSMEFTCoeffEW("CHeR", 2, 2) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.72) * pow(deltaGzd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.72) * pow(deltaGzd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.0982) * deltaGzd6() * getSMEFTCoeffEW("CHbox")
                 + (-0.0146) * deltaGzd6() * getSMEFTCoeffEW("CHW")
                 + (0.0726) * deltaGzd6() * getSMEFTCoeffEW("CHB")
@@ -29100,7 +29120,7 @@ const double NPSMEFTd6General::deltaGammaH2v2vRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
         //Contributions that are quadratic in the effective coefficients
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.014715) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (-0.00492776) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (-0.00157955) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -29177,9 +29197,9 @@ const double NPSMEFTd6General::deltaGammaH2v2vRatio2() const {
                 + (0.004811) * getSMEFTCoeffEW("CHl3R", 2, 2) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.7) * pow(deltaGzd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.7) * pow(deltaGzd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.1008) * deltaGzd6() * getSMEFTCoeffEW("CHbox")
                 + (0.03623) * deltaGzd6() * getSMEFTCoeffEW("CHW")
                 + (0.01039) * deltaGzd6() * getSMEFTCoeffEW("CHB")
@@ -29313,7 +29333,7 @@ const double NPSMEFTd6General::deltaGammaH2L2vRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
         //Contributions that are quadratic in the effective coefficients
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.0147) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (0.073334) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (0.070511) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -29416,9 +29436,9 @@ const double NPSMEFTd6General::deltaGammaH2L2vRatio2() const {
                 + (-0.00219322) * getSMEFTCoeffEW("CHeR", 2, 2) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.74) * pow(deltaGzd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.74) * pow(deltaGzd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.102) * deltaGzd6() * getSMEFTCoeffEW("CHbox")
                 + (0.00348) * deltaGzd6() * getSMEFTCoeffEW("CHW")
                 + (0.0282) * deltaGzd6() * getSMEFTCoeffEW("CHB")
@@ -29828,7 +29848,7 @@ const double NPSMEFTd6General::deltaGammaH2u2uRatio1() const {
 const double NPSMEFTd6General::deltaGammaH2u2uRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.014716) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (0.06274) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (0.09129) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -29932,9 +29952,9 @@ const double NPSMEFTd6General::deltaGammaH2u2uRatio2() const {
                 + (-0.0220568) * getSMEFTCoeffEW("CHl3R", 1, 1) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.7) * pow(deltaGzd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.7) * pow(deltaGzd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.0987) * deltaGzd6() * getSMEFTCoeffEW("CHbox")
                 + (-0.0818) * deltaGzd6() * getSMEFTCoeffEW("CHW")
                 + (0.1374) * deltaGzd6() * getSMEFTCoeffEW("CHB")
@@ -30068,7 +30088,7 @@ const double NPSMEFTd6General::deltaGammaH2d2dRatio1() const {
 const double NPSMEFTd6General::deltaGammaH2d2dRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.014652) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (0.013992) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (0.002345) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -30199,9 +30219,9 @@ const double NPSMEFTd6General::deltaGammaH2d2dRatio2() const {
                 + (-0.02200835) * getSMEFTCoeffEW("CHl3R", 1, 1) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.74) * pow(deltaGzd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.74) * pow(deltaGzd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.0955) * deltaGzd6() * getSMEFTCoeffEW("CHbox")
                 + (-0.0433) * deltaGzd6() * getSMEFTCoeffEW("CHW")
                 + (0.09154) * deltaGzd6() * getSMEFTCoeffEW("CHB")
@@ -30345,7 +30365,7 @@ const double NPSMEFTd6General::deltaGammaH2u2dRatio1() const {
 const double NPSMEFTd6General::deltaGammaH2u2dRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.014695) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (0.039324) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (0.033113) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -30492,9 +30512,9 @@ const double NPSMEFTd6General::deltaGammaH2u2dRatio2() const {
                 + (-0.0220565) * getSMEFTCoeffEW("CHl3R", 1, 1) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.66) * pow(deltaGzd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.66) * pow(deltaGzd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.0999) * deltaGzd6() * getSMEFTCoeffEW("CHbox")
                 + (-0.0604) * deltaGzd6() * getSMEFTCoeffEW("CHW")
                 + (0.1133) * deltaGzd6() * getSMEFTCoeffEW("CHB")
@@ -30641,7 +30661,7 @@ const double NPSMEFTd6General::deltaGammaH2L2uRatio1() const {
 const double NPSMEFTd6General::deltaGammaH2L2uRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.014712) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (0.11704) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (0.23808) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -30800,9 +30820,9 @@ const double NPSMEFTd6General::deltaGammaH2L2uRatio2() const {
                 + (0.0018281) * getSMEFTCoeffEW("CHuR", 1, 1) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.75) * pow(deltaGzd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.75) * pow(deltaGzd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.0968) * deltaGzd6() * getSMEFTCoeffEW("CHbox")
                 + (-0.0449) * deltaGzd6() * getSMEFTCoeffEW("CHW")
                 + (0.1028) * deltaGzd6() * getSMEFTCoeffEW("CHB")
@@ -30957,7 +30977,7 @@ const double NPSMEFTd6General::deltaGammaH2L2dRatio1() const {
 const double NPSMEFTd6General::deltaGammaH2L2dRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.014825) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (0.08465) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (0.10657) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -31142,9 +31162,9 @@ const double NPSMEFTd6General::deltaGammaH2L2dRatio2() const {
                 + (-0.0004699201) * getSMEFTCoeffEW("CHdR", 2, 2) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.77) * pow(deltaGzd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.77) * pow(deltaGzd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.095) * deltaGzd6() * getSMEFTCoeffEW("CHbox")
                 + (-0.0213) * deltaGzd6() * getSMEFTCoeffEW("CHW")
                 + (0.0747) * deltaGzd6() * getSMEFTCoeffEW("CHB")
@@ -31290,7 +31310,7 @@ const double NPSMEFTd6General::deltaGammaH2v2uRatio1() const {
 const double NPSMEFTd6General::deltaGammaH2v2uRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.014683) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (0.029977) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (0.020534) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -31415,9 +31435,9 @@ const double NPSMEFTd6General::deltaGammaH2v2uRatio2() const {
                 + (0.0019033) * getSMEFTCoeffEW("CHuR", 1, 1) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.757) * pow(deltaGzd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.757) * pow(deltaGzd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.099) * deltaGzd6() * getSMEFTCoeffEW("CHbox")
                 + (-0.01511) * deltaGzd6() * getSMEFTCoeffEW("CHW")
                 + (0.07347) * deltaGzd6() * getSMEFTCoeffEW("CHB")
@@ -31562,7 +31582,7 @@ const double NPSMEFTd6General::deltaGammaH2v2dRatio1() const {
 const double NPSMEFTd6General::deltaGammaH2v2dRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.01475) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (0.004384) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (-0.0006489) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -31718,9 +31738,9 @@ const double NPSMEFTd6General::deltaGammaH2v2dRatio2() const {
                 + (-0.000462466) * getSMEFTCoeffEW("CHdR", 2, 2) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.75) * pow(deltaGzd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.75) * pow(deltaGzd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.101) * deltaGzd6() * getSMEFTCoeffEW("CHbox")
                 + (-0.00041) * deltaGzd6() * getSMEFTCoeffEW("CHW")
                 + (0.048287) * deltaGzd6() * getSMEFTCoeffEW("CHB")
@@ -31859,7 +31879,7 @@ const double NPSMEFTd6General::deltaGammaH4LRatio1() const {
 const double NPSMEFTd6General::deltaGammaH4LRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.014714) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (0.15495) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (0.41542) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -31965,9 +31985,9 @@ const double NPSMEFTd6General::deltaGammaH4LRatio2() const {
                 + (-0.004054257) * getSMEFTCoeffEW("CHeR", 2, 2) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.67) * pow(deltaGzd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.67) * pow(deltaGzd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.0901) * deltaGzd6() * getSMEFTCoeffEW("CHbox")
                 + (-0.0072) * deltaGzd6() * getSMEFTCoeffEW("CHW")
                 + (0.0523) * deltaGzd6() * getSMEFTCoeffEW("CHB")
@@ -32367,7 +32387,7 @@ const double NPSMEFTd6General::deltaGammaH4vRatio1() const {
 const double NPSMEFTd6General::deltaGammaH4vRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.014726) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (-0.00480382) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (-0.00151116) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -32443,9 +32463,9 @@ const double NPSMEFTd6General::deltaGammaH4vRatio2() const {
                 + (0.0044983) * getSMEFTCoeffEW("CHl3R", 2, 2) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.66) * pow(deltaGzd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.66) * pow(deltaGzd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.0835) * deltaGzd6() * getSMEFTCoeffEW("CHbox")
                 + (0.031722) * deltaGzd6() * getSMEFTCoeffEW("CHW")
                 + (0.009061) * deltaGzd6() * getSMEFTCoeffEW("CHB")
@@ -32574,7 +32594,7 @@ const double NPSMEFTd6General::deltaGammaH4uRatio1() const {
 const double NPSMEFTd6General::deltaGammaH4uRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.014723) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (0.05967) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (0.08583) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -32688,9 +32708,9 @@ const double NPSMEFTd6General::deltaGammaH4uRatio2() const {
                 + (-0.02204873) * getSMEFTCoeffEW("CHl3R", 1, 1) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.68) * pow(deltaGzd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.68) * pow(deltaGzd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.0933) * deltaGzd6() * getSMEFTCoeffEW("CHbox")
                 + (-0.0736) * deltaGzd6() * getSMEFTCoeffEW("CHW")
                 + (0.1281) * deltaGzd6() * getSMEFTCoeffEW("CHB")
@@ -32827,7 +32847,7 @@ const double NPSMEFTd6General::deltaGammaH4dRatio1() const {
 const double NPSMEFTd6General::deltaGammaH4dRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.014663) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (0.012757) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (0.001286) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -32964,9 +32984,9 @@ const double NPSMEFTd6General::deltaGammaH4dRatio2() const {
                 + (-0.02201481) * getSMEFTCoeffEW("CHl3R", 1, 1) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.75) * pow(deltaGzd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.75) * pow(deltaGzd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.0906) * deltaGzd6() * getSMEFTCoeffEW("CHbox")
                 + (-0.0398) * deltaGzd6() * getSMEFTCoeffEW("CHW")
                 + (0.0836) * deltaGzd6() * getSMEFTCoeffEW("CHB")
@@ -33091,7 +33111,7 @@ const double NPSMEFTd6General::deltaGammaHLvvLRatio1() const {
 const double NPSMEFTd6General::deltaGammaHLvvLRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.014737) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (-0.0080873) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (0.0009211) * pow(getSMEFTCoeffEW("CHD"), 2.0)
@@ -33119,9 +33139,9 @@ const double NPSMEFTd6General::deltaGammaHLvvLRatio2() const {
                 + (0.0054912) * getSMEFTCoeffEW("CHl3R", 2, 2) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.688) * pow(deltaGwd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.688) * pow(deltaGwd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.1095) * deltaGwd6() * getSMEFTCoeffEW("CHbox")
                 + (0.08596) * deltaGwd6() * getSMEFTCoeffEW("CHW")
                 + (0.028419) * deltaGwd6() * getSMEFTCoeffEW("CHD")
@@ -33326,7 +33346,7 @@ const double NPSMEFTd6General::deltaGammaHudduRatio1() const {
 const double NPSMEFTd6General::deltaGammaHudduRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.014687) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (-0.008077632) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (0.0009178) * pow(getSMEFTCoeffEW("CHD"), 2.0)
@@ -33363,9 +33383,9 @@ const double NPSMEFTd6General::deltaGammaHudduRatio2() const {
                 + (-0.02200743) * getSMEFTCoeffEW("CHl3R", 1, 1) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.85) * pow(deltaGwd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.85) * pow(deltaGwd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.1163) * deltaGwd6() * getSMEFTCoeffEW("CHbox")
                 + (0.086111) * deltaGwd6() * getSMEFTCoeffEW("CHW")
                 + (0.029355) * deltaGwd6() * getSMEFTCoeffEW("CHD")
@@ -33485,7 +33505,7 @@ const double NPSMEFTd6General::deltaGammaHLvudRatio1() const {
 const double NPSMEFTd6General::deltaGammaHLvudRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.014754) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (-0.0080971) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (0.0009223) * pow(getSMEFTCoeffEW("CHD"), 2.0)
@@ -33529,9 +33549,9 @@ const double NPSMEFTd6General::deltaGammaHLvudRatio2() const {
                 + (0.0042142) * getSMEFTCoeffEW("CHq3R", 1, 1) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.94) * pow(deltaGwd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.94) * pow(deltaGwd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.117) * deltaGwd6() * getSMEFTCoeffEW("CHbox")
                 + (0.08693) * deltaGwd6() * getSMEFTCoeffEW("CHW")
                 + (0.02861) * deltaGwd6() * getSMEFTCoeffEW("CHD")
@@ -33667,7 +33687,7 @@ const double NPSMEFTd6General::deltaGammaH2udRatio1() const {
 const double NPSMEFTd6General::deltaGammaH2udRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.014695) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (0.000994) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (0.015278) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -33734,9 +33754,9 @@ const double NPSMEFTd6General::deltaGammaH2udRatio2() const {
                 + (-0.02206664) * getSMEFTCoeffEW("CHl3R", 1, 1) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.74) * pow(deltaGwd6(), 2.0) + (0.0087) * pow(deltaGzd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.74) * pow(deltaGwd6(), 2.0) + (0.0087) * pow(deltaGzd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.1123) * deltaGwd6() * getSMEFTCoeffEW("CHbox")
                 + (0.08154) * deltaGwd6() * getSMEFTCoeffEW("CHW")
                 + (9.3e-05) * deltaGwd6() * getSMEFTCoeffEW("CHB")
@@ -33896,7 +33916,7 @@ const double NPSMEFTd6General::deltaGammaH2LvRatio1() const {
 const double NPSMEFTd6General::deltaGammaH2LvRatio2() const {
     double dwidth = 0.0;
     if (FlagQuadraticTerms) {
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(0.014703) * pow(getSMEFTCoeffEW("CHbox"), 2.0)
                 + (0.010735) * pow(getSMEFTCoeffEW("CHW"), 2.0)
                 + (0.018974) * pow(getSMEFTCoeffEW("CHB"), 2.0)
@@ -33940,9 +33960,9 @@ const double NPSMEFTd6General::deltaGammaH2LvRatio2() const {
                 + (0.0055012) * getSMEFTCoeffEW("CHl3R", 2, 2) * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)
                 ) * pow(1000000.0, 2.0);
 
-        dwidth += cWsch * ((0.78) * pow(deltaGwd6(), 2.0) + (0.03) * pow(deltaGzd6(), 2.0));
+        dwidth += mwInputFitWeight(__func__) * ((0.78) * pow(deltaGwd6(), 2.0) + (0.03) * pow(deltaGzd6(), 2.0));
 
-        dwidth += cWsch * (
+        dwidth += mwInputFitWeight(__func__) * (
                 +(-0.113) * deltaGwd6() * getSMEFTCoeffEW("CHbox")
                 + (0.08401) * deltaGwd6() * getSMEFTCoeffEW("CHW")
                 + (0.00021) * deltaGwd6() * getSMEFTCoeffEW("CHB")
@@ -35063,9 +35083,11 @@ const double NPSMEFTd6General::BrHvisRatio() const {
     if (FlagQuadraticTerms) {
 
         //  Sum over decays of visible SM and exotic modes
+        //  Same channels as the linear part and as the total width (deltaGammaTotalRatio2)
         delta2SM = trueSM.computeBrHtogg() * deltaGammaHggRatio2()
-                + trueSM.computeBrHtoWW() * deltaGammaHWWRatio2()
-                + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio2()
+                //            + trueSM.computeBrHtoWW() * deltaGammaHWWRatio2()
+                //            + trueSM.computeBrHtoZZ() * deltaGammaHZZRatio2()
+                + trueSM.computeBrHto4f() * deltaGammaH4fRatio2()
                 + trueSM.computeBrHtoZga() * deltaGammaHZgaRatio2()
                 + trueSM.computeBrHtogaga() * deltaGammaHgagaRatio2()
                 + trueSM.computeBrHtomumu() * deltaGammaHmumuRatio2()
@@ -36308,6 +36330,11 @@ const double NPSMEFTd6General::deltaKgammaNP(const double mu) const {
 const double NPSMEFTd6General::lambdaZNP(const double mu) const {
     double NPdirect;
  
+    // Hagiwara et al. (Nucl. Phys. B282 (1987) 253) lambda_Z = lambda_gamma, relative to the SM vertex
+    // (g_WWgamma = -e), for C_W defined with D_mu = d_mu + i g T^I W^I_mu (Grzadkowski et al., 1008.4884;
+    // the convention of the MadGraph e+e- -> WW fits in mueeWW): lambda_V = +(3/2) g v^2 C_W.
+    // (Cf. HISZ, PRD 48 (1993) 2182: lambda = 3 g^2 MW^2 f_WWW/(2 Lambda^2), O_WWW = (g^3/4) O_W.)
+    // NPSMEFTd6 and LHCHXWG-INT-2015-001 quote -(3/2) g v^2 C_W, i.e. C_W in the D_mu = d_mu - i g T^I W^I_mu convention.
     NPdirect = (3.0 / 2.0) * (eeMz / sW_tree) * getSMEFTCoeff("CW", mu) * v2;
 
     return NPdirect;
@@ -36406,9 +36433,11 @@ const double NPSMEFTd6General::deltaxseeWW4fLEP2(const double sqrt_s, const int 
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1);
 
-    dlga = -lambdaZNP(sqrt_s);
+    // lambdaZNP is the Hagiwara lambda_gamma = lambda_Z, the same convention as the coefficients below
+    // (same sign as dkga), so no extra minus sign.
+    dlga = lambdaZNP(sqrt_s);
 
-    dlZ = -lambdaZNP(sqrt_s);
+    dlZ = lambdaZNP(sqrt_s);
 
     deem = delta_e + 0.5 * delta_A;
 
@@ -36968,9 +36997,11 @@ const double NPSMEFTd6General::xseeWW4fLEP2(const double sqrt_s, const int fstat
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1);
 
-    dlga = -lambdaZNP(sqrt_s);
+    // lambdaZNP is the Hagiwara lambda_gamma = lambda_Z, the same convention as the coefficients below
+    // (same sign as dkga), so no extra minus sign.
+    dlga = lambdaZNP(sqrt_s);
 
-    dlZ = -lambdaZNP(sqrt_s);
+    dlZ = lambdaZNP(sqrt_s);
 
     deem = delta_e + 0.5 * delta_A;
 
@@ -37507,9 +37538,11 @@ const double NPSMEFTd6General::deltadxsdcoseeWWlvjjLEP2(const double sqrt_s, con
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1);
 
-    dlga = -lambdaZNP(sqrt_s);
+    // lambdaZNP is the Hagiwara lambda_gamma = lambda_Z, the same convention as the coefficients below
+    // (same sign as dkga), so no extra minus sign.
+    dlga = lambdaZNP(sqrt_s);
 
-    dlZ = -lambdaZNP(sqrt_s);
+    dlZ = lambdaZNP(sqrt_s);
 
     deem = delta_e + 0.5 * delta_A;
 
@@ -37890,9 +37923,11 @@ const double NPSMEFTd6General::dxsdcoseeWWlvjjLEP2(const double sqrt_s, const in
 
     dkZ = dgZ1 - (sW2_tree / cW2_tree) * (dkga - dgga1);
 
-    dlga = -lambdaZNP(sqrt_s);
+    // lambdaZNP is the Hagiwara lambda_gamma = lambda_Z, the same convention as the coefficients below
+    // (same sign as dkga), so no extra minus sign.
+    dlga = lambdaZNP(sqrt_s);
 
-    dlZ = -lambdaZNP(sqrt_s);
+    dlZ = lambdaZNP(sqrt_s);
 
     deem = delta_e + 0.5 * delta_A;
 
@@ -40013,7 +40048,7 @@ const double NPSMEFTd6General::STXS12_ggH_pTH0_10_Nj0(const double sqrt_s) const
                 + 0.0587 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
         //AG: Obtained with SMEFETatNLO.
         // cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12127490039840637) * getSMEFTCoeffEW("CHbox")
                 + (-0.030326693227091632) * getSMEFTCoeffEW("CHD")
                 + (39.28731544) * getSMEFTCoeffEW("CHG")
@@ -40053,7 +40088,7 @@ const double NPSMEFTd6General::STXS12_ggH_pTH10_200_Nj0(const double sqrt_s) con
 
         
         
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 (0.) * 1000000
                 );
 
@@ -40089,7 +40124,7 @@ const double NPSMEFTd6General::STXS12_ggH_pTH200_300(const double sqrt_s) const
 
         
         
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 (0.) * 1000000
                 );
 
@@ -40123,7 +40158,7 @@ const double NPSMEFTd6General::STXS12_ggH_pTH300_450(const double sqrt_s) const
 
         
         
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 (0.) * 1000000
                 );
 
@@ -40157,7 +40192,7 @@ const double NPSMEFTd6General::STXS12_ggH_pTH450_Inf(const double sqrt_s) const
 
         
         
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 (0.) * 1000000
                 );
 
@@ -40191,7 +40226,7 @@ const double NPSMEFTd6General::STXS12_ggH_pTH450_650(const double sqrt_s) const
 
         
         
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 (0.) * 1000000
                 );
 
@@ -40225,7 +40260,7 @@ const double NPSMEFTd6General::STXS12_ggH_pTH650_Inf(const double sqrt_s) const
 
         
         
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 (0.) * 1000000
                 );
 
@@ -40288,7 +40323,7 @@ const double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH0_60_Nj1(const double sqrt
 
         
         
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 (0.) * 1000000
                 );
 
@@ -40299,7 +40334,7 @@ const double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH0_60_Nj1(const double sqrt
 
         }
     } else
-        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_ggH_pTH200_300()");
+        throw std::runtime_error("Bad argument in NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH0_60_Nj1()");
 
     if (STXSb < 0) return std::numeric_limits<double>::quiet_NaN();
 
@@ -40325,7 +40360,7 @@ const double NPSMEFTd6General::STXS12_ggH_pTH0_60_Nj1(const double sqrt_s) const
         //AG: 
         // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
         //pTj>30GeV
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12123683316343867) * getSMEFTCoeffEW("CHbox")
                 + (-0.030312606184165817) * getSMEFTCoeffEW("CHD")
                 + (39.36687385) * getSMEFTCoeffEW("CHG")
@@ -40362,7 +40397,7 @@ const double NPSMEFTd6General::STXS12_ggH_pTH60_120_Nj1(const double sqrt_s) con
         //AG:
         // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
         //pTj>30GeV
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12123503465658475) * getSMEFTCoeffEW("CHbox")
                 + (-0.030315059861373662) * getSMEFTCoeffEW("CHD")
                 + (39.68515459) * getSMEFTCoeffEW("CHG")
@@ -40400,7 +40435,7 @@ const double NPSMEFTd6General::STXS12_ggH_pTH120_200_Nj1(const double sqrt_s) co
         // AG: 
         // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
         //pTj>30GeV
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12123076923076923) * getSMEFTCoeffEW("CHbox")
                 + (-0.030307692307692306) * getSMEFTCoeffEW("CHD")
                 + (40.11053009) * getSMEFTCoeffEW("CHG")
@@ -40438,7 +40473,7 @@ const double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH0_60_Nj2(const double sqrt
         //AG:
         // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
         //pTj>30GeV
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12117552334943638) * getSMEFTCoeffEW("CHbox")
                 + (-0.03036231884057971) * getSMEFTCoeffEW("CHD")
                 + (39.3) * getSMEFTCoeffEW("CHG") //To be updated
@@ -40477,7 +40512,7 @@ const double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH60_120_Nj2(const double sq
         //AG:
         // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
         //pTj>30GeV
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.121) * getSMEFTCoeffEW("CHbox")
                 + (-0.0303) * getSMEFTCoeffEW("CHD")
                 + (39.3) * getSMEFTCoeffEW("CHG") //To be updated
@@ -40515,7 +40550,7 @@ const double NPSMEFTd6General::STXS12_ggH_mjj0_350_pTH120_200_Nj2(const double s
         // AG: 
         // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
         //pTj>30GeV
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.121) * getSMEFTCoeffEW("CHbox")
                 + (-0.0303) * getSMEFTCoeffEW("CHD")
                 + (39.3) * getSMEFTCoeffEW("CHG") //To be updated
@@ -40665,7 +40700,7 @@ const double NPSMEFTd6General::STXS12_ggH_mjj350_700_pTH0_200_Nj2(const double s
 
         // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
         //pTj>30GeV
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12121771217712178) * getSMEFTCoeffEW("CHbox")
                 + (-0.030401291512915127) * getSMEFTCoeffEW("CHD")
                 + (39.3) * getSMEFTCoeffEW("CHG") //To be updated
@@ -40698,7 +40733,7 @@ const double NPSMEFTd6General::STXS12_ggH_mjj700_Inf_pTH0_200_Nj2(const double s
 
         // Obtained with SMEFETatNLO. cuG_Warsaw = g3_tree*cuG_SMEFTatNLO
         //pTj>30GeV
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12123629112662014) * getSMEFTCoeffEW("CHbox")
                 + (-0.030348953140578262) * getSMEFTCoeffEW("CHD")
                 + (39.3) * getSMEFTCoeffEW("CHG") //To be updated
@@ -40908,7 +40943,7 @@ const double NPSMEFTd6General::STXS12_qqHqq_VH_veto_Nj01(const double sqrt_s) co
 
         
         
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 (0.) * 1000000
                 );
 
@@ -41036,7 +41071,7 @@ const double NPSMEFTd6General::STXS12_qqHqq_mjj60_120_Nj2(const double sqrt_s) c
     if (sqrt_s == 13.0) {
 
         
-        STXSb += cWsch * ( 
+        STXSb += mwInputFitWeight(__func__) * ( 
 	( (0.12112) * getSMEFTCoeffEW("CHbox")
 	+ (-0.006618) * getSMEFTCoeffEW("CHD")
 	+ (0.7255) * getSMEFTCoeffEW("CHW")
@@ -41125,7 +41160,7 @@ const double NPSMEFTd6General::STXS12_qqHqq_mjj350_Inf_pTH200_Inf_Nj2(const doub
                 + 0.0314 * CiHd + 0.181 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
 
         //AG: pTj>30GeV
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12125) * getSMEFTCoeffEW("CHbox")
                 + (-0.007062) * getSMEFTCoeffEW("CHD")
                 + (0.16946) * getSMEFTCoeffEW("CHW")
@@ -41321,7 +41356,7 @@ const double NPSMEFTd6General::STXS12_qqHqq_mjj350_700_pTH0_200_Nj2(const double
     if (sqrt_s == 13.0) {
 
         //pTj>30GeV
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12116) * getSMEFTCoeffEW("CHbox")
                 + (-0.011205) * getSMEFTCoeffEW("CHD")
                 + (-0.133485) * getSMEFTCoeffEW("CHW")
@@ -41361,7 +41396,7 @@ const double NPSMEFTd6General::STXS12_qqHqq_mjj700_1000_pTH0_200_Nj2(const doubl
     if (sqrt_s == 13.0) {
 
         //pTj>30GeV
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12117) * getSMEFTCoeffEW("CHbox")
                 + (-0.011057) * getSMEFTCoeffEW("CHD")
                 + (-0.128786) * getSMEFTCoeffEW("CHW")
@@ -41401,7 +41436,7 @@ const double NPSMEFTd6General::STXS12_qqHqq_mjj1000_1500_pTH0_200_Nj2(const doub
     if (sqrt_s == 13.0) {
 
         //pTj>30GeV
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12096) * getSMEFTCoeffEW("CHbox")
                 + (-0.010795) * getSMEFTCoeffEW("CHD")
                 + (-0.126544) * getSMEFTCoeffEW("CHW")
@@ -41441,7 +41476,7 @@ const double NPSMEFTd6General::STXS12_qqHqq_mjj1500_Inf_pTH0_200_Nj2(const doubl
     if (sqrt_s == 13.0) {
 
         //pTj>30GeV
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12137) * getSMEFTCoeffEW("CHbox")
                 + (-0.010058) * getSMEFTCoeffEW("CHD")
                 + (-0.126696) * getSMEFTCoeffEW("CHW")
@@ -41481,7 +41516,7 @@ const double NPSMEFTd6General::STXS12_qqHqq_mjj350_1000_pTH200_Inf_Nj2(const dou
     if (sqrt_s == 13.0) {
 
         //pTj>30GeV
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12119388244615271) * getSMEFTCoeffEW("CHbox")
                 + (-0.007520073014376603) * getSMEFTCoeffEW("CHD")
                 + (0.20031065061792538) * getSMEFTCoeffEW("CHW")
@@ -41521,7 +41556,7 @@ const double NPSMEFTd6General::STXS12_qqHqq_mjj1000_Inf_pTH200_Inf_Nj2(const dou
     if (sqrt_s == 13.0) {
 
         //pTj>30GeV
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12115277435803268) * getSMEFTCoeffEW("CHbox")
                 + (-0.006700175570443445) * getSMEFTCoeffEW("CHD")
                 + (0.14503609950278334) * getSMEFTCoeffEW("CHW")
@@ -41568,7 +41603,7 @@ const double NPSMEFTd6General::STXS12_qqHlv_pTV0_75(const double sqrt_s) const /
                 - 0.241 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
                 + 1.142 * CiHQ3 + 0.183 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0); */
         // AG:
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12114) * getSMEFTCoeffEW("CHbox")
                 + (-0.03031269) * getSMEFTCoeffEW("CHD")
                 + (0.8155) * getSMEFTCoeffEW("CHW")
@@ -41608,7 +41643,7 @@ const double NPSMEFTd6General::STXS12_qqHlv_pTV75_150(const double sqrt_s) const
                 - 0.244 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
                 + 1.90 * CiHQ3 + 0.183 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
         // AG:
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12127) * getSMEFTCoeffEW("CHbox")
                 + (-0.03032518) * getSMEFTCoeffEW("CHD")
                 + (0.9462) * getSMEFTCoeffEW("CHW")
@@ -41648,7 +41683,7 @@ const double NPSMEFTd6General::STXS12_qqHlv_pTV150_250_Nj0(const double sqrt_s) 
                 - 0.247 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
                 + 4.07 * CiHQ3 + 0.187 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
         // AG: 
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12103) * getSMEFTCoeffEW("CHbox")
                 + (-0.03027479) * getSMEFTCoeffEW("CHD")
                 + (1.0506) * getSMEFTCoeffEW("CHW")
@@ -41688,7 +41723,7 @@ const double NPSMEFTd6General::STXS12_qqHlv_pTV150_250_Nj1(const double sqrt_s) 
                 - 0.239 * 0.5 * (getSMEFTCoeffEW("CHl3R", 0, 0) + getSMEFTCoeffEW("CHl3R", 1, 1))
                 + 3.58 * CiHQ3 + 0.180 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
         // AG: pTj=>30GeV
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12125) * getSMEFTCoeffEW("CHbox")
                 + (-0.03035345) * getSMEFTCoeffEW("CHD")
                 + (1.0561) * getSMEFTCoeffEW("CHW")
@@ -41743,7 +41778,7 @@ const double NPSMEFTd6General::STXS12_qqHlv_pTV0_150(const double sqrt_s) const 
 
     if (sqrt_s == 13.0) {
 
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12122) * getSMEFTCoeffEW("CHbox")
                 + (-0.03033245) * getSMEFTCoeffEW("CHD")
                 + (0.86411) * getSMEFTCoeffEW("CHW")
@@ -41775,7 +41810,7 @@ const double NPSMEFTd6General::STXS12_qqHlv_pTV250_400(const double sqrt_s) cons
 
     if (sqrt_s == 13.0) {
 
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12126) * getSMEFTCoeffEW("CHbox")
                 + (-0.03028419) * getSMEFTCoeffEW("CHD")
                 + (1.1087) * getSMEFTCoeffEW("CHW")
@@ -41805,7 +41840,7 @@ const double NPSMEFTd6General::STXS12_qqHlv_pTV400_Inf(const double sqrt_s) cons
 
     if (sqrt_s == 13.0) {
 
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.1213) * getSMEFTCoeffEW("CHbox")
                 + (-0.03031894) * getSMEFTCoeffEW("CHD")
                 + (1.1361) * getSMEFTCoeffEW("CHW")
@@ -41849,7 +41884,7 @@ const double NPSMEFTd6General::STXS12_qqHll_pTV0_75(const double sqrt_s) const /
                 + 0.029 * CiHQ1 + 1.27 * CiHQ3 + 0.245 * CiHu - 0.1064 * CiHd
                 + 0.183 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
         // AG: 
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12122) * getSMEFTCoeffEW("CHbox")
                 + (0.01275) * getSMEFTCoeffEW("CHD")
                 + (0.66498) * getSMEFTCoeffEW("CHW")
@@ -41909,7 +41944,7 @@ const double NPSMEFTd6General::STXS12_qqHll_pTV75_150(const double sqrt_s) const
                 + 0.01 * CiHQ1 + 1.80 * CiHQ3 + 0.403 * CiHu - 0.166 * CiHd
                 + 0.182 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
         // AG: 
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.1071) * getSMEFTCoeffEW("CHbox")
                 + (0.01084) * getSMEFTCoeffEW("CHD")
                 + (0.7) * getSMEFTCoeffEW("CHW")
@@ -41968,7 +42003,7 @@ const double NPSMEFTd6General::STXS12_qqHll_pTV150_250_Nj0(const double sqrt_s) 
                 - 0.12 * CiHQ1 + 3.63 * CiHQ3 + 0.87 * CiHu - 0.323 * CiHd
                 + 0.177 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
         // AG: 
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12131) * getSMEFTCoeffEW("CHbox")
                 + (0.01327) * getSMEFTCoeffEW("CHD")
                 + (0.9015) * getSMEFTCoeffEW("CHW")
@@ -42028,7 +42063,7 @@ const double NPSMEFTd6General::STXS12_qqHll_pTV150_250_Nj1(const double sqrt_s) 
                 - 0.10 * CiHQ1 + 3.19 * CiHQ3 + 0.77 * CiHu - 0.282 * CiHd
                 + 0.177 * getSMEFTCoeffEW("CllR", 0, 1, 1, 0)) * (1000000.0);*/
         //AG: pTj=>30GeV
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12186) * getSMEFTCoeffEW("CHbox")
                 + (0.0117) * getSMEFTCoeffEW("CHD")
                 + (0.8996) * getSMEFTCoeffEW("CHW")
@@ -42126,7 +42161,7 @@ const double NPSMEFTd6General::STXS12_qqHll_pTV0_150(const double sqrt_s) const 
 
     if (sqrt_s == 13.0) {
 
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12123) * getSMEFTCoeffEW("CHbox")
                 + (0.012881) * getSMEFTCoeffEW("CHD")
                 + (0.70945) * getSMEFTCoeffEW("CHW")
@@ -42171,7 +42206,7 @@ const double NPSMEFTd6General::STXS12_qqHll_pTV250_400(const double sqrt_s) cons
 
     if (sqrt_s == 13.0) {
 
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12128) * getSMEFTCoeffEW("CHbox")
                 + (0.013624) * getSMEFTCoeffEW("CHD")
                 + (0.9689) * getSMEFTCoeffEW("CHW")
@@ -42216,7 +42251,7 @@ const double NPSMEFTd6General::STXS12_qqHll_pTV400_Inf(const double sqrt_s) cons
 
     if (sqrt_s == 13.0) {
 
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12137) * getSMEFTCoeffEW("CHbox")
                 + (0.011638) * getSMEFTCoeffEW("CHD")
                 + (1.0294) * getSMEFTCoeffEW("CHW")
@@ -42279,7 +42314,7 @@ const double NPSMEFTd6General::STXS12_ttH_pTH0_60(const double sqrt_s) const //A
                 //- 0.001 * Ciqd1 + 0.0215 * Ciqd8
                 ) * (1000000.0);*/
         // AG: 
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12138) * getSMEFTCoeffEW("CHbox")
                 + (-0.03041037) * getSMEFTCoeffEW("CHD")
                 + (0.00057116) * getSMEFTCoeffEW("CHW")
@@ -42367,7 +42402,7 @@ const double NPSMEFTd6General::STXS12_ttH_pTH60_120(const double sqrt_s) const /
                 //- 0.001 * Ciqd1 + 0.0243 * Ciqd8
                 ) * (1000000.0);*/
         // AG: 
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12137) * getSMEFTCoeffEW("CHbox")
                 + (-0.03041016) * getSMEFTCoeffEW("CHD")
                 + (0.00073702) * getSMEFTCoeffEW("CHW")
@@ -42453,7 +42488,7 @@ const double NPSMEFTd6General::STXS12_ttH_pTH120_200(const double sqrt_s) const 
                 //- 0.0016 * Ciqd1 + 0.0345 * Ciqd8
                 ) * (1000000.0);*/
         // AG: 
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12143) * getSMEFTCoeffEW("CHbox")
                 + (-0.030489) * getSMEFTCoeffEW("CHD")
                 + (0.0011161) * getSMEFTCoeffEW("CHW")
@@ -42542,7 +42577,7 @@ const double NPSMEFTd6General::STXS12_ttH_pTH200_300(const double sqrt_s) const 
                 //- 0.0025 * Ciqd1 + 0.0541 * Ciqd8
                 ) * (1000000.0);*/
         // AG: 
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.1215) * getSMEFTCoeffEW("CHbox")
                 + (-0.03053419) * getSMEFTCoeffEW("CHD")
                 + (0.0017669) * getSMEFTCoeffEW("CHW")
@@ -42654,7 +42689,7 @@ const double NPSMEFTd6General::STXS12_ttH_pTH300_450(const double sqrt_s) const 
 
     if (sqrt_s == 13.0) {
 
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12144) * getSMEFTCoeffEW("CHbox")
                 + (-0.0304974) * getSMEFTCoeffEW("CHD")
                 + (0.0026863) * getSMEFTCoeffEW("CHW")
@@ -42724,7 +42759,7 @@ const double NPSMEFTd6General::STXS12_ttH_pTH450_Inf(const double sqrt_s) const 
 
     if (sqrt_s == 13.0) {
 
-        STXSb += cWsch * (
+        STXSb += mwInputFitWeight(__func__) * (
                 ((0.12111) * getSMEFTCoeffEW("CHbox")
                 + (-0.030308) * getSMEFTCoeffEW("CHD")
                 + (0.0044801) * getSMEFTCoeffEW("CHW")
@@ -43015,7 +43050,9 @@ const double NPSMEFTd6General::cggEff_HB(const double mu) const {
 const double NPSMEFTd6General::lambz_HB(const double mu) const {
     double ciHB;
 
-    ciHB = -(3.0 / 2.0)*(eeMz / sW_tree) * getSMEFTCoeff("CW", mu) * v2;
+    // Same quantity and sign as lambdaZNP(): +(3/2) g v^2 C_W for C_W defined with D_mu = d_mu + i g T^I W^I_mu
+    // (LHCHXWG-INT-2015-001 quotes the minus sign with the opposite covariant-derivative convention).
+    ciHB = (3.0 / 2.0)*(eeMz / sW_tree) * getSMEFTCoeff("CW", mu) * v2;
 
     return ciHB;
 }
@@ -43704,6 +43741,12 @@ const double NPSMEFTd6General::AuxObs_NP4() const {
     // To be used for some temporary observable
     
     // 10 TeV Muon Collider: VBF & HH
+    //
+    // The fit below was generated with one U(2)-symmetric light-lepton coefficient for CHl1, CHl3 and CHe
+    // (in every polynomial the "11" terms are exactly 4 times the "33" ones, i.e. the e and mu entries enter
+    // together). The variables CHl111*, CHl311*, CHe11* therefore stand for that common coefficient and are set
+    // to the average of the (1,1) and (2,2) entries, so that e and mu couplings are treated alike and the
+    // U(2)-symmetric limit reproduces the fit (assumption: the observables depend on the sum of the two entries).
 
     
     double CHq111b2, CHq122b2, CHq133b2, CHq311b2, CHq322b2, CHq333b2, CHu11b2;
@@ -43777,11 +43820,11 @@ const double NPSMEFTd6General::AuxObs_NP4() const {
     CuH33b2 = getSMEFTCoeff("CuHR", 2,2, muRb2);
     CuW33b2 = getSMEFTCoeff("CuWR", 2,2, muRb2);
     CuB33b2 = getSMEFTCoeff("CuBR", 2,2, muRb2);
-    CHl111b2 = getSMEFTCoeff("CHl1R", 0,0, muRb2);
+    CHl111b2 = 0.5 * (getSMEFTCoeff("CHl1R", 0,0, muRb2) + getSMEFTCoeff("CHl1R", 1,1, muRb2));
     CHl133b2 = getSMEFTCoeff("CHl1R", 2,2, muRb2);
-    CHl311b2 = getSMEFTCoeff("CHl3R", 0,0, muRb2);
+    CHl311b2 = 0.5 * (getSMEFTCoeff("CHl3R", 0,0, muRb2) + getSMEFTCoeff("CHl3R", 1,1, muRb2));
     CHl333b2 = getSMEFTCoeff("CHl3R", 2,2, muRb2);
-    CHe11b2 = getSMEFTCoeff("CHeR", 0,0, muRb2);
+    CHe11b2 = 0.5 * (getSMEFTCoeff("CHeR", 0,0, muRb2) + getSMEFTCoeff("CHeR", 1,1, muRb2));
     CHe33b2 = getSMEFTCoeff("CHeR", 2,2, muRb2);      
     
     chi2VBFff = 2090013419192. * CHq111b2 * CHq111b2 -5341278337407. * CHq111b2 * CHq122b2 -461275890118. * CHq111b2 * CHq133b2 -42429032623811. * CHq111b2 * CHq311b2  
@@ -43829,11 +43872,11 @@ const double NPSMEFTd6General::AuxObs_NP4() const {
     CuH33b3 = getSMEFTCoeff("CuHR", 2,2, muRb3);
     CuW33b3 = getSMEFTCoeff("CuWR", 2,2, muRb3);
     CuB33b3 = getSMEFTCoeff("CuBR", 2,2, muRb3);
-    CHl111b3 = getSMEFTCoeff("CHl1R", 0,0, muRb3);
+    CHl111b3 = 0.5 * (getSMEFTCoeff("CHl1R", 0,0, muRb3) + getSMEFTCoeff("CHl1R", 1,1, muRb3));
     CHl133b3 = getSMEFTCoeff("CHl1R", 2,2, muRb3);
-    CHl311b3 = getSMEFTCoeff("CHl3R", 0,0, muRb3);
+    CHl311b3 = 0.5 * (getSMEFTCoeff("CHl3R", 0,0, muRb3) + getSMEFTCoeff("CHl3R", 1,1, muRb3));
     CHl333b3 = getSMEFTCoeff("CHl3R", 2,2, muRb3);
-    CHe11b3 = getSMEFTCoeff("CHeR", 0,0, muRb3);
+    CHe11b3 = 0.5 * (getSMEFTCoeff("CHeR", 0,0, muRb3) + getSMEFTCoeff("CHeR", 1,1, muRb3));
     CHe33b3 = getSMEFTCoeff("CHeR", 2,2, muRb3);
     
     chi2VBFff = chi2VBFff
@@ -43882,11 +43925,11 @@ const double NPSMEFTd6General::AuxObs_NP4() const {
     CuH33b4 = getSMEFTCoeff("CuHR", 2,2, muRb4);
     CuW33b4 = getSMEFTCoeff("CuWR", 2,2, muRb4);
     CuB33b4 = getSMEFTCoeff("CuBR", 2,2, muRb4);
-    CHl111b4 = getSMEFTCoeff("CHl1R", 0,0, muRb4);
+    CHl111b4 = 0.5 * (getSMEFTCoeff("CHl1R", 0,0, muRb4) + getSMEFTCoeff("CHl1R", 1,1, muRb4));
     CHl133b4 = getSMEFTCoeff("CHl1R", 2,2, muRb4);
-    CHl311b4 = getSMEFTCoeff("CHl3R", 0,0, muRb4);
+    CHl311b4 = 0.5 * (getSMEFTCoeff("CHl3R", 0,0, muRb4) + getSMEFTCoeff("CHl3R", 1,1, muRb4));
     CHl333b4 = getSMEFTCoeff("CHl3R", 2,2, muRb4);
-    CHe11b4 = getSMEFTCoeff("CHeR", 0,0, muRb4);
+    CHe11b4 = 0.5 * (getSMEFTCoeff("CHeR", 0,0, muRb4) + getSMEFTCoeff("CHeR", 1,1, muRb4));
     CHe33b4 = getSMEFTCoeff("CHeR", 2,2, muRb4);
     
     chi2VBFff = chi2VBFff 
@@ -43935,11 +43978,11 @@ const double NPSMEFTd6General::AuxObs_NP4() const {
     CuH33b5 = getSMEFTCoeff("CuHR", 2,2, muRb5);
     CuW33b5 = getSMEFTCoeff("CuWR", 2,2, muRb5);
     CuB33b5 = getSMEFTCoeff("CuBR", 2,2, muRb5);
-    CHl111b5 = getSMEFTCoeff("CHl1R", 0,0, muRb5);
+    CHl111b5 = 0.5 * (getSMEFTCoeff("CHl1R", 0,0, muRb5) + getSMEFTCoeff("CHl1R", 1,1, muRb5));
     CHl133b5 = getSMEFTCoeff("CHl1R", 2,2, muRb5);
-    CHl311b5 = getSMEFTCoeff("CHl3R", 0,0, muRb5);
+    CHl311b5 = 0.5 * (getSMEFTCoeff("CHl3R", 0,0, muRb5) + getSMEFTCoeff("CHl3R", 1,1, muRb5));
     CHl333b5 = getSMEFTCoeff("CHl3R", 2,2, muRb5);
-    CHe11b5 = getSMEFTCoeff("CHeR", 0,0, muRb5);
+    CHe11b5 = 0.5 * (getSMEFTCoeff("CHeR", 0,0, muRb5) + getSMEFTCoeff("CHeR", 1,1, muRb5));
     CHe33b5 = getSMEFTCoeff("CHeR", 2,2, muRb5);
     
     chi2VBFff = chi2VBFff 
@@ -43988,11 +44031,11 @@ const double NPSMEFTd6General::AuxObs_NP4() const {
     CuH33b6 = getSMEFTCoeff("CuHR", 2,2, muRb6);
     CuW33b6 = getSMEFTCoeff("CuWR", 2,2, muRb6);
     CuB33b6 = getSMEFTCoeff("CuBR", 2,2, muRb6);
-    CHl111b6 = getSMEFTCoeff("CHl1R", 0,0, muRb6);
+    CHl111b6 = 0.5 * (getSMEFTCoeff("CHl1R", 0,0, muRb6) + getSMEFTCoeff("CHl1R", 1,1, muRb6));
     CHl133b6 = getSMEFTCoeff("CHl1R", 2,2, muRb6);
-    CHl311b6 = getSMEFTCoeff("CHl3R", 0,0, muRb6);
+    CHl311b6 = 0.5 * (getSMEFTCoeff("CHl3R", 0,0, muRb6) + getSMEFTCoeff("CHl3R", 1,1, muRb6));
     CHl333b6 = getSMEFTCoeff("CHl3R", 2,2, muRb6);
-    CHe11b6 = getSMEFTCoeff("CHeR", 0,0, muRb6);
+    CHe11b6 = 0.5 * (getSMEFTCoeff("CHeR", 0,0, muRb6) + getSMEFTCoeff("CHeR", 1,1, muRb6));
     CHe33b6 = getSMEFTCoeff("CHeR", 2,2, muRb6);
     
     chi2VBFff = chi2VBFff 
@@ -44063,11 +44106,11 @@ const double NPSMEFTd6General::AuxObs_NP4() const {
     CuH33b7 = CuH_33r_LNP / LambdaNP2;  
     CuW33b7 = CuW_33r_LNP / LambdaNP2;  
     CuB33b7 = CuB_33r_LNP / LambdaNP2;  
-    CHl111b7 = CHl1_11r_LNP / LambdaNP2;  
+    CHl111b7 = 0.5 * (CHl1_11r_LNP + CHl1_22r_LNP) / LambdaNP2;  
     CHl133b7 = CHl1_33r_LNP / LambdaNP2;  
-    CHl311b7 = CHl3_11r_LNP / LambdaNP2;  
+    CHl311b7 = 0.5 * (CHl3_11r_LNP + CHl3_22r_LNP) / LambdaNP2;  
     CHl333b7 = CHl3_33r_LNP / LambdaNP2;  
-    CHe11b7 = CHe_11r_LNP / LambdaNP2;  
+    CHe11b7 = 0.5 * (CHe_11r_LNP + CHe_22r_LNP) / LambdaNP2;  
     CHe33b7 = CHe_33r_LNP / LambdaNP2;  
     
     chi2VBFff = chi2VBFff 
@@ -44115,11 +44158,11 @@ const double NPSMEFTd6General::AuxObs_NP4() const {
     CHd33bi = getSMEFTCoeff("CHdR", 2,2, muRbi);
     CuW33bi = getSMEFTCoeff("CuWR", 2,2, muRbi);
     CuB33bi = getSMEFTCoeff("CuBR", 2,2, muRbi);
-    CHl111bi = getSMEFTCoeff("CHl1R", 0,0, muRbi);
+    CHl111bi = 0.5 * (getSMEFTCoeff("CHl1R", 0,0, muRbi) + getSMEFTCoeff("CHl1R", 1,1, muRbi));
     CHl133bi = getSMEFTCoeff("CHl1R", 2,2, muRbi);
-    CHl311bi = getSMEFTCoeff("CHl3R", 0,0, muRbi);
+    CHl311bi = 0.5 * (getSMEFTCoeff("CHl3R", 0,0, muRbi) + getSMEFTCoeff("CHl3R", 1,1, muRbi));
     CHl333bi = getSMEFTCoeff("CHl3R", 2,2, muRbi);
-    CHe11bi = getSMEFTCoeff("CHeR", 0,0, muRbi);
+    CHe11bi = 0.5 * (getSMEFTCoeff("CHeR", 0,0, muRbi) + getSMEFTCoeff("CHeR", 1,1, muRbi));
     CHe33bi = getSMEFTCoeff("CHeR", 2,2, muRbi);
     
     chi2VBFffH = 6817949880551. * CHq111bi * CHq111bi -12567937638303. * CHq111bi * CHq122bi +287551704845. * CHq111bi * CHq133bi -38967551431310. * CHq111bi * CHq311bi  
