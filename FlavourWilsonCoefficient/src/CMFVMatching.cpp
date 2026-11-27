@@ -146,7 +146,10 @@ std::vector<WilsonCoefficientNew>& CMFVMatching::CMDF1(std::string blocks, unsig
 {
     vDF1.clear();
     for (const WilsonCoefficientNew& w : StandardModelMatching::CMDF1(blocks, nops)) vDF1.push_back(w);
-    const WilsonCoefficientNew& sm = vDF1.front();
+    /* Copied, not referenced: the push_back calls below can reallocate vDF1. */
+    const schemes scheme = vDF1.front().getScheme();
+    const qcd_orders orderQCD = vDF1.front().getOrder_QCD();
+    const qed_orders orderQED = vDF1.front().getOrder_QED();
 
     const std::string names = "CPMLQB";
     const unsigned int size[6] = {2, 4, 2, 2, 4, 1};
@@ -164,14 +167,14 @@ std::vector<WilsonCoefficientNew>& CMFVMatching::CMDF1(std::string blocks, unsig
         double muw = myCMFV.getMuw();
         double ale = myCMFV.Ale(muw, FULLNLO) / 4. / M_PI;
         double sw2 = myCMFV.sW2();
-        WilsonCoefficientNew np(nops, sm.getScheme(), sm.getOrder_QCD(), sm.getOrder_QED());
+        WilsonCoefficientNew np(nops, scheme, orderQCD, orderQED);
         np.setMu(muw);
         np.setCoeff(iL, ale * (myCMFV.getdY() / sw2 - 4. * myCMFV.getdZ()), QCD1, QED1);
         np.setCoeff(iL + 1, ale * (-myCMFV.getdY() / sw2), QCD1, QED1);
         vDF1.push_back(np);
     }
     if (iM >= 0) {
-        WilsonCoefficientNew np(nops, sm.getScheme(), sm.getOrder_QCD(), sm.getOrder_QED());
+        WilsonCoefficientNew np(nops, scheme, orderQCD, orderQED);
         np.setMu(myCMFV.getmuNP());
         np.setCoeff(iM, myCMFV.getdC7(), QCD0, QED0);
         vDF1.push_back(np);
