@@ -10,16 +10,6 @@
 #include "NPSMEFTd6CHRU.h"
 
 
-/*
-TODO:
-
- - test flagPLR
-
- - CT
-
-*/
-
-
 
 std::string NPSMEFTd6CHRU::NPSMEFTd6CHRUVars[NNPSMEFTd6CHRUVars] = {
     "mstar", "gstar", "eps_u", "eps_d",
@@ -36,19 +26,6 @@ std::string NPSMEFTd6CHRU::NPSMEFTd6CHRUVars[NNPSMEFTd6CHRUVars] = {
     "cqu1_u", "cqu1_d", "cqu1_y", "cqu8_u", "cqu8_d", "cqu8_y", 
     "cqd1_u", "cqd1_d", "cqd1_y", "cqd8_u", "cqd8_d", "cqd8_y", 
     "cquqd1", "cquqd1p", "cquqd8", "cquqd8p",
-
-    "scH", "scB", "scW", "sc2B", "sc2W", "sc2G", "scHB", "scHW", "scga", "scg", "sc3W", "sc3G",
-    "scuG", "scuW", "scuB", "scdG", "scdW", "scdB",
-    "scuG_u", "scuW_u", "scuB_u", "scdG_u", "scdW_u", "scdB_u",
-    "scuG_d", "scuW_d", "scuB_d", "scdG_d", "scdW_d", "scdB_d",
-    "scqD1_u", "scqD1_d", "scqD3_u", "scqD3_d", "scuD", "scdD",
-    "scHu", "scHd", "scHq1_u", "scHq1_d", "scHq3_u", "scHq3_d",
-    "scqq1_uu", "scqq1_ud", "scqq1_dd", "scqq1p_uu", "scqq1p_ud", "scqq1p_dd",
-    "scqq3_uu", "scqq3_ud", "scqq3_dd", "scqq3p_uu", "scqq3p_ud", "scqq3p_dd",
-    "scuu", "scuup", "scdd", "scddp", "scud1", "scud8",
-    "scqu1_u", "scqu1_d", "scqu1_y", "scqu8_u", "scqu8_d", "scqu8_y",
-    "scqd1_u", "scqd1_d", "scqd1_y", "scqd8_u", "scqd8_d", "scqd8_y",
-    "scquqd1", "scquqd1p","scquqd8", "scquqd8p",
 
     "Lambda_NP"
 };
@@ -138,83 +115,6 @@ NPSMEFTd6CHRU::NPSMEFTd6CHRU(): NPSMEFTd6MFV() {
     ModelParamMap.insert(std::make_pair("cquqd1p",std::cref(cquqd1p)));
     ModelParamMap.insert(std::make_pair("cquqd8",std::cref(cquqd8)));
     ModelParamMap.insert(std::make_pair("cquqd8p",std::cref(cquqd8p)));
-
-    ModelParamMap.insert(std::make_pair("scH",std::cref(scH)));
-    ModelParamMap.insert(std::make_pair("scB",std::cref(scB)));
-    ModelParamMap.insert(std::make_pair("scW",std::cref(scW)));
-    ModelParamMap.insert(std::make_pair("sc2B",std::cref(sc2B)));
-    ModelParamMap.insert(std::make_pair("sc2W",std::cref(sc2W)));
-    ModelParamMap.insert(std::make_pair("sc2G",std::cref(sc2G)));
-    ModelParamMap.insert(std::make_pair("scHB",std::cref(scHB)));
-    ModelParamMap.insert(std::make_pair("scHW",std::cref(scHW)));
-    ModelParamMap.insert(std::make_pair("scga",std::cref(scga)));
-    ModelParamMap.insert(std::make_pair("scg",std::cref(scg)));
-    ModelParamMap.insert(std::make_pair("sc3W",std::cref(sc3W)));
-    ModelParamMap.insert(std::make_pair("sc3G",std::cref(sc3G)));
-    ModelParamMap.insert(std::make_pair("scuG",std::cref(scuG)));
-    ModelParamMap.insert(std::make_pair("scuW",std::cref(scuW)));
-    ModelParamMap.insert(std::make_pair("scuB",std::cref(scuB)));
-    ModelParamMap.insert(std::make_pair("scdG",std::cref(scdG)));
-    ModelParamMap.insert(std::make_pair("scdW",std::cref(scdW)));
-    ModelParamMap.insert(std::make_pair("scdB",std::cref(scdB)));
-    ModelParamMap.insert(std::make_pair("scuG_u",std::cref(scuG_u)));
-    ModelParamMap.insert(std::make_pair("scuW_u",std::cref(scuW_u)));
-    ModelParamMap.insert(std::make_pair("scuB_u",std::cref(scuB_u)));
-    ModelParamMap.insert(std::make_pair("scdG_u",std::cref(scdG_u)));
-    ModelParamMap.insert(std::make_pair("scdW_u",std::cref(scdW_u)));
-    ModelParamMap.insert(std::make_pair("scdB_u",std::cref(scdB_u)));
-    ModelParamMap.insert(std::make_pair("scuG_d",std::cref(scuG_d)));
-    ModelParamMap.insert(std::make_pair("scuW_d",std::cref(scuW_d)));
-    ModelParamMap.insert(std::make_pair("scuB_d",std::cref(scuB_d)));
-    ModelParamMap.insert(std::make_pair("scdG_d",std::cref(scdG_d)));
-    ModelParamMap.insert(std::make_pair("scdW_d",std::cref(scdW_d)));
-    ModelParamMap.insert(std::make_pair("scdB_d",std::cref(scdB_d)));
-    ModelParamMap.insert(std::make_pair("scqD1_u",std::cref(scqD1_u)));
-    ModelParamMap.insert(std::make_pair("scqD1_d",std::cref(scqD1_d)));
-    ModelParamMap.insert(std::make_pair("scqD3_u",std::cref(scqD3_u)));
-    ModelParamMap.insert(std::make_pair("scqD3_d",std::cref(scqD3_d)));
-    ModelParamMap.insert(std::make_pair("scuD",std::cref(scuD)));
-    ModelParamMap.insert(std::make_pair("scdD",std::cref(scdD)));
-    ModelParamMap.insert(std::make_pair("scHu",std::cref(scHu)));
-    ModelParamMap.insert(std::make_pair("scHd",std::cref(scHd)));
-    ModelParamMap.insert(std::make_pair("scHq1_u",std::cref(scHq1_u)));
-    ModelParamMap.insert(std::make_pair("scHq1_d",std::cref(scHq1_d)));
-    ModelParamMap.insert(std::make_pair("scHq3_u",std::cref(scHq3_u)));
-    ModelParamMap.insert(std::make_pair("scHq3_d",std::cref(scHq3_d)));
-    ModelParamMap.insert(std::make_pair("scqq1_uu",std::cref(scqq1_uu)));
-    ModelParamMap.insert(std::make_pair("scqq1_ud",std::cref(scqq1_ud)));
-    ModelParamMap.insert(std::make_pair("scqq1_dd",std::cref(scqq1_dd)));
-    ModelParamMap.insert(std::make_pair("scqq1p_uu",std::cref(scqq1p_uu)));
-    ModelParamMap.insert(std::make_pair("scqq1p_ud",std::cref(scqq1p_ud)));
-    ModelParamMap.insert(std::make_pair("scqq1p_dd",std::cref(scqq1p_dd)));
-    ModelParamMap.insert(std::make_pair("scqq3_uu",std::cref(scqq3_uu)));
-    ModelParamMap.insert(std::make_pair("scqq3_ud",std::cref(scqq3_ud)));
-    ModelParamMap.insert(std::make_pair("scqq3_dd",std::cref(scqq3_dd)));
-    ModelParamMap.insert(std::make_pair("scqq3p_uu",std::cref(scqq3p_uu)));
-    ModelParamMap.insert(std::make_pair("scqq3p_ud",std::cref(scqq3p_ud)));
-    ModelParamMap.insert(std::make_pair("scqq3p_dd",std::cref(scqq3p_dd)));
-    ModelParamMap.insert(std::make_pair("scuu",std::cref(scuu)));
-    ModelParamMap.insert(std::make_pair("scuup",std::cref(scuup)));
-    ModelParamMap.insert(std::make_pair("scdd",std::cref(scdd)));
-    ModelParamMap.insert(std::make_pair("scddp",std::cref(scddp)));
-    ModelParamMap.insert(std::make_pair("scud1",std::cref(scud1)));
-    ModelParamMap.insert(std::make_pair("scud8",std::cref(scud8)));
-    ModelParamMap.insert(std::make_pair("scqu1_u",std::cref(scqu1_u)));
-    ModelParamMap.insert(std::make_pair("scqu1_d",std::cref(scqu1_d)));
-    ModelParamMap.insert(std::make_pair("scqu1_y",std::cref(scqu1_y)));
-    ModelParamMap.insert(std::make_pair("scqu8_u",std::cref(scqu8_u)));
-    ModelParamMap.insert(std::make_pair("scqu8_d",std::cref(scqu8_d)));
-    ModelParamMap.insert(std::make_pair("scqu8_y",std::cref(scqu8_y)));
-    ModelParamMap.insert(std::make_pair("scqd1_u",std::cref(scqd1_u)));
-    ModelParamMap.insert(std::make_pair("scqd1_d",std::cref(scqd1_d)));
-    ModelParamMap.insert(std::make_pair("scqd1_y",std::cref(scqd1_y)));
-    ModelParamMap.insert(std::make_pair("scqd8_u",std::cref(scqd8_u)));
-    ModelParamMap.insert(std::make_pair("scqd8_d",std::cref(scqd8_d)));
-    ModelParamMap.insert(std::make_pair("scqd8_y",std::cref(scqd8_y)));
-    ModelParamMap.insert(std::make_pair("scquqd1",std::cref(scquqd1)));
-    ModelParamMap.insert(std::make_pair("scquqd1p",std::cref(scquqd1p)));
-    ModelParamMap.insert(std::make_pair("scquqd8",std::cref(scquqd8)));
-    ModelParamMap.insert(std::make_pair("scquqd8p",std::cref(scquqd8p)));
 
 }
 
@@ -409,158 +309,6 @@ void NPSMEFTd6CHRU::setParameter(const std::string name, const double& value) {
 		cquqd8 = value;
 	} else if (name.compare("cquqd8p") == 0) {
 		cquqd8p = value;
-	} else if (name.compare("scH") == 0) {
-		scH = value;
-	} else if (name.compare("scB") == 0) {
-		scB = value;
-	} else if (name.compare("scW") == 0) {
-		scW = value;
-	} else if (name.compare("sc2B") == 0) {
-		sc2B = value;
-	} else if (name.compare("sc2W") == 0) {
-		sc2W = value;
-	} else if (name.compare("sc2G") == 0) {
-		sc2G = value;
-	} else if (name.compare("scHB") == 0) {
-		scHB = value;
-	} else if (name.compare("scHW") == 0) {
-		scHW = value;
-	} else if (name.compare("scga") == 0) {
-		scga = value;
-	} else if (name.compare("scg") == 0) {
-		scg = value;
-	} else if (name.compare("sc3W") == 0) {
-		sc3W = value;
-	} else if (name.compare("sc3G") == 0) {
-		sc3G = value;
-	} else if (name.compare("scuG") == 0) {
-		scuG = value;
-	} else if (name.compare("scuW") == 0) {
-		scuW = value;
-	} else if (name.compare("scuB") == 0) {
-		scuB = value;
-	} else if (name.compare("scdG") == 0) {
-		scdG = value;
-	} else if (name.compare("scdW") == 0) {
-		scdW = value;
-	} else if (name.compare("scdB") == 0) {
-		scdB = value;
-	} else if (name.compare("scuG_u") == 0) {
-		scuG_u = value;
-	} else if (name.compare("scuW_u") == 0) {
-		scuW_u = value;
-	} else if (name.compare("scuB_u") == 0) {
-		scuB_u = value;
-	} else if (name.compare("scdG_u") == 0) {
-		scdG_u = value;
-	} else if (name.compare("scdW_u") == 0) {
-		scdW_u = value;
-	} else if (name.compare("scdB_u") == 0) {
-		scdB_u = value;
-	} else if (name.compare("scuG_d") == 0) {
-		scuG_d = value;
-	} else if (name.compare("scuW_d") == 0) {
-		scuW_d = value;
-	} else if (name.compare("scuB_d") == 0) {
-		scuB_d = value;
-	} else if (name.compare("scdG_d") == 0) {
-		scdG_d = value;
-	} else if (name.compare("scdW_d") == 0) {
-		scdW_d = value;
-	} else if (name.compare("scdB_d") == 0) {
-		scdB_d = value;
-	} else if (name.compare("scqD1_u") == 0) {
-		scqD1_u = value;
-	} else if (name.compare("scqD1_d") == 0) {
-		scqD1_d = value;
-	} else if (name.compare("scqD3_u") == 0) {
-		scqD3_u = value;
-	} else if (name.compare("scqD3_d") == 0) {
-		scqD3_d = value;
-	} else if (name.compare("scuD") == 0) {
-		scuD = value;
-	} else if (name.compare("scdD") == 0) {
-		scdD = value;
-	} else if (name.compare("scHu") == 0) {
-		scHu = value;
-	} else if (name.compare("scHd") == 0) {
-		scHd = value;
-	} else if (name.compare("scHq1_u") == 0) {
-		scHq1_u = value;
-	} else if (name.compare("scHq1_d") == 0) {
-		scHq1_d = value;
-	} else if (name.compare("scHq3_u") == 0) {
-		scHq3_u = value;
-	} else if (name.compare("scHq3_d") == 0) {
-		scHq3_d = value;
-	} else if (name.compare("scqq1_uu") == 0) {
-		scqq1_uu = value;
-	} else if (name.compare("scqq1_ud") == 0) {
-		scqq1_ud = value;
-	} else if (name.compare("scqq1_dd") == 0) {
-		scqq1_dd = value;
-	} else if (name.compare("scqq1p_uu") == 0) {
-		scqq1p_uu = value;
-	} else if (name.compare("scqq1p_ud") == 0) {
-		scqq1p_ud = value;
-	} else if (name.compare("scqq1p_dd") == 0) {
-		scqq1p_dd = value;
-	} else if (name.compare("scqq3_uu") == 0) {
-		scqq3_uu = value;
-	} else if (name.compare("scqq3_ud") == 0) {
-		scqq3_ud = value;
-	} else if (name.compare("scqq3_dd") == 0) {
-		scqq3_dd = value;
-	} else if (name.compare("scqq3p_uu") == 0) {
-		scqq3p_uu = value;
-	} else if (name.compare("scqq3p_ud") == 0) {
-		scqq3p_ud = value;
-	} else if (name.compare("scqq3p_dd") == 0) {
-		scqq3p_dd = value;
-	} else if (name.compare("scuu") == 0) {
-		scuu = value;
-	} else if (name.compare("scuup") == 0) {
-		scuup = value;
-	} else if (name.compare("scdd") == 0) {
-		scdd = value;
-	} else if (name.compare("scddp") == 0) {
-		scddp = value;
-	} else if (name.compare("scud1") == 0) {
-		scud1 = value;
-	} else if (name.compare("scud8") == 0) {
-		scud8 = value;
-	} else if (name.compare("scqu1_u") == 0) {
-		scqu1_u = value;
-	} else if (name.compare("scqu1_d") == 0) {
-		scqu1_d = value;
-	} else if (name.compare("scqu1_y") == 0) {
-		scqu1_y = value;
-	} else if (name.compare("scqu8_u") == 0) {
-		scqu8_u = value;
-	} else if (name.compare("scqu8_d") == 0) {
-		scqu8_d = value;
-	} else if (name.compare("scqu8_y") == 0) {
-		scqu8_y = value;
-	} else if (name.compare("scqd1_u") == 0) {
-		scqd1_u = value;
-	} else if (name.compare("scqd1_d") == 0) {
-		scqd1_d = value;
-	} else if (name.compare("scqd1_y") == 0) {
-		scqd1_y = value;
-	} else if (name.compare("scqd8_u") == 0) {
-		scqd8_u = value;
-	} else if (name.compare("scqd8_d") == 0) {
-		scqd8_d = value;
-	} else if (name.compare("scqd8_y") == 0) {
-		scqd8_y = value;
-	} else if (name.compare("scquqd1") == 0) {
-		scquqd1 = value;
-	} else if (name.compare("scquqd1p") == 0) {
-		scquqd1p = value;
-	} else if (name.compare("scquqd8") == 0) {
-		scquqd8 = value;
-	} else if (name.compare("scquqd8p") == 0) {
-		scquqd8p = value;
 	} else {
         NPSMEFTd6General::setParameter(name, value);
 	}
@@ -614,35 +362,35 @@ void NPSMEFTd6CHRU::setNPSMEFTd6MFVParameters() {
 
     // SILH universal operators
 
-    CH  = sign(scH)*cH*gstar_2/(mstar_2);
+    CH  = cH*gstar_2/(mstar_2);
     CT  = 0; // TODO: CUSTODIAL BREAKING TERM, DEPENDS ON THE REPRESENTATIONS AND FLAVOR
 
-    CB  = sign(scB)*cB/(mstar_2);
-    CW  = sign(scW)*cW/(mstar_2);
+    CB  = cB/(mstar_2);
+    CW  = cW/(mstar_2);
 
-    C2B = sign(sc2B)*c2B/(gstar_2*mstar_2);
-    C2W = sign(sc2W)*c2W/(gstar_2*mstar_2);
-    C2G = sign(sc2G)*c2G/(gstar_2*mstar_2);
+    C2B = c2B/(gstar_2*mstar_2);
+    C2W = c2W/(gstar_2*mstar_2);
+    C2G = c2G/(gstar_2*mstar_2);
 
-    CHB = sign(scHB)*cHB*loop/(mstar_2);
-    CHW = sign(scHW)*cHW*loop/(mstar_2);
+    CHB = cHB*loop/(mstar_2);
+    CHW = cHW*loop/(mstar_2);
 
-    Cga = sign(scga)*cga*loop/(mstar_2);
-    Cg  = sign(scg)*cg*loop/(mstar_2);
+    Cga = cga*loop/(mstar_2);
+    Cg  = cg*loop/(mstar_2);
 
-    C3W = sign(sc3W)*c3W*loop/(mstar_2);
-    C3G = sign(sc3G)*c3G*loop/(mstar_2);
+    C3W = c3W*loop/(mstar_2);
+    C3G = c3G*loop/(mstar_2);
 
     // Subleading EW vertices operators
 
-    CqD1_u = sign(scqD1_u)*cqD1_u/(eps_u2*gstar_2*mstar_2);
-    CqD1_d = sign(scqD1_d)*cqD1_d/(eps_d2*gstar_2*mstar_2);
+    CqD1_u = cqD1_u/(eps_u2*gstar_2*mstar_2);
+    CqD1_d = cqD1_d/(eps_d2*gstar_2*mstar_2);
 
-    CqD3_u = sign(scqD3_u)*cqD3_u/(eps_u2*gstar_2*mstar_2);
-    CqD3_d = sign(scqD3_d)*cqD3_d/(eps_d2*gstar_2*mstar_2);
+    CqD3_u = cqD3_u/(eps_u2*gstar_2*mstar_2);
+    CqD3_d = cqD3_d/(eps_d2*gstar_2*mstar_2);
 
-    CuD    = sign(scuD)*cuD*eps_u2/mstar_2;
-    CdD    = sign(scdD)*cdD*eps_d2/mstar_2;
+    CuD    = cuD*eps_u2/mstar_2;
+    CdD    = cdD*eps_d2/mstar_2;
 
 
 
@@ -684,29 +432,29 @@ void NPSMEFTd6CHRU::setNPSMEFTd6MFVParameters() {
     CeB_0_LNP = 0;
     */
 
-    CuG_0_LNP = sign(scuG)*cuG*loop*g3*gstar_2/(mstar_2);		
-    CuW_0_LNP = sign(scuW)*cuW*loop*g2*gstar_2/(mstar_2);
-    CuB_0_LNP = sign(scuB)*cuB*loop*g1*gstar_2/(mstar_2);
+    CuG_0_LNP = cuG*loop*g3*gstar_2/(mstar_2);		
+    CuW_0_LNP = cuW*loop*g2*gstar_2/(mstar_2);
+    CuB_0_LNP = cuB*loop*g1*gstar_2/(mstar_2);
 
-    CdG_0_LNP = sign(scdG)*cdG*loop*g3*gstar_2/(mstar_2);		
-    CdW_0_LNP = sign(scdW)*cdW*loop*g2*gstar_2/(mstar_2);		
-    CdB_0_LNP = sign(scdB)*cdB*loop*g1*gstar_2/(mstar_2);		
+    CdG_0_LNP = cdG*loop*g3*gstar_2/(mstar_2);		
+    CdW_0_LNP = cdW*loop*g2*gstar_2/(mstar_2);		
+    CdB_0_LNP = cdB*loop*g1*gstar_2/(mstar_2);		
 
-    CuG_u_LNP = sign(scuG_u)*cuG_u*loop*g3/(mstar_2*eps_u2);
-    CuW_u_LNP = sign(scuW_u)*cuW_u*loop*g2/(mstar_2*eps_u2);
-    CuB_u_LNP = sign(scuB_u)*cuB_u*loop*g1/(mstar_2*eps_u2);
+    CuG_u_LNP = cuG_u*loop*g3/(mstar_2*eps_u2);
+    CuW_u_LNP = cuW_u*loop*g2/(mstar_2*eps_u2);
+    CuB_u_LNP = cuB_u*loop*g1/(mstar_2*eps_u2);
 
-    CdG_u_LNP = sign(scdG_u)*cdG_u*loop*g3/(mstar_2*eps_u2);
-    CdW_u_LNP = sign(scdW_u)*cdW_u*loop*g2/(mstar_2*eps_u2);
-    CdB_u_LNP = sign(scdB_u)*cdB_u*loop*g1/(mstar_2*eps_u2);
+    CdG_u_LNP = cdG_u*loop*g3/(mstar_2*eps_u2);
+    CdW_u_LNP = cdW_u*loop*g2/(mstar_2*eps_u2);
+    CdB_u_LNP = cdB_u*loop*g1/(mstar_2*eps_u2);
 
-    CuG_d_LNP = sign(scuG_d)*cuG_d*loop*g3/(mstar_2*eps_d2);	
-    CuW_d_LNP = sign(scuW_d)*cuW_d*loop*g2/(mstar_2*eps_d2);
-    CuB_d_LNP = sign(scuB_d)*cuB_d*loop*g1/(mstar_2*eps_d2);
+    CuG_d_LNP = cuG_d*loop*g3/(mstar_2*eps_d2);	
+    CuW_d_LNP = cuW_d*loop*g2/(mstar_2*eps_d2);
+    CuB_d_LNP = cuB_d*loop*g1/(mstar_2*eps_d2);
 
-    CdG_d_LNP = sign(scdG_d)*cdG_d*loop*g3/(mstar_2*eps_d2);
-    CdW_d_LNP = sign(scdW_d)*cdW_d*loop*g2/(mstar_2*eps_d2);
-    CdB_d_LNP = sign(scdB_d)*cdB_d*loop*g1/(mstar_2*eps_d2);
+    CdG_d_LNP = cdG_d*loop*g3/(mstar_2*eps_d2);
+    CdW_d_LNP = cdW_d*loop*g2/(mstar_2*eps_d2);
+    CdB_d_LNP = cdB_d*loop*g1/(mstar_2*eps_d2);
 
     // Higgs Currents (17 = 6 leptons + 11 quarks)
 
@@ -719,29 +467,29 @@ void NPSMEFTd6CHRU::setNPSMEFTd6MFVParameters() {
 
     CHq1_0_LNP		= (CB+CHB-C2B*g1_2)*g1_2/12;
     CHq3_0_LNP		= (CHW+CW-C2W*g2_2)*g2_2/4;
-    CHu_0_LNP		= (CB+CHB-C2B*g1_2)*g1_2/3 + sign(scHu)*cHu*eps_u2*gstar_2/(mstar_2) + CuD*g1_2/2;
+    CHu_0_LNP		= (CB+CHB-C2B*g1_2)*g1_2/3 + cHu*eps_u2*gstar_2/(mstar_2) + CuD*g1_2/2;
 
     if (FlagPLR) {
         CHd_0_LNP	= (-CB-CHB+C2B*g1_2)*g1_2/6 + CdD*g1_2/2;
     } else {
-        CHd_0_LNP	= (-CB-CHB+C2B*g1_2)*g1_2/6 + sign(scHd)*cHd*eps_d2*gstar_2/(mstar_2) + CdD*g1_2/2;
+        CHd_0_LNP	= (-CB-CHB+C2B*g1_2)*g1_2/6 + cHd*eps_d2*gstar_2/(mstar_2) + CdD*g1_2/2;
     }
 
     if (FlagPLR) { 
 
-        CHq1_u_LNP		= -sign(scHq3_u)*cHq3_u/(mstar_2*eps_u2) + CqD1_u*g1_2/2;
-        CHq3_u_LNP		= sign(scHq3_u)*cHq3_u/(mstar_2*eps_u2) + CqD3_u*g2_2/2;
+        CHq1_u_LNP		= -cHq3_u/(mstar_2*eps_u2) + CqD1_u*g1_2/2;
+        CHq3_u_LNP		= cHq3_u/(mstar_2*eps_u2) + CqD3_u*g2_2/2;
 
-        CHq1_d_LNP		= -sign(scHq3_d)*cHq3_d/(mstar_2*eps_d2) + CqD1_d*g1_2/2; 
-        CHq3_d_LNP		= sign(scHq3_d)*cHq3_d/(mstar_2*eps_d2) + CqD3_d*g2_2/2;
+        CHq1_d_LNP		= -cHq3_d/(mstar_2*eps_d2) + CqD1_d*g1_2/2; 
+        CHq3_d_LNP		= cHq3_d/(mstar_2*eps_d2) + CqD3_d*g2_2/2;
 
     } else {
 
-        CHq1_u_LNP		= sign(scHq1_u)*cHq1_u/(mstar_2*eps_u2) + CqD1_u*g1_2/2;
-        CHq3_u_LNP		= sign(scHq3_u)*cHq3_u/(mstar_2*eps_u2) + CqD3_u*g2_2/2;
+        CHq1_u_LNP		= cHq1_u/(mstar_2*eps_u2) + CqD1_u*g1_2/2;
+        CHq3_u_LNP		= cHq3_u/(mstar_2*eps_u2) + CqD3_u*g2_2/2;
 
-        CHq1_d_LNP		= sign(scHq1_d)*cHq1_d/(mstar_2*eps_d2) + CqD1_d*g1_2/2; 
-        CHq3_d_LNP		= sign(scHq3_d)*cHq3_d/(mstar_2*eps_d2) + CqD3_d*g2_2/2;
+        CHq1_d_LNP		= cHq1_d/(mstar_2*eps_d2) + CqD1_d*g1_2/2; 
+        CHq3_d_LNP		= cHq3_d/(mstar_2*eps_d2) + CqD3_d*g2_2/2;
     }
 
 
@@ -788,18 +536,18 @@ void NPSMEFTd6CHRU::setNPSMEFTd6MFVParameters() {
     Cqq3_d0_LNP		= CqD3_d*g2_2/2/2;
     Cqq3p_d0_LNP	= 0;
 
-    Cqq1_uu_LNP		= sign(scqq1_uu)*cqq1_uu/(gstar_2*mstar_2*eps_u4);
-    Cqq1_ud_LNP		= sign(scqq1_ud)*cqq1_ud/(gstar_2*mstar_2*eps_u2*eps_d2)/2;
-    Cqq1_dd_LNP		= sign(scqq1_dd)*cqq1_dd/(gstar_2*mstar_2*eps_d4);
-    Cqq1p_uu_LNP	= sign(scqq1p_uu)*cqq1p_uu/(gstar_2*mstar_2*eps_u4);
-    Cqq1p_ud_LNP	= sign(scqq1p_ud)*cqq1p_ud/(gstar_2*mstar_2*eps_u2*eps_d2)/2;
-    Cqq1p_dd_LNP	= sign(scqq1p_dd)*cqq1p_dd/(gstar_2*mstar_2*eps_d4);
-    Cqq3_uu_LNP		= sign(scqq3_uu)*cqq3_uu/(gstar_2*mstar_2*eps_u4);
-    Cqq3_ud_LNP		= sign(scqq3_ud)*cqq3_ud/(gstar_2*mstar_2*eps_u2*eps_d2)/2;
-    Cqq3_dd_LNP		= sign(scqq3_dd)*cqq3_dd/(gstar_2*mstar_2*eps_d4);
-    Cqq3p_uu_LNP	= sign(scqq3p_uu)*cqq3p_uu/(gstar_2*mstar_2*eps_u4);
-    Cqq3p_ud_LNP	= sign(scqq3p_ud)*cqq3p_ud/(gstar_2*mstar_2*eps_u2*eps_d2)/2;
-    Cqq3p_dd_LNP	= sign(scqq3p_dd)*cqq3p_dd/(gstar_2*mstar_2*eps_d4);
+    Cqq1_uu_LNP		= cqq1_uu/(gstar_2*mstar_2*eps_u4);
+    Cqq1_ud_LNP		= cqq1_ud/(gstar_2*mstar_2*eps_u2*eps_d2)/2;
+    Cqq1_dd_LNP		= cqq1_dd/(gstar_2*mstar_2*eps_d4);
+    Cqq1p_uu_LNP	= cqq1p_uu/(gstar_2*mstar_2*eps_u4);
+    Cqq1p_ud_LNP	= cqq1p_ud/(gstar_2*mstar_2*eps_u2*eps_d2)/2;
+    Cqq1p_dd_LNP	= cqq1p_dd/(gstar_2*mstar_2*eps_d4);
+    Cqq3_uu_LNP		= cqq3_uu/(gstar_2*mstar_2*eps_u4);
+    Cqq3_ud_LNP		= cqq3_ud/(gstar_2*mstar_2*eps_u2*eps_d2)/2;
+    Cqq3_dd_LNP		= cqq3_dd/(gstar_2*mstar_2*eps_d4);
+    Cqq3p_uu_LNP	= cqq3p_uu/(gstar_2*mstar_2*eps_u4);
+    Cqq3p_ud_LNP	= cqq3p_ud/(gstar_2*mstar_2*eps_u2*eps_d2)/2;
+    Cqq3p_dd_LNP	= cqq3p_dd/(gstar_2*mstar_2*eps_d4);
 
 
     // Four Fermions RR RR (2 leptons + 6 mixed + 22 quarks = 30)
@@ -824,14 +572,14 @@ void NPSMEFTd6CHRU::setNPSMEFTd6MFVParameters() {
 
 
 
-    Cuu_00_LNP		= (-8*C2B*g1_4+3*C2G*g3_4)/36 + 2*CuD*g1_2/3 + sign(cuu)*cuu*eps_u4*gstar_2/(mstar_2);
-    Cuup_00_LNP		= -C2G*g3_4/4 + sign(cuup)*cuup*eps_u4*gstar_2/(mstar_2);
+    Cuu_00_LNP		= (-8*C2B*g1_4+3*C2G*g3_4)/36 + 2*CuD*g1_2/3 + cuu*eps_u4*gstar_2/(mstar_2);
+    Cuup_00_LNP		= -C2G*g3_4/4 + cuup*eps_u4*gstar_2/(mstar_2);
 
-    Cdd_00_LNP		= (-2*C2B*g1_4+3*C2G*g3_4)/36 - CdD*g1_2/3 + sign(cdd)*cdd*eps_d4*gstar_2/(mstar_2);
-    Cddp_00_LNP		= -C2G*g3_4/4 + sign(cddp)*cddp*eps_d4*gstar_2/(mstar_2);
+    Cdd_00_LNP		= (-2*C2B*g1_4+3*C2G*g3_4)/36 - CdD*g1_2/3 + cdd*eps_d4*gstar_2/(mstar_2);
+    Cddp_00_LNP		= -C2G*g3_4/4 + cddp*eps_d4*gstar_2/(mstar_2);
 
-    Cud1_00_LNP		= 2*C2B*g1_4/9 + (2*CdD-CuD)*g1_2/3 + sign(cud1)*cud1*eps_u2*eps_d2*gstar_2/(mstar_2);
-    Cud8_00_LNP		= -C2G*g3_4 + sign(cud8)*cud8*eps_u2*eps_d2*gstar_2/(mstar_2);
+    Cud1_00_LNP		= 2*C2B*g1_4/9 + (2*CdD-CuD)*g1_2/3 + cud1*eps_u2*eps_d2*gstar_2/(mstar_2);
+    Cud8_00_LNP		= -C2G*g3_4 + cud8*eps_u2*eps_d2*gstar_2/(mstar_2);
 
     /*
     Cuu_u0_LNP		= 0;
@@ -895,25 +643,25 @@ void NPSMEFTd6CHRU::setNPSMEFTd6MFVParameters() {
     Cqd1_00_LNP		= C2B*g1_4/18 + CdD*g1_2/6;
     Cqd8_00_LNP		= -C2G*g3_4;
 
-    Cqu1_u0_LNP		= 2*CqD1_u/3 + sign(cqu1_u)*cqu1_u/(mstar_2);
-    Cqu1_d0_LNP		= 2*CqD1_d/3 + sign(cqu1_d)*cqu1_d*eps_u2/(mstar_2*eps_d2);
+    Cqu1_u0_LNP		= 2*CqD1_u/3 + cqu1_u/(mstar_2);
+    Cqu1_d0_LNP		= 2*CqD1_d/3 + cqu1_d*eps_u2/(mstar_2*eps_d2);
     Cqu1_0u_LNP		= 0;
-    Cqu1_y_LNP		= sign(cqu1_y)*cqu1_y/(mstar_2);
+    Cqu1_y_LNP		= cqu1_y/(mstar_2);
 
-    Cqu8_u0_LNP		= sign(cqu8_u)*cqu8_u/(mstar_2);
-    Cqu8_d0_LNP		= sign(cqu8_d)*cqu8_d*eps_u2/(mstar_2*eps_d2);
+    Cqu8_u0_LNP		= cqu8_u/(mstar_2);
+    Cqu8_d0_LNP		= cqu8_d*eps_u2/(mstar_2*eps_d2);
     Cqu8_0u_LNP		= 0;
-    Cqu8_y_LNP		= sign(cqu8_y)*cqu8_y/(mstar_2);
+    Cqu8_y_LNP		= cqu8_y/(mstar_2);
 
-    Cqd1_u0_LNP		= -CqD1_u/3 + sign(cqd1_u)*cqd1_u*eps_d2/(mstar_2*eps_u2);
-    Cqd1_d0_LNP		= -CqD1_d/3 + sign(cqd1_d)*cqd1_d/(mstar_2);
+    Cqd1_u0_LNP		= -CqD1_u/3 + cqd1_u*eps_d2/(mstar_2*eps_u2);
+    Cqd1_d0_LNP		= -CqD1_d/3 + cqd1_d/(mstar_2);
     Cqd1_0d_LNP		= 0;
-    Cqd1_y_LNP		= sign(cqd1_y)*cqd1_y/(mstar_2);
+    Cqd1_y_LNP		= cqd1_y/(mstar_2);
 
-    Cqd8_u0_LNP		= sign(cqd8_u)*cqd8_u*eps_d2/(mstar_2*eps_u2);
-    Cqd8_d0_LNP		= sign(cqd8_d)*cqd8_d/(mstar_2);
+    Cqd8_u0_LNP		= cqd8_u*eps_d2/(mstar_2*eps_u2);
+    Cqd8_d0_LNP		= cqd8_d/(mstar_2);
     Cqd8_0d_LNP		= 0;
-    Cqd8_y_LNP		= sign(cqd8_y)*cqd8_y/(mstar_2);
+    Cqd8_y_LNP		= cqd8_y/(mstar_2);
 
     /*
     Cqu1_uu_LNP		= 0;
@@ -957,10 +705,10 @@ void NPSMEFTd6CHRU::setNPSMEFTd6MFVParameters() {
 
 
 
-    Cquqd1_00_LNP		= sign(cquqd1)*cquqd1/(mstar_2); 
-    Cquqd1p_00_LNP		= sign(cquqd1p)*cquqd1p/(mstar_2);
-    Cquqd8_00_LNP		= sign(cquqd8)*cquqd8/(mstar_2);
-    Cquqd8p_00_LNP		= sign(cquqd8p)*cquqd8p/(mstar_2);
+    Cquqd1_00_LNP		= cquqd1/(mstar_2); 
+    Cquqd1p_00_LNP		= cquqd1p/(mstar_2);
+    Cquqd8_00_LNP		= cquqd8/(mstar_2);
+    Cquqd8p_00_LNP		= cquqd8p/(mstar_2);
 
     /*
     Cquqd1_u0_LNP 		= 0;
