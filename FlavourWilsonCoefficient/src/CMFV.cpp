@@ -18,6 +18,10 @@ CMFV::CMFV() : StandardModel(), CMFVM(*this) {
     ModelParamMap.insert(std::make_pair("CMFV_dZ", std::cref(dZ)));
     ModelParamMap.insert(std::make_pair("CMFV_dC7", std::cref(dC7)));
     ModelParamMap.insert(std::make_pair("CMFV_muNP", std::cref(muNP)));
+    // optional theory-uncertainty factors, used as "<factor>*<observable>" in the configuration (default 1)
+    ModelParamMap.insert(std::make_pair("CMFV_r_bsg", std::cref(r_bsg)));
+    ModelParamMap.insert(std::make_pair("CMFV_r_bsll", std::cref(r_bsll)));
+    ModelParamMap.insert(std::make_pair("CMFV_r_Bmumu", std::cref(r_Bmumu)));
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -36,8 +40,23 @@ void CMFV::setParameter(const std::string name, const double& value){
         dC7 = value;
     else if(name.compare("CMFV_muNP") == 0)
         muNP = value;
+    else if(name.compare("CMFV_r_bsg") == 0)
+        r_bsg = value;
+    else if(name.compare("CMFV_r_bsll") == 0)
+        r_bsll = value;
+    else if(name.compare("CMFV_r_Bmumu") == 0)
+        r_Bmumu = value;
     else
         StandardModel::setParameter(name,value);
+}
+
+bool CMFV::setFlag(const std::string name, const bool value)
+{
+    if (name.compare("CMFV_ZPenguinDominance") == 0) {
+        FlagZPenguinDominance = value;
+        return true;
+    }
+    return StandardModel::setFlag(name, value);
 }
 
 bool CMFV::CheckParameters(const std::map<std::string, double>& DPars) {
