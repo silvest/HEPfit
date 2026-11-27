@@ -26,6 +26,8 @@ class StandardModel;
  * @copyright GNU General Public License
  * @details This class is used to compute the theoretical value of
  * the width of @f$ \pi \to \lepton \nu @f$.
+ * The input delPl2em already contains the short-distance electroweak correction \f$S_{EW}\f$, so the
+ * Sirlin factor included in the \f$V_{LL}\f$ coefficient by HeffDF1_diujlknu is divided out.
  */
 class Pmunu : public ThObservable {
 public:   

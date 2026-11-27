@@ -21,6 +21,8 @@ class StandardModel;
  * @copyright GNU General Public License
  * @details This class is used to compute the theoretical value of
  * branching ratio of \f$B\to \tau\nu\f.
+ * The SM amplitude includes the leading-log short-distance electroweak (Sirlin) factor
+ * \f$1+\frac{\alpha}{\pi}\ln\frac{M_Z}{m_b}\f$ through HeffDF1_diujlknu.
  */
 class Btaunu : public ThObservable {
 public:   

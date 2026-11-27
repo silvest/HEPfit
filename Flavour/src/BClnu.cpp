@@ -88,6 +88,7 @@ BClnu::BClnu(const StandardModel& SM_i, QCD::meson meson_i)
      mbOS_updated = 0;
      mbkin_updated = 0;
      alphas_updated = 0;
+     AlsMz_updated = 0;
      mcMS_updated = 0;
      r_updated = 0;
 
@@ -138,13 +139,12 @@ void BClnu::updateParameters()
     MB = mySM.getMesons(meson1).getMass(); // In GeV units
     mcmc = mySM.getQuarks(QCD::CHARM).getMass();
     mbmb = mySM.getQuarks(QCD::BOTTOM).getMass();
+    AlsMz = mySM.getAlsMz();
 
     checkCache();
 
-    // Aew and GF are fixed inputs to the normalization.
-    if (mbkin_updated == 0) {
-        amplsq_factor = Aew * pow(mySM.getGF(), 2) * pow(mbkin, 5) / (192. * pow(M_PI, 3));
-    }
+    // Gamma0 normalisation: recomputed at every update (cheap), so it follows both mbkin and GF.
+    amplsq_factor = Aew * pow(mySM.getGF(), 2) * pow(mbkin, 5) / (192. * pow(M_PI, 3));
 
     if (mcOS_updated == 0){
         mcOS = mySM.Mbar2Mp(mcmc,QCD::CHARM,FULLNNLO);  /**< c quark mass in the on-shell scheme */
@@ -851,11 +851,19 @@ void BClnu::checkCache()
       mcMS_updated = 0;
     }
 
-    mcOS_updated = mcmc_updated;
-    mbOS_updated = mbmb_updated;
+    if (AlsMz == cached_AlsMz) {
+      AlsMz_updated = 1;
+    } else {
+      cached_AlsMz = AlsMz;
+      AlsMz_updated = 0;
+    }
+
+    // alpha_s(mu) enters mcOS, mbOS and alphas; for mu < m_b it also depends on the b threshold (mbmb)
+    mcOS_updated = mcmc_updated*mbmb_updated*AlsMz_updated;
+    mbOS_updated = mbmb_updated*AlsMz_updated;
     // mbkin_updated = scale_mbkin_updated*mbOS_updated;
     MBhat_updated = mbkin_updated*MB_updated;
-    alphas_updated = mbkin_updated;
+    alphas_updated = mbkin_updated*mbmb_updated*AlsMz_updated;
     // mcMS_updated = scale_mcMS_updated*mcmc_updated;
     r_updated = mcMS_updated*mbkin_updated;
 }
@@ -21288,7 +21296,9 @@ double BClnu::XGamma()
     double rhoLS = RhoLS / pow(mbkin, 3);
 
     double FLAGcf = (0.5 * (4/3. + 3 * (1 + log(scale_muG))));
-    double FLAGcD = ((8/3. * 4/3. * log(scale_muG)) + 3 * (1/2. - 2/3. * log(scale_muG)));
+    /* one-loop Darwin coefficient c_D(mu) = 1 + alpha_s/pi [C_F (-8/3 ln(mu/m_b)) + C_A (1/2 - 2/3 ln(mu/m_b))],
+     * Manohar hep-ph/9701294 eq. (47), Mannel-Moreno-Pivovarov 2112.03875 eq. (35); same as in the q^2 moments */
+    double FLAGcD = ((- 8/3. * 4/3. * log(scale_muG)) + 3 * (1/2. - 2/3. * log(scale_muG)));
     double FLAGcs = (0.5 * (4/3. + 3 * (1 + log(scale_muG))));
 
     double deltambkin1 = deltambkin(1);

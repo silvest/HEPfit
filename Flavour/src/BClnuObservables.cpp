@@ -88,13 +88,15 @@ Vcb_BClnu::Vcb_BClnu(const StandardModel& SM_i, QCD::meson meson_i)
     meson1 = meson_i;
 
     setParametersForObservable(SM.getFlavour().getBClnu(meson1).initializeBClnuParameters());
+    SM.initializeMeson(QCD::B_D);
+    SM.initializeMeson(QCD::B_P);
 }
 
 double Vcb_BClnu::computeThValue()
 {
     double hbar = 6.582119569e-25; // Gev s
-    double tauBzero = 1519e-15; // s 
-    double tauBplus = 1638e-15 ; // s 
+    double tauBzero = SM.getMesons(QCD::B_D).getLifetime() * 1.e-12; // s (model parameter tBd, in ps)
+    double tauBplus = SM.getMesons(QCD::B_P).getLifetime() * 1.e-12; // s (model parameter tBp, in ps)
 
     return (sqrt(SM.getFlavour().getBClnu(meson1).getBR() / (SM.getFlavour().getBClnu(meson1).XGamma() * SM.getFlavour().getBClnu(meson1).getAmplsqfactor() * (tauBzero + tauBplus) / 2) * hbar));
 }

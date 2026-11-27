@@ -426,6 +426,7 @@ void ThObsFactory::registerFlavourObservables()
     obsThFactory["Gammachi_MVlnu"] = [=](const StandardModel& SM) { return new Gammachi_MVlnu(SM, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU, StandardModel::ELECTRON); };
     obsThFactory["UnitarityV_MVlnu"] = [=](const StandardModel& SM) { return new UnitarityV_MVlnu(SM, StandardModel::B_D, StandardModel::D_star_P, StandardModel::ELECTRON); };
     obsThFactory["UnitarityA_MVlnu"] = [=](const StandardModel& SM) { return new UnitarityA_MVlnu(SM, StandardModel::B_D, StandardModel::D_star_P, StandardModel::ELECTRON); };
+    obsThFactory["UnitarityP_MVlnu"] = [=](const StandardModel& SM) { return new UnitarityP_MVlnu(SM, StandardModel::B_D, StandardModel::D_star_P, StandardModel::ELECTRON); };
     obsThFactory["UnitarityV_D_Dst"] = [=](const StandardModel& SM) { return new UnitarityV_D_Dst(SM, StandardModel::B_D, StandardModel::D_star_P, StandardModel::D_P, StandardModel::ELECTRON); };
     obsThFactory["hA1_at_w1"] = [=](const StandardModel& SM) { return new FF_hA1atw1(SM, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU); };
     obsThFactory["hV_w"] = [=](const StandardModel& SM) { return new FF_hV(SM, StandardModel::B_D, StandardModel::D_star_P, StandardModel::MU); };

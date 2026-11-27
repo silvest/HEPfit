@@ -182,6 +182,9 @@ inline cd hpl(int i, cd x)
 inline cd hpl(int i1, int i2, cd x)
 {
     const double Pi = M_PI;
+    /* The inversion formulas used for |x| > 1 below take the x + i0 side of the cuts (Im x >= 0).
+     * For Im x < 0 use the reality property H(w; conj(x)) = conj(H(w; x)) of the HPLs. */
+    if (norm(x) > 1 && imag(x) < 0) return conj(hpl(i1, i2, conj(x)));
     if (i1 == 0 && i2 == 0) {
         if (norm(x) > 1) return
             pow(hpl(0, 1. / x), 2) / 2.;
@@ -223,6 +226,9 @@ inline cd hpl(int i1, int i2, cd x)
 inline cd hpl(int i1, int i2, int i3, cd x)
 {
     const double Pi = M_PI;
+    /* The inversion formulas used for |x| > 1 below take the x + i0 side of the cuts (Im x >= 0).
+     * For Im x < 0 use the reality property H(w; conj(x)) = conj(H(w; x)) of the HPLs. */
+    if (norm(x) > 1 && imag(x) < 0) return conj(hpl(i1, i2, i3, conj(x)));
     if (i1 == 0 && i2 == 0 && i3 == 0) {
         if (norm(x) > 1) return
             -pow(hpl(0, 1. / x), 3) / 6.;
@@ -346,6 +352,9 @@ inline cd hpl(int i1, int i2, int i3, cd x)
 inline cd hpl(int i1, int i2, int i3, int i4, cd x)
 {
     const double Pi = M_PI;
+    /* The inversion formulas used for |x| > 1 below take the x + i0 side of the cuts (Im x >= 0).
+     * For Im x < 0 use the reality property H(w; conj(x)) = conj(H(w; x)) of the HPLs. */
+    if (norm(x) > 1 && imag(x) < 0) return conj(hpl(i1, i2, i3, i4, conj(x)));
     if (i1 == 0 && i2 == 0 && i3 == 0 && i4 == 0) {
         if (norm(x) > 1) {
             return

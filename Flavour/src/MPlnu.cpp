@@ -107,6 +107,8 @@ MPlnu::MPlnu(const StandardModel& SM_i, QCD::meson meson_i, QCD::meson pseudosca
     CAp_cache = max_double;
     CT_cache = max_double;
     CTp_cache = max_double;
+    Mb_cache = max_double;
+    Mc_cache = max_double;
 
     ig.SetRelTolerance(1.E-6);  // set relative tolerance
     ig.SetAbsTolerance(1.E-6);   // set absoulte tolerance
@@ -178,7 +180,6 @@ void MPlnu::updateParameters()
     mu_b = MM; // mySM.getMub();
     Mb = mySM.getQuarks(QCD::BOTTOM).getMass(); // add the PS b mass
     Mc = mySM.getQuarks(QCD::CHARM).getMass(); // add the PS b mass
-    ale_mub = mySM.Ale(mu_b,FULLNLO);
     /* Amplitude propto 4*GF*Vij/sqrt(2) & kinematics requires 1/(2^9 pi^3 MB^3) */
     amplsq_factor = 1./(64.*M_PI*M_PI*M_PI*MM*MM*MM);
     q2min = Mlep*Mlep;
@@ -194,17 +195,18 @@ void MPlnu::updateParameters()
         default: throw std::runtime_error("Expected a charged lepton in b to c matching");
     }
     gslpp::vector<gslpp::complex> ** allcoeff_bclnu = mySM.getFlavour().ComputeCoeffdiujlknu(2,1,k,mu_b);
-    CV = (*(allcoeff_bclnu[LO]))(0)/norm*(1.+ale_mub/M_PI*log(mySM.getMz()/mu_b))/2.;
+    /* the SM part already includes the short-distance EW (Sirlin) factor, see HeffDF1_diujlknu */
+    CV = (*(allcoeff_bclnu[LO]) + *(allcoeff_bclnu[NLO]))(0)/norm/2.;
     CA = -CV;
-    CVp = (*(allcoeff_bclnu[LO]))(1)/norm/2.;
+    CVp = (*(allcoeff_bclnu[LO]) + *(allcoeff_bclnu[NLO]))(1)/norm/2.;
     CAp = -CVp;
-    CS = (*(allcoeff_bclnu[LO]))(2)/norm/2.;
-    CSp = (*(allcoeff_bclnu[LO]))(3)/norm/2.;
+    CS = (*(allcoeff_bclnu[LO]) + *(allcoeff_bclnu[NLO]))(2)/norm/2.;
+    CSp = (*(allcoeff_bclnu[LO]) + *(allcoeff_bclnu[NLO]))(3)/norm/2.;
     CP = -CS;
     CPp = -CSp;
     C7 = 0.;
     C7p = 0.;
-    CT = (*(allcoeff_bclnu[LO]))(4)/norm/2.;
+    CT = (*(allcoeff_bclnu[LO]) + *(allcoeff_bclnu[NLO]))(4)/norm/2.;
     CTp = 0.;
 
     if (NPanalysis) {
@@ -363,7 +365,8 @@ void MPlnu::updateParameters()
             || (CP != CP_cache) || (CPp != CPp_cache)
             || (CV != CV_cache) || (CVp != CVp_cache)
             || (CA != CA_cache) || (CAp != CAp_cache)
-            || (CT != CT_cache) || (CTp != CTp_cache)) {
+            || (CT != CT_cache) || (CTp != CTp_cache)
+            || (Mb != Mb_cache) || (Mc != Mc_cache)) {
         checkcache_int_tau = false;
         checkcache_int_mu = false;
         checkcache_int_el = false;
@@ -480,6 +483,8 @@ void MPlnu::updateParameters()
     CAp_cache = CAp;
     CT_cache = CT;
     CTp_cache = CTp;
+    Mb_cache = Mb;
+    Mc_cache = Mc;
 
     mySM.getFlavour().setUpdateFlag(meson, pseudoscalarM, lep, false);
 
@@ -589,7 +594,14 @@ double MPlnu::f0(double q2)
 
 double MPlnu::fT(double q2)
 {
-    return 0.;
+    /* Heavy-quark/equation-of-motion relation of Sakaki, Tanaka, Tayduganov, Watanabe, arXiv:1309.0301,
+     * eqs. (31) and (48a) (O(Lambda_QCD) residual momenta neglected):
+     *   f_T = (M_B+M_D)/(2 sqrt(M_B M_D)) h_T,  h_T = (m_b+m_c)/(M_B+M_D) [h_+ - (M_B+M_D)/(M_B-M_D) h_-],
+     * which, eliminating h_+ and h_- with eq. (31), reads
+     *   f_T(q^2) = (m_b+m_c)(M_B+M_D)/q^2 [f_+(q^2) - f_0(q^2)].
+     * This is the B->D counterpart of the relations used for T1, T2, T23 in MVlnu (same quark masses).
+     * It relies on f_+(0) = f_0(0), imposed by the CLN and BGL parametrisations (not by the DM bins). q2 > 0. */
+    return (Mb + Mc) * (MM + MP) / q2 * (fplus(q2) - f0(q2));
 }
 /********************************************************************************
  * Helicity amplitudes  (normalization such that all H \propto (mass scale)^-1) *
