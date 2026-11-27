@@ -517,7 +517,8 @@ if(NOT RGESOLVER_CONFIG)
   message(FATAL_ERROR "rgesolver-confg could not be found. Please specify the directory of rgesolver-config with ${RedBold}-DRGESOLVER_CONFIG_DIR=<directory>${ColReset}.")
 else()  
   message(STATUS "Found rgesolver-config in ${RGESOLVER_CONFIG_DIR}")
-  execute_process(COMMAND ${RGESOLVER_CONFIG} --version
+  # rgesolver-config passes its options to pkg-config: --version would give the pkg-config version
+  execute_process(COMMAND ${RGESOLVER_CONFIG} --modversion
                   OUTPUT_VARIABLE RGESOLVER_VERSION
                   OUTPUT_STRIP_TRAILING_WHITESPACE)
   message(STATUS "RGESOLVER version: ${RGESOLVER_VERSION}")
@@ -540,7 +541,22 @@ else()
   # Full path of the library file, used to relink when RGESolver is updated
   unset(RGESOLVER_LIBRARY CACHE)
   find_library(RGESOLVER_LIBRARY NAMES RGESolver PATHS ${RGESOLVER_LIB_PATH} NO_DEFAULT_PATH)
+  if(NOT RGESOLVER_LIBRARY)
+    message(WARNING "libRGESolver not found in ${RGESOLVER_LIB_PATH}: HEPfit will not be relinked automatically when RGESolver is updated.")
+  endif()
   unset(RGESOLVER_CONFIG CACHE)
+
+  # Recompile the sources that see the RGESolver headers when their content changes.
+  # The time stamps are not enough: installing RGESolver keeps those of its source files,
+  # which can be older than the HEPfit objects. NewPhysics, InputParser and Analysis use
+  # RGESOLVER_HEADER_STAMP as OBJECT_DEPENDS of their sources.
+  set(RGESOLVER_HEADER_STAMP ${CMAKE_BINARY_DIR}/rgesolver_headers.stamp)
+  add_custom_target(rgesolver_headers
+                    COMMAND ${CMAKE_COMMAND} -DINC_DIR=${RGESOLVER_INC_DIR} -DSTAMP=${RGESOLVER_HEADER_STAMP}
+                            -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/RGESolverHeaderStamp.cmake
+                    BYPRODUCTS ${RGESOLVER_HEADER_STAMP}
+                    COMMENT "Checking the RGESolver headers"
+                    VERBATIM)
 endif()
 
 
