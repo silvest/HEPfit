@@ -8867,6 +8867,12 @@ bool NPSMEFTd6General::PostUpdate() {
     trueSM.setComputemt(false);
     requireCKM=false;
     trueSM.setRequireCKM(false);
+    requireYu=false;
+    trueSM.setRequireYu(false);
+    requireYd=false;
+    trueSM.setRequireYd(false);
+    requireYe=false;
+    trueSM.setRequireYe(false);
 
     // Yukawa matrices in the EW up-quark mass basis, for LEFT matching.
     Yu = readSMEFTMatrix(SMEFTEvolEW, "Yu");
@@ -8879,6 +8885,10 @@ bool NPSMEFTd6General::PostUpdate() {
     }
     Yd = VdRd * Yd * VuL;
     Yu = VuRd * Yu * VuL;
+
+    trueSM.setYu(Yu);
+    trueSM.setYd(Yd);
+    trueSM.setYe(Ye);
 
     UevL = 1.0; // Neglect PMNS effects in high-pT observables.
     VudL = 1.0; // Neglect CKM effects in high-pT observables.
