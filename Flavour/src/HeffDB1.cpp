@@ -915,15 +915,17 @@ gslpp::vector<gslpp::complex>** HeffDB1::ComputeCoeffdnunu()
     
     const std::vector<WilsonCoefficient>& mcb = model.getMatching().CMBXdnn();
 
+    /* Sum the SM and the NP matching blocks, as in ComputeCoeffsnunu(). */
+    coeffdnunu.resetCoefficient();
     orders ordDF1 = coeffdnunu.getOrder();
     orders_qed ordDF1_ew = coeffdnunu.getOrder_qed();
     
     for (unsigned int i = 0; i < mcb.size(); i++){
         for (int j = LO; j <= ordDF1; j++){
-            coeffdnunu.setCoeff(*mcb[i].getCoeff(orders(j)), orders(j));
+            coeffdnunu.setCoeff(*coeffdnunu.getCoeff(orders(j)) + *mcb[i].getCoeff(orders(j)), orders(j));
         }
         for (int j = LO_QED; j <= ordDF1_ew; j++) { 
-            coeffdnunu.setCoeff(*mcb[i].getCoeff(orders_qed(j)), orders_qed(j));
+            coeffdnunu.setCoeff(*coeffdnunu.getCoeff(orders_qed(j)) + *mcb[i].getCoeff(orders_qed(j)), orders_qed(j));
         }
     }
     
