@@ -8,6 +8,7 @@
 #include "ThObsFactory.h"
 #include "ThObservable.h"
 #include "ParamObs.h"
+#include "ScaledObs.h"
 
 ThObsFactory::ThObsFactory()
 {
@@ -35,6 +36,14 @@ void ThObsFactory::addObsToFactory(const std::string name, std::function<ThObser
 
 ThObservable * ThObsFactory::CreateThMethod(const std::string& name, StandardModel& model) const
 {
+    // "<parameter>*<observable>": the observable multiplied by a model parameter (e.g. a theory-uncertainty factor)
+    std::size_t star = name.find('*');
+    if (star != std::string::npos) {
+        const std::string par = name.substr(0, star), obs = name.substr(star + 1);
+        if (!model.isModelParam(par))
+            throw std::runtime_error("ERROR: in " + name + ", " + par + " is not a parameter of the model.\n");
+        return new ScaledObs(model, par, CreateThMethod(obs, model));
+    }
     if (model.isModelParam(name))
         return new ParamObs(model, name);
     if (obsThFactory.find(name) == obsThFactory.end())
