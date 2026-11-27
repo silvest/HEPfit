@@ -21,6 +21,10 @@ include_directories(${RGESOLVER_INC_DIR})
 
 file(GLOB srcs "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 add_library(NewPhysics ${LIBTYPE} ${srcs})
+if(TARGET rgesolver_headers)
+  set_property(SOURCE ${srcs} APPEND PROPERTY OBJECT_DEPENDS ${RGESOLVER_HEADER_STAMP})
+  add_dependencies(NewPhysics rgesolver_headers)
+endif()
 
 file(GLOB headers "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h")
 INSTALL(FILES ${headers} DESTINATION include/HEPfit COMPONENT header)

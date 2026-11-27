@@ -36,6 +36,10 @@ include_directories(${RGESOLVER_INC_DIR})
 
 file(GLOB srcs "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 add_library(InputParser ${LIBTYPE} ${srcs})
+if(TARGET rgesolver_headers)
+  set_property(SOURCE ${srcs} APPEND PROPERTY OBJECT_DEPENDS ${RGESOLVER_HEADER_STAMP})
+  add_dependencies(InputParser rgesolver_headers)
+endif()
 
 file(GLOB headers "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h")
 INSTALL(FILES ${headers} DESTINATION include/HEPfit COMPONENT header)
