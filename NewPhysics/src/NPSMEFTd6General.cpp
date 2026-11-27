@@ -8868,11 +8868,8 @@ bool NPSMEFTd6General::PostUpdate() {
     requireCKM=false;
     trueSM.setRequireCKM(false);
     requireYu=false;
-    trueSM.setRequireYu(false);
     requireYd=false;
-    trueSM.setRequireYd(false);
     requireYe=false;
-    trueSM.setRequireYe(false);
 
     // Yukawa matrices in the EW up-quark mass basis, for LEFT matching.
     Yu = readSMEFTMatrix(SMEFTEvolEW, "Yu");
