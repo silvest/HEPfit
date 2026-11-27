@@ -287,10 +287,10 @@ bool NPSMEFTd6flavchain::PostUpdate()
 
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++) {
-            SMEFTEvolEW.SetCoefficient("YuR", i, j, Yuhat(j, i).real());
-            SMEFTEvolEW.SetCoefficient("YuI", i, j,-Yuhat(j, i).imag());
-            SMEFTEvolEW.SetCoefficient("YdR", i, j, Ydhat(j, i).real());
-            SMEFTEvolEW.SetCoefficient("YdI", i, j,-Ydhat(j, i).imag());
+            SMEFTEvolEW.SetCoefficient("YuR",  Yuhat(j, i).real(), i, j);
+            SMEFTEvolEW.SetCoefficient("YuI", -Yuhat(j, i).imag(), i, j);
+            SMEFTEvolEW.SetCoefficient("YdR",  Ydhat(j, i).real(), i, j);
+            SMEFTEvolEW.SetCoefficient("YdI", -Ydhat(j, i).imag(), i, j);
         }
 
     // *_LNP inputs = Lambda_NP^2 C. With M = MVLQ * Lambda_NP and Cuhat, Cdhat = M^2 Chat:
